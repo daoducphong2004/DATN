@@ -1,0 +1,504 @@
+<!--headder -->
+<!DOCTYPE html>
+<html lang="vi" class="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
+    <meta name="description"
+        content="Đọc Light Novel online, bình luận Light Novel. Thư viện Light Novel Tiếng Việt lớn nhất, chất lượng cao, cập nhật liên tục, nhiều chức năng hỗ trợ việc đọc truyện dễ dàng.">
+    <meta name="theme-color" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://docln.net/img/nocover.jpg">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link href="user/css/app.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"
+        type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"
+        type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link href="user/css/action.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="user/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="user/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="user/img/apple-touch-icon-114x114.png">
+    <link rel="stylesheet" href="user/css/interface.css">
+    <!-- <link rel="stylesheet" href="user/css/tailwind.css"> -->
+    <link rel="stylesheet" href="user/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user/css/all.min.css" />
+    <link rel="stylesheet" href="user/css/icons/font-awesome/css/fontawesome-all.css">
+    <script src="user/js/plugins.js"></script>
+
+</head>
+
+<body>
+    <div id="page-top"></div>
+    <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
+    <div id="navbar" class="headroom">
+        <div class="container">
+            <div id="sidenav-icon" class="none-xl">
+                <div class="sidenav-icon-content">
+                    <span class="sidenav-icon_white"></span>
+                    <span class="sidenav-icon_white"></span>
+                    <span class="sidenav-icon_white"></span>
+                </div>
+                <ul class="navbar-menu none hidden-block at-mobile unstyle">
+                    <div class="navbar-search block none-m in-navbar-menu">
+                        <form class action="" method="get">
+                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
+                                value>
+                            <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                                    class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <li><a class="nav-menu_item" href=""><span class>Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href=""><span class>Thảo luận</span></a></li>
+                    <li><a class="nav-menu_item" href=""><span class>Danh sách</span></a></li>
+                    <li class="nav-has-submenu">
+                        <a class="nav-menu_item">
+                            <span class>Hướng dẫn</span>
+                            <i class="fas fa-chevron-down dropdown-icon" style="float: right; margin-top: 6px"></i>
+                        </a>
+                        <ul class="nav-submenu list-unstyled none">
+                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                            <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
+                                        lỗi</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-logo-wrapper">
+                <a href="" class="navbar-logo" style="background-image: url('user/img/logo-9.png')"
+                    title="Trang chủ"></a>
+            </div>
+            <div id="navbar-user">
+                <div class="nav-user_icon">
+                    <div class="nav-user_avatar">
+                        <img src="user/img/apple-touch-icon-114x114.png" alt="Your avatar">
+                    </div>
+                    <div class="at-user_avatar"></div>
+                    <ul class="account-sidebar hidden-block unstyled none">
+                        <li>
+                            <a href=""><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                        </li>
+
+                        <hr class="none block-l">
+                        <li>
+                            <div class="nightmode-toggle">
+                                <i class="fas fa-moon"></i><span>Nền tối</span>
+                                <div class="toggle-icon"><i class="fas fa-toggle-on"></i></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-sign-out-alt"></i><span>Thoát</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="navbar-user" class="guest">
+                <a class="login-link" href="">Đăng nhập</a>
+                <div id="guest-menu">
+                    <div class="icon">
+                        <span class="white-point"></span>
+                        <span class="white-point"></span>
+                        <span class="white-point"></span>
+                    </div>
+                    <ul class="nav-submenu hidden-block unstyled none">
+                        <li>
+                            <div class="nightmode-toggle li-inner">
+                                <span><i class="fas fa-moon"></i>Nền tối</span>
+                                <div class="toggle-icon">
+                                    <i class="fa fa-toggle-off"></i>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="li-inner" href="/lich-su-doc"><i class="fas fa-history"></i><span>Lịch
+                                    sử</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="navbar-mainblock">
+                <div class="navbar-search none block-m">
+                    <form class action="" method="get">
+                        <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value>
+                        <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                                class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <ul class="navbar-menu at-navbar none d-xl-block unstyled">
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-pen-nib menu-icon"></i><span class>Sáng
+                                tác</span></a></li>
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-users menu-icon"></i><span class>Thảo
+                                luận</span></a></li>
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-th-list menu-icon"></i><span class>Danh
+                                sách</span></a></li>
+                    <li class="nav-has-submenu">
+                        <a class="nav-menu_item">
+                            <i class="fas fa-question menu-icon"></i><span class>Hướng dẫn</span>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                            <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <ul class="nav-submenu hidden-block unstyled none">
+                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                            <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
+                                        lỗi</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="page-top-group  at-index ">
+        <a href="/thao-luan/2591">
+            <div class="index-background d-none d-lg-block"
+                style="background-image: url('user/img/path/12890_d_l.jpg')">
+            </div>
+            <div class="index-background d-lg-none"
+                style="background-image: url('user/img/path/12890_m_l.jpg'); background-size: cover"></div>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row d-block clearfix">
+            <div class="col-12 col-lg-12 float-left">
+                <section class="feature-section at-series clear">
+                    <main class="section-body">
+                        <div class="top-part">
+                            <div class="row">
+                                <div class="left-column col-4 col-md-4">
+                                    <div class="series-cover">
+                                        <div class="series-type">
+                                            <span>Truyện dịch</span>
+                                        </div>
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('user/img/apple-touch-icon.png'); height: 445px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-8 col-md-8" style="font-size: large;">
+                                    <div class="row">
+                                        <div class="col-12 " style="flex: 0">
+                                            <div class="series-name-group">
+                                                <span class="series-name">
+                                                    Tiêu đề truyện
+                                                </span>
+                                            </div>
+                                            <div class="series-information mb-0 ">
+                                                <div class="series-gernes" x-data="{ more: false }">
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">Comedy</a>
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">Harem</a>
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">Romance</a>
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">School Life</a>
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">Slice of Life</a>
+                                                    <a class="series-gerne-item link-underline link-underline-opacity-0 text-success"
+                                                        href="">Web Novel</a>
+                                                </div>
+                                                <div class="info-item">
+                                                    <span class="info-name">Tác giả:</span>
+                                                    <span class="info-value "><a href=""
+                                                            class="link-underline link-underline-opacity-0 text-success">Kuroneko
+                                                            Doragon</a></span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <span class="info-name">Họa sĩ:</span>
+                                                    <span class="info-value"><a href=""
+                                                            class="link-underline link-underline-opacity-0 text-success">Monoto</a></span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <span class="info-name">Tình trạng:</span>
+                                                    <span class="info-value">
+                                                        <a href=""
+                                                            class="link-underline link-underline-opacity-0 text-success">Đang
+                                                            tiến hành</a>
+                                                    </span>
+                                                </div>
+                                                <div class="info-item">
+                                                    <span class="info-name">Tóm tắt: </span>
+                                                    <div>
+                                                        <p class="info-value">Mô tảnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+                                                            nnnnnnnnnnnnnnnnnnnnnnnnnn
+                                                            nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+                                                            nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- <a x-data="{ lastRead: (JSON.parse(localStorage.getItem('reading_series')) || []).filter(x => x['series_id'] == 16873) }"
+                                                    x-show="lastRead.length"
+                                                    class="self-center md:self-start rounded-full bg-[#d9534f] mt-3 mb-3 px-4 py-2 text-sm font-semibold text-white hover:!text-red-400 shadow-sm hover:bg-red-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d43f3a] justify-center"
+                                                    :href="lastRead[0] ? lastRead[0]['chapter_url'] : '#'"
+                                                    style="display: none">Đọc tiếp</a> -->
+                                                <a href=""><button class="btn btn-primary mt-3  ms-3">Đọc
+                                                        tiếp</button></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 side-features " style="margin-top: 80px;">
+                                            <div class="row">
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <a id="collect"
+                                                        class="side-feature-button button-follow follow link-underline link-underline-opacity-0 text-black"
+                                                        href="https://docln.net/login">
+                                                        <span class="block feature-value"><i
+                                                                class="far fa-heart"></i></span>
+                                                        <span class="block feature-name">Like</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <div class="series-rating rated">
+                                                        <a href=""
+                                                            class="link-underline link-underline-opacity-0 text-black">
+                                                            <label for="open-rating"
+                                                                class="side-feature-button button-rate">
+                                                                <span class="block feature-value"><i
+                                                                        class="far fa-star"></i></span>
+                                                                <span class="block feature-name">Đánh giá</span>
+                                                            </label>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <a href=""
+                                                        class="side-feature-button link-underline link-underline-opacity-0 text-black">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-comments"></i></span>
+                                                        <span class="block feature-name ">Bàn luận</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <label for="open-sharing" class="side-feature-button">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-share-alt"></i></span>
+                                                        <span class="block feature-name">Chia sẻ</span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-part" style="margin-top: -10px;">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row statistic-list">
+                                        <div class="col-12 col-md-3 statistic-item block-wide at-mobile">
+                                            <div class="statistic-name">Lần cuối</div>
+                                            <div class="statistic-value"><time class="timeago"
+                                                    title="18/01/2023 10:03:55" datetime="">Đang chạy...</time></div>
+                                        </div>
+                                        <div class="col-4 col-md-3 statistic-item">
+                                            <div class="statistic-name">Số từ</div>
+                                            <div class="statistic-value">Tổng số tử</div>
+                                        </div>
+                                        <div class="col-4 col-md-3 statistic-item">
+                                            <div class="statistic-name">Đánh giá</div>
+                                            <div class="statistic-value">0 / <small>0</small></div>
+                                        </div>
+                                        <div class="col-4 col-md-3 statistic-item">
+                                            <div class="statistic-name">Lượt xem</div>
+                                            <div class="statistic-value">25.374</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="summary-wrapper other-facts col-12">
+
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </section>
+            </div>
+            <div id="rd-sidebar" class="col-12 col-lg-12 float-right">
+                <div class="row top-group">
+                    <div class="col-12 no-push push-3-m col-md-6 no-push-l col-lg-12">
+                    </div>
+                </div>
+                <section id="list-vol" class="none list_vol-section">
+                    <div class="list-volume-wrapper basic-section">
+                        <header class="sect-header"><span class="sect-title">Mục lục</span></header>
+                        <span class="list-vol_off">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        <ol class="list-volume unstyled no-margin no-padding">
+                            <li data-scrollTo="#volume_23120"><span class="list_vol-order"></span><span
+                                    class="list_vol-title">Chương</span></li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+            <div class="col-12 col-lg-12 float-left">
+                <div style="text-align: center; margin: 0 auto 10px auto;">
+                </div>
+                <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
+                    <header id="volume_23120" class="sect-header">
+                        <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
+                        <span class="sect-title">
+                            Chương 1
+                        </span>
+                    </header>
+                    <main class="d-lg-block">
+                        <div class="row">
+
+                            <div class="col-12 col-md-12">
+                                <ul class="list-chapters at-series">
+                                    <li class>
+                                        <div class="chapter-name">
+                                            <a href="" title="TieuDeChuong">Tiêu đề chương</a>
+                                        </div>
+                                        <div class="chapter-time">ThoiDiemXuatBan</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </main>
+                </section>
+
+                <section id="series-comments" class="basic-section">
+                    <header class="sect-header tab-list">
+                        <span class="sect-title tab-title" data-tab-index="1">Tổng bình luận <span
+                                class="comments-count">(103)</span></span>
+                    </header>
+                    <main id="fbcmt_root" class="comment-wrapper d-lg-block clear">
+                        <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
+                                href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
+                        <div id="tab-content-1" class="tab-content clear">
+                            <section class="ln-comment">
+                                <main class="ln-comment-body">
+                                    <div class="ln-comment_sign-in long-text">
+                                        Bạn phải <a href="/login">đăng nhập</a> hoặc <a href="/register">tạo tài
+                                            khoản</a> để bình luận.
+                                    </div>
+                                    <!-- start comment -->
+                                    <div class="ln-comment-group">
+                                        <div id="ln-comment-2343587" class="ln-comment-item mt-3 clear"
+                                            data-comment="2343587" data-parent="2343587">
+                                            <div class="row">
+                                                <div class="col-2 text-center">
+                                                    <img src="https://i2.docln.net/ln/users/avatars/u173017-ef4b6219-34db-4bb7-9061-cf3c9471f8aa.jpg"
+                                                        class="w-full rounded-full rounded-circle" width="50px">
+
+                                                </div>
+                                                <div class="col-2">
+                                                    <a class="font-bold link-underline link-underline-opacity-0 text-secondary"
+                                                        href="/thanh-vien/tên người dung">Tên Người dùng</a>
+                                                </div>
+
+                                                <div class=" col-md-8">
+                                                    <ul class="list-chapters at-series">
+                                                        <li class>
+                                                            <div class="chapter-name">
+                                                                <span>nội dung comment</span>
+                                                            </div>
+                                                            <div class="chapter-time">
+                                                                <time>
+                                                                    16-01-2024 11:59:43
+                                                                </time>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                        </div>
+            </div>
+            <!-- end commnet  -->
+            <div class="ln-comment-page">
+                <div class="pagination-footer">
+                    <div class="pagination_wrap">
+                        <a href class="paging_item paging_prevnext prev  disabled ">Trước</a>
+                        <a href="https://docln.net/truyen/16873-ban-thuo-nho-tro-thanh-than-tuong-noi-tieng-nhung-co-gai-de-thuong-dang-ung-ho-toi?page=2"
+                            class="paging_item paging_prevnext next">Sau</a>
+                    </div>
+                </div>
+            </div>
+            </main>
+            <script>
+                var token = 'Y5fty94ZhGkdoX987eRk6NgUTxy4grERQLFLEjqk';
+                var comment_type = 'series';
+                var comment_typeid = '16873';
+            </script>
+            </section>
+        </div>
+    </div>
+
+
+    <main id="mainpart" class="at-index" style="min-height: 0;">
+        <div class="container" style="margin-bottom: 40px;">
+            <script>
+                $(document).ready(function () {
+
+                    $(".mobile-toggle header").click(function () {
+                        $(this).parent().find(".listall_summary").toggle();
+                        $(this).parent().find(".sect-body").toggle();
+                    });
+
+                    //listab(".daily-recent_views");
+
+                });
+            </script>
+    </main>
+    <script src="user/js/app.js?id=b8198cd1707d7a5e169b"></script>
+    <script src="user/js/livewire.js?id=f121a5df" data-csrf="4Zpd0dv39l7TdIiKTPW7jZFBgCUceBI1iIETt6Nn"
+        data-update-uri="/livewire/update" data-navigate-once="true"></script>
+    <script type="text/javascript" src="js/d56b4bd6c3d2c1e161c4ab3c78c27670.js"></script>
+    <footer id="footer">
+        <div class="container">
+
+            <span class="right">Liên hệ: <a href="mailto:contact@hako.vn" target="_blank"
+                    style="color: #5fff46">contact@hako.vn</a></span>
+            <span>© 2016 - 2024 Cổng Light Novel - Đọc Light Novel</span>
+        </div>
+    </footer>
+    <div x-data x-show="$store.toast.on" @click="$store.toast.hide()"
+        class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md fixed w-3/4 md:w-1/2 z-20 inset-x-0 bottom-10 mx-auto"
+        role="alert" style="display: none">
+        <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg></div>
+            <div>
+                <p class="font-bold capitalize">Chú ý</p>
+                <p class="text-sm" x-text="$store.toast.message"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

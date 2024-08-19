@@ -20,7 +20,7 @@
                 <ul id="navbar">
                     <li><a class="active" href="{{route('home')}}">Home</a></li>
                     <li><a class="nav-menu_item" href=""><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('about')}}"><span class="">Máy dịch</span></a></li>
+                    <li><a class="nav-menu_item" href="{{route('chuongtruyen')}}"><span class="">Máy dịch</span></a></li>
                     <li><a class=" nav-menu_item" href=""><span class="">Xuất bản</span></a></li>
                     <li><a class="nav-menu_item" href=""><span class="">Thảo luận</span></a></li>
                     <li><a class=" nav-menu_item" href=""><span class="">Danh sách</span></a></li>
@@ -80,7 +80,7 @@
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
                 <li><a class="nav-menu_item" href="/sang-tac"><i class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
 
-                <li><a class="nav-menu_item" href="{{route('about')}}"><i class=" fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('chuongtruyen')}}"><i class=" fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
 
                 <li><a class="nav-menu_item" href="/xuat-ban"><i class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
 

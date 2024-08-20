@@ -36,8 +36,9 @@
 
 
     @yield('noidung')
+    {{-- @yield('setting') --}}
 
-    @include('flayout.footer');
+    @include('partials.footer');
 
     <!---- customer js file -->
     <script src="{{asset('frontend/script.js')}}"></script>

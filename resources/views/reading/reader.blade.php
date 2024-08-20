@@ -1,17 +1,14 @@
-@extends('flayout.master')
+@extends('partials.sidebar')
 @section('noidung')
 
 <main id="mainpart" class="reading-page style-4">
     <!-- cac nut chuyen trang -->
     <section id="rd-side_icon" class="none force-block-l">
         <a class="rd_sd-button_item rd_top-left" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139466-chuong-0140"><i class="fas fa-backward"></i></a>
-
         <a class="rd_sd-button_item" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan"><i class="fas fa-home"></i></a>
         <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
         <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i class="fas fa-info"></i></a>
         <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item"><i class="fas fa-bookmark"></i></a>
-
-
         <a class="rd_sd-button_item rd_top-right" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139057-chuong-42-co-nen-an-luon-cai-lu-dan-lang-khong-nhi"><i class="fas fa-forward"></i></a>
     </section>
 
@@ -114,7 +111,8 @@
 
 
     <!-- phan cai setiing chinh chu mau chu  -->
-    <section id="setting" class="rdtoggle">
+    {{-- @include('reading.setting') --}}
+    {{-- <section id="setting" class="rdtoggle">
         <section class="re_set-in basic-section clear rdtoggle_body">
             <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>
             <main class="sect-body">
@@ -171,8 +169,7 @@
             </main>
         </section>
         <div class="black-click"></div>
-    </section>
-
+    </section> --}}
     <!-- phan noi dung doc truyen -->
     <div class="container">
         <div class="row">

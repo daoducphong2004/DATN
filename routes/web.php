@@ -8,5 +8,8 @@ use App\Http\Controllers\HomeController;
 Route::controller(HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
-        Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
+        Route::get('/reader', 'reader')->name('reader');
     });
+Route::get('/setting', function () {
+    return view('setting');
+});

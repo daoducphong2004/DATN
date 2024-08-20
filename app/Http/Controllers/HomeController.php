@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\ChuongModel;
 
 
 
@@ -12,11 +11,11 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('frontend.index');
+        return view('home.index');
     }
 
-    public function chuongtruyen()
+    public function reader()
     {
-        return view('frontend.chuongtruyen');
+        return view('reading.reader');
     }
 }

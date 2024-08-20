@@ -1,4 +1,3 @@
-@section('setting')
 <section id="setting" class="rdtoggle">
     <section class="re_set-in basic-section clear rdtoggle_body">
         <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>
@@ -57,4 +56,3 @@
     </section>
     <div class="black-click"></div>
 </section>
-@endsection

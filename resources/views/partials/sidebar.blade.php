@@ -36,7 +36,6 @@
 
 
     @yield('noidung')
-    {{-- @yield('setting') --}}
 
     @include('partials.footer');
 

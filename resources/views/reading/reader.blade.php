@@ -1,6 +1,5 @@
 @extends('partials.sidebar')
 @section('noidung')
-
 <main id="mainpart" class="reading-page style-4">
     <!-- cac nut chuyen trang -->
     <section id="rd-side_icon" class="none force-block-l">
@@ -111,7 +110,8 @@
 
 
     <!-- phan cai setiing chinh chu mau chu  -->
-    {{-- @include('reading.setting') --}}
+    @include('reading.setting')
+
     {{-- <section id="setting" class="rdtoggle">
         <section class="re_set-in basic-section clear rdtoggle_body">
             <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>

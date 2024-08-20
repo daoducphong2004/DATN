@@ -8,14 +8,25 @@ Route::controller(HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
+
+        Route::get('home', [UserController::class, 'index']);
+        Route::get('gioithieu', [UserController::class, 'gioithieu']);
+        Route::get('chuong', [UserController::class, 'chuong']);
+        Route::get('danhsach', [UserController::class, 'danhsach']);
+        Route::get('vuadang', [UserController::class, 'vuadang']);
+        Route::get('thaoluan', [UserController::class, 'thaoluan']);
+
+
+        Route::get('login', [UserController::class, 'login']);
+        Route::get('register', [UserController::class, 'register']);
     });
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('gioithieu', [UserController::class, 'gioithieu']);
-Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('vuadang', [UserController::class,'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
+// Route::get('home', [UserController::class, 'index']);
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+// Route::get('vuadang', [UserController::class, 'vuadang']);
+// Route::get('thaoluan', [UserController::class, 'thaoluan']);
 
 
-Route::get('login', [UserController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
+// Route::get('login', [UserController::class, 'login']);
+// Route::get('register', [UserController::class, 'register']);

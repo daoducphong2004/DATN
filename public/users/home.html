@@ -355,19 +355,7 @@
                             </main>
                         </div>
                     </div>
-                    <div class="tns-nav" aria-label="Carousel Pagination"><button type="button" data-nav="0"
-                            aria-controls="tns1" style="" aria-label="Carousel Page 1 (Current Slide)"
-                            class="tns-nav-active"></button><button type="button" data-nav="1" tabindex="-1"
-                            aria-controls="tns1" style="" aria-label="Carousel Page 2"></button><button type="button"
-                            data-nav="2" tabindex="-1" aria-controls="tns1" style="display:none"
-                            aria-label="Carousel Page 3"></button><button type="button" data-nav="3" tabindex="-1"
-                            aria-controls="tns1" style="display:none" aria-label="Carousel Page 4"></button><button
-                            type="button" data-nav="4" tabindex="-1" aria-controls="tns1" style="display:none"
-                            aria-label="Carousel Page 5"></button><button type="button" data-nav="5" tabindex="-1"
-                            aria-controls="tns1" style="display:none" aria-label="Carousel Page 6"></button><button
-                            type="button" data-nav="6" tabindex="-1" aria-controls="tns1" style="display:none"
-                            aria-label="Carousel Page 7"></button><button type="button" data-nav="7" tabindex="-1"
-                            aria-controls="tns1" style="display:none" aria-label="Carousel Page 8"></button></div>
+
                 </div>
             </div>
         </div>
@@ -1091,7 +1079,8 @@
                                 <div class="thumb_attr chapter-title" title="Chương 02: Sát thủ dùng bữa với quái vật">
                                     <a href="/truyen/18865-sekai-saikou-no-ansatsusha-isekai-kizoku-ni-tensei-suru/c141172-chuong-02-sat-thu-dung-bua-voi-quai-vat"
                                         title="Chương 02: Sát thủ dùng bữa với quái vật">Chương 02: Sát thủ dùng bữa
-                                        với quái vật</a></div>
+                                        với quái vật</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Tập 07</div>
                             </div>
                         </div>
@@ -1206,79 +1195,70 @@
                         </a>
                     </header>
                     <main class="sect-body">
-                        <template x-for="reading in storage">
-                            <div class="row ml-1 mb-3">
-                                <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                    <div class="img-contain-ratio content"
-                                        :style="{ backgroundImage: reading.series_cover }"></div>
+                        <div class="row ml-1 mb-3">
+                            <div class="col-lg-2  a6-ratior">
+                                <div class="img-contain-ratio content">
+                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
                                 </div>
-                                <div class="col-8 col-md-9 col-lg-8">
-                                    <a x-text="reading.series_title" :href="reading.series_url"
-                                        class="text-truncate block font-weight-bold"></a>
-                                    <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
+                            </div>
+                            <div class="col-lg-9  m-auto">
+                                <a class="text-truncate block font-weight-bold">Tôi
+                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
+                                    thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
+                                <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
                                     <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                        class="text-truncate block"></a>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content"
-                                    :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://docln.net/img/nocover.jpg&quot;);">
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/18744-toi-chuyen-sinh-thanh-mot-ten-quy-toc-phan-dien-va-mong-muon-bi-truc-xuat-khoi-dat-nuoc-the-nhung-co-cong-chua-am-anh-voi-toi-lai-khong-cho-phep-dieu-do">Tôi
-                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất
-                                    nước, thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">WN</div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                    class="text-truncate block"
-                                    href="/truyen/18744-toi-chuyen-sinh-thanh-mot-ten-quy-toc-phan-dien-va-mong-muon-bi-truc-xuat-khoi-dat-nuoc-the-nhung-co-cong-chua-am-anh-voi-toi-lai-khong-cho-phep-dieu-do/c139047-chuong-01-chuyen-sinh">Chương
-                                    01: Chuyển sinh</a>
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
+
                         <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content"
-                                    :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://2.bp.blogspot.com/-UEgqsbpRBtc/Wf3YGNzbaRI/AAAAAAAAxyc/YSUcM2slIrEh9D8l4zP3NbiQip5zUHlEQCHMYCw/w215/default.jpg&quot;);">
+                            <div class="col-lg-2  a6-ratior">
+                                <div class="img-contain-ratio content">
+                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
                                 </div>
                             </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/1739-juu-sai-no-saikyou-madoushi">10 Sai no Saikyou Madoushi</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">Tập 01</div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                    class="text-truncate block"
-                                    href="/truyen/1739-juu-sai-no-saikyou-madoushi/c25377-chuong-07-con-duong-toi-truong-phan-2">Chương
-                                    07 : Con đường tới trường - Phần 2</a>
+                            <div class="col-lg-9  m-auto">
+                                <a class="text-truncate block font-weight-bold">Tôi
+                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
+                                    thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
+                                <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
+
                         <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content"
-                                    :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18511-6e4eb80d-94a9-4709-8057-85042d09e4f2.jpg&quot;);">
+                            <div class="col-lg-2  a6-ratior">
+                                <div class="img-contain-ratio content">
+                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
                                 </div>
                             </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/18511-hoc-sinh-ma-thuat-cap-c-nhung-lai-nghi-minh-cap-sss">Học
-                                    sinh ma thuật cấp C nhưng lại nghĩ mình cấp SSS</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">Web Novel Quyển 1
-                                </div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                    class="text-truncate block"
-                                    href="/truyen/18511-hoc-sinh-ma-thuat-cap-c-nhung-lai-nghi-minh-cap-sss/c137432-chuong-1-bai-kiem-tra-thuc-hanh">Chương
-                                    1 : Bài kiểm tra thực hành</a>
+                            <div class="col-lg-9  m-auto">
+                                <a class="text-truncate block font-weight-bold">Tôi
+                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
+                                    thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
+                                <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
+
+                        <div class="row ml-1 mb-3">
+                            <div class="col-lg-2  a6-ratior">
+                                <div class="img-contain-ratio content">
+                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-9  m-auto">
+                                <a class="text-truncate block font-weight-bold">Tôi
+                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
+                                    thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
+                                <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
+                            </div>
+                        </div>
+
                     </main>
                 </section>
             </div>
@@ -1592,7 +1572,7 @@
 
 
 
-    <main id="mainpart" class="at-index">
+    <!-- <main id="mainpart" class="at-index">
         <div class="container" style="margin-bottom: 40px;">
             <script>
                 $(document).ready(function () {
@@ -1606,7 +1586,7 @@
 
                 });
             </script>
-    </main>
+    </main> -->
     <script src="user/js/app.js?id=b8198cd1707d7a5e169b"></script>
     <script src="user/js/livewire.js?id=f121a5df" data-csrf="4Zpd0dv39l7TdIiKTPW7jZFBgCUceBI1iIETt6Nn"
         data-update-uri="/livewire/update" data-navigate-once="true"></script>

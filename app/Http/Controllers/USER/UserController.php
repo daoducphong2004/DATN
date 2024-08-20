@@ -12,11 +12,15 @@ class UserController extends Controller
     }
 
     public function gioithieu(){
-        return view('home.gioithieu');
+        return view('home.stories');
     }
 
     public function chuong(){
-        return view('home.chuong');
+        return view('home.reader');
+    }
+
+    public function danhsach(){
+        return view('home.home');
     }
 
     public function vuadang(){

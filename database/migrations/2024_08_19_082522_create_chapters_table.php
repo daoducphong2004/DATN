@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->text('content');
-            $table->foreignId(episode::class)->constrained();
+            $table->foreignIdFor(episode::class)->constrained();
             $table->timestamps();
         });
     }

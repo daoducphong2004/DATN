@@ -21,9 +21,6 @@ class User extends Model
         'last_login',
         'status',
         'coin_earned',
-        'payment_id',
-        'subscription_id',
-        'pomotion_id',
         'full_name',
     ];
 }

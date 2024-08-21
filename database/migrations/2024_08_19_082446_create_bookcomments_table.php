@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\book;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +16,8 @@ return new class extends Migration
         Schema::create('book_comments', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('book_id')->constrained('books');
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(book::class)->constrained();
             $table->foreignId('parent_id')->nullable()->constrained('book_comments')->onDelete('cascade');
             $table->timestamps();
         });

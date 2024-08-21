@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Forum;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('content');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('forums_id')->references('id')->on('forums')->onDelete('set null');
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Forum::class)->constrained();
             $table->bigInteger('total_user_see');
             $table->string('slug');
             $table->timestamps();

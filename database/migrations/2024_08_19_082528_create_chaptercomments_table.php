@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('chapter_comments', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->foreignId(User::class)->constrained();
-            $table->foreignId(chapter::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(chapter::class)->constrained();
             $table->foreignId('parent_id')->nullable()->constrained('chapter_comments')->onDelete('cascade');
             $table->timestamps();
         });

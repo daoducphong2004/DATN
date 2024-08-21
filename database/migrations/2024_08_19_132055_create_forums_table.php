@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forums', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('categories')->references('id')->on('categories')->onDelete('set null');
-            $table->foreign('book_id')->references('id')->on('books')->onDelete('set null');
-            $table->integer('viewer');
+            $table->string('color');
+            $table->string('content');
             $table->string('slug');
             $table->timestamps();
         });
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forums');
+        Schema::dropIfExists('categories');
     }
 };

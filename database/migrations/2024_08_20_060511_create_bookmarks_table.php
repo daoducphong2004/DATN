@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\book;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,14 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
-            $table->id('subscription_id');
+        Schema::create('bookmarks', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->boolean('is_active')->default(true);
             $table->text('description')->nullable();
-            $table->integer('duration')->comment('Duration in days');
+            $table->integer('page_number');
+            $table->text('note')->nullable();
+            $table->foreignIdFor(book::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('bookmarks');
     }
 };

@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\chapter;
+use App\Models\book;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,10 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleries', function (Blueprint $table) {
+        Schema::create('bookshelves', function (Blueprint $table) {
             $table->id();
-            $table->string('image_path');
-            $table->foreignIdFor(chapter::class)->nullable()->constrained();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('location');
+            $table->foreignIdFor(book::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('bookshelves');
     }
 };

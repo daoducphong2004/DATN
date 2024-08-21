@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id('payment_id');
+            $table->id();
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->decimal('amount', 15, 2);
             $table->string('currency', 10);

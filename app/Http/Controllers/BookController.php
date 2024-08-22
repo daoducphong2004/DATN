@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\genre;
+use Str;
 
 class BookController extends Controller
 {
@@ -13,7 +15,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $data= book::with('genres')->get();
+        dd($data);
     }
 
     /**
@@ -21,7 +24,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $genres = genre::pluck('id', 'name');
+        return view('stories.create', compact('genres'));
     }
 
     /**
@@ -29,7 +33,23 @@ class BookController extends Controller
      */
     public function store(StorebookRequest $request)
     {
-        //
+        $slug = Str::slug($request->title, '-');
+        $book = Book::create([
+            'title' => $request->title,
+            'adult' => $request->adult,
+            'author' => $request->author,
+            'painter' => $request->painter,
+            'type' => $request->type,
+            'group_id' => $request->group_id,
+            'description' => $request->description,
+            'note' => $request->note,
+            'is_VIP'=>0,
+            'status' => $request->status,
+            'slug' => $slug
+        ]);
+
+        $book->genres()->attach($request->input('genres'));
+        return redirect()->route('story.index');
     }
 
     /**

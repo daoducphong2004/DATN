@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('author');
             $table->string('painter')->nullable();
             $table->string('book_path')->nullable();
-            $table->text('desc');
+            $table->text('description');
             $table->string('note')->nullable();
             $table->string('is_VIP');
             $table->string('status');

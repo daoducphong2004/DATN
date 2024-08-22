@@ -15,7 +15,7 @@ class book extends Model
         'author',
         'painter',
         'book_path',
-        'desc',
+        'description',
         'note',
         'is_VIP',
         'is_delete',

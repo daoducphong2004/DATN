@@ -172,7 +172,26 @@
                                     <input type="checkbox" name="adult" value="1">
                                 </div>
                             </div>
-
+                            <div class="form-group clearfix">
+                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa</label>
+                                <div class="col-md-8">
+                                    <div id="upload" class="series_cover">
+                                        <div id="drop">
+                                            <a>Chọn ảnh</a>
+                                            <input type="file" name="cover" />
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div id="progress" class="progress" style="display: none">
+                                            <div class="progress-bar progress-bar-success"></div>
+                                        </div>
+                                    </div>
+                                    <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview" src="">
+                                </div>
+                            </div>
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
                                 <div class="col-md-8">

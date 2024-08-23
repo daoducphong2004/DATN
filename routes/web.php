@@ -10,5 +10,5 @@ Route::controller(HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
-        Route::resource('story', BookController::class);
     });
+Route::resource('story', BookController::class);

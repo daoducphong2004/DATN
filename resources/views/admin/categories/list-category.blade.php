@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-     Danh sách bình luận
+     Danh sách thể loại sách
 @endsection
 
 @push('styles')
@@ -16,17 +16,17 @@
                 {{ session('message') }}
             </div>
         @endif
-        <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
+        <h2 class="text-primary mb-4">Danh Sách Thể Loại Sách</h2>
         <table border="1" class="table">
             <tr>
-                <th>Người Bình Luận</th>
-                <th>Nội Dung</th>
-                <th>Ngày Bình Luận</th>
-                <th>Hành Động</th>
+                <th>STT</th>
+                <th>Thể loại</th>
+                <th>
+                    <a class="btn btn-primary" href="">Thêm thể loại</a>
+                </th>
             </tr>
             {{-- @foreach ($comments as $comment) --}}
                 <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td>

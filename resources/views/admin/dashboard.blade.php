@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-     Danh sách người dùng
+     Trang quản trị
 @endsection
 
 @push('styles')
@@ -19,6 +19,7 @@
     <p>Số truyện: 3.766</p>
     <p>Số tập: 9.246</p>
     <p>Số chương: 84.914</p>
+    <p>Số người dùng: 113</p>
     </div>
     </div>
     </div>

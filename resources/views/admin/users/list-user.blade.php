@@ -16,7 +16,7 @@
                 {{ session('message') }}
             </div>
         @endif
-        <h4 class="text-primary mb-4">Danh sách người dùng</h4>
+        <h2 class="text-primary mb-4">Danh sách người dùng</h2>
         <table border="1" class="table">
             <tr>
                 <th>Tên Đăng Nhập</th>
@@ -27,7 +27,7 @@
                 <th>Vai Trò</th>
                 <th>Ảnh Đại Diện</th>
                 <th>
-                    <a href="">Thêm Tài Khoản</a>
+                    <a class="btn btn-primary" href="">Thêm Tài Khoản</a>
                 </th>
             </tr>
             {{-- @foreach ($data as $value) --}}
@@ -41,8 +41,10 @@
                     <td>
                         <img width="50px" src="" alt="Không có ảnh đại diện">
                     </td>
-                    <td><a href="">Sửa</a></td>
-                    <td><a href="" onclick="return confirmDelete()">Xoá</a></td>
+                    <td>
+                        <a class="btn btn-warning" href="">Sửa</a>
+                        <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
+                    </td>
                 </tr>
             {{-- @endforeach --}}
         </table>

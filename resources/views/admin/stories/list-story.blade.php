@@ -16,15 +16,14 @@
                 {{ session('message') }}
             </div>
         @endif
-        <h1>Danh Sách Truyện</h1>
+        <h2 class="text-primary mb-4">Danh Sách Truyện</h2>
+        <a class="btn btn-primary" href="">Thêm Truyện</a>
         <table border="1" class="table">
             <tr>
                 <th>Mã Truyện</th>
                 <th>Tên Truyện</th>
                 <th>Hình ảnh </th>
-                <th>
-                    <a href="">Thêm Truyện</a>
-                </th>
+                <th>Hành động</th>
             </tr>
             {{-- @foreach ($stories as $story) --}}
                 <tr>
@@ -34,9 +33,9 @@
                         <img src="" alt="" width="60px">
                     </td>
                     <td>
-                        <a href="">Chi tiết</a>
-                        <a href="">Sửa</a>
-                        <a href="" onclick="return confirmDelete()">Xoá</a>
+                        <a class="btn btn-success" href="">Chi tiết</a>
+                        <a class="btn btn-warning" href="">Sửa</a>
+                        <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
                     </td>
                 </tr>
             {{-- @endforeach --}}

@@ -11,165 +11,163 @@
         </a>
     </div>
 
-    <!-- content -->
-    <div class="row" style="padding: 20px;">
-        <div class="col-9 col-lg-9">
+     <!-- content -->
+     <div class="row" style="padding: 20px;">
+        <div class="col-12 col-lg-9">
             <div class="daily-recent_views">
                 <header class="title">
                     <span class="top-tab_title title-active"><i class="fas fa-trophy"></i> Nổi bật</span>
-                    <span class="top-tab_title"><a href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=topthang">Top
-                            tháng</a></span>
+                    <span class="top-tab_title"><a
+                            href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=topthang">Top tháng</a></span>
                     <span class="top-tab_title"><a href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=top">Toàn
                             t/gian</a></span>
                 </header>
-                <main class="row">
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item1">
+
+                <div id="tns1-mw" class="row tns-ovh">
+                    <div class="col-3 popular-thumb-item " id="tns1-item0">
+                        <div class="thumb-wrapper">
+                            <a href="">
+                                <div class="a6-ratio">
+                                    <div class="content img-in-ratio"
+                                        style="background-image: url('{{asset('users/user/img/path/image10.jpg')}}')">
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="thumb-detail">
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Tôi
+                                        chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục
+                                        xuất khỏi đất nước, thế nhưng cô công chúa ám ảnh với tôi lại không
+                                        cho phép điều đó!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 popular-thumb-item " id="tns1-item1">
                         <div class="thumb-wrapper">
                             <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan"
                                 title="Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18741-0d1f09f8-6f69-408c-9cf1-cc27c040be2d.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image11.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.</a>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Tôi
+                                        Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item2">
+                    <div class="col-3 popular-thumb-item " id="tns1-item2">
                         <div class="thumb-wrapper">
                             <a href="/truyen/18938-con-quy-trong-co-ban-gai-sa-nga-cua-toi-se-chang-bao-gio-dung-lai"
                                 title="Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://docln.net/img/nocover.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại</a>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Con
+                                        quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item3">
+                    <div class="col-3 popular-thumb-item " id="tns1-item3">
                         <div class="thumb-wrapper">
                             <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                                title="Takane-san, chẳng phải là thích cậu rồi sao">
+                               >
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18189-913da108-7f74-4437-be8c-67dee66a1ba5.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Takane-san, chẳng phải là thích cậu rồi sao">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Takane-san,chẳng phải là thích cậu rồi sao</a></div>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                        chẳng phải là thích cậu rồi sao</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item4" aria-hidden="true" tabindex="-1">
+                    <div class="col-3 popular-thumb-item " id="tns1-item3">
                         <div class="thumb-wrapper">
-                            <a href="/truyen/18943-hinh-nhu-co-mot-co-gai-la-mat-dang-lam-noi-tro-trong-nha-cho-toi-nhung-vi-de-thuong-nen-toi-mac-ke"
-                                title="Hình như có một cô gái lạ mặt đang làm nội trợ trong nhà tôi. Nhưng vì cô nàng dễ thương nên tôi mặc kệ vậy">
+                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
+                               >
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18943-f78a3f11-6860-48be-8ecf-8768641ced6d.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Hình như có một cô gái lạ mặt đang làm nội trợ trong nhà tôi. Nhưng vì cô nàng dễ thương nên tôi mặc kệ vậy">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Hình như có một cô gái lạ mặt đang làm nội trợ trong nhà tôi. Nhưng vì cô
-                                        nàng dễ thương nên tôi mặc kệ vậy</a>
-                                </div>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                        chẳng phải là thích cậu rồi sao</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item5" aria-hidden="true" tabindex="-1">
+                    <div class="col-3 popular-thumb-item " id="tns1-item3">
                         <div class="thumb-wrapper">
-                            <a href="/truyen/18800-sau-khi-duoc-toi-an-ui-co-em-gai-cung-cha-khac-me-da-khong-the-song-thieu-toi-duoc-nua"
-                                title="Sau khi được tôi an ủi, em gái đã không thể sống thiếu tôi được nữa">
+                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
+                               >
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18800-25238b64-eb85-47c7-afd8-19f595d6312a.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Sau khi được tôi an ủi, em gái đã không thể sống thiếu tôi được nữa">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Sau khi được tôi an ủi, em gái đã không thể sống thiếu tôi được nữa</a>
-                                </div>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                        chẳng phải là thích cậu rồi sao</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item6" aria-hidden="true" tabindex="-1">
+                    <div class="col-3 popular-thumb-item " id="tns1-item3">
                         <div class="thumb-wrapper">
-                            <a href="/truyen/15461-bang-mot-cach-nao-do-dan-my-nhan-hang-s-lai-de-cap-den-toi"
-                                title="Không biết bằng cách nào, dàn mỹ nhân hạng S lại đề cập đến tôi">
+                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
+                               >
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s15461-6f3027bb-2ab8-4ce6-8419-d3bc5404d715.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Không biết bằng cách nào, dàn mỹ nhân hạng S lại đề cập đến tôi">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Không biết bằng cách nào, dàn mỹ nhân hạng S lại đề cập đến tôi</a>
-                                </div>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                        chẳng phải là thích cậu rồi sao</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item7" aria-hidden="true" tabindex="-1">
+                    <div class="col-3 popular-thumb-item " id="tns1-item3">
                         <div class="thumb-wrapper">
-                            <a href="/truyen/18950-goodbye-i-loved-you" title="Goodbye, I Loved You.">
+                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
+                               >
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio"
-                                        style="background-image: url('https://docln.net/img/nocover.jpg')">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr series-title" title="Goodbye, I Loved You.">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Goodbye, I Loved You.</a></div>
+                                <div class="thumb_attr series-title">
+                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                        chẳng phải là thích cậu rồi sao</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-item-flow col-2 col-md-5 col-lg-3 type-original " id="tns1-item1">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan"
-                                title="Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18741-0d1f09f8-6f69-408c-9cf1-cc27c040be2d.jpg')">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title"
-                                    title="Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.">
-                                    <a href="" class="link-underline link-underline-opacity-0 text-white">Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-
+                </div>
             </div>
         </div>
-
-        <div class="col-3 col-lg-3">
+        <div class="col-12 col-lg-3">
             <section class="last-topics index-section">
                 <header class="section-title">
                     <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
@@ -180,14 +178,13 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2266-thao-luan-cho-tac-gia-oln?comment_id=2554667&amp;reply_id=2555970#ln-comment-2555970"
-                                    title="Thảo luận cho tác giả OLN">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Thảo luận cho tác giả OLN
                                 </a>
                             </div>
                             <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 16:44:53" datetime="2024-08-19T16:44:53+07:00">40
-                                    phút</time>
+                                <time class="timeago" title="19-08-2024 16:44:53"
+                                    datetime="2024-08-19T16:44:53+07:00">40 phút</time>
                             </div>
                         </div>
                     </div>
@@ -195,8 +192,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="/thao-luan/77-quy-dinh-doi-voi-oln?comment_id=2555953#ln-comment-2555953"
-                                    title="Quy Định Đối Với Truyện Sáng Tác - OLN">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Quy Định Đối Với Truyện Sáng Tác - OLN
                                 </a>
                             </div>
@@ -210,8 +206,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2789-bao-cao-truyen-vi-pham?comment_id=2555873&amp;reply_id=2555881#ln-comment-2555881"
-                                    title="Báo cáo truyện vi phạm">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Báo cáo truyện vi phạm
                                 </a>
                             </div>
@@ -225,8 +220,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2554580&amp;reply_id=2555836#ln-comment-2555836"
-                                    title="Hỏi Truyện từ A>Z. Góc chat nhảm cho con dân Hako 3.0">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
                                 </a>
                             </div>
@@ -240,8 +234,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln?comment_id=2555821#ln-comment-2555821"
-                                    title="Quy định chung đối với các dự án đăng tại Cổng Light Novel">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Quy định chung đối với các dự án đăng tại Cổng Light Novel
                                 </a>
                             </div>
@@ -255,8 +248,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2842-tong-hop-ebook-cac-loai-nhieu-nguon-tin-nhieu-the-loai-khac-nhau-dang-lai?comment_id=2554369&amp;reply_id=2555628#ln-comment-2555628"
-                                    title="Tổng Hợp Ebook Các Loại, Nhiều Nguồn Tin, Nhiều Thể Loại Khác Nhau (Đăng lại)">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Tổng Hợp Ebook Các Loại, Nhiều Nguồn Tin, Nhiều Thể Loại Khác Nhau (Đăng lại)
                                 </a>
                             </div>
@@ -270,14 +262,13 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="/thao-luan/1610-trang-yeu-cau-xoa-truyentapchuong?comment_id=2554829#ln-comment-2554829"
-                                    title="Trang yêu cầu xóa truyện/tập/chương">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Trang yêu cầu xóa truyện/tập/chương
                                 </a>
                             </div>
                             <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="18-08-2024 21:19:11" datetime="2024-08-18T21:19:11+07:00">20
-                                    giờ</time>
+                                <time class="timeago" title="18-08-2024 21:19:11"
+                                    datetime="2024-08-18T21:19:11+07:00">20 giờ</time>
                             </div>
                         </div>
                     </div>
@@ -285,8 +276,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2860-tuyen-thanh-vien?comment_id=2554169&amp;reply_id=2554183#ln-comment-2554183"
-                                    title="Tuyển thành viên">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Tuyển thành viên
                                 </a>
                             </div>
@@ -300,8 +290,7 @@
                         <div class="row">
                             <div class="col-9 line-ellipsis">
                                 <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="/thao-luan/2515-quan-bong-da-hako-chuyen-phuc-vu-dan-bong-da?comment_id=2554040#ln-comment-2554040"
-                                    title="Quán Bóng Đá Hako - Chuyên phục vụ dân bóng đá.">
+                                <a href="" class="text-black link-underline link-underline-opacity-0">
                                     Quán Bóng Đá Hako - Chuyên phục vụ dân bóng đá.
                                 </a>
                             </div>
@@ -313,84 +302,6 @@
                     </div>
                 </main>
             </section>
-
-            <div class="d-lg-none" style="margin-top: 20px">
-                <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
-                    <header class="section-title">
-                        <a href="https://docln.net/lich-su-doc">
-                            <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
-                        </a>
-                    </header>
-                    <main class="sect-body">
-                        <template x-for="reading in storage">
-                            <div class="row ml-1 mb-3">
-                                <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                    <div class="img-contain-ratio content" :style="{ backgroundImage: reading.series_cover }">
-                                    </div>
-                                </div>
-                                <div class="col-8 col-md-9 col-lg-8">
-                                    <a x-text="reading.series_title" :href="reading.series_url"
-                                        class="text-truncate block font-weight-bold"></a>
-                                    <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
-                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                        class="text-truncate block"></a>
-                                </div>
-                            </div>
-                        </template>
-                        <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content" :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://docln.net/img/nocover.jpg&quot;);"></div>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/18744-toi-chuyen-sinh-thanh-mot-ten-quy-toc-phan-dien-va-mong-muon-bi-truc-xuat-khoi-dat-nuoc-the-nhung-co-cong-chua-am-anh-voi-toi-lai-khong-cho-phep-dieu-do">Tôi
-                                    chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
-                                    thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">WN</div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url" class="text-truncate block"
-                                    href="/truyen/18744-toi-chuyen-sinh-thanh-mot-ten-quy-toc-phan-dien-va-mong-muon-bi-truc-xuat-khoi-dat-nuoc-the-nhung-co-cong-chua-am-anh-voi-toi-lai-khong-cho-phep-dieu-do/c139047-chuong-01-chuyen-sinh">Chương
-                                    01: Chuyển sinh</a>
-                            </div>
-                        </div>
-                        <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content" :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://2.bp.blogspot.com/-UEgqsbpRBtc/Wf3YGNzbaRI/AAAAAAAAxyc/YSUcM2slIrEh9D8l4zP3NbiQip5zUHlEQCHMYCw/w215/default.jpg&quot;);">
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/1739-juu-sai-no-saikyou-madoushi">10 Sai no Saikyou Madoushi</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">Tập 01</div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url" class="text-truncate block"
-                                    href="/truyen/1739-juu-sai-no-saikyou-madoushi/c25377-chuong-07-con-duong-toi-truong-phan-2">Chương
-                                    07 : Con đường tới trường - Phần 2</a>
-                            </div>
-                        </div>
-                        <div class="row ml-1 mb-3">
-                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                <div class="img-contain-ratio content" :style="{ backgroundImage: reading.series_cover }"
-                                    style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18511-6e4eb80d-94a9-4709-8057-85042d09e4f2.jpg&quot;);">
-                                </div>
-                            </div>
-                            <div class="col-8 col-md-9 col-lg-8">
-                                <a x-text="reading.series_title" :href="reading.series_url"
-                                    class="text-truncate block font-weight-bold"
-                                    href="/truyen/18511-hoc-sinh-ma-thuat-cap-c-nhung-lai-nghi-minh-cap-sss">Học sinh ma
-                                    thuật cấp C nhưng lại nghĩ mình cấp SSS</a>
-                                <div x-text="reading.book_title" class="small mb-3 text-truncate">Web Novel Quyển 1
-                                </div>
-                                <a x-text="reading.chapter_title" :href="reading.chapter_url" class="text-truncate block"
-                                    href="/truyen/18511-hoc-sinh-ma-thuat-cap-c-nhung-lai-nghi-minh-cap-sss/c137432-chuong-1-bai-kiem-tra-thuc-hanh">Chương
-                                    1 : Bài kiểm tra thực hành</a>
-                            </div>
-                        </div>
-                    </main>
-                </section>
-            </div>
         </div>
     </div>
 
@@ -402,48 +313,40 @@
                 <main class="row">
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/sang-tac/14530-tu-te-xin-hay-quan-chong-cua-ngai-di/c141197-chuong-44-hu-khong-than"
-                                title="Chương 44: Hư Không Thần">
+                            <a href="" title="Chương 44: Hư Không Thần">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i.docln.net/lightnovel/covers/s14530-b27f31e1-30a9-43b9-9ce4-837a947c3c00-m.jpg"
-                                        style="background-image: url(&quot;https://i.docln.net/lightnovel/covers/s14530-b27f31e1-30a9-43b9-9ce4-837a947c3c00-m.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image16.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 44: Hư Không Thần"><a
-                                        href="/sang-tac/14530-tu-te-xin-hay-quan-chong-cua-ngai-di/c141197-chuong-44-hu-khong-than"
+                                <div class="thumb_attr chapter-title" title="Chương 44: Hư Không Thần"><a class="link-underline link-underline-opacity-0 text-white" href=""
                                         title="Chương 44: Hư Không Thần">Chương 44: Hư Không Thần</a></div>
                                 <div class="thumb_attr volume-title">Toàn tập</div>
                             </div>
                         </div>
-                        <div class="thumb_attr series-title"><a
-                                href="/sang-tac/14530-tu-te-xin-hay-quan-chong-cua-ngai-di"
+                        <div class="thumb_attr series-title"><a class="link-underline link-underline-opacity-0 text-black" href="/sang-tac/14530-tu-te-xin-hay-quan-chong-cua-ngai-di"
                                 title="Tư tế xin hãy quản chồng của ngài đi">Tư tế xin hãy quản chồng của ngài
                                 đi</a></div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/sang-tac/18380-toi-ac/c141187-chuong-06-binh-yen-truoc-con-bao"
-                                title="Chương 06 : Bình yên trước cơn bão">
+                            <a class="link-underline link-underline-opacity-0 text-white" href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio blur lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18380-ed7247b1-4c01-417a-a889-f966691bcf2e.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18380-ed7247b1-4c01-417a-a889-f966691bcf2e.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image17.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 06 : Bình yên trước cơn bão"><a
-                                        href="/sang-tac/18380-toi-ac/c141187-chuong-06-binh-yen-truoc-con-bao"
-                                        title="Chương 06 : Bình yên trước cơn bão">Chương 06 : Bình yên trước cơn
+                                <div class="thumb_attr chapter-title" title="Chương 06 : Bình yên trước cơn bão"><a href="" class="link-underline link-underline-opacity-0 text-white">Chương 06 : Bình yên trước cơn
                                         bão</a></div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
-                        <div class="thumb_attr series-title"><a href="/sang-tac/18380-toi-ac" title="Tội Ác">Tội
+                        <div class="thumb_attr series-title"><a class="link-underline link-underline-opacity-0 text-black" href="/sang-tac/18380-toi-ac" title="Tội Ác">Tội
                                 Ác</a></div>
                     </div>
 
@@ -453,22 +356,18 @@
                                 title="Chương I: Con lừa nơi tàn cây chết cháy">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18962-252068b2-12a3-4139-b3c3-e77bc4152524.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18962-252068b2-12a3-4139-b3c3-e77bc4152524.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image13.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương I: Con lừa nơi tàn cây chết cháy"><a
-                                        href="/sang-tac/18962-con-lua-con-quy-mat-do-va-tay-lai-buon-thanh-vermond/c141184-chuong-i-con-lua-noi-tan-cay-chet-chay"
-                                        title="Chương I: Con lừa nơi tàn cây chết cháy">Chương I: Con lừa nơi tàn
+                                        href="" class="link-underline link-underline-opacity-0 text-white">Chương I: Con lừa nơi tàn
                                         cây chết cháy</a></div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
-                        <div class="thumb_attr series-title"><a
-                                href="/sang-tac/18962-con-lua-con-quy-mat-do-va-tay-lai-buon-thanh-vermond"
-                                title="Con lừa, con quỷ mắt đỏ và tay lái buôn thành Vermond">Con lừa, con quỷ mắt
+                        <div class="thumb_attr series-title"><a href="" class="link-underline link-underline-opacity-0 text-black">Con lừa, con quỷ mắt
                                 đỏ và tay lái buôn thành Vermond</a></div>
                     </div>
 
@@ -478,20 +377,17 @@
                                 title="Chương 6: MÀU ĐỎ">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18936-255e5bcc-df28-42b4-ac9b-f66b55359465.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18936-255e5bcc-df28-42b4-ac9b-f66b55359465.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image18.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 6: MÀU ĐỎ"><a
-                                        href="/sang-tac/18936-thich-cau-khong-the-ly-giai/c141181-chuong-6-mau-do"
-                                        title="Chương 6: MÀU ĐỎ">Chương 6: MÀU ĐỎ</a></div>
+                                        href="" class="link-underline link-underline-opacity-0 text-white">Chương 6: MÀU ĐỎ</a></div>
                                 <div class="thumb_attr volume-title">Tập 1</div>
                             </div>
                         </div>
-                        <div class="thumb_attr series-title"><a href="/sang-tac/18936-thich-cau-khong-the-ly-giai"
-                                title="Thích Cậu, Không Thể Lý Giải">Thích Cậu, Không Thể Lý Giải</a></div>
+                        <div class="thumb_attr series-title"><a href="" class="link-underline link-underline-opacity-0 text-black">Thích Cậu, Không Thể Lý Giải</a></div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
@@ -501,29 +397,28 @@
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
                                         data-bg="https://docln.net/img/nocover.jpg"
-                                        style="background-image: url(&quot;https://docln.net/img/nocover.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image19.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 2: Khóa huấn luyện cấp tốc."><a
-                                        href="/sang-tac/18379-elena/c141180-chuong-2-khoa-huan-luyen-cap-toc"
-                                        title="Chương 2: Khóa huấn luyện cấp tốc.">Chương 2: Khóa huấn luyện cấp
+                                        href="" class="link-underline link-underline-opacity-0 text-white">Chương 2: Khóa huấn luyện cấp
                                         tốc.</a></div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
-                        <div class="thumb_attr series-title"><a href="/sang-tac/18379-elena" title="Elena">Elena</a>
+                        <div class="thumb_attr series-title"><a href="" class="link-underline link-underline-opacity-0 text-black" title="Elena">Elena</a>
                         </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-lg-2 see-more">
                         <div class="thumb-wrapper">
                             <div class="a6-ratio">
-                                <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');">
+                                <div class="content img-in-ratio" style="background-image: url('{{ asset('users/user/img/path/image1.jpg') }}');">
                                 </div>
                             </div>
-                            <a href="https://docln.net/sang-tac">
+                            <a href="{{ url('sangtac') }}">
                                 <div class="thumb-see-more">
                                     <div class="see-more-inside">
                                         <div class="see-more-content">
@@ -546,12 +441,10 @@
                 <main class="row">
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/truyen/16975-koukou-jidai-ni-gouman-datta-joou-sama-to-no-dousei-seikatsu-wa-igaito-igokochi-ga-warukunai/c141196-chuong-33-nu-hoang-doi-thay-3"
-                                title="Chương 3.3: Nữ hoàng đổi thay (3)">
+                            <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s16975-46dc2789-639e-4d2e-9b17-5b67200cb4e8.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s16975-46dc2789-639e-4d2e-9b17-5b67200cb4e8.jpg&quot;);">
+                                        style="background-image: url('{{ asset('users/user/img/path/image18.jpg') }}');">
                                     </div>
                                 </div>
                             </a>
@@ -990,7 +883,8 @@
         </div>
         <div class="col-12 col-lg-3">
             <div class="d-none d-lg-block">
-                <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
+                <section id="reading-history" class="index-section"
+                    x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0,4) }">
                     <header class="section-title">
                         <a href="https://docln.net/lich-su-doc">
                             <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
@@ -1000,7 +894,7 @@
                         <div class="row ml-1 mb-3">
                             <div class="col-lg-2  a6-ratior">
                                 <div class="img-contain-ratio content">
-                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
+                                    <img src="{{ asset('users/user/img/path/image2.jpg') }}" width="40px" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-9  m-auto">
@@ -1008,15 +902,15 @@
                                     chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
                                     thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
                                 <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
-                                            <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                                class="text-truncate block"></a> -->
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
 
                         <div class="row ml-1 mb-3">
                             <div class="col-lg-2  a6-ratior">
                                 <div class="img-contain-ratio content">
-                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
+                                    <img src="{{ asset('users/user/img/path/image2.jpg') }}" width="40px" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-9  m-auto">
@@ -1024,15 +918,15 @@
                                     chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
                                     thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
                                 <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
-                                            <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                                class="text-truncate block"></a> -->
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
 
                         <div class="row ml-1 mb-3">
                             <div class="col-lg-2  a6-ratior">
                                 <div class="img-contain-ratio content">
-                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
+                                    <img src="{{ asset('users/user/img/path/image2.jpg') }}" width="40px" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-9  m-auto">
@@ -1040,15 +934,15 @@
                                     chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
                                     thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
                                 <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
-                                            <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                                class="text-truncate block"></a> -->
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
 
                         <div class="row ml-1 mb-3">
                             <div class="col-lg-2  a6-ratior">
                                 <div class="img-contain-ratio content">
-                                    <img src="user/img/path/image2.jpg" width="50px" alt="">
+                                    <img src="{{ asset('users/user/img/path/image2.jpg') }}" width="40px" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-9  m-auto">
@@ -1056,8 +950,8 @@
                                     chuyển sinh thành một tên quý tộc phản diện và mong muốn bị trục xuất khỏi đất nước,
                                     thế nhưng cô công chúa ám ảnh với tôi lại không cho phép điều đó!</a>
                                 <!-- <div x-text="reading.book_title" class="small mb-3 text-truncate"></div>
-                                            <a x-text="reading.chapter_title" :href="reading.chapter_url"
-                                                class="text-truncate block"></a> -->
+                                    <a x-text="reading.chapter_title" :href="reading.chapter_url"
+                                        class="text-truncate block"></a> -->
                             </div>
                         </div>
 

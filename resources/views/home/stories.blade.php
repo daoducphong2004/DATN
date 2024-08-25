@@ -3,10 +3,12 @@
 @section('content')
     <div class="page-top-group  at-index ">
         <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('{{asset('users/user/img/path/12890_d_l.jpg')}}')">
+            <div class="index-background d-none d-lg-block"
+                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')">
             </div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{asset('users/user/img/path/12890_m_l.jpg')}}'); background-size: cover"></div>
+                style="background-image: url('{{ asset('users/user/img/path/12890_m_l.jpg') }}'); background-size: cover">
+            </div>
         </a>
     </div>
 
@@ -24,7 +26,8 @@
                                         </div>
                                         <div class="a6-ratio">
                                             <div class="content img-in-ratio">
-                                                <img src="{{asset('users/user/img/path/image1.jpg')}}" width="100%" alt="">
+                                                <img src="{{ asset('users/user/img/path/image1.jpg') }}" width="100%"
+                                                    alt="">
                                             </div>
                                         </div>
                                     </div>
@@ -84,10 +87,11 @@
                                                     </div>
                                                 </div>
 
-                                                <a href=""><button class="btn btn-primary mt-2  ms-3">Đọc tiếp</button></a>
+                                                <a href=""><button class="btn btn-primary mt-2  ms-3">Đọc
+                                                        tiếp</button></a>
                                             </div>
                                         </div>
-                                        <div class="col-12 side-features mt-2" >
+                                        <div class="col-12 side-features mt-2">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <a id="collect"
@@ -259,6 +263,8 @@
                                     </div>
                                 </main>
                         </div>
+                    </main>
+                </section>
             </div>
             <!-- end commnet  -->
             <div class="ln-comment-page">

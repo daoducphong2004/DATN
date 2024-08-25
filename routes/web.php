@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\USER\UserController;
@@ -40,6 +41,7 @@ Route::controller(HomeController::class)
         Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
         Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
     });
+// <<<<<<< LinhLinh
 
 // Route::get('home', [UserController::class, 'index']);
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
@@ -50,3 +52,14 @@ Route::controller(HomeController::class)
 
 // Route::get('login', [UserController::class, 'login']);
 // Route::get('register', [UserController::class, 'register']);
+=======
+// Route::resource('story', BookController::class);
+
+// Route::get('stories/information', function () {
+//     return view('stories.iframe.information');
+// })->name('storyinformation');
+
+// Route::get('stories/tree', function () {
+//     return view('stories.iframe.tree');
+// })->name('storytree');
+// >>>>>>> main

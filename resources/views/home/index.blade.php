@@ -19,11 +19,11 @@
 
                 <ul id="navbar">
                     <li><a class="active" href="{{route('home')}}">Home</a></li>
-                    <li><a class="nav-menu_item" href=""><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('reader')}}"><span class="">Máy dịch</span></a></li>
-                    <li><a class=" nav-menu_item" href=""><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href=""><span class="">Thảo luận</span></a></li>
-                    <li><a class=" nav-menu_item" href=""><span class="">Danh sách</span></a></li>
+                    <li><a class="nav-menu_item" href="{{route('composer')}}"><span class="">Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href="{{route('pandemic')}}"><span class="">Máy dịch</span></a></li>
+                    <li><a class=" nav-menu_item" href="{{route('publish')}}"><span class="">Xuất bản</span></a></li>
+                    <li><a class="nav-menu_item" href="{{route('discuss')}}"><span class="">Thảo luận</span></a></li>
+                    <li><a class=" nav-menu_item" href="{{route('list')}}"><span class="">Danh sách</span></a></li>
                     <a href=" #" id="close"><i class="fas fa-times"></i></a>
                 </ul>
 
@@ -48,7 +48,7 @@
         </div>
 
         <div id="navbar-user" class="guest">
-            <a class="login-link" href="/login">Đăng nhập</a>
+            <a class="login-link" href="{{route('login')}}">Đăng nhập</a>
             <div id="guest-menu">
                 <div class="icon">
                     <span class="white-point"></span>
@@ -78,15 +78,15 @@
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
-                <li><a class="nav-menu_item" href="/sang-tac"><i class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('composer')}}"><i class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
 
-                <li><a class="nav-menu_item" href="{{route('reader')}}"><i class=" fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('pandemic')}}"><i class=" fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
 
-                <li><a class="nav-menu_item" href="/xuat-ban"><i class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('publish')}}"><i class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
 
-                <li><a class="nav-menu_item" href="/thao-luan"><i class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('discuss')}}"><i class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>
 
-                <li><a class="nav-menu_item" href="/danh-sach"><i class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
+                <li><a class="nav-menu_item" href="{{route('list')}}"><i class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
 
                 <li class="nav-has-submenu">
                     <a class="nav-menu_item">

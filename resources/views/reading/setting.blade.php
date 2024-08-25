@@ -1,7 +1,10 @@
+@extends('partials.sidebar')
 @section('setting')
 <section id="setting" class="rdtoggle">
     <section class="re_set-in basic-section clear rdtoggle_body">
-        <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>
+        <header class="sect-header">
+            <span class="sect-title">Tùy chỉnh</span>
+        </header>
         <main class="sect-body">
             <div class="set-list set-color clear">
                 <label class="font-bold">Màu nền</label>
@@ -18,13 +21,12 @@
             <div class="set-list set-font-family clear">
                 <label class="font-bold">Font chữ</label>
                 <div class="set-slide set-input justify-center">
-                    <select>
-                        <option>Times New Roman</option>
-                        <option>Merriweather</option>
-                        <option>Lora</option>
-                        <option>Roboto</option>
-                        <option>Noto Sans</option>
-                        <option>Nunito</option>
+                    <select class="font-family-select">
+                        <option value="'Times New Ronman', sans-serif">Times New Roman</option>
+                        <option value="'Roboto', sans-serif">Roboto</option>
+                        <option value="'Open Sans', sans-serif">Open Sans</option>
+                        <option value="'Montserrat', sans-serif">Montserrat</option>
+                        <option value="'Courier New', monospace">Courier New</option>
                     </select>
                 </div>
             </div>

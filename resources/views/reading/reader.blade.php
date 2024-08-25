@@ -5,11 +5,11 @@
     <!-- cac nut chuyen trang -->
     <section id="rd-side_icon" class="none force-block-l">
         <a class="rd_sd-button_item rd_top-left" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139466-chuong-0140"><i class="fas fa-backward"></i></a>
-        <a class="rd_sd-button_item" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan"><i class="fas fa-home"></i></a>
+        <a class="rd_sd-button_item" href="{{asset('/')}}"><i class="fas fa-home"></i></a>
         <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
         <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i class="fas fa-info"></i></a>
         <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item"><i class="fas fa-bookmark"></i></a>
-        <a class="rd_sd-button_item rd_top-right" href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139057-chuong-42-co-nen-an-luon-cai-lu-dan-lang-khong-nhi"><i class="fas fa-forward"></i></a>
+        <a class="rd_sd-button_item rd_top-right" href="#"><i class="fas fa-forward"></i></a>
     </section>
 
     <!-- phan anh chuong truyen -->
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139057-chuong-42-co-nen-an-luon-cai-lu-dan-lang-khong-nhi">
+                        <a href="">
                             Chương 42: Có nên ăn luôn cái lũ Dân Làng không nhỉ?
                         </a>
                     </li>
@@ -112,9 +112,11 @@
 
     <!-- phan cai setiing chinh chu mau chu  -->
     {{-- @include('reading.setting') --}}
-    {{-- <section id="setting" class="rdtoggle">
+    <section id="setting" class="rdtoggle">
         <section class="re_set-in basic-section clear rdtoggle_body">
-            <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>
+            <header class="sect-header">
+                <span class="sect-title">Tùy chỉnh</span>
+            </header>
             <main class="sect-body">
                 <div class="set-list set-color clear">
                     <label class="font-bold">Màu nền</label>
@@ -131,13 +133,12 @@
                 <div class="set-list set-font-family clear">
                     <label class="font-bold">Font chữ</label>
                     <div class="set-slide set-input justify-center">
-                        <select>
-                            <option>Times New Roman</option>
-                            <option>Merriweather</option>
-                            <option>Lora</option>
-                            <option>Roboto</option>
-                            <option>Noto Sans</option>
-                            <option>Nunito</option>
+                        <select class="font-family-select">
+                            <option value="'Times New Ronman', sans-serif">Times New Roman</option>
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                            <option value="'Open Sans', sans-serif">Open Sans</option>
+                            <option value="'Montserrat', sans-serif">Montserrat</option>
+                            <option value="'Courier New', monospace">Courier New</option>
                         </select>
                     </div>
                 </div>
@@ -169,7 +170,7 @@
             </main>
         </section>
         <div class="black-click"></div>
-    </section> --}}
+    </section>
     <!-- phan noi dung doc truyen -->
     <div class="container">
         <div class="row">
@@ -320,7 +321,7 @@
                 <section class="rd-basic_icon row">
                     <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139466-chuong-0140" class="dark:text-black col text-center "><i class="fas fa-backward"></i></a>
                     <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan" class="dark:text-black col text-center"><i class="fas fa-home"></i></a>
-                    <a href="/truyen/18741-toi-bi-co-gai-yandere-an-minh-trong-nguc-toi-giet-chet-vo-so-lan/c139057-chuong-42-co-nen-an-luon-cai-lu-dan-lang-khong-nhi" class="dark:text-black col text-center "><i class="fas fa-forward"></i></a>
+                    <a href="" class="dark:text-black col text-center "><i class="fas fa-forward"></i></a>
                 </section>
 
                 <!--the code style is important to keep this comment section be out of the effect of user reading's setting-->
@@ -512,6 +513,8 @@
             </div>
         </div>
     </div>
+
+
 </main>
 
 

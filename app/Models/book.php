@@ -10,12 +10,16 @@ class book extends Model
     use HasFactory;
     protected $fillable =
     [
+        'type',
+        'status',
+        'like',
+        'view',
         'slug',
         'title',
         'author',
         'painter',
         'book_path',
-        'desc',
+        'description',
         'note',
         'is_VIP',
         'is_delete',
@@ -23,7 +27,7 @@ class book extends Model
         'group_id'
     ];
 
-    public function genre()
+    public function genres()
     {
         return $this->belongsToMany(Genre::class);
     }

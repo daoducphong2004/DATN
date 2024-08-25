@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->text('desc')->nullable();
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->text('description')->nullable();
+            $table->integer('duration')->comment('Duration in days');
             $table->timestamps();
         });
     }
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('subscriptions');
     }
 };

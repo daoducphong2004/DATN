@@ -1,0 +1,407 @@
+<!--headder -->
+<!DOCTYPE html>
+<html lang="vi" class="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
+    <meta name="description"
+        content="Đọc Light Novel online, bình luận Light Novel. Thư viện Light Novel Tiếng Việt lớn nhất, chất lượng cao, cập nhật liên tục, nhiều chức năng hỗ trợ việc đọc truyện dễ dàng.">
+    <meta name="theme-color" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://docln.net/img/nocover.jpg">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link href="user/css/app.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"
+        type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"
+        type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link href="user/css/action.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="user/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="user/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="user/img/apple-touch-icon-114x114.png">
+    <link rel="stylesheet" href="user/css/interface.css">
+    <!-- <link rel="stylesheet" href="user/css/tailwind.css"> -->
+    <link rel="stylesheet" href="user/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user/css/all.min.css" />
+    <link rel="stylesheet" href="user/css/icons/font-awesome/css/fontawesome-all.css">
+    <script src="user/js/plugins.js"></script>
+
+</head>
+
+<body>
+    <div id="page-top"></div>
+    <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
+    <div id="navbar" class="headroom">
+        <div class="container">
+            <div id="sidenav-icon" class="none-xl">
+                <div class="sidenav-icon-content">
+                    <span class="sidenav-icon_white"></span>
+                    <span class="sidenav-icon_white"></span>
+                    <span class="sidenav-icon_white"></span>
+                </div>
+                <ul class="navbar-menu none hidden-block at-mobile unstyle">
+                    <div class="navbar-search block none-m in-navbar-menu">
+                        <form class action="" method="get">
+                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
+                                value>
+                            <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                                    class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <li><a class="nav-menu_item" href=""><span class>Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href=""><span class>Thảo luận</span></a></li>
+                    <li><a class="nav-menu_item" href=""><span class>Danh sách</span></a></li>
+                    <li class="nav-has-submenu">
+                        <a class="nav-menu_item">
+                            <span class>Hướng dẫn</span>
+                            <i class="fas fa-chevron-down dropdown-icon" style="float: right; margin-top: 6px"></i>
+                        </a>
+                        <ul class="nav-submenu list-unstyled none">
+                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                            <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
+                                        lỗi</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-logo-wrapper">
+                <a href="" class="navbar-logo" style="background-image: url('user/img/logo-9.png')"
+                    title="Trang chủ"></a>
+            </div>
+            <div id="navbar-user">
+                <div class="nav-user_icon">
+                    <div class="nav-user_avatar">
+                        <img src="user/img/apple-touch-icon-114x114.png" alt="Your avatar">
+                    </div>
+                    <div class="at-user_avatar"></div>
+                    <ul class="account-sidebar hidden-block unstyled none">
+                        <li>
+                            <a href=""><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                        </li>
+
+                        <hr class="none block-l">
+
+                        <li>
+                            <a href=""><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fas fa-sign-out-alt"></i><span>Thoát</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="navbar-user" class="guest">
+                <a class="login-link" href="">Đăng nhập</a>
+                <div id="guest-menu">
+                    <div class="icon">
+                        <span class="white-point"></span>
+                        <span class="white-point"></span>
+                        <span class="white-point"></span>
+                    </div>
+                    <ul class="nav-submenu hidden-block unstyled none">
+
+                        <li>
+                            <a class="li-inner" href="/lich-su-doc"><i class="fas fa-history"></i><span>Lịch
+                                    sử</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="navbar-mainblock">
+                <div class="navbar-search none block-m">
+                    <form class action="" method="get">
+                        <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value>
+                        <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                                class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <ul class="navbar-menu at-navbar none d-xl-block unstyled">
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-pen-nib menu-icon"></i><span class>Sáng
+                                tác</span></a></li>
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-users menu-icon"></i><span class>Thảo
+                                luận</span></a></li>
+                    <li><a class="nav-menu_item" href=""><i class="fas fa-th-list menu-icon"></i><span class>Danh
+                                sách</span></a></li>
+                    <li class="nav-menu_item">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Hướng dẫn
+                        </a>
+                        <ul class="nav-submenu hidden-block unstyled none">
+                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                            <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
+                                        lỗi</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="page-top-group  at-index ">
+        <a href="/thao-luan/2591">
+            <div class="index-background d-none d-lg-block"
+                style="background-image: url('user/img/path/12890_d_l.jpg')">
+            </div>
+            <div class="index-background d-lg-none"
+                style="background-image: url('user/img/path/12890_m_l.jpg'); background-size: cover"></div>
+        </a>
+    </div>
+
+    <form method="get">
+        <main id="mainpart" class="browser-page">
+            <div style="text-align: center; margin: 0 auto 10px auto;">
+            </div>
+            <div class="container">
+                <div class="page-breadcrumb">
+                    <span class="breadcrum-level"><a href=""><i class="fas fa-home"></i></a></span>
+                    <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
+                    <span class="breadcrum-level"><a href="">Danh sách</a></span>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row d-block clear">
+                    <div class="col-12 none d-lg-block col-lg-3 float-right filters-wrapper">
+                        <div class="none-l pad-bottom-20 text-right pad-top-20">
+                            <span class="js-off-filters-wrapper button button-red">Tắt bộ lọc</span>
+                        </div>
+                        <section class="sub-index-style">
+                            <div class="title-wrapper">
+                                <div class="section-title">Chữ cái</div>
+                            </div>
+                            <div class="browse-alphabet">
+                                <a class="alphabet_item  current " href="">Tất cả</a>
+                                <a class="alphabet_item " href="">#</a>
+                                <a class="alphabet_item " href="">A</a>
+                                <a class="alphabet_item " href="">B</a>
+                                <a class="alphabet_item " href="">C</a>
+                                <a class="alphabet_item " href="">D</a>
+                                <a class="alphabet_item " href="">E</a>
+                                <a class="alphabet_item " href="">F</a>
+                                <a class="alphabet_item " href="">G</a>
+                                <a class="alphabet_item " href="">H</a>
+                                <a class="alphabet_item " href="">I</a>
+                                <a class="alphabet_item " href="">J</a>
+                                <a class="alphabet_item " href="">K</a>
+                                <a class="alphabet_item " href="">L</a>
+                                <a class="alphabet_item " href="">M</a>
+                                <a class="alphabet_item " href="">N</a>
+                                <a class="alphabet_item " href="">O</a>
+                                <a class="alphabet_item " href="">P</a>
+                                <a class="alphabet_item " href="">Q</a>
+                                <a class="alphabet_item " href="">R</a>
+                                <a class="alphabet_item " href="">S</a>
+                                <a class="alphabet_item " href="">T</a>
+                                <a class="alphabet_item " href="">U</a>
+                                <a class="alphabet_item " href="">V</a>
+                                <a class="alphabet_item " href="">W</a>
+                                <a class="alphabet_item " href="">X</a>
+                                <a class="alphabet_item " href="">Y</a>
+                                <a class="alphabet_item " href="">Z</a>
+                            </div>
+                        </section>
+                        <section class="sub-index-style filter-section">
+                            <div class="title-wrapper">
+                                <div class="section-title">Phân loại</div>
+                            </div>
+                            <div class="section-content">
+                                <ul class="filter-type unstyled">
+                                    <li><input type="checkbox" name="truyendich" value="1" checked> Truyện dịch</li>
+                                    <li><input type="checkbox" name="sangtac" value="1"> Truyện sáng tác</li>
+                                    <li><input type="checkbox" name="convert" value="1"> Convert</li>
+                                </ul>
+                                <div class="submit-wrapper">
+                                    <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
+                                        value="Áp dụng">
+                                </div>
+                            </div>
+                        </section>
+                        <section class="sub-index-style filter-section">
+                            <div class="title-wrapper">
+                                <div class="section-title">Tình trạng</div>
+                            </div>
+                            <div class="section-content">
+                                <ul class="filter-type unstyled">
+                                    <li><input type="checkbox" name="dangtienhanh" value="1" checked> Đang tiến hành
+                                    </li>
+                                    <li><input type="checkbox" name="tamngung" value="1" checked> Tạm ngưng</li>
+                                    <li><input type="checkbox" name="hoanthanh" value="1" checked> Đã hoàn thành</li>
+                                </ul>
+                                <div class="submit-wrapper">
+                                    <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
+                                        value="Áp dụng">
+                                </div>
+                            </div>
+                        </section>
+                        <section class="sub-index-style">
+                            <div class="title-wrapper">
+                                <div class="section-title">Phân loại</div>
+                            </div>
+
+                            <div class="section-content">
+                                <ul class="filter-type unstyled clear">
+                                    <li class="filter-type_item"><a href="">TenDanhMuc </a>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="col-12 float-left col-lg-9">
+                        <section class="thumb-section-flow">
+                            <header class="filter-container pad-bottom-10">
+
+                                <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
+                                    <option value="tentruyen">A - Z</option>
+                                    <option value="tentruyenza">Z - A</option>
+                                    <option value="capnhat">Mới cập nhật</option>
+                                    <option value="truyenmoi">Truyện mới</option>
+                                    <option value="theodoi">Theo dõi</option>
+                                    <option value="top">Top toàn thời gian</option>
+                                    <option value="topthang">Top tháng</option>
+                                    <option value="sotu">Số từ</option>
+                                </select>
+                                <div class="text-right inline-block-m right-m none-l">
+                                    <span class="button button-green js-call-filters-wrapper"><i class="fas fa-filter"
+                                            style="margin-right: 10px;"></i>Bộ lọc</span>
+                                </div>
+                            </header>
+                            <main class="row">
+
+                                <!-- start truyện -->
+
+                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                                    <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series">
+                                        <a href="" title="">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio lazyload" data-bg="">
+                                                    <img src="user/img/apple-touch-icon-114x114.png" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title=""><a href="" title=""></a>
+                                            </div>
+                                            <div class="thumb_attr volume-title">tên vol</div>
+                                        </div>
+                                    </div>
+                                    <div class="thumb_attr series-title"><a href="" title="">
+
+                                        </a></div>
+                                </div>
+                                <div style="display: none">
+                                    <div id="">
+                                        <div style="margin: 10px 0; width: 250px">
+                                            <p style="color: white; font-weight: bold">
+
+                                            </p>
+                                            <p>
+                                            <div>Lượt xem :</div>
+                                            <div>Lượt thích:</div>
+                                            </p>
+                                            Mô tả
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- end truyện  -->
+                            </main>
+                            <div class="pagination-footer">
+                                <div class="pagination_wrap">
+
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=1"
+                                        class="paging_item paging_prevnext prev  disabled ">Đầu</a>
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=1"
+                                        class="paging_item page_num  current ">1</a>
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=2"
+                                        class="paging_item page_num ">2</a>
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=3"
+                                        class="paging_item page_num ">3</a>
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=4"
+                                        class="paging_item page_num ">4</a>
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=5"
+                                        class="paging_item page_num ">5</a>
+
+                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;amp%3Bsapxep=topthang&amp;page=68"
+                                        class="paging_item paging_prevnext next ">Cuối</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </form>
+
+    <main id="mainpart" class="at-index">
+        <div class="container" style="margin-bottom: 40px;">
+            <script>
+                $(document).ready(function () {
+
+                    $(".mobile-toggle header").click(function () {
+                        $(this).parent().find(".listall_summary").toggle();
+                        $(this).parent().find(".sect-body").toggle();
+                    });
+
+                    //listab(".daily-recent_views");
+
+                });
+            </script>
+    </main>
+    <script src="user/js/app.js?id=b8198cd1707d7a5e169b"></script>
+    <script src="user/js/livewire.js?id=f121a5df" data-csrf="4Zpd0dv39l7TdIiKTPW7jZFBgCUceBI1iIETt6Nn"
+        data-update-uri="/livewire/update" data-navigate-once="true"></script>
+    <script type="text/javascript" src="js/d56b4bd6c3d2c1e161c4ab3c78c27670.js"></script>
+    <footer id="footer">
+        <div class="container">
+
+            <span class="right">Liên hệ: <a href="mailto:contact@hako.vn" target="_blank"
+                    style="color: #5fff46">contact@hako.vn</a></span>
+            <span>© 2016 - 2024 Cổng Light Novel - Đọc Light Novel</span>
+        </div>
+    </footer>
+    <div x-data x-show="$store.toast.on" @click="$store.toast.hide()"
+        class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md fixed w-3/4 md:w-1/2 z-20 inset-x-0 bottom-10 mx-auto"
+        role="alert" style="display: none">
+        <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                </svg></div>
+            <div>
+                <p class="font-bold capitalize">Chú ý</p>
+                <p class="text-sm" x-text="$store.toast.message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+
+</html>

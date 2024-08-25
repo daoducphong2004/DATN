@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
+    <meta name="description"
+        content="Đọc Light Novel online, bình luận Light Novel. Thư viện Light Novel Tiếng Việt lớn nhất, chất lượng cao, cập nhật liên tục, nhiều chức năng hỗ trợ việc đọc truyện dễ dàng.">
+    <meta name="theme-color" content="#000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://docln.net/img/nocover.jpg">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link href="user/css/app.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <link href="user/css/action.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="user/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="user/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="user/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="user/img/apple-touch-icon-114x114.png">
+    <link rel="stylesheet" href="user/css/interface.css">
+    <!-- <link rel="stylesheet" href="user/css/tailwind.css"> -->
+    <link rel="stylesheet" href="user/css/bootstrap.min.css">
+    <link rel="stylesheet" href="user/css/all.min.css" />
+    <link rel="stylesheet" href="user/css/icons/font-awesome/css/fontawesome-all.css">
+    <script src="user/js/plugins.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default" style="z-index: 999">
+        <div class="container-fluid">
+            <div class=" col-7 navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://docln.net/action">Bảng điều khiển</a>
+            </div>
+            <div class="col-5 collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right d-flex flex-row-reverse">
+                    <li><a href="">Đăng nhập</a></li>
+                    <li><a href="">Đăng ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Đăng ký</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="POST" action="">
+                            <input type="hidden" name="Role" value="user">
+                            <div class="form-group">
+                                <label for="name" class="col-md-4 control-label">Tên đăng nhập</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control text-center" name="TenDangNhap" value>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-md-4 control-label">Địa chỉ E-Mail</label>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control text-center" name="Email" value>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-md-4 control-label">Mật khẩu</label>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control text-center" name="MatKhau">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password-confirm" class="col-md-4 control-label">Xác nhận mật khẩu</label>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control text-center" name="XacNhanMatKhau">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-btn fa-user"></i> Đăng ký
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="user/js/livewire.js" data-csrf="uF2k9tXmvW5rnHfGbYHwlZwP2IK9tMVrFC5O5d7q" data-update-uri="/livewire/update" data-navigate-once="true" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
+    <script src="user/js/rocket-loader.min.js" data-cf-settings="908e5f26ecc23db3528f92ee-|49" defer></script>
+
+</body>
+
+</html>

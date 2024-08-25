@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
-
+use function Ramsey\Uuid\v1;
 
 Route::controller(HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
         Route::get('/reader', 'reader')->name('reader');
+        Route::get('/about', 'about')->name('about');
         Route::get('login', 'login')->name('login');
         route::get('register', 'register')->name('register');
         route::get('composer', 'composer')->name('composer');

@@ -34,8 +34,8 @@
                     </a>
 
                     <ul class="nav-submenu list-unstyled none">
-                        <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
-                        <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                        <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
+                        <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                         <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo lỗi</span></a></li>
                         <li><a href="/privacy-policy"><span>Privacy Policy</span></a></li>
                     </ul>
@@ -57,7 +57,7 @@
                 </div>
                 <ul class="nav-submenu hidden-block unstyled none">
                     <li>
-                        <div class="nightmode-toggle li-inner">
+                        <div class="nightmode-toggle li-inner" onclick="toggleNightMode(this)">
                             <span><i class="fas fa-moon"></i>Nền tối</span>
                             <div class="toggle-icon">
                                 <i class="fa fa-toggle-off"></i>
@@ -65,7 +65,9 @@
                         </div>
                     </li>
                     <li>
-                        <a class="li-inner" href="/lich-su-doc"><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                        <a class="li-inner" href="/lich-su-doc">
+                            <i class="fas fa-history"></i><span>Lịch sử</span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -89,15 +91,14 @@
                 <li><a class="nav-menu_item" href="{{route('list')}}"><i class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
 
                 <li class="nav-has-submenu">
-                    <a class="nav-menu_item">
+                    <a class="nav-menu_item" href="javascript:void(0);" onclick="toggleSubmenu(this)">
                         <i class="fas fa-question menu-icon"></i><span class="">Hướng dẫn</span>
                         <i class="fas fa-chevron-down dropdown-icon"></i>
-                        <i class="fas fa-chevron-right dropdown-icon"></i>
                     </a>
-
+                
                     <ul class="nav-submenu hidden-block unstyled none">
-                        <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
-                        <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
+                        <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
+                        <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                         <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo lỗi</span></a></li>
                         <li><a href="/privacy-policy"><span>Privacy Policy</span></a></li>
                     </ul>
@@ -1440,7 +1441,7 @@
                         </div>
                     </a>
                     <div class="thumb-detail">
-                        <div class="thumb_attr chapter-title" title="Tái bút."><a href="/truyen/12166-good-bye-sengen/c109557-tai-but" title="Tái bút.">Tái bút.</a></div>
+                        <div class="thumb_attr chapter-title" title="Tái bút."><a href="/ truyen/12166-good-bye-sengen/c109557-tai-but" title="Tái bút.">Tái bút.</a></div>
                         <div class="thumb_attr volume-title">Oneshot</div>
                     </div>
                 </div>

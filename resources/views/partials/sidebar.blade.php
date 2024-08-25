@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{asset('css/tailwind.css')}}">
     <link rel="stylesheet" href="{{asset('css/all.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <script src="{{asset('js/plugins.js')}}"></script>
+
    
     
  
@@ -40,6 +42,7 @@
 
     
     @yield('noidung');
+    @yield('gioithieu')
     @yield('register');
     @yield('login');
     @yield('list');
@@ -58,8 +61,7 @@
     <script src="{{asset('frontend/script.js')}}"></script>
     <script src="{{asset('js/truyen.js')}}"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="{{asset('js/plugins.js')}}"></script>
-
+ 
 </body>
 
 </html>

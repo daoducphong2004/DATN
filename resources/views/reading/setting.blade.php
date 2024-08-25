@@ -1,4 +1,4 @@
-@extends('partials.sidebar')
+{{-- @extends('partials.sidebar')
 @section('setting')
 <section id="setting" class="rdtoggle">
     <section class="re_set-in basic-section clear rdtoggle_body">
@@ -59,4 +59,4 @@
     </section>
     <div class="black-click"></div>
 </section>
-@endsection
+@endsection --}}

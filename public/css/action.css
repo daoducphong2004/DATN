@@ -172,3 +172,9 @@ button {
     justify-content: center;
     margin-left: auto;
 }
+.hidden-block {
+    display: none;
+}
+.nav-has-submenu:hover .nav-submenu {
+    display: block;
+}

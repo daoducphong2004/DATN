@@ -32,7 +32,7 @@
 
                         <ul class="nav-submenu list-unstyled none">
                             <li><a href="thao-luan/368-huong-dan-dang-truyen.html"><span>Đăng truyện</span></a></li>
-                            <li><a href="thao-luan/2-gioi-thieu-cong-light-novel.html"><span>Giới thiệu</span></a></li>
+                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                             <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
                             <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
                         </ul>
@@ -94,7 +94,7 @@
 
                         <ul class="nav-submenu hidden-block unstyled none">
                             <li><a href="thao-luan/368-huong-dan-dang-truyen.html"><span>Đăng truyện</span></a></li>
-                            <li><a href="thao-luan/2-gioi-thieu-cong-light-novel.html"><span>Giới thiệu</span></a></li>
+                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                             <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
                             <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
                         </ul>
@@ -248,7 +248,7 @@
                                                                                 </tr>
                                                                     <tr class="d-flex">
                                     <td class="col-8 col-md-4 col-lg-5 col-xl-5">
-                                        <a class="topic-title" href="thao-luan/368-huong-dan-dang-truyen.html"><i class="fas fa-star"></i>  Hướng dẫn đăng truyện</a>
+                                        <a class="topic-title" href="{{route('create')}}"><i class="fas fa-star"></i>  Hướng dẫn đăng truyện</a>
                                         <div class="subtitle-category none-m">
                                             <span class="category-circle"><i class="fas fa-circle" aria-hidden="true" style="color: #eb1d57"></i></span>
                                             <a href="thao-luan7a2e.html?chuyen-muc=1">Thông báo</a>

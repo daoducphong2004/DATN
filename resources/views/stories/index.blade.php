@@ -31,8 +31,8 @@
                         </a>
 
                         <ul class="nav-submenu list-unstyled none">
-                            <li><a href="thao-luan/368-huong-dan-dang-truyen.html"><span>Đăng truyện</span></a></li>
-                            <li><a href="thao-luan/2-gioi-thieu-cong-light-novel.html"><span>Giới thiệu</span></a></li>
+                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
+                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                             <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
                             <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
                         </ul>
@@ -93,8 +93,8 @@
                         </a>
 
                         <ul class="nav-submenu hidden-block unstyled none">
-                            <li><a href="thao-luan/368-huong-dan-dang-truyen.html"><span>Đăng truyện</span></a></li>
-                            <li><a href="thao-luan/2-gioi-thieu-cong-light-novel.html"><span>Giới thiệu</span></a></li>
+                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
+                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
                             <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
                             <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
                         </ul>

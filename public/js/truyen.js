@@ -258,17 +258,13 @@ document.querySelector(".ql-fullscreen").onclick = function () {
     });
 };
 
-document.querySelector(".ql-exit-fullscreen").onclick = function () {
-    document.getElementById("fullscreen-editor").style.display = "none";
-};
+//
+function toggleSubmenu(element) {
+    const submenu = element.nextElementSibling;
+    const dropdownIcon = element.querySelector(".dropdown-icon");
 
-// Link to a file (for simplicity, using a prompt to enter URL)
-document.querySelector(".ql-file-link").onclick = function () {
-    var url = prompt("Enter the URL of the file:");
-    if (url) {
-        var range = quill.getSelection();
-        quill.insertText(range.index, url, { link: url });
-    }
-};
-
+    submenu.classList.toggle("hidden-block");
+    dropdownIcon.classList.toggle("fa-chevron-down");
+    dropdownIcon.classList.toggle("fa-chevron-right");
+}
 //

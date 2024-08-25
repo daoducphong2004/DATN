@@ -7,14 +7,17 @@ use Illuminate\Http\Request;
 
 class LetterController extends Controller
 {
-
     public function index()
     {
-        $a = Letter::all();
-        return view('letter.index', compact('a'));
+        $letters = Letter::all();
+        return view('admin.letter.index', compact('letters'));
     }
 
 
+    public function create()
+    {
+        return view('admin.letter.create');
+    }
 
 
     public function store(Request $request)
@@ -22,21 +25,20 @@ class LetterController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|',
             'content' => 'required|string',
-            'receiver_id' => 'required|integer',
-            'sender_id' => 'required|integer',
+            'receiver_id' => 'required|integer|exists:users,id',
+            'sender_id' => 'required|integer|exists:users,id',
             'status' => 'nullable|string',
         ]);
 
-        // Tạo một bản ghi mới trong bảng Letter
         Letter::create($validatedData);
-
-        return redirect()->route('letter.index')->with('success', 'Thư đã được tạo thành công.');
+        return redirect()->route('letter_index');
     }
+
 
 
     public function edit(Letter $id)
     {
-        return view('letter.edit', compact('id'));
+        return view('admin.letter.edit', compact('id'));
     }
 
 
@@ -45,22 +47,23 @@ class LetterController extends Controller
     {
         // Xác thực dữ liệu trước khi cập nhật vào database
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string',
             'content' => 'required|string',
-            'receiver_id' => 'required|integer', // Đảm bảo 'users' là bảng chứa id của receiver
-            'sender_id' => 'required|integer',   // Đảm bảo 'users' là bảng chứa id của sender
-            'status' => 'nullable|string', // Trường 'status' không bắt buộc
+            'receiver_id' => 'required|integer|exists:users,id',
+            'sender_id' => 'required|integer|exists:users,id',
+            'status' => 'nullable|string',
         ]);
 
-        // Cập nhật dữ liệu
+
+
         $id->update($validatedData);
-        return redirect()->route('letter.index');
+        return redirect()->route('letter_index');
     }
 
 
     public function destroy(Letter $id)
     {
         $id->delete();
-        return redirect()->route('letter.index');
+        return redirect()->route('letter_index');
     }
 }

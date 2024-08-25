@@ -17,23 +17,29 @@
                 <th scope="col">title</th>
                 <th scope="col">content</th>
                 <th scope="col">status</th>
-                
-                <th scope="col"><button class="btn btn-primary"><a href="{{route('events_create')}}">Create</a></button></th>
+                <th scope="col">receiver_id</th>
+                <th scope="col">sender_id</th>
+
+                <th scope="col">
+                    <a class="btn btn-primary" href="{{ route('letter_create') }}">Create</a>
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($letters as $letter)
                 <tr>
-                    <td>{{ $letter->letter_name }}</td>
-                    <td>{{ $letter->date }}</td>
-                    <td>{{ $letter->location }}</td>
-                    <td>{{ $letter->description }}</td>
+                    <td>{{ $letter->title }}</td>
+                    <td>{{ $letter->content }}</td>
+                    <td>{{ $letter->status }}</td>
+                    <td>{{ $letter->receiver_id }}</td>
+                    <td>{{ $letter->sender_id }}</td>
                     <td>
-                        <button class="btn"><a href="{{route('events_edit', $letter->id)}}">Edit</a> </button>
-                        <form action="{{route('events_delete', $letter->id)}}" method="post">
+                        <a class="btn btn-success" href="{{ route('letter_edit', $letter->id) }}">Edit</a>
+                        <form action="{{ route('letter_delete', $letter->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" type="submit" onclick="return confirm('Xác nhận xóa')">Delete</button>
+                            <button class="btn btn-danger" type="submit"
+                                onclick="return confirm('Xác nhận xóa')">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -43,5 +49,3 @@
 </body>
 
 </html>
-
-

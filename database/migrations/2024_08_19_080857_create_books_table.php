@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('author');
+            $table->bigInteger('view')->default(0);
+            $table->bigInteger('like')->default(0);
             $table->string('painter')->nullable();
             $table->string('book_path')->nullable();
             $table->text('description');

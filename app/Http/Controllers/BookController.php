@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\genre;
+use App\Models\group;
+use Illuminate\Support\Facades\Storage;
+use Str;
 
 class BookController extends Controller
 {
@@ -13,7 +17,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $genres = genre::pluck('slug', 'name');
+        $groups = group::pluck('id', 'name');
+        $data= book::query()->paginate(30);
+        // dd($data);
+        return view('stories.index',compact('data','genres','groups'));
     }
 
     /**
@@ -21,7 +29,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $genres = genre::pluck('id', 'name');
+        $groups = group::pluck('id', 'name');
+        return view('stories.create', compact('genres','groups'));
     }
 
     /**
@@ -29,7 +39,39 @@ class BookController extends Controller
      */
     public function store(StorebookRequest $request)
     {
-        //
+        $slug = Str::slug($request->title, '-');
+        $book = Book::create([
+            'type' => $request->type,
+            'status' => $request->status,
+            'like' => 0,
+            'view' => 0,
+            'slug' => $slug,
+            'title' => $request->title,
+            'author' => $request->author,
+            'painter' => $request->painter,
+            'book_path' => '',
+            'description' => $request->description,
+            'note' => $request->note,
+            'is_VIP' => 0,
+            // 'is_delete' => 0,
+            'adult' => $request->adult,
+            'group_id' => $request->group_id,
+        ]);
+    
+        // Handle image upload
+        if ($request->hasFile('book_path')) {
+            $image = $request->file('book_path');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('books', $imageName, 'public'); // Lưu file vào thư mục storage/app/public/books
+            $book->book_path = $path; // Chỉ lưu phần liên quan của đường dẫn vào cơ sở dữ liệu
+            $book->save();
+        }
+    
+        // Attach genres
+        if ($request->input('genres')) {
+            $book->genres()->attach($request->input('genres'));
+        }
+        return redirect()->route('story.index');
     }
 
     /**
@@ -37,7 +79,7 @@ class BookController extends Controller
      */
     public function show(book $book)
     {
-        //
+        return view('stories.show');
     }
 
     /**

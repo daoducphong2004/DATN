@@ -50,6 +50,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $bookmarks->links() }}
 </body>
 
 </html>

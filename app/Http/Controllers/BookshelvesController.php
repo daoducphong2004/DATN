@@ -2,71 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookshelvesRequest;
 use App\Models\Bookmarks;
 use App\Models\Bookshelves;
 use Illuminate\Http\Request;
+use Exception;
 
 class BookshelvesController extends Controller
 {
     public function index()
     {
-        $bookshelves = Bookshelves::all();
-        return view('admin.bookshelves.index', compact('bookshelves'));
+        try {
+            $bookshelves = Bookshelves::paginate(10);
+            return view('admin.bookshelves.index', compact('bookshelves'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load bookshelves: ' . $e->getMessage()]);
+        }
     }
-
 
     public function create()
     {
-        return view('admin.bookshelves.create');
+        try {
+            return view('admin.bookshelves.create');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load create form: ' . $e->getMessage()]);
+        }
     }
 
-
-
-    public function store(Request $request)
+    public function store(StoreBookshelvesRequest $request)
     {
-        $validatedData = $request->validate([
-
-            'name' => 'required|string|',
-            'description' => 'required|string',
-            'location' => 'required|string',
-            'status' => 'nullable|string',
-            'book_id' => 'required|integer|exists:books,id',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-        Bookshelves::create($validatedData);
-        return redirect()->route('bookshelves_index');
+        try {
+            Bookshelves::create($request->validated());
+            return redirect()->route('bookshelves_index')->with('success', 'Bookshelf created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create bookshelf: ' . $e->getMessage()]);
+        }
     }
-
-
 
     public function edit(Bookshelves $id)
     {
-        return view('admin.bookshelves.edit', compact('id'));
+        try {
+            return view('admin.bookshelves.edit', compact('id'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load edit form: ' . $e->getMessage()]);
+        }
     }
 
-
-
-    public function update(Request $request, Bookshelves $id)
+    public function update(StoreBookshelvesRequest $request, Bookshelves $id)
     {
-        // Xác thực dữ liệu trước khi cập nhật vào database
-        $validatedData = $request->validate([
-            'name' => 'required|string|',
-            'description' => 'required|string',
-            'location' => 'required|string',
-            'status' => 'nullable|string',
-            'book_id' => 'required|integer|exists:books,id',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-        $id->update($validatedData);
-        return redirect()->route('bookshelves_index');
+        try {
+            $id->update($request->validated());
+            return redirect()->route('bookshelves_index')->with('success', 'Bookshelf updated successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update bookshelf: ' . $e->getMessage()]);
+        }
     }
-
 
     public function destroy(Bookshelves $id)
     {
-        $id->delete();
-        return redirect()->route('bookshelves_index');
+        try {
+            $id->delete();
+            return redirect()->route('bookshelves_index')->with('success', 'Bookshelf deleted successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete bookshelf: ' . $e->getMessage()]);
+        }
     }
 }

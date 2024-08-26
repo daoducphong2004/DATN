@@ -48,6 +48,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $bookshelves->links() }}
 </body>
 
 </html>

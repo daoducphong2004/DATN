@@ -2,68 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLetterRequest;
 use App\Models\Letter;
 use Illuminate\Http\Request;
+use Exception;
 
 class LetterController extends Controller
 {
     public function index()
     {
-        $letters = Letter::all();
-        return view('admin.letter.index', compact('letters'));
+        try {
+            $letters = Letter::paginate(10);
+            return view('admin.letter.index', compact('letters'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load letters.']);
+        }
     }
-
 
     public function create()
     {
-        return view('admin.letter.create');
+        try {
+            return view('admin.letter.create');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load the create form.']);
+        }
     }
 
-
-    public function store(Request $request)
+    public function store(StoreLetterRequest $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|',
-            'content' => 'required|string',
-            'receiver_id' => 'required|integer|exists:users,id',
-            'sender_id' => 'required|integer|exists:users,id',
-            'status' => 'nullable|string',
-        ]);
-
-        Letter::create($validatedData);
-        return redirect()->route('letter_index');
+        try {
+            Letter::create($request->validated());
+            return redirect()->route('letter_index')->with('success', 'Letter created successfully!');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create letter.']);
+        }
     }
-
-
 
     public function edit(Letter $id)
     {
-        return view('admin.letter.edit', compact('id'));
+        try {
+            return view('admin.letter.edit', compact('id'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load the edit form.']);
+        }
     }
 
-
-
-    public function update(Request $request, Letter $id)
+    public function update(StoreLetterRequest $request, Letter $id)
     {
-        // Xác thực dữ liệu trước khi cập nhật vào database
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'receiver_id' => 'required|integer|exists:users,id',
-            'sender_id' => 'required|integer|exists:users,id',
-            'status' => 'nullable|string',
-        ]);
-
-
-
-        $id->update($validatedData);
-        return redirect()->route('letter_index');
+        try {
+            $id->update($request->validated());
+            return redirect()->route('letter_index')->with('success', 'Letter updated successfully!');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update letter.']);
+        }
     }
-
 
     public function destroy(Letter $id)
     {
-        $id->delete();
-        return redirect()->route('letter_index');
+        try {
+            $id->delete();
+            return redirect()->route('letter_index')->with('success', 'Letter deleted successfully!');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete letter.']);
+        }
     }
 }

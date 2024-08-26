@@ -46,6 +46,8 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $letters->links() }}
 </body>
 
 </html>

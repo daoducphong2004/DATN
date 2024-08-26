@@ -2,73 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookmarksRequest;
 use App\Models\Bookmarks;
 use Illuminate\Http\Request;
+use Exception;
 
 class BookmarksController extends Controller
 {
     public function index()
     {
-        $bookmarks = Bookmarks::all();
-        return view('admin.bookmarks.index', compact('bookmarks'));
+        try {
+            $bookmarks = Bookmarks::paginate(10);
+            return view('admin.bookmarks.index', compact('bookmarks'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load bookmarks: ' . $e->getMessage()]);
+        }
     }
-
 
     public function create()
     {
-        return view('admin.bookmarks.create');
+        try {
+            return view('admin.bookmarks.create');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load create form: ' . $e->getMessage()]);
+        }
     }
 
-
-
-    public function store(Request $request)
+    public function store(StoreBookmarksRequest $request)
     {
-        $validatedData = $request->validate([
-
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'page_number' => 'required|numeric',
-            'note' => 'required|string',
-            'status' => 'nullable|string',
-            'book_id' => 'required|integer|exists:books,id',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-        Bookmarks::create($validatedData);
-        return redirect()->route('bookmarks_index');
+        try {
+            Bookmarks::create($request->validated());
+            return redirect()->route('bookmarks_index')->with('success', 'Bookmark created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create bookmark: ' . $e->getMessage()]);
+        }
     }
-
-
 
     public function edit(Bookmarks $id)
     {
-        return view('admin.bookmarks.edit', compact('id'));
+        try {
+            return view('admin.bookmarks.edit', compact('id'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load edit form: ' . $e->getMessage()]);
+        }
     }
 
-
-
-    public function update(Request $request, Bookmarks $id)
+    public function update(StoreBookmarksRequest $request, Bookmarks $id)
     {
-        // Xác thực dữ liệu trước khi cập nhật vào database
-        $validatedData = $request->validate([
-            'name' => 'required|string|',
-            'description' => 'required|string',
-            'page_number' => 'required|numeric',
-            'note' => 'required|string',
-            'status' => 'nullable|string',
-            'book_id' => 'required|integer|exists:books,id',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-
-        $id->update($validatedData);
-        return redirect()->route('bookmarks_index');
+        try {
+            $id->update($request->validated());
+            return redirect()->route('bookmarks_index')->with('success', 'Bookmark updated successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update bookmark: ' . $e->getMessage()]);
+        }
     }
-
 
     public function destroy(Bookmarks $id)
     {
-        $id->delete();
-        return redirect()->route('bookmarks_index');
+        try {
+            $id->delete();
+            return redirect()->route('bookmarks_index')->with('success', 'Bookmark deleted successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete bookmark: ' . $e->getMessage()]);
+        }
     }
 }

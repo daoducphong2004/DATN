@@ -40,6 +40,7 @@ class BookController extends Controller
     public function store(StorebookRequest $request)
     {
         $slug = Str::slug($request->title, '-');
+        $adult = $request->has('adult') ? 1 : 0;
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
@@ -54,7 +55,7 @@ class BookController extends Controller
             'note' => $request->note,
             'is_VIP' => 0,
             // 'is_delete' => 0,
-            'adult' => $request->adult,
+            'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
         ]);
     
@@ -79,7 +80,8 @@ class BookController extends Controller
      */
     public function show(book $book)
     {
-        return view('stories.show');
+        $data = $book->with('genres','episodes');
+        return view('stories.show',['data' => $data]);
     }
 
     /**

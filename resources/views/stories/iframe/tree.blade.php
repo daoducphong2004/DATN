@@ -284,7 +284,7 @@
                 switch (child.innerText) {
                     case 'Sửa truyện':
                         child.onclick = () => openLink(
-                            'https://docln.net/action/series/19025/edit?navbar=0',
+                            '{{route('storyinformation')}}',
                             'action',
                             'action=editseries'
                         );
@@ -317,7 +317,7 @@
                         break;
                     case 'Thêm tập':
                         child.onclick = () => openLink(
-                            'https://docln.net/action/book/create/series=19025?navbar=0',
+                            '{{route('storyepisode')}}',
                             'action',
                             'action=createbook'
                         );

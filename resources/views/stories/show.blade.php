@@ -141,7 +141,6 @@
     id="action-tree-toggle">
         Click để bật/tắt khung Quản lý
     </div>
-
     <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm" id="action-tree" style="border-right: 1px solid #ccc; padding: 0">
         <iframe name="nav" src="{{route('storytree')}}"></iframe>
     </div>

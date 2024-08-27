@@ -148,7 +148,8 @@
                                 target="_blank">Hướng dẫn đăng truyện</a>
                         </div> --}}
 
-                        <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
+                        <form role="form" method="POST" action="{{ route('story.store') }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
@@ -168,7 +169,7 @@
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right"><b>Nội dung nhạy cảm?</b></label>
                                 <div class="col-md-8">
-                                    <input type="checkbox" name="adult" value="1">
+                                    <input type="checkbox" name="adult">
                                 </div>
                             </div>
                             <div class="form-group clearfix">
@@ -179,15 +180,18 @@
                                             <a>Chọn ảnh</a>
                                             <input type="file" name="book_path" accept="image/*" />
                                         </div>
-                                        <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <div class="alert alert-danger alert-dismissible" role="alert"
+                                            style="display: none">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
                                                 <span>&times;</span>
                                             </button>
                                         </div>
                                         <div id="progress" class="progress" style="display: none">
                                             <div class="progress-bar progress-bar-success"></div>
                                         </div>
-                                        <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview" src="" />
+                                        <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview"
+                                            src="" />
                                     </div>
                                 </div>
                             </div>
@@ -233,8 +237,8 @@
                                     <select class="input-sm" name="genres[]" id="select-genre" multiple
                                         style="width: 100%">
                                         {{-- <option value="1">Action</option> --}}
-                                        @foreach ($genres as $key=>$value)
-                                        <option value="{{ $value }}">{{ $key }}</option>
+                                        @foreach ($genres as $key => $value)
+                                            <option value="{{ $value }}">{{ $key }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -306,10 +310,9 @@
                             </div>
                         </form>
 
-  
+
 
                         <script>
-                            
                             $(document).ready(function() {
                                 $('#select-type').on('change', function() {
                                     var value = $(this).val();
@@ -325,7 +328,6 @@
                                     closeOnSelect: false,
                                 });
                             });
-                            
                         </script>
                     </div>
                 </div>

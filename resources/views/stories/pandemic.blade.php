@@ -1,117 +1,6 @@
 @extends('partials.sidebar')
-@section('pandemic');
-<div id="page-top"></div>
-    <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
-    <div id="navbar" class="headroom">
-        <div class="container">
-            <div id="sidenav-icon" class="none-xl">
-                <div class="sidenav-icon-content">
-                    <span class="sidenav-icon_white"></span>
-                    <span class="sidenav-icon_white"></span>
-                    <span class="sidenav-icon_white"></span>
-                </div>
-                <ul class="navbar-menu none hidden-block at-mobile unstyle">   
-                    <div class="navbar-search block none-m in-navbar-menu">
-                        <form class="" action="https://docln.net/tim-kiem" method="get">
-                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
-                            <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>               
-
-                    <li><a class="nav-menu_item" href="{{route('composer')}}"><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('pandemic')}}"><span class="">Máy dịch</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('publish')}}"><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('discuss')}}"><span class="">Thảo luận</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('list')}}"><span class="">Danh sách</span></a></li>
-                    
-                    <li class="nav-has-submenu">
-                        <a class="nav-menu_item">
-                            <span class="">Hướng dẫn</span>
-                            <i class="fas fa-chevron-down dropdown-icon" style="float: right; margin-top: 6px"></i>
-                        </a>
-
-                        <ul class="nav-submenu list-unstyled none">
-                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
-                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
-                            <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
-                            <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="navbar-logo-wrapper">
-                <a href="/" class="navbar-logo" style="background-image: url('img/logo-9.png')" title="Trang chủ"></a>
-            </div>
-             
-            <div id="navbar-user" class="guest">						
-                <a class="login-link" href="{{route('login')}}">Đăng nhập</a>
-				<div id="guest-menu">
-					<div class="icon">
-						<span class="white-point"></span>
-						<span class="white-point"></span>
-						<span class="white-point"></span>
-					</div>
-					<ul class="nav-submenu hidden-block unstyled none">
-						<li>
-							<div class="nightmode-toggle li-inner">
-                                <span><i class="fas fa-moon"></i>Nền tối</span>
-								<div class="toggle-icon">
-									<i class="fa fa-toggle-off"></i>
-								</div>
-							</div>
-						</li>
-                        <li>
-                            <a class="li-inner" href="lich-su-doc.html"><i class="fas fa-history"></i><span>Lịch sử</span></a>
-                        </li>
-					</ul>
-				</div>
-			</div>
-                        <div class="navbar-mainblock">
-                <div class="navbar-search none block-m">
-                    <form class="" action="https://docln.net/tim-kiem" method="get">
-                        <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
-                        <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>          
-                <ul class="navbar-menu at-navbar none d-xl-block unstyled">               
-                    <li><a class="nav-menu_item" href="{{route('composer')}}"><i class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
-
-                    <li><a class="nav-menu_item" href="{{route('pandemic')}}"><i class="fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('publish')}}"><i class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('discuss')}}"><i class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('list')}}"><i class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
-                    
-                    <li class="nav-has-submenu">
-                        <a class="nav-menu_item">
-                            <i class="fas fa-question menu-icon"></i><span class="">Hướng dẫn</span>
-                            <i class="fas fa-chevron-down dropdown-icon"></i>
-                            <i class="fas fa-chevron-right dropdown-icon"></i>
-                        </a>
-
-                        <ul class="nav-submenu hidden-block unstyled none">
-                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
-                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
-                            <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
-                            <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!--<section id="nav-search"></section>-->
-        </div>
-    </div>
-        <div class="page-top-group ">
-                <a href="thao-luan/2591-ra-mat-hako-facebook-group.html">
-                        <div class="index-background d-none d-lg-block" style="background-image: url('images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none" style="background-image: url('images/banners/fbg_m.jpg'); background-size: cover"></div>
-                    </a>
-            </div>
-            <main id="mainpart" class="orinovel-page convert-type">
+@section('noidung')
+ <main id="mainpart" class="orinovel-page convert-type">
                 <header class="page-title">
                     <div class="page-name_wrapper">
                         <div class="container">
@@ -132,7 +21,7 @@
                                         <a href="convert/18854-engoku-no-bara-hime-seiji-no-tsugou-de-korosaremashita-ga-saikyou-no-undead-toshite-yomigaerimashita.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18854-42e6ca65-ee63-451d-8669-8ae006dd9021.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image16.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,7 +50,7 @@
                                         <a href="convert/18864-destiny-unchain-online.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18864-6abce471-b60f-4136-9164-6cc18cb0021c.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image18.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,7 +79,7 @@
                                         <a href="convert/18908-ai-ni-korosareta-bokutachi-wa.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18908-133233d4-5345-4c4f-bdd4-6dc463e99007.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image13.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -220,7 +109,7 @@
                                         <a href="convert/18852-imouto-life.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18852-d84436ca-20c1-4160-9a9e-0a5b5e94ff6b.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image11.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,7 +140,7 @@
                                         <a href="convert/18871-tuyet-vong-vi-that-tinh-toi-quyet-dinh-tro-thanh-mot-vtuber-vang-danh.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18871-adf2b4c4-3391-44b0-9048-fc5b74c92d1c.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image12.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,7 +170,7 @@
                                         <a href="convert/18909-ore-no-imouto-ga-saikou-no-okazudatta.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18909-7a1954d3-a336-47a1-b202-c4c07836e9a1.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image20.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -310,7 +199,7 @@
                                         <a href="convert/18825-huyet-co-va-ky-si.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18825-87db1189-f464-4e9c-b901-41a700d2500f.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image17.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -338,7 +227,7 @@
                                         <a href="convert/18942-y-kien-ca-nhan-cua-dau-hoang.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18942-65b806e4-3d88-4e45-8b01-b2a6d1619877.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image18.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -366,7 +255,7 @@
                                         <a href="convert/18781-boku-wo-futta-oshiego-ga-1-shuukan-gotoni-dere-tekuru-rabukome.html">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
-                                                    <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18781-9f94eeb3-20d5-4171-b3e0-33821e1ac1b7.jpg')">
+                                                    <div class="content img-in-ratio" style="background-image: url('img/path/image14.jpg')">
                                                     </div>
                                                 </div>
                                             </div>

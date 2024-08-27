@@ -18,44 +18,56 @@ class HomeController extends Controller
         return view('home.about');
     }
 
-    public function reader()
+    public function chuongtruyen()
     {
         return view('reading.reader');
+    }
+
+    public function danhsach()
+    {
+        return view('stories.list');
+    }
+    public function UserHome()
+    {
+        return view('users.profile');
+    }
+    public function createTruyen()
+    {
+        return view('stories.create');
+    }
+    public function sangtac()
+    {
+        return view('stories.composer');
+    }
+    public function xuatban()
+    {
+        return view('stories.publish');
+    }
+    public function vuadang()
+    {
+        return view('stories.pandemic');
+    }
+    public function thaoluan()
+    {
+        return view('stories.discuss');
     }
     public function login()
     {
         return view('auth.login');
     }
+
     public function register()
     {
         return view('auth.register');
     }
-    public function list()
+
+    public function email()
     {
-        return view('stories.index');
+        return view('auth.password.email');
     }
-    public function profile()
+
+    public function reset()
     {
-        return view('users.profile');
-    }
-    public function create()
-    {
-        return view('stories.create');
-    }
-    public function composer()
-    {
-        return view('stories.composer');
-    }
-    public function publish()
-    {
-        return view('stories.publish');
-    }
-    public function pandemic()
-    {
-        return view('stories.pandemic');
-    }
-    public function discuss()
-    {
-        return view('stories.discuss');
+        return view('auth.password.reset');
     }
 }

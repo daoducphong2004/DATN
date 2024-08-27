@@ -21,6 +21,17 @@
     <link rel="stylesheet" href="{{asset('css/tailwind.css')}}">
     <link rel="stylesheet" href="{{asset('css/all.min.css')}}" />
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app_dark.css')}}">
+    <link rel="stylesheet" href="{{asset('css/tailwind8331.css')}}">
+  
+    
+    
+   
+
+
+
+
     <script src="{{asset('js/plugins.js')}}"></script>
 
    
@@ -38,24 +49,19 @@
 </head>
 
 <body>
+    @include('partials.header')
 
 
-    
-    @yield('noidung');
-    @yield('gioithieu')
-    @yield('register');
-    @yield('login');
-    @yield('list');
-    @yield('composer');
-    @yield('profile');
-    @yield('create');
-    @yield('publish');
-    @yield('pandemic');
-    @yield('discuss');
+    <div class="container">
+        @yield('noidung')
+       
+
+    </div>
+  
 
  
 
-    @include('partials.footer');
+    @include('partials.footer')
 
     <!---- customer js file -->
     <script src="{{asset('frontend/script.js')}}"></script>

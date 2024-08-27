@@ -251,78 +251,15 @@ th {
     }
 }
 @font-face {
-    font-family: "Roboto";
-    src: url("/font/Roboto-Italic.ttf") format("truetype");
-    font-style: italic;
+    font-family: "Glyphicons Halflings";
+    src: url("http://datn.test/fonts/glyphicons-halflings-regular.eot");
+    src: url("http://datn.test/fonts/glyphicons-halflings-regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../fonts/glyphicons-halflings-regular.woff") format("woff"),
+        url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"),
+        url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular")
+            format("svg");
 }
-
-@font-face {
-    font-family: "Roboto";
-    src: url("/font/Roboto-BoldItalic.ttf") format("truetype");
-    font-weight: bold;
-    font-style: italic;
-}
-
-/* Font OpenSans */
-@font-face {
-    font-family: "OpenSans";
-    src: url("/font/OpenSans-Regular.ttf") format("truetype");
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "OpenSans";
-    src: url("/font/OpenSans-Bold.ttf") format("truetype");
-    font-weight: bold;
-    font-style: normal;
-}
-
-body {
-    font-family: "Roboto", sans-serif;
-}
-
-.italic-text {
-    font-family: "Roboto", sans-serif;
-    font-style: italic;
-}
-
-.bold-italic-text {
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.open-sans-text {
-    font-family: "OpenSans", sans-serif;
-}
-/* Áp dụng Times New Roman cho toàn bộ văn bản */
-body {
-    font-family: "Times New Roman", serif;
-}
-
-/* Áp dụng Times New Roman cho các phần tử cụ thể */
-h1,
-h2,
-h3 {
-    font-family: "Times New Roman", serif;
-}
-
-.italic-text {
-    font-family: "Times New Roman", serif;
-    font-style: italic;
-}
-
-.bold-text {
-    font-family: "Times New Roman", serif;
-    font-weight: bold;
-}
-
-.bold-italic-text {
-    font-family: "Times New Roman", serif;
-    font-weight: bold;
-    font-style: italic;
-}
-
 .glyphicon {
     position: relative;
     top: 1px;

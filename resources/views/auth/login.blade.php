@@ -1,6 +1,5 @@
-@extends('partials.sidebar')
-@section('login')
-
+@extends('auth.logs.log')
+@section('noidung')
 <nav class="navbar navbar-default" style="z-index: 999">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -91,4 +90,3 @@
 </div>
 </div>
 @endsection
-

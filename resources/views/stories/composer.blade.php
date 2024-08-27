@@ -1,117 +1,7 @@
 @extends('partials.sidebar')
-@section('composer');
-<div id="page-top"></div>
-    <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
-    <div id="navbar" class="headroom">
-        <div class="container">
-            <div id="sidenav-icon" class="none-xl">
-                <div class="sidenav-icon-content">
-                    <span class="sidenav-icon_white"></span>
-                    <span class="sidenav-icon_white"></span>
-                    <span class="sidenav-icon_white"></span>
-                </div>
-                <ul class="navbar-menu none hidden-block at-mobile unstyle">   
-                    <div class="navbar-search block none-m in-navbar-menu">
-                        <form class="" action="https://docln.net/tim-kiem" method="get">
-                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
-                            <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
-                        </form>
-                    </div>               
+@section('noidung')
 
-                    <li><a class="nav-menu_item" href="{{route('composer')}}"><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('pandemic')}}"><span class="">Máy dịch</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('publish')}}"><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('discuss')}}"><span class="">Thảo luận</span></a></li>
-                    <li><a class="nav-menu_item" href="{{route('list')}}"><span class="">Danh sách</span></a></li>
-                    
-                    <li class="nav-has-submenu">
-                        <a class="nav-menu_item">
-                            <span class="">Hướng dẫn</span>
-                            <i class="fas fa-chevron-down dropdown-icon" style="float: right; margin-top: 6px"></i>
-                        </a>
-
-                        <ul class="nav-submenu list-unstyled none">
-                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
-                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
-                            <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
-                            <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="navbar-logo-wrapper">
-                <a href="/" class="navbar-logo" style="background-image: url('img/logo-9.png')" title="Trang chủ"></a>
-            </div>
-             
-            <div id="navbar-user" class="guest">						
-                <a class="login-link" href="{{route('login')}}">Đăng nhập</a>
-				<div id="guest-menu">
-					<div class="icon">
-						<span class="white-point"></span>
-						<span class="white-point"></span>
-						<span class="white-point"></span>
-					</div>
-					<ul class="nav-submenu hidden-block unstyled none">
-						<li>
-							<div class="nightmode-toggle li-inner">
-                                <span><i class="fas fa-moon"></i>Nền tối</span>
-								<div class="toggle-icon">
-									<i class="fa fa-toggle-off"></i>
-								</div>
-							</div>
-						</li>
-                        <li>
-                            <a class="li-inner" href="lich-su-doc.html"><i class="fas fa-history"></i><span>Lịch sử</span></a>
-                        </li>
-					</ul>
-				</div>
-			</div>
-                        <div class="navbar-mainblock">
-                <div class="navbar-search none block-m">
-                    <form class="" action="https://docln.net/tim-kiem" method="get">
-                        <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
-                        <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>          
-                <ul class="navbar-menu at-navbar none d-xl-block unstyled">               
-                    <li><a class="nav-menu_item" href="{{route('composer')}}"><i class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
-
-                    <li><a class="nav-menu_item" href="{{route('pandemic')}}"><i class="fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('publish')}}"><i class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('discuss')}}"><i class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>
-                    
-                    <li><a class="nav-menu_item" href="{{route('list')}}"><i class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
-                    
-                    <li class="nav-has-submenu">
-                        <a class="nav-menu_item">
-                            <i class="fas fa-question menu-icon"></i><span class="">Hướng dẫn</span>
-                            <i class="fas fa-chevron-down dropdown-icon"></i>
-                            <i class="fas fa-chevron-right dropdown-icon"></i>
-                        </a>
-
-                        <ul class="nav-submenu hidden-block unstyled none">
-                            <li><a href="{{route('create')}}"><span>Đăng truyện</span></a></li>
-                            <li><a href="{{route('about')}}"><span>Giới thiệu</span></a></li>
-                            <li><a href="thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi.html"><span>Góp ý - Báo lỗi</span></a></li>
-                            <li><a href="privacy-policy.html"><span>Privacy Policy</span></a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-
-            <!--<section id="nav-search"></section>-->
-        </div>
-    </div>
-        <div class="page-top-group ">
-                <a href="thao-luan/2591-ra-mat-hako-facebook-group.html">
-                        <div class="index-background d-none d-lg-block" style="background-image: url('images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none" style="background-image: url('images/banners/fbg_m.jpg'); background-size: cover"></div>
-                    </a>
-                </div>
-                <main id="mainpart" class="orinovel-page orinovel-type">
+ <main id="mainpart" class="orinovel-page orinovel-type">
                     <header class="page-title">
                         <div class="page-name_wrapper">
                             <div class="container">
@@ -132,7 +22,9 @@
                                                 <div class="thumb-wrapper">
                                                     <a href="sang-tac/18996-respectre.html" title="Re/Spectre">
                                                         <div class="a6-ratio">									
-                                                            <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18996-3116ffce-5ce6-4ef1-8c53-e8f9c22299c1.jpg')"></div>
+                                                            <div class="content img-in-ratio" style="background-image: url('')">
+                                                                <img src="img/path/s16848-fbe52b94-ff7f-43cc-a482-a027f4ab1a73.jpg" alt="">
+                                                            </div>
                                                         </div>
                                                     </a>
                                                     <div class="thumb-detail">										
@@ -144,7 +36,9 @@
                                                 <div class="thumb-wrapper">
                                                     <a href="sang-tac/18994-tho-san-bong-toi.html" title="Thợ săn bóng tối">
                                                         <div class="a6-ratio">									
-                                                            <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18994-7e53a397-b52f-445c-99ca-10f1af84a027.jpg')"></div>
+                                                            <div class="content img-in-ratio" style="background-image: url('')">
+                                                                <img src="img/path/s16927-1ca4f0f8-f9af-4555-9b43-74b78f7910d1.jpg" alt="">
+                                                            </div>
                                                         </div>
                                                     </a>
                                                     <div class="thumb-detail">										
@@ -156,7 +50,9 @@
                                                 <div class="thumb-wrapper">
                                                     <a href="sang-tac/18991-davay-idi.html" title="Davay Idi">
                                                         <div class="a6-ratio">									
-                                                            <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18991-fa541d03-a145-4179-a298-8ea42dd7727e.jpg')"></div>
+                                                            <div class="content img-in-ratio" style="background-image: url('')">
+                                                                <img src="img/path/s14884-b33418e3-89ca-4f59-8c28-421fae46de80-m.jpg" alt="">
+                                                            </div>
                                                         </div>
                                                     </a>
                                                     <div class="thumb-detail">										
@@ -180,7 +76,9 @@
                                                 <div class="thumb-wrapper">
                                                     <a href="sang-tac/17923-chuyen-sau-mua.html" title="Chuyện Sau Mưa">
                                                         <div class="a6-ratio">									
-                                                            <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s17923-e061811d-1c46-454b-b93a-109ef19c6bd7.jpg')"></div>
+                                                            <div class="content img-in-ratio" style="background-image: url('')">
+                                                                <img src="img/path/s9193-28267b79-2581-420f-be87-d3cb0ea0f46d-m.jpg" alt="">
+                                                            </div>
                                                         </div>
                                                     </a>
                                                     <div class="thumb-detail">										
@@ -204,7 +102,9 @@
                                                 <div class="thumb-wrapper">
                                                     <a href="sang-tac/17688-rerise-hoccachyeu.html" title="Học  Cách  Yêu">
                                                         <div class="a6-ratio">									
-                                                            <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s17688-7baf4351-1f41-4a38-a142-e3bb3d5637e4.jpg')"></div>
+                                                            <div class="content img-in-ratio" style="background-image: url('')">
+                                                                <img src="img/path/s9193-28267b79-2581-420f-be87-d3cb0ea0f46d-m.jpg" alt="">
+                                                            </div>
                                                         </div>
                                                     </a>
                                                     <div class="thumb-detail">										
@@ -236,7 +136,8 @@
                                             <a href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18883-2f5b1bb2-b49c-48ae-beaf-47e4894038d8.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('')">
+                                                            <img src="img/path/s9193-28267b79-2581-420f-be87-d3cb0ea0f46d-m.jpg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -292,7 +193,8 @@
                                             <a href="sang-tac/15764-last-time-return.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s15764-909b9bcc-cbb5-49bf-bf4c-a4eff3838bf2.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('')">
+                                                            <img src="img/path/s16848-fbe52b94-ff7f-43cc-a482-a027f4ab1a73.jpg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -321,7 +223,8 @@
                                             <a href="sang-tac/19006-giac-mo-cua-nhung-anh-hung-hi-vong.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s19006-7a98cfc5-61e7-48ba-ad28-fd53a6927c14.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('')">
+                                                            <img src="img/path/s12957-595fd6ec-610c-4481-b187-172cc7cb4896.jpg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -350,7 +253,8 @@
                                             <a href="sang-tac/18936-thich-cau-khong-the-ly-giai.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18936-255e5bcc-df28-42b4-ac9b-f66b55359465.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('')">
+                                                            <img src="img/path/s9193-28267b79-2581-420f-be87-d3cb0ea0f46d-m.jpg" alt="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -407,7 +311,7 @@
                                             <a href="sang-tac/17688-rerise-hoccachyeu.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s17688-7baf4351-1f41-4a38-a142-e3bb3d5637e4.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('img/path/test1.jpg')">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -439,7 +343,7 @@
                                             <a href="sang-tac/18947-thien-menh-cuu-roi-cua-nguoi-chua-lanh.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18947-af3e7565-b1a7-4775-bc67-c73373c1f542.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('img/path/image20.jpg')">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -468,7 +372,7 @@
                                             <a href="sang-tac/18498-lily-blossom-over-a-pool-of-blood.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18498-2eaaa3b8-4471-4629-879d-af5c7435f866.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('img/path/image18.jpg')">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -496,7 +400,7 @@
                                             <a href="sang-tac/18991-davay-idi.html">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18991-fa541d03-a145-4179-a298-8ea42dd7727e.jpg')">
+                                                        <div class="content img-in-ratio" style="background-image: url('img/path/image19.jpg')">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -547,7 +451,9 @@
                                             <div class="section-content">
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('../i.docln.net/lightnovel/covers/s6979-cc1008a8-e6e1-4de6-b99e-4830413e5120-m.jpg')"></div>
+                                                        <div class="content img-in-ratio" style="background-image: url('')">
+                                                            <img src="img/path/s16927-1ca4f0f8-f9af-4555-9b43-74b78f7910d1.jpg" alt="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="series-information">
@@ -612,7 +518,7 @@
                 </div>                                                            <div class="comment-item">
                         <div class="comment-user_ava">
                         <a href="thanh-vien/104394.html">
-                            <img src="../i2.docln.net/ln/users/avatars/u104394-15eaee4f-7adc-4d33-996a-e92a92e19e5e.jpg">
+                            <img src="img/path/image10.jpg">
                         </a>
                     </div>
                     <div class="comment-info">
@@ -636,7 +542,7 @@
                 </div>                                                            <div class="comment-item">
                         <div class="comment-user_ava">
                         <a href="thanh-vien/144381.html">
-                            <img src="../i2.docln.net/ln/users/avatars/u144381-4effdbb8-899a-4e95-9098-d23644527286.jpg">
+                            <img src="img/path/image18.jpg">
                         </a>
                     </div>
                     <div class="comment-info">
@@ -660,7 +566,7 @@
                 </div>                                                            <div class="comment-item">
                         <div class="comment-user_ava">
                         <a href="thanh-vien/144381.html">
-                            <img src="../i2.docln.net/ln/users/avatars/u144381-4effdbb8-899a-4e95-9098-d23644527286.jpg">
+                            <img src="img/path/image18.jpg">
                         </a>
                     </div>
                     <div class="comment-info">
@@ -898,7 +804,8 @@
                                                                                         <li>
                                                         <div class="others-img no-padding">
                                                             <div class="a6-ratio">
-                                                                <div class="content img-in-ratio" style="background-image: url('../i2.docln.net/ln/series/covers/s18994-7e53a397-b52f-445c-99ca-10f1af84a027.jpg')">
+                                                                <div class="content img-in-ratio" style="background-image: url('')">
+                                                                    <img src="" alt="">
                                                                 </div>
                                                             </div>
                                                         </div>    

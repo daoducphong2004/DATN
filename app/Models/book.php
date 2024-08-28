@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class book extends Model
 {
     use HasFactory;
-    protected $fillable =
-    [
+    protected $fillable = [
         'type',
         'status',
         'like',

@@ -16,7 +16,7 @@
                     {{-- </a> --}}
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="" class="link-underline link-underline-opacity-0"><i
+                            <a href="{{url('taikhoan')}}" class="link-underline link-underline-opacity-0"><i
                                     class="fas me-2 fa-user"></i><span>Tài khoản</span></a>
                         </li>
                         <li>

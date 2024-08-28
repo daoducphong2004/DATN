@@ -50,6 +50,10 @@ class UserController extends Controller
         return view('home.gopy');
     }
 
+    public function taikhoan(){
+        return view('home.taikhoan');
+    }
+
     public function login(){
         return view('auth.login');
     }

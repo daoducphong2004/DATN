@@ -21,9 +21,12 @@ Route::controller(HomeController::class)
         Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
         Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
         Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
+        Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
         Route::get('login', [UserController::class, 'login']);
         Route::get('register', [UserController::class, 'register']);
+        Route::get('email', [UserController::class, 'email']);
+        Route::get('reset', [UserController::class, 'reset']);
 
         Route::get('UserHome', [UserController::class, 'home']);
         Route::get('createTruyen', [UserController::class, 'createTruyen']);

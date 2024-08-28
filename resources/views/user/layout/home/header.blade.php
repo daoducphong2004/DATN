@@ -78,7 +78,7 @@
                     </li>
                     <li><a href="{{url('createTruyen')}}" class="nav-menu_item link-underline link-underline-opacity-0" style="color: red">Thêm
                             Truyện</a></li>
-                    <li><a class="nav-menu_item link-underline link-underline-opacity-0" href="{{url('UserHome')}}"><i
+                    <li><a class="nav-menu_item link-underline link-underline-opacity-0" href="{{url('home')}}"><i
                                 class="fas fa-home text-black"></i><span class="hidden-md hidden-lg"> Home</span></a></li>
                 </ul>
             </div>

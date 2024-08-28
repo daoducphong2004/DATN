@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\USER\UserController;
+use App\Models\book;
+use App\Models\genre;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,13 +124,15 @@ Route::prefix('admin')->group(function () {
 
 Route::resource('story', BookController::class);
 
-Route::get('stories/information', function () {
-    return view('stories.iframe.information');
+Route::get('stories/information/{book}', function (book $book) {
+        $genres = genre::pluck('id', 'name');
+    return view('stories.iframe.information',compact('book','genres'));
 })->name('storyinformation');
 
-Route::get('stories/tree', function () {
-    return view('stories.iframe.tree');
+Route::get('stories/tree/{book}', function (book $book) {
+    return view('stories.iframe.tree',compact('book'));
 })->name('storytree');
+
 Route::get('stories/addepisode', function () {
     return view('stories.iframe.formAddEpisode');
 })->name('storyepisode');

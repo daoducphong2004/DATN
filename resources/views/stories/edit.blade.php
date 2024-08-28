@@ -1,5 +1,4 @@
 @include('stories.partials.header')
-
 <body data-theme="light">
     <nav class="navbar navbar-default" style="z-index: 999">
         <div class="container-fluid">

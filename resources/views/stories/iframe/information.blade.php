@@ -1,32 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="NoIndex, NoFollow">
-    <title>Bảng điều khiển</title>
-
-    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app_dark.css') }}" rel="stylesheet">
-
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <link href="{{ asset('css/action.css?t=3') }}" rel="stylesheet">
-</head>
+@include('stories.iframe.partials.header')
 
 <body data-theme="light">
 
@@ -51,15 +23,16 @@
                             }
                         </script>
 
-                        <form role="form" method="POST" action="{{route('story.update',$data->id)}}">
-							@csrf
-							@method('PUT')
-							<input type="hidden" name="series_id" value="{{$data->id}}">
+                        <form role="form" method="POST" action="{{ route('story.update', $book->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="series_id" value="{{ $book->id }}">
 
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="{{$data->title}}">
+                                    <input type="text" class="form-control" name="title"
+                                        value="{{ $book->title }}">
                                 </div>
                             </div>
 
@@ -67,7 +40,7 @@
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right"><b>Nội dung nhạy cảm?</b></label>
                                 <div class="col-md-8">
-                                    <input type="checkbox" name="adult" value="{{$data->adult}}">
+                                    <input type="checkbox" name="adult" value="{{ $book->adult }}">
                                 </div>
                             </div>
 
@@ -98,14 +71,16 @@
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="author" value="{{$data->author}}">
+                                    <input type="text" class="form-control" name="author"
+                                        value="{{ $book->author }}">
                                 </div>
                             </div>
-
+                            {{-- {{ dd($book->genres) }} --}}
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label pt-7 text-right">Họa sĩ</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="painter" value="{{$data->painter}}">
+                                    <input type="text" class="form-control" name="painter"
+                                        value="{{ $book->painter }}">
                                 </div>
                             </div>
 
@@ -136,65 +111,10 @@
                                 <div class="col-md-10">
                                     <select class="input-sm" name="genres[]" id="select-genre" multiple
                                         style="width: 100%">
-                                        <option value="1" selected>Action</option>
-                                        <option value="49" selected>Adapted to Anime</option>
-                                        <option value="51" selected>Adapted to Drama CD</option>
-                                        <option value="50">Adapted to Manga</option>
-                                        <option value="28">Adult</option>
-                                        <option value="2">Adventure</option>
-                                        <option value="52">Age Gap</option>
-                                        <option value="60">Boys Love</option>
-                                        <option value="54">Character Growth</option>
-                                        <option value="39">Chinese Novel</option>
-                                        <option value="3">Comedy</option>
-                                        <option value="43">Cooking</option>
-                                        <option value="56">Different Social Status</option>
-                                        <option value="4">Drama</option>
-                                        <option value="5">Ecchi</option>
-                                        <option value="40">English Novel</option>
-                                        <option value="6">Fantasy</option>
-                                        <option value="59">Female Protagonist</option>
-                                        <option value="45">Game</option>
-                                        <option value="7">Gender Bender</option>
-                                        <option value="8">Harem</option>
-                                        <option value="35">Historical</option>
-                                        <option value="9">Horror</option>
-                                        <option value="10">Incest</option>
-                                        <option value="30">Isekai</option>
-                                        <option value="33">Josei</option>
-                                        <option value="34">Korean Novel</option>
-                                        <option value="44">Magic</option>
-                                        <option value="37">Martial Arts</option>
-                                        <option value="27">Mature</option>
-                                        <option value="11">Mecha</option>
-                                        <option value="36">Military</option>
-                                        <option value="58">Misunderstanding</option>
-                                        <option value="12">Mystery</option>
-                                        <option value="32">Netorare</option>
-                                        <option value="38">One shot</option>
-                                        <option value="46">Otome Game</option>
-                                        <option value="61">Parody</option>
-                                        <option value="23">Psychological</option>
-                                        <option value="47">Reverse Harem</option>
-                                        <option value="22">Romance</option>
-                                        <option value="13">School Life</option>
-                                        <option value="14">Science Fiction</option>
-                                        <option value="31">Seinen</option>
-                                        <option value="15">Shoujo</option>
-                                        <option value="16">Shoujo ai</option>
-                                        <option value="26">Shounen</option>
-                                        <option value="17">Shounen ai</option>
-                                        <option value="18">Slice of Life</option>
-                                        <option value="55">Slow Life</option>
-                                        <option value="19">Sports</option>
-                                        <option value="24">Super Power</option>
-                                        <option value="20">Supernatural</option>
-                                        <option value="25">Suspense</option>
-                                        <option value="21">Tragedy</option>
-                                        <option value="53">Wars</option>
-                                        <option value="29">Web Novel</option>
-                                        <option value="57">Workplace</option>
-                                        <option value="48">Yuri</option>
+                                        @foreach ($genres as $key => $value)
+                                            <option @selected(in_array($value,$book->genres->pluck('id')->all())) value="{{ $value }}">{{ $key }}</option>
+                                            {{-- <option value="{{ $value }}" @if(in_array($value, $book->genres->pluck('id')->all())) selected @endif>{{ $key }}</option> --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

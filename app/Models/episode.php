@@ -14,5 +14,8 @@ class episode extends Model
         'description',
         'episode_path',
         'boook_id',
-        ];
+    ];
+    public function chapters(){
+        return $this->hasMany(chapter::class,'episode_id');
+    }
 }

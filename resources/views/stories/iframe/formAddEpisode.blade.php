@@ -6,46 +6,35 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Book</div>
+                    <div class="panel-heading">Episode</div>
 
                     <div class="panel-body">
 
 
-                        <form role="form" method="POST" action="https://docln.net/action/book/store">
-                            <input type="hidden" name="_token" value="CY8UdDcA5sTShlgxI6F6TI0VGHI79s7VKXoAPqFr">
-                            <input type="hidden" name="series_id" value="19083">
+                        <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('episode.store') }}">
+                            @csrf
+                            <input type="hidden" name="book_id" value="{{ $book->id }}">
 
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="Tập 01 ">
+                                    <input type="text" class="form-control" name="title" value="">
                                 </div>
                             </div>
-
                             <div class="form-group clearfix">
-                                <label class="col-md-2 control-label pt-5 text-right">Loại truyện</label>
-                                <div class="col-md-10">
-                                    <select class="input-sm" name="seriestype" disabled>
-                                        <option value="1" selected>Truyện dịch</option>
-                                        <option value="2">Truyện convert</option>
-                                        <option value="3">Truyện sáng tác</option>
-                                    </select>
+                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa </label>
+                                <div class="col-md-8">
+                                    <input type="file" class="form-control" name="episode_path" value="">
                                 </div>
                             </div>
 
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right">Tóm tắt</label>
                                 <div class="col-md-10">
-                                    <textarea id="LN_Book_Summary" name="summary"></textarea>
+                                    <textarea id="LN_Book_Summary" name="description"></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-group clearfix">
-                                <label class="col-md-2 control-label pt-7 text-right">Link down</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" name="download" value="">
-                                </div>
-                            </div>
 
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
                             <script>

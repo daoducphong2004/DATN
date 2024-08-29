@@ -3,11 +3,15 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
+use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\EpisodeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\USER\UserController;
 use App\Models\book;
+use App\Models\chapter;
+use App\Models\episode;
 use App\Models\genre;
 
 /*
@@ -124,7 +128,9 @@ Route::prefix('admin')->group(function () {
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 });
 Route::resource('story', BookController::class);
-
+Route::resource('episode', EpisodeController::class);
+Route::resource('chapter', ChapterController::class);
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
     return view('stories.iframe.information', compact('book', 'genres'));
@@ -134,6 +140,10 @@ Route::get('stories/tree/{book}', function (book $book) {
     return view('stories.iframe.tree', compact('book'));
 })->name('storytree');
 
-Route::get('stories/addepisode', function () {
-    return view('stories.iframe.formAddEpisode');
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.formAddEpisode', compact('book'));
 })->name('storyepisode');
+
+Route::get('stories/addchapter/{episode}', function (episode  $episode) {
+    return view('stories.iframe.formAddChapter', compact('episode'));
+})->name('storychapter');

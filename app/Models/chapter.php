@@ -13,6 +13,7 @@ class chapter extends Model
         'title',
         'content',
         'episode_id',
+        // 'user_id',
     ];
 
 }

@@ -34,9 +34,10 @@
         $('span').removeClass('current');
         $(element).addClass('current');
 
+        var id = element.getAttribute('data-item');
+
         for (var i = 0; i < chil.length; i++) {
             var child = chil[i];
-            var id = element.getAttribute('data-item');
 
             switch (child.innerText) {
                 case 'Sửa truyện':
@@ -46,19 +47,6 @@
                         'action=editseries'
                     );
                     break;
-                    // case 'Chuyển quyền':
-                    //     child.onclick = () => openLink(
-                    //         'https://docln.net/action/series/19025/transfermembers',
-                    //         '_parent'
-                    //     );
-                    //     break;
-                    // case 'Thêm quyền':
-                    //     child.onclick = () => openLink(
-                    //         'https://docln.net/action/series/19025/sharemembers?navbar=0',
-                    //         'action',
-                    //         'action=shareseries'
-                    //     );
-                    //     break;
                 case 'Xóa truyện':
                     child.onclick = () => {
                         if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
@@ -88,7 +76,7 @@
                     break;
                 case 'Thêm tập':
                     child.onclick = () => openLink(
-                        '{{ route('storyepisode') }}',
+                        '{{ route('storyepisode',$book->id) }}',
                         'action',
                         'action=createbook'
                     );
@@ -122,8 +110,9 @@
                     );
                     break;
                 case 'Thêm chương':
+                    // Use the correct `id` of the selected episode here
                     child.onclick = () => openLink(
-                        'https://docln.net/action/chapter/create/book=' + id + '?navbar=0',
+                        '{{ route('storychapter', ':id') }}'.replace(':id', id),
                         'action',
                         'book_id=' + id + '&action=createchapter'
                     );

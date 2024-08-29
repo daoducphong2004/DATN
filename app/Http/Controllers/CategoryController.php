@@ -13,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::all();
-        return redirect()->route('home')->with('data',$data);
+        $data_category = Category::all();
+        return redirect()->route('home')->with('data_category',$data_category);
     }
 
     /**

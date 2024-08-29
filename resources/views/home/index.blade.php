@@ -169,6 +169,9 @@
         </div>
         <div class="col-12 col-lg-3">
             <section class="last-topics index-section">
+                @foreach ($data_category as $item_category)
+                {{$item_category}}
+                @endforeach
                 <header class="section-title">
                     <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
                             class="sts-empty">Luận</span></a>

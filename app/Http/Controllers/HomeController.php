@@ -12,7 +12,8 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('frontend.index');
+        $data_category = session('data_category', []);
+        return view('frontend.index',compact('data_category'));
     }
 
     public function chuongtruyen()

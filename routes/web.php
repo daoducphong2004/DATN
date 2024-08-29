@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\USER\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Models\book;
 use App\Models\genre;
 
@@ -48,7 +49,7 @@ Route::group([
 
 Route::controller(HomeController::class)
     ->group(function () {
-        Route::get('/', 'home')->name('home');
+        Route::get('/', 'home.index')->name('home');
         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
     });
 

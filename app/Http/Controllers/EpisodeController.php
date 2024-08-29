@@ -29,7 +29,7 @@ class EpisodeController extends Controller
      */
     public function store(StoreepisodeRequest $request)
     {
-        //
+
     }
 
     /**

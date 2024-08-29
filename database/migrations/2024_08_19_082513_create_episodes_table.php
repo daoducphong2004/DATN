@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('episode_path');
-            $table->foreignId(book::class)->constrained();
+            $table->foreignIdFor(book::class)->constrained();
             $table->timestamps();
         });
     }

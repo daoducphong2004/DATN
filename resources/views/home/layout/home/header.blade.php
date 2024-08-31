@@ -22,7 +22,7 @@
                         </li>
                         <li>
                             <a class="nav-menu_item text-black link-underline link-underline-opacity-0" href="{{url('thaoluan')}}">
-                                <i class="fas fa-users menu-icon"></i><span class>Thảoluận</span>
+                                <i class="fas fa-users menu-icon"></i><span class>Thảo luận</span>
                             </a>
                         </li>
                         <li><a class="nav-menu_item text-black link-underline link-underline-opacity-0" href="{{url('danhsach')}}"><i class="fas fa-th-list menu-icon"></i><span class>Danh
@@ -31,9 +31,9 @@
                             <a class="nav-menu_item text-black link-underline link-underline-opacity-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Hướng dẫn</a>
 
                             <ul class="dropdown-menu" style="max-width: min-content;">
-                                <li><a href="{{url('huongdan_dangtruyen')}}" class="nav-menu_item link-underline link-underline-opacity-0"><span>Đăng truyện</span></a></li>
-                                <li><a href="{{url('huongdan_gioithieu')}}" class="nav-menu_item link-underline link-underline-opacity-0"><span>Giới thiệu</span></a></li>
-                                <li><a href="{{url('huongdan_gopy')}}" class="nav-menu_item link-underline link-underline-opacity-0"><span>Góp ý - Báo
+                                <li><a href="{{url('huongdan_dangtruyen')}}" class="nav-menu_item text-black link-underline link-underline-opacity-0"><span>Đăng truyện</span></a></li>
+                                <li><a href="{{url('huongdan_gioithieu')}}" class="nav-menu_item text-black link-underline link-underline-opacity-0"><span>Giới thiệu</span></a></li>
+                                <li><a href="{{url('huongdan_gopy')}}" class="nav-menu_item text-black link-underline link-underline-opacity-0"><span>Góp ý - Báo
                                             lỗi</span></a></li>
                             </ul>
                         </li>
@@ -49,24 +49,22 @@
                                 src="{{ asset('users/user/img/apple-touch-icon-114x114.png') }}" alt="Your avatar"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                             {{-- </a> --}}
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu navbar-menu at-navbar none unstyled">
                                 <li>
-                                    <a href="{{url('taikhoan')}}" class="text-black ms-3 link-underline link-underline-opacity-0"><i
+                                    <a href="{{url('taikhoan')}}" class="nav-menu_item mt-2 text-black ms-3 link-underline link-underline-opacity-0"><i
                                             class="fas me-2 fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
-                                    <a href="" class="text-black ms-3 link-underline link-underline-opacity-0"><i
+                                    <a href="" class="nav-menu_item mt-2 text-black ms-3 link-underline link-underline-opacity-0"><i
                                             class="fas me-2 fa-history"></i><span>Lịch sử</span></a>
                                 </li>
 
-                                <hr class="none block-l">
-
                                 <li>
-                                    <a href="{{url('UserHome')}}" class="text-black ms-3 link-underline link-underline-opacity-0"><i
+                                    <a href="{{url('UserHome')}}" class="nav-menu_item mt-2 text-black ms-3 link-underline link-underline-opacity-0"><i
                                             class="fas me-2 fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
-                                    <a href="" class="text-black ms-3 link-underline link-underline-opacity-0"><i
+                                    <a href="" class="nav-menu_item mt-2 text-black ms-3 link-underline link-underline-opacity-0"><i
                                             class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
                                 </li>
                             </ul>

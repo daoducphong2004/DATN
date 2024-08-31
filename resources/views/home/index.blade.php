@@ -435,7 +435,7 @@
                 <main class="row">
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="{{url('gioithieu')}}">
+                            <a href="{{ url('gioithieu') }}">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
                                         style="background-image: url('{{ asset('users/user/img/path/image18.jpg') }}');">
@@ -443,7 +443,8 @@
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 3.3: Nữ hoàng đổi thay (3)">
+                                <div class="thumb_attr chapter-title"
+                                    title="Chương 3.3: Nữ hoàng đổi thay (3)">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 3.3: Nữ hoàng đổi thay
                                         (3)</a>
@@ -452,8 +453,9 @@
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Sống chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến thế</a>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Sống
+                                chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến
+                                thế</a>
                         </div>
                     </div>
 
@@ -462,23 +464,25 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17667-766ac239-714d-4a16-8045-1e548f204230.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image14.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title"
                                     title="Chương 3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi đây (5)">
-                                    <a class="text-white link-underline link-underline-opacity-0" href="">Chương
-                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi
+                                    <a class="text-white link-underline link-underline-opacity-0"
+                                        href="">Chương
+                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở
+                                        nơi
                                         đây (5)</a>
                                 </div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Cô tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Cô
+                                tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
                                 dâu?</a>
                         </div>
                     </div>
@@ -488,15 +492,15 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 03: Nơi đăng kí">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 03: Nơi đăng kí</a></div>
+                                        href="">Chương 03: Nơi đăng kí</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Web Novel</div>
                             </div>
                         </div>
@@ -504,16 +508,16 @@
                             <a class="text-black link-underline link-underline-opacity-0"
                                 href="">Transferred
                                 to Another World and Became a Teacher, but Being Feared as a Witch ~ Listen
-                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a></div>
+                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/truyen/17876-pick-me-up-gacha-vo-han/c141193-chuong-50-toi-se-cho-cau-nem-mui-that-bai-5">
+                            <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image17.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
@@ -521,12 +525,15 @@
                                 <div class="thumb_attr chapter-title">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 50: Tôi sẽ cho
-                                        cậu nếm mùi thất bại (5)</a></div>
+                                        cậu nếm mùi thất bại (5)</a>
+                                </div>
                                 <div class="thumb_attr volume-title">01-99</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick Me Up! Gacha Vô Hạn!</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick
+                                Me Up! Gacha Vô Hạn!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -535,21 +542,23 @@
                                 title="Chương 1: Khởi đầu mới">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 1: Khởi đầu mới">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 1: Khởi đầu mới</a></div>
+                                        href="">Chương 1: Khởi đầu mới</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Vol 1</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Mynoghra: Dị Giới
-                                Diệt Vong (Isekai Apocalypse Mynoghra)</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0"
+                                href="">Mynoghra: Dị Giới
+                                Diệt Vong (Isekai Apocalypse Mynoghra)</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -558,8 +567,7 @@
                                 title="Chương 2.1: Viên sô cô la đen ngọt ngào và đắng đầu tiên">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18108-c4a0b552-511f-4aae-a3c8-723baa9d4536.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18108-c4a0b552-511f-4aae-a3c8-723baa9d4536.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image12.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
@@ -573,9 +581,10 @@
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Hãy Chỉ Em Cách Để Ghi Nhớ Tình
-                                Yêu Này Đi</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Hãy
+                                Chỉ Em Cách Để Ghi Nhớ Tình
+                                Yêu Này Đi</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -588,7 +597,8 @@
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 3.3: Nữ hoàng đổi thay (3)">
+                                <div class="thumb_attr chapter-title"
+                                    title="Chương 3.3: Nữ hoàng đổi thay (3)">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 3.3: Nữ hoàng đổi thay
                                         (3)</a>
@@ -597,8 +607,9 @@
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Sống chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến thế</a>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Sống
+                                chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến
+                                thế</a>
                         </div>
                     </div>
 
@@ -608,8 +619,7 @@
                                 title="Chương 2.1: Viên sô cô la đen ngọt ngào và đắng đầu tiên">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18108-c4a0b552-511f-4aae-a3c8-723baa9d4536.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18108-c4a0b552-511f-4aae-a3c8-723baa9d4536.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image12.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
@@ -623,9 +633,10 @@
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Hãy Chỉ Em Cách Để Ghi Nhớ Tình
-                                Yêu Này Đi</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Hãy
+                                Chỉ Em Cách Để Ghi Nhớ Tình
+                                Yêu Này Đi</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -633,23 +644,25 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17667-766ac239-714d-4a16-8045-1e548f204230.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image14.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title"
                                     title="Chương 3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi đây (5)">
-                                    <a class="text-white link-underline link-underline-opacity-0" href="">Chương
-                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi
+                                    <a class="text-white link-underline link-underline-opacity-0"
+                                        href="">Chương
+                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở
+                                        nơi
                                         đây (5)</a>
                                 </div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Cô tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Cô
+                                tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
                                 dâu?</a>
                         </div>
                     </div>
@@ -659,15 +672,15 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 03: Nơi đăng kí">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 03: Nơi đăng kí</a></div>
+                                        href="">Chương 03: Nơi đăng kí</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Web Novel</div>
                             </div>
                         </div>
@@ -675,16 +688,16 @@
                             <a class="text-black link-underline link-underline-opacity-0"
                                 href="">Transferred
                                 to Another World and Became a Teacher, but Being Feared as a Witch ~ Listen
-                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a></div>
+                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/truyen/17876-pick-me-up-gacha-vo-han/c141193-chuong-50-toi-se-cho-cau-nem-mui-that-bai-5">
+                            <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image17.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
@@ -692,12 +705,15 @@
                                 <div class="thumb_attr chapter-title">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 50: Tôi sẽ cho
-                                        cậu nếm mùi thất bại (5)</a></div>
+                                        cậu nếm mùi thất bại (5)</a>
+                                </div>
                                 <div class="thumb_attr volume-title">01-99</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick Me Up! Gacha Vô Hạn!</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick
+                                Me Up! Gacha Vô Hạn!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -706,21 +722,23 @@
                                 title="Chương 1: Khởi đầu mới">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 1: Khởi đầu mới">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 1: Khởi đầu mới</a></div>
+                                        href="">Chương 1: Khởi đầu mới</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Vol 1</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Mynoghra: Dị Giới
-                                Diệt Vong (Isekai Apocalypse Mynoghra)</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0"
+                                href="">Mynoghra: Dị Giới
+                                Diệt Vong (Isekai Apocalypse Mynoghra)</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -733,7 +751,8 @@
                                 </div>
                             </a>
                             <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 3.3: Nữ hoàng đổi thay (3)">
+                                <div class="thumb_attr chapter-title"
+                                    title="Chương 3.3: Nữ hoàng đổi thay (3)">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 3.3: Nữ hoàng đổi thay
                                         (3)</a>
@@ -742,8 +761,9 @@
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Sống chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến thế</a>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Sống
+                                chung với Nữ hoàng kiêu ngạo thời cao trung hoá ra lại không hề khó chịu đến
+                                thế</a>
                         </div>
                     </div>
 
@@ -752,23 +772,25 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17667-766ac239-714d-4a16-8045-1e548f204230.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image14.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title"
                                     title="Chương 3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi đây (5)">
-                                    <a class="text-white link-underline link-underline-opacity-0" href="">Chương
-                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở nơi
+                                    <a class="text-white link-underline link-underline-opacity-0"
+                                        href="">Chương
+                                        3: Cô lệnh nữ quý tộc tới Nhật du học ngoại ngữ, tận hưởng cuộc sống ở
+                                        nơi
                                         đây (5)</a>
                                 </div>
                                 <div class="thumb_attr volume-title">Tập 01</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0"
-                                href="">Cô tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Cô
+                                tiểu thư quý tộc đi du học nước ngoài, nhưng tại sao lại chỉ toàn học cách làm
                                 dâu?</a>
                         </div>
                     </div>
@@ -778,15 +800,15 @@
                             <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18628-be37f31e-7b8e-443a-93e8-21ab8675de26.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 03: Nơi đăng kí">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 03: Nơi đăng kí</a></div>
+                                        href="">Chương 03: Nơi đăng kí</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Web Novel</div>
                             </div>
                         </div>
@@ -794,16 +816,16 @@
                             <a class="text-black link-underline link-underline-opacity-0"
                                 href="">Transferred
                                 to Another World and Became a Teacher, but Being Feared as a Witch ~ Listen
-                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a></div>
+                                Seriously to the Lessons Because Royalty and Nobility Don’t Matter!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                         <div class="thumb-wrapper ln-tooltip">
-                            <a href="/truyen/17876-pick-me-up-gacha-vo-han/c141193-chuong-50-toi-se-cho-cau-nem-mui-that-bai-5">
+                            <a href="">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s17876-8960c4be-52d7-4b45-bef9-e4c5ac0d2b02.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image17.jpg')}}')">
                                     </div>
                                 </div>
                             </a>
@@ -811,12 +833,15 @@
                                 <div class="thumb_attr chapter-title">
                                     <a class="text-white link-underline link-underline-opacity-0"
                                         href="">Chương 50: Tôi sẽ cho
-                                        cậu nếm mùi thất bại (5)</a></div>
+                                        cậu nếm mùi thất bại (5)</a>
+                                </div>
                                 <div class="thumb_attr volume-title">01-99</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick Me Up! Gacha Vô Hạn!</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0" href="">Pick
+                                Me Up! Gacha Vô Hạn!</a>
+                        </div>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
@@ -825,22 +850,25 @@
                                 title="Chương 1: Khởi đầu mới">
                                 <div class="a6-ratio">
                                     <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg"
-                                        style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s18964-fc935567-90ab-4a3c-9b20-45938f3cca3b.jpg&quot;);">
+                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}');">
                                     </div>
                                 </div>
                             </a>
                             <div class="thumb-detail">
                                 <div class="thumb_attr chapter-title" title="Chương 1: Khởi đầu mới">
                                     <a class="text-white link-underline link-underline-opacity-0"
-                                        href="">Chương 1: Khởi đầu mới</a></div>
+                                        href="">Chương 1: Khởi đầu mới</a>
+                                </div>
                                 <div class="thumb_attr volume-title">Vol 1</div>
                             </div>
                         </div>
                         <div class="thumb_attr series-title">
-                            <a class="text-black link-underline link-underline-opacity-0" href="">Mynoghra: Dị Giới
-                                Diệt Vong (Isekai Apocalypse Mynoghra)</a></div>
+                            <a class="text-black link-underline link-underline-opacity-0"
+                                href="">Mynoghra: Dị Giới
+                                Diệt Vong (Isekai Apocalypse Mynoghra)</a>
+                        </div>
                     </div>
+
 
                     <div class="thumb-item-flow col-4 col-lg-2 see-more">
                         <div class="thumb-wrapper">

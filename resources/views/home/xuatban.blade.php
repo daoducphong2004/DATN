@@ -15,18 +15,14 @@
             <div class="page-name_wrapper">
                 <div class="container">
                     <span class="page-name"><a href="xuatban.html" class="link-underline link-underline-opacity-0 text-black"><i class="fas fa-circle"></i>Truyện bản quyền</a></span>
-                    <div class="right mr-3">
-                        <a class="button new-link button-info" href="#sap-phat-hanh">
-                            <i class="fas fa-list" style="margin-right: 8px;"></i><span>Sắp phát hành</span>
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </header>
         <div class="container">
             <div class="row d-block clearfix">
                 <div class="col-12 col-lg-3 float-right">
-                    <form method="post" action="https://docln.net/xuat-ban">
+                    <form method="post" action="">
                         <input type="hidden" name="_token" value="RoVR3vbYqJwRLPo31OeRWpuk5IYzEa1XubKSx458"
                             autocomplete="off">
                         <section class="sub-index-style js-tongtien">
@@ -34,7 +30,7 @@
                                 <div class="section-title">Tổng tiền:</div>
                             </div>
                             <div class="section-content">
-                                <div class="select-wrapper" style="font-size: 2.8rem; color: darkcyan">
+                                <div class="select-wrapper" style="font-size: 2.5rem; color: darkcyan">
                                     <strong>93.749.000₫</strong>
                                 </div>
                             </div>
@@ -82,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="submit-wrapper force-block">
-                                <input type="submit" class="button inline-block filter-submit button-primary-green"
+                                <input type="submit" class="button inline-block text-black-50 filter-submit button-primary-green"
                                     value="Áp dụng">
                             </div>
                         </section>
@@ -927,33 +923,32 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/852-hanh-trinh-cua-elaina-tap-15.html">Hành Trình
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Hành Trình
                                                         Của Elaina - Tập 15</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-banbb56.html?tacgia=Shiraishi%20Jougi">Shiraishi
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Shiraishi
                                                                         Jougi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban692f.html?hoasi=Azure">Azure</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Azure</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-banc24c.html?dichgia=Ji">Ji</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Ji</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -981,8 +976,7 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #ff5520"
-                                                        href="https://shopee.vn/Sách-Hành-Trình-Của-Elaina-Tập-15-i.40470612.28907112532"
-                                                        rel="nofollow" target="_blank">Shopee</a>
+                                                        href="" rel="nofollow" target="_blank">Shopee</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1003,34 +997,33 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/850-ma-phap-thieu-nu-tap-8.html">Ma Pháp Thiếu Nữ
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Ma Pháp Thiếu Nữ
                                                         - Tập 8</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban0cd7.html?nph=usagi">Usagi Light Novel</a> phát
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Usagi Light Novel</a> phát
                                                         hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-banf9a0.html?tacgia=Endou%20Asari">Endou
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Endou
                                                                         Asari</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-banbd70.html?hoasi=Marui-no">Marui-no</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Marui-no</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban62ff.html?dichgia=Rei">Rei</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Rei</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1057,8 +1050,7 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/ma-phap-thieu-nu-tap-8-ban-dac-biet-tang-kem-bookmark-nhan-vat-postcard-pin-cai-ma-phap-thieu-nu.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1079,34 +1071,32 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/851-to-se-tru-mua-cung-cau.html">Tớ Sẽ Trú Mưa
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Tớ Sẽ Trú Mưa
                                                         Cùng Cậu</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-banfdb4.html?nph=shine">Shine Novel</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Shine Novel</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-banbb0e.html?tacgia=Sushi%20Thunder">Sushi
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Sushi
                                                                         Thunder</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-bane3fb.html?hoasi=Sogawa">Sogawa</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Sogawa</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-ban6eba.html?dichgia=Satoukibi">Satoukibi</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Satoukibi</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1133,11 +1123,9 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/to-se-tru-mua-cung-cau-ban-dac-biet-tang-kem-1-bookmark-2-photocard-bo-goc.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                     <a class="button store-link" style="background-color: #f78320"
-                                                        href="https://www.hikaru.vn/products/to-se-tru-mua-cung-cau"
-                                                        rel="nofollow" target="_blank">Hikaru</a>
+                                                        href=""  rel="nofollow" target="_blank">Hikaru</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1158,33 +1146,32 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/843-co-nang-shimotsuki-trot-phai-long-nhan-vat-nen-tap-4.html">Cô
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Cô
                                                         Nàng Shimotsuki Trót Phải Lòng Nhân Vật Nền - Tập 4</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7417.html?nph=kimdong">Kim Đồng</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Kim Đồng</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban4fa7.html?tacgia=Yagami%20Kagami">Yagami
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Yagami
                                                                         Kagami</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban1799.html?hoasi=Roha">Roha</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Roha</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban6fa4.html?dichgia=Tifa">Tifa</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Tifa</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1211,8 +1198,7 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/co-nang-shimotsuki-trot-phai-long-nhan-vat-nen-tap-4-ban-gioi-han-tang-kem-bookmark-khung-anh-bia-ao-limited.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1233,35 +1219,33 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/844-ve-chuyen-toi-chuyen-sinh-thanh-slime-tap-4.html">Về
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Về
                                                         Chuyện Tôi Chuyển Sinh Thành Slime - Tập 4</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-bande1b.html?nph=sky">Sky Light Novel</a> phát
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Sky Light Novel</a> phát
                                                         hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banadb9.html?tacgia=Fuse">Fuse</a></span>
+                                                                        href="" class="text-black link-underline link-underline-opacity-0">Fuse</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban10e8.html?hoasi=Mitz%20Vah">Mitz
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Mitz
                                                                         Vah</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-ban49e7.html?dichgia=Th%C3%B9y%20Linh">Thùy
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Thùy
                                                                         Linh</a>
                                                                 </span>
                                                             </div>
@@ -1289,11 +1273,9 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/ve-chuyen-toi-chuyen-sinh-thanh-slime-tap-4-tang-kem-bookmark-postcard.html"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                     <a class="button store-link" style="background-color: #f78320"
-                                                        href="https://www.hikaru.vn/products/ve-chuyen-toi-chuyen-sinh-thanh-slime-tap-4"
-                                                        rel="nofollow" target="_blank">Hikaru</a>
+                                                        href="" rel="nofollow" target="_blank">Hikaru</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1314,34 +1296,32 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/842-riviere-va-dat-nuoc-cua-loi-cau-nguyen-tap-1.html">Riviere
-                                                        Và Đất Nước Của Lời Cầu Nguyện - Tập 1</a>
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0"
+                                                        href="">Riviere Và Đất Nước Của Lời Cầu Nguyện - Tập 1</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-banbb56.html?tacgia=Shiraishi%20Jougi">Shiraishi
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Shiraishi
                                                                         Jougi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban692f.html?hoasi=Azure">Azure</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Azure</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-banff36.html?dichgia=Beast666">Beast666</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Beast666</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1367,11 +1347,9 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/riviere-va-dat-nuoc-cua-loi-cau-nguyen-tap-1-riviere-and-the-nation-of-the-prayer-tang-kem-1-bookmark-1-postcard-hai-mat-3-card-bo-goc-nhu-ngoc-trai-1-photostrip.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                     <a class="button store-link" style="background-color: #f78320"
-                                                        href="https://www.hikaru.vn/products/riviere-va-dat-nuoc-cua-loi-cau-nguyen-tap-1-riviere-and-the-nation-of-the-prayer-ngoai-truyen-cua-elaina"
-                                                        rel="nofollow" target="_blank">Hikaru</a>
+                                                        href="" rel="nofollow" target="_blank">Hikaru</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1392,34 +1370,32 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/841-date-a-live-tap-15.html">Date A Live - Tập
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Date A Live - Tập
                                                         15</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban7860.html?tacgia=Tachibana%20Koushi">Tachibana
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Tachibana
                                                                         Koushi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban1408.html?hoasi=Tsunako">Tsunako</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Tsunako</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-ban4dba.html?dichgia=T%C3%A0i%20Th%E1%BB%8Bnh">Tài
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Tài
                                                                         Thịnh</a>
                                                                 </span>
                                                             </div>
@@ -1447,8 +1423,7 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/date-a-live-tap-15-mukuro-family-tang-kem-2-bookmark-1-set-card-doi.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1469,34 +1444,33 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/840-hoi-chung-tuoi-thanh-xuan-tap-10.html">Hội
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Hội
                                                         Chứng Tuổi Thanh Xuân - Tập 10</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7417.html?nph=kimdong">Kim Đồng</a> phát hành
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Kim Đồng</a> phát hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-bane21e.html?tacgia=Kamoshida%20Hajime">Kamoshida
+                                                                        href="" class="text-black link-underline link-underline-opacity-0">Kamoshida
                                                                         Hajime</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban2cb5.html?hoasi=Mizoguchi%20Keeji">Mizoguchi
+                                                                        href="" class="text-black link-underline link-underline-opacity-0">Mizoguchi
                                                                         Keeji</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban89e9.html?dichgia=C%C3%A1o">Cáo</a>
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Cáo</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1522,8 +1496,7 @@
                                                     hơi kì quặ...</div>
 
                                                 <div class="store-list">
-                                                    <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/hoi-chung-tuoi-thanh-xuan-tap-10-ban-gioi-han-tang-kem-standee-ivory-camera-card.html?fhs_campaign=CATEGORY"
+                                                    <a class="button store-link" style="background-color: #c92127" href=""
                                                         rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
@@ -1545,36 +1518,34 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/839-pha-dao-di-gioi-cung-nu-than-khong-tin-do-tap-3-cong-chua-bang-tac-mau-lanh.html">Phá
-                                                        Đảo Dị Giới Cùng Nữ Thần Không Tín Đồ - Tập 3: Công Chúa Băng
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0"
+                                                        href="">Phá Đảo Dị Giới Cùng Nữ Thần Không Tín Đồ - Tập 3: Công Chúa Băng
                                                         Tạc Máu Lạnh</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7480.html?nph=orionbooks">Orion Books</a> phát
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Orion Books</a> phát
                                                         hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban22f2.html?tacgia=Oosaki%20Airu">Oosaki
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Oosaki
                                                                         Airu</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban3122.html?hoasi=Tam-U">Tam-U</a></span>
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Tam-U</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-ban0780.html?dichgia=Th%C3%BAy%20L%C6%B0%C6%A1ng">Thúy
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Thúy
                                                                         Lương</a>
                                                                 </span>
                                                             </div>
@@ -1600,8 +1571,7 @@
                                                     đạt cấp độ 20 và xếp hạng Sắt. Đây vốn là một chuyện đáng...</div>
 
                                                 <div class="store-list">
-                                                    <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/pha-dao-di-gioi-cung-nu-than-khong-tin-do-tap-3-cong-chua-bang-tac-mau-lanh-tang-kem-bookmark-poster-a3.html?fhs_campaign=CATEGORY"
+                                                    <a class="button store-link" style="background-color: #c92127" href=""
                                                         rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
@@ -1623,35 +1593,33 @@
                                         <div class="col-12 col-md-8">
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
-                                                    <a class="series-name"
-                                                        href="xuat-ban/848-doi-anh-trong-mua-xuan-ngay-hom-qua.html">Đợi
+                                                    <a class="series-name text-black link-underline link-underline-opacity-0" href="">Đợi
                                                         Anh Trong Mùa Xuân Ngày Hôm Qua</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban15d4.html?nph=thaiha">Thái Hà Books</a> phát
+                                                        <a href="" class="text-black link-underline link-underline-opacity-0">Thái Hà Books</a> phát
                                                         hành
                                                     </span>
                                                 </h3>
 
                                                 <section class="mobile-view mobile-toggle">
-                                                    <header class="inline-block none-l">Thông tin thêm</header>
+                                                    <header class="inline-block text-black-50">Thông tin thêm</header>
                                                     <main class="sect-body none force-block-l">
                                                         <div class="info-list long-text row m-0">
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban9424.html?tacgia=Hachimoku%20Mei">Hachimoku
+                                                                <span class="info-value">
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Hachimoku
                                                                         Mei</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
-                                                                <span class="info-value"><a
-                                                                        href="xuat-ban9263.html?hoasi=Kukka">Kukka</a></span>
+                                                                <span class="info-value">
+                                                                    <a  href="" class="text-black link-underline link-underline-opacity-0">Kukka</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a
-                                                                        href="xuat-ban1933.html?dichgia=Nguy%E1%BB%85n%20Th%E1%BB%8B%20Thu%20H%E1%BA%B1ng">Nguyễn
+                                                                    <a href="" class="text-black link-underline link-underline-opacity-0">Nguyễn
                                                                         Thị Thu Hằng</a>
                                                                 </span>
                                                             </div>
@@ -1679,8 +1647,7 @@
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
-                                                        href="https://www.fahasa.com/doi-anh-trong-mua-xuan-ngay-hom-qua-tang-kem-postcard.html?fhs_campaign=CATEGORY"
-                                                        rel="nofollow" target="_blank">Fahasa</a>
+                                                        href="" rel="nofollow" target="_blank">Fahasa</a>
                                                 </div>
                                             </div>
                                         </div>

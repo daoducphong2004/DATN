@@ -52,7 +52,7 @@
                         </ul>
                     </div>
 
-                    <a class="button button-newpost button-green" href="https://docln.net/action/page/create"><i
+                    <a class="button button-newpost button-green" href="{{url('themThaoLuan')}}"><i
                             class="fas fa-plus"></i> Thêm</a>
                     <!-- <ul class="board-toolkit-list">
                             <li class="b-t-l_item choosed"><a href="">Gần đây</a></li>
@@ -105,7 +105,7 @@
                                         <img src="{{asset('users/user/img/avatar/avatar pp.png')}}">
                                     </div>
                                     <div class="topic-username block-m">
-                                        <a href="" class="link-underline link-underline-opacity-0">herorule</a>
+                                        <a href="" class="text-black link-underline link-underline-opacity-0">herorule</a>
                                         <time class="topic-time block md:hidden timeago" title="19-08-2024 14:11:51"
                                             datetime="2024-08-19T14:11:51+07:00">19 phút</time>
                                     </div>
@@ -143,7 +143,7 @@
                                         <img src="{{asset('users/user/img/avatar/avatar pp.png')}}">
                                     </div>
                                     <div class="topic-username block-m">
-                                        <a href="" class="link-underline link-underline-opacity-0">medassin</a>
+                                        <a href="" class="text-black link-underline link-underline-opacity-0">medassin</a>
                                         <time class="topic-time block md:hidden timeago" title="19-08-2024 11:38:51"
                                             datetime="2024-08-19T11:38:51+07:00">3 giờ</time>
                                     </div>
@@ -181,7 +181,7 @@
                                         <img src="{{asset('users/user/img/avatar/avatar pp.png')}}">
                                     </div>
                                     <div class="topic-username block-m">
-                                        <a href="" class="link-underline link-underline-opacity-0">DDH</a>
+                                        <a href="" class="text-black link-underline link-underline-opacity-0">DDH</a>
                                         <time class="topic-time block md:hidden timeago" title="18-08-2024 21:19:11"
                                             datetime="2024-08-18T21:19:11+07:00">17 giờ</time>
                                     </div>
@@ -219,7 +219,7 @@
                                         <img src="{{asset('users/user/img/avatar/avatar pp.png')}}">
                                     </div>
                                     <div class="topic-username block-m">
-                                        <a href="" class="link-underline link-underline-opacity-0">Thiên Ý</a>
+                                        <a href="" class="text-black link-underline link-underline-opacity-0">Thiên Ý</a>
                                         <time class="topic-time block md:hidden timeago" title="18-08-2024 10:32:26"
                                             datetime="2024-08-18T10:32:26+07:00">1 ngày</time>
                                     </div>
@@ -231,19 +231,15 @@
                     </table>
                     <div class="pagination-footer">
                         <div class="pagination_wrap">
-                            <!--<a href="" class="paging_item paging_prevnext prev  disabled ">Trước</a>-->
-                            <a href="https://docln.net/thao-luan?page=1"
-                                class="paging_item paging_prevnext prev  disabled ">Đầu</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 paging_prevnext prev  disabled ">Đầu</a>
 
-                            <a href="https://docln.net/thao-luan?page=1" class="paging_item page_num  current ">1</a>
-                            <a href="https://docln.net/thao-luan?page=2" class="paging_item page_num ">2</a>
-                            <a href="https://docln.net/thao-luan?page=3" class="paging_item page_num ">3</a>
-                            <a href="https://docln.net/thao-luan?page=4" class="paging_item page_num ">4</a>
-                            <a href="https://docln.net/thao-luan?page=5" class="paging_item page_num ">5</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 page_num  current ">1</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">2</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">3</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">4</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">5</a>
 
-                            <!--<a href=" https://docln.net/thao-luan?page=2 " class="paging_item paging_prevnext next ">Tiếp</a>-->
-                            <a href="https://docln.net/thao-luan?page=68"
-                                class="paging_item paging_prevnext next ">Cuối</a>
+                            <a href="" class="paging_item link-underline link-underline-opacity-0 paging_prevnext next ">Cuối</a>
                         </div>
                     </div>
                 </section>

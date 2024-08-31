@@ -13,6 +13,8 @@ use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use App\Http\Controllers\ForumController;
+use App\Models\Forum;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,7 @@ use App\Models\genre;
 
 
 Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
@@ -96,6 +98,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
+
 });
 
 
@@ -147,3 +150,5 @@ Route::group([
         return view('admin.comments.list-comment');
     })->name('listComment');
 });
+Route::get('/admin/comments/list-comment',[ForumController::class,'index']);
+Route::get('/',[ForumController::class,'indexviewer']);

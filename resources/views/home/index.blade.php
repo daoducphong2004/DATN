@@ -2,18 +2,18 @@
 @section('content')
 
 
-    <div class="page-top-group  at-index ">
-        <a href="/truyen/13957">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_d.png')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_m.png'); background-size: cover">
-            </div>
-        </a>
-    </div>
+<div class="page-top-group  at-index ">
+    <a href="/truyen/13957">
+        <div class="index-background d-none d-lg-block"
+            style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_d.png')"></div>
+        <div class="index-background d-lg-none"
+            style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_m.png'); background-size: cover">
+        </div>
+    </a>
+</div>
 
-    <main id="mainpart" class="at-index">
-        <!--<header class="page-title">
+<main id="mainpart" class="at-index">
+    <!--<header class="page-title">
         <div class="page-name_wrapper">
             <div class="container">
                 <h2 class="page-name"><a href="/">Trang chủ</a></h2>
@@ -24,297 +24,297 @@
 
 
 
-        <div class="container" style="margin-bottom: 40px;">
-            <div class="row">
-                <div class="no-push col-12 push-2-l col-8-l">
-                    <div id="announcements" class="index-top_notification">
+    <div class="container" style="margin-bottom: 40px;">
+        <div class="row">
+            <div class="no-push col-12 push-2-l col-8-l">
+                <div id="announcements" class="index-top_notification">
 
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat"
-                                style=" color:  Violet">SỰ KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2859-thay-doi-ve-nhom-dich" style=" color:  red">Thay đổi về nhóm
-                                dịch</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2789-bao-cao-truyen-vi-pham" style="">Báo cáo truyện vi phạm</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2766-khong-the-su-dung-facebook-login-nua" style=" color:  red">Không
-                                thể sử dụng Facebook đăng nhập nữa</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2336-donate-ho-tro-cong-ln" style=" color:  red">Donate hỗ trợ Cổng
-                                LN</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2267-khong-dang-manga" style=" color:  red">Không đăng Manga</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2250-hako-faqs-nhung-cau-hoi-thuong-gap-tren-hako"
-                                style=" color:  blue">(HAKO FAQs) NHỮNG CÂU HỎI THƯỜNG GẶP TRÊN HAKO</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/1122-thu-nghiem-thong-bao-chuong-moi" style="">Thử nghiệm thông
-                                báo chương mới</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln"
-                                style=" color:  red">Quy định chung đối với các dự án đăng tại Cổng Light Novel</a>
-                        </div>
-
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat"
+                            style=" color:  Violet">SỰ KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item2">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18938-con-quy-trong-co-ban-gai-sa-nga-cua-toi-se-chang-bao-gio-dung-lai"
-                                title="Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}')">
-                                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2859-thay-doi-ve-nhom-dich" style=" color:  red">Thay đổi về nhóm
+                            dịch</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2789-bao-cao-truyen-vi-pham" style="">Báo cáo truyện vi phạm</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2766-khong-the-su-dung-facebook-login-nua" style=" color:  red">Không
+                            thể sử dụng Facebook đăng nhập nữa</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2336-donate-ho-tro-cong-ln" style=" color:  red">Donate hỗ trợ Cổng
+                            LN</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2267-khong-dang-manga" style=" color:  red">Không đăng Manga</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/2250-hako-faqs-nhung-cau-hoi-thuong-gap-tren-hako"
+                            style=" color:  blue">(HAKO FAQs) NHỮNG CÂU HỎI THƯỜNG GẶP TRÊN HAKO</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/1122-thu-nghiem-thong-bao-chuong-moi" style="">Thử nghiệm thông
+                            báo chương mới</a>
+                    </div>
+
+                    <div class="annoucement-item">
+                        <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln"
+                            style=" color:  red">Quy định chung đối với các dự án đăng tại Cổng Light Novel</a>
+                    </div>
+
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item2">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18938-con-quy-trong-co-ban-gai-sa-nga-cua-toi-se-chang-bao-gio-dung-lai"
+                            title="Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Con
-                                        quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại</a>
-                                </div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Con
+                                    quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item3">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                               >
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                    </div>
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item3">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                        chẳng phải là thích cậu rồi sao</a></div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                    chẳng phải là thích cậu rồi sao</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item3">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                               >
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                    </div>
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item3">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                        chẳng phải là thích cậu rồi sao</a></div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                    chẳng phải là thích cậu rồi sao</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item3">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                               >
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                    </div>
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item3">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                        chẳng phải là thích cậu rồi sao</a></div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                    chẳng phải là thích cậu rồi sao</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item3">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                               >
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                    </div>
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item3">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                        chẳng phải là thích cậu rồi sao</a></div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                    chẳng phải là thích cậu rồi sao</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 popular-thumb-item " id="tns1-item3">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao"
-                               >
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio"
-                                        style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                    </div>
+                </div>
+                <div class="col-3 popular-thumb-item " id="tns1-item3">
+                    <div class="thumb-wrapper">
+                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio"
+                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr series-title">
-                                    <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                        chẳng phải là thích cậu rồi sao</a></div>
+                            </div>
+                        </a>
+                        <div class="thumb-detail">
+                            <div class="thumb_attr series-title">
+                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
+                                    chẳng phải là thích cậu rồi sao</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
-            <section class="last-topics index-section">
-                <header class="section-title">
-                    <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
-                            class="sts-empty">Luận</span></a>
-                </header>
-                <main>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Thảo luận cho tác giả OLN
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 16:44:53"
-                                    datetime="2024-08-19T16:44:53+07:00">40 phút</time>
-                            </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <section class="last-topics index-section">
+            <header class="section-title">
+                <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
+                        class="sts-empty">Luận</span></a>
+            </header>
+            <main>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Thảo luận cho tác giả OLN
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 16:44:53"
+                                datetime="2024-08-19T16:44:53+07:00">40 phút</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Quy Định Đối Với Truyện Sáng Tác - OLN
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 16:37:59" datetime="2024-08-19T16:37:59+07:00">1
-                                    giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Quy Định Đối Với Truyện Sáng Tác - OLN
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 16:37:59" datetime="2024-08-19T16:37:59+07:00">1
+                                giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Báo cáo truyện vi phạm
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 15:30:09" datetime="2024-08-19T15:30:09+07:00">2
-                                    giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Báo cáo truyện vi phạm
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 15:30:09" datetime="2024-08-19T15:30:09+07:00">2
+                                giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 14:31:59" datetime="2024-08-19T14:31:59+07:00">3
-                                    giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 14:31:59" datetime="2024-08-19T14:31:59+07:00">3
+                                giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Quy định chung đối với các dự án đăng tại Cổng Light Novel
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 14:11:51" datetime="2024-08-19T14:11:51+07:00">3
-                                    giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Quy định chung đối với các dự án đăng tại Cổng Light Novel
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 14:11:51" datetime="2024-08-19T14:11:51+07:00">3
+                                giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Tổng Hợp Ebook Các Loại, Nhiều Nguồn Tin, Nhiều Thể Loại Khác Nhau (Đăng lại)
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="19-08-2024 10:53:03" datetime="2024-08-19T10:53:03+07:00">7
-                                    giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Tổng Hợp Ebook Các Loại, Nhiều Nguồn Tin, Nhiều Thể Loại Khác Nhau (Đăng lại)
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="19-08-2024 10:53:03" datetime="2024-08-19T10:53:03+07:00">7
+                                giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Trang yêu cầu xóa truyện/tập/chương
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="18-08-2024 21:19:11"
-                                    datetime="2024-08-18T21:19:11+07:00">20 giờ</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Trang yêu cầu xóa truyện/tập/chương
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="18-08-2024 21:19:11"
+                                datetime="2024-08-18T21:19:11+07:00">20 giờ</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Tuyển thành viên
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="18-08-2024 12:12:42" datetime="2024-08-18T12:12:42+07:00">1
-                                    ngày</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Tuyển thành viên
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="18-08-2024 12:12:42" datetime="2024-08-18T12:12:42+07:00">1
+                                ngày</time>
                         </div>
                     </div>
-                    <div class="topic-item">
-                        <div class="row">
-                            <div class="col-9 line-ellipsis">
-                                <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                <a href="" class="text-black link-underline link-underline-opacity-0">
-                                    Quán Bóng Đá Hako - Chuyên phục vụ dân bóng đá.
-                                </a>
-                            </div>
-                            <div class="col-3 topic-data text-right">
-                                <time class="timeago" title="18-08-2024 10:16:30" datetime="2024-08-18T10:16:30+07:00">1
-                                    ngày</time>
-                            </div>
+                </div>
+                <div class="topic-item">
+                    <div class="row">
+                        <div class="col-9 line-ellipsis">
+                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
+                            <a href="" class="text-black link-underline link-underline-opacity-0">
+                                Quán Bóng Đá Hako - Chuyên phục vụ dân bóng đá.
+                            </a>
+                        </div>
+                        <div class="col-3 topic-data text-right">
+                            <time class="timeago" title="18-08-2024 10:16:30" datetime="2024-08-18T10:16:30+07:00">1
+                                ngày</time>
                         </div>
                     </div>
-                </main>
-            </section>
-        </div>
+                </div>
+            </main>
+        </section>
+    </div>
     </div>
 
     <div class="row" style="padding: 20px;">
@@ -500,13 +500,14 @@
                         <main class="sect-body pr-5">
                             {{-- Bắt đầu comment --}}
                             <div class="comment-item-at-index">
+                            
+                                @foreach ($data as $item)
                                 <div class="comment-info">
                                     <span class="series-name"><a
-                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">Hakuyoku
-                                            no Polaris</a></span>
+                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">{{$item->username}}</a></span>
 
                                     <div class="comment-content">
-                                        var
+                                        {{$item->content}}
                                     </div>
 
                                     <div class="comment-top">
@@ -529,6 +530,8 @@
                                         </small>
                                     </div>
                                 </div>
+                                @endforeach
+                       
                             </div>
                             {{-- kết thúc comment --}}
                         </main>
@@ -701,4 +704,4 @@
         </div>
 
 
-@endsection
+        @endsection

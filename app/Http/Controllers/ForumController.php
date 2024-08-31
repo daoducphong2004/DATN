@@ -13,7 +13,13 @@ class ForumController extends Controller
      */
     public function index()
     {
-        //
+        $data = Forum::query()->join('users', 'users.id', '=', 'forums.user_id')->get(['users.username as username', 'forums.id as id', 'forums.content as content', 'forums.created_at as created_at']);
+        return view('/admin/comments/list-comment', compact('data'));
+    }
+    public function indexviewer()
+    {
+        $data = Forum::query()->join('users', 'users.id', '=', 'forums.user_id')->get(['users.username as username', 'forums.id as id', 'forums.content as content', 'forums.created_at as created_at']);
+        return view('home.index',compact('data'));
     }
 
     /**

@@ -12,11 +12,11 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('frontend.index');
+        return view('home.index');
     }
 
     public function chuongtruyen()
     {
-        return view('frontend.chuongtruyen');
+        // return view('frontend.chuongtruyen');
     }
 }

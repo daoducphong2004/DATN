@@ -58,7 +58,7 @@ Route::get('email', [UserController::class, 'email']);
 Route::get('reset', [UserController::class, 'reset']);
 
 Route::get('UserHome', [UserController::class, 'home']);
-Route::get('createTruyen', [UserController::class, 'createTruyen']);
+// Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
 Route::get('conventDaDang', [UserController::class, 'conventDaDang']);

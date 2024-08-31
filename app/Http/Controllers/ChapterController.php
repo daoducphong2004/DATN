@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\chapter;
 use App\Http\Requests\StorechapterRequest;
 use App\Http\Requests\UpdatechapterRequest;
+use App\Models\episode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -39,9 +40,9 @@ class ChapterController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|string',
         ]);
-
+        $book = episode::find($request->episode_id)->book()->first();
+        // dd($book);
         // Tạo slug từ tiêu đề
-        $slug = Str::slug($validatedData['title']);
 
         // Lưu ảnh nếu có
         // $imagePath = null;
@@ -56,9 +57,16 @@ class ChapterController extends Controller
         $chapter = new Chapter();
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
-        $chapter->slug = $slug;
+        $chapter->slug = '';
         // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
+        $chapter->save();
+
+        // Tạo slug từ chapter_id và tiêu đề
+        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+        $chapter->slug = $slug;
+
+        // Lưu lại chapter với slug mới
         $chapter->save();
 
         return redirect()->route('chapter.index')->with('success', 'Chapter added successfully.');

@@ -81,7 +81,7 @@ class BookController extends Controller
     public function show(String $id)
     {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
-        // dd($book);
+        $chapter = $book->episodes;
 
         return view('stories.show', compact('book'));
     }

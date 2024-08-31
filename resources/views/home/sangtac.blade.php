@@ -16,7 +16,7 @@
         <header class="page-title">
             <div class="page-name_wrapper">
                 <div class="container">
-                    <span class="page-name"><a href="sang-tac.html"><i class="fas fa-circle"></i>Truyện tự sáng tác</a>
+                    <span class="page-name"><a class="text-black link-underline link-underline-opacity-0" href="{{url('sangtac')}}"><i class="fas fa-circle"></i>Truyện tự sáng tác</a>
                     </span>
                 </div>
             </div>
@@ -244,12 +244,12 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="">Darkside of the
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Darkside of the
                                             moon</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="">Linky</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Linky</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>11,693</div>
                                     </div>
                                     <div class="series-summary">Có một cậu bé tên là Linky, cậu lao vào bóng đêm trong
@@ -257,7 +257,7 @@
                                         quanh giờ chỉ là một đống đổ nát. Ở trong đống đổ nát đó, cậu vô tình gặp được
                                         Kafka.</div>
                                     <div class="lastest-chapter">
-                                        <a href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha/c141489-chuong-05.html">Chương
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương
                                             05</a>
                                         <small>Sao băng và giọt lệ của thiên hà</small>
                                     </div>
@@ -267,7 +267,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/19009-chien-giap-than-toc.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -279,11 +279,11 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/19009-chien-giap-than-toc.html">Chiến Giáp Thần tốc</a>
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Chiến Giáp Thần tốc</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/197044.html">J99T</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">J99T</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>5,213</div>
                                     </div>
                                     <div class="series-summary">Cùng phiêu lưu với Sokudo Kamaza, cậu bé với trái tim
@@ -292,7 +292,7 @@
                                         thành phố khỏi những thế lực xấu xa! Hành trình của Sokudo đầy ắp tiếng cười,
                                         tình bạn và n...</div>
                                     <div class="lastest-chapter">
-                                        <a href="sang-tac/19009-chien-giap-than-toc/c141487-oneshot.html">Oneshot</a>
+                                        <a href="" class="link-underline link-underline-opacity-0">Oneshot</a>
                                         <small>Vol 0</small>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/15764-last-time-return.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -313,11 +313,11 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/15764-last-time-return.html">Last Time Return</a>
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Last Time Return</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/85240.html">Ken Đang Học</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Ken Đang Học</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>180,215</div>
                                     </div>
                                     <div class="series-summary">Từng bị bắt nạt thời tiểu học, Kamito Haku đã thoát khỏi
@@ -326,8 +326,7 @@
                                         đã ra đi mãi mãi. Từ khoảnh khắc ấy, cậu bắt đầu chìm sâu vào tuyệt vọng.
                                         Đan xen vào...</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/15764-last-time-return/c141486-chuong-39-chiec-nhan-va-linh-hon.html">Chương
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương
                                             39 : Chiếc nhẫn và linh hồn</a>
                                         <small>Arc 01: Thành Phố Ánh Trăng - Mở đầu Trò Chơi Trốn Tìm</small>
                                     </div>
@@ -337,7 +336,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/19006-giac-mo-cua-nhung-anh-hung-hi-vong.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -349,12 +348,12 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/19006-giac-mo-cua-nhung-anh-hung-hi-vong.html">Giấc mơ của
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Giấc mơ của
                                             những anh hùng hi vọng</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/154178.html">Xathusanma</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Xathusanma</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>10,767</div>
                                     </div>
                                     <div class="series-summary">- Hi vọng, hi vọng thật mong manh nhưng các người lại
@@ -363,8 +362,7 @@
                                         họ. Họ cùng nhau kết nối với những người bạn của thế giới này chống lại thế lực
                                         của những...</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/19006-giac-mo-cua-nhung-anh-hung-hi-vong/c141479-p1-chuong-5-loi-thu-thach-cua-alex.html">P1
+                                        <a href="" class="link-underline link-underline-opacity-0">P1
                                             - Chương 5 : Lời thử thách của Alex</a>
                                         <small>Phần 1 : Vol.1 : Life - Sự sống !</small>
                                     </div>
@@ -374,7 +372,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/18936-thich-cau-khong-the-ly-giai.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -386,12 +384,12 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/18936-thich-cau-khong-the-ly-giai.html">Thích Cậu, Không Thể
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Thích Cậu, Không Thể
                                             Lý Giải</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/179387.html">Sagi_YD</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Sagi_YD</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>28,060</div>
                                     </div>
                                     <div class="series-summary">Khi một mình từ Aomori chuyển đến Kyoto phồn hoa vào đầu
@@ -400,8 +398,7 @@
                                         mơ, hay là một trải nghiệm mà cô đã quên mất? Nhưng mỗi lần tỉnh dậy từ giấc
                                         mộng, c...</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/18936-thich-cau-khong-the-ly-giai/c141478-phu-chuong-1-kyoto-25042023.html">Phụ
+                                        <a href="" class="link-underline link-underline-opacity-0">Phụ
                                             chương 1: KYOTO - 25/04/2023</a>
                                         <small>Tập 1</small>
                                     </div>
@@ -411,8 +408,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a
-                                        href="sang-tac/16651-song-lai-o-the-gioi-khac-toi-se-khong-danh-mat-thu-thuoc-ve-minh.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -424,13 +420,12 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a
-                                            href="sang-tac/16651-song-lai-o-the-gioi-khac-toi-se-khong-danh-mat-thu-thuoc-ve-minh.html">Được
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Được
                                             trao tặng sinh mệnh mới, tôi quyết sẽ bảo vệ tất cả</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/33374.html">Kaitou đang qua đường</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Kaitou đang qua đường</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>138,581</div>
                                     </div>
                                     <div class="series-summary">Cái ngày anh ta ra đời, anh ta đã rất hạnh phúc với gia
@@ -439,8 +434,7 @@
                                         thật. Ngày anh ta nhận được bưu kiện lạ sự thật được phơi bày.
                                         Từ đó anh ta lao vào t...</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/16651-song-lai-o-the-gioi-khac-toi-se-khong-danh-mat-thu-thuoc-ve-minh/c141473-chuong-48.html">Chương
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương
                                             48</a>
                                         <small>Vol 03</small>
                                     </div>
@@ -450,7 +444,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/17688-rerise-hoccachyeu.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -462,11 +456,11 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/17688-rerise-hoccachyeu.html">Học Cách Yêu</a>
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Học Cách Yêu</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/159729.html">Otagira</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Otagira</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>73,146</div>
                                     </div>
                                     <div class="series-summary">Câu chuyện kể về một nam sinh lớp 10 bất ngờ nhận được
@@ -476,8 +470,7 @@
                                         và Rối loạn trong hiện tại.
                                         Tất cả cùng nhau xoay chuyển vận mệnh của cậu~!&nbsp;</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/17688-rerise-hoccachyeu/c141471-chuong-23-duong-va-buoi-livestream-ki-cuc-1.html">Chương
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương
                                             23: Dương và Buổi livestream kì cục (1)</a>
                                         <small>Tập 01: Học Kì 2 Lớp 10</small>
                                     </div>
@@ -487,7 +480,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/18947-thien-menh-cuu-roi-cua-nguoi-chua-lanh.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -499,12 +492,12 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/18947-thien-menh-cuu-roi-cua-nguoi-chua-lanh.html">Thiên Mệnh
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Thiên Mệnh
                                             Cứu Rỗi Của Người Chữa Lành</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/165456.html">Yuhhh</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Yuhhh</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>36,420</div>
                                     </div>
                                     <div class="series-summary">Làm thế nào để sống trong một thế giới không có mục
@@ -513,8 +506,7 @@
                                         Mệnh. Tôi phải làm gì để sống trong thế giới này chứ, trở thành kẻ hèn nhát hay
                                         đi theo những gì sứ mệnh cho gọi?</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/18947-thien-menh-cuu-roi-cua-nguoi-chua-lanh/c141459-chuong-04-than.html">Chương
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương
                                             04: Than</a>
                                         <small>01: Thiên Mệnh</small>
                                     </div>
@@ -524,7 +516,7 @@
 
                             <article class="detail-list-item">
                                 <div class="cover-wrapper">
-                                    <a href="sang-tac/18498-lily-blossom-over-a-pool-of-blood.html">
+                                    <a href="">
                                         <div class="series-cover">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
@@ -536,76 +528,35 @@
                                 </div>
                                 <div class="detail-list-detail">
                                     <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/18498-lily-blossom-over-a-pool-of-blood.html">Lily Blossom
+                                        <a href="" class="link-underline link-underline-opacity-0 text-black">Lily Blossom
                                             over a Pool of Blood</a>
                                     </h4>
                                     <div class="sub-attr">
                                         <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/165456.html">Yuhhh</a></div>
+                                                href="" class="link-underline link-underline-opacity-0 text-black">Yuhhh</a></div>
                                         <div class="sub-attr-item"><span class="attr-name">Số từ</span>472,982</div>
                                     </div>
                                     <div class="series-summary">Đứa trẻ lạc lối tìm về nơi ánh sáng sau hừng đông, để
                                         tìm nơi trở về và nơi bản thân mình thuộc về. Một khắc, để nhìn lại quá khứ đen
                                         tối và sẵn sàng bước đến tương lai.</div>
                                     <div class="lastest-chapter">
-                                        <a
-                                            href="sang-tac/18498-lily-blossom-over-a-pool-of-blood/c141458-chuong-41-o-nang.html">Chương
-                                            41: Ở Nàng</a>
+                                        <a href="" class="link-underline link-underline-opacity-0">Chương 41: Ở Nàng</a>
                                         <small>03: Bức Màn</small>
                                     </div>
                                 </div>
                             </article>
-
-
-                            <article class="detail-list-item">
-                                <div class="cover-wrapper">
-                                    <a href="sang-tac/18991-davay-idi.html">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('{{asset('users/user/img/path/image16.jpg')}}')">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="detail-list-detail">
-                                    <h4 class="series-title text-xl font-bold">
-                                        <a href="sang-tac/18991-davay-idi.html">Davay Idi</a>
-                                    </h4>
-                                    <div class="sub-attr">
-                                        <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="thanh-vien/195977.html">novachim3024</a></div>
-                                        <div class="sub-attr-item"><span class="attr-name">Số từ</span>13,309</div>
-                                    </div>
-                                    <div class="series-summary">Câu truyện kể về hành trình sinh tồn ở thế giới mới của
-                                        một người lính Xô Viết tên Mikhail &nbsp;—&nbsp;từng là một võ sĩ quyền anh.
-                                        Trong một lần nọ khi đang canh giữ ở đèo K-G (Khost-Gardez) tại quận Gardez,
-                                        Afghanistan. Đại đội của anh đã bắt gặp một nhóm khảo cổ với những món cổ vật kỳ
-                                        lạ và từ đó câu tru...</div>
-                                    <div class="lastest-chapter">
-                                        <a href="sang-tac/18991-davay-idi/c141455-chuong-1.html">Chương 1 | Edit lần
-                                            1</a>
-                                        <small>Tập 01</small>
-                                    </div>
-                                </div>
-                            </article>
-
                         </main>
                         <div class="pagination-footer">
                             <div class="pagination_wrap">
-                                <!--<a href="" class="paging_item paging_prevnext prev  disabled ">Trước</a>-->
-                                <a href="sang-tac2679.html?page=1"
-                                    class="paging_item paging_prevnext prev  disabled ">Đầu</a>
+                                <a href=""class="paging_item link-underline link-underline-opacity-0 paging_prevnext prev  disabled ">Đầu</a>
 
-                                <a href="sang-tac2679.html?page=1" class="paging_item page_num  current ">1</a>
-                                <a href="sang-tac4658.html?page=2" class="paging_item page_num ">2</a>
-                                <a href="sang-tac9ba9.html?page=3" class="paging_item page_num ">3</a>
-                                <a href="sang-tacfdb0.html?page=4" class="paging_item page_num ">4</a>
-                                <a href="sang-tacaf4d.html?page=5" class="paging_item page_num ">5</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 page_num  current ">1</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">2</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">3</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">4</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 page_num ">5</a>
 
-                                <!--<a href=" https://docln.net/sang-tac?page=2 " class="paging_item paging_prevnext next ">Tiếp</a>-->
-                                <a href="sang-taccadd.html?page=45" class="paging_item paging_prevnext next ">Cuối</a>
+                                <a href="" class="paging_item link-underline link-underline-opacity-0 paging_prevnext next ">Cuối</a>
                             </div>
                         </div>
                     </section>
@@ -627,9 +578,10 @@
                                         </div>
                                     </div>
                                     <div class="series-information">
-                                        <h3 class="series-title"><a
-                                                href="sang-tac/6979-molten-chocolte-nong-sot-cung-cafe-au-lait-cua-tuong-lai.html">Những
-                                                mẫu truyện ngắn xoay quanh cửa tiệm The Gentle Cat</a></h3>
+                                        <div class="series-title">
+                                            <a class="text-black link-underline link-underline-opacity-0" href=""><b>Những
+                                                mẫu truyện ngắn xoay quanh cửa tiệm The Gentle Cat</b></a>
+                                        </div>
                                         <div class="series-summary">Có một quán cà phê mang phong cách tây phương nọ có
                                             thể biến nguyện ước của khách hàng thành sự thật chỉ bằng việc phục vụ món
                                             ăn hay thức uống đúng v...</div>
@@ -644,18 +596,15 @@
                                     <div class="comment-item">
                                         <div class="comment-user_ava">
                                             <a href="thanh-vien/18694.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
+                                                <img src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
                                             </a>
                                         </div>
                                         <div class="comment-info">
                                             <div class="comment-top">
-                                                <a href="sang-tac/18740-nhung-cau-chuyen-ki-ao0fd3.html?comment_id=2561029#ln-comment-2561029"
-                                                    rel="nofollow" class="comment-user_name strong">choeng</a>
+                                                <a href="" rel="nofollow" class="comment-user_name strong text-black link-underline link-underline-opacity-0">choeng</a>
                                                 <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/18740-nhung-cau-chuyen-ki-ao0fd3.html?comment_id=2561029#ln-comment-2561029">
-                                                        <time class="timeago" title="23-08-2024 06:49:20"
+                                                    <a href="" class="link-underline link-underline-opacity-0">
+                                                        <time class="timeago text-black" title="23-08-2024 06:49:20"
                                                             datetime="2024-08-23T06:49:20+07:00">8 giờ</time>
                                                     </a>
                                                 </small>
@@ -665,26 +614,24 @@
                                                 Bắt gặp khoảnh khắc ác liệt quá
                                             </div>
 
-                                            <span class="series-name"><a
-                                                    href="sang-tac/18740-nhung-cau-chuyen-ki-ao0fd3.html?comment_id=2561029#ln-comment-2561029">Những
-                                                    câu chuyện kì ảo</a></span>
+                                            <span class="series-name">
+                                                <a href=""class="text-black-50 link-underline link-underline-opacity-0">Những câu chuyện kì ảo</a>
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="comment-item">
                                         <div class="comment-user_ava">
-                                            <a href="thanh-vien/104394.html">
+                                            <a href="">
                                                 <img
                                                     src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
                                             </a>
                                         </div>
                                         <div class="comment-info">
                                             <div class="comment-top">
-                                                <a href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha22e6.html?comment_id=2560957&amp;reply_id=2560958#ln-comment-2560958"
-                                                    rel="nofollow" class="comment-user_name strong">Linky</a>
+                                                <a href="" rel="nofollow" class="comment-user_name strong text-black link-underline link-underline-opacity-0">Linky</a>
                                                 <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha22e6.html?comment_id=2560957&amp;reply_id=2560958#ln-comment-2560958">
-                                                        <time class="timeago" title="23-08-2024 01:33:36"
+                                                    <a href="" class="link-underline link-underline-opacity-0">
+                                                        <time class="timeago text-black" title="23-08-2024 01:33:36"
                                                             datetime="2024-08-23T01:33:36+07:00">13 giờ</time>
                                                     </a>
                                                 </small>
@@ -695,26 +642,24 @@
                                                 cảm hứng để viết tác phẩm này.
                                             </div>
 
-                                            <span class="series-name"><a
-                                                    href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha22e6.html?comment_id=2560957&amp;reply_id=2560958#ln-comment-2560958">Darkside
+                                            <span class="series-name">
+                                                <a href="" class="link-underline link-underline-opacity-0 text-black-50">Darkside
                                                     of the moon</a></span>
                                         </div>
                                     </div>
                                     <div class="comment-item">
                                         <div class="comment-user_ava">
-                                            <a href="thanh-vien/104394.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
+                                            <a href="">
+                                                <img src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
                                             </a>
                                         </div>
                                         <div class="comment-info">
                                             <div class="comment-top">
-                                                <a href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha5f06.html?comment_id=2560957#ln-comment-2560957"
-                                                    rel="nofollow" class="comment-user_name strong">Linky</a>
+                                                <a href=""
+                                                    rel="nofollow" class="comment-user_name strong text-black link-underline link-underline-opacity-0">Linky</a>
                                                 <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha5f06.html?comment_id=2560957#ln-comment-2560957">
-                                                        <time class="timeago" title="23-08-2024 01:32:40"
+                                                    <a href="" class="link-underline link-underline-opacity-0">
+                                                        <time class="timeago text-black" title="23-08-2024 01:32:40"
                                                             datetime="2024-08-23T01:32:40+07:00">13 giờ</time>
                                                     </a>
                                                 </small>
@@ -724,26 +669,23 @@
                                                 Mình mới đổi lại tên truyện để đúng với chủ đề của truyện hơn
                                             </div>
 
-                                            <span class="series-name"><a
-                                                    href="sang-tac/18883-sao-bang-va-giot-le-cua-thien-ha5f06.html?comment_id=2560957#ln-comment-2560957">Darkside
+                                            <span class="series-name">
+                                                <a href="" class="link-underline link-underline-opacity-0 text-black-50">Darkside
                                                     of the moon</a></span>
                                         </div>
                                     </div>
                                     <div class="comment-item">
                                         <div class="comment-user_ava">
-                                            <a href="thanh-vien/144381.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
+                                            <a href="">
+                                                <img src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
                                             </a>
                                         </div>
                                         <div class="comment-info">
                                             <div class="comment-top">
-                                                <a href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi0b5e.html?comment_id=2560842&amp;reply_id=2560902#ln-comment-2560902"
-                                                    rel="nofollow" class="comment-user_name strong">RomcomLàĐamMê</a>
+                                                <a href="" rel="nofollow" class="comment-user_name strong text-black link-underline link-underline-opacity-0">RomcomLàĐamMê</a>
                                                 <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi0b5e.html?comment_id=2560842&amp;reply_id=2560902#ln-comment-2560902">
-                                                        <time class="timeago" title="23-08-2024 00:19:26"
+                                                    <a href="" class="link-underline link-underline-opacity-0">
+                                                        <time class="timeago text-black" title="23-08-2024 00:19:26"
                                                             datetime="2024-08-23T00:19:26+07:00">14 giờ</time>
                                                     </a>
                                                 </small>
@@ -753,185 +695,9 @@
                                                 @Perucia Shunya: lộ liễu quá anh ơi :)
                                             </div>
 
-                                            <span class="series-name"><a
-                                                    href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi0b5e.html?comment_id=2560842&amp;reply_id=2560902#ln-comment-2560902">Nữ
+                                            <span class="series-name">
+                                                <a href="" class="link-underline link-underline-opacity-0 text-black-50">Nữ
                                                     Thần Lớp Tôi Có Gì Đó Lạ Lắm.</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/144381.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoid649.html?comment_id=2560842&amp;reply_id=2560900#ln-comment-2560900"
-                                                    rel="nofollow" class="comment-user_name strong">RomcomLàĐamMê</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoid649.html?comment_id=2560842&amp;reply_id=2560900#ln-comment-2560900">
-                                                        <time class="timeago" title="23-08-2024 00:17:15"
-                                                            datetime="2024-08-23T00:17:15+07:00">14 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                @Perucia Shunya:
-                                                =)
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoid649.html?comment_id=2560842&amp;reply_id=2560900#ln-comment-2560900">Nữ
-                                                    Thần Lớp Tôi Có Gì Đó Lạ Lắm.</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/124404.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoif9f6.html?comment_id=2560842&amp;reply_id=2560899#ln-comment-2560899"
-                                                    rel="nofollow" class="comment-user_name strong">Perucia Shunya</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoif9f6.html?comment_id=2560842&amp;reply_id=2560899#ln-comment-2560899">
-                                                        <time class="timeago" title="23-08-2024 00:16:28"
-                                                            datetime="2024-08-23T00:16:28+07:00">14 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                Mel bel tik mc donald
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoif9f6.html?comment_id=2560842&amp;reply_id=2560899#ln-comment-2560899">Nữ
-                                                    Thần Lớp Tôi Có Gì Đó Lạ Lắm.</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/144381.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi41bc.html?comment_id=2560842#ln-comment-2560842"
-                                                    rel="nofollow" class="comment-user_name strong">RomcomLàĐamMê</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi41bc.html?comment_id=2560842#ln-comment-2560842">
-                                                        <time class="timeago" title="22-08-2024 23:27:32"
-                                                            datetime="2024-08-22T23:27:32+07:00">15 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                Đói cần mèo mập mớm chap cho ăn :)
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/13957-nu-than-ma-toi-biet-duong-nhu-khac-voi-moi-nguoi41bc.html?comment_id=2560842#ln-comment-2560842">Nữ
-                                                    Thần Lớp Tôi Có Gì Đó Lạ Lắm.</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/42948.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/15553-hai-canh-cua50aa.html?comment_id=2560633#ln-comment-2560633"
-                                                    rel="nofollow" class="comment-user_name strong">Teeheee</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/15553-hai-canh-cua50aa.html?comment_id=2560633#ln-comment-2560633">
-                                                        <time class="timeago" title="22-08-2024 21:39:17"
-                                                            datetime="2024-08-22T21:39:17+07:00">17 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                Ui xời, cắt gần 1k chữ ở chương 2, quá đã! Gọt chữ cứ phải gọi là như
-                                                gọt táo!
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/15553-hai-canh-cua50aa.html?comment_id=2560633#ln-comment-2560633">Hai
-                                                    Cánh Cửa</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/180462.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/18994-tho-san-bong-toif9c0.html?comment_id=2560584&amp;reply_id=2560589#ln-comment-2560589"
-                                                    rel="nofollow" class="comment-user_name strong">Cáo phù thủy</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/18994-tho-san-bong-toif9c0.html?comment_id=2560584&amp;reply_id=2560589#ln-comment-2560589">
-                                                        <time class="timeago" title="22-08-2024 21:18:43"
-                                                            datetime="2024-08-22T21:18:43+07:00">17 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                Thiệt đọc truyện mà tưởng như đang học sử không
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/18994-tho-san-bong-toif9c0.html?comment_id=2560584&amp;reply_id=2560589#ln-comment-2560589">Thợ
-                                                    săn bóng tối</a></span>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="comment-user_ava">
-                                            <a href="thanh-vien/170343.html">
-                                                <img
-                                                    src="{{asset('users/user/img/avatar/ua26550-3cb8cabc-0f04-4538-949b-82bd1191c2a3.jpg')}}">
-                                            </a>
-                                        </div>
-                                        <div class="comment-info">
-                                            <div class="comment-top">
-                                                <a href="sang-tac/18994-tho-san-bong-toi68a1.html?comment_id=2560584#ln-comment-2560584"
-                                                    rel="nofollow" class="comment-user_name strong">KishouArima</a>
-                                                <small class="comment-location">
-                                                    <a
-                                                        href="sang-tac/18994-tho-san-bong-toi68a1.html?comment_id=2560584#ln-comment-2560584">
-                                                        <time class="timeago" title="22-08-2024 21:16:06"
-                                                            datetime="2024-08-22T21:16:06+07:00">17 giờ</time>
-                                                    </a>
-                                                </small>
-                                            </div>
-
-                                            <div class="comment-content">
-                                                Làm t nhớ đến thời cày môn sử ghê
-                                            </div>
-
-                                            <span class="series-name"><a
-                                                    href="sang-tac/18994-tho-san-bong-toi68a1.html?comment_id=2560584#ln-comment-2560584">Thợ
-                                                    săn bóng tối</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -947,8 +713,7 @@
                                     <article class="topview-item">
                                         <div class="topview_rank">01</div>
                                         <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="sang-tac/8476-kiep-nay-la-anh-trai-cua-nhan-vat-chinh.html">Anh
+                                            <h5 class="series-name"><a href="" class="link-underline link-underline-opacity-0">Anh
                                                     Trai Nhân Vật Chính</a></h5>
                                             <small class="ranked-attr">1.042.759</small>
                                         </div>
@@ -956,8 +721,7 @@
                                     <article class="topview-item">
                                         <div class="topview_rank">02</div>
                                         <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="sang-tac/4638-useless-hero-from-another-world.html">Useless
+                                            <h5 class="series-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Useless
                                                     Hero from Another World</a></h5>
                                             <small class="ranked-attr">955.278</small>
                                         </div>
@@ -965,8 +729,7 @@
                                     <article class="topview-item">
                                         <div class="topview_rank">03</div>
                                         <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="sang-tac/14076-nhan-vat-phan-dien-hang-ba-muon-duoc-song-yen-binh.html">Nhân
+                                            <h5 class="series-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Nhân
                                                     Vật Phản Diện Hạng Ba Muốn Được Sống Yên Bình</a></h5>
                                             <small class="ranked-attr">843.188</small>
                                         </div>
@@ -974,8 +737,7 @@
                                     <article class="topview-item">
                                         <div class="topview_rank">04</div>
                                         <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="sang-tac/481-ngai-vang-cua-hoang-de.html">Ngai Vàng Của Hoàng
+                                            <h5 class="series-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Ngai Vàng Của Hoàng
                                                     Đế</a></h5>
                                             <small class="ranked-attr">782.090</small>
                                         </div>
@@ -983,15 +745,14 @@
                                     <article class="topview-item">
                                         <div class="topview_rank">05</div>
                                         <div class="topview_name">
-                                            <h5 class="series-name"><a href="sang-tac/2980-huyen-thoai-co-ngoc.html">Huyền
-                                                    Thoại Cổ
-                                                    Ngọc</a></h5>
+                                            <h5 class="series-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Huyền
+                                                    Thoại Cổ Ngọc</a></h5>
                                             <small class="ranked-attr">538.824</small>
                                         </div>
                                     </article>
 
                                     <div class="see-more_text">
-                                        <a href="{{ url('danhsach')}}"><i class="fas fa-hand-o-right"></i> Xem
+                                        <a href="{{ url('danhsach')}}" class="link-underline link-underline-opacity-0"><i class="fas fa-hand-o-right"></i> Xem
                                             thêm</a>
                                     </div>
                                 </div>
@@ -1012,8 +773,7 @@
                                                 </div>
                                             </div>
                                             <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="sang-tac/19009-chien-giap-than-toc.html">Chiến Giáp Thần
+                                                <h5 class="others-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Chiến Giáp Thần
                                                         tốc</a></h5>
                                                 <small class="series-summary">Cùng phiêu lưu với Sokudo Kamaza, cậu bé
                                                     với trái tim dũng cảm và đôi ch...</small>
@@ -1028,8 +788,7 @@
                                                 </div>
                                             </div>
                                             <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="sang-tac/19006-giac-mo-cua-nhung-anh-hung-hi-vong.html">Giấc
+                                                <h5 class="others-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Giấc
                                                         mơ của những anh hùng hi vọng</a></h5>
                                                 <small class="series-summary">- Hi vọng, hi vọng thật mong manh nhưng
                                                     các người lại quá tham vọng về n...</small>
@@ -1044,8 +803,7 @@
                                                 </div>
                                             </div>
                                             <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="sang-tac/18996-respectre.html">Re/Spectre</a></h5>
+                                                <h5 class="others-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Re/Spectre</a></h5>
                                                 <small class="series-summary">Ma quỷ, linh hồn, yokai, và những cô gái
                                                     dễ thương đầy quyến rũ, nhưng k...</small>
                                             </div>
@@ -1059,7 +817,7 @@
                                                 </div>
                                             </div>
                                             <div class="others-info">
-                                                <h5 class="others-name"><a href="sang-tac/18994-tho-san-bong-toi.html">Thợ
+                                                <h5 class="others-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Thợ
                                                         săn bóng tối</a>
                                                 </h5>
                                                 <small class="series-summary">Hãy đặt lời thề của ngươi trước các thánh
@@ -1075,7 +833,7 @@
                                                 </div>
                                             </div>
                                             <div class="others-info">
-                                                <h5 class="others-name"><a href="sang-tac/18991-davay-idi.html">Davay
+                                                <h5 class="others-name"><a href="" class="link-underline link-underline-opacity-0 text-black">Davay
                                                         Idi</a></h5>
                                                 <small class="series-summary">Câu truyện kể về hành trình sinh tồn ở thế
                                                     giới mới của một người lính X...</small>

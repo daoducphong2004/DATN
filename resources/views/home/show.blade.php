@@ -99,12 +99,15 @@
                         </section>
                         <section class="sub-index-style">
                             <div class="title-wrapper">
-                                <div class="section-title">Phân loại</div>
+                                <div class="section-title">Danh mục</div>
                             </div>
 
                             <div class="section-content">
                                 <ul class="filter-type unstyled clear">
-                                    <li class="filter-type_item"><a href="">TenDanhMuc </a>
+                                    @foreach ($genres as $key => $value)
+                                        <li class="filter-type_item"><a class="text-black link-underline link-underline-opacity-0"
+                                                href="the-loai/{{ $value }}">{{ $key }}</a>
+                                    @endforeach
                                 </ul>
                             </div>
                         </section>
@@ -175,29 +178,12 @@
                                             </div>
                                         </a>
                                         <div class="thumb-detail">
-                                            {{-- <div class="thumb_attr chapter-title" title=""><a href=""
-                                                    title=""></a></div> --}}
                                             <div class="thumb_attr volume-title">tên vol</div>
                                         </div>
                                     </div>
                                     <div class="text text-center mt-3"><h5>Tên truyện</h5></div>
                                 </div>
-                                {{-- <div style="display: none">
-                                    <div id="">
-                                        <div style="margin: 10px 0; width: 250px">
-                                            <p style="color: white; font-weight: bold">
 
-                                            </p>
-                                            <p>
-                                            <div>Lượt xem :</div>
-                                            <div>Lượt thích:</div>
-                                            </p>
-                                            Mô tả
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                <!-- end truyện  -->
                             </main>
                             <div class="pagination-footer">
                                 <div class="pagination_wrap">

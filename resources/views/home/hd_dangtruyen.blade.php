@@ -52,91 +52,76 @@
                                 hơn.</strong>
                         </p>
 
-                        <div data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample">
-                            Hướng dẫn thêm truyện mới <a class="" href="#">Click vào để hiển thị nội
-                                dung</a>
-                        </div>
-
-                        <div class="collapse" id="collapseExample">
-                            <div class="card card-body">
-                                Trước hết bạn phải đăng nhập.<br>
-                                Nhập TÊN ĐĂNG NHẬP và MẬT KHẨU. Nếu chưa có tài khoản hãy đăng ký.<br>
-                                Sau khi đăng nhập, click vào Menu như hình dưới để đến Bảng điều khiển<br>
-                                Điền thông tin của truyện theo yêu cầu như mình đã chú thích trong ảnh. Hãy đọc quy định
-                                khi đăng
-                                truyện trước để nắm rõ tránh cho truyện bị xóa.<br>
+                        <div class="container mt-4">
+                            <div class="content" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                 aria-expanded="false" aria-controls="collapseExample">
+                                Hướng dẫn thêm truyện mới <a class="spoiler_toggle" href="#">Click vào để hiển thị nội dung</a>
                             </div>
-                        </div>
 
-
-                        <div data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false"
-                            aria-controls="collapse">
-                            Hướng dẫn thêm nhóm dịch mới  <a class="" href="#">Click vào để hiển thị nội
-                                dung</a>
-                        </div>
-
-                        <div class="collapse" id="collapse">
-                            <div class="card card-body">
-                                Sau khi vào bảng điều khiển, ấn vào danh sách nhóm dịch ở Menu Nhóm dịch.<br>
-                                Thêm nhóm dịch mới<br>
-                                Điền các thông tin cần thiết. Vậy là xong!<br>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    Trước hết bạn phải đăng nhập.<br>
+                                    Nhập TÊN ĐĂNG NHẬP và MẬT KHẨU. Nếu chưa có tài khoản hãy đăng ký.<br>
+                                    Sau khi đăng nhập, click vào Menu như hình dưới để đến Bảng điều khiển<br>
+                                    Điền thông tin của truyện theo yêu cầu như mình đã chú thích trong ảnh. Hãy đọc quy định khi đăng truyện trước để nắm rõ tránh cho truyện bị xóa.<br>
+                                </div>
                             </div>
-                        </div>
 
-                        <div data-bs-toggle="collapse" data-bs-target="#ConCollapse"
-                            aria-expanded="false" aria-controls="ConCollapse">
-                            Hướng dẫn thêm các tập và chương chuyện<a class="" href="#">Click vào để hiển thị nội
-                                dung</a>
-                        </div>
-
-                        <div id="ConCollapse">
-                            <div class="card card-body">
-                                Sau khi Thêm truyện mới. Bạn sẽ được dẫn vào trang quản lý truyện. Sử dụng chuột phải
-                                lên tên truyện để mở các Menu tương ứng. Click Thêm tập<br>
-                                Nhập Tiêu đề của tập bắt buộc, còn các khung khác có thể bỏ qua.<br>
-                                Sau khi thêm tập mới, click chuột phải vào tên tập đó để chỉnh sửa hoặc thêm chương như
-                                ảnh bên dưới<br>
-                                Nhập các nội dung để thêm chương mới như yêu cầu. Có thể upload ảnh minh họa bằng các
-                                chức năng như
-                                hình bên dưới. Nếu số ảnh upload bị thiếu, có thể do ảnh đó bị lỗi hoặc server bị
-                                lỗi.<br>
-                                Sau khi thêm chương mới, click chuột phải vào tên chương vừa tạo để Sửa hoặc Xóa chương.
+                            <div class="content" data-bs-toggle="collapse" data-bs-target="#collapseGroup"
+                                 aria-expanded="false" aria-controls="collapseGroup">
+                                Hướng dẫn thêm nhóm dịch mới <a class="spoiler_toggle" href="#">Click vào để hiển thị nội dung</a>
                             </div>
-                        </div>
 
-                        <div data-bs-toggle="collapse" data-bs-target="#multi"
-                            aria-expanded="false" aria-controls="multi">
-                            Hướng dẫn thêm chú thích <a class="" href="#">Click vào để hiển thị nội
-                                dung</a>
-                        </div>
-
-                        <div id="multi">
-                            <div class="card card-body">
-                                Làm theo hướng dẫn thêm tập và thêm chương ở bên
-                                trên. Sau khi đã thêm chương, kéo xuống cuối cùng trang Sửa chương để thêm chú thích<br>
-                                Nhập Tiêu đề của tập bắt buộc, còn các khung khác có thể bỏ qua.<br>
-                                Sau khi thêm tập mới, click chuột phải vào tên tập đó để chỉnh sửa hoặc thêm chương như
-                                ảnh bên dưới<br>
-                                Nhập các nội dung để thêm chương mới như yêu cầu. Có thể upload ảnh minh họa bằng các
-                                chức năng như
-                                hình bên dưới. Nếu số ảnh upload bị thiếu, có thể do ảnh đó bị lỗi hoặc server bị
-                                lỗi.<br>
-                                Sau khi thêm chương mới, click chuột phải vào tên chương vừa tạo để Sửa hoặc Xóa chương.
+                            <div class="collapse" id="collapseGroup">
+                                <div class="card card-body">
+                                    Sau khi vào bảng điều khiển, ấn vào danh sách nhóm dịch ở Menu Nhóm dịch.<br>
+                                    Thêm nhóm dịch mới<br>
+                                    Điền các thông tin cần thiết. Vậy là xong!<br>
+                                </div>
                             </div>
-                        </div>
 
-                        <div data-bs-toggle="collapse" data-bs-target="#multiCollapse"
-                            aria-expanded="false" aria-controls="multiCollapse">
-                            Hướng dẫn sắp xếp lại thứ tự các Tập và Chương <a class="" href="#">Click vào để hiển thị nội dung</a></p>
-                        </div>
+                            <div class="content" data-bs-toggle="collapse" data-bs-target="#collapseAdditional"
+                                 aria-expanded="false" aria-controls="collapseAdditional">
+                                Hướng dẫn thêm các tập và chương chuyện <a class="spoiler_toggle" href="#">Click vào để hiển thị nội dung</a>
+                            </div>
 
-                        <div id="multiCollapse">
+                            <div class="collapse" id="collapseAdditional">
+                                <div class="card card-body">
+                                    Sau khi Thêm truyện mới. Bạn sẽ được dẫn vào trang quản lý truyện. Sử dụng chuột phải lên tên truyện để mở các Menu tương ứng. Click Thêm tập<br>
+                                    Nhập Tiêu đề của tập bắt buộc, còn các khung khác có thể bỏ qua.<br>
+                                    Sau khi thêm tập mới, click chuột phải vào tên tập đó để chỉnh sửa hoặc thêm chương như ảnh bên dưới<br>
+                                    Nhập các nội dung để thêm chương mới như yêu cầu. Có thể upload ảnh minh họa bằng các chức năng như hình bên dưới. Nếu số ảnh upload bị thiếu, có thể do ảnh đó bị lỗi hoặc server bị lỗi.<br>
+                                    Sau khi thêm chương mới, click chuột phải vào tên chương vừa tạo để Sửa hoặc Xóa chương.
+                                </div>
+                            </div>
+
+                            <div class="content" data-bs-toggle="collapse" data-bs-target="#collapseNote"
+                                 aria-expanded="false" aria-controls="collapseNote">
+                                Hướng dẫn thêm chú thích <a class="spoiler_toggle" href="#">Click vào để hiển thị nội dung</a>
+                            </div>
+
+                            <div class="collapse" id="collapseNote">
+                                <div class="card card-body">
+                                    Làm theo hướng dẫn thêm tập và thêm chương ở bên trên. Sau khi đã thêm chương, kéo xuống cuối cùng trang Sửa chương để thêm chú thích<br>
+                                    Nhập Tiêu đề của tập bắt buộc, còn các khung khác có thể bỏ qua.<br>
+                                    Sau khi thêm tập mới, click chuột phải vào tên tập đó để chỉnh sửa hoặc thêm chương như ảnh bên dưới<br>
+                                    Nhập các nội dung để thêm chương mới như yêu cầu. Có thể upload ảnh minh họa bằng các chức năng như hình bên dưới. Nếu số ảnh upload bị thiếu, có thể do ảnh đó bị lỗi hoặc server bị lỗi.<br>
+                                    Sau khi thêm chương mới, click chuột phải vào tên chương vừa tạo để Sửa hoặc Xóa chương.
+                                </div>
+                            </div>
+
+                            <div class="content" data-bs-toggle="collapse" data-bs-target="#collapseOrder"
+                                 aria-expanded="false" aria-controls="collapseOrder">
+                                Hướng dẫn sắp xếp lại thứ tự các Tập và Chương <a class="spoiler_toggle" href="#">Click vào để hiển thị nội dung</a>
+                            </div>
+
+
+                        <div class="collapse" id="collapseOrder">
                             <div class="card card-body">
                                 Vào trang quản lý truyện, và làm theo hướng dẫn dưới đây để sắp xếp thứ tự các tập và chương truyện<br>
-                                <img src="user/img/huongdan/hd1.png" alt=""><br>
-                                <img src="user/img/huongdan/hd2.png" alt=""><br>
-                                <img src="user/img/huongdan/hd3.png" alt="">
+                                <img src="{{asset('users/user/img/huongdan/hd1.png')}}" alt=""><br>
+                                <img src="{{asset('users/user/img/huongdan/hd2.png')}}" alt=""><br>
+                                <img src="{{asset('users/user/img/huongdan/hd3.png')}}" alt="">
                             </div>
                         </div>
 

@@ -50,30 +50,19 @@ Route::group([
     })->name('listComment');
 });
 
-Route::controller(HomeController::class)
-    ->group(function () {
-        Route::get('/', 'home')->name('home');
-        Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
-    });
+// Route::controller(HomeController::class)
+//     ->group(function () {
+//         Route::get('/', 'home')->name('home');
+//         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
+//     });
 
-// Route::get('home', [UserController::class, 'index']);
-// Route::get('gioithieu', [UserController::class, 'gioithieu']);
-// Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('vuadang', [UserController::class, 'vuadang']);
-// Route::get('thaoluan', [UserController::class, 'thaoluan']);
-
-
-// Route::get('login', [UserController::class, 'login']);
-// Route::get('register', [UserController::class, 'register']);
-// Route::resource('story', BookController::class);
-
-
-Route::get('home', [UserController::class, 'index']);
+Route::get('/home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
 Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('CDthaoluan', [UserController::class, 'CDthaoluan']);
 Route::get('sangtac', [UserController::class, 'sangtac']);
 Route::get('xuatban', [UserController::class, 'xuatban']);
 
@@ -82,6 +71,8 @@ Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
+Route::get('kesach', [UserController::class, 'kesach']);
+Route::get('bookmark', [UserController::class, 'bookmark']);
 Route::get('login', [UserController::class, 'login']);
 Route::get('register', [UserController::class, 'register']);
 Route::get('email', [UserController::class, 'email']);

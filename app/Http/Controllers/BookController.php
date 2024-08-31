@@ -15,6 +15,22 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function listStories()
+    {
+        $genres = genre::pluck('slug', 'name');
+        $groups = group::pluck('id', 'name');
+        $data = book::query()->paginate(30);
+        return view('story.index', compact('data', 'genres', 'groups'));
+    }
+
+    public function reading(string $slug, string $chapterslug){
+        $book = Book::where('slug', $slug)->firstOrFail()->with('episodes')->get();
+
+
+        return view('story.reading',compact('book'));
+
+    }
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
@@ -72,24 +88,37 @@ class BookController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
-        return redirect()->route('story.show',$book->id);
+        return redirect()->route('story.show', $book->id);
     }
 
     /**
      * Display the specified resource.
      */
+    //show admin
     public function show(String $id)
     {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
-        $chapter = $book->episodes;
-
         return view('stories.show', compact('book'));
+    }
+    //end show admin
+
+    //show User
+    public function showU(String $slug)
+    {
+        $book = Book::with('genres', 'episodes','group')->where(
+            'slug',
+            $slug
+        )->firstOrFail();
+        $episodes = $book->episodes;
+        // dd($book,$episodes);
+        return view('story.show', compact('book', 'episodes'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(String $id) {
+    public function edit(String $id)
+    {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
         // dd($book);
 
@@ -126,5 +155,4 @@ class BookController extends Controller
             return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.');
         }
     }
-
 }

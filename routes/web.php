@@ -121,7 +121,10 @@ Route::get('stories/addchapter/{episode}', function (episode  $episode) {
     return view('stories.iframe.formAddChapter', compact('episode'));
 })->name('storychapter');
 
-Route::get('truyen/{slug}',[BookController::class,'show']);
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+
 // End Phong
 
 

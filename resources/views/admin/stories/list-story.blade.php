@@ -17,21 +17,42 @@
             </div>
         @endif
         <h2 class="text-primary mb-4">Danh Sách Truyện</h2>
-        <a class="btn btn-primary" href="">Thêm Truyện</a>
         <table border="1" class="table">
             <tr>
-                <th>Mã Truyện</th>
-                <th>Tên Truyện</th>
-                <th>Hình ảnh </th>
-                <th>Hành động</th>
+                <th>STT</th>
+                <th>Tiêu đề</th>
+                <th>Tác giả</th>
+                <th>Lượt xem</th>
+                <th>Lượt thích</th>
+                <th>Họa sĩ minh họa</th>
+                <th>Ảnh bìa</th>
+                <th>Mô tả</th>
+                <th>Ghi chú</th>
+                <th>VIP</th>
+                <th>Trạng thái</th>
+                <th>Độ tuổi</th>
+                <th>Thể loại</th>
+                <th>
+                    <a class="btn btn-primary" href="">Thêm Truyện</a>
+                </th>
             </tr>
             {{-- @foreach ($stories as $story) --}}
                 <tr>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
-                        <img src="" alt="" width="60px">
+                        <img width="50px" src="" alt="Không có ảnh bìa  ">
                     </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <a class="btn btn-success" href="">Chi tiết</a>
                         <a class="btn btn-warning" href="">Sửa</a>

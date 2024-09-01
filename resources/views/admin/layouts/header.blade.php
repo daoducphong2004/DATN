@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                <li><a href="{{ route('admin.listStory') }}" style="color: red">Danh Sách Truyện</a></li>
-                <li><a href="{{ route('admin.listUser') }}" style="color: #3107dc">User</a></li>
-                <li><a href="{{ route('admin.listCategory') }}" style="color: #e3953e">Thể Loại</a></li>
-                <li><a href="{{ route('admin.listComment') }}" style="color: #d54cac">Bình luận</a></li>
+                <li><a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li>
+                <li><a href="{{ route('user_index') }}" style="color: #3107dc">User</a></li>
+                <li><a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a></li>
+                <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>

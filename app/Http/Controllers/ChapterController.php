@@ -54,7 +54,7 @@ class ChapterController extends Controller
         // }
 
         // Tạo mới chapter
-        $chapter = new Chapter();
+         $chapter = new Chapter();
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
@@ -68,6 +68,8 @@ class ChapterController extends Controller
 
         // Lưu lại chapter với slug mới
         $chapter->save();
+
+        // Trigger sẽ tự động cập nhật trường 'updated_at' trong bảng 'book'
 
         return redirect()->route('chapter.index')->with('success', 'Chapter added successfully.');
     }

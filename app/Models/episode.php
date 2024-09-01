@@ -21,4 +21,8 @@ class episode extends Model
     public function book(){
         return $this->belongsTo(book::class,'book_id');
     }
+    public function latestChapter()
+    {
+        return $this->hasOne(Chapter::class)->latest();
+    }
 }

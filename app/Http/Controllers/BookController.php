@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
 use Illuminate\Support\Facades\Storage;
@@ -20,16 +21,21 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->paginate(30);
+        $data = book::query()->with('episodes.latestChapter')->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapterslug){
-        $book = Book::where('slug', $slug)->first()->with('episodes')->get();
+    public function reading(string $slug, string $chapterslug = null)
+    {
+        // Lấy book theo slug và load các episodes
+        $book = Book::where('slug', $slug)->with('episodes.chapters')->firstOrFail();
 
+        // Lấy chapter theo slug
+        $chapter = Chapter::where('slug', $chapterslug)->firstOrFail();
 
-        return view('story.reading',compact('book'));
-
+        // dd($book,$chapter);
+        // Trả về view với dữ liệu của book và chapter
+        return view('story.reading', compact('book', 'chapter'));
     }
     public function index()
     {
@@ -105,7 +111,7 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes','group')->where(
+        $book = Book::with('genres', 'episodes', 'group')->where(
             'slug',
             $slug
         )->firstOrFail();

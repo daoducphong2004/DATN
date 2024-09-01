@@ -19,7 +19,7 @@
     <link rel="canonical" href="https://datn.test">
     <meta property="og:image" content="https://datn.test/img/nocover.jpg">
     <link rel="preload" href="{{ asset('fonts/OpenSans-Regular.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
-    <link rel="preload" href="{{ asset('/fonts/OpenSans-SemiBold.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('fonts/OpenSans-SemiBold.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
 
     <link rel="shortcut icon" href="{{ asset('img/favicon.png?v=3') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/apple-touch-icon.png?v=3') }}">
@@ -33,19 +33,4 @@
 
 
         <script src="{{ asset('users/user/js/plugins.js')}}"></script>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34864968-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('set', {
-            'user_id': '199850',
-            'dimension1': true
-        });
-        gtag('js', new Date());
-        gtag('config', 'UA-34864968-3');
-    </script>
 </head>

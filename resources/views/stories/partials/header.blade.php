@@ -1,27 +1,27 @@
-<style>
-    html {
-        overflow-y: hidden;
-        height: 100%;
-    }
-
-    iframe {
-        border: 0;
-        width: 100%;
-        height: calc(100vh - 92px);
-    }
-
-    .wrapper {
-        height: 100%;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        padding: 72px 0 0 0 !important;
-        width: 100%;
-    }
-</style>
 
 <!DOCTYPE html>
 <html>
+    <style>
+        html {
+            overflow-y: hidden;
+            height: 100%;
+        }
+
+        iframe {
+            border: 0;
+            width: 100%;
+            height: calc(100vh - 92px);
+        }
+
+        .wrapper {
+            height: 100%;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            padding: 72px 0 0 0 !important;
+            width: 100%;
+        }
+    </style>
 
 <head>
     <meta charset="utf-8">
@@ -30,9 +30,9 @@
     <meta name="robots" content="NoIndex, NoFollow">
     <title>Bảng điều khiển</title>
 
-    <link rel="shortcut icon" href="https://docln.net/img/favicon.png">
-    <link href="https://docln.net/css/app.css" rel="stylesheet">
-    <link href="https://docln.net/css/app_dark.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app_dark.css') }}" rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
@@ -47,5 +47,5 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <link href="https://docln.net/css/action.css?t=3" rel="stylesheet">
+    <link href="{{ asset('css/action.css') }}" rel="stylesheet">
 </head>

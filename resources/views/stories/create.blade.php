@@ -11,14 +11,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="https://docln.net/action">Bảng điều khiển</a>
+                {{-- <a class="navbar-brand" href="https://docln.net/action">Bảng điều khiển</a> --}}
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav ">
                     <li><a href="https://docln.net" target="_blank"><i class="fas fa-home"></i><span
                                 class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                    <li><a href="https://docln.net/action/series/create" style="color: red">Thêm Truyện</a></li>
+                    <li><a href="{{ route('story.create') }}" style="color: red">Thêm Truyện</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                             aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
@@ -279,8 +279,6 @@
                             </div>
                         </form>
 
-
-
                         <script>
                             $(document).ready(function() {
                                 $('#select-type').on('change', function() {
@@ -307,7 +305,7 @@
 
 
 
-    {{-- <script src="/livewire/livewire.js?id=f121a5df"   data-csrf="AqIsI0onQAhmDz321oidHlpiqtEBxY2rv4wo0wZo" data-update-uri="/livewire/update" data-navigate-once="true"></script> --}}
+    {{-- <script src="/livewire/livewire.js?id=f121a5df"   data-csrf="6Xm2NPE4wdMZ3lFKBuPUa3GqO17RweL1Fzy6i1La" data-update-uri="/livewire/update" data-navigate-once="true"></script> --}}
 </body>
 
 </html>

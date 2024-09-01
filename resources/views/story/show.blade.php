@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('https://i2.docln.net/ln/series/covers/s18997-6375421b-f093-43cb-9a50-c221d27005e8.jpg')">
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
                                                 </div>
                                             </div>
                                         </div>
@@ -44,45 +44,37 @@
                                         <div class="flex-1">
                                             <div class="series-name-group">
                                                 <span class="series-name">
-                                                    <a
-                                                        href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay">Cô
-                                                        nàng Gyaru đột nhiên tiếp cận tôi sau khi tôi sửa xe đạp cho cô
-                                                        ấy</a>
+                                                    <a href="{{ route('truyen.truyen', $book->slug) }}">
+                                                        {{ $book->title }}</a>
                                                 </span>
                                             </div>
                                             <div class="series-information mb-0 flex flex-col">
                                                 <div class="series-gernes" x-data="{ more: false }">
-                                                    <a class="series-gerne-item"
-                                                        href="https://docln.net/the-loai/comedy">Comedy</a>
-                                                    <a class="series-gerne-item"
-                                                        href="https://docln.net/the-loai/romance">Romance</a>
-                                                    <a class="series-gerne-item"
-                                                        href="https://docln.net/the-loai/school-life">School Life</a>
-                                                    <a class="series-gerne-item"
-                                                        href="https://docln.net/the-loai/slice-of-life">Slice of Life</a>
-
-
+                                                    @foreach ($book->genres as $item)
+                                                        <a class="series-gerne-item"
+                                                            href="https://datn.test/the-loai/{{ $item->slug }}">{{ $item->name }}</a>
+                                                    @endforeach
                                                 </div>
                                                 <div class="info-item">
                                                     <span class="info-name">Tác giả:</span>
                                                     <span class="info-value "><a
-                                                            href="https://docln.net/tac-gia/Shouga%20Neiya">Shouga
-                                                            Neiya</a></span>
+                                                            href="https://datn.test/tac-gia?{{ $book->author }}">{{ $book->author }}</a></span>
                                                 </div>
                                                 <div class="info-item">
                                                     <span class="info-name">Họa sĩ:</span>
                                                     <span class="info-value"><a
-                                                            href="https://docln.net/hoa-si/SuperPig">SuperPig</a></span>
+                                                            href="https://datn.test/hoa-si?{{ $book->painter }}">{{ $book->painter }}</a></span>
                                                 </div>
 
                                                 <div class="info-item">
                                                     <span class="info-name">Tình trạng:</span>
                                                     <span class="info-value">
-                                                        <a href="https://docln.net/truyen-dang-tien-hanh">Đang tiến hành</a>
+                                                        <a href="https://datn.test/truyen-dang-tien-hanh">Đang tiến hành(sẽ
+                                                            tạo trang riêng sau)</a>
                                                     </span>
                                                 </div>
 
-                                                <div class="flex flex-row self-center md:self-start gap-2">
+                                                {{-- <div class="flex flex-row self-center md:self-start gap-2">
 
                                                     <div wire:snapshot="{&quot;data&quot;:{&quot;series&quot;:[null,{&quot;class&quot;:&quot;App\\Models\\Series&quot;,&quot;key&quot;:18997,&quot;s&quot;:&quot;mdl&quot;}],&quot;ignored&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;0Cek5OK0oIRCFPYPDpoC&quot;,&quot;name&quot;:&quot;pub.series.member.notification-ignore-button&quot;,&quot;path&quot;:&quot;truyen\/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;vi&quot;},&quot;checksum&quot;:&quot;ea83d1e4c76abce38d83bcd7f8353e6fc10fbfb69c2439266c354cf35450bda2&quot;}"
                                                         wire:effects="[]" wire:id="0Cek5OK0oIRCFPYPDpoC">
@@ -93,7 +85,7 @@
                                                             nhận thông báo
                                                         </button>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                         <div class="side-features flex-none">
@@ -102,7 +94,7 @@
                                                     <a id="collect" class="side-feature-button button-follow follow">
                                                         <span class="block feature-value"><i
                                                                 class="far fa-heart"></i></span>
-                                                        <span class="block feature-name"> 618 </span>
+                                                        <span class="block feature-name"> {{ $book->like }} </span>
                                                     </a>
                                                 </div>
 
@@ -113,7 +105,8 @@
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
                                                                         class="far fa-star"></i></span>
-                                                                <span class="block feature-name">Đánh giá</span>
+                                                                <span class="block feature-name">Đánh giá( sẽ làm
+                                                                    sau)</span>
                                                             </label>
                                                         </a>
 
@@ -126,14 +119,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <a href="https://docln.net/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay#series-comments"
-                                                        class="side-feature-button">
+                                                    <a href="#series-comments" class="side-feature-button">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-comments"></i></span>
                                                         <span class="block feature-name">Bàn luận</span>
                                                     </a>
                                                 </div>
-                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                {{-- <div class="col-4 col-md feature-item width-auto-xl">
                                                     <label for="open-sharing" class="side-feature-button">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-share-alt"></i></span>
@@ -151,7 +143,7 @@
                                                             href="https://twitter.com/intent/tweet?text=Cô nàng Gyaru đột nhiên tiếp cận tôi sau khi tôi sửa xe đạp cho cô ấy&url=https%3A%2F%2Fdocln.net%2Ftruyen%2F18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay"
                                                             target="_blank"><i class="fab fa-twitter"></i></a>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -161,19 +153,27 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row statistic-list">
+                                            @php
+                                                use Carbon\Carbon;
+                                                $updatedAt = Carbon::parse($book->updated_at);
+                                            @endphp
+
                                             <div class="col-12 col-md-3 statistic-item block-wide at-mobile">
                                                 <div class="statistic-name">Lần cuối</div>
-                                                <div class="statistic-value"><time class="timeago"
-                                                        title="30/08/2024 12:02:44"
-                                                        datetime="2024-08-30T12:02:44+07:00">Đang chạy...</time></div>
+                                                <div class="statistic-value">
+                                                    <time class="timeago" title="{{ $updatedAt->format('d/m/Y H:i:s') }}"
+                                                        datetime="{{ $updatedAt->toIso8601String() }}">
+                                                        {{ $updatedAt->diffForHumans() }}
+                                                    </time>
+                                                </div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Số từ</div>
+                                                <div class="statistic-name">Số từ( Phần này sẽ làm sau )</div>
                                                 <div class="statistic-value">8.681</div>
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Đánh giá</div>
+                                                <div class="statistic-name">Đánh giá( phần này sẽ làm sau)</div>
                                                 <div class="statistic-value">5,00 / <small>2</small></div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
@@ -238,7 +238,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -289,10 +289,13 @@
                                 <i class="fas fa-times"></i>
                             </span>
                             <ol class="list-volume unstyled no-margin no-padding">
-                                <li data-scrollTo="#volume_25791"><span class="list_vol-order">01.</span><span
-                                        class="list_vol-title">Web Novel (1~30)</span></li>
-                                <li data-scrollTo="#volume_25839"><span class="list_vol-order">02.</span><span
-                                        class="list_vol-title">Light Novel Vol.1</span></li>
+
+                                @foreach ($book->episodes as $item)
+                                    <li data-scrollTo="#volume_{{ $item->id }}"><span
+                                            class="list_vol-order">{{ $loop->index }}.</span><span
+                                            class="list_vol-title">{{ $item->title }})</span></li>
+                                @endforeach
+
                             </ol>
                         </div>
                     </section>
@@ -435,12 +438,13 @@
                                 <div class="row">
                                     <div class="col-12 col-md-2">
                                         <div class="volume-cover">
-                                            <a href="#
+                                            <a
+                                                href="#
                                             {{-- {{route('episode.show', ['id' => $item->id]) }} --}}
                                                  ">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{ asset('books/' . $item->episode_path) }}')">
+                                                        style="background-image: url('{{ asset(Storage::url($item->episode_path)) }}')">
                                                     </div>
                                                 </div>
                                             </a>
@@ -460,7 +464,7 @@
                                                             <i class="fas fa-image" aria-hidden="true"
                                                                 title="Có chứa ảnh"></i>
                                                         @endif
-                                                        <a href="{{ route('truyen.chuong',[$book->slug,$chapter->slug]) }}"
+                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                             title="{{ $chapter->title }}">
                                                             {{ $chapter->title }}
                                                         </a>
@@ -1544,8 +1548,7 @@
                                                                     class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                                     <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563737&amp;reply_id=2563816#ln-comment-2563816"
                                                                         class="text-slate-500">
-                                                                        <time class="timeago"
-                                                                            title="25-08-2024 08:15:16"
+                                                                        <time class="timeago" title="25-08-2024 08:15:16"
                                                                             datetime="2024-08-25T08:15:16+07:00">
                                                                             25-08-2024 08:15:16
                                                                         </time>

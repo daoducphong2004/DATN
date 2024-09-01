@@ -122,14 +122,14 @@
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label text-right">Tóm tắt</label>
                                 <div class="col-md-10">
-                                    <textarea id="LN_Series_Summary" name="summary">&lt;p&gt;truyenej tesst&lt;/p&gt;</textarea>
+                                    <textarea id="LN_Series_Summary" name="description">{!! $book->description !!}</textarea>
                                 </div>
                             </div>
 
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right">Chú thích thêm</label>
                                 <div class="col-md-10">
-                                    <textarea class="form-control" id="extrainfo" name="extra">&lt;p&gt;truyenej tesst&lt;/p&gt;</textarea>
+                                    <textarea class="form-control" id="extrainfo" name="note">{!! $book->note !!}</textarea>
                                 </div>
                             </div>
 

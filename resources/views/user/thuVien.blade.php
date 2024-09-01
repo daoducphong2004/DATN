@@ -1,7 +1,7 @@
 @extends('user.layout.master')
 
 @section('content')
-    <div class="container" style="margin-top: 60px;">
+    <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">

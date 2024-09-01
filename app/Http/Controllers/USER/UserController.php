@@ -18,9 +18,9 @@ class UserController extends Controller
         return view('home.stories');
     }
 
-    public function chuong(){
-        return view('home.reader');
-    }
+    // public function chuong(){
+    //     return view('home.reader');
+    // }
 
     public function danhsach(){
         $genres = genre::pluck('slug', 'name');
@@ -67,6 +67,18 @@ class UserController extends Controller
     public function bookmark(){
         return view('home.bookmark');
     }
+    public function lichsu(){
+        return view('home.lichsu');
+    }
+    public function tinnhanmoi(){
+        return view('home.tinnhanmoi');
+    }
+    public function tinnhan(){
+        return view('home.hopthu');
+    }
+    public function guitinnhan(){
+        return view('home.guitinnhan');
+    }
     public function taikhoan(){
         return view('home.taikhoan');
     }
@@ -106,11 +118,11 @@ class UserController extends Controller
     }
 
     public function conventThamGia(){
-        return view('user.conventThamGia');
+        return view('user.convertThamGia');
     }
 
     public function conventDaDang(){
-        return view('user.conventDaDang');
+        return view('user.convertDaDang');
     }
 
     public function OLNDaDang(){
@@ -134,7 +146,7 @@ class UserController extends Controller
     }
 
     public function thuVien(){
-        return view('user.truyenThamGia');
+        return view('user.thuvien');
     }
 
     public function nhomSoHuu(){

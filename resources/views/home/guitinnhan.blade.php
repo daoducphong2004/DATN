@@ -10,7 +10,7 @@
         </a>
     </div>
 
-    <main id="mainpart" class="user-page">
+    <main id="mainpart" class="page_user-pm">
         <div class="container">
             <div class="row d-block clearfix">
                 <div class="col-12 col-lg-3 float-right">
@@ -23,24 +23,31 @@
                             <li class=""><a href="kesach"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Kệ sách</a></li>
-                            <li class="current"><a href="bookmark"><span class="none inline-l"><i
+                            <li class=""><a href="bookmark"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Bookmark</a></li>
-                            <li class=""><a href="tinnhan"><span class="none inline-l"><i
+                            <li class="current"><a href="tinnhan"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
                         </ul>
                     </section>
                 </div>
-
-                <div style="text-align: center; margin: 0 auto 10px auto;">
-                </div>
-
                 <div class="col-12 col-lg-9 float-left">
-                    <section class="bookmark-section basic-section">
-                        <header class="sect-header"><span class="sect-title">Danh sách đánh dấu</span></header>
-                        <main class="sect-body">
-                        </main>
+                    <section class="user-pm">
+                        <form method="post" action="/tin-nhan/xoa">
+                            <div class="mail-function">
+                                <a href="tinnhanmoi" class="button button-green">Gửi thư mới</a>
+                                <a href="tinnhan" class="button button-blue">Hộp thư</a>
+                                <a href="guitinnhan" class="button button-blue">Thư đã gửi</a>
+                                <input type="submit" class="button button-red" value="Xóa chọn">
+                                <input type="hidden" name="_token" value="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK">
+                            </div>
+                            <ul class="mail-list">
+                                <li style="padding: 10px 20px; text-align: center">
+                                    Chưa có thư
+                                </li>
+                            </ul>
+                        </form>
 
                     </section>
                 </div>

@@ -73,6 +73,10 @@ Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
 Route::get('kesach', [UserController::class, 'kesach']);
 Route::get('bookmark', [UserController::class, 'bookmark']);
+Route::get('tinnhan', [UserController::class, 'tinnhan']);
+Route::get('tinnhanmoi', [UserController::class, 'tinnhanmoi']);
+Route::get('guitinnhan', [UserController::class, 'guitinnhan']);
+Route::get('lichsudoc', [UserController::class, 'lichsu']);
 Route::get('login', [UserController::class, 'login']);
 Route::get('register', [UserController::class, 'register']);
 Route::get('email', [UserController::class, 'email']);

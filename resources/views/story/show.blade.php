@@ -1,4 +1,4 @@
-@extends('home.layout.master')
+@extends('story.layout.master')
 @section('content')
     <div class="page-top-group ">
         <a href="/thao-luan/2591">

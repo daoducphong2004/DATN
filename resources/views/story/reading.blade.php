@@ -1,366 +1,174 @@
-<!DOCTYPE html>
-<html lang="vi" class="light">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Đọc Cô nàng Gyaru đột nhiên tiếp cận tôi sau khi tôi sửa xe đạp cho cô ấy - Chương 04 - Cổng Light Novel -
-        Đọc Light Novel</title>
-
-    <meta name="description"
-        content="Trên đường về nhà như thường lệ, tôi vô tình cứu một cô gái gyaru khỏi việc bị ngã xe và tiện sửa xe giúp cô ấy. Đang định rời đi thì chẳng hiểu sao cô ấy lại có cảm tình với tôi? Sau một loạt sự kiện, cuối cùng...">
-    <meta name="theme-color" content="#000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="5Gxv6MpYYcDbGOV9nS2bOqdOZUb835kKRZzYknQD">
-    <meta name="logged-in" content="1">
-    <meta property="fb:app_id" content="1864643850436909">
-
-    <link rel="canonical"
-        href="https://docln.net/truyen/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c141571-chuong-04">
-    <meta property="og:image"
-        content="https://i2.docln.net/ln/series/covers/s18997-6375421b-f093-43cb-9a50-c221d27005e8.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora&family=Merriweather&family=Noto+Sans&family=Nunito&family=Roboto&display=swap"
-        rel="stylesheet">
-    <link rel="preload" href="/fonts/OpenSans-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    <link rel="preload" href="/fonts/OpenSans-SemiBold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    <link rel="preconnect" href="https://www.google-analytics.com">
-
-    <link rel="shortcut icon" href="/img/favicon.png?v=3">
-    <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-touch-icon.png?v=3">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png?v=3">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png?v=3">
-
-    <link rel="stylesheet" href="/css/interface.css?id=85e6e1b5c9bf084ce2b36f5f4018375b">
-    <link rel="stylesheet" href="/css/tailwind.css?id=efb929a134ced6dfa20cb65d538b590d">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
-
-
-    <script src="/scripts/plugins.js?id=b612d946b32459430eed3066ed15adf2"></script>
-
-    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34864968-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('set', {
-            'user_id': '199850',
-            'dimension1': true
-        });
-        gtag('js', new Date());
-        gtag('config', 'UA-34864968-3');
-    </script> --}}
-    {{-- Đoạn này để phân tích lưu lượng bằng gg  analytics --}}
-{{-- </head> --}}
-
-<body>
-
-    <style>
-        body {
-            background: inherit;
-        }
-
-        #footer {
-            display: none;
-        }
-    </style>
-
-
-    <main id="mainpart" class="reading-page style-4">
-        <section id="rd-side_icon" class="none force-block-l">
-            <a class="rd_sd-button_item rd_top-left"
-                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141502-chuong-03"><i
-                    class="fas fa-backward"></i></a>
-
-            <a class="rd_sd-button_item"
-                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay"><i
-                    class="fas fa-home"></i></a>
-            <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
-            <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i
-                    class="fas fa-info"></i></a>
-            <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item"><i
-                    class="fas fa-bookmark"></i></a>
-
-
-            <a class="rd_sd-button_item rd_top-right"
-                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141671-chuong-05"><i
-                    class="fas fa-forward"></i></a>
-        </section>
-
-        <section id="chapters" class="rd_sidebar rdtoggle">
-            <main class="rdtoggle_body">
-                <header class="rd_sidebar-header clear">
-                    <a class="img"
-                        href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04"
-                        style="background: url('https://i2.docln.net/ln/series/covers/s18997-6375421b-f093-43cb-9a50-c221d27005e8.jpg') no-repeat"></a>
-                    <div class="rd_sidebar-name">
-                        <h5><a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay">Cô
-                                nàng Gyaru đột nhiên t...</a></h5>
-                        <small><i class="fas fa-pen"></i>Shouga Neiya</small>
-                        <small><i class="fas fa-paint-brush"></i>SuperPig</small>
-                    </div>
-                </header>
-
-                <ul id="chap_list" class="unstyled">
-                    <li class="current"><a
-                            href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/t25791-web-novel">Web
-                            Novel (1~30)</a></li>
-                    <ul class="sub-chap_list unstyled">
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141419-chuong-01">
-                                Chương 01
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141420-chuong-02">
-                                Chương 02
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141502-chuong-03">
-                                Chương 03
-                            </a>
-                        </li>
-                        <li class="current">
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04">
-                                Chương 04
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141671-chuong-05">
-                                Chương 05
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141852-chuong-06">
-                                Chương 06
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141992-chuong-07">
-                                Chương 07
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c142077-chuong-08">
-                                Chương 08
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c142146-chuong-09">
-                                Chương 09
-                            </a>
-                        </li>
-                    </ul>
-
-                    <li class=""><a
-                            href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141661-illustration">Light
-                            Novel Vol.1</a></li>
-
-
-                </ul>
-            </main>
-            <div class="black-click"></div>
-        </section>
-
-        <section id="bookmarks" class="rd_sidebar rdtoggle">
-            <main class="rdtoggle_body">
-                <div class="rd_sidebar-header">
-                    <h2 class="rd_s-name"><i class="fas fa-bookmark"></i><a href="/bookmark" style="color: white;">
-                            Bookmarks</a></h2>
-                </div>
-                <ul id="bookmarks_list" class="unstyled">
-                    <li>Bạn chưa lưu lại bookmark</li>
-                </ul>
-            </main>
-            <div class="black-click"></div>
-        </section>
-
-        <section id="setting" class="rdtoggle">
-            <section class="re_set-in basic-section clear rdtoggle_body">
-                <header class="sect-header"><span class="sect-title">Tùy chỉnh</span></header>
-                <main class="sect-body">
-                    <div class="set-list set-color clear">
-                        <label class="font-bold">Màu nền</label>
-                        <div class="set-input clear justify-center">
-                            <span data-color="#ffffff" data-id="0" style="background-color: #ffffff"></span>
-                            <span data-color="#e6f0e6" data-id="1" style="background-color: #e6f0e6"></span>
-                            <span data-color="#e3f5fa" data-id="2" style="background-color: #e3f5fa"></span>
-                            <span data-color="#f6f4ec" data-id="3" style="background-color: #f6f4ec"></span>
-                            <span data-color="#eae4d3" data-id="4" style="background-color: #eae4d3"></span>
-                            <span data-color="#f5e9ef" data-id="5" style="background-color: #f5e9ef"></span>
-                            <span data-color="#222222" data-id="6" style="background-color: #222222"></span>
-                            <span data-color="#000000" data-id="7" style="background-color: #000000"></span>
-                        </div>
-                    </div>
-                    <div class="set-list set-font-family clear">
-                        <label class="font-bold">Font chữ</label>
-                        <div class="set-slide set-input justify-center">
-                            <select>
-                                <option>Times New Roman</option>
-                                <option>Merriweather</option>
-                                <option>Lora</option>
-                                <option>Roboto</option>
-                                <option>Noto Sans</option>
-                                <option>Nunito</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="set-list set-font clear">
-                        <label class="font-bold">Kích cỡ chữ</label>
-                        <div class="set-slide set-input justify-center">
-                            <span class="set-slide_button set-smaller"><i class="fas fa-chevron-left"></i></span>
-                            <input class="set-slide_input" disabled="" value="16px" type="text">
-                            <span class="set-bigger set-slide_button"><i class="fas fa-chevron-right"></i></span>
-                        </div>
-                    </div>
-                    <div class="set-list set-margin clear">
-                        <label class="font-bold">Bản lề</label>
-                        <div class="set-slide set-input justify-center">
-                            <span class="set-slide_button set-smaller"><i class="fas fa-chevron-left"></i></span>
-                            <input class="set-slide_input" disabled="" value="20px" type="text">
-                            <span class="set-bigger set-slide_button"><i class="fas fa-chevron-right"></i></span>
-                        </div>
-                    </div>
-                    <div class="set-list set-text-align clear">
-                        <label class="font-bold">Kiểu căn chỉnh</label>
-                        <div class="set-input clear justify-center font-medium text-2xl flex flex-row gap-10">
-                            <span data-align="text-left" class="p-1"><i class="fas fa-align-left"></i></span>
-                            <span data-align="text-center" class="p-1"><i class="fas fa-align-center"></i></span>
-                            <span data-align="text-right" class="p-1"><i class="fas fa-align-right"></i></span>
-                            <span data-align="text-justify" class="p-1"><i
-                                    class="fas fa-align-justify"></i></span>
-                        </div>
-                    </div>
-                </main>
-            </section>
-            <div class="black-click"></div>
-        </section>
-
-        <div class="container">
-            <div class="row">
-                <div class="reading-content col-12 col-lg-10 offset-lg-1" style="word-wrap: break-word;">
-                    <div id="bookmark_top" class="block d-lg-none"><i class="fas fa-bookmark"></i></div>
-                    <span class="save_bookmark" style="position: absolute; top: 9999px; display: none"><i
-                            class="fas fa-bookmark"></i></span>
+@extends('story.layout.readingmaster')
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="reading-content col-12 col-lg-10 offset-lg-1" style="word-wrap: break-word;">
+            <div id="bookmark_top" class="block d-lg-none"><i class="fas fa-bookmark"></i></div>
+            <span class="save_bookmark" style="position: absolute; top: 9999px; display: none"><i
+                    class="fas fa-bookmark"></i></span>
 
 
 
-                    <div class="title-top" style="padding-top: 20px">
-                        <h2 class="title-item text-xl font-bold" align="center">Web Novel (1~30)</h2>
-                        <h4 class="title-item text-base font-bold" align="center">Chương 04</h4>
-                        <h6 class="title-item font-bold" align="center">
-                            <a href="https://docln.net/truyen/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c141571-chuong-04#chapter-comments"
-                                style="text-decoration: underline">11 Bình luận</a> -
-                            Độ dài: 1,017 từ - Cập nhật:
-                            <time class="topic-time timeago" title="24-08-2024 10:23:07"
-                                datetime="2024-08-24T10:23:07+07:00"></time>
-                        </h6>
-                    </div>
+            <div class="title-top" style="padding-top: 20px">
+                <h2 class="title-item text-xl font-bold" align="center">Tập 01</h2>
+                <h4 class="title-item text-base font-bold" align="center">Chương 01: Bi kịch</h4>
+                <h6 class="title-item font-bold" align="center">
+                    <a href="https://docln.net/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01#chapter-comments"
+                        style="text-decoration: underline">2 Bình luận</a> -
+                    Độ dài: 2,558 từ - Cập nhật:
+                    <time class="topic-time timeago" title="31-08-2024 21:50:01"
+                        datetime="2024-08-31T21:50:01+07:00"></time>
+                </h6>
+            </div>
 
-                    <div style="text-align: center; margin: 20px auto -20px auto;">
+            <div style="text-align: center; margin: 20px auto -20px auto;">
 
-                    </div>
+            </div>
 
-                    <div id="chapter-content" class="long-text no-select text-justify"
-                        style="font-family:&#039;Nunito&#039;, &#039;Times New Roman&#039;, Georgia, serif;">
-                        <p id="1">Sáng hôm sau, khi tôi đến trường, lớp học bỗng dưng ồn ào đến lạ. Bình thường
-                            nó sẽ không phải cái gì phiền phức lắm đâu, nhưng hôm nay… tôi có linh cảm không lành về nó.
-                            Khi tôi thử hỏi cô bạn ngồi cạnh mà tôi thỉnh thoảng nói chuyện thì…</p>
-                        <p id="2">"Chả hiểu sao, cả lớp đang xôn xao về một một đứa con trai đột nhiên xuất
-                            hiện trên tài khoản Twista của Mizoguchi-san. Kiểu, họ nói cô ấy chưa bao giờ đăng bất cứ
-                            điều gì liên quan đến đàn ông trước đây." </p>
-                        <p id="3">"..." </p>
-                        <p id="4">Chà chà, thôi cứ ngồi hóng vậy, chắc gì đã dính dáng tới mình nhỉ. </p>
-                        <p id="5">Nhưng ngay khoảnh khắc tôi lỡ nhìn vào màn hình điện thoại của Yokokura-san
-                            đưa cho tôi xem, tôi đã bị choáng váng.</p>
-                        <p id="6">Có một đoạn video tôi đang sửa xe đạp của Mizoguchi-san, và câu nói, "Mình đã
-                            nhờ một cậu chàng trong lớp sửa xe đạp cho mình đấy. Mà cậu ấy sửa nhanh dễ sợ ý, khó tin
-                            lắm luôn.” </p>
-                        <p id="7">Cuối cùng là đoạn kết thúc “Mình ngưỡng mộ cậu ấy theo cách bình thường",
-                            cùng hàng loạt các emoji. Có lẽ nó không có ý nghĩa gì đặc biệt, nhưng có một biểu tượng
-                            trái tim ở cuối câu, và nó liên tục nhấp nháy liên hồi. Không ổn rồi, nếu nó nhấp nháy như
-                            thế thì không ổn rồi.</p>
-                        <p id="8">"Này chắc là bạn trai của cổ hả?"</p>
-                        <p id="9">Điều này cực kỳ tồi tệ. Vì cho đến bây giờ cô ấy chưa đăng bất cứ điều gì về
-                            con trai lên mạng cả, không ai là không ngờ vực vụ này. Nhưng vấn đề là sự "ngưỡng mộ" mà cô
-                            ấy nói là ngưỡng mộ 'thần thánh', tức là khi cô ấy cảm thấy khâm phục với ai có thể làm điều
-                            cô không thể làm một cách dễ dàng, kiểu như một vị thần, và nó hoàn toàn khác với sự ngưỡng
-                            mộ theo hướng lãng mạn. Cơ mà tôi đâu thể đi khắp lớp để nói mọi người biết được.</p>
-                        <p id="10">"Sao thế Kutsuzawa-kun, trông ông xanh xao dữ vậy?" </p>
-                        <p id="11">"Tớ ổn, tớ ổn. Chỉ là thấy chút buồn nôn thôi." </p>
-                        <p id="12">"Cái này thì ai mà gọi là ổn được trời…" </p>
-                        <p id="13">Yokokura-san cau mày và nhìn tôi với vẻ lo lắng. Cô ấy quả thật rất tốt bụng.
-                            Mặc dù chúng tôi thi thoảng mới nói chuyện với nhau.</p>
-                        <p id="14">"Này, hồi cấp hai mày học lớp Mỹ thuật 5 mà nhỉ?" </p>
-                        <p id="15">"Hả? Cái đó và xe đạp liên quan đách gì đến nhau? Nhưng nếu tao thực sự làm
-                            bạn trai của Mizoguchi, tao chắc chắn sẽ khoe điều đó đầu tiên!" </p>
-                        <p id="16">"Nhưng mà cổ kêu là cùng lớp, cũng không loại trừ khả năng là tên đó nằm ở
-                            trong căn phòng này với chúng ta."</p>
-                        <p id="17">"Mấy đứa con trai này…gớm quá." </p>
-                        <p id="18">Tệ rồi, tệ thật rồi. Một phiên tòa cho phù thủy sắp bắt đầu.</p>
-                        <p id="19">Đây có phải là thứ mà những người sẽ đại diện cho tương lai của một quốc gia
-                            pháp quyền đang làm hay sao? Toang thật rồi. Dù sao đi nữa, tôi phải tìm mọi cách để biến
-                            mất khỏi đây. Nếu tôi để chuyện này khiến tôi bị nghi ngờ, tôi thực sự sẽ chỉ còn cách cái
-                            chết có năm giây.</p>
-                        <p id="20">Ngay sau đó, cánh cửa lớp học bật mở. Mái tóc hơi dài ánh màu bạc, phất phơ
-                            trong làn gió nhẹ nhàng, hào quang cô tỏa ra thu hút sự chú ý của lũ con trai. Tôi cũng đang
-                            nhìn, nhưng chắc chắn không phải cái nhìn đấy đâu.</p>
-                        <p id="21">Khoan đã, bình tĩnh nào. Chắc chắn cô ấy đủ thông minh để hiểu tình hình hiện
-                            tại. </p>
-                        <p id="22">Tuy có vẻ ngoài hơi "lạnh lùng", nhưng cô ấy vẫn đang học ở ngôi trường này,
-                            chứng tỏ cô cung phải có đầu óc chứ đúng không.</p>
-                        <p id="23">Làm ơn đi, đừng để phiên tòa xét xử phù thủy này kết oan tôi.</p>
-                        <p id="24">Chỉ cần cô ấy đừng nói gì thừa thãi là được….</p>
-                        <p id="25">"Ồ! Kutsuzawa-kun! Cảm ơn cậu vì hôm qua nhé. Xe của tớ chạy êm ru luôn, như
-                            mới vậy." </p>
-                        <p id="26">…</p>
-                        <p id="27">Âm thanh của sự thất bại vang lên trong đầu tôi... . . . Ngay sau đó,
-                            Mizoguchi-san đã giải thích rõ ràng mọi chuyện với cả lớp, thần kì là cô ấy đã khiến mọi
-                            chuyện không trở nên quá nghiêm trọng. </p>
-                        <p id="28">Cô ấy quả là một người khác biệt hoàn toàn so với một tên nhút nhát như tôi.
-                            Nhờ vậy mà mọi người đều tin rằng chúng tôi chỉ tình cờ gặp nhau và tôi đã giúp đỡ cô ấy một
-                            cách ngẫu nhiên. </p>
-                        <p id="29">Phù, cuối cùng mọi chuyện cũng êm xuôi. Tôi có thể trở lại cuộc sống bình
-                            thường rồi. Cô ấy không còn lý do gì để tiếp cận tôi nữa, và tôi cũng vậy. Tôi tin chắc rằng
-                            lũ con trai trong lớp sẽ quên sạch vụ này vào tuần tới thôi. </p>
-                        <p id="30">Ít nhất thì tôi đã nghĩ vậy.</p>
-                        <p id="31">"Kutsuzawa-paisenn, anh thường ăn gì vào bữa trưa dợ? Để em mời anh một bữa
-                            nhé, coi như cảm ơn vì hôm qua. Hehe." </p>
-                        <p id="32">Con gái thật khó hiểu. ..</p>
-                        <p id="33">Mới gặp hôm qua mà hôm nay đã thân thiết như vậy rồi. Nói thật lòng chứ,
-                            không hề phóng đại đâu, tôi cảm thấy cô ấy đung kiểu hoa hậu hòa bình gắn kết mọi người lại
-                            với nhau. </p>
-                        <p id="34">"À, ừm, tớ có mang cơm hộp."</p>
-                        <p id="35"> "Ể? Kutsuzawa-kun biết nấu ăn á?" Một cô gái sành điệu với mái tóc bob đen
-                            hồng nổi bật bất ngờ xuất hiện bên cạnh Mizoguchi-san. </p>
-                        <p id="36">Hình như cô ấy lúc nào cũng đi cùng Mizoguchi-san thì phải. Lần đầu gặp, tôi
-                            đã nhầm tên cô ấy với Mizoguchi đấy. </p>
-                        <p id="37">"Lần này chắc chắn là Douguchi-san rồi nhỉ?" </p>
-                        <p id="38">"Lần này chắc chắn là sao? Bộ cậu gặp ai giả mạo à!?" </p>
-                        <p id="39">Tôi lỡ lời buột miệng nói ra điều gì đó kỳ cục. Mizoguchi-san ngồi đó thì phá
-                            lên cười, vỗ tay lia lịa.</p>
+            <div id="chapter-content" class="long-text text-justify"
+                style="font-family:&#039;Nunito&#039;, &#039;Times New Roman&#039;, Georgia, serif;">
+                <p id="1">Buổi sáng đầu thu, những tia nắng vàng nhạt len lỏi qua tán lá cây, chiếu rọi xuống
+                    sân trường, tạo nên một khung cảnh yên bình. Tôi khánh, một học sinh năm 3 trung học phổ thông, đang
+                    sống những tháng ngày mà tôi tưởng chừng sẽ mãi là một giấc mơ đẹp. Với chiếc cặp đeo trên vai, tôi
+                    bước vào cổng trường, nụ cười nhẹ trên môi, cảm nhận làn gió se lạnh thoảng qua, mang theo hương vị
+                    của một ngày mới.</p>
+                <p id="2">Khi tôi bước vào hành lang lớp học, thấy một cô gái đang chờ tôi, tên cô ấy là Hồng và
+                    cũng là bạn gái của tôi, một cô gái có vẻ đẹp dịu dàng và thanh thoát. Hồng sở hữu mái tóc dài, đen
+                    mượt như dòng suối chảy, thường được buộc nhẹ nhàng sang một bên hoặc thả tự nhiên, ôm lấy bờ vai
+                    nhỏ nhắn. Đôi mắt cô ấy, to tròn và sáng trong như mặt nước hồ thu, luôn ánh lên vẻ hiền hậu, ấm áp
+                    mỗi khi cô nhìn tôi. Nụ cười của Hồng rạng rỡ, đôi môi hồng nhạt như cánh hoa anh đào đầu xuân, mỗi
+                    lần nở nụ cười đều khiến tim tôi lỡ một nhịp.</p>
+                <p id="3">Hồng không phải là người nổi bật với vẻ đẹp sắc sảo, nhưng cô lại có một nét cuốn hút
+                    rất riêng, toát ra từ sự dịu dàng và tinh tế trong từng cử chỉ. Dáng người mảnh mai, cao vừa đủ để
+                    chúng tôi sánh bước bên nhau một cách hài hòa. Cô ấy luôn thích mặc những chiếc váy nhẹ nhàng,
+                    thường là màu pastel, càng tôn thêm vẻ thanh nhã và thuần khiết của mình.</p>
+                <p id="4">Khi Hồng đứng đợi tôi ở góc hành lang mỗi sáng, mái tóc đen óng ả lấp lánh dưới nắng,
+                    đôi mắt nheo lại vì ánh sáng, tôi không thể không cảm thấy trái tim mình đập nhanh hơn. Cô ấy là
+                    hiện thân của sự bình yên và dịu dàng, khiến mỗi ngày của tôi đều trở nên đáng nhớ và tràn đầy niềm
+                    vui.</p>
+                <p id="5">Những ngày học tập trôi qua trong sự vui vẻ, tiếng cười đùa của bạn bè, những giờ phút
+                    giải lao cùng nhau bàn tán về đủ thứ chuyện. Tôi cảm thấy mình thật may mắn khi có những người bạn
+                    thân thiết, khi có một người yêu luôn hiểu và chia sẻ mọi niềm vui nỗi buồn.</p>
+                <p id="6">Cuộc sống cứ thế nhẹ nhàng lướt qua, không có biến cố gì lớn lao, chỉ là những ngày
+                    bình yên, tràn đầy hạnh phúc. Tôi tin rằng mình đã tìm được một nơi chốn an yên giữa cuộc đời, nơi
+                    mà tình yêu và niềm vui đan xen, tạo nên một bức tranh hoàn hảo của tuổi trẻ. Nhưng rồi, như một cơn
+                    giông bất ngờ ập đến, tất cả những gì tôi tin tưởng và yêu thương bắt đầu lung lay. Những cơn sóng
+                    ngầm dần dần nổi lên, phá vỡ sự bình yên mà tôi từng nghĩ sẽ kéo dài mãi mãi...</p>
+                <p id="7">Hôm nay là sinh nhật của Hồng. Thực ra dạo gần đây chúng tôi đã có một số mâu thuẫn
+                    nhỏ với nhau nên tôi quyết tâm nhân dịp này để làm hòa với cô ấy, dù sao thì chả ai thích cãi nhau
+                    hết mà đúng không?</p>
+                <p id="8">Cô ấy thường đi học đàn từ sáng cho đến tối, nhờ vậy mà hôm nay tôi qua nhà cô ấy để
+                    tạo một bất ngờ vào tối nay. Thực ra nhà cô ấy ngay cạnh nhà tôi, tôi và cô ấy là bạn thuở nhỏ của
+                    nhau, nhưng đến tận cuối trung học cơ sở chúng tôi mới chính thức hẹn hò. Khi bước vào nhà cô ấy,
+                    một bóng dáng hiện lên trước mắt tôi, đó là em gái của cô ấy, Nhi. Em ấy kém tôi 4 tuổi, sở hữu một
+                    dáng người khá là nhỏ nhắn và mái tóc đen tuyền giống với chị gái của cô.</p>
+                <p id="9">"Em chào anh, hôm nay anh đến để chuẩn bị sinh nhật cho chị em đúng không?" </p>
+                <p id="10">Em ấy chào và cũng đồng thời hỏi tôi.</p>
+                <p id="11">"Ừ, đúng rồi, chúng ta cùng nhau tạo bất ngờ cho chị em nhé."</p>
+                <p id="12">Sau đó, tôi cùng em ấy chuẩn bị, tôi làm với một tâm trạng đầy háo hức và trông chờ
+                    phản ứng khi về nhà của Hồng. Hehe không biết khi về đến nhà, phản ứng của cô ấy sẽ như thế nào nhỉ?
+                    Mải suy nghĩ mà tôi tự nở một nụ cười lúc nào không hay. Sau một lúc làm việc, tôi cũng bắt đầu thấm
+                    mệt. Lúc đó, có một giọng nói có vẻ ân cần phát ra bên cạnh tôi.</p>
+                <p id="13">"Anh còn ổn chứ? Anh không cần phải làm quá sức như vậy đâu."</p>
+                <p id="14">"Không đâu, chỉ một chút thôi mà. Anh là con trai mà, không có yếu đuối vậy đâu."</p>
+                <p id="15">Khi tôi nói vậy, mặt em ấy tỏ ra một chút lo lắng.</p>
+                <p id="16">"Nhưng..."</p>
+                <p id="17">Nhìn mặt em ấy như vậy làm tôi có một chút áy náy. Tôi hiểu vì sao em ấy lo lắng cho
+                    tôi và không muốn tôi làm việc quá sức. Thực ra, câu chuyện cách đây gần 1 năm, Hồng từ nhỏ đã bị
+                    chuẩn đoán mắc bệnh thận nghiêm trọng. Lúc đó, cảm giác lo sợ và bất lực dâng lên trong tôi khi nghĩ
+                    về việc cô ấy phải đối mặt với cơn đau đớn này. Lúc đó, tôi đã đưa ra một quyết định, tôi không thể
+                    nhìn cô ấy như vậy. Sau khi trải qua hàng loạt xét nghiệm, tôi quyết định hiến thận cho Hồng. Quyết
+                    định này không chỉ cứu sống cô ấy mà lúc đó còn gắn kết chúng tôi lại với nhau hơn bao giờ hết, tôi
+                    biết rằng đó là lựa chọn đúng đắn nhất cuộc đời mình. Nhưng từ đó cũng đồng nghĩa sức khỏe của tôi
+                    từ đó khá yếu, không thể làm việc nặng hay vận động quá nhiều, nhưng tôi chưa một lần hối hận.</p>
+                <p id="18">"Không sao đâu, anh thật sự rất khỏe mà."</p>
+                <p id="19">Tôi đứng lên thể hiện cho em ấy xem.</p>
+                <p id="20">"Haizzz, em biết rồi."</p>
+                <p id="21">Em ấy trả lời tôi với vẻ mặt đầy bất lực.</p>
+                <p id="22">Sau khi chuẩn bị xong, cũng gần 5 giờ chiều. Cô ấy thường về nhà vào lúc 6 giờ tối,
+                    thấy còn sớm nên tôi cùng chơi game với Nhi để giết thời gian. Nhưng sau khi chơi gần 2 tiếng, lúc
+                    này đã hơn 7 giờ nhưng cô ấy vẫn chưa về, tôi bắt đầu lo lắng không biết cô ấy trên đường về có sao
+                    không.</p>
+                <p id="23">"Hôm nay chị em chắc có việc gì đấy nên về muộn hơn một xíu thôi, anh chờ thêm một tí
+                    nữa nhé" Nhi bỗng lên tiếng.</p>
+                <p id="24">Sau khi nghe vậy, tôi quyết định chờ thêm với đầy nỗi bất an trong lòng. Liệu cô ấy có
+                    gặp kẻ xấu trên đường không nhỉ? Sau khi nghĩ vậy, tôi quyết định gửi tin nhắn cho cô ấy, nhưng sau
+                    30 phút không có câu trả lời, tôi liền thử gọi nhưng vẫn không nhận được câu trả lời. Lòng tôi như
+                    thắt lại, tôi quyết định không chờ nữa, tôi lập tức phóng ra và đến chỗ học đàn của cô ấy.</p>
+                <p id="25">"Em trông nhà nhé, anh đi xem tình hình Hồng như thế nào. Một lát anh sẽ về ngay."</p>
+                <p id="26">Em ấy trả lời ngay. </p>
+                <p id="27">"Vâng..."</p>
+                <p id="28">Sau đó, tôi chạy bạt mạng, vừa chạy tôi vừa nhìn quanh đường. Chỗ tôi cách chỗ học đàn
+                    của cô ấy khoảng 30 phút đi bộ, nhưng tôi không thể thấy cô ấy. Tôi bắt đầu cảm giác cơn đau từ hông
+                    thật đau đớn, thật khó chịu.</p>
+                <p id="29">"Chết tiệt, sao lại là lúc này chứ..."</p>
+                <p id="30">Tôi vô thức thốt lên.</p>
+                <p id="31">Nhưng tôi không có thời gian nghĩ nhiều. Sau khoảng 15 phút, tôi đã đến chỗ cô ấy học
+                    piano nhưng tôi lập tức thất vọng. Tôi không thấy ai ở đó hết, còn lớp học thì đóng cửa. Nỗi bất an
+                    ngày càng dâng lên trong tôi. Bây giờ đã là hơn 8 giờ tối, liệu cô ấy có sao không? Tôi lại gọi cho
+                    cô ấy một lần, hai lần, rồi ba lần, nhưng thứ trả lời tôi lại là tiếng máy móc lạnh lẽo. Nỗi đau từ
+                    vết thương cũ và nỗi lo lắng làm tôi cảm giác đau đớn và mệt mỏi.</p>
+                <p id="32">Không thể chạy được nữa, tôi qua máy bán hàng tự động gần đấy mua một chai nước để lấy
+                    lại sức lực, sau đó tiếp tục tìm kiếm. Nhưng khi tôi vừa mua xong, nhìn mắt lên phía đối diện với
+                    mắt tôi là nhà hàng bên cạnh khá là đông người nhưng tôi nhìn vẫn rất rõ, đúng vậy, không thể nào
+                    lầm được.</p>
+                <p id="33">Trong mắt tôi đó là cô ấy, dù rất xa nhưng tôi không thể nhìn nhầm được. Nhưng tại sao
+                    cô ấy đang nắm tay ai kia? Hình ảnh đập vào mắt tôi là cô ấy đang nắm tay một chàng trai nào đó mà
+                    tôi chẳng biết chàng trai đó là ai, nhìn hai người rất thân mật, gần gũi như cả thế giới xung quanh
+                    là của họ. Tim tôi như bị bóp nghẹt, một cảm giác không thể diễn tả trào dâng, tôi gục ngã ngay bên
+                    cạnh máy bán nước. Không khí xung quanh dường như trở nên ngột ngạt, nặng nề, tôi nghe thấy tiếng
+                    tim mình rạn vỡ, mỗi nhịp đập là một lần nhói đau hơn. Cảm giác tuyệt vọng và bất lực trào lên trong
+                    lòng, như thể tất cả những gì tôi từng biết và yêu quý đã sụp đổ ngay trước mắt. Tôi muốn quay đi,
+                    nhưng không thể rời mắt khỏi cảnh tượng ấy, như bị cuốn vào một cơn ác mộng không hồi kết.</p>
+                <p id="34">Trời bỗng đổ mưa, Nhưng tôi không thể nào đứng lên được. Đến cuối cùng ông trời vẫn
+                    không thể dịu dàng với tôi một chút được sao?. Tôi không biết mình đã ngồi đó bao lâu nữa, mọi người
+                    đi qua đều để lại cho tôi một ánh mắt đầy thương hại. Đau đớn, căm phẫn, tức giận, buồn bã... Thật
+                    thảm hại làm sao chính tôi cũng không biết bây giờ trông mình như thế nào. Tôi nhìn vào điện thoại
+                    thấy đã hơn 11 giờ tối tôi vô thức nhìn qua nhà hàng đối diện, không còn ai nữa xung quanh chỉ còn
+                    những ánh đèn đường đầy lạnh lẽo.</p>
+                <p id="35">Tôi vô thức chạm vào mặt mình chính bản thân tôi cũng bất ngờ, tôi đang cười sao? Tại
+                    sao tôi lại cười? Cái quái gì thế này? Tôi không thể ngừng cười được một nụ cười đầy sự méo mó Nhưng
+                    có lẽ nhờ vậy nó đã giúp tôi có thể đứng dậy để trở về nhà.</p>
+                <p id="36">Khi tôi về đến nhà, cả thân người như rã rời sau cơn đau đớn và kiệt quệ. Cánh cửa gỗ
+                    kêu lên khe khẽ khi tôi mở ra. Trong nhà, không gian im lặng đến mức tôi có thể nghe rõ tiếng tim
+                    mình đập thình thịch trong lồng ngực. Bố mẹ và em gái chắc đã đi ngủ, đèn trong nhà đã tắt hết, chỉ
+                    còn một ánh đèn ngủ mờ ảo nơi góc cầu thang. Tôi bước từng bước nặng nề lên bậc thang, cảm giác như
+                    từng bước đi là từng nỗi đau khắc sâu vào tâm hồn.</p>
+                <p id="37">Tôi bước vào phòng mình, đóng cửa lại thật nhẹ để không làm ai thức giấc. Cả căn phòng
+                    nhỏ bé, quen thuộc giờ đây bỗng chốc trở nên ngột ngạt, lạnh lẽo lạ thường. Những kỷ niệm về Hồng cứ
+                    thế hiện ra trước mắt, như một bộ phim quay chậm, từng cảnh, từng cảnh một khiến lòng tôi quặn thắt.
+                </p>
+                <p id="38">Thực ra tôi đã mất mẹ từ lúc tôi 10 tuổi, sau đó bố tôi có vợ mới từ đó tôi có một
+                    người mẹ kế và một người em gái. Dù em gái với tôi rất hòa thuận nhưng mẹ kế lại có vẻ không thích
+                    tôi lắm thường đánh và mắng tôi. Nhưng tôi chưa bao giờ quan tâm đến điều đó vì tôi biết cần trân
+                    trọng gia đình mới này của mình</p>
+                <p id="39">Tôi ngồi phịch xuống giường, đầu óc quay cuồng với bao suy nghĩ hỗn loạn. Hình ảnh
+                    Hồng tay trong tay với người con trai khác, nụ cười hạnh phúc trên gương mặt cô ấy khi ở bên người
+                    đó, tất cả cứ hiện lên mãi không thôi. Tại sao lại là cô ấy? Tại sao lại là người mà tôi đã yêu
+                    thương hết lòng, người mà tôi đã không ngần ngại hiến tặng một phần cơ thể mình để cứu sống? Tôi tự
+                    hỏi trong tuyệt vọng, nhưng câu trả lời chỉ là sự im lặng đáng sợ. Tôi vô thức gửi cho cô ấy một tin
+                    nhắn.</p>
+                <p id="40">“Chúc em sinh nhật vui vẻ!”</p>
+                <p id="41">Tôi không biết mình đang làm gì nữa rõ ràng cô ấy là người phản bội mình. Có lẽ tôi
+                    còn yêu cô ấy rất nhiều và có lẽ đây cũng là lần cuối cùng tôi quan tâm đến cô ấy. Không biết ngày
+                    mai cô ấy có trả lời mình không nhỉ?</p>
+                <p id="42">Tôi đưa tay lên chạm nhẹ vào bên hông, nơi vết sẹo vẫn còn âm ỉ đau, như một lời nhắc
+                    nhở về những gì tôi đã trải qua vì cô ấy. Nỗi đau từ vết sẹo giờ đây chẳng thấm thía gì so với nỗi
+                    đau trong lòng. Có lẽ tôi đã quá ngây thơ khi tin rằng tình yêu của mình đủ mạnh để vượt qua mọi thử
+                    thách. Có lẽ tôi đã quá mù quáng khi nghĩ rằng cô ấy cũng sẽ yêu tôi như cách mà tôi yêu cô ấy.</p>
+                <p id="43">Tôi cố gắng đè nén nỗi đau bằng cách nằm xuống giường, mắt hướng lên trần nhà, nhưng
+                    nỗi đau ấy lại càng trào dâng mạnh mẽ hơn. Tôi không thể khóc, không thể gào thét, tất cả cảm xúc cứ
+                    như bị đè nén lại, như một quả bom chỉ chực chờ nổ tung. Tôi nhắm chặt mắt lại, cố gắng không nghĩ
+                    về cô ấy, nhưng mọi nỗ lực đều vô vọng. Ký ức về những khoảnh khắc hạnh phúc bên cô ấy cứ như một
+                    cuốn băng tua đi tua lại trong đầu, làm tôi không thể nào thoát ra được.</p>
+                <p id="44">Thời gian cứ thế trôi qua trong im lặng. Tôi không biết mình đã nằm đó bao lâu, chỉ
+                    biết rằng cơn đau cứ thế kéo dài, từng đợt từng đợt dội vào tâm trí. Cuối cùng, trong cơn mê man
+                    giữa đêm khuya, tôi thiếp đi, kiệt sức vì nỗi đau, vì sự phản bội mà mình vừa trải qua. Và trong
+                    giấc ngủ đó, tôi mơ về những điều mà có lẽ tôi không bao giờ có thể quay lại được nữa: một tình yêu
+                    trọn vẹn, một niềm tin không bao giờ bị phản bội, và một trái tim không bao giờ tan nát.</p>
 
 
-                        <!-- <div class="flex justify-center mt-10 mb-7 space-x-3">
+                <!-- <div class="flex justify-center mt-10 mb-7 space-x-3">
                         <a
                             href="https://hako.vn/discord"
                             target="_blank"
@@ -401,1048 +209,262 @@
                         </a>
                     </div> -->
 
-                        <a href="/truyen/16221" target="__blank">
-                            <img src="https://i2.docln.net/ln/series/chapter-banners/16221/b428219e-089c-4786-b46a-d34b93a71449.jpg?t=1714382833"
-                                class="d-none d-md-block" style="width: 970px; height: auto">
-                        </a>
-                        <a href="/truyen/16221" target="__blank">
-                            <img src="https://i2.docln.net/ln/series/chapter-banners/16221/1472bdda-71f8-4caf-b70c-512d43d4c415.jpg?t=1714382833"
-                                class="d-md-none" style="width: 100%; height: auto">
-                        </a>
+                <a href="/truyen/16221" target="__blank">
+                    <img src="https://i2.docln.net/ln/series/chapter-banners/16221/b428219e-089c-4786-b46a-d34b93a71449.jpg?t=1714382833"
+                        class="d-none d-md-block" style="width: 970px; height: auto">
+                </a>
+                <a href="/truyen/16221" target="__blank">
+                    <img src="https://i2.docln.net/ln/series/chapter-banners/16221/1472bdda-71f8-4caf-b70c-512d43d4c415.jpg?t=1714382833"
+                        class="d-md-none" style="width: 100%; height: auto">
+                </a>
 
-                    </div>
-
-                    <div style="text-align: center; margin: 20px auto 10px auto;">
-                    </div>
-
-                    <section class="rd-basic_icon row">
-                        <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141502-chuong-03"
-                            class="dark:text-black col text-center "><i class="fas fa-backward"></i></a>
-                        <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay"
-                            class="dark:text-black col text-center"><i class="fas fa-home"></i></a>
-                        <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141671-chuong-05"
-                            class="dark:text-black col text-center "><i class="fas fa-forward"></i></a>
-                    </section>
-
-                    <!--the code style is important to keep this comment section be out of the effect of user reading's setting-->
-                </div>
-                <div class="col-12 col-lg-10 offset-lg-1">
-                    <section id="chapter-comments"
-                        class="basic-section dark:bg-[#1f1f1f] dark:text-white dark:border dark:border-[#1f1f1f]">
-                        <header class="sect-header tab-list dark:bg-[#2a2a2a] dark:border-[#2a2a2a]">
-                            <span class="sect-title tab-title" data-tab-index="1">Bình luận <span
-                                    class="comments-count">(11)</span></span>
-                        </header>
-                        <main id="fbcmt_root" class="sect-body">
-                            <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
-                                    href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
-                            <div id="tab-content-1" class="tab-content clear">
-                                <section class="ln-comment">
-                                    <header>
-                                        <h3 class="text-lg font-bold dark:text-white">11 Bình luận </h3>
-                                        <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
-                                    </header>
-
-                                    <main class="ln-comment-body">
-                                        <div id="ln-comment-submit" class="ln-comment-form clear">
-                                            <form class="comment_form">
-                                                <textarea class="comment_content"></textarea>
-                                                <div class="comment_toolkit clear">
-                                                    <input class="button" type="button" value="Đăng bình luận">
-                                                </div>
-                                            </form>
-                                        </div>
-
-
-
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2571468" class="ln-comment-item mt-3 clear"
-                                                data-comment="2571468" data-parent="2571468">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://docln.net/img/noava.png"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/55223">Shin Kuro</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Thằng này có khiếu tấu hề
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2571468#ln-comment-2571468"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="29-08-2024 23:13:55"
-                                                                        datetime="2024-08-29T23:13:55+07:00">
-                                                                        29-08-2024 23:13:55
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2572347" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2572347" data-parent="2571468">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u190022-614ff849-ab88-460e-8c03-6916618cf8fc.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/190022">Chỉ biết
-                                                                                cười</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    droi, a có máu làm hài nhưng nhà bắt a làm cơ khí
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm
-                                                                </div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2571468&amp;reply_id=2572347#ln-comment-2572347"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago"
-                                                                            title="30-08-2024 18:48:33"
-                                                                            datetime="2024-08-30T18:48:33+07:00">
-                                                                            30-08-2024 18:48:33
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2568976" class="ln-comment-item mt-3 clear"
-                                                data-comment="2568976" data-parent="2568976">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u119715-c54ceffb-a54a-48a4-84bf-e1065c748872.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/119715">tên nghiện
-                                                                            romcom</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                tks trans
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2568976#ln-comment-2568976"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="28-08-2024 10:42:23"
-                                                                        datetime="2024-08-28T10:42:23+07:00">
-                                                                        28-08-2024 10:42:23
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2567243" class="ln-comment-item mt-3 clear"
-                                                data-comment="2567243" data-parent="2567243">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u126662-f11a0754-7756-4ae5-8a65-dfa7cc9893b4.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/126662">Cày bừa</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tks trans
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2567243#ln-comment-2567243"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="27-08-2024 06:01:15"
-                                                                        datetime="2024-08-27T06:01:15+07:00">
-                                                                        27-08-2024 06:01:15
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">1</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2566300" class="ln-comment-item mt-3 clear"
-                                                data-comment="2566300" data-parent="2566300">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://docln.net/img/noava.png"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/198255">Noi_gi</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Thanks trans
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2566300#ln-comment-2566300"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="26-08-2024 17:57:31"
-                                                                        datetime="2024-08-26T17:57:31+07:00">
-                                                                        26-08-2024 17:57:31
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">1</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2564402" class="ln-comment-item mt-3 clear"
-                                                data-comment="2564402" data-parent="2564402">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/199104">KadminNodi</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/owner.png" />
-                                                                            <div class="leading-4">CHỦ THỚT</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tfnc
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2564402#ln-comment-2564402"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="25-08-2024 17:05:22"
-                                                                        datetime="2024-08-25T17:05:22+07:00">
-                                                                        25-08-2024 17:05:22
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">2</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2564391" class="ln-comment-item mt-3 clear"
-                                                data-comment="2564391" data-parent="2564391">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u144381-df1e40d7-f9d4-48b7-bfef-519b4d23a5a4.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/144381">RomcomLàĐamMê</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tks
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2564391#ln-comment-2564391"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="25-08-2024 17:00:41"
-                                                                        datetime="2024-08-25T17:00:41+07:00">
-                                                                        25-08-2024 17:00:41
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2563337" class="ln-comment-item mt-3 clear"
-                                                data-comment="2563337" data-parent="2563337">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u148377-8e60a197-f5a9-4d1b-a368-6b6e1fad2bc3.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/148377">N.V</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tfnc
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2563337#ln-comment-2563337"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="24-08-2024 21:46:15"
-                                                                        datetime="2024-08-24T21:46:15+07:00">
-                                                                        24-08-2024 21:46:15
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2562612" class="ln-comment-item mt-3 clear"
-                                                data-comment="2562612" data-parent="2562612">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u164982-5c0cda96-bf0a-4b8e-8877-abbf25cc14d6.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/164982">Chilamotreaderquaduong</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tfnc
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2562612#ln-comment-2562612"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="24-08-2024 11:09:03"
-                                                                        datetime="2024-08-24T11:09:03+07:00">
-                                                                        24-08-2024 11:09:03
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2562598" class="ln-comment-item mt-3 clear"
-                                                data-comment="2562598" data-parent="2562598">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u183116-af0698f8-01e8-4351-954b-3b38ec697456.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/183116">Đời...</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Tfnc
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2562598#ln-comment-2562598"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="24-08-2024 10:59:03"
-                                                                        datetime="2024-08-24T10:59:03+07:00">
-                                                                        24-08-2024 10:59:03
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2562564" class="ln-comment-item mt-3 clear"
-                                                data-comment="2562564" data-parent="2562564">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u182870-492684d1-5ad9-4b59-b1d7-9665c80f13c1.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/182870">Light Key</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Hay
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay/c141571-chuong-04?comment_id=2562564#ln-comment-2562564"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="24-08-2024 10:34:55"
-                                                                        datetime="2024-08-24T10:34:55+07:00">
-                                                                        24-08-2024 10:34:55
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="ln-comment-page">
-                                        </div>
-                                    </main>
-
-                                    <script>
-                                        var token = '5Gxv6MpYYcDbGOV9nS2bOqdOZUb835kKRZzYknQD';
-                                        var comment_type = 'chapter';
-                                        var comment_typeid = '141571';
-                                    </script>
-
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
-                                    <script>
-                                        tinymce.init({
-                                            selector: 'textarea',
-                                            inline: false,
-                                            height: 200,
-                                            skin: 'oxide',
-                                            content_css: 'default',
-                                            branding: false,
-                                            menubar: false,
-                                            contextmenu: false,
-                                            entities: '160,nbsp,38,amp,60,lt,62,gt',
-                                            paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
-                                            element_format: 'html',
-                                            formats: {
-                                                strikethrough: {
-                                                    inline: 's',
-                                                    remove: 'all'
-                                                },
-                                                underline: {
-                                                    inline: 'u',
-                                                    remove: 'all'
-                                                },
-                                            },
-                                            plugins: 'wordcount link image code fullscreen paste emoticons',
-                                            toolbar: 'emoticons undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
-                                        });
-                                    </script>
-                                </section>
-
-
-                            </div>
-                        </main>
-                    </section>
-                </div>
             </div>
+
+            <div style="text-align: center; margin: 20px auto 10px auto;">
+            </div>
+
+            <section class="rd-basic_icon row">
+                <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai"
+                    class="dark:text-black col text-center  disabled "><i class="fas fa-backward"></i></a>
+                <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai"
+                    class="dark:text-black col text-center"><i class="fas fa-home"></i></a>
+                <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142239-chuong-02-noi-co-nhieu-quy-nhat-la-nhan-gian"
+                    class="dark:text-black col text-center "><i class="fas fa-forward"></i></a>
+            </section>
+
+            <!--the code style is important to keep this comment section be out of the effect of user reading's setting-->
         </div>
-    </main>
+        <div class="col-12 col-lg-10 offset-lg-1">
+            <section id="chapter-comments"
+                class="basic-section dark:bg-[#1f1f1f] dark:text-white dark:border dark:border-[#1f1f1f]">
+                <header class="sect-header tab-list dark:bg-[#2a2a2a] dark:border-[#2a2a2a]">
+                    <span class="sect-title tab-title" data-tab-index="1">Bình luận <span
+                            class="comments-count">(2)</span></span>
+                </header>
+                <main id="fbcmt_root" class="sect-body">
+                    <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
+                            href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
+                    <div id="tab-content-1" class="tab-content clear">
+                        <section class="ln-comment">
+                            <header>
+                                <h3 class="text-lg font-bold dark:text-white">2 Bình luận </h3>
+                                <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
+                            </header>
 
-    <script>
-        token = '5Gxv6MpYYcDbGOV9nS2bOqdOZUb835kKRZzYknQD';
+                            <main class="ln-comment-body">
+                                <div id="ln-comment-submit" class="ln-comment-form clear">
+                                    <form class="comment_form">
+                                        <textarea class="comment_content"></textarea>
+                                        <div class="comment_toolkit clear">
+                                            <input class="button" type="button" value="Đăng bình luận">
+                                        </div>
+                                    </form>
+                                </div>
 
-        function turnoffall() {
-            $(".rdtoggle").removeClass("on");
-            $(".rdtoggle_body").removeClass("animation fade-in-left-big fade-in-down");
-            $("html").removeClass("overflow-hiden");
-        }
 
-        function rdtoggle(classicon, effect) {
-            if ($(classicon).hasClass("on")) {
-                turnoffall();
-            } else {
-                turnoffall();
-                $(classicon).addClass("on");
-                $("html").addClass("overflow-hiden");
-                $(classicon + " .rdtoggle_body").addClass("animation " + effect);
-            }
-        };
 
-        $("#rd-setting_icon").on('click', function() {
-            rdtoggle("#setting", "fade-in-down");
-        });
+                                <div class="ln-comment-group">
+                                    <div id="ln-comment-2574145" class="ln-comment-item mt-3 clear"
+                                        data-comment="2574145" data-parent="2574145">
+                                        <div class="flex gap-1 max-w-full">
+                                            <div class="w-[50px]">
+                                                <div class="mx-1 my-1">
+                                                    <img src="https://i2.docln.net/ln/users/avatars/u200274-930f27aa-ef1d-418a-90eb-1bd4b5aaf0dc.jpg"
+                                                        class="w-full rounded-full" />
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                                <div class="flex min-w-0 flex-col px-2">
+                                                    <div class="flex align-top justify-between">
+                                                        <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                            <div class="self-center">
+                                                                <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                    href="/thanh-vien/200274">Mass</a>
+                                                            </div>
+                                                            <div class="self-center">
+                                                                <div
+                                                                    class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
+                                                                    <img class="my-auto h-[14px]"
+                                                                        src="/img/badge/author3.png" />
+                                                                    <div class="leading-4">AUTHOR</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
+                                                            x-data="{ show: false }">
+                                                            <div class="" @click="show = !show">
+                                                                <i class="fas fa-angle-down"></i>
+                                                            </div>
+                                                            <div class="ln-comment-toolkit" x-show="show"
+                                                                @click.outside="show = false" style="display: none">
 
-        $("#rd-info_icon").on('click', function() {
-            rdtoggle("#chapters", "fade-in-left-big");
-        });
 
-        $("#rd-bookmark_icon").on('click', function() {
-            rdtoggle("#bookmarks", "fade-in-left-big");
-        });
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ln-comment-content long-text">
+                                                        Mới chỉ là học sinh yêu nhau thôi mà đã tặng cả quả thận cho r,
+                                                        WTF. Khúc này khá là sượng
+                                                    </div>
+                                                    <div class="comment_see_more expand none">Xem thêm</div>
+                                                    <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                        <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01?comment_id=2574145#ln-comment-2574145"
+                                                            class="text-slate-500">
+                                                            <time class="timeago" title="31-08-2024 22:49:19"
+                                                                datetime="2024-08-31T22:49:19+07:00">
+                                                                31-08-2024 22:49:19
+                                                            </time>
+                                                        </a>
+                                                        <a
+                                                            class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                            <i class="fas fa-thumbs-up me-1"></i>
+                                                            <span class="likecount font-semibold"></span>
+                                                        </a>
+                                                        <a
+                                                            class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                            <i class="fas fa-comment me-1"></i>
+                                                            <span class="font-semibold">Trả lời</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-        $(".black-click").on('click', function() {
-            turnoffall();
-            $("#rd-side_icon").hide();
-            $("#bookmark_top").removeClass("on");
-        });
+                                    <div class="ln-comment-reply">
+                                        <div id="ln-comment-2574163" class="ln-comment-item mt-3 clear"
+                                            data-comment="2574163" data-parent="2574145">
+                                            <div class="flex gap-1 max-w-full">
+                                                <div class="w-[50px]">
+                                                    <div class="mx-1 my-1">
+                                                        <img src="https://i2.docln.net/ln/users/avatars/u200469-60b0fbc1-eb78-4a8c-aae8-982341d1b20f.jpg"
+                                                            class="w-full rounded-full" />
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                                    <div class="flex min-w-0 flex-col px-2">
+                                                        <div class="flex align-top justify-between">
+                                                            <div
+                                                                class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                                <div class="self-center">
+                                                                    <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                        href="/thanh-vien/200469">Yukki2004</a>
+                                                                </div>
+                                                                <div class="self-center">
+                                                                    <div
+                                                                        class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
+                                                                        <img class="my-auto h-[14px]"
+                                                                            src="/img/badge/owner.png" />
+                                                                        <div class="leading-4">CHỦ THỚT</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="self-center">
+                                                                    <div
+                                                                        class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
+                                                                        <img class="my-auto h-[14px]"
+                                                                            src="/img/badge/author3.png" />
+                                                                        <div class="leading-4">AUTHOR</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
+                                                                x-data="{ show: false }">
+                                                                <div class="" @click="show = !show">
+                                                                    <i class="fas fa-angle-down"></i>
+                                                                </div>
+                                                                <div class="ln-comment-toolkit" x-show="show"
+                                                                    @click.outside="show = false"
+                                                                    style="display: none">
 
-        var bgcolor = Cookies.get('color') || (Cookies.get('night_mode') ? 6 : 4);
-        var fontfamily = Cookies.get('fontfamily') || '';
-        var fontsize = Cookies.get('font') || 18;
-        var margin = Cookies.get('margin') || 0;
-        var textAlign = Cookies.get('textAlign') || 'text-justify';
 
-        function setcolor(alter = true) {
-            var switcher = $(".set-color .set-input span").eq(bgcolor);
-            switcher.addClass("current");
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ln-comment-content long-text">
+                                                            Mình cảm ơn bạn đã góp ý ạ thực ra là mình sử dụng tình tiết
+                                                            bạn thửa nhỏ kiểu như là 2 người đã có tình cảm từ bé rồi ạ.
+                                                            Mình sẽ cố gắng khắc phục và làm tốt hơn ở những chương sau
+                                                            ạ
+                                                        </div>
+                                                        <div class="comment_see_more expand none">Xem thêm</div>
+                                                        <div
+                                                            class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                            <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01?comment_id=2574145&amp;reply_id=2574163#ln-comment-2574163"
+                                                                class="text-slate-500">
+                                                                <time class="timeago" title="31-08-2024 22:55:27"
+                                                                    datetime="2024-08-31T22:55:27+07:00">
+                                                                    31-08-2024 22:55:27
+                                                                </time>
+                                                            </a>
+                                                            <a
+                                                                class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                                <i class="fas fa-thumbs-up me-1"></i>
+                                                                <span class="likecount font-semibold"></span>
+                                                            </a>
+                                                            <a
+                                                                class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                                <i class="fas fa-comment me-1"></i>
+                                                                <span class="font-semibold">Trả lời</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
-            if (alter) {
-                for (var i = 0; i < $(".set-color .set-input span").length; i++) {
-                    $("#mainpart").removeClass('style-' + i);
-                    $("#mainpart").removeClass('dark');
-                }
-                $("#mainpart").addClass('style-' + bgcolor);
 
-                // Manually hardcoded to dark
-                if (bgcolor >= 6) {
-                    $("#mainpart").addClass('dark');
-                }
-            }
-        }
+                                    </div>
+                                </div>
 
-        // This creates unsmooth experience so we only use it for select box
-        function setfontfamily() {
-            $('.set-font-family select option').filter(function() {
-                return fontfamily.split(',')[0].indexOf($(this).text()) != -1;
-            }).attr('selected', true);
-        }
+                                <div class="ln-comment-page">
+                                </div>
+                            </main>
 
-        function setfontstyle(alter = true) {
-            $(".set-font input.set-slide_input").val(fontsize + "px");
+                            <script>
+                                var token = '0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk';
+                                var comment_type = 'chapter';
+                                var comment_typeid = '142162';
+                            </script>
 
-            if (alter) {
-                $("div#chapter-content").css("font-size", fontsize + "px");
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
+                            <script>
+                                tinymce.init({
+                                    selector: 'textarea',
+                                    inline: false,
+                                    height: 200,
+                                    skin: 'oxide',
+                                    content_css: 'default',
+                                    branding: false,
+                                    menubar: false,
+                                    contextmenu: false,
+                                    entities: '160,nbsp,38,amp,60,lt,62,gt',
+                                    paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
+                                    element_format: 'html',
+                                    formats: {
+                                        strikethrough: {
+                                            inline: 's',
+                                            remove: 'all'
+                                        },
+                                        underline: {
+                                            inline: 'u',
+                                            remove: 'all'
+                                        },
+                                    },
+                                    plugins: 'wordcount link image code fullscreen paste emoticons',
+                                    toolbar: 'emoticons undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
+                                });
+                            </script>
+                        </section>
 
-                var lineheight = +fontsize + 10;
-                $("#chapter-content").css("line-height", lineheight + "px");
-            }
-        }
 
-        function setmargin() {
-            $(".set-margin input.set-slide_input").val(margin + "px");
-            $("#chapter-content").css({
-                'padding-left': margin + "px",
-                'padding-right': margin + "px"
-            });
-        }
-
-        function setTextAlign(alter = true) {
-            var switcher = $(".set-text-align .set-input span[data-align='" + textAlign + "']");
-            switcher.addClass("current");
-
-            if (alter) {
-                $(".set-text-align .set-input span").each(function() {
-                    $("#chapter-content").removeClass($(this).attr('data-align'));
-                });
-
-                $("#chapter-content").addClass(textAlign);
-            }
-        }
-
-        setcolor(false);
-        setfontfamily();
-        setfontstyle(false);
-        setmargin();
-        setTextAlign(true);
-
-        //1px = 0.0625rem;
-        //16px = 1rem (default);
-
-        $(".set-color .set-input span").click(function() {
-            bgcolor = $(this).data("id");
-            $(".set-color .set-input span").removeClass("current");
-            setcolor();
-            Cookies.set('color', bgcolor, {
-                expires: 365
-            });
-        });
-
-        $('.set-font-family select').on('change', function() {
-            fontfamily = "'" + $('option:selected', this).text() + "', " + '\'Times New Roman\', Georgia, serif';
-
-            $('div#chapter-content').css('font-family', fontfamily);
-
-            Cookies.set('fontfamily', fontfamily, {
-                expires: 365
-            });
-        });
-
-        $(".set-font .set-slide_button.set-smaller").click(function() {
-            fontsize = fontsize - 2;
-            if (fontsize < 0) fontsize = 0;
-            setfontstyle();
-            Cookies.set('font', fontsize, {
-                expires: 365
-            });
-        });
-
-        $(".set-font .set-slide_button.set-bigger").click(function() {
-            fontsize = +fontsize + 2;
-            setfontstyle();
-            Cookies.set('font', fontsize, {
-                expires: 365
-            });
-        });
-
-        $(".set-margin .set-slide_button.set-smaller").click(function() {
-            margin = margin - 20;
-            if (margin < 0) margin = 0;
-            setmargin();
-            Cookies.set('margin', margin, {
-                expires: 365
-            });
-        });
-
-        $(".set-margin .set-slide_button.set-bigger").click(function() {
-            margin = +margin + 20;
-            setmargin();
-            Cookies.set('margin', margin, {
-                expires: 365
-            });
-        });
-
-        $(".set-text-align .set-input span").click(function() {
-            textAlign = $(this).data("align");
-            $(".set-text-align .set-input span").removeClass("current");
-            setTextAlign();
-            Cookies.set('textAlign', textAlign, {
-                expires: 365
-            });
-        });
-
-        $("#bookmarks_list li").each(function() {
-            var linepr = $(this).data("line");
-            var preview = $(".reading-content p#" + linepr).text();
-
-            var shortText = preview.trim().substring(0, 30) + "...";
-            $(this).find(".pos_bookmark small").text(shortText);
-        });
-
-        $('div#chapter-content').html(
-            $('div#chapter-content').html().replace(
-                /\[note(\d+)\]/gi,
-                '<span id="anchor-note$1" class="note-icon none-print inline note-tooltip" data-tooltip-content="#note$1 .note-content" data-note-id="note$1"><i class="fas fa-sticky-note"></i></span><a id="anchor-note$1" class="inline-print none" href="#note$1">[note]</a>'
-            )
-        )
-
-        tippy('.note-tooltip', {
-            delay: 50,
-            maxWidth: 240,
-            interactive: true,
-            content(ref) {
-                const selector = ref.getAttribute('data-tooltip-content');
-                const template = document.querySelector(selector);
-                return template ? template.innerHTML : 'Đặt sai ID của note';
-            }
-        });
-
-        isLoggedIn = 1;
-        series_id = parseInt('18997');
-        chapter_id = parseInt('141571');
-
-        readingObject = {
-            series_id: {{ $book->id }},
-            series_title: {{ $book->title }},
-            series_url: $('i.fa-home').first().parent().attr('href'),
-            series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-            chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-            chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-            book_title: $('ul#chap_list > li.current a').text(),
-            book_url: $('ul#chap_list > li.current a').attr('href'),
-            read_time: +new Date() / 1000 | 0,
-        };
-    </script>
-
+                    </div>
+                </main>
+            </section>
+        </div>
+    </div>
+</div>
+</main>
+@include('story.partials.script')
 @endsection

@@ -13,11 +13,11 @@
 
 </main>
 
-<script src="{{ asset('js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
-<script src="{{ asset('js/livewire.js?id=f121a5df')}}"   data-csrf="ldvMmeofcITy1VJvbuSOTbP9Jsm97fO4K2PyJhOS" data-update-uri="/livewire/update" data-navigate-once="true"></script>
+<script src="{{ asset('user/js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
+<script src="{{ asset('user/js/livewire.js?id=f121a5df')}}"   data-csrf="ldvMmeofcITy1VJvbuSOTbP9Jsm97fO4K2PyJhOS" data-update-uri="/livewire/update" data-navigate-once="true"></script>
 
 
-{{-- <script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'></script> --}}
+<script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'></script>
 
 
         <footer id="footer">

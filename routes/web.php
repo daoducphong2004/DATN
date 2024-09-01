@@ -25,30 +25,8 @@ use App\Models\genre;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-], function () {
-    Route::get('/list-user', function () {
-        return view('admin.users.list-user');
-    })->name('listUser');
 
-    Route::get('/list-category', function () {
-        return view('admin.categories.list-category');
-    })->name('listCategory');
-
-    Route::get('/list-story', function () {
-        return view('admin.stories.list-story');
-    })->name('listStory');
-
-    Route::get('/list-comment', function () {
-        return view('admin.comments.list-comment');
-    })->name('listComment');
-});
 
 // Route::controller(HomeController::class)
 //     ->group(function () {
@@ -56,7 +34,20 @@ Route::group([
 //         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
 //     });
 
-Route::get('/home', [UserController::class, 'index']);
+Route::get('home', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index']);
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+// Route::get('vuadang', [UserController::class, 'vuadang']);
+// Route::get('thaoluan', [UserController::class, 'thaoluan']);
+
+
+// Route::get('login', [UserController::class, 'login']);
+// Route::get('register', [UserController::class, 'register']);
+// Route::resource('story', BookController::class);
+
+
+
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
@@ -83,7 +74,7 @@ Route::get('email', [UserController::class, 'email']);
 Route::get('reset', [UserController::class, 'reset']);
 
 Route::get('UserHome', [UserController::class, 'home']);
-Route::get('createTruyen', [UserController::class, 'createTruyen']);
+// Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
 Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
@@ -122,6 +113,9 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 });
+
+
+// Phong
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
@@ -142,3 +136,33 @@ Route::get('stories/addepisode/{book}', function (book $book) {
 Route::get('stories/addchapter/{episode}', function (episode  $episode) {
     return view('stories.iframe.formAddChapter', compact('episode'));
 })->name('storychapter');
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+
+// End Phong
+
+
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+], function () {
+    Route::get('/list-user', function () {
+        return view('admin.users.list-user');
+    })->name('listUser');
+
+    Route::get('/list-category', function () {
+        return view('admin.categories.list-category');
+    })->name('listCategory');
+
+    Route::get('/list-story', function () {
+        return view('admin.stories.list-story');
+    })->name('listStory');
+
+    Route::get('/list-comment', function () {
+        return view('admin.comments.list-comment');
+    })->name('listComment');
+});
+

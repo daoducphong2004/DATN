@@ -17,6 +17,6 @@ class HomeController extends Controller
 
     public function chuongtruyen()
     {
-        return view('frontend.chuongtruyen');
+        // return view('frontend.chuongtruyen');
     }
 }

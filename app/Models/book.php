@@ -26,6 +26,9 @@ class book extends Model
         'group_id'
     ];
 
+    public function group(){
+        return $this->belongsTo(group::class,'group_id');
+    }
     public function genres()
     {
         return $this->belongsToMany(Genre::class);

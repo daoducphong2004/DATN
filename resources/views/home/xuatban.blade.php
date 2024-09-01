@@ -1,20 +1,20 @@
 @extends('home.layout.master')
-
 @section('content')
-    <div class="page-top-group  at-index ">
+    <div class="page-top-group ">
         <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('{{asset('users/user/img/path/12890_d_l.jpg')}}')">
-            </div>
+            <div class="index-background d-none d-lg-block"
+                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{asset('users/user/img/path/12890_m_l.jpg')}}'); background-size: cover"></div>
+                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
+            </div>
         </a>
     </div>
 
-    <main id="mainpart" class="licensed-list-page" style="min-height: 233px;">
+    <main id="mainpart" class="licensed-list-page">
         <header class="page-title">
             <div class="page-name_wrapper">
                 <div class="container">
-                    <span class="page-name"><a href="xuatban.html" class="link-underline link-underline-opacity-0 text-black"><i class="fas fa-circle"></i>Truyện bản quyền</a></span>
+                    <span class="page-name"><a href="/xuat-ban"><i class="fas fa-circle"></i>Truyện bản quyền</a></span>
                     <div class="right mr-3">
                         <a class="button new-link button-info" href="#sap-phat-hanh">
                             <i class="fas fa-list" style="margin-right: 8px;"></i><span>Sắp phát hành</span>
@@ -27,7 +27,7 @@
             <div class="row d-block clearfix">
                 <div class="col-12 col-lg-3 float-right">
                     <form method="post" action="https://docln.net/xuat-ban">
-                        <input type="hidden" name="_token" value="RoVR3vbYqJwRLPo31OeRWpuk5IYzEa1XubKSx458"
+                        <input type="hidden" name="_token" value="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK"
                             autocomplete="off">
                         <section class="sub-index-style js-tongtien">
                             <div class="title-wrapper">
@@ -105,8 +105,8 @@
                                 <div class="section-content">
                                     <ul class="filter-type unstyled">
                                         <li>
-                                            <input name="nph[]" id="ipm" value="ipm" type="checkbox"><label for="ipm">
-                                                IPM</label>
+                                            <input name="nph[]" id="ipm" value="ipm" type="checkbox"><label
+                                                for="ipm"> IPM</label>
                                         </li>
                                         <li>
                                             <input name="nph[]" id="thaiha" value="thaiha" type="checkbox"><label
@@ -121,8 +121,8 @@
                                                 for="amak"> Amak</label>
                                         </li>
                                         <li>
-                                            <input name="nph[]" id="sky" value="sky" type="checkbox"><label for="sky">
-                                                Sky Light Novel</label>
+                                            <input name="nph[]" id="sky" value="sky" type="checkbox"><label
+                                                for="sky"> Sky Light Novel</label>
                                         </li>
                                         <li>
                                             <input name="nph[]" id="tsuki" value="tsuki" type="checkbox"><label
@@ -141,8 +141,8 @@
                                                 for="kimdong"> Kim Đồng</label>
                                         </li>
                                         <li>
-                                            <input name="nph[]" id="tre" value="tre" type="checkbox"><label for="tre">
-                                                Trẻ</label>
+                                            <input name="nph[]" id="tre" value="tre" type="checkbox"><label
+                                                for="tre"> Trẻ</label>
                                         </li>
                                         <li>
                                             <input name="nph[]" id="tabooks" value="tabooks" type="checkbox"><label
@@ -153,8 +153,8 @@
                                                 for="uranix"> Uranix</label>
                                         </li>
                                         <li>
-                                            <input name="nph[]" id="ai" value="ai" type="checkbox"><label for="ai"> Ai
-                                                Novel</label>
+                                            <input name="nph[]" id="ai" value="ai" type="checkbox"><label
+                                                for="ai"> Ai Novel</label>
                                         </li>
                                         <li>
                                             <input name="nph[]" id="shine" value="shine" type="checkbox"><label
@@ -375,8 +375,7 @@
                                                 Himitsu - Kuro no Chikai
                                             </option>
                                             <option value="honzuki">
-                                                Honzuki no Gekokujou: Shisho ni Naru Tame ni wa Shudan wo
-                                                Erandeiraremasen
+                                                Honzuki no Gekokujou: Shisho ni Naru Tame ni wa Shudan wo Erandeiraremasen
                                             </option>
                                             <option value="hoshifuru">
                                                 Hoshi Furu Yoru Ni Nattara
@@ -502,8 +501,7 @@
                                                 Kyoto Teramachi Sanjou no Holmes
                                             </option>
                                             <option value="macaron">
-                                                Macaron Daisuki na Onnanoko ga Dounika-Kounika Sennen Ikitsuzukeru
-                                                Ohanashi
+                                                Macaron Daisuki na Onnanoko ga Dounika-Kounika Sennen Ikitsuzukeru Ohanashi
                                             </option>
                                             <option value="dibiet">
                                                 Mahouka Koukou no Rettousei
@@ -738,8 +736,7 @@
                                                 Tensai Ouji no Akaji Kokka Saisei Jutsu ~Sou da, Baikoku Shiyou~
                                             </option>
                                             <option value="tenseihana">
-                                                Tenseisha de Aru Watashi ni Idonde Kuru Mubou de Yubou na Shoujo no
-                                                Hanashi
+                                                Tenseisha de Aru Watashi ni Idonde Kuru Mubou de Yubou na Shoujo no Hanashi
                                             </option>
                                             <option value="slimetensei">
                                                 Tensei Shitara Slime Datta Ken
@@ -760,8 +757,7 @@
                                                 Tonari no Seki no Satou-San
                                             </option>
                                             <option value="Tonigohou">
-                                                Tonikaku Imouto ga Hoshii Saikyou no Kyuuketsuki wa Mujikaku
-                                                Gohoushichuu!
+                                                Tonikaku Imouto ga Hoshii Saikyou no Kyuuketsuki wa Mujikaku Gohoushichuu!
                                             </option>
                                             <option value="torinoko">
                                                 Torinoko City
@@ -850,8 +846,8 @@
                                                 Zaregoto series
                                             </option>
                                             <option value="ogotokura">
-                                                「Omae Gotoki ga Maou ni Kateru to Omou na」 to Yuusha Party wo Tsuihou
-                                                Sareta no de, Outo de Kimama ni Kurashitai
+                                                「Omae Gotoki ga Maou ni Kateru to Omou na」 to Yuusha Party wo Tsuihou Sareta
+                                                no de, Outo de Kimama ni Kurashitai
                                             </option>
                                         </select>
                                     </div>
@@ -904,11 +900,82 @@
                                 </div>
                             </section>
 
+                            <section class="sub-index-style">
+                                <div class="title-wrapper">
+                                    <div class="section-title">Đọc thử</div>
+                                </div>
+                                <div class="section-content">
+                                    <ul class="filter-type unstyled">
+                                        <li>
+                                            <input name="docthu" type="checkbox" id="docthu" value="1"><label
+                                                for="docthu">Đọc thử</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="submit-wrapper">
+                                    <input type="submit" class="button inline-block filter-submit button-primary-green"
+                                        value="Áp dụng">
+                                </div>
+                            </section>
                         </div>
                     </form>
                 </div>
                 <div class="col-12 col-lg-9 float-left">
                     <div class="result-field">
+                        <!-- <div class="sorting-modifier">
+                                <div class="select-wrapper">
+                                    <span>Sắp xếp</span>
+                                    <select>
+                                        <option>Cũ tới mới</option>
+                                        <option>Mắc tới rẻ</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        <!-- <section id="filter-result" class="basic-section noheader-section clear" style="margin-bottom: 0">
+                                <main class="sect-body no-padding">
+                                    <table class="listext-table has-covers">
+                                    <tbody>
+                                        <tr>
+                                            <th class="col-6 col-6-m col-9-l">Tên tập</th>
+                                            <th class="none table-cell-m col-3-m col-3-l">Phát hành</th>
+                                        </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="a6-ratio series-cover">
+                                                <div class="content img-in-ratio" style="background-image: url('https://1.bp.blogspot.com/--4tbHULTNCI/W8kbRwZbFDI/AAAAAAABsOg/t3VO1n362PkL5hmhsEZ3PwuNdKgsDyCFACHMYCw/w220/default.jpg')"></div>
+                                            </div>
+                                            <div class="series-name">
+                                                <a href="/truyen/3412-con-gai-tuong-lai-tim-den-tan-cua">Con gái tương lai tìm đến tận cửa - Tập 1</a>
+                                                <small>Con gái tương lai tìm đến tận cửa</small>
+                                            </div>
+                                        </td>
+                                        <td class="none table-cell-m">
+                                            <a href="">Nhã Nam</a>
+                                            <small>20/11/2018</small>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="a6-ratio series-cover">
+                                                <div class="content img-in-ratio" style="background-image: url('https://3.bp.blogspot.com/-coc62nTZN9M/WO2v-JFMCuI/AAAAAAAAKBE/Kb8JLmHVElw/w220/series_259.jpg')"></div>
+                                            </div>
+                                            <div class="series-name">
+                                                <a href="/truyen/259-kumo-desu-ga-nani-ka">Kumo Desu Ga Nani Ka - Tập 2</a>
+                                                <small>Kumo Desu Ga Nani Ka</small>
+                                            </div>
+                                        </td>
+                                        <td class="none table-cell-m">
+                                            <a href="">IPM</a>
+                                            <small>20/11/2018</small>
+                                        </td>
+                                    </tr>
+
+                                        </tbody>
+                                    </table>
+                                </main>
+                            </section> -->
+
                         <section id="licensed-list" class="basic-section has-pagination">
                             <header class="section-title"><span>Hiển thị 10 trong số 852 kết quả</span></header>
                             <main class="sect-body">
@@ -918,7 +985,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image10.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/7a04d009-c628-460b-81e6-8bbcd8a1e696.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -928,10 +995,10 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/852-hanh-trinh-cua-elaina-tap-15.html">Hành Trình
-                                                        Của Elaina - Tập 15</a>
+                                                        href="https://docln.net/xuat-ban/852-hanh-trinh-cua-elaina-tap-15">Hành
+                                                        Trình Của Elaina - Tập 15</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=amak">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
@@ -942,18 +1009,18 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banbb56.html?tacgia=Shiraishi%20Jougi">Shiraishi
+                                                                        href="https://docln.net/xuat-ban?tacgia=Shiraishi%20Jougi">Shiraishi
                                                                         Jougi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban692f.html?hoasi=Azure">Azure</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Azure">Azure</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-banc24c.html?dichgia=Ji">Ji</a>
+                                                                    <a href="https://docln.net/xuat-ban?dichgia=Ji">Ji</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -973,11 +1040,11 @@
                                                 </section>
                                                 <div class="series-summary">Ngày xửa ngày xưa, có một cô phù thủy tên
                                                     Elaina.
-                                                    Cô đang viết nhật ký hành trình dọc theo chuyến du hành khắp thế
-                                                    giới bao la của mình.
+                                                    Cô đang viết nhật ký hành trình dọc theo chuyến du hành khắp thế giới
+                                                    bao la của mình.
                                                     Lần này, cô sẽ kể lại những câu chuyện mà cô từng ghi chép.
-                                                    Tổng hợp 43 mẩu truyện, bao gồm các ngoại truyện chỉ có trong bản
-                                                    đặc biệt hoặc sự kiện theo mùa, cùng...</div>
+                                                    Tổng hợp 43 mẩu truyện, bao gồm các ngoại truyện chỉ có trong bản đặc
+                                                    biệt hoặc sự kiện theo mùa, cùng...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #ff5520"
@@ -994,7 +1061,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image9.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/84f59234-20f9-41f0-8e4d-5e9a7a75420c.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1004,11 +1071,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/850-ma-phap-thieu-nu-tap-8.html">Ma Pháp Thiếu Nữ
-                                                        - Tập 8</a>
+                                                        href="https://docln.net/xuat-ban/850-ma-phap-thieu-nu-tap-8">Ma
+                                                        Pháp Thiếu Nữ - Tập 8</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban0cd7.html?nph=usagi">Usagi Light Novel</a> phát
-                                                        hành
+                                                        <a href="https://docln.net/xuat-ban?nph=usagi">Usagi Light
+                                                            Novel</a> phát hành
                                                     </span>
                                                 </h3>
 
@@ -1019,18 +1086,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banf9a0.html?tacgia=Endou%20Asari">Endou
+                                                                        href="https://docln.net/xuat-ban?tacgia=Endou%20Asari">Endou
                                                                         Asari</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banbd70.html?hoasi=Marui-no">Marui-no</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Marui-no">Marui-no</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban62ff.html?dichgia=Rei">Rei</a>
+                                                                    <a
+                                                                        href="https://docln.net/xuat-ban?dichgia=Rei">Rei</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1050,10 +1118,10 @@
                                                 </section>
                                                 <div class="series-summary">Những trận chiến phép thuật giữa các Ma pháp
                                                     thiếu nữ đang ngày càng trở nên thú vị hơn.
-                                                    Snow White vẫn tiếp tục hoạt động với tư cách thợ săn ma pháp thiếu
-                                                    nữ, cô hiện giờ giống như ngọc đang trong quá trình mài giũa.
-                                                    Trong quá trình tìm kiếm tung tích của Ripple, cô nhận được cuộc gọi
-                                                    từ một trong...</div>
+                                                    Snow White vẫn tiếp tục hoạt động với tư cách thợ săn ma pháp thiếu nữ,
+                                                    cô hiện giờ giống như ngọc đang trong quá trình mài giũa.
+                                                    Trong quá trình tìm kiếm tung tích của Ripple, cô nhận được cuộc gọi từ
+                                                    một trong...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1070,7 +1138,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image8.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/f5c92e71-193e-410b-88ee-fc5a7fbcc8b1.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1080,10 +1148,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/851-to-se-tru-mua-cung-cau.html">Tớ Sẽ Trú Mưa
-                                                        Cùng Cậu</a>
+                                                        href="https://docln.net/xuat-ban/851-to-se-tru-mua-cung-cau">Tớ Sẽ
+                                                        Trú Mưa Cùng Cậu</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-banfdb4.html?nph=shine">Shine Novel</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=shine">Shine Novel</a> phát
+                                                        hành
                                                     </span>
                                                 </h3>
 
@@ -1094,19 +1163,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banbb0e.html?tacgia=Sushi%20Thunder">Sushi
+                                                                        href="https://docln.net/xuat-ban?tacgia=Sushi%20Thunder">Sushi
                                                                         Thunder</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-bane3fb.html?hoasi=Sogawa">Sogawa</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Sogawa">Sogawa</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-ban6eba.html?dichgia=Satoukibi">Satoukibi</a>
+                                                                        href="https://docln.net/xuat-ban?dichgia=Satoukibi">Satoukibi</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1124,12 +1193,12 @@
                                                         </div>
                                                     </main>
                                                 </section>
-                                                <div class="series-summary">Vì những sai lầm của bản thân ở trường cấp
-                                                    hai, cùng với vẻ ngoài nhìn như côn đồ nên khi lên cấp ba, Aoki Teru
-                                                    không được bạn bè đón nhận. Dù là ở bất kỳ đâu, cậu đều không tìm
-                                                    được một nơi chốn dành cho mình.
-                                                    Một ngày, cậu tình cờ gặp được Amamori Kokoro, đàn chị học trên cậu
-                                                    một khóa đang ngồi tr...</div>
+                                                <div class="series-summary">Vì những sai lầm của bản thân ở trường cấp hai,
+                                                    cùng với vẻ ngoài nhìn như côn đồ nên khi lên cấp ba, Aoki Teru không
+                                                    được bạn bè đón nhận. Dù là ở bất kỳ đâu, cậu đều không tìm được một nơi
+                                                    chốn dành cho mình.
+                                                    Một ngày, cậu tình cờ gặp được Amamori Kokoro, đàn chị học trên cậu một
+                                                    khóa đang ngồi tr...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1149,7 +1218,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image7.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/f3d84ae5-8163-4a4c-b66f-c1c12e7ee77a.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1159,10 +1228,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/843-co-nang-shimotsuki-trot-phai-long-nhan-vat-nen-tap-4.html">Cô
+                                                        href="https://docln.net/xuat-ban/843-co-nang-shimotsuki-trot-phai-long-nhan-vat-nen-tap-4">Cô
                                                         Nàng Shimotsuki Trót Phải Lòng Nhân Vật Nền - Tập 4</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7417.html?nph=kimdong">Kim Đồng</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=kimdong">Kim Đồng</a> phát
+                                                        hành
                                                     </span>
                                                 </h3>
 
@@ -1173,18 +1243,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban4fa7.html?tacgia=Yagami%20Kagami">Yagami
+                                                                        href="https://docln.net/xuat-ban?tacgia=Yagami%20Kagami">Yagami
                                                                         Kagami</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban1799.html?hoasi=Roha">Roha</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Roha">Roha</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban6fa4.html?dichgia=Tifa">Tifa</a>
+                                                                    <a
+                                                                        href="https://docln.net/xuat-ban?dichgia=Tifa">Tifa</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1203,11 +1274,10 @@
                                                     </main>
                                                 </section>
                                                 <div class="series-summary">Xin hãy hẹn hò với tớ!
-                                                    Vào học kì 3, có một học sinh chuyển trường mới xuất hiện. Cô gái
-                                                    với mái tóc hồng và vẻ mặt khó chịu ấy tên là Kurumizawa Kururi. Hóa
-                                                    ra cô chính là “người bạn từng thân thiết thuở nhỏ của Koutarou mà
-                                                    cậu cứ nghĩ là con trai”! Nghi ngờ về “mối quan hệ mập mờ” của
-                                                    Koutarou và...</div>
+                                                    Vào học kì 3, có một học sinh chuyển trường mới xuất hiện. Cô gái với
+                                                    mái tóc hồng và vẻ mặt khó chịu ấy tên là Kurumizawa Kururi. Hóa ra cô
+                                                    chính là “người bạn từng thân thiết thuở nhỏ của Koutarou mà cậu cứ nghĩ
+                                                    là con trai”! Nghi ngờ về “mối quan hệ mập mờ” của Koutarou và...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1224,7 +1294,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image6.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/ce7eb21b-1264-4438-8811-61578c062755.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1234,11 +1304,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/844-ve-chuyen-toi-chuyen-sinh-thanh-slime-tap-4.html">Về
+                                                        href="https://docln.net/xuat-ban/844-ve-chuyen-toi-chuyen-sinh-thanh-slime-tap-4">Về
                                                         Chuyện Tôi Chuyển Sinh Thành Slime - Tập 4</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-bande1b.html?nph=sky">Sky Light Novel</a> phát
-                                                        hành
+                                                        <a href="https://docln.net/xuat-ban?nph=sky">Sky Light Novel</a>
+                                                        phát hành
                                                     </span>
                                                 </h3>
 
@@ -1249,19 +1319,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banadb9.html?tacgia=Fuse">Fuse</a></span>
+                                                                        href="https://docln.net/xuat-ban?tacgia=Fuse">Fuse</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban10e8.html?hoasi=Mitz%20Vah">Mitz
+                                                                        href="https://docln.net/xuat-ban?hoasi=Mitz%20Vah">Mitz
                                                                         Vah</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-ban49e7.html?dichgia=Th%C3%B9y%20Linh">Thùy
+                                                                        href="https://docln.net/xuat-ban?dichgia=Th%C3%B9y%20Linh">Thùy
                                                                         Linh</a>
                                                                 </span>
                                                             </div>
@@ -1281,11 +1351,11 @@
                                                     </main>
                                                 </section>
                                                 <div class="series-summary">Đã vài tháng đã trôi qua kể từ lúc Milim rời
-                                                    đi, Liên minh Jura Tempest trải qua chuỗi ngày êm đềm và yên ả cứ
-                                                    thế tiếp nối ngày này sang tháng nọ. Giữa lúc ấy, sứ giả do Ma vương
-                                                    kiêm Thú vương Carrion phái đến đã xuất hiện.
-                                                    “Mỗi bên hãy phái cử đoàn sứ giả để xác định xem liệu việc tạo dựng
-                                                    quan h...</div>
+                                                    đi, Liên minh Jura Tempest trải qua chuỗi ngày êm đềm và yên ả cứ thế
+                                                    tiếp nối ngày này sang tháng nọ. Giữa lúc ấy, sứ giả do Ma vương kiêm
+                                                    Thú vương Carrion phái đến đã xuất hiện.
+                                                    “Mỗi bên hãy phái cử đoàn sứ giả để xác định xem liệu việc tạo dựng quan
+                                                    h...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1305,7 +1375,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image5.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/c8a5d61c-26ad-4d70-88c4-120c08ec7a86.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1315,10 +1385,10 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/842-riviere-va-dat-nuoc-cua-loi-cau-nguyen-tap-1.html">Riviere
+                                                        href="https://docln.net/xuat-ban/842-riviere-va-dat-nuoc-cua-loi-cau-nguyen-tap-1">Riviere
                                                         Và Đất Nước Của Lời Cầu Nguyện - Tập 1</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=amak">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
@@ -1329,19 +1399,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-banbb56.html?tacgia=Shiraishi%20Jougi">Shiraishi
+                                                                        href="https://docln.net/xuat-ban?tacgia=Shiraishi%20Jougi">Shiraishi
                                                                         Jougi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban692f.html?hoasi=Azure">Azure</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Azure">Azure</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-banff36.html?dichgia=Beast666">Beast666</a>
+                                                                        href="https://docln.net/xuat-ban?dichgia=Beast666">Beast666</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1359,11 +1429,11 @@
                                                         </div>
                                                     </main>
                                                 </section>
-                                                <div class="series-summary">Ở quốc đảo Kururunervia - Đất nước của Lời
-                                                    cầu nguyện, khi đang đau khổ vì không tìm được việc làm, McMillia đã
-                                                    vô tình gặp Riviere - bà chủ tiệm đồ cổ Riviere, với năng lực hóa
-                                                    giải lời nguyền trên những Nguyện vật mang sức mạnh kỳ lạ. Sau khi
-                                                    được mời vào làm trợ thủ tại tiệm, hai người cùng nhau...</div>
+                                                <div class="series-summary">Ở quốc đảo Kururunervia - Đất nước của Lời cầu
+                                                    nguyện, khi đang đau khổ vì không tìm được việc làm, McMillia đã vô tình
+                                                    gặp Riviere - bà chủ tiệm đồ cổ Riviere, với năng lực hóa giải lời
+                                                    nguyền trên những Nguyện vật mang sức mạnh kỳ lạ. Sau khi được mời vào
+                                                    làm trợ thủ tại tiệm, hai người cùng nhau...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1383,7 +1453,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/b0645af6-7f73-4dd5-8f0d-a48a1e0c971d.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1393,10 +1463,10 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/841-date-a-live-tap-15.html">Date A Live - Tập
-                                                        15</a>
+                                                        href="https://docln.net/xuat-ban/841-date-a-live-tap-15">Date A
+                                                        Live - Tập 15</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban2cc8.html?nph=amak">Amak</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=amak">Amak</a> phát hành
                                                     </span>
                                                 </h3>
 
@@ -1407,19 +1477,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban7860.html?tacgia=Tachibana%20Koushi">Tachibana
+                                                                        href="https://docln.net/xuat-ban?tacgia=Tachibana%20Koushi">Tachibana
                                                                         Koushi</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban1408.html?hoasi=Tsunako">Tsunako</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Tsunako">Tsunako</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-ban4dba.html?dichgia=T%C3%A0i%20Th%E1%BB%8Bnh">Tài
+                                                                        href="https://docln.net/xuat-ban?dichgia=T%C3%A0i%20Th%E1%BB%8Bnh">Tài
                                                                         Thịnh</a>
                                                                 </span>
                                                             </div>
@@ -1438,12 +1508,11 @@
                                                         </div>
                                                     </main>
                                                 </section>
-                                                <div class="series-summary">Hoshimiya Mukuro, Tinh linh trôi nổi trên
-                                                    không gian vũ trụ bao la đã đóng kín trái tim của chính mình bằng
-                                                    sức mạnh của Thiên thần. Itsuka Shidou sau mọi nỗ lực muốn giúp đỡ
-                                                    đã bị cự tuyệt hoàn toàn, cậu đã vứt bỏ do dự mà leo lên cỗ
-                                                    “Fraxinus” thế hệ mới, cùng với sự giúp sức của các Tinh linh khá...
-                                                </div>
+                                                <div class="series-summary">Hoshimiya Mukuro, Tinh linh trôi nổi trên không
+                                                    gian vũ trụ bao la đã đóng kín trái tim của chính mình bằng sức mạnh của
+                                                    Thiên thần. Itsuka Shidou sau mọi nỗ lực muốn giúp đỡ đã bị cự tuyệt
+                                                    hoàn toàn, cậu đã vứt bỏ do dự mà leo lên cỗ “Fraxinus” thế hệ mới, cùng
+                                                    với sự giúp sức của các Tinh linh khá...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1460,7 +1529,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image3.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/5d5256f7-2500-48f5-81ee-967709bd73e5.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1470,10 +1539,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/840-hoi-chung-tuoi-thanh-xuan-tap-10.html">Hội
+                                                        href="https://docln.net/xuat-ban/840-hoi-chung-tuoi-thanh-xuan-tap-10">Hội
                                                         Chứng Tuổi Thanh Xuân - Tập 10</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7417.html?nph=kimdong">Kim Đồng</a> phát hành
+                                                        <a href="https://docln.net/xuat-ban?nph=kimdong">Kim Đồng</a> phát
+                                                        hành
                                                     </span>
                                                 </h3>
 
@@ -1484,19 +1554,20 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-bane21e.html?tacgia=Kamoshida%20Hajime">Kamoshida
+                                                                        href="https://docln.net/xuat-ban?tacgia=Kamoshida%20Hajime">Kamoshida
                                                                         Hajime</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban2cb5.html?hoasi=Mizoguchi%20Keeji">Mizoguchi
+                                                                        href="https://docln.net/xuat-ban?hoasi=Mizoguchi%20Keeji">Mizoguchi
                                                                         Keeji</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
-                                                                    <a href="xuat-ban89e9.html?dichgia=C%C3%A1o">Cáo</a>
+                                                                    <a
+                                                                        href="https://docln.net/xuat-ban?dichgia=C%C3%A1o">Cáo</a>
                                                                 </span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
@@ -1514,12 +1585,12 @@
                                                         </div>
                                                     </main>
                                                 </section>
-                                                <div class="series-summary">Những năm tháng cấp ba không thể nào quên
-                                                    rồi cũng kết thúc, Sakuta và các bạn trở thành sinh viên đại học.
-                                                    Không lâu sau đó, vào một ngày đầu thu, khi cậu đang trải qua những
-                                                    ngày tháng êm đềm… “Ban nãy là Uzuki thật hả?”
-                                                    Biểu hiện của trưởng nhóm thần tượng “Sweet Bullet” Uzuki có gì đó
-                                                    hơi kì quặ...</div>
+                                                <div class="series-summary">Những năm tháng cấp ba không thể nào quên rồi
+                                                    cũng kết thúc, Sakuta và các bạn trở thành sinh viên đại học. Không lâu
+                                                    sau đó, vào một ngày đầu thu, khi cậu đang trải qua những ngày tháng êm
+                                                    đềm… “Ban nãy là Uzuki thật hả?”
+                                                    Biểu hiện của trưởng nhóm thần tượng “Sweet Bullet” Uzuki có gì đó hơi
+                                                    kì quặ...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1536,7 +1607,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image2.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/dc996194-77d2-49da-8f31-23cb79c8d873.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1546,12 +1617,12 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/839-pha-dao-di-gioi-cung-nu-than-khong-tin-do-tap-3-cong-chua-bang-tac-mau-lanh.html">Phá
-                                                        Đảo Dị Giới Cùng Nữ Thần Không Tín Đồ - Tập 3: Công Chúa Băng
-                                                        Tạc Máu Lạnh</a>
+                                                        href="https://docln.net/xuat-ban/839-pha-dao-di-gioi-cung-nu-than-khong-tin-do-tap-3-cong-chua-bang-tac-mau-lanh">Phá
+                                                        Đảo Dị Giới Cùng Nữ Thần Không Tín Đồ - Tập 3: Công Chúa Băng Tạc
+                                                        Máu Lạnh</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban7480.html?nph=orionbooks">Orion Books</a> phát
-                                                        hành
+                                                        <a href="https://docln.net/xuat-ban?nph=orionbooks">Orion Books</a>
+                                                        phát hành
                                                     </span>
                                                 </h3>
 
@@ -1562,19 +1633,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban22f2.html?tacgia=Oosaki%20Airu">Oosaki
+                                                                        href="https://docln.net/xuat-ban?tacgia=Oosaki%20Airu">Oosaki
                                                                         Airu</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban3122.html?hoasi=Tam-U">Tam-U</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Tam-U">Tam-U</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-ban0780.html?dichgia=Th%C3%BAy%20L%C6%B0%C6%A1ng">Thúy
+                                                                        href="https://docln.net/xuat-ban?dichgia=Th%C3%BAy%20L%C6%B0%C6%A1ng">Thúy
                                                                         Lương</a>
                                                                 </span>
                                                             </div>
@@ -1594,10 +1665,10 @@
                                                     </main>
                                                 </section>
                                                 <div class="series-summary">Sau khi chuyển sinh đến một thế giới khác,
-                                                    Makoto Takatsuki, một người chơi RPG lão luyện, đã dành thời gian
-                                                    của mình để tập luyện và nâng cấp kỹ năng. Gần một năm đã trôi qua
-                                                    kể từ khi Makoto trở thành một nhà thám hiểm, và cuối cùng cậu đã
-                                                    đạt cấp độ 20 và xếp hạng Sắt. Đây vốn là một chuyện đáng...</div>
+                                                    Makoto Takatsuki, một người chơi RPG lão luyện, đã dành thời gian của
+                                                    mình để tập luyện và nâng cấp kỹ năng. Gần một năm đã trôi qua kể từ khi
+                                                    Makoto trở thành một nhà thám hiểm, và cuối cùng cậu đã đạt cấp độ 20 và
+                                                    xếp hạng Sắt. Đây vốn là một chuyện đáng...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1614,7 +1685,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset('users/user/img/path/image1.jpg')}}')">
+                                                        style="background-image: url('https://i2.docln.net/ln/licensed/covers/ffa00372-1b1e-46d9-a819-8e93773444a2.jpg')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1624,11 +1695,11 @@
                                             <div class="listall-detail">
                                                 <h3 class="series-title text-xl font-bold">
                                                     <a class="series-name"
-                                                        href="xuat-ban/848-doi-anh-trong-mua-xuan-ngay-hom-qua.html">Đợi
+                                                        href="https://docln.net/xuat-ban/848-doi-anh-trong-mua-xuan-ngay-hom-qua">Đợi
                                                         Anh Trong Mùa Xuân Ngày Hôm Qua</a>
                                                     <span class="publisher-name">
-                                                        <a href="xuat-ban15d4.html?nph=thaiha">Thái Hà Books</a> phát
-                                                        hành
+                                                        <a href="https://docln.net/xuat-ban?nph=thaiha">Thái Hà Books</a>
+                                                        phát hành
                                                     </span>
                                                 </h3>
 
@@ -1639,19 +1710,19 @@
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Tác giả:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban9424.html?tacgia=Hachimoku%20Mei">Hachimoku
+                                                                        href="https://docln.net/xuat-ban?tacgia=Hachimoku%20Mei">Hachimoku
                                                                         Mei</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Họa sĩ:</span>
                                                                 <span class="info-value"><a
-                                                                        href="xuat-ban9263.html?hoasi=Kukka">Kukka</a></span>
+                                                                        href="https://docln.net/xuat-ban?hoasi=Kukka">Kukka</a></span>
                                                             </div>
                                                             <div class="info-item col-12 col-md-6">
                                                                 <span class="info-name">Dịch giả:</span>
                                                                 <span class="info-value">
                                                                     <a
-                                                                        href="xuat-ban1933.html?dichgia=Nguy%E1%BB%85n%20Th%E1%BB%8B%20Thu%20H%E1%BA%B1ng">Nguyễn
+                                                                        href="https://docln.net/xuat-ban?dichgia=Nguy%E1%BB%85n%20Th%E1%BB%8B%20Thu%20H%E1%BA%B1ng">Nguyễn
                                                                         Thị Thu Hằng</a>
                                                                 </span>
                                                             </div>
@@ -1672,10 +1743,9 @@
                                                 </section>
                                                 <div class="series-summary">Khi tiếng loa lúc 6h chiều vang lên bài
                                                     Greensleeves, ý thức của Kanae thực hiện bước nhảy thời gian.
-                                                    Funami Kanae, người bỏ nhà ra đi từ Tokyo đến hòn đảo Sodeshima xa
-                                                    xôi nơi cậu từng sống, bị cuốn vào một hiện tượng gọi là “Rollback”
-                                                    đưa cậu ngược dòng về quá khứ. Giữa khoảng thời gian hỗn loạn n...
-                                                </div>
+                                                    Funami Kanae, người bỏ nhà ra đi từ Tokyo đến hòn đảo Sodeshima xa xôi
+                                                    nơi cậu từng sống, bị cuốn vào một hiện tượng gọi là “Rollback” đưa cậu
+                                                    ngược dòng về quá khứ. Giữa khoảng thời gian hỗn loạn n...</div>
 
                                                 <div class="store-list">
                                                     <a class="button store-link" style="background-color: #c92127"
@@ -1690,17 +1760,18 @@
                             <div class="pagination-footer">
                                 <div class="pagination_wrap">
                                     <!--<a href="" class="paging_item paging_prevnext prev  disabled ">Trước</a>-->
-                                    <a href="xuat-ban2679.html?page=1"
+                                    <a href="https://docln.net/xuat-ban?page=1"
                                         class="paging_item paging_prevnext prev  disabled ">Đầu</a>
 
-                                    <a href="xuat-ban2679.html?page=1" class="paging_item page_num  current ">1</a>
-                                    <a href="xuat-ban4658.html?page=2" class="paging_item page_num ">2</a>
-                                    <a href="xuat-ban9ba9.html?page=3" class="paging_item page_num ">3</a>
-                                    <a href="xuat-banfdb0.html?page=4" class="paging_item page_num ">4</a>
-                                    <a href="xuat-banaf4d.html?page=5" class="paging_item page_num ">5</a>
+                                    <a href="https://docln.net/xuat-ban?page=1"
+                                        class="paging_item page_num  current ">1</a>
+                                    <a href="https://docln.net/xuat-ban?page=2" class="paging_item page_num ">2</a>
+                                    <a href="https://docln.net/xuat-ban?page=3" class="paging_item page_num ">3</a>
+                                    <a href="https://docln.net/xuat-ban?page=4" class="paging_item page_num ">4</a>
+                                    <a href="https://docln.net/xuat-ban?page=5" class="paging_item page_num ">5</a>
 
                                     <!--<a href=" https://docln.net/xuat-ban?page=2 " class="paging_item paging_prevnext next ">Tiếp</a>-->
-                                    <a href="xuat-ban2bc9.html?page=86"
+                                    <a href="https://docln.net/xuat-ban?page=86"
                                         class="paging_item paging_prevnext next ">Cuối</a>
                                 </div>
                             </div>
@@ -1711,5 +1782,4 @@
             </div>
         </div>
     </main>
-
 @endsection

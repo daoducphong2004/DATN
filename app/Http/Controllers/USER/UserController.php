@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
+use App\Models\book;
+use App\Models\genre;
+use App\Models\group;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,12 +18,17 @@ class UserController extends Controller
         return view('home.stories');
     }
 
-    public function chuong(){
-        return view('home.reader');
-    }
+    // public function chuong(){
+    //     return view('home.reader');
+    // }
 
     public function danhsach(){
-        return view('home.show');
+        $genres = genre::pluck('slug', 'name');
+        $groups = group::pluck('id', 'name');
+        $data = book::query()->paginate(30);
+        // dd($data);
+        return view('home.show', compact('data', 'genres', 'groups'));
+        // return view('home.show');
     }
 
     public function vuadang(){
@@ -29,6 +37,9 @@ class UserController extends Controller
 
     public function thaoluan(){
         return view('home.thaoluan');
+    }
+    public function CDthaoluan(){
+        return view('home.chudeThaoluan');
     }
 
     public function sangtac(){
@@ -50,6 +61,24 @@ class UserController extends Controller
         return view('home.gopy');
     }
 
+    public function kesach(){
+        return view('home.kesach');
+    }
+    public function bookmark(){
+        return view('home.bookmark');
+    }
+    public function lichsu(){
+        return view('home.lichsu');
+    }
+    public function tinnhanmoi(){
+        return view('home.tinnhanmoi');
+    }
+    public function tinnhan(){
+        return view('home.hopthu');
+    }
+    public function guitinnhan(){
+        return view('home.guitinnhan');
+    }
     public function taikhoan(){
         return view('home.taikhoan');
     }
@@ -89,11 +118,11 @@ class UserController extends Controller
     }
 
     public function conventThamGia(){
-        return view('user.conventThamGia');
+        return view('user.convertThamGia');
     }
 
     public function conventDaDang(){
-        return view('user.conventDaDang');
+        return view('user.convertDaDang');
     }
 
     public function OLNDaDang(){
@@ -117,7 +146,7 @@ class UserController extends Controller
     }
 
     public function thuVien(){
-        return view('user.truyenThamGia');
+        return view('user.thuvien');
     }
 
     public function nhomSoHuu(){

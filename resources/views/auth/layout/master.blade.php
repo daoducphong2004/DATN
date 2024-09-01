@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    @include('Login.layout.log.head')
+    @include('auth.layout.log.head')
 <body>
-    @include('Login.layout.log.header')
+    @include('auth.layout.log.header')
 
     <div class="container">
         @yield('content')
     </div>
-    @include('Login.layout.log.footer')
+    @include('auth.layout.log.footer')
 </body>
 </html>

@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\StoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -26,14 +30,6 @@ use App\Models\genre;
 */
 
 
-
-
-// Route::controller(HomeController::class)
-//     ->group(function () {
-//         Route::get('/', 'home')->name('home');
-//         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
-//     });
-
 Route::get('home', [UserController::class, 'index']);
 Route::get('/', [UserController::class, 'index']);
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
@@ -47,28 +43,19 @@ Route::get('/', [UserController::class, 'index']);
 // Route::resource('story', BookController::class);
 
 
-
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('convert', [UserController::class, 'convert']);
-Route::get('thao-luan', [UserController::class, 'thaoluan']);
-Route::get('CDthaoluan', [UserController::class, 'CDthaoluan']);
-Route::get('sang-tac', [UserController::class, 'sangtac']);
-Route::get('xuat-ban', [UserController::class, 'xuatban']);
+Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('sangtac', [UserController::class, 'sangtac']);
+Route::get('xuatban', [UserController::class, 'xuatban']);
 
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
-Route::get('kesach', [UserController::class, 'kesach']);
-Route::get('bookmark', [UserController::class, 'bookmark']);
-Route::get('tinnhan', [UserController::class, 'tinnhan']);
-Route::get('tinnhanmoi', [UserController::class, 'tinnhanmoi']);
-Route::get('guitinnhan', [UserController::class, 'guitinnhan']);
-Route::get('lichsudoc', [UserController::class, 'lichsu']);
 Route::get('login', [UserController::class, 'login']);
 Route::get('register', [UserController::class, 'register']);
 Route::get('email', [UserController::class, 'email']);
@@ -91,6 +78,13 @@ Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
 
 
 Route::prefix('admin')->group(function () {
+    // Giao diện admin
+    Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
+    Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
+    Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
+    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+
+
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
     Route::post('/letter/store', [LetterController::class, 'store'])->name('letter_store');
@@ -146,24 +140,23 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 
 
 
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-], function () {
-    Route::get('/list-user', function () {
-        return view('admin.users.list-user');
-    })->name('listUser');
+// Route::group([
+//     'prefix' => 'admin',
+//     'as' => 'admin.',
+// ], function () {
+//     Route::get('/list-user', function () {
+//         return view('admin.users.list-user');
+//     })->name('listUser');
 
-    Route::get('/list-category', function () {
-        return view('admin.categories.list-category');
-    })->name('listCategory');
+//     Route::get('/list-category', function () {
+//         return view('admin.categories.list-category');
+//     })->name('listCategory');
 
-    Route::get('/list-story', function () {
-        return view('admin.stories.list-story');
-    })->name('listStory');
+//     Route::get('/list-story', function () {
+//         return view('admin.stories.list-story');
+//     })->name('listStory');
 
-    Route::get('/list-comment', function () {
-        return view('admin.comments.list-comment');
-    })->name('listComment');
-});
-
+//     Route::get('/list-comment', function () {
+//         return view('admin.comments.list-comment');
+//     })->name('listComment');
+// });

@@ -1,5 +1,6 @@
+
 <script>
-    token = '5Gxv6MpYYcDbGOV9nS2bOqdOZUb835kKRZzYknQD';
+    token = '0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk';
 
     function turnoffall() {
         $(".rdtoggle").removeClass("on");
@@ -196,13 +197,13 @@
         }
     });
 
-    @php
-        $book1 = $book->first();
-    @endphp
+    isLoggedIn = 1;
+    series_id = parseInt('19112');
+    chapter_id = parseInt('142162');
 
     readingObject = {
-        series_id: {{ $book1->id }},
-        series_title: {{ $book1->title }},
+        series_id: series_id,
+        series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
         series_url: $('i.fa-home').first().parent().attr('href'),
         series_cover: $('.rd_sidebar-header a.img').css('background-image'),
         chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
@@ -211,4 +212,14 @@
         book_url: $('ul#chap_list > li.current a').attr('href'),
         read_time: +new Date() / 1000 | 0,
     };
+</script>
+
+
+
+<script src="{{ asset('scripts/app.js?id=e6bfa8f47769659b2c4d6e4752cc0d59') }}"></script>
+<script src="{{ asset('livewire/livewire.js?id=f121a5df') }}" data-csrf="0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk"
+    data-update-uri="/livewire/update" data-navigate-once="true"></script>
+
+
+<script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'>
 </script>

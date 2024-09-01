@@ -11,6 +11,18 @@
             });
         </script>
 </main>
+<script>
+    var slider = tns({
+        container: '#tns1',
+        items: 4,         // Hiển thị 4 truyện mỗi trang
+        slideBy: 'page',  // Chuyển đổi theo từng trang
+        autoplay: false,  // Tắt tự động di chuyển
+        controls: false,  // Tắt nút prev/next
+        nav: true,        // Hiển thị các chấm điều hướng
+        loop: false,      // Không lặp lại carousel
+    });
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="{{ asset('user/js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
 <script src="{{ asset('user/js/livewire.js?id=f121a5df')}}" data-csrf="4Zpd0dv39l7TdIiKTPW7jZFBgCUceBI1iIETt6Nn"

@@ -14,21 +14,22 @@
     {{-- <link href="{{ asset('users/user/css/app.css')}}" rel="stylesheet"> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
-    <link rel="stylesheet" href="{{ asset('users/user/css/action.css')}}">
+    <link rel="stylesheet" href="{{ asset('users/user/css/action.css') }}">
 
-    <link rel="shortcut icon" href="{{ asset('users/user/img/favicon.png')}}">
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('users/user/img/apple-touch-icon.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('users/user/img/apple-touch-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('users/user/img/apple-touch-icon-114x114.png')}}">
-    <link rel="stylesheet" href="{{ asset('users/user/css/interface.css')}}">
+    <link rel="shortcut icon" href="{{ asset('users/user/img/favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('users/user/img/apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('users/user/img/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('users/user/img/apple-touch-icon-114x114.png') }}">
+    <link rel="stylesheet" href="{{ asset('users/user/css/interface.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('users/user/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('users/user/css/all.min.css')}}" />
-    <link rel="stylesheet" href="{{ asset('users/user/css/icons/font-awesome/css/fontawesome-all.css')}}">
-    <script src="{{ asset('users/user/js/plugins.js')}}"></script>
+    <link rel="stylesheet" href="{{ asset('users/user/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('users/user/css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('users/user/css/icons/font-awesome/css/fontawesome-all.css') }}">
+    <script src="{{ asset('users/user/js/plugins.js') }}"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -38,5 +39,45 @@
         gtag('js', new Date());
         gtag('config', 'UA-34864968-3');
     </script>
+    <style>
+        /* Đảm bảo các chấm điều hướng nằm bên dưới nội dung */
+        .tns-nav {
+            text-align: center !important;
+            /* Canh giữa các chấm */
+            margin-top: 15px !important;
+            /* Khoảng cách từ nội dung carousel đến các chấm */
+            position: relative !important;
+            bottom: -310px !important;
+            /* Điều chỉnh vị trí của các chấm xuống dưới nội dung */
+        }
 
+        /* Chỉnh sửa giao diện các chấm điều hướng */
+        .tns-nav button {
+            width: 12px !important;
+            height: 12px !important;
+            background-color: #ddd !important;
+            border-radius: 50% !important;
+            margin: 0 5px !important;
+            border: none !important;
+            cursor: pointer !important;
+        }
+
+        .tns-nav .tns-nav-active {
+            background-color: #333 !important;
+            /* Màu chấm cho trang hiện tại */
+        }
+
+        /* Điều chỉnh để chấm luôn hiển thị bên dưới nội dung, kể cả khi carousel thay đổi kích thước */
+        .tns-outer {
+            padding-bottom: 40px !important;
+            /* Tạo khoảng trống phía dưới carousel để chứa các chấm */
+        }
+
+        @media (max-width: 768px) {
+            .tns-nav {
+                bottom: -30px !important;
+                /* Điều chỉnh vị trí cho màn hình nhỏ */
+            }
+        }
+    </style>
 </head>

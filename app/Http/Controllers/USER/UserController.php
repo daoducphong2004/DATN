@@ -17,7 +17,9 @@ class UserController extends Controller
     public function gioithieu(){
         return view('home.stories');
     }
-
+    public function convert(){
+        return view('home.convert');
+    }
     // public function chuong(){
     //     return view('home.reader');
     // }

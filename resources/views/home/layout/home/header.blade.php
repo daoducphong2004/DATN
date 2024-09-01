@@ -32,7 +32,7 @@
                         </a>
 
                         <ul class="nav-submenu list-unstyled none">
-                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="huongdan_dangtruyen    "><span>Đăng truyện</span></a></li>
                             <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
                             <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
                                         lỗi</span></a></li>
@@ -166,7 +166,7 @@
                         </a>
 
                         <ul class="nav-submenu hidden-block unstyled none">
-                            <li><a href="/thao-luan/368-huong-dan-dang-truyen"><span>Đăng truyện</span></a></li>
+                            <li><a href="/huongdan_dangtruyen"><span>Đăng truyện</span></a></li>
                             <li><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><span>Giới thiệu</span></a></li>
                             <li><a href="/thao-luan/1-mo-trang-thao-luan-gop-y-va-bao-loi"><span>Góp ý - Báo
                                         lỗi</span></a></li>

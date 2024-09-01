@@ -52,10 +52,11 @@ Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('convert', [UserController::class, 'convert']);
+Route::get('thao-luan', [UserController::class, 'thaoluan']);
 Route::get('CDthaoluan', [UserController::class, 'CDthaoluan']);
-Route::get('sangtac', [UserController::class, 'sangtac']);
-Route::get('xuatban', [UserController::class, 'xuatban']);
+Route::get('sang-tac', [UserController::class, 'sangtac']);
+Route::get('xuat-ban', [UserController::class, 'xuatban']);
 
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);

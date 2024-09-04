@@ -1,5 +1,4 @@
-@include('stories.iframe.partials.header')
-
+@extends('st')
 <body data-theme="light">
 
     <div class="container">
@@ -106,30 +105,4 @@
     </div>
 
 
-    <!-- CSS -->
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
-    <link href="https://docln.net/scripts/plugins/upload/css/upload.css" rel="stylesheet" />
-
-    <!-- jQuery File Upload Dependencies -->
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.ui.widget.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.iframe-transport.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.fileupload.js"></script>
-
-    <script>
-        uploadSeriesUrl = 'https://docln.net/action/upload/series';
-        uploadBookUrl = 'https://docln.net/action/upload/book';
-        uploadChapterUrl = '{{ route('upload.image') }}';
-        uploadAvatarUrl = 'https://docln.net/action/upload/avatar';
-        remoteUploadUrl = 'https://docln.net/action/upload/remote';
-
-        coverSeriesUrl = 'https://docln.net/covers/series';
-        coverBookUrl = 'https://docln.net/covers/books';
-    </script>
-
-    <!-- Main Script -->
-    <script src="{{ asset('scripts/plugins/upload.js') }}"></script>
-    <script src="/livewire/livewire.js?id=f121a5df" data-csrf="uCO9Jgcs28O5t0bPzQEnbIfru6kgF6hfI24f8bER"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
-</body>
-
-</html>
+@endsection

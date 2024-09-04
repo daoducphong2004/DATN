@@ -61,14 +61,14 @@ class BookController extends Controller
      */
     public function store(StorebookRequest $request)
     {
-        $slug = Str::slug($request->title, '-');
+
         $adult = $request->has('adult') ? 1 : 0;
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
             'like' => 0,
             'view' => 0,
-            'slug' => $slug,
+            'slug' => '',
             'title' => $request->title,
             'author' => $request->author,
             'painter' => $request->painter,
@@ -80,7 +80,9 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
         ]);
-
+        $slug = Str::slug($book->id.'-'.$request->title);
+        $book->slug = $slug;
+        $book->save();
         // Handle image upload
         if ($request->hasFile('book_path')) {
             $image = $request->file('book_path');

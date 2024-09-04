@@ -200,12 +200,12 @@
 
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
-    <link href="https://docln.net/scripts/plugins/upload/css/upload.css" rel="stylesheet" />
+    <link href="{{ asset('scripts/plugins/upload/css/upload.css') }}" rel="stylesheet" />
 
     <!-- jQuery File Upload Dependencies -->
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.ui.widget.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.iframe-transport.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.fileupload.js"></script>
+    <script src="{{ asset('scripts/plugins/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('scripts/plugins/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('scripts/plugins/jquery.fileupload.js') }}"><script>
 
     <script>
         uploadSeriesUrl = 'https://docln.net/action/upload/series';
@@ -213,7 +213,7 @@
         uploadChapterUrl = 'https://docln.net/action/upload/image';
         uploadAvatarUrl = 'https://docln.net/action/upload/avatar';
         remoteUploadUrl = 'https://docln.net/action/upload/remote';
-
+        uploadSeriesUrl = "{{ route('upload.image') }}"
         coverSeriesUrl = 'https://docln.net/covers/series';
         coverBookUrl = 'https://docln.net/covers/books';
     </script>

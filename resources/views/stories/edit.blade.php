@@ -1,3 +1,5 @@
+@extends('stories.partials.master')
+@section('content')
 @include('stories.partials.header')
 <body data-theme="light">
     <nav class="navbar navbar-default" style="z-index: 999">
@@ -136,11 +138,4 @@
             }
         });
     </script>
-
-
-
-    <script src="/livewire/livewire.js?id=f121a5df" data-csrf="1s68PBJKsMIU4nn1Wn9P2EbTNQaf2eWqi4pV2RqT"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
-</body>
-
-</html>
+@endsection

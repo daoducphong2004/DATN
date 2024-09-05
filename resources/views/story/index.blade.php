@@ -169,47 +169,44 @@
 
                             {{-- Bắt đầu truyện đơn --}}
                             @foreach ($data as $item)
-                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                                    <div class="thumb-wrapper ln-tooltip"
-                                        data-tooltip-content="#series_{{ $item->id }}">
-                                        <a href="truyen/{{ $item->slug }}"
-                                            title="Sau có chương truyện thì lấy tên chương truyện mới nhất để vào">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio lazyload"
-                                                    style="background-image: url('{{ asset($item->book_path) }}');">
-                                                </div>
+                            <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                                <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_{{ $item->id }}">
+                                    <a href="truyen/{{ $item->slug }}" title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio lazyload" style="background-image: url('{{ asset(Storage::url($item->book_path)) }}');">
                                             </div>
-                                        </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr chapter-title"
-                                                title="Sau có chương truyện thì lấy tên chương truyện mới nhất để vào">
-                                                <a href="truyen/{{ $item->slug }}"
-                                                    title="Sau có chương truyện thì lấy tên chương truyện mới nhất để vào">Sau
-                                                    có chương truyện thì lấy tên chương truyện mới nhất để vào</a>
-                                            </div>
-                                            <div class="thumb_attr volume-title">Tên của tập truyện mới nhất</div>
                                         </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr chapter-title" title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
+                                            <a href="truyen/{{ $item->slug }}" title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
+                                                {{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}
+                                            </a>
+                                        </div>
+                                        <div class="thumb_attr volume-title">{{ $item->episodes->last()->title ?? 'Chưa có tập truyện' }}</div>
                                     </div>
-                                    <div class="thumb_attr series-title"><a href="truyen/{{ $item->title }}"
-                                            title="{{ $item->title }}">{{ $item->title }}</a></div>
                                 </div>
-                                <!-- Tooltip -->
-                                <div style="display: none">
-                                    <div id="series_{{ $item->id }}">
-                                        <div style="margin: 10px 0; width: 250px">
-                                            <p style="color: white; font-weight: bold">
-                                                {{ $item->title }}
-                                            </p>
-                                            <p>
-                                                {{-- <div>Số từ: 1.625.237</div> --}}
+                                <div class="thumb_attr series-title">
+                                    <a href="truyen/{{ $item->title }}" title="{{ $item->title }}">{{ $item->title }}</a>
+                                </div>
+                            </div>
+                            <!-- Tooltip -->
+                            <div style="display: none">
+                                <div id="series_{{ $item->id }}">
+                                    <div style="margin: 10px 0; width: 250px">
+                                        <p style="color: white; font-weight: bold">{{ $item->title }}</p>
+                                        <p>
+                                            {{-- <div>Số từ: 1.625.237</div> --}}
                                             <div>Lượt xem: {{ $item->view }}</div>
                                             <div>Lượt thích: {{ $item->like }}</div>
-                                            </p>
-                                            {!! $item->description !!}
-                                        </div>
+                                        </p>
+                                        {!! $item->description !!}
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
+                        @endforeach
+
+
 
                             {{-- Kết thúc truyện đơn --}}
 

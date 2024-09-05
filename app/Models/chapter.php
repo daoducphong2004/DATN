@@ -13,6 +13,24 @@ class chapter extends Model
         'title',
         'content',
         'episode_id',
+        // 'user_id',
     ];
+    public function previous()
+    {
+        // Tìm chương trước trong cùng một episode
+        return $this->where('episode_id', $this->episode_id)
+                    ->where('id', '<', $this->id)
+                    ->orderBy('id', 'desc')
+                    ->first();
+    }
+
+    public function next()
+    {
+        // Tìm chương tiếp theo trong cùng một episode
+        return $this->where('episode_id', $this->episode_id)
+                    ->where('id', '>', $this->id)
+                    ->orderBy('id', 'asc')
+                    ->first();
+    }
 
 }

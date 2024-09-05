@@ -14,5 +14,15 @@ class episode extends Model
         'description',
         'episode_path',
         'boook_id',
-        ];
+    ];
+    public function chapters(){
+        return $this->hasMany(chapter::class,'episode_id');
+    }
+    public function book(){
+        return $this->belongsTo(book::class,'book_id');
+    }
+    public function latestChapter()
+    {
+        return $this->hasOne(Chapter::class)->latest();
+    }
 }

@@ -39,7 +39,6 @@ class EpisodeController extends Controller
                 'description' => 'required|string',
                 'episode_path' => 'required|file|mimes:png,jpg,jpeg,gif|max:2048', // Accept only specific image types and max 2MB
             ]);
-            $slug = Str::slug($validatedData['title'], '-');
             // Handle file upload
             if ($request->hasFile('episode_path')) {
                 $file = $request->file('episode_path');
@@ -50,10 +49,14 @@ class EpisodeController extends Controller
                 $episode = new Episode();
                 $episode->book_id = $validatedData['book_id'];
                 $episode->title = $validatedData['title'];
-                $episode->slug = $slug; // Store the generated slug
+                $episode->slug = ''; // Store the generated slug
                 $episode->description = $validatedData['description'];
                 $episode->episode_path = $filePath;
                 $episode->save();
+                $slug = Str::slug('t'.$episode->id.'-'.$validatedData['title']);
+                $episode->slug = $slug;
+                $episode->save();
+
             }
 
             return redirect()->back()->with('episode', $episode);

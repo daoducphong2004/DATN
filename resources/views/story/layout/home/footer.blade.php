@@ -10,14 +10,46 @@
 
     });
 </script>
+<script>
+       // Toggle lớp "none" khi bấm vào nút mục lục
+       document.querySelector('.catalog-icon').addEventListener('click', function() {
+        var listVolSection = document.getElementById('list-vol');
+        listVolSection.classList.toggle('none');
+    });
+
+    // Cuộn màn hình đến tập truyện khi bấm vào mục lục
+    document.querySelectorAll('.list-volume li').forEach(function(item) {
+        item.addEventListener('click', function() {
+            var targetId = this.getAttribute('data-scrollTo');
+            var targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+ // Ẩn mục lục khi bấm vào nút "list-vol_off"
+    document.querySelector('.list-vol_off').addEventListener('click', function() {
+        var listVolSection = document.getElementById('list-vol');
+        listVolSection.classList.add('none');
+    });
+
+    // Ẩn mục lục khi bấm ra ngoài mục lục
+    document.addEventListener('click', function(event) {
+        var listVolSection = document.getElementById('list-vol');
+        var isClickInside = listVolSection.contains(event.target) || document.querySelector('.catalog-icon').contains(event.target);
+        if (!isClickInside) {
+            listVolSection.classList.add('none');
+        }
+    });
+</script>
 
 </main>
 
-<script src="{{ asset('user/js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
-<script src="{{ asset('user/js/livewire.js?id=f121a5df')}}"   data-csrf="ldvMmeofcITy1VJvbuSOTbP9Jsm97fO4K2PyJhOS" data-update-uri="/livewire/update" data-navigate-once="true"></script>
+<script src="{{ asset('js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
+{{-- <script src="{{ asset('js/livewire.js?id=f121a5df')}}"   data-csrf="{{ @csrf }}" data-update-uri="/livewire/update" data-navigate-once="true"></script> --}}
 
 
-<script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'></script>
+{{-- <script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'></script> --}}
 
 
         <footer id="footer">

@@ -9,18 +9,11 @@ use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-<<<<<<< HEAD
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
-=======
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LetterController;
-use App\Http\Controllers\USER\UserController;
->>>>>>> 28a4d9b19d6c430154dc05871792ec2a486edcd5
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -65,10 +58,6 @@ Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
-<<<<<<< HEAD
-=======
-Route::get('login', [UserController::class, 'login']);
->>>>>>> 28a4d9b19d6c430154dc05871792ec2a486edcd5
 Route::get('register', [UserController::class, 'register']);
 Route::get('email', [UserController::class, 'email']);
 Route::get('reset', [UserController::class, 'reset']);
@@ -95,16 +84,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
-<<<<<<< HEAD
-});
-
-Route::prefix('admin')
-->middleware('auth_admin')
-->group(function () {
-=======
 
 
->>>>>>> 28a4d9b19d6c430154dc05871792ec2a486edcd5
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
     Route::post('/letter/store', [LetterController::class, 'store'])->name('letter_store');
@@ -180,10 +161,3 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 //         return view('admin.comments.list-comment');
 //     })->name('listComment');
 // });
-<<<<<<< HEAD
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
->>>>>>> 28a4d9b19d6c430154dc05871792ec2a486edcd5

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -38,10 +39,10 @@ Route::get('/', [UserController::class, 'index']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
 // Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Auth::routes();
 
-
-// Route::get('login', [UserController::class, 'login']);
-// Route::get('register', [UserController::class, 'register']);
+Route::get('login', [LoginController::class, 'login']);
+Route::get('register', [UserController::class, 'register']);
 // Route::resource('story', BookController::class);
 
 
@@ -141,23 +142,3 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 
 
 
-// Route::group([
-//     'prefix' => 'admin',
-//     'as' => 'admin.',
-// ], function () {
-//     Route::get('/list-user', function () {
-//         return view('admin.users.list-user');
-//     })->name('listUser');
-
-//     Route::get('/list-category', function () {
-//         return view('admin.categories.list-category');
-//     })->name('listCategory');
-
-//     Route::get('/list-story', function () {
-//         return view('admin.stories.list-story');
-//     })->name('listStory');
-
-//     Route::get('/list-comment', function () {
-//         return view('admin.comments.list-comment');
-//     })->name('listComment');
-// });

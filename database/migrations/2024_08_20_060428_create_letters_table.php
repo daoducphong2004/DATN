@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('content');
             $table->foreignIdFor(User::class, 'receiver_id')->constrained('users')->onDelete('cascade');
             $table->foreignIdFor(User::class, 'sender_id')->constrained('users')->onDelete('cascade');
+            $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

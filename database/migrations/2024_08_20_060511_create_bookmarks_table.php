@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->foreignIdFor(book::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
+            $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

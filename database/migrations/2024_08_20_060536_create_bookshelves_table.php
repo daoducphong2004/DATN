@@ -20,12 +20,14 @@ return new class extends Migration
             $table->string('location');
             $table->foreignIdFor(book::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
+            $table->string('status')->default('active');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.`
      */
     public function down(): void
     {

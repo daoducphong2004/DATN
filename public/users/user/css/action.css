@@ -1,0 +1,67 @@
+body,
+label,
+.checkbox label {
+  font-weight: 300;
+}
+
+.p0 {
+  padding: 0;
+}
+
+.ml-20p {
+  margin-left: 20%;
+}
+
+.ml-10p {
+  margin-left: 10%;
+}
+
+.pt-5 {
+  padding-top: 5px;
+}
+
+.pt-7 {
+  padding-top: 7px;
+}
+
+.cke_source { white-space: pre-wrap !important; }
+
+.form-group.required .control-label:after {
+  content: " * ";
+  color: red;
+}
+
+.inline {
+  display: inline-block !important;
+}
+
+.w80p {
+  width: 80% !important;
+}
+
+.block {
+  display: block;
+}
+
+.notekey {
+  font-weight: bold;
+}
+
+.response {
+  color: red;
+  font-weight: bold;
+}
+
+a[href="https://froala.com/wysiwyg-editor"], a[href="https://www.froala.com/wysiwyg-editor?k=u"] {
+  _display: none !important;
+  position: absolute;
+  top: -99999999px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: #e6e6f9;
+}
+
+.select2-selection.select2-selection--multiple {
+  height: 85px;
+}

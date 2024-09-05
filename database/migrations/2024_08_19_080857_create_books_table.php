@@ -18,13 +18,16 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('title');
             $table->string('author');
+            $table->bigInteger('view')->default(0);
+            $table->bigInteger('like')->default(0);
             $table->string('painter')->nullable();
             $table->string('book_path')->nullable();
-            $table->text('desc');
+            $table->text('description');
             $table->string('note')->nullable();
             $table->string('is_VIP');
             $table->string('status');
-            $table->enum('adult', [0, 1]);
+            $table->string('adult');
+            $table->enum('type', [1, 2, 3]);
             $table->foreignIdFor(group::class)->constrained();
             $table->timestamps();
         });

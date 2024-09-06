@@ -9,6 +9,7 @@ class chapter extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'slug',
         'title',
         'content',

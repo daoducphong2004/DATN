@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\HomeController;
@@ -31,21 +32,55 @@ use App\Models\genre;
 |
 */
 
-Auth::routes();
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index']);
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+], function(){
+    Route::get('/list-user', function(){
+        return view('admin.users.list-user');
+    })->name('listUser');
+
+    Route::get('/list-category', function(){
+        return view('admin.categories.list-category');
+    })->name('listCategory');
+
+    Route::get('/list-story', function(){
+        return view('admin.stories.list-story');
+    })->name('listStory');
+
+    Route::get('/list-comment', function(){
+        return view('admin.comments.list-comment');
+    })->name('listComment');
+});
+
+Route::controller(HomeController::class)
+    ->group(function () {
+        Route::get('/', 'home')->name('home');
+        Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
+
+    });
+
+// Route::get('home', [UserController::class, 'index']);
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
 // Route::get('thaoluan', [UserController::class, 'thaoluan']);
-Auth::routes();
 
-Route::get('login', [LoginController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
+
+// Route::get('login', [UserController::class, 'login']);
+// Route::get('register', [UserController::class, 'register']);
 // Route::resource('story', BookController::class);
 
+// Route::get('stories/information', function () {
+//     return view('stories.iframe.information');
+// })->name('storyinformation');
 
+
+Route::get('home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);

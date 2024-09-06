@@ -200,18 +200,18 @@
     series_id = parseInt('18741');
     chapter_id = parseInt('139028');
 
-    readingObject = {
-        series_id: series_id,
-        series_title: 'Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.',
-        series_url: $('i.fa-home').first().parent().attr('href'),
-        series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-        chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-        chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-        book_title: $('ul#chap_list > li.current a').text(),
-        book_url: $('ul#chap_list > li.current a').attr('href'),
-        read_time: +new Date() / 1000 | 0,
-    };
+    // readingObject = {
+    //     series_id: series_id,
+    //     series_title: 'Tôi Bị Cô Gái Yandere Ẩn Mình Trong Ngục Tối Giết Chết Vô Số Lần.',
+    //     series_url: $('i.fa-home').first().parent().attr('href'),
+    //     series_cover: $('.rd_sidebar-header a.img').css('background-image'),
+    //     chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
+    //     chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
+    //     book_title: $('ul#chap_list > li.current a').text(),
+    //     book_url: $('ul#chap_list > li.current a').attr('href'),
+    //     read_time: +new Date() / 1000 | 0,
+    // };
 
     //
-    
+
 

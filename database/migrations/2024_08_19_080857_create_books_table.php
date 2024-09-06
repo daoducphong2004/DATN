@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('painter')->nullable();
             $table->string('book_path')->nullable();
             $table->text('description');
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->string('is_VIP');
             $table->string('status');
-            $table->enum('adult', [0, 1]);
+            $table->string('adult');
             $table->enum('type', [1, 2, 3]);
             $table->foreignIdFor(group::class)->constrained();
             $table->timestamps();

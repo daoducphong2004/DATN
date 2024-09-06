@@ -117,6 +117,7 @@ Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
     return view('stories.iframe.information', compact('book', 'genres'));
@@ -127,11 +128,11 @@ Route::get('stories/tree/{book}', function (book $book) {
 })->name('storytree');
 
 Route::get('stories/addepisode/{book}', function (book $book) {
-    return view('stories.iframe.formAddEpisode', compact('book'));
+    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
 })->name('storyepisode');
 
 Route::get('stories/addchapter/{episode}', function (episode  $episode) {
-    return view('stories.iframe.formAddChapter', compact('episode'));
+    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
 })->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');

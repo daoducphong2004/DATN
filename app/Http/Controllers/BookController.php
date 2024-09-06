@@ -46,7 +46,7 @@ class BookController extends Controller
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
         $data = book::query()->paginate(30);
-        // dd($data);
+        // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
 

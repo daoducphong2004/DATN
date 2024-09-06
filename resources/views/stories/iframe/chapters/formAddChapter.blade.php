@@ -13,7 +13,7 @@
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="Chương 01 ">
+                                    <input type="text" class="form-control" name="title" value="Chương  ">
                                 </div>
                             </div>
 
@@ -27,30 +27,6 @@
                                         for="complete_cb2">Chưa hoàn thành</label>
                                 </div>
                             </div> --}}
-
-                            <div class="form-group clearfix">
-                                <label class="col-md-2 control-label" style="padding-top: 20px">Upload Ảnh</label>
-                                <div class="col-md-8">
-                                    <div id="upload" class="chapter_content">
-                                        <div id="drop">
-                                            <a>Chọn ảnh</a>
-                                            <input type="file" name="image" multiple />
-                                        </div>
-
-                                        <div class="alert alert-danger alert-dismissible" role="alert"
-                                            style="display: none">
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-label="Close">
-                                                <span>&times;</span>
-                                            </button>
-                                        </div>
-
-                                        <div id="progress" class="progress" style="display: none">
-                                            <div class="progress-bar progress-bar-success"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group clearfix required">
                                 <div class="col-md-12">
@@ -83,8 +59,34 @@
                                             remove: 'all'
                                         },
                                     },
-                                    plugins: 'wordcount link image code fullscreen paste emoticons',
-                                    toolbar: 'undo redo | bold italic underline strikethrough fore |  image | removeformat | fullscreen'
+                                    plugins: 'wordcount link code fullscreen paste emoticons',
+                                    toolbar: 'undo redo | bold italic underline strikethrough fore | alignleft aligncenter alignright alignjustify | removeformat | fullscreen',
+                                    setup: function (editor) {
+                                        editor.ui.registry.addButton('alignleft', {
+                                            text: 'Align Left',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyLeft');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('aligncenter', {
+                                            text: 'Align Center',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyCenter');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('alignright', {
+                                            text: 'Align Right',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyRight');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('alignjustify', {
+                                            text: 'Justify',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyFull');
+                                            }
+                                        });
+                                    }
                                 });
                             </script>
 

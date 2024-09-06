@@ -94,6 +94,19 @@ class EpisodeController extends Controller
      */
     public function destroy(episode $episode)
     {
-        //
+        try {
+            // Find the book or fail if it doesn't exist
+            // Detach the associated chapter
+            $episode->chapters()->detach();
+
+            // Delete the chapter
+            $episode->delete();
+
+            // Redirect to the story tree with a success message
+            return redirect()->route('storytree')->with('success', 'tập đã được xóa thành công!');
+        } catch (\Exception $e) {
+            // Handle errors and redirect back with an error message
+            return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa tập. Vui lòng thử lại.');
+        }
     }
 }

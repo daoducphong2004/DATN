@@ -15,6 +15,9 @@ class chapter extends Model
         'episode_id',
         // 'user_id',
     ];
+    public function chaptercomments(){
+        return $this->hasMany(ChapterComment::class);
+    }
     public function episode(){
         return $this->belongsTo(episode::class);
     }

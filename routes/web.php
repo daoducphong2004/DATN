@@ -47,8 +47,8 @@ Route::group([
 
 Route::controller(HomeController::class)
     ->group(function () {
-        Route::get('/', 'home')->name('home');
-        Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
+        Route::get('home', [UserController::class, 'index']);
+        Route::get('/', [UserController::class, 'index']);
 
     });
 
@@ -116,11 +116,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
     Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
 
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 434a53a59bb75a3e2c4ec14176916bed07ed4d3d
     Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');
     Route::get('/bookshelves/create', [BookshelvesController::class, 'create'])->name('bookshelves_create');
     Route::post('/bookshelves/store', [BookshelvesController::class, 'store'])->name('bookshelves_store');

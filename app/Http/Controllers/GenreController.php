@@ -30,6 +30,7 @@ class GenreController extends Controller
 
     public function store(StoregenreRequest $request)
     {
+
         try {
             genre::create($request->validated());
             return redirect()->route('genres_index')->with('success', 'Genre created successfully.');

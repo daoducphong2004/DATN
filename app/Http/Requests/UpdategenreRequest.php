@@ -19,12 +19,5 @@ class StoregenreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'slug' => 'required|string',
-            'name' => 'required|string',
-            'description' => 'required|string',
-        ];
-    }
+    public function rules() {}
 }

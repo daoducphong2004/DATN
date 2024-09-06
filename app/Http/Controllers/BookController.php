@@ -26,7 +26,7 @@ class BookController extends Controller
 
     public function reading(string $slug, string $chapterslug){
         $book = Book::where('slug', $slug)->first()->with('episodes')->get();
-
+        $chapter = chapter::
 
         return view('story.reading',compact('book'));
 

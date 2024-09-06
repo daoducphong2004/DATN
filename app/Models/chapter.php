@@ -16,6 +16,9 @@ class chapter extends Model
         'episode_id',
         // 'user_id',
     ];
+    public function episode(){
+        return $this->belongsTo(episode::class);
+    }
     public function previous()
     {
         // Tìm chương trước trong cùng một episode

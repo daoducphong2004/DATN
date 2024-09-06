@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
 use Illuminate\Support\Facades\Storage;
@@ -24,11 +25,20 @@ class BookController extends Controller
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapterslug){
-        $book = Book::where('slug', $slug)->first()->with('episodes')->get();
+    public function reading(string $slug, string $chapter_slug){
+     // Tìm kiếm book dựa trên slug
+     $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
 
+     // Tìm kiếm chapter dựa trên chapter_slug
+     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
-        return view('story.reading',compact('book'));
+     // Lấy episode liên quan đến chapter
+     $episode = $chapter->episode()->with('chapters')->firstOrFail();
+
+     // Lấy danh sách các chapters trong episode của chapter hiện tại
+     $chapters = $episode->chapters;
+
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
 
     }
     public function index()

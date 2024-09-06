@@ -119,7 +119,7 @@
                     break;
                 case 'Sửa chương':
                     child.onclick = () => openLink(
-                        '{{ route('chapter.edit',id) }}' ,
+                        '{{ route('chapter.edit',':id') }}'.replace(':id', id) ,
                         'action',
                         'chapter_id=' + id + '&action=editchapter'
                     );

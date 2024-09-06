@@ -119,7 +119,7 @@
                     break;
                 case 'Sửa chương':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/chapter/' + id + '/edit?navbar=0',
+                        '{{ route('chapter.edit',':id') }}'.replace(':id', id) ,
                         'action',
                         'chapter_id=' + id + '&action=editchapter'
                     );

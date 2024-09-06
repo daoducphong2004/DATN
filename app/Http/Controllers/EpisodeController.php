@@ -70,7 +70,7 @@ class EpisodeController extends Controller
      */
     public function show(episode $episode)
     {
-        //
+
     }
 
     /**

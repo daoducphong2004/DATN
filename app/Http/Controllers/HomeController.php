@@ -4,21 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\book;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\ChuongModel;
-
-
 
 class HomeController extends Controller
 {
-    public function home()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
         $data = book::query()->latest('id')->paginate(5);
         return view('home.index', compact('data'));
     }
 
-    public function chuongtruyen()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
-        // return view('frontend.chuongtruyen');
+        return view('home');
     }
 }

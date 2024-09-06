@@ -4,16 +4,18 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\USER\HomeController;
+use App\Http\Controllers\USER\UserController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -32,9 +34,9 @@ use App\Models\genre;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Route::get('danhsach', [HomeController::class, 'danhsach']);
-Route::get('truyen/{slug}', [HomeController::class, 'show'])->name('truyen.truyen');
-Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 Route::resource('story', BookController::class);
@@ -70,18 +72,10 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
-Route::get('kesach', [HomeController::class, 'kesach']);
-Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('tinnhan', [HomeController::class, 'tinnhan']);
-Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
-Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
-Route::get('lichsudoc', [HomeController::class, 'lichsu']);
-
-
-Route::get('login', [HomeController::class, 'login']);
-Route::get('register', [HomeController::class, 'register']);
-Route::get('email', [HomeController::class, 'email']);
-Route::get('reset', [HomeController::class, 'reset']);
+Route::get('login', [UserController::class, 'login']);
+Route::get('register', [UserController::class, 'register']);
+Route::get('email', [UserController::class, 'email']);
+Route::get('reset', [UserController::class, 'reset']);
 
 // Route::get('UserHome', [HomeController::class, 'home']);
 // Route::get('createTruyen', [HomeController::class, 'createTruyen']);
@@ -159,23 +153,3 @@ Route::prefix('admin')->group(function () {
 // Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 
-// Route::group([
-//     'prefix' => 'admin',
-//     'as' => 'admin.',
-// ], function () {
-//     Route::get('/list-user', function () {
-//         return view('admin.users.list-user');
-//     })->name('listUser');
-
-//     Route::get('/list-category', function () {
-//         return view('admin.categories.list-category');
-//     })->name('listCategory');
-
-//     Route::get('/list-story', function () {
-//         return view('admin.stories.list-story');
-//     })->name('listStory');
-
-//     Route::get('/list-comment', function () {
-//         return view('admin.comments.list-comment');
-//     })->name('listComment');
-// });

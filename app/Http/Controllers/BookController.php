@@ -8,8 +8,8 @@ use App\Http\Requests\UpdatebookRequest;
 use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
-use Illuminate\Support\Facades\Storage;
-use Str;
+use Illuminate\Support\Str;
+
 
 class BookController extends Controller
 {
@@ -43,7 +43,7 @@ class BookController extends Controller
         $groups = group::pluck('id', 'name');
         $data = book::query()->paginate(30);
         // dd($data);
-        return view('stories.index', compact('data', 'genres', 'groups'));
+        return view('home.show', compact('data', 'genres', 'groups'));
     }
 
     /**
@@ -113,10 +113,9 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes', 'group')->where(
-            'slug',
-            $slug
-        )->firstOrFail();
+        $book = Book::with('genres', 'episodes', 'group')
+        ->where('slug', $slug)
+        ->firstOrFail();
         $episodes = $book->episodes;
         // dd($book,$episodes);
         return view('story.show', compact('book', 'episodes'));

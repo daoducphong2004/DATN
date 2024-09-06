@@ -34,5 +34,5 @@
 
         <script src="{{ asset('users/user/js/plugins.js')}}"></script>
 
-    
+
 </head>

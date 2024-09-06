@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\bookcomment;
 use App\Http\Requests\StorebookcommentRequest;
 use App\Http\Requests\UpdatebookcommentRequest;
+use Illuminate\Http\Request;
 
 class BookcommentController extends Controller
 {
@@ -19,9 +20,21 @@ class BookcommentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request, $book_id)
     {
-        //
+        $request->validate([
+            'comment' => 'required',
+            'parent_id' => 'nullable|exists:comments,id'
+        ]);
+
+        bookcomment::create([
+            'book_id' => $book_id,
+            'user_id' => auth()->id(),
+            'comment' => $request->input('comment'),
+            'parent_id' => $request->input('parent_id') // Nếu đây là phản hồi, parent_id sẽ không null
+        ]);
+
+        return back();
     }
 
     /**

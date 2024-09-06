@@ -4,15 +4,16 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\USER\UserController;
+use App\Http\Controllers\USER\HomeController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -29,52 +30,73 @@ use App\Models\genre;
 |
 */
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index']);
-// Route::get('gioithieu', [UserController::class, 'gioithieu']);
-// Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('vuadang', [UserController::class, 'vuadang']);
-// Route::get('thaoluan', [UserController::class, 'thaoluan']);
+// Route::get('danhsach', [HomeController::class, 'danhsach']);
+Route::get('truyen/{slug}', [HomeController::class, 'show'])->name('truyen.truyen');
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+
+Route::resource('story', BookController::class);
+Route::resource('episode', EpisodeController::class);
+Route::resource('chapter', ChapterController::class);
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+Route::get('stories/information/{book}', function (book $book) {
+    $genres = genre::pluck('id', 'name');
+    return view('stories.iframe.information', compact('book', 'genres'));
+})->name('storyinformation');
+
+Route::get('stories/tree/{book}', function (book $book) {
+    return view('stories.iframe.tree', compact('book'));
+})->name('storytree');
+
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.formAddEpisode', compact('book'));
+})->name('storyepisode');
+
+Route::get('stories/addchapter/{episode}', function (episode  $episode) {
+    return view('stories.iframe.formAddChapter', compact('episode'));
+})->name('storychapter');
+
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('convert', [HomeController::class, 'convert']);
+Route::get('thaoluan', [HomeController::class, 'thaoluan']);
+Route::get('CDthaoluan', [HomeController::class, 'CDthaoluan']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
+
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
+Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
+
+Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('tinnhan', [HomeController::class, 'tinnhan']);
+Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
+Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
+Route::get('lichsudoc', [HomeController::class, 'lichsu']);
 
 
-// Route::get('login', [UserController::class, 'login']);
-// Route::get('register', [UserController::class, 'register']);
-// Route::resource('story', BookController::class);
+Route::get('login', [HomeController::class, 'login']);
+Route::get('register', [HomeController::class, 'register']);
+Route::get('email', [HomeController::class, 'email']);
+Route::get('reset', [HomeController::class, 'reset']);
 
-
-Route::get('gioithieu', [UserController::class, 'gioithieu']);
-Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('danhsach', [UserController::class, 'danhsach']);
-Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
-Route::get('sangtac', [UserController::class, 'sangtac']);
-Route::get('xuatban', [UserController::class, 'xuatban']);
-
-Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
-Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
-Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan']);
-
-Route::get('login', [UserController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
-Route::get('email', [UserController::class, 'email']);
-Route::get('reset', [UserController::class, 'reset']);
-
-Route::get('UserHome', [UserController::class, 'home']);
-// Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
-Route::get('conventThamGia', [UserController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [UserController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [UserController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [UserController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [UserController::class, 'thaoLuanCuaBan']);
-Route::get('theLoai', [UserController::class, 'theLoai']);
-Route::get('thuVien', [UserController::class, 'thuVien']);
-Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
-Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
+// Route::get('UserHome', [HomeController::class, 'home']);
+// Route::get('createTruyen', [HomeController::class, 'createTruyen']);
+// Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+// Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+// Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
+// Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+// Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+// Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
+// Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
+// Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
+// Route::get('theLoai', [HomeController::class, 'theLoai']);
+// Route::get('thuVien', [HomeController::class, 'thuVien']);
+// Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
+// Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 
 
 Route::prefix('admin')->group(function () {
@@ -110,34 +132,31 @@ Route::prefix('admin')->group(function () {
 });
 
 
-// Phong
-Route::resource('story', BookController::class);
-Route::resource('episode', EpisodeController::class);
-Route::resource('chapter', ChapterController::class);
-Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
-Route::get('stories/information/{book}', function (book $book) {
-    $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres'));
-})->name('storyinformation');
 
-Route::get('stories/tree/{book}', function (book $book) {
-    return view('stories.iframe.tree', compact('book'));
-})->name('storytree');
+// Route::resource('story', BookController::class);
+// Route::resource('episode', EpisodeController::class);
+// Route::resource('chapter', ChapterController::class);
+// Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+// Route::get('stories/information/{book}', function (book $book) {
+//     $genres = genre::pluck('id', 'name');
+//     return view('stories.iframe.information', compact('book', 'genres'));
+// })->name('storyinformation');
 
-Route::get('stories/addepisode/{book}', function (book $book) {
-    return view('stories.iframe.formAddEpisode', compact('book'));
-})->name('storyepisode');
+// Route::get('stories/tree/{book}', function (book $book) {
+//     return view('stories.iframe.tree', compact('book'));
+// })->name('storytree');
 
-Route::get('stories/addchapter/{episode}', function (episode  $episode) {
-    return view('stories.iframe.formAddChapter', compact('episode'));
-})->name('storychapter');
+// Route::get('stories/addepisode/{book}', function (book $book) {
+//     return view('stories.iframe.formAddEpisode', compact('book'));
+// })->name('storyepisode');
 
-Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
-Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
-Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+// Route::get('stories/addchapter/{episode}', function (episode  $episode) {
+//     return view('stories.iframe.formAddChapter', compact('episode'));
+// })->name('storychapter');
 
-// End Phong
-
+// Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+// Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+// Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 
 // Route::group([

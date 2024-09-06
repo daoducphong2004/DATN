@@ -8,29 +8,34 @@ use App\Models\genre;
 use App\Models\group;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class HomeController extends Controller
 {
     public function index(){
-        return view('home.index');
+        $data = book::orderBy('like', 'desc')->take(5)->get();
+        return view('home.index', compact('data'));
     }
 
-    public function gioithieu(){
-        return view('home.stories');
-    }
     public function convert(){
         return view('home.convert');
     }
-    // public function chuong(){
-    //     return view('home.reader');
+
+    // public function danhsach(){
+    //     $genres = genre::pluck('slug', 'name');
+    //     $groups = group::pluck('id', 'name');
+    //     $data = book::query()->paginate(30);
+    //     // dd($data);
+    //     return view('home.show', compact('data', 'genres', 'groups'));
+
     // }
 
-    public function danhsach(){
-        $genres = genre::pluck('slug', 'name');
-        $groups = group::pluck('id', 'name');
-        $data = book::query()->paginate(30);
-        // dd($data);
-        return view('home.show', compact('data', 'genres', 'groups'));
-        // return view('home.show');
+    public function show(String $slug)
+    {
+        $book = Book::with('genres', 'episodes', 'group')
+        ->where('slug', $slug)
+        ->firstOrFail();
+        $episodes = $book->episodes;
+        // dd($book,$episodes);
+        return view('home.stories', compact('book', 'episodes'));
     }
 
     public function vuadang(){

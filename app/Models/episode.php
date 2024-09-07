@@ -8,21 +8,38 @@ use Illuminate\Database\Eloquent\Model;
 class episode extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id',
         'title',
         'description',
         'episode_path',
-        'boook_id',
+        'book_id',
     ];
-    public function chapters(){
-        return $this->hasMany(chapter::class,'episode_id');
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class, 'episode_id');
     }
-    public function book(){
-        return $this->belongsTo(book::class,'book_id');
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
     }
+
     public function latestChapter()
     {
         return $this->hasOne(Chapter::class)->latest();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($episode) {
+            $episode->chapters()->each(function ($chapter) {
+                $chapter->delete();
+            });
+        });
     }
 }

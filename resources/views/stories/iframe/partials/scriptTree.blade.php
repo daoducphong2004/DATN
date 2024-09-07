@@ -42,7 +42,7 @@
             switch (child.innerText) {
                 case 'Sửa truyện':
                     child.onclick = () => openLink(
-                        '{{ route('storyinformation', $book->id) }}',
+                        '{{ route('story.edit', $book->id) }}',
                         'action',
                         'action=editseries'
                     );
@@ -88,32 +88,33 @@
                         'book_id=' + id + '&action=editbook'
                     );
 
-                    };
                     break;
                 case 'Xóa tập':
-                // child.onclick = () => {
-                //         if (confirm('Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!')) {
-                //             $.ajax({
-                //                 url: '{{ route('episode.destroy', ':id') }}'.replace(':id',id),
-                //                 type: 'DELETE',
-                //                 data: {
-                //                     _token: '{{ csrf_token() }}'
-                //                 },
-                //                 success: function(result) {
-                //                     alert('Tập truyện đã được xóa thành công!');
-                //                     window.location.reload();
-                //                 },
-                //                 error: function(xhr) {
-                //                     alert('Xóa tập thất bại. Vui lòng thử lại.');
-                //                 }
-                //             });
-                //         }
-                child.onclick = () => openLink(
-                        'https://docln.net/action/book/' + id + '/delete?navbar=0',
-                        'action',
-                        'book_id=' + id + '&action=deletebook'
-                    );
-                    break;
+                    child.onclick = () => {
+                        if (confirm(
+                                'Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!'
+                                )) {
+                            $.ajax({
+                                url: '{{ route('episode.destroy', ':id') }}'.replace(':id', id),
+                                type: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(result) {
+                                    if (result.success) {
+                                        alert(result.message);
+                                        window.location.reload();
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                error: function(xhr) {
+                                    alert('Xóa tập thất bại. Vui lòng thử lại.');
+                                }
+                            });
+                        }
+                    };
+break;
                 case 'Xóa nhiều chương':
                     child.onclick = () => openLink(
                         'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',
@@ -166,6 +167,7 @@
                     break;
 
             }
+
         }
 
         menu.css({

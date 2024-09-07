@@ -59,7 +59,7 @@ class ChapterController extends Controller
 
         // Trigger sẽ tự động cập nhật trường 'updated_at' trong bảng 'book'
 
-        return redirect()->route('chapter.index')->with('success', 'Chapter added successfully.');
+        return redirect()->route('chapter.edit',$chapter->id)->with('success', 'Chapter added successfully.');
     }
     public function uploadImage(Request $request)
     {
@@ -134,21 +134,29 @@ class ChapterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(chapter $chapter)
-    {
-        try {
-            // Find the book or fail if it doesn't exist
-            // Detach the associated genres
-            // $chapter->genres()->detach();
+    public function destroy(string $id)
+{
+    try {
+        // Find the chapter or fail if it doesn't exist
+        $chapter = Chapter::findOrFail($id);
 
-            // Delete the chapter
-            $chapter->delete();
+        // Detach the associated genres
+        // $chapter->genres()->detach();
 
-            // Redirect to the story tree with a success message
-            return redirect()->route('storytree')->with('success', 'Truyện đã được xóa thành công!');
-        } catch (\Exception $e) {
-            // Handle errors and redirect back with an error message
-            return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.');
-        }
+        // Get the book ID associated with the chapter
+        // $bookId = $chapter->book_id;
+
+        // Delete the chapter
+        $chapter->delete();
+
+        // Return a JSON response with success status
+        return response()->json(['success' => true, 'message' => 'Chapter đã được xóa thành công!']);
+    } catch (\Exception $e) {
+        // Log the error message
+        \Log::error('Error deleting chapter: ' . $e->getMessage());
+
+        // Return a JSON response with error status
+        return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa chapter. Vui lòng thử lại.']);
     }
+}
 }

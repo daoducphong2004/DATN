@@ -187,7 +187,7 @@
                                     </div>
                                 </div>
                                 <div class="thumb_attr series-title">
-                                    <a href="truyen/{{ $item->title }}" title="{{ $item->title }}">{{ $item->title }}</a>
+                                    <a href="truyen/{{ $item->slug }}" title="{{ $item->title }}">{{ $item->title }}</a>
                                 </div>
                             </div>
                             <!-- Tooltip -->

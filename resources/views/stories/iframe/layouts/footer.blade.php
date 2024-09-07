@@ -19,4 +19,4 @@
 </script>
 
 <!-- Main Script -->
-<script src="scripts/plugins/upload/js/upload.js?v=7"></script>
+<script src="{{ asset('scripts/plugins/upload/js/upload.js') }}"></script>

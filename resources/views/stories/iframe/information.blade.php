@@ -24,7 +24,7 @@
                                 }
                             </script>
 
-                            <form role="form" method="POST" action="{{ route('story.update', $book->id) }}">
+                            <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('story.update', $book->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="series_id" value="{{ $book->id }}">
@@ -51,7 +51,7 @@
                                         <div id="upload" class="series_cover">
                                             <div id="drop">
                                                 <a>Chọn ảnh</a>
-                                                <input type="file" name="cover" />
+                                                <input type="file" name="book_path" />
                                             </div>
                                             <div class="alert alert-danger alert-dismissible" role="alert"
                                                 style="display: none">
@@ -88,11 +88,13 @@
                                 <div class="form-group clearfix">
                                     <label class="col-md-2 control-label pt-5 text-right">Loại truyện</label>
                                     <div class="col-md-10">
-                                        <select class="input-sm" name="type" disabled>
-                                            <option value="1" selected>Truyện dịch</option>
-                                            <option value="2">Truyện convert</option>
-                                            <option value="3">Truyện sáng tác</option>
+                                        <select class="input-sm" name="type_display" disabled>
+                                            <option @selected($book->type==1) value="1">Truyện dịch</option>
+                                            <option @selected($book->type==2) value="2">Truyện convert</option>
+                                            <option @selected($book->type==3) value="3">Truyện sáng tác</option>
                                         </select>
+                                        <!-- Hidden input to pass the value -->
+                                        <input type="hidden" name="type" value="{{ $book->type }}">
                                     </div>
                                 </div>
 

@@ -34,8 +34,8 @@ class BookController extends Controller
         $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
         // Lấy episode liên quan đến chapter
-        $episode = $chapter->episode()->with('chapters')->firstOrFail();
 
+        $episode = $chapter->episode()->with('chapters')->firstOrFail();
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
 
@@ -99,7 +99,7 @@ class BookController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
-        return redirect()->route('story.edit', $book->id);
+        return redirect()->route('story.show', $book->id);
     }
 
     /**

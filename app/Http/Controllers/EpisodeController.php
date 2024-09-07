@@ -92,8 +92,21 @@ class EpisodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(episode $episode)
+    public function destroy(Episode $episode)
     {
-        //
+        try {
+            // Delete the episode and its related chapters
+            $episode->delete();
+
+            // Return a JSON response with success status
+            return response()->json(['success' => true, 'message' => 'Tập truyện đã được xóa thành công!']);
+        } catch (\Exception $e) {
+            // Log the error message
+            \Log::error('Error deleting episode: ' . $e->getMessage());
+
+            // Return a JSON response with error status
+            return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa tập. Vui lòng thử lại.']);
+        }
     }
+
 }

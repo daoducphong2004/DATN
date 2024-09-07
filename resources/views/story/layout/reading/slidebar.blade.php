@@ -121,7 +121,7 @@
                         <span class="set-bigger set-slide_button"><i class="fas fa-chevron-right"></i></span>
                     </div>
                 </div>
-                <div class="set-list set-text-align clear">
+                {{-- <div class="set-list set-text-align clear">
                     <label class="font-bold">Kiểu căn chỉnh</label>
                     <div class="set-input clear justify-center font-medium text-2xl flex flex-row gap-10">
                         <span data-align="text-left" class="p-1"><i class="fas fa-align-left"></i></span>
@@ -129,7 +129,7 @@
                         <span data-align="text-right" class="p-1"><i class="fas fa-align-right"></i></span>
                         <span data-align="text-justify" class="p-1"><i class="fas fa-align-justify"></i></span>
                     </div>
-                </div>
+                </div> --}}
             </main>
         </section>
         <div class="black-click"></div>

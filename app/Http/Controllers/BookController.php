@@ -34,7 +34,6 @@ class BookController extends Controller
         $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
         // Lấy episode liên quan đến chapter
-
         $episode = $chapter->episode()->with('chapters')->firstOrFail();
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;

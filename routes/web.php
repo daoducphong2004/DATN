@@ -34,7 +34,7 @@ use App\Models\genre;
 Auth::routes();
 
 Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
@@ -138,6 +138,7 @@ Route::get('stories/addchapter/{episode}', function (episode  $episode) {
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 // End Phong
 

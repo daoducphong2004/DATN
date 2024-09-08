@@ -68,10 +68,15 @@ class EpisodeController extends Controller
      * Display the specified resource.
      */
     public function show(episode $episode) {}
-    public function showU(string $slug)
+    public function showU(string $slug, string $slug_episode)
     {
-        $episode = episode::where('slug', $slug)->with('chapters')->findOrFail();
-        dd($episode);
+        $episode = episode::where('slug', $slug_episode)->with('chapters')->firstOrFail();
+        // dd($episode);
+        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+
+        // Lấy danh sách các chapters trong episode của chapter hiện tại
+        // dd($book->episodes);
+        return view('story.episodeShow', compact('book', 'episode'));
     }
     /**
      * Show the form for editing the specified resource.

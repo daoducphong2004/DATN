@@ -32,39 +32,10 @@ use App\Models\genre;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Auth::routes();
 
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-], function(){
-    Route::get('/list-user', function(){
-        return view('admin.users.list-user');
-    })->name('listUser');
-
-    Route::get('/list-category', function(){
-        return view('admin.categories.list-category');
-    })->name('listCategory');
-
-    Route::get('/list-story', function(){
-        return view('admin.stories.list-story');
-    })->name('listStory');
-
-    Route::get('/list-comment', function(){
-        return view('admin.comments.list-comment');
-    })->name('listComment');
-});
-
-Route::controller(HomeController::class)
-    ->group(function () {
-        Route::get('/', 'home')->name('home');
-        Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
-
-    });
-
-// Route::get('home', [UserController::class, 'index']);
+Route::get('home', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
@@ -173,6 +144,7 @@ Route::get('stories/addchapter/{episode}', function (episode  $episode) {
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 // End Phong
 

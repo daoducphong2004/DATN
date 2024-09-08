@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
+use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -42,7 +43,8 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('thaoluan', [UserController::class, 'thaoluan']);
 
 
-// Route::get('login', [UserController::class, 'login']);
+Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
+Route::post('login', [UserController::class, 'login'])->name('login');
 // Route::get('register', [UserController::class, 'register']);
 // Route::resource('story', BookController::class);
 
@@ -65,7 +67,8 @@ Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [UserController::class, 'taikhoan']);
 
-Route::get('register', [UserController::class, 'register']);
+Route::get('register', [UserController::class, 'register'])->name('register');
+Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
 Route::get('email', [UserController::class, 'email']);
 Route::get('reset', [UserController::class, 'reset']);
 
@@ -117,6 +120,16 @@ Route::prefix('admin')->group(function () {
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 });
 
+Route::prefix('chapter-comments')->group(function () {
+    Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
+    Route::get('/', [ChaptercommentController::class, 'index'])->name('chapter_comments_index');
+    Route::get('/show/{id}', [ChaptercommentController::class, 'show'])->name('chapter_comments_show');
+    Route::get('/create', [ChaptercommentController::class, 'create'])->name('chapter_comments_create');
+    Route::post('/store', [ChaptercommentController::class, 'store'])->name('chapter_comments_store');
+    Route::get('/edit/{id}', [ChaptercommentController::class, 'edit'])->name('chapter_comments_edit');
+    Route::put('/update/{id}', [ChaptercommentController::class, 'update'])->name('chapter_comments_update');
+    Route::delete('/delete/{id}', [ChaptercommentController::class, 'delete'])->name('chapter_comments_delete');
+});
 
 // Phong
 Route::resource('story', BookController::class);
@@ -137,7 +150,7 @@ Route::get('stories/addepisode/{book}', function (book $book) {
     return view('stories.iframe.episodes.formAddEpisode', compact('book'));
 })->name('storyepisode');
 
-Route::get('stories/addchapter/{episode}', function (episode  $episode) {
+Route::get('stories/addchapter/{episode}', function (episode $episode) {
     return view('stories.iframe.chapters.formAddChapter', compact('episode'));
 })->name('storychapter');
 

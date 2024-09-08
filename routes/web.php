@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\HomeController;
@@ -39,13 +40,18 @@ Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
 // Route::get('thaoluan', [UserController::class, 'thaoluan']);
-Auth::routes();
 
-Route::get('login', [LoginController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
+
+// Route::get('login', [UserController::class, 'login']);
+// Route::get('register', [UserController::class, 'register']);
 // Route::resource('story', BookController::class);
 
+// Route::get('stories/information', function () {
+//     return view('stories.iframe.information');
+// })->name('storyinformation');
 
+
+Route::get('home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);

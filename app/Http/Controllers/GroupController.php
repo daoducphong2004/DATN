@@ -2,65 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\group;
 use App\Http\Requests\StoregroupRequest;
-use App\Http\Requests\UpdategroupRequest;
+use App\Models\group;
+use Illuminate\Http\Request;
+use Exception;
 
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        try {
+            $groups = group::paginate(10);
+            return view('admin.group.index', compact('groups'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load groups: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        try {
+            return view('admin.group.create');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load create form: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoregroupRequest $request)
     {
-        //
+        try {
+            group::create($request->validated());
+            return redirect()->route('groups_index')->with('success', 'groups created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create groups: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(group $group)
+    public function edit(group $id)
     {
-        //
+        try {
+            return view('admin.group.edit', compact('id'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load edit form: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(group $group)
+    public function update(StoregroupRequest $request, group $id)
     {
-        //
+        try {
+            $id->update($request->validated());
+            return redirect()->route('groups_index')->with('success', 'groups updated successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update groups: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdategroupRequest $request, group $group)
+    public function destroy(group $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(group $group)
-    {
-        //
+        try {
+            $id->delete();
+            return redirect()->route('groups_index')->with('success', 'groups deleted successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete groups: ' . $e->getMessage()]);
+        }
     }
 }

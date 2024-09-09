@@ -21,8 +21,6 @@ use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
-use App\Http\Controllers\ForumController;
-use App\Models\Forum;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,48 +118,48 @@ Route::prefix('admin')->group(function () {
     Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
-
 });
 
-    Route::resource('story', BookController::class);
-    Route::resource('episode', EpisodeController::class);
-    Route::resource('chapter', ChapterController::class);
-    Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
-    Route::get('stories/information/{book}', function (book $book) {
-        $genres = genre::pluck('id', 'name');
-        return view('stories.iframe.information', compact('book', 'genres'));
-    })->name('storyinformation');
+Route::prefix('chapter-comments')->group(function () {
+    Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
+    Route::get('/', [ChaptercommentController::class, 'index'])->name('chapter_comments_index');
+    Route::get('/show/{id}', [ChaptercommentController::class, 'show'])->name('chapter_comments_show');
+    Route::get('/create', [ChaptercommentController::class, 'create'])->name('chapter_comments_create');
+    Route::post('/store', [ChaptercommentController::class, 'store'])->name('chapter_comments_store');
+    Route::get('/edit/{id}', [ChaptercommentController::class, 'edit'])->name('chapter_comments_edit');
+    Route::put('/update/{id}', [ChaptercommentController::class, 'update'])->name('chapter_comments_update');
+    Route::delete('/delete/{id}', [ChaptercommentController::class, 'delete'])->name('chapter_comments_delete');
+});
+
+// Phong
+Route::resource('story', BookController::class);
+Route::resource('episode', EpisodeController::class);
+Route::resource('chapter', ChapterController::class);
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+
+Route::get('stories/information/{book}', function (book $book) {
+    $genres = genre::pluck('id', 'name');
+    return view('stories.iframe.information', compact('book', 'genres'));
+})->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
     return view('stories.iframe.tree', compact('book'));
 })->name('storytree');
 
-    Route::get('stories/addepisode/{book}', function (book $book) {
-        return view('stories.iframe.formAddEpisode', compact('book'));
-    })->name('storyepisode');
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+})->name('storyepisode');
 
-    Route::get('stories/addchapter/{episode}', function (episode  $episode) {
-        return view('stories.iframe.formAddChapter', compact('episode'));
-    })->name('storychapter');
+Route::get('stories/addchapter/{episode}', function (episode $episode) {
+    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+})->name('storychapter');
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
+
+// End Phong
 
 
-Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-], function () {
-    Route::get('/list-user', function () {
-        return view('admin.users.list-user');
-    })->name('listUser');
 
-    Route::get('/list-category', function () {
-        return view('admin.categories.list-category');
-    })->name('listCategory');
-
-    Route::get('/list-story', function () {
-        return view('admin.stories.list-story');
-    })->name('listStory');
-
-    Route::get('/list-comment', function () {
-        return view('admin.comments.list-comment');
-    })->name('listComment');
-});

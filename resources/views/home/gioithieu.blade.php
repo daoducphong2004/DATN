@@ -1,148 +1,132 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group  at-index ">
+    <div class="page-top-group ">
         <a href="/thao-luan/2591">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')">
-            </div>
+                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_m_l.jpg') }}'); background-size: cover">
+                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>
 
-    <main id="mainpart" class="custome-page" style="min-height: 233px;">
-        <!--style="background: url('img/background/bg-emilia.jpg') no-repeat fixed 70px center"-->
+    <main id="mainpart" class="custome-page">
+        <!--style="background: url('img/background/bg-violet.jpg') no-repeat fixed 70px center"-->
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="page-breadcrumb">
-                        <span class="breadcrum-level"><a href="../index.html"><i class="fas fa-home"></i></a></span>
+                        <span class="breadcrum-level"><a href="https://docln.net"><i class="fas fa-home"></i></a></span>
                         <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
-                        <span class="breadcrum-level"><a href="../thao-luan.html">Giới thiệu</a></span>
+                        <span class="breadcrum-level"><a href="https://docln.net/thao-luan">Thảo luận</a></span>
                     </div>
 
                 </div>
             </div>
             <section class="page-content basic-section">
                 <header class="sect-header">
-                    <span class="sect-title"><a href="2591-ra-mat-hako-facebook-group.html">Ra mắt Hako Facebook
-                            Group</a></span>
+                    <span class="sect-title"><a href="/thao-luan/2-gioi-thieu-cong-light-novel"><i class="fas fa-lock"></i>
+                            Giới thiệu Cổng Light Novel</a></span>
                 </header>
                 <main class="sect-body">
                     <div class="row">
                         <div class="col-8">
-                            <div class="page-author group-mod">
+                            <div class="page-author group-mem">
                                 <div class="author_ava">
-                                    <img src="{{asset('users/user/img/avatar/avatar pp.png')}}">
+                                    <img
+                                        src="https://3.bp.blogspot.com/-Yk-cAlYNDXg/WCdtQWo7LCI/AAAAAAAAv8Y/EJxI3Jh3w_Y/w100/ava2.png">
                                 </div>
                                 <div class="author-info">
-                                    <div class="author_name"><a href="../thanh-vien/3855.html">Zennomi</a></div>
-                                    <div class="author_role"><span>Moderators</span></div>
+                                    <div class="author_name"><a href="/thanh-vien/3">thonglinh90</a></div>
+                                    <div class="author_role"><span>Members</span></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <time class="topic-time timeago" title="22/04/2023 17:28:25"
-                                datetime="2023-04-22T17:28:25+07:00">1 năm</time>
+                            <time class="topic-time timeago" title="30/01/2017 19:49:15"
+                                datetime="2017-01-30T19:49:15+07:00">8 năm</time>
                         </div>
                     </div>
                     <div class="forum-page-content long-text">
-                        <p><img src="{{asset('users/user/img/path/12890_d_l.jpg')}}" alt="" width="1200" height="360">
-                        </p>
-                        <p>&nbsp;</p>
-                        <p><strong>➡️ Tham gia tại đây</strong>: <a href="https://www.facebook.com/groups/hako.group"
-                                rel="nofollow noreferrer noopener" target="_blank">Link Group</a>.</p>
-                        <p>&nbsp;</p>
-                        <p>Group Facebook chính thức của Cộng đồng Hako - Nơi các độc giả Light Novel chia sẻ với nhau
-                            về gu đọc, gu waifu, review, khoe của,... và cập nhật thông tin mới nhất về Light Novel
-                            trong nước và quốc tế.</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Quy định bài viết</strong></p>
-                        <p>Sử dụng hashtag để phân loại bài viết, giúp mọi người dễ tìm kiếm theo chủ đề. Danh sách
-                            hashtag phía dưới.</p>
-                        <p>Không đăng bài quảng cáo (rao vặt, buôn bán,...) mà chưa có sự cho phép của ban quản trị.</p>
-                        <p>Không đăng bài viết chứa hình ảnh lộ các bộ phận nhạy cảm (Hãy che kỹ trước khi đăng)</p>
-                        <p>Nếu nội dung không phải bạn, hãy ghi rõ nguồn để tôn trọng tác giả.</p>
-                        <p>Nội dung phải có chất lượng, có điểm đáng chú ý.</p>
-                        <p>Để đảm bảo quyền lợi cho CLN Hako, các website, sản phẩm có tính năng tương tự Hako không
-                            được ưu tiên giới thiệu, quảng bá trong group.</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Danh sách hashtag</strong></p>
-                        <p>#hako_share: Chia sẻ một đoạn manga, một khung anime thú vị,...</p>
-                        <p>#hako_news: Tin tức L-M-A trong nước và quốc tế</p>
-                        <p>#hako_discussion: Thảo luận về một chủ đề xoay quanh L-M-A</p>
-                        <p>#hako_ask: Hỏi đáp, thắc mắc</p>
-                        <p>#hako_review: Giới thiệu, nêu cảm nhận về một bộ L-M-A</p>
-                        <p>#hako_relax: Chủ đề giải trí, meme,...</p>
-                        <p>#hako_giveaway: Giveaway từ ban quản trị hoặc thành viên group</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Quy định bình luận</strong></p>
-                        <p>Bình luận phải liên quan đến nội dung bài viết.</p>
-                        <p>Không lăng mạ, sỉ nhục người khác.</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Ban quản trị</strong></p>
-                        <p>Admin: Toàn quyền quản trị</p>
-                        <p>Mod: Duyệt bài, duyệt thành viên, đình chỉ thành viên vi phạm quy định.</p>
-                        <p>&nbsp;</p>
-                        <p><strong>Tuyên bố từ chối trách nhiệm</strong></p>
-                        <p>Hako Group là nhóm cộng đồng được quản lý bởi BQT Hako. BQT Hako không chịu trách nhiệm cho
-                            các nội dung đăng tải bởi cộng đồng. Nếu có bất cứ yêu cầu gỡ bỏ nội dung trong group, vui
-                            lòng liên hệ tới các admin.</p>
+                        <p>Cổng Light Novel (từng được gọi với cái tên BBS Hako) là một cổng thông tin chuyên về Light Novel
+                            ra đời từ năm 2013 dưới sự cộng tác của Hako và Sonako Light Novel Wiki, trang hoạt động với các
+                            tiêu chí và mục đích sau đây:</p>
+
+                        <ul>
+                            <li>Tập hợp toàn bộ bản dịch Light Novel Tiếng Việt có trên mạng.</li>
+                            <li>Tạo điều kiện cho các nhóm dịch Light Novel chia sẻ, quảng bá và thảo luận thành quả của họ.
+                            </li>
+                            <li>Giúp người đọc tiếp cận với Light Novel một cách trực quan thông qua hệ thống đọc online
+                                chuyên biệt.</li>
+                        </ul>
+                        <p>Những yếu tố giúp Cổng Light Novel ưu việt hơn những dịch vụ chia sẻ Light Novel khác:</p>
+
+                        <ul>
+                            <li>Ở CLN, tốc độ được đặt lên trên hết, trang sử dụng server riêng và có khả năng lưu trữ toàn
+                                bộ dữ liệu, giúp cho việc truy cập và hiển thị ảnh nhanh hơn với chất lượng tốt nhất.</li>
+                            <li>Giao diện đọc online được tối ưu hóa với chức năng tăng size font và giãn cách line, cùng
+                                với hệ thống bookmark cho người dùng.</li>
+                            <li>CLN hỗ trợ người dùng đăng bản dịch với bộ công cụ nhanh và hiệu quả.</li>
+                            <li>Hỗ trợ đọc online trên thiết bị cầm tay và điện thoại di động.</li>
+                        </ul>
                     </div>
 
-            </main>
-        </section>
+                </main>
+            </section>
 
-            <section id="series-comments" class="basic-section">
-                <header class="sect-header tab-list">
-                    <span class="sect-title tab-title" data-tab-index="1">Tổng bình luận <span
-                            class="comments-count">(103)</span></span>
-                </header>
-                <main id="fbcmt_root" class="comment-wrapper d-lg-block clear">
-                    <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
-                            href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
-                    <div id="tab-content-1" class="tab-content clear">
-                        <section class="ln-comment">
-                            <main class="ln-comment-body">
-                                <div class="ln-comment_sign-in long-text">
-                                    Bạn phải <a href="/login">đăng nhập</a> hoặc <a href="/register">tạo tài
-                                        khoản</a> để bình luận.
-                                </div>
-                                <!-- start comment -->
-                                <div class="ln-comment-group">
-                                    <div id="ln-comment-2343587" class="ln-comment-item mt-3 clear" data-comment="2343587"
-                                        data-parent="2343587">
-                                        <div class="row">
-                                            <div class="col-2 text-center">
-                                                <img src="https://i2.docln.net/ln/users/avatars/u173017-ef4b6219-34db-4bb7-9061-cf3c9471f8aa.jpg"
-                                                    class="w-full rounded-full rounded-circle" width="50px">
+            <section class="basic-section">
+                <main>
+                    <section class="ln-comment">
+                        <header>
+                            <h3 class="text-lg font-bold dark:text-white">0 Bình luận </h3>
+                            <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
+                        </header>
 
-                                            </div>
-                                            <div class="col-2">
-                                                <a class="font-bold link-underline link-underline-opacity-0 text-secondary"
-                                                    href="/thanh-vien/tên người dung">Tên Người dùng</a>
-                                            </div>
+                        <main class="ln-comment-body">
 
-                                            <div class=" col-md-8">
-                                                <ul class="list-chapters at-series">
-                                                    <li class>
-                                                        <div class="chapter-name">
-                                                            <span>nội dung comment</span>
-                                                        </div>
-                                                        <div class="chapter-time">
-                                                            <time>
-                                                                16-01-2024 11:59:43
-                                                            </time>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </main>
-                    </div>
+
+
+                            <div class="ln-comment-page">
+                            </div>
+                        </main>
+
+                        <script>
+                            var token = 'jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK';
+                            var comment_type = 'page';
+                            var comment_typeid = '2';
+                        </script>
+
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
+                        <script>
+                            tinymce.init({
+                                selector: 'textarea',
+                                inline: false,
+                                height: 200,
+                                skin: 'oxide',
+                                content_css: 'default',
+                                branding: false,
+                                menubar: false,
+                                contextmenu: false,
+                                entities: '160,nbsp,38,amp,60,lt,62,gt',
+                                paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
+                                element_format: 'html',
+                                formats: {
+                                    strikethrough: {
+                                        inline: 's',
+                                        remove: 'all'
+                                    },
+                                    underline: {
+                                        inline: 'u',
+                                        remove: 'all'
+                                    },
+                                },
+                                plugins: 'wordcount link image code fullscreen paste emoticons',
+                                toolbar: 'emoticons undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
+                            });
+                        </script>
+                    </section>
+
+
                 </main>
             </section>
         </div>

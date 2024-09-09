@@ -2,18 +2,18 @@
 @section('content')
 
 
-<div class="page-top-group  at-index ">
-    <a href="/truyen/13957">
-        <div class="index-background d-none d-lg-block"
-            style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_d.png')"></div>
-        <div class="index-background d-lg-none"
-            style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_m.png'); background-size: cover">
-        </div>
-    </a>
-</div>
+    <div class="page-top-group  at-index ">
+        <a href="/truyen/13957">
+            <div class="index-background d-none d-lg-block"
+                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_d.png')"></div>
+            <div class="index-background d-lg-none"
+                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_m.png'); background-size: cover">
+            </div>
+        </a>
+    </div>
 
-<main id="mainpart" class="at-index">
-    <!--<header class="page-title">
+    <main id="mainpart" class="at-index">
+        <!--<header class="page-title">
         <div class="page-name_wrapper">
             <div class="container">
                 <h2 class="page-name"><a href="/">Trang chủ</a></h2>
@@ -24,151 +24,173 @@
 
 
 
-    <div class="container" style="margin-bottom: 40px;">
-        <div class="row">
-            <div class="no-push col-12 push-2-l col-8-l">
-                <div id="announcements" class="index-top_notification">
+        <div class="container" style="margin-bottom: 40px;">
+            <div class="row">
+                <div class="no-push col-12 push-2-l col-8-l">
+                    <div id="announcements" class="index-top_notification">
 
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat"
-                            style=" color:  Violet">SỰ KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2859-thay-doi-ve-nhom-dich" style=" color:  red">Thay đổi về nhóm
-                            dịch</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2789-bao-cao-truyen-vi-pham" style="">Báo cáo truyện vi phạm</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2766-khong-the-su-dung-facebook-login-nua" style=" color:  red">Không
-                            thể sử dụng Facebook đăng nhập nữa</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2336-donate-ho-tro-cong-ln" style=" color:  red">Donate hỗ trợ Cổng
-                            LN</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2267-khong-dang-manga" style=" color:  red">Không đăng Manga</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/2250-hako-faqs-nhung-cau-hoi-thuong-gap-tren-hako"
-                            style=" color:  blue">(HAKO FAQs) NHỮNG CÂU HỎI THƯỜNG GẶP TRÊN HAKO</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/1122-thu-nghiem-thong-bao-chuong-moi" style="">Thử nghiệm thông
-                            báo chương mới</a>
-                    </div>
-
-                    <div class="annoucement-item">
-                        <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln"
-                            style=" color:  red">Quy định chung đối với các dự án đăng tại Cổng Light Novel</a>
-                    </div>
-
-                </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item2">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18938-con-quy-trong-co-ban-gai-sa-nga-cua-toi-se-chang-bao-gio-dung-lai"
-                            title="Con quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image13.jpg')}}')">
-                                </div>
-                            </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Con
-                                    quỷ trong cô bạn gái sa ngã của tôi sẽ chẳng bao giờ dừng lại</a>
-                            </div>
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat"
+                                style=" color:  Violet">SỰ KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item3">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                </div>
-                            </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                    chẳng phải là thích cậu rồi sao</a>
-                            </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2859-thay-doi-ve-nhom-dich" style=" color:  red">Thay đổi về nhóm
+                                dịch</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item3">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                </div>
-                            </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                    chẳng phải là thích cậu rồi sao</a>
-                            </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2789-bao-cao-truyen-vi-pham" style="">Báo cáo truyện vi phạm</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item3">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                </div>
-                            </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                    chẳng phải là thích cậu rồi sao</a>
-                            </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2766-khong-the-su-dung-facebook-login-nua" style=" color:  red">Không
+                                thể sử dụng Facebook đăng nhập nữa</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item3">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
-                                </div>
-                            </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                    chẳng phải là thích cậu rồi sao</a>
-                            </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2336-donate-ho-tro-cong-ln" style=" color:  red">Donate hỗ trợ Cổng
+                                LN</a>
                         </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2267-khong-dang-manga" style=" color:  red">Không đăng Manga</a>
+                        </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/2250-hako-faqs-nhung-cau-hoi-thuong-gap-tren-hako"
+                                style=" color:  blue">(HAKO FAQs) NHỮNG CÂU HỎI THƯỜNG GẶP TRÊN HAKO</a>
+                        </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/1122-thu-nghiem-thong-bao-chuong-moi" style="">Thử nghiệm thông
+                                báo chương mới</a>
+                        </div>
+
+                        <div class="annoucement-item">
+                            <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln"
+                                style=" color:  red">Quy định chung đối với các dự án đăng tại Cổng Light Novel</a>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-3 popular-thumb-item " id="tns1-item3">
-                    <div class="thumb-wrapper">
-                        <a href="/truyen/18189-takane-san-chang-phai-la-thich-cau-roi-sao">
-                            <div class="a6-ratio">
-                                <div class="content img-in-ratio"
-                                    style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-9">
+                    <div class="daily-recent_views">
+                        <header class="title">
+                            <span class="top-tab_title title-active"><i class="fas fa-trophy"></i> Nổi bật</span>
+                            <span class="top-tab_title"><a
+                                    href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=topthang">Top
+                                    tháng</a></span>
+                            <span class="top-tab_title"><a
+                                    href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=top">Toàn
+                                    t/gian</a></span>
+                        </header>
+                        <main class="row slider d-block">
+
+                            {{-- bắt đầu truyện đơn --}}
+                            <div class="popular-thumb-item mr-1">
+                                <div class="thumb-wrapper">
+                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr series-title"
+                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
+                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
+                                    </div>
                                 </div>
                             </div>
                             {{-- kết thúc truyện đơn --}}
-
+{{-- bắt đầu truyện đơn --}}
+<div class="popular-thumb-item mr-1">
+    <div class="thumb-wrapper">
+        <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
+            <div class="a6-ratio">
+                <div class="content img-in-ratio"
+                    style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                </div>
+            </div>
+        </a>
+        <div class="thumb-detail">
+            <div class="thumb_attr series-title"
+                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                    href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                    title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
+                    nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
+        </div>
+    </div>
+</div>
+{{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
+                            <div class="popular-thumb-item mr-1">
+                                <div class="thumb-wrapper">
+                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr series-title"
+                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
+                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
+                            <div class="popular-thumb-item mr-1">
+                                <div class="thumb-wrapper">
+                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr series-title"
+                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
+                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
+                            <div class="popular-thumb-item mr-1">
+                                <div class="thumb-wrapper">
+                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr series-title"
+                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
+                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
+                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- kết thúc truyện đơn --}}
                         </main>
                     </div>
                 </div>
@@ -242,25 +264,10 @@
                             </main>
                         </section>
                     </div>
+                    {{-- Kết thúc truyện vừa đọc --}}
 
-                    <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
-                        <div class="thumb-wrapper ln-tooltip">
-                            <a class="link-underline link-underline-opacity-0 text-white" href="">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio blur lazyloaded"
-                                        style="background-image: url('{{ asset('users/user/img/path/image17.jpg') }}');">
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 06 : Bình yên trước cơn bão"><a href="" class="link-underline link-underline-opacity-0 text-white">Chương 06 : Bình yên trước cơn
-                                        bão</a></div>
-                                <div class="thumb_attr volume-title">Tập 01</div>
-                            </div>
-                        </div>
-                        <div class="thumb_attr series-title"><a class="link-underline link-underline-opacity-0 text-black" href="/sang-tac/18380-toi-ac" title="Tội Ác">Tội
-                                Ác</a></div>
-                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -400,14 +407,13 @@
                         <main class="sect-body pr-5">
                             {{-- Bắt đầu comment --}}
                             <div class="comment-item-at-index">
-                            
-                                
                                 <div class="comment-info">
                                     <span class="series-name"><a
-                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031"></a></span>
+                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">Hakuyoku
+                                            no Polaris</a></span>
 
                                     <div class="comment-content">
-                                    
+                                        var
                                     </div>
 
                                     <div class="comment-top">
@@ -430,8 +436,6 @@
                                         </small>
                                     </div>
                                 </div>
-                              
-                       
                             </div>
                             {{-- kết thúc comment --}}
                         </main>
@@ -604,4 +608,4 @@
         </div>
 
 
-        @endsection
+@endsection

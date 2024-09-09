@@ -16,8 +16,6 @@ return new class extends Migration
     {
         Schema::create('forums', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Category::class)->constrained();
             $table->foreignIdFor(book::class)->nullable()->constrained();

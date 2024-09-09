@@ -19,24 +19,22 @@
         <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
         <table border="1" class="table">
             <tr>
-                <th>ID Users</th>
                 <th>Người Bình Luận</th>
                 <th>Nội Dung</th>
                 <th>Ngày Bình Luận</th>
                 <th>Hành Động</th>
             </tr>
-           @foreach ($data as $item)
+            {{-- @foreach ($comments as $comment) --}}
                 <tr>
-                    <td>{{$item->id}}</td>
-                    <td>{{$item->username}}</td>
-                    <td>{{$item->content}}</td>
-                    <td>{{$item->created_at}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <a class="btn btn-warning" href="">Sửa</a>
                         <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
                     </td>
                 </tr>
-             @endforeach
+            {{-- @endforeach --}}
         </table>
     </div>
 @endsection

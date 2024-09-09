@@ -401,13 +401,13 @@
                             {{-- Bắt đầu comment --}}
                             <div class="comment-item-at-index">
                             
-                                @foreach ($data as $item)
+                                
                                 <div class="comment-info">
                                     <span class="series-name"><a
-                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">{{$item->username}}</a></span>
+                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031"></a></span>
 
                                     <div class="comment-content">
-                                        {{$item->content}}
+                                    
                                     </div>
 
                                     <div class="comment-top">
@@ -430,7 +430,7 @@
                                         </small>
                                     </div>
                                 </div>
-                                @endforeach
+                              
                        
                             </div>
                             {{-- kết thúc comment --}}

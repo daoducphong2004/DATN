@@ -1,7 +1,6 @@
-@include('stories.iframe.partials.header')
-
+@extends('stories.iframe.layouts.master')
+@section('content')
 <body data-theme="light">
-
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -14,7 +13,7 @@
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="Chương 01 ">
+                                    <input type="text" class="form-control" name="title" value="Chương  ">
                                 </div>
                             </div>
 
@@ -28,30 +27,6 @@
                                         for="complete_cb2">Chưa hoàn thành</label>
                                 </div>
                             </div> --}}
-
-                            <div class="form-group clearfix">
-                                <label class="col-md-2 control-label" style="padding-top: 20px">Upload Ảnh</label>
-                                <div class="col-md-8">
-                                    <div id="upload" class="chapter_content">
-                                        <div id="drop">
-                                            <a>Chọn ảnh</a>
-                                            <input type="file" name="image" multiple />
-                                        </div>
-
-                                        <div class="alert alert-danger alert-dismissible" role="alert"
-                                            style="display: none">
-                                            <button type="button" class="close" data-dismiss="alert"
-                                                aria-label="Close">
-                                                <span>&times;</span>
-                                            </button>
-                                        </div>
-
-                                        <div id="progress" class="progress" style="display: none">
-                                            <div class="progress-bar progress-bar-success"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group clearfix required">
                                 <div class="col-md-12">
@@ -84,8 +59,34 @@
                                             remove: 'all'
                                         },
                                     },
-                                    plugins: 'wordcount link image code fullscreen paste emoticons',
-                                    toolbar: 'undo redo | bold italic underline strikethrough fore |  image | removeformat | fullscreen'
+                                    plugins: 'wordcount link code fullscreen paste emoticons',
+                                    toolbar: 'undo redo | bold italic underline strikethrough fore | alignleft aligncenter alignright alignjustify | removeformat | fullscreen',
+                                    setup: function (editor) {
+                                        editor.ui.registry.addButton('alignleft', {
+                                            text: 'Align Left',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyLeft');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('aligncenter', {
+                                            text: 'Align Center',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyCenter');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('alignright', {
+                                            text: 'Align Right',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyRight');
+                                            }
+                                        });
+                                        editor.ui.registry.addButton('alignjustify', {
+                                            text: 'Justify',
+                                            onAction: function () {
+                                                editor.execCommand('JustifyFull');
+                                            }
+                                        });
+                                    }
                                 });
                             </script>
 
@@ -104,32 +105,4 @@
             </div>
         </div>
     </div>
-
-
-    <!-- CSS -->
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
-    <link href="https://docln.net/scripts/plugins/upload/css/upload.css" rel="stylesheet" />
-
-    <!-- jQuery File Upload Dependencies -->
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.ui.widget.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.iframe-transport.js"></script>
-    <script src="https://docln.net/scripts/plugins/upload/js/jquery.fileupload.js"></script>
-
-    <script>
-        uploadSeriesUrl = 'https://docln.net/action/upload/series';
-        uploadBookUrl = 'https://docln.net/action/upload/book';
-        uploadChapterUrl = '{{ route('upload.image') }}';
-        uploadAvatarUrl = 'https://docln.net/action/upload/avatar';
-        remoteUploadUrl = 'https://docln.net/action/upload/remote';
-
-        coverSeriesUrl = 'https://docln.net/covers/series';
-        coverBookUrl = 'https://docln.net/covers/books';
-    </script>
-
-    <!-- Main Script -->
-    <script src="{{ asset('scripts/plugins/upload.js') }}"></script>
-    <script src="/livewire/livewire.js?id=f121a5df" data-csrf="uCO9Jgcs28O5t0bPzQEnbIfru6kgF6hfI24f8bER"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
-</body>
-
-</html>
+@endsection

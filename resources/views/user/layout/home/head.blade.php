@@ -1,42 +1,97 @@
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
-    <meta name="description"
-        content="Đọc Light Novel online, bình luận Light Novel. Thư viện Light Novel Tiếng Việt lớn nhất, chất lượng cao, cập nhật liên tục, nhiều chức năng hỗ trợ việc đọc truyện dễ dàng.">
-    <meta name="theme-color" content="#000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:image" content="https://docln.net/img/nocover.jpg">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="NoIndex, NoFollow">
+	<title>Bảng điều khiển</title>
 
-    <link href="{{ asset('users/user/css/app.css')}}" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="908e5f26ecc23db3528f92ee-text/javascript"></script>
-    <link rel="stylesheet" href="{{ asset('users/user/css/action.css')}}">
+	<link rel="shortcut icon" href="https://docln.net/img/favicon.png">
+	<link href="{{ asset('css/app.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/app_dark.css')}}" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{ asset('users/user/img/favicon.png')}}">
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('users/user/img/apple-touch-icon.png')}}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('users/user/img/apple-touch-icon-72x72.png')}}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('users/user/img/apple-touch-icon-114x114.png')}}">
-    <link rel="stylesheet" href="{{ asset('users/user/css/interface.css')}}">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="{{ asset('users/user/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('users/user/css/all.min.css')}}" />
-    <link rel="stylesheet" href="{{ asset('users/user/css/icons/font-awesome/css/fontawesome-all.css')}}">
-    <script src="{{ asset('users/user/js/plugins.js')}}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-34864968-3');
-    </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous">
 
-</head>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+	<link href="{{ asset('css/action.css?t=3')}}" rel="stylesheet">
+	<style>/* Make clicks pass-through */
+
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+      background: var(--livewire-progress-bar-color, #29d);
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px #29d, 0 0 5px #29d;
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: var(--livewire-progress-bar-color, #29d);
+      border-left-color: var(--livewire-progress-bar-color, #29d);
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>

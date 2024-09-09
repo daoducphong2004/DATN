@@ -42,7 +42,7 @@
             switch (child.innerText) {
                 case 'Sửa truyện':
                     child.onclick = () => openLink(
-                        '{{ route('storyinformation', $book->id) }}',
+                        '{{ route('story.edit', $book->id) }}',
                         'action',
                         'action=editseries'
                     );
@@ -76,7 +76,7 @@
                     break;
                 case 'Thêm tập':
                     child.onclick = () => openLink(
-                        '{{ route('storyepisode',$book->id) }}',
+                        '{{ route('storyepisode', $book->id) }}',
                         'action',
                         'action=createbook'
                     );
@@ -87,14 +87,34 @@
                         'action',
                         'book_id=' + id + '&action=editbook'
                     );
+
                     break;
                 case 'Xóa tập':
-                    child.onclick = () => openLink(
-                        'https://docln.net/action/book/' + id + '/delete?navbar=0',
-                        'action',
-                        'book_id=' + id + '&action=deletebook'
-                    );
-                    break;
+                    child.onclick = () => {
+                        if (confirm(
+                                'Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!'
+                                )) {
+                            $.ajax({
+                                url: '{{ route('episode.destroy', ':id') }}'.replace(':id', id),
+                                type: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(result) {
+                                    if (result.success) {
+                                        alert(result.message);
+                                        window.location.reload();
+                                    } else {
+                                        alert(result.message);
+                                    }
+                                },
+                                error: function(xhr) {
+                                    alert('Xóa tập thất bại. Vui lòng thử lại.');
+                                }
+                            });
+                        }
+                    };
+break;
                 case 'Xóa nhiều chương':
                     child.onclick = () => openLink(
                         'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',
@@ -107,6 +127,7 @@
                         'https://docln.net/action/book/' + id + '/order?navbar=0',
                         'action',
                         'book_id=' + id + '&action=orderchapter'
+
                     );
                     break;
                 case 'Thêm chương':
@@ -119,19 +140,34 @@
                     break;
                 case 'Sửa chương':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/chapter/' + id + '/edit?navbar=0',
+                        '{{ route('chapter.edit', ':id') }}'.replace(':id', id),
                         'action',
                         'chapter_id=' + id + '&action=editchapter'
                     );
                     break;
                 case 'Xóa chương':
-                    child.onclick = () => openLink(
-                        'https://docln.net/action/chapter/' + id + '/delete?navbar=0',
-                        'action',
-                        'chapter_id=' + id + '&action=deletechapter'
-                    );
+                    child.onclick = () => {
+                        if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
+                            $.ajax({
+                                url: '{{ route('chapter.destroy', ':id') }}'.replace(':id', id),
+                                type: 'DELETE',
+                                data: {
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function(result) {
+                                    alert('Chapter đã được xóa thành công!');
+                                    window.location.reload();
+                                },
+                                error: function(xhr) {
+                                    alert('Xóa chapter thất bại. Vui lòng thử lại.');
+                                }
+                            });
+                        }
+                    };
                     break;
+
             }
+
         }
 
         menu.css({

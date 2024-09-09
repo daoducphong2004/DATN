@@ -24,11 +24,13 @@
 </head>
 
 <body>
+    <div class="container">
         @include('admin.layouts.header')
 
         @yield('content')
 
         @include('admin.layouts.footer')
+    </div>
 
     <script src="{{ asset('livewire.js') }}" data-csrf="W9O2N8fsWqtf5htSKnG8NQgXXtgmI5MppKat5xvY" data-update-uri="/livewire/update" data-navigate-once="true" type="4fa4d48513266ca2bda21aed-text/javascript"></script>
     <script src="{{ asset('rocket-loader.min.js') }}" data-cf-settings="4fa4d48513266ca2bda21aed-|49" defer></script>

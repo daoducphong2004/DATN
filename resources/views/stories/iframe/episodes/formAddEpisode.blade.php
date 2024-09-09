@@ -1,5 +1,5 @@
-@include('stories.iframe.partials.header')
-
+@extends('stories.iframe.layouts.master')
+@section('content')
 <body data-theme="light">
 
     <div class="container">
@@ -78,11 +78,4 @@
             </div>
         </div>
     </div>
-
-
-
-    <script src="/livewire/livewire.js?id=f121a5df" data-csrf="CY8UdDcA5sTShlgxI6F6TI0VGHI79s7VKXoAPqFr"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
-</body>
-
-</html>
+@endsection

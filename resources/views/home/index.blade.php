@@ -167,180 +167,80 @@
                                     style="background-image: url('{{asset('users/user/img/path/image15.jpg')}}')">
                                 </div>
                             </div>
-                        </a>
-                        <div class="thumb-detail">
-                            <div class="thumb_attr series-title">
-                                <a href="" class="text-white link-underline link-underline-opacity-0">Takane-san,
-                                    chẳng phải là thích cậu rồi sao</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-lg-3">
-        <section class="last-topics index-section">
-            <header class="section-title">
-                <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
-                        class="sts-empty">Luận</span></a>
-            </header>
-            <main>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Thảo luận cho tác giả OLN
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 16:44:53"
-                                datetime="2024-08-19T16:44:53+07:00">40 phút</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Quy Định Đối Với Truyện Sáng Tác - OLN
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 16:37:59" datetime="2024-08-19T16:37:59+07:00">1
-                                giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Báo cáo truyện vi phạm
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 15:30:09" datetime="2024-08-19T15:30:09+07:00">2
-                                giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 14:31:59" datetime="2024-08-19T14:31:59+07:00">3
-                                giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Quy định chung đối với các dự án đăng tại Cổng Light Novel
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 14:11:51" datetime="2024-08-19T14:11:51+07:00">3
-                                giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Tổng Hợp Ebook Các Loại, Nhiều Nguồn Tin, Nhiều Thể Loại Khác Nhau (Đăng lại)
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="19-08-2024 10:53:03" datetime="2024-08-19T10:53:03+07:00">7
-                                giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Trang yêu cầu xóa truyện/tập/chương
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="18-08-2024 21:19:11"
-                                datetime="2024-08-18T21:19:11+07:00">20 giờ</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #e01bb4; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Tuyển thành viên
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="18-08-2024 12:12:42" datetime="2024-08-18T12:12:42+07:00">1
-                                ngày</time>
-                        </div>
-                    </div>
-                </div>
-                <div class="topic-item">
-                    <div class="row">
-                        <div class="col-9 line-ellipsis">
-                            <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                            <a href="" class="text-black link-underline link-underline-opacity-0">
-                                Quán Bóng Đá Hako - Chuyên phục vụ dân bóng đá.
-                            </a>
-                        </div>
-                        <div class="col-3 topic-data text-right">
-                            <time class="timeago" title="18-08-2024 10:16:30" datetime="2024-08-18T10:16:30+07:00">1
-                                ngày</time>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </section>
-    </div>
-    </div>
+                            {{-- kết thúc truyện đơn --}}
 
-    <div class="row" style="padding: 20px;">
-        <div class="col-12 col-lg-9">
-            <section class="index-section thumb-section-flow last-chapter original one-row">
-                <header class="section-title"><span class="sts-bold">Sáng tác</span><span class="sts-empty">Mới
-                        Nhất</span></header>
-                <main class="row">
-                    <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
-                        <div class="thumb-wrapper ln-tooltip">
-                            <a href="" title="Chương 44: Hư Không Thần">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio lazyloaded"
-                                        style="background-image: url('{{ asset('users/user/img/path/image16.jpg') }}');">
+                        </main>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <section class="last-topics index-section">
+                        <header class="section-title">
+                            <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
+                                    class="sts-empty">Luận</span></a>
+                        </header>
+                        <main>
+                            {{-- bắt đầu bài thảo luận đơn --}}
+                            <div class="topic-item">
+                                <div class="row">
+                                    <div class="col-9 line-ellipsis">
+                                        <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
+                                        <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2572581&amp;reply_id=2573000#ln-comment-2573000"
+                                            title="Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0">
+                                            Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
+                                        </a>
+                                    </div>
+                                    <div class="col-3 topic-data text-right">
+                                        <time class="timeago" title="31-08-2024 07:18:30"
+                                            datetime="2024-08-31T07:18:30+07:00"></time>
                                     </div>
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 44: Hư Không Thần"><a class="link-underline link-underline-opacity-0 text-white" href=""
-                                        title="Chương 44: Hư Không Thần">Chương 44: Hư Không Thần</a></div>
-                                <div class="thumb_attr volume-title">Toàn tập</div>
                             </div>
-                        </div>
-                        <div class="thumb_attr series-title"><a class="link-underline link-underline-opacity-0 text-black" href="/sang-tac/14530-tu-te-xin-hay-quan-chong-cua-ngai-di"
-                                title="Tư tế xin hãy quản chồng của ngài đi">Tư tế xin hãy quản chồng của ngài
-                                đi</a></div>
+                            {{-- kết thúc thảo luận đơn --}}
+                            <div class="topic-item">
+                                <div class="row">
+                                    <div class="col-9 line-ellipsis">
+                                        <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
+                                        <a href="/thao-luan/1610-trang-yeu-cau-xoa-truyentapchuong?comment_id=2572306&amp;reply_id=2572686#ln-comment-2572686"
+                                            title="Trang yêu cầu xóa truyện/tập/chương">
+                                            Trang yêu cầu xóa truyện/tập/chương
+                                        </a>
+                                    </div>
+                                    <div class="col-3 topic-data text-right">
+                                        <time class="timeago" title="30-08-2024 22:12:52"
+                                            datetime="2024-08-30T22:12:52+07:00"></time>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic-item">
+                                <div class="row">
+                                    <div class="col-9 line-ellipsis">
+                                        <i class="fas fa-circle" style="color: #28e1e8; margin-right: 4px;"></i>
+                                        <a href="/thao-luan/2874-ai-doc-roi-cho-minh-xin-xiu-y-de-sua"
+                                            title="Ai đọc rồi cho mình xin xíu ý đê sửa">
+                                            Ai đọc rồi cho mình xin xíu ý đê sửa
+                                        </a>
+                                    </div>
+                                    <div class="col-3 topic-data text-right">
+                                        <time class="timeago" title="30-08-2024 21:59:16"
+                                            datetime="2024-08-30T21:59:16+07:00"></time>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </section>
+
+                    {{-- Lịch sử truyện vừa đọc --}}
+                    <div class="d-lg-none" style="margin-top: 20px">
+                        <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
+                            <header class="section-title">
+                                <a href="https://docln.net/lich-su-doc">
+                                    <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
+                                </a>
+                            </header>
+                            <main class="sect-body">
+                                Chưa có lịch sử đọc!
+                            </main>
+                        </section>
                     </div>
 
                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">

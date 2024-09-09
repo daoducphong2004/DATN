@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('password_hash');
+            $table->string('password');
             $table->string('full_name')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_birth')->nullable();
@@ -27,7 +27,8 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
             $table->timestamp('last_login')->nullable();
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
-            $table->integer('coin_earned');
+            $table->integer('coin_earned')->default(0);
+            $table->string('remember_token')->nullable();
         });
     }
 

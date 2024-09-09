@@ -21,12 +21,14 @@
             <tr>
                 <th>STT</th>
                 <th>Thể loại</th>
+                <th>Mô tả</th>
                 <th>
                     <a class="btn btn-primary" href="">Thêm thể loại</a>
                 </th>
             </tr>
             {{-- @foreach ($comments as $comment) --}}
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td>

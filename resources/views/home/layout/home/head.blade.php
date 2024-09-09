@@ -34,18 +34,5 @@
 
         <script src="{{ asset('users/user/js/plugins.js')}}"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34864968-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('set', {
-            'user_id': '199850',
-            'dimension1': true
-        });
-        gtag('js', new Date());
-        gtag('config', 'UA-34864968-3');
-    </script>
+    
 </head>

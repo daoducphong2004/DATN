@@ -5,17 +5,19 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
+use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 // use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\USER\UserController;
+use App\Http\Controllers\USER\HomeController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -31,14 +33,17 @@ use App\Models\genre;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('login', [LoginController::class, 'login']);
+Route::get('register', [RegisterController::class, 'register']);
 
-Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
-Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::post('truyen/{slug}/comment', [BookCommentController::class, 'create'])->name('addComment');
 
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::post('truyen/{slug}/{chapter_slug}/comment', [ChaptercommentController::class, 'create'])->name('addChapterComment');
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
@@ -72,10 +77,10 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
-Route::get('login', [UserController::class, 'login']);
-Route::get('register', [UserController::class, 'register']);
-Route::get('email', [UserController::class, 'email']);
-Route::get('reset', [UserController::class, 'reset']);
+// Route::get('login', [HomeController::class, 'login']);
+// Route::get('register', [HomeController::class, 'register']);
+// Route::get('email', [HomeController::class, 'email']);
+// Route::get('reset', [HomeController::class, 'reset']);
 
 // Route::get('UserHome', [HomeController::class, 'home']);
 // Route::get('createTruyen', [HomeController::class, 'createTruyen']);
@@ -153,3 +158,7 @@ Route::prefix('admin')->group(function () {
 // Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

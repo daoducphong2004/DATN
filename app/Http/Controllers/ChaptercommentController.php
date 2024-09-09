@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\chaptercomment;
 use App\Http\Requests\StorechaptercommentRequest;
 use App\Http\Requests\UpdatechaptercommentRequest;
+use App\Models\chapter;
+use Illuminate\Http\Request;
 
 class ChaptercommentController extends Controller
 {
@@ -19,9 +21,31 @@ class ChaptercommentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request, $slug, $chapter_slug)
     {
-        //
+
+        $request->validate([
+            'chapter_id' => 'required|exists:chapters,id',
+            'content' => 'required|string',
+            'parent_id' => 'nullable|exists:chapter_comments,id'
+        ]);
+
+        // Tìm chapter dựa vào slug và chapter_slug
+        $chapter = Chapter::where('slug', $chapter_slug)
+                           ->whereHas('episode', function($query) use ($slug) {
+                               $query->where('slug', $slug);
+                           })
+                           ->firstOrFail();
+
+        chaptercomment::create([
+            'chapter_id' => $request->input('chapter_id'),
+            // 'user_id' => auth()->id(),
+            'user_id' => 1,
+            'content' => $request->input('content'),
+            'parent_id' => $request->input('parent_id')
+        ]);
+
+        return back()->with('success', 'Bình luận đã được gửi.');
     }
 
     /**

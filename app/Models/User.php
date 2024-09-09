@@ -24,4 +24,9 @@ class User extends Authenticatable
         'coin_earned',
         'full_name',
     ];
+
+    public function comments()
+{
+    return $this->hasMany(bookcomment::class);
+}
 }

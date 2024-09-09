@@ -15,6 +15,20 @@ class chapter extends Model
         'episode_id',
         // 'user_id',
     ];
+
+    public function episode()
+    {
+        return $this->belongsTo(episode::class, 'episode_id');
+    }
+    public function chaptercomments()
+    {
+        return $this->hasMany(chaptercomment::class);
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(book::class);
+    }
     public function previous()
     {
         // Tìm chương trước trong cùng một episode

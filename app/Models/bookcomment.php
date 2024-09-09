@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class bookcomment extends Model
 {
     use HasFactory;
+    protected $table = 'book_comments';
     protected $fillable = [
         'book_id',
         'user_id',

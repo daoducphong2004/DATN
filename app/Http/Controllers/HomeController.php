@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\book;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,8 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $data = book::query()->latest('id')->paginate(5);
-        return view('home.index', compact('data'));
+        $this->middleware('auth');
     }
 
     /**

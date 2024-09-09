@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\bookcomment;
+use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
-use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
+use Str;
 
 class BookController extends Controller
 {
@@ -24,11 +26,31 @@ class BookController extends Controller
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapterslug){
-        $book = Book::where('slug', $slug)->first()->with('episodes')->get();
-        $chapter = chapter::
+    public function bookComment($bookId)
+    {
+        $comments = bookcomment::with('user')
+        ->where('book_id', $bookId)
+        ->whereNull('parent_id')->get();
 
-        return view('story.reading',compact('book'));
+        $book = book::findOrFail($bookId);
+
+        return view('story.show', compact('comments', 'book'));
+
+    }
+    public function reading(string $slug, string $chapter_slug){
+     // Tìm kiếm book dựa trên slug
+     $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+
+     // Tìm kiếm chapter dựa trên chapter_slug
+     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+
+     // Lấy episode liên quan đến chapter
+     $episode = $chapter->episode()->with('chapters')->firstOrFail();
+
+     // Lấy danh sách các chapters trong episode của chapter hiện tại
+     $chapters = $episode->chapters;
+
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
 
     }
     public function index()
@@ -37,7 +59,7 @@ class BookController extends Controller
         $groups = group::pluck('id', 'name');
         $data = book::query()->paginate(30);
         // dd($data);
-        return view('home.show', compact('data', 'genres', 'groups'));
+        return view('stories.index', compact('data', 'genres', 'groups'));
     }
 
     /**
@@ -106,12 +128,21 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes', 'group')
-        ->where('slug', $slug)
-        ->firstOrFail();
+        $book = Book::with('genres', 'episodes','group')->where(
+            'slug',
+            $slug
+        )->firstOrFail();
         $episodes = $book->episodes;
         // dd($book,$episodes);
-        return view('story.show', compact('book', 'episodes'));
+
+        $comments = bookcomment::with('user')
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')->get();
+
+        // dd($comments);
+
+
+        return view('story.show', compact('book', 'episodes', 'comments'));
     }
 
     /**

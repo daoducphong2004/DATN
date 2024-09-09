@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                    style="background-image: url('{{ $book->book_path }}')">
                                                 </div>
                                             </div>
                                         </div>
@@ -73,21 +73,9 @@
                                                             tạo trang riêng sau)</a>
                                                     </span>
                                                 </div>
-
-                                                {{-- <div class="flex flex-row self-center md:self-start gap-2">
-
-                                                    <div wire:snapshot="{&quot;data&quot;:{&quot;series&quot;:[null,{&quot;class&quot;:&quot;App\\Models\\Series&quot;,&quot;key&quot;:18997,&quot;s&quot;:&quot;mdl&quot;}],&quot;ignored&quot;:false},&quot;memo&quot;:{&quot;id&quot;:&quot;0Cek5OK0oIRCFPYPDpoC&quot;,&quot;name&quot;:&quot;pub.series.member.notification-ignore-button&quot;,&quot;path&quot;:&quot;truyen\/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;vi&quot;},&quot;checksum&quot;:&quot;ea83d1e4c76abce38d83bcd7f8353e6fc10fbfb69c2439266c354cf35450bda2&quot;}"
-                                                        wire:effects="[]" wire:id="0Cek5OK0oIRCFPYPDpoC">
-                                                        <button
-                                                            class="self-center md:self-start rounded-full bg-amber-600 mt-3 mb-3 px-4 py-2 text-sm font-semibold text-white  shadow-sm hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d43f3a] justify-center"
-                                                            wire:click="handle">
-                                                            <i class="fas fa-bullhorn" style="margin-right: 6px;"></i>Tắt
-                                                            nhận thông báo
-                                                        </button>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                         </div>
+
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -178,7 +166,7 @@
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
                                                 <div class="statistic-name">Lượt xem</div>
-                                                <div class="statistic-value">38.117</div>
+                                                <div class="statistic-value">{{ $book->view }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +226,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -518,519 +506,19 @@
 
                                     <main class="ln-comment-body">
                                         <div id="ln-comment-submit" class="ln-comment-form clear">
-                                            <form class="comment_form">
-                                                <textarea class="comment_content"></textarea>
+                                            <form action="{{ route('addComment', $book->id) }}" method="POST"
+                                                class="comment_form">
+                                                @csrf
+                                                <textarea name="content" class="comment_content" required></textarea>
                                                 <div class="comment_toolkit clear">
-                                                    <input class="button" type="button" value="Đăng bình luận">
+                                                    <input class="button" type="submit" value="Đăng bình luận">
                                                 </div>
                                             </form>
                                         </div>
-
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                data-comment="2559913" data-parent="2559913">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/199104">KadminNodi</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/owner.png" />
-                                                                            <div class="leading-4">CHỦ THỚT</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Đừng spoil nhé các anh ơi huhu
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913#ln-comment-2559913"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="22-08-2024 09:59:00"
-                                                                        datetime="2024-08-22T09:59:00+07:00">
-                                                                        22-08-2024 09:59:00
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">4</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2560870" data-parent="2559913">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/140203">shukiii</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    Ok baby
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="22-08-2024 23:44:19"
-                                                                            datetime="2024-08-22T23:44:19+07:00">
-                                                                            22-08-2024 23:44:19
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="ln-comment-2570516" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2570516" data-parent="2559913">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i.docln.net/lightnovel/users/ua105527-0e9ac0d2-cf44-45e4-a54f-24cf6bfeb61f.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/105527">Kurogane
-                                                                                Lunar</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    Bị spoil thì delay. Dễ mà, trị chúng nó
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2570516#ln-comment-2570516"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="29-08-2024 11:45:52"
-                                                                            datetime="2024-08-29T11:45:52+07:00">
-                                                                            29-08-2024 11:45:52
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="fetch_reply" data-parent="2559913">
-                                                    Xem thêm 1 trả lời <i class="fas fa-chevron-down"
-                                                        style="margin-left: 4px;"></i>
-                                                </div>
-                                                <img class="loading" src="/img/loading.svg"
-                                                    style="width: auto; height: 15px; margin-left: 10px; display: none">
-
-                                            </div>
-                                        </div>
-
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2571950" class="ln-comment-item mt-3 clear"
-                                                data-comment="2571950" data-parent="2571950">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u158095-5018c7a4-5c73-4ce3-8943-a56e8e6aa0fd.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/158095">Timmie2407</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Lên chương liên tục, trans mạnh ác 🗣
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2571950#ln-comment-2571950"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="30-08-2024 12:31:48"
-                                                                        datetime="2024-08-30T12:31:48+07:00">
-                                                                        30-08-2024 12:31:48
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">2</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2570561" class="ln-comment-item mt-3 clear"
-                                                data-comment="2570561" data-parent="2570561">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u176255-41748819-a4a6-44cf-956f-c8d8da1f3d82.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/176255">_proslimevn</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Đừng để mấy a sửa xe đạp thấy tác phẩm này 🐧
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2570561#ln-comment-2570561"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="29-08-2024 12:26:07"
-                                                                        datetime="2024-08-29T12:26:07+07:00">
-                                                                        29-08-2024 12:26:07
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2568466" class="ln-comment-item mt-3 clear"
-                                                data-comment="2568466" data-parent="2568466">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i.docln.net/lightnovel/users/ua46237-a1e60d3f-c9c1-4c68-a17c-cc8205d03409.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/46237">Handsome</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                đù sửa xe đạp mà có bồ, thì ko bt tui có bao nhiêu bồ r ....
-                                                                :((
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2568466#ln-comment-2568466"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="27-08-2024 22:17:47"
-                                                                        datetime="2024-08-27T22:17:47+07:00">
-                                                                        27-08-2024 22:17:47
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2565617" class="ln-comment-item mt-3 clear"
-                                                data-comment="2565617" data-parent="2565617">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u173017-ae5b07a7-3c5e-4e2c-abcf-bab0a6941d5a.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/173017">Kevinn</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/author3.png" />
-                                                                            <div class="leading-4">AUTHOR</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/cvter2.png" />
-                                                                            <div class="leading-4">AI MASTER</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Update chap 5 đê
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2565617#ln-comment-2565617"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="26-08-2024 11:04:46"
-                                                                        datetime="2024-08-26T11:04:46+07:00">
-                                                                        26-08-2024 11:04:46
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2565618" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2565618" data-parent="2565617">
+                                        @foreach ($comments as $comment)
+                                            <div class="ln-comment-group">
+                                                <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
+                                                    data-comment="2559913" data-parent="2559913">
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
@@ -1039,14 +527,14 @@
                                                             </div>
                                                         </div>
                                                         <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
                                                             <div class="flex min-w-0 flex-col px-2">
                                                                 <div class="flex align-top justify-between">
                                                                     <div
                                                                         class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
                                                                         <div class="self-center">
                                                                             <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/199104">KadminNodi</a>
+                                                                                href="">{{$comment->user->username}}</a>
                                                                         </div>
                                                                         <div class="self-center">
                                                                             <div
@@ -1079,22 +567,22 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="ln-comment-content long-text">
-                                                                    sửa lại rồi ấy ạ huhu
+                                                                    {{ $comment->content }}
                                                                 </div>
                                                                 <div class="comment_see_more expand none">Xem thêm</div>
                                                                 <div
                                                                     class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2565617&amp;reply_id=2565618#ln-comment-2565618"
+                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913#ln-comment-2559913"
                                                                         class="text-slate-500">
-                                                                        <time class="timeago" title="26-08-2024 11:05:22"
-                                                                            datetime="2024-08-26T11:05:22+07:00">
-                                                                            26-08-2024 11:05:22
+                                                                        <time class="timeago" title="22-08-2024 09:59:00"
+                                                                            datetime="2024-08-22T09:59:00+07:00">
+                                                                            {{ $comment->created_at }}
                                                                         </time>
                                                                     </a>
                                                                     <a
                                                                         class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                         <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
+                                                                        <span class="likecount font-semibold">4</span>
                                                                     </a>
                                                                     <a
                                                                         class="self-center visible-toolkit-item do-reply cursor-pointer">
@@ -1106,917 +594,74 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="ln-comment-2565619" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2565619" data-parent="2565617">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u173017-ae5b07a7-3c5e-4e2c-abcf-bab0a6941d5a.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/173017">Kevinn</a>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/author3.png" />
-                                                                                <div class="leading-4">AUTHOR</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/cvter2.png" />
-                                                                                <div class="leading-4">AI MASTER</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
+                                                @foreach($comment->replies as $reply)
+                                                    <div class="ln-comment-reply">
+                                                        <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
+                                                            data-comment="2560870" data-parent="2559913">
+                                                            <div class="flex gap-1 max-w-full">
+                                                                <div class="w-[50px]">
+                                                                    <div class="mx-1 my-1">
+                                                                        <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
+                                                                            class="w-full rounded-full" />
                                                                     </div>
                                                                 </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    <a href="/thanh-vien/199104">@KadminNodi:</a> Auge,
-                                                                    mình thấy rồi. Nãy đọc khó hiểu quá trời.
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
                                                                 <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2565617&amp;reply_id=2565619#ln-comment-2565619"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="26-08-2024 11:06:01"
-                                                                            datetime="2024-08-26T11:06:01+07:00">
-                                                                            26-08-2024 11:06:01
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                                    class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                                                    <div class="flex min-w-0 flex-col px-2">
+                                                                        <div class="flex align-top justify-between">
+                                                                            <div
+                                                                                class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                                                <div class="self-center">
+                                                                                    <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                                        href="{{ $reply->user->id }}">{{ $reply->user->username }}</a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
+                                                                                x-data="{ show: false }">
+                                                                                <div class="" @click="show = !show">
+                                                                                    <i class="fas fa-angle-down"></i>
+                                                                                </div>
+                                                                                <div class="ln-comment-toolkit" x-show="show"
+                                                                                    @click.outside="show = false"
+                                                                                    style="display: none">
 
-                                                <div class="fetch_reply" data-parent="2565617">
-                                                    Xem thêm 2 trả lời <i class="fas fa-chevron-down"
-                                                        style="margin-left: 4px;"></i>
-                                                </div>
-                                                <img class="loading" src="/img/loading.svg"
-                                                    style="width: auto; height: 15px; margin-left: 10px; display: none">
 
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2563930" class="ln-comment-item mt-3 clear"
-                                                data-comment="2563930" data-parent="2563930">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u140843-9f8dad19-1eea-46c3-8921-e6d098f19557.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/140843">Wibu trường C</a>
-                                                                    </div>
-                                                                    <div class="self-center">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="ln-comment-content long-text">
+                                                                            {{ $reply->content }}
+                                                                        </div>
+                                                                        <div class="comment_see_more expand none">Xem thêm</div>
                                                                         <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
+                                                                            class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                                            <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
+                                                                                class="text-slate-500">
+                                                                                <time class="timeago" title="22-08-2024 23:44:19"
+                                                                                    datetime="2024-08-22T23:44:19+07:00">
+                                                                                    {{ $reply->create_at }}
+                                                                                </time>
+                                                                            </a>
+                                                                            <a
+                                                                                class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                                                <i class="fas fa-thumbs-up me-1"></i>
+                                                                                <span class="likecount font-semibold"></span>
+                                                                            </a>
+                                                                            <a
+                                                                                class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                                                <i class="fas fa-comment me-1"></i>
+                                                                                <span class="font-semibold">Trả lời</span>
+                                                                            </a>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Main 6 múi nha ae, ko phải cứ sửa xe là gái theo đâu
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563930#ln-comment-2563930"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="25-08-2024 10:47:12"
-                                                                        datetime="2024-08-25T10:47:12+07:00">
-                                                                        25-08-2024 10:47:12
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">3</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endforeach
                                             </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2565623" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2565623" data-parent="2563930">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u177890-7e9016b8-c3e4-4dfe-9bfa-5374676da28e.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/177890">ShinuKare</a>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    ước có 6 múi:(
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563930&amp;reply_id=2565623#ln-comment-2565623"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="26-08-2024 11:08:09"
-                                                                            datetime="2024-08-26T11:08:09+07:00">
-                                                                            26-08-2024 11:08:09
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="ln-comment-2565700" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2565700" data-parent="2563930">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i.docln.net/lightnovel/users/ua145638-4bba0e9c-61dd-47ef-8707-1eec9dcf83d8.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/145638">Aisuurufu</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    <a href="/thanh-vien/177890">@ShinuKare:</a> tập calis
-                                                                    hoặc tập ở nhà cỡ 4 tháng đến 1 năm là có nhé. Tôi có 6
-                                                                    múi rồi chỉ cần thêm 2cm nữa là m76:))
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563930&amp;reply_id=2565700#ln-comment-2565700"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="26-08-2024 12:21:32"
-                                                                            datetime="2024-08-26T12:21:32+07:00">
-                                                                            26-08-2024 12:21:32
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold">2</span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="fetch_reply" data-parent="2563930">
-                                                    Xem thêm 2 trả lời <i class="fas fa-chevron-down"
-                                                        style="margin-left: 4px;"></i>
-                                                </div>
-                                                <img class="loading" src="/img/loading.svg"
-                                                    style="width: auto; height: 15px; margin-left: 10px; display: none">
-
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2563737" class="ln-comment-item mt-3 clear"
-                                                data-comment="2563737" data-parent="2563737">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i.docln.net/lightnovel/users/ua101519-82a138d9-c859-4c18-8f11-855de0c6e1fc.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/101519">DayDreaminYuki</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Illustration tập 1 LN đây nhé: <a
-                                                                    href="https://twitter.com/Shisuberu/status/1827386739255865561?t=IgS8zyJeG1tn40Q53VgWhg&amp;s=19"
-                                                                    rel="nofollow noreferrer noopener"
-                                                                    target="_blank">https://twitter.com/Shisuberu/status/1827386739255865561?t=IgS8zyJeG1tn40Q53VgWhg&amp;s=19</a>
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563737#ln-comment-2563737"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="25-08-2024 03:11:27"
-                                                                        datetime="2024-08-25T03:11:27+07:00">
-                                                                        25-08-2024 03:11:27
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2563816" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2563816" data-parent="2563737">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/199104">KadminNodi</a>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/owner.png" />
-                                                                                <div class="leading-4">CHỦ THỚT</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    mình cảm ơn ạ
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563737&amp;reply_id=2563816#ln-comment-2563816"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago" title="25-08-2024 08:15:16"
-                                                                            datetime="2024-08-25T08:15:16+07:00">
-                                                                            25-08-2024 08:15:16
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold">1</span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="ln-comment-2569480" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2569480" data-parent="2563737">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i.docln.net/lightnovel/users/ua101519-82a138d9-c859-4c18-8f11-855de0c6e1fc.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/101519">DayDreaminYuki</a>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    <a href="/thanh-vien/199104">@KadminNodi:</a> k hẳn là
-                                                                    mình áp đặt nhưng có bìa v1 thì ông để vào phần wn cho
-                                                                    đỡ trống trải á
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2563737&amp;reply_id=2569480#ln-comment-2569480"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago"
-                                                                            title="28-08-2024 17:47:43"
-                                                                            datetime="2024-08-28T17:47:43+07:00">
-                                                                            28-08-2024 17:47:43
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2562830" class="ln-comment-item mt-3 clear"
-                                                data-comment="2562830" data-parent="2562830">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i.docln.net/lightnovel/users/ua93036-7eb5f004-af7f-43e7-a1d0-1b916a301614.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/93036">TheLazyStalker</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                <br>
-                                                                cô nàng gyaru đột nhiên tiếp cận tôi sau khi tôi lụm cục tẩy
-                                                                cho cô ấy <span>🗣🔥</span><br>
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2562830#ln-comment-2562830"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="24-08-2024 14:57:33"
-                                                                        datetime="2024-08-24T14:57:33+07:00">
-                                                                        24-08-2024 14:57:33
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">4</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="ln-comment-reply">
-                                                <div id="ln-comment-2562938" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2562938" data-parent="2562830">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
-                                                                    class="w-full rounded-full" />
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="/thanh-vien/199104">KadminNodi</a>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/owner.png" />
-                                                                                <div class="leading-4">CHỦ THỚT</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
-                                                                        </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    peakk
-                                                                </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2562830&amp;reply_id=2562938#ln-comment-2562938"
-                                                                        class="text-slate-500">
-                                                                        <time class="timeago"
-                                                                            title="24-08-2024 16:28:50"
-                                                                            datetime="2024-08-24T16:28:50+07:00">
-                                                                            24-08-2024 16:28:50
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold"></span>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2561217" class="ln-comment-item mt-3 clear"
-                                                data-comment="2561217" data-parent="2561217">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/199104">KadminNodi</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/owner.png" />
-                                                                            <div class="leading-4">CHỦ THỚT</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Đọc xong chap 3 thì mình thấy các anh học cơ khí kĩ thuật
-                                                                sắp sướng rồi:))
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2561217#ln-comment-2561217"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="23-08-2024 11:37:19"
-                                                                        datetime="2024-08-23T11:37:19+07:00">
-                                                                        23-08-2024 11:37:19
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2561118" class="ln-comment-item mt-3 clear"
-                                                data-comment="2561118" data-parent="2561118">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u150468-daf46b52-3d3c-4a3b-9cca-c3f1d73d260d.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/150468">Khanhkhanhlmao</a>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/trans5.png" />
-                                                                            <div class="leading-4">TRANS</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="self-center">
-                                                                        <div
-                                                                            class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
-                                                                            <img class="my-auto h-[14px]"
-                                                                                src="/img/badge/cvter2.png" />
-                                                                            <div class="leading-4">AI MASTER</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Đợi tôi đi rải đinh phát
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2561118#ln-comment-2561118"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="23-08-2024 09:57:53"
-                                                                        datetime="2024-08-23T09:57:53+07:00">
-                                                                        23-08-2024 09:57:53
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold">1</span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="ln-comment-group">
-                                            <div id="ln-comment-2560982" class="ln-comment-item mt-3 clear"
-                                                data-comment="2560982" data-parent="2560982">
-                                                <div class="flex gap-1 max-w-full">
-                                                    <div class="w-[50px]">
-                                                        <div class="mx-1 my-1">
-                                                            <img src="https://i2.docln.net/ln/users/avatars/u160088-724292d1-4776-4067-9251-870b5bb309d3.jpg"
-                                                                class="w-full rounded-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                        <div class="flex min-w-0 flex-col px-2">
-                                                            <div class="flex align-top justify-between">
-                                                                <div
-                                                                    class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                    <div class="self-center">
-                                                                        <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                            href="/thanh-vien/160088">Nguoz</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                    x-data="{ show: false }">
-                                                                    <div class="" @click="show = !show">
-                                                                        <i class="fas fa-angle-down"></i>
-                                                                    </div>
-                                                                    <div class="ln-comment-toolkit" x-show="show"
-                                                                        @click.outside="show = false"
-                                                                        style="display: none">
-
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ln-comment-content long-text">
-                                                                Hóng
-                                                            </div>
-                                                            <div class="comment_see_more expand none">Xem thêm</div>
-                                                            <div
-                                                                class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2560982#ln-comment-2560982"
-                                                                    class="text-slate-500">
-                                                                    <time class="timeago" title="23-08-2024 02:48:09"
-                                                                        datetime="2024-08-23T02:48:09+07:00">
-                                                                        23-08-2024 02:48:09
-                                                                    </time>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                                    <span class="likecount font-semibold"></span>
-                                                                </a>
-                                                                <a
-                                                                    class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                    <i class="fas fa-comment me-1"></i>
-                                                                    <span class="font-semibold">Trả lời</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        @endforeach
 
                                         <div class="ln-comment-page">
                                             <div class="pagination-footer">

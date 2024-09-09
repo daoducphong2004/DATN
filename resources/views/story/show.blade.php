@@ -510,6 +510,7 @@
                                                 class="comment_form">
                                                 @csrf
                                                 <textarea name="content" class="comment_content" required></textarea>
+
                                                 <div class="comment_toolkit clear">
                                                     <input class="button" type="submit" value="Đăng bình luận">
                                                 </div>

@@ -23,7 +23,7 @@ class BookcommentController extends Controller
      */
     public function create(Request $request, $book_id)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'content' => 'required',
             'parent_id' => 'nullable|exists:book_comments,id'

@@ -30,15 +30,8 @@ class ChaptercommentController extends Controller
             'parent_id' => 'nullable|exists:chapter_comments,id'
         ]);
 
-        // Tìm chapter dựa vào slug và chapter_slug
-        $chapter = Chapter::where('slug', $chapter_slug)
-                           ->whereHas('episode', function($query) use ($slug) {
-                               $query->where('slug', $slug);
-                           })
-                           ->firstOrFail();
-
         chaptercomment::create([
-            'chapter_id' => $request->input('chapter_id'),
+            'chapter_id' => $request->chapter_id,
             // 'user_id' => auth()->id(),
             'user_id' => 1,
             'content' => $request->input('content'),

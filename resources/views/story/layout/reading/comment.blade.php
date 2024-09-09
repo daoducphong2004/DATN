@@ -17,7 +17,7 @@
                         <form action="{{ route('addChapterComment', ['slug' => $book->slug, 'chapter_slug' => $chapter->slug]) }}" method="POST" class="comment_form">
                             @csrf
 
-                            <textarea name="content" class="comment_content"></textarea>
+                            <textarea name="content" class="comment_content" required></textarea>
                             <div class="comment_toolkit clear">
                                 <input class="button" type="submit" value="Đăng bình luận">
                             </div>

@@ -43,7 +43,10 @@ Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truy
 Route::post('truyen/{slug}/comment', [BookCommentController::class, 'create'])->name('addComment');
 
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+// Route::post('truyen/chapter/comment', [ChaptercommentController::class, 'create'])->name('addChapterComment');
+
 Route::post('truyen/{slug}/{chapter_slug}/comment', [ChaptercommentController::class, 'create'])->name('addChapterComment');
+
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);

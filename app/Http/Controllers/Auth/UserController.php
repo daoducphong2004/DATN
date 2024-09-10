@@ -123,7 +123,7 @@ class UserController extends Controller
     public function createAccount(Request $request)
     {
         $request->validate([
-            'username' => 'required|unique:users',
+            'username' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6|confirmed'
         ]);

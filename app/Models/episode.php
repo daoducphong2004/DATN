@@ -21,13 +21,26 @@ class episode extends Model
     {
         return $this->hasMany(Chapter::class, 'episode_id');
     }
-    public function books(){
-        return $this->belongsTo(book::class,'book_id');
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
     }
 
     public function latestChapter()
     {
         return $this->hasOne(chapter::class)->latest();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($episode) {
+            $episode->chapters()->each(function ($chapter) {
+                $chapter->delete();
+            });
+        });
     }
 
     protected static function boot()

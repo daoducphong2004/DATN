@@ -9,7 +9,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
-use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -19,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\USER\HomeController as USERHomeController;
+use App\Http\Controllers\CommentChapterController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -38,7 +37,8 @@ use App\Models\genre;
 
 Auth::routes();
 
-Route::get('/', [USERHomeController::class, 'index'])->name('home');
+Route::get('home', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);
@@ -55,7 +55,6 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 // })->name('storyinformation');
 
 
-Route::get('home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);

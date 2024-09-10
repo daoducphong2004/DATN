@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\chaptercomment;
 use App\Http\Requests\StorechaptercommentRequest;
 use App\Http\Requests\UpdatechaptercommentRequest;
-// use Auth;
+use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Auth;
 
 class ChaptercommentController extends Controller
 {

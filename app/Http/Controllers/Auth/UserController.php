@@ -70,7 +70,7 @@ class UserController extends Controller
         return view('home.taikhoan');
     }
 
-    
+
     public function update(Request $request, User $user)
     {
         //        dd($request->all());

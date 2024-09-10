@@ -74,16 +74,21 @@
                             <a href="{{route('user_index')}}"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                         </li>
                         <li>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                           document.getElementById('logout-form').submit();"
                                 class="link-underline link-underline-opacity-0"><i
                                     class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
 
 
+<<<<<<< HEAD
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+=======
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
                         </li>
                     </ul>
                 </div>
@@ -190,24 +195,32 @@
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
                 <form class="" action="/tim-kiem" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
-                        value="">
-                    <button class="search-submit" type="submit" value="Tìm kiếm"><i
-                            class="fas fa-search"></i></button>
+                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
+                    <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
                 <li><a class="nav-menu_item" href="sangtac"><i class="fas fa-pen-nib menu-icon"></i><span
                             class="">Sáng tác</span></a></li>
 
+<<<<<<< HEAD
                 <li><a class="nav-menu_item" href="convert"><i class="fas fa-book menu-icon"></i><span
                             class="">Máy dịch</span></a></li>
+=======
+                <li><a class="nav-menu_item" href="/convert"><i class="fas fa-book menu-icon"></i><span class="">Máy
+                            dịch</span></a></li>
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 
                 <li><a class="nav-menu_item" href="xuatban"><i class="fas fa-calendar menu-icon"></i><span
                             class="">Xuất bản</span></a></li>
 
+<<<<<<< HEAD
                 <li><a class="nav-menu_item" href="thaoluan"><i class="fas fa-users menu-icon"></i><span
                             class="">Thảo luận</span></a></li>
+=======
+                <li><a class="nav-menu_item" href="/thao-luan"><i class="fas fa-users menu-icon"></i><span class="">Thảo
+                            luận</span></a></li>
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 
                 <li><a class="nav-menu_item" href="danh-sach"><i class="fas fa-th-list menu-icon"></i><span
                             class="">Danh sách</span></a></li>

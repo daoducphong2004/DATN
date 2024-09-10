@@ -170,29 +170,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="summary-wrapper other-facts col-12">
-                                        <div class="fact-item">
-                                            <div class="fact-name">Tên khác:</div>
-                                            <div class="fact-value">
-                                                <div class="block pad-bottom-5">ギャルの自転車を直したら懐かれた</div>
-                                                <div class="block pad-bottom-5">Gyaru no jitensha o naoshitara idakareta
-                                                </div>
-                                                <div class="block pad-bottom-5">I Fixed a Gyaru’s Bicycle and She Became
-                                                    Attached to Me</div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="summary-wrapper col-12">
                                         <div class="series-summary">
                                             <h4 class="font-bold">Tóm tắt</h4>
                                             <div class="summary-content">
-                                                <p>Trên đường về nhà như thường lệ, tôi vô tình cứu một cô gái gyaru khỏi
-                                                    việc bị ngã xe và tiện sửa xe giúp cô ấy.<br><br>Đang định rời đi thì
-                                                    chẳng hiểu sao cô ấy lại có cảm tình với tôi? Sau một loạt sự kiện, cuối
-                                                    cùng tôi, một thằng đụt đã có một người bạn... <br><br>À không, chết dở,
-                                                    hình như cô ấy không có ý định dừng lại ở mức bạn bè...</p>
-                                                <p> </p>
-                                                <p> </p>
+                                                 {!! $book->description !!}
                                             </div>
                                             <div class="summary-more none more-state">
                                                 <div class="see_more">Xem thêm</div>
@@ -427,9 +409,7 @@
                                     <div class="col-12 col-md-2">
                                         <div class="volume-cover">
                                             <a
-                                                href="#
-                                            {{-- {{route('episode.show', ['id' => $item->id]) }} --}}
-                                                 ">
+                                                href="{{route('truyen.tap',[$book->slug,$item->slug]) }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
                                                         style="background-image: url('{{ asset(Storage::url($item->episode_path)) }}')">

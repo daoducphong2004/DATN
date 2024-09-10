@@ -11,6 +11,10 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\GroupController;
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 // use App\Http\Controllers\HomeController;
@@ -33,6 +37,7 @@ use App\Models\genre;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+<<<<<<< HEAD
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('login', [LoginController::class, 'login']);
@@ -44,9 +49,41 @@ Route::post('truyen/{slug}/comment', [BookCommentController::class, 'create'])->
 
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 // Route::post('truyen/chapter/comment', [ChaptercommentController::class, 'create'])->name('addChapterComment');
+=======
+
+Auth::routes();
+
+Route::get('home', [UserController::class, 'index']);
+Route::get('/', [UserController::class, 'index'])->name('home');
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+// Route::get('vuadang', [UserController::class, 'vuadang']);
+// Route::get('thaoluan', [UserController::class, 'thaoluan']);
+
+
+Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
+Route::post('login', [UserController::class, 'login'])->name('login');
+// Route::get('register', [UserController::class, 'register']);
+// Route::resource('story', BookController::class);
+
+// Route::get('stories/information', function () {
+//     return view('stories.iframe.information');
+// })->name('storyinformation');
+
+
+Route::get('home', [UserController::class, 'index']);
+Route::get('gioithieu', [UserController::class, 'gioithieu']);
+Route::get('chuong', [UserController::class, 'chuong']);
+Route::get('danhsach', [UserController::class, 'danhsach']);
+Route::get('vuadang', [UserController::class, 'vuadang']);
+Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('sangtac', [UserController::class, 'sangtac']);
+Route::get('xuatban', [UserController::class, 'xuatban']);
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 
 Route::post('truyen/{slug}/{chapter_slug}/comment', [ChaptercommentController::class, 'create'])->name('addChapterComment');
 
+<<<<<<< HEAD
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
@@ -55,6 +92,12 @@ Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
     return view('stories.iframe.information', compact('book', 'genres'));
 })->name('storyinformation');
+=======
+Route::get('register', [UserController::class, 'register'])->name('register');
+Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
+Route::get('email', [UserController::class, 'email']);
+Route::get('reset', [UserController::class, 'reset']);
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 
 Route::get('stories/tree/{book}', function (book $book) {
     return view('stories.iframe.tree', compact('book'));
@@ -144,6 +187,7 @@ Route::prefix('admin')->group(function () {
 //     return view('stories.iframe.information', compact('book', 'genres'));
 // })->name('storyinformation');
 
+<<<<<<< HEAD
 // Route::get('stories/tree/{book}', function (book $book) {
 //     return view('stories.iframe.tree', compact('book'));
 // })->name('storytree');
@@ -155,6 +199,20 @@ Route::prefix('admin')->group(function () {
 // Route::get('stories/addchapter/{episode}', function (episode  $episode) {
 //     return view('stories.iframe.formAddChapter', compact('episode'));
 // })->name('storychapter');
+=======
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+})->name('storyepisode');
+
+Route::get('stories/addchapter/{episode}', function (episode $episode) {
+    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+})->name('storychapter');
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
+Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
+>>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 
 // Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');

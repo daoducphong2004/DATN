@@ -1,5 +1,7 @@
 @extends('stories.partials.master')
 @section('content')
+@include('stories.partials.header')
+
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group clearfix required">

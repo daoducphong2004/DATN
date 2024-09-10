@@ -23,6 +23,7 @@ class User extends Authenticatable
         'status',
         'coin_earned',
         'full_name',
+        'remember_token'
     ];
 
     public function comments()

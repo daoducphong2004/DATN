@@ -29,7 +29,18 @@ class episode extends Model
 
     public function latestChapter()
     {
-        return $this->hasOne(Chapter::class)->latest();
+        return $this->hasOne(chapter::class)->latest();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($episode) {
+            $episode->chapters()->each(function ($chapter) {
+                $chapter->delete();
+            });
+        });
     }
 
     protected static function boot()

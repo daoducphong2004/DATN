@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\CommentChapterController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -53,7 +55,6 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 // })->name('storyinformation');
 
 
-Route::get('home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
@@ -65,7 +66,7 @@ Route::get('xuatban', [UserController::class, 'xuatban']);
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan']);
+Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('register', [UserController::class, 'register'])->name('register');
 Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
@@ -163,3 +164,7 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 
 
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+
+Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');

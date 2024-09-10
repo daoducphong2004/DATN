@@ -14,19 +14,12 @@
     <main id="mainpart" class="reading-page style-4">
         <section id="rd-side_icon" class="none force-block-l">
 
-<<<<<<< HEAD
-            <a class="rd_sd-button_item rd_top-left disabled"><i class="fas fa-backward"></i></a>
-
-            <a class="rd_sd-button_item" href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai"><i
-                    class="fas fa-home"></i></a>
-=======
             <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previous()->slug ?? '#']) }}"
                 class="rd_sd-button_item rd_top-left {{ $chapter->previous() ? '' : 'disabled' }}">
                 <i class="fas fa-backward"></i>
             </a>
 
             <a class="rd_sd-button_item" href="{{ route('truyen.truyen', $book->slug) }}"><i class="fas fa-home"></i></a>
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
             <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
             <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i
                     class="fas fa-info"></i></a>
@@ -34,16 +27,10 @@
                     class="fas fa-bookmark"></i></a>
 
 
-<<<<<<< HEAD
-            <a class="rd_sd-button_item rd_top-right"
-                href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142239-chuong-02-noi-co-nhieu-quy-nhat-la-nhan-gian"><i
-                    class="fas fa-forward"></i></a>
-=======
             <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->next()->slug ?? '#']) }}"
                 class="rd_sd-button_item rd_top-right {{ $chapter->next() ? '' : 'disabled' }}">
                 <i class="fas fa-forward"></i>
             </a>
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
         </section>
 
         <section id="chapters" class="rd_sidebar rdtoggle">
@@ -51,52 +38,15 @@
                 <header class="rd_sidebar-header clear">
                     <a class="img"
                         href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01"
-<<<<<<< HEAD
-                        style="background: url('https://i2.docln.net/ln/series/covers/s19112-171eb711-f51a-49e7-b13c-44d2da86f377.jpg') no-repeat"></a>
-                    <div class="rd_sidebar-name">
-                        <h5><a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai">Sau khi bị thế
-                                giới bỏ rơ...</a></h5>
-                        <small><i class="fas fa-pen"></i>yukki</small>
-                        <small><i class="fas fa-paint-brush"></i>Al</small>
-=======
                         style="background: url('{{ asset(Storage::url($book->book_path)) }}') no-repeat"></a>
                     <div class="rd_sidebar-name">
                         <h5><a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a></h5>
                         <small><i class="fas fa-pen"></i>{{ $book->author }}</small>
                         <small><i class="fas fa-paint-brush"></i>{{ $book->painter }}</small>
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
                     </div>
                 </header>
 
                 <ul id="chap_list" class="unstyled">
-<<<<<<< HEAD
-                    <li class="current"><a
-                            href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/t25920-tap-01">Tập
-                            01</a></li>
-                    <ul class="sub-chap_list unstyled">
-                        <li class="current">
-                            <a
-                                href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01">
-                                Chương 01: Bi kịch
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142239-chuong-02-noi-co-nhieu-quy-nhat-la-nhan-gian">
-                                Chương 02: nơi có nhiều quỷ nhất là nhân gian.
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142256-chuong-03-dong-cam">
-                                Chương 03: Đồng cảm
-                            </a>
-                        </li>
-                    </ul>
-
-
-                </ul>
-=======
                     @foreach ($book->episodes as $item)
                         <li class="@if ($episode->id == $item->id) current @endif">
                             <a href="{{ route('episode.show', $item->slug) }}">{{ $item->title }}</a>
@@ -117,7 +67,6 @@
                 </ul>
 
 
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
             </main>
             <div class="black-click"></div>
         </section>
@@ -181,18 +130,6 @@
                             <span class="set-bigger set-slide_button"><i class="fas fa-chevron-right"></i></span>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="set-list set-text-align clear">
-                        <label class="font-bold">Kiểu căn chỉnh</label>
-                        <div class="set-input clear justify-center font-medium text-2xl flex flex-row gap-10">
-                            <span data-align="text-left" class="p-1"><i class="fas fa-align-left"></i></span>
-                            <span data-align="text-center" class="p-1"><i class="fas fa-align-center"></i></span>
-                            <span data-align="text-right" class="p-1"><i class="fas fa-align-right"></i></span>
-                            <span data-align="text-justify" class="p-1"><i
-                                    class="fas fa-align-justify"></i></span>
-                        </div>
-                    </div>
-=======
                     {{-- <div class="set-list set-text-align clear">
                     <label class="font-bold">Kiểu căn chỉnh</label>
                     <div class="set-input clear justify-center font-medium text-2xl flex flex-row gap-10">
@@ -202,7 +139,6 @@
                         <span data-align="text-justify" class="p-1"><i class="fas fa-align-justify"></i></span>
                     </div>
                 </div> --}}
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
                 </main>
             </section>
             <div class="black-click"></div>

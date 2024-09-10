@@ -1,4 +1,3 @@
-
 <footer id="footer">
     <div class="container">
         <!--<span><a href="">Hako.re</a></span>-->

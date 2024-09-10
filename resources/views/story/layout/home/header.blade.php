@@ -53,7 +53,7 @@
                     <div class="at-user_avatar"></div>
                     <ul class="account-sidebar hidden-block unstyled none">
                         <li>
-                            <a href="{{route('taikhoan')}}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                            <a href="{{url('taikhoan')}}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                         </li>
                         <li>
                             <a href="{{url('lichsudoc')}}"><i class="fas fa-history"></i><span>Lịch sử</span></a>

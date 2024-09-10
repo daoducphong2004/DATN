@@ -195,7 +195,6 @@
                                                 title="{{ $item->title }}">{{ $item->title }}</a>
                                         </div>
                                     </div>
-<<<<<<< HEAD
                                     <!-- Tooltip -->
                                     <div style="display: none">
                                         <div id="series_{{ $item->id }}">
@@ -209,24 +208,6 @@
                                                 {!! $item->description !!}
                                             </div>
                                         </div>
-=======
-                                </div>
-                                <div class="thumb_attr series-title">
-                                    <a href="truyen/{{ $item->slug }}" title="{{ $item->title }}">{{ $item->title }}</a>
-                                </div>
-                            </div>
-                            <!-- Tooltip -->
-                            <div style="display: none">
-                                <div id="series_{{ $item->id }}">
-                                    <div style="margin: 10px 0; width: 250px">
-                                        <p style="color: white; font-weight: bold">{{ $item->title }}</p>
-                                        <p>
-                                            {{-- <div>Số từ: 1.625.237</div> --}}
-                                            <div>Lượt xem: {{ $item->view }}</div>
-                                            <div>Lượt thích: {{ $item->like }}</div>
-                                        </p>
-                                        {!! $item->description !!}
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
                                     </div>
                                 @endforeach
 

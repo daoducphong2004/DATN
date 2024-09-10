@@ -14,102 +14,39 @@
 
                 <main class="ln-comment-body">
                     <div id="ln-comment-submit" class="ln-comment-form clear">
-                        <form action="{{ route('addChapterComment', ['slug' => $book->slug, 'chapter_slug' => $chapter->slug]) }}" method="POST" class="comment_form">
+                        <form
+                            action="{{ route('addChapterComment', ['slug' => $book->slug, 'chapter_slug' => $chapter->slug]) }}"
+                            method="POST" class="comment_form">
                             @csrf
 
-                            <textarea name="content" class="comment_content" required></textarea>
+                            <textarea name="content" class="comment_content"></textarea>
+                            <input type="hidden" name="chapter_id" value="{{ $chapter->id }}">
+                        <input type="hidden" name="parent_id" value="">
                             <div class="comment_toolkit clear">
                                 <input class="button" type="submit" value="Đăng bình luận">
                             </div>
                         </form>
                     </div>
 
-
-
-                    <div class="ln-comment-group">
-                        <div id="ln-comment-2574145" class="ln-comment-item mt-3 clear" data-comment="2574145"
-                            data-parent="2574145">
-                            <div class="flex gap-1 max-w-full">
-                                <div class="w-[50px]">
-                                    <div class="mx-1 my-1">
-                                        <img src="https://i2.docln.net/ln/users/avatars/u200274-930f27aa-ef1d-418a-90eb-1bd4b5aaf0dc.jpg"
-                                            class="w-full rounded-full" />
-                                    </div>
-                                </div>
-                                <div
-                                    class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                    <div class="flex min-w-0 flex-col px-2">
-                                        <div class="flex align-top justify-between">
-                                            <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                <div class="self-center">
-                                                    <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                        href="/thanh-vien/200274">Mass</a>
-                                                </div>
-                                                <div class="self-center">
-                                                    <div
-                                                        class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
-                                                        <img class="my-auto h-[14px]" src="/img/badge/author3.png" />
-                                                        <div class="leading-4">AUTHOR</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                x-data="{ show: false }">
-                                                <div class="" @click="show = !show">
-                                                    <i class="fas fa-angle-down"></i>
-                                                </div>
-                                                <div class="ln-comment-toolkit" x-show="show"
-                                                    @click.outside="show = false" style="display: none">
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ln-comment-content long-text">
-                                            Mới chỉ là học sinh yêu nhau thôi mà đã tặng cả quả thận cho r,
-                                            WTF. Khúc này khá là sượng
-                                        </div>
-                                        <div class="comment_see_more expand none">Xem thêm</div>
-                                        <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                            <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01?comment_id=2574145#ln-comment-2574145"
-                                                class="text-slate-500">
-                                                <time class="timeago" title="31-08-2024 22:49:19"
-                                                    datetime="2024-08-31T22:49:19+07:00">
-                                                    31-08-2024 22:49:19
-                                                </time>
-                                            </a>
-                                            <a class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                <i class="fas fa-thumbs-up me-1"></i>
-                                                <span class="likecount font-semibold"></span>
-                                            </a>
-                                            <a class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                <i class="fas fa-comment me-1"></i>
-                                                <span class="font-semibold">Trả lời</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ln-comment-reply">
-                            <div id="ln-comment-2574163" class="ln-comment-item mt-3 clear" data-comment="2574163"
-                                data-parent="2574145">
+                    @foreach ($comments as $comment)
+                        <div class="ln-comment-group">
+                            <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear" data-comment="2559913"
+                                data-parent="2559913">
                                 <div class="flex gap-1 max-w-full">
                                     <div class="w-[50px]">
                                         <div class="mx-1 my-1">
-                                            <img src="https://i2.docln.net/ln/users/avatars/u200469-60b0fbc1-eb78-4a8c-aae8-982341d1b20f.jpg"
+                                            <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
                                                 class="w-full rounded-full" />
                                         </div>
                                     </div>
                                     <div
-                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                        class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
                                         <div class="flex min-w-0 flex-col px-2">
                                             <div class="flex align-top justify-between">
                                                 <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
                                                     <div class="self-center">
                                                         <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                            href="/thanh-vien/200469">Yukki2004</a>
+                                                            href="">{{ $comment->user->username }}</a>
                                                     </div>
                                                     <div class="self-center">
                                                         <div
@@ -120,10 +57,9 @@
                                                     </div>
                                                     <div class="self-center">
                                                         <div
-                                                            class="flex gap-1 rounded-sm bg-[#1aadf9]/50 dark:bg-[#0d5980]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#0d5980] dark:text-[#8ac4e0]">
-                                                            <img class="my-auto h-[14px]"
-                                                                src="/img/badge/author3.png" />
-                                                            <div class="leading-4">AUTHOR</div>
+                                                            class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                            <img class="my-auto h-[14px]" src="/img/badge/trans5.png" />
+                                                            <div class="leading-4">TRANS</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,23 +76,20 @@
                                                 </div>
                                             </div>
                                             <div class="ln-comment-content long-text">
-                                                Mình cảm ơn bạn đã góp ý ạ thực ra là mình sử dụng tình tiết
-                                                bạn thửa nhỏ kiểu như là 2 người đã có tình cảm từ bé rồi ạ.
-                                                Mình sẽ cố gắng khắc phục và làm tốt hơn ở những chương sau
-                                                ạ
+                                                {{ $comment->content }}
                                             </div>
                                             <div class="comment_see_more expand none">Xem thêm</div>
                                             <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                <a href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01?comment_id=2574145&amp;reply_id=2574163#ln-comment-2574163"
+                                                <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913#ln-comment-2559913"
                                                     class="text-slate-500">
-                                                    <time class="timeago" title="31-08-2024 22:55:27"
-                                                        datetime="2024-08-31T22:55:27+07:00">
-                                                        31-08-2024 22:55:27
+                                                    <time class="timeago" title="22-08-2024 09:59:00"
+                                                        datetime="2024-08-22T09:59:00+07:00">
+                                                        {{ $comment->created_at }}
                                                     </time>
                                                 </a>
                                                 <a class="self-center visible-toolkit-item do-like cursor-pointer">
                                                     <i class="fas fa-thumbs-up me-1"></i>
-                                                    <span class="likecount font-semibold"></span>
+                                                    <span class="likecount font-semibold">4</span>
                                                 </a>
                                                 <a class="self-center visible-toolkit-item do-reply cursor-pointer">
                                                     <i class="fas fa-comment me-1"></i>
@@ -167,10 +100,71 @@
                                     </div>
                                 </div>
                             </div>
+                            @foreach ($comment->replies as $reply)
+                                <div class="ln-comment-reply">
+                                    <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
+                                        data-comment="2560870" data-parent="2559913">
+                                        <div class="flex gap-1 max-w-full">
+                                            <div class="w-[50px]">
+                                                <div class="mx-1 my-1">
+                                                    <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
+                                                        class="w-full rounded-full" />
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                                <div class="flex min-w-0 flex-col px-2">
+                                                    <div class="flex align-top justify-between">
+                                                        <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                            <div class="self-center">
+                                                                <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                    href="{{ $reply->user->id }}">{{ $reply->user->username }}</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
+                                                            x-data="{ show: false }">
+                                                            <div class="" @click="show = !show">
+                                                                <i class="fas fa-angle-down"></i>
+                                                            </div>
+                                                            <div class="ln-comment-toolkit" x-show="show"
+                                                                @click.outside="show = false" style="display: none">
 
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ln-comment-content long-text">
+                                                        {{ $reply->content }}
+                                                    </div>
+                                                    <div class="comment_see_more expand none">Xem thêm</div>
+                                                    <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                        <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
+                                                            class="text-slate-500">
+                                                            <time class="timeago" title="22-08-2024 23:44:19"
+                                                                datetime="2024-08-22T23:44:19+07:00">
+                                                                {{ $reply->create_at }}
+                                                            </time>
+                                                        </a>
+                                                        <a
+                                                            class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                            <i class="fas fa-thumbs-up me-1"></i>
+                                                            <span class="likecount font-semibold"></span>
+                                                        </a>
+                                                        <a
+                                                            class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                            <i class="fas fa-comment me-1"></i>
+                                                            <span class="font-semibold">Trả lời</span>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                    </div>
+                    @endforeach
 
                     <div class="ln-comment-page">
                     </div>

@@ -14,7 +14,6 @@ class chaptercomment extends Model
         'user_id',
         'content',
         'parent_id'
-<<<<<<< HEAD
     ];
 
     public function chapter()
@@ -36,13 +35,4 @@ class chaptercomment extends Model
     {
         return $this->hasMany(chaptercomment::class, 'parent_id');
     }
-=======
-        ];
-
-        public function children (){
-            return $this->hasMany(chaptercomment::class,'parent_id')->with('children');
-        }
-
-
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 }

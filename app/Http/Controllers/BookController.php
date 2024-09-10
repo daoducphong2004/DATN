@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
-<<<<<<< HEAD
 use App\Models\bookcomment;
-=======
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
 use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -29,7 +28,6 @@ class BookController extends Controller
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-<<<<<<< HEAD
     public function bookComment($bookId)
     {
         $comments = bookcomment::with('user')
@@ -41,7 +39,19 @@ class BookController extends Controller
         return view('story.show', compact('comments', 'book'));
 
     }
-    public function reading(string $slug, string $chapter_slug){
+
+    // public function chapterComment($chapterId)
+    // {
+    //     $comments = chaptercomment::with('user')
+    //     ->where('chapter_id', $chapterId)
+    //     ->whereNull('parent_id')->get();
+
+    //     $chapter = chapter::findOrFail($chapterId);
+
+    //     return view('story.reading', compact('comments', 'chapter'));
+
+    // }
+    public function reading(string $slug, string $chapter_slug,  Request $request){
      // Tìm kiếm book dựa trên slug
      $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
 
@@ -54,16 +64,13 @@ class BookController extends Controller
      // Lấy danh sách các chapters trong episode của chapter hiện tại
      $chapters = $episode->chapters;
 
-     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
-=======
-    public function reading(string $slug, string $chapter_slug)
-    {
-        // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+     $comments = chaptercomment::with('user')
+     ->where('chapter_id', $chapter->id)
+     ->whereNull('parent_id')->get();
 
-        // Tìm kiếm chapter dựa trên chapter_slug
-        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
->>>>>>> b679f95696c8e4e70a5590bd1cb95bde079b5d70
+     $parentId = $request->input('parent_id');
+
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments','parentId'));
 
         // Lấy episode liên quan đến chapter
         $episode = $chapter->episode()->with('chapters')->firstOrFail();

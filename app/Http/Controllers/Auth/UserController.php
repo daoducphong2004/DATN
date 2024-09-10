@@ -115,6 +115,50 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('message', 'Đổi mật khẩu thành công!');
     }
+    public function register()
+    {
+        return view('auth.register');
+    }
+
+    public function createAccount(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = new User();
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+        return redirect()->route('login')->with("success", "Register account success.");
+    }
+
+    public function dialogLogin()
+    {
+        return view('auth/login');
+    }
+
+    public function login(Request $request)
+    {
+        $remember = $request->remember;
+        $requestInfo = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+
+        if (Auth::attempt($requestInfo, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->route('home')->with("success", "Login account success.");
+        }
+
+        return redirect()->back()->with("error", "Authentication failed.");
+    }
     public function email()
     {
         return view('auth.password.email');

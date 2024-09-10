@@ -10,6 +10,7 @@
 
     });
 </script>
+{{-- <script src="js/truyen.js"></script> --}}
 <script>
        // Toggle lớp "none" khi bấm vào nút mục lục
        document.querySelector('.catalog-icon').addEventListener('click', function() {
@@ -45,7 +46,7 @@
 
 </main>
 
-<script src="{{ asset('js/app.js?id=b8198cd1707d7a5e169b')}}"></script>
+<script src="{{ asset('js/app.js')}}"></script>
 {{-- <script src="{{ asset('js/livewire.js?id=f121a5df')}}"   data-csrf="{{ @csrf }}" data-update-uri="/livewire/update" data-navigate-once="true"></script> --}}
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
 use Illuminate\Support\Facades\Storage;
@@ -24,19 +25,27 @@ class BookController extends Controller
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapterslug){
-        $book = Book::where('slug', $slug)->first()->with('episodes')->get();
+    public function reading(string $slug, string $chapter_slug)
+    {
+        // Tìm kiếm book dựa trên slug
+        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
 
+        // Tìm kiếm chapter dựa trên chapter_slug
+        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
-        return view('story.reading',compact('book'));
+        // Lấy episode liên quan đến chapter
+        $episode = $chapter->episode()->with('chapters')->firstOrFail();
+        // Lấy danh sách các chapters trong episode của chapter hiện tại
+        $chapters = $episode->chapters;
 
+        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
     }
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
         $data = book::query()->paginate(30);
-        // dd($data);
+        // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
 
@@ -73,7 +82,7 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
         ]);
-        $slug = Str::slug($book->id.'-'.$request->title);
+        $slug = Str::slug($book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload
@@ -106,7 +115,7 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes','group')->where(
+        $book = Book::with('genres', 'episodes', 'group')->where(
             'slug',
             $slug
         )->firstOrFail();
@@ -121,18 +130,49 @@ class BookController extends Controller
     public function edit(String $id)
     {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
-        // dd($book);
-
-        return view('stories.edit', compact('book'));
+        $genres = genre::pluck('id', 'name');
+        return view('stories.iframe.information', compact('book', 'genres'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatebookRequest $request, book $book)
+    public function update(UpdatebookRequest $request, string $id)
     {
-        //
+        $book = book::findOrFail($id)->first();
+        $adult = $request->has('adult') ? 1 : 0;
+
+        // Update book information
+        $slug = Str::slug($book->id . '-' . $request->title);
+        if ($request->hasFile('book_path')) {
+            $image = $request->file('book_path');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $path = Storage::put('public/books', $image); // Using Storage::put to store the image
+            $book_path = str_replace('public/', '', $path); // Save relative path to the database
+        }
+        $book->update([
+            'type' => $request->type,
+            'status' => $request->status,
+            'title' => $request->title,
+            'author' => $request->author,
+            'painter' => $request->painter,
+            'description' => $request->description,
+            'note' => $request->note,
+            'is_VIP' => 0,
+            'book_path' => $book_path,
+            'slug' => $slug,
+            'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
+            'group_id' => $request->group_id,
+        ]);
+
+        // Attach genres
+        if ($request->input('genres')) {
+            $book->genres()->sync($request->input('genres')); // Use sync to update genres
+        }
+
+        return redirect()->route('storyinformation', $book->id);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -150,7 +190,7 @@ class BookController extends Controller
             $book->delete();
 
             // Redirect to the story tree with a success message
-            return redirect()->route('storytree')->with('success', 'Truyện đã được xóa thành công!');
+            return redirect()->route('danh-sach')->with('success', 'Truyện đã được xóa thành công!');
         } catch (\Exception $e) {
             // Handle errors and redirect back with an error message
             return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.');

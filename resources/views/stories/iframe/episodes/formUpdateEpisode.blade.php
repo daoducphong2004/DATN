@@ -1,28 +1,41 @@
 @extends('stories.iframe.layouts.master')
 @section('content')
 <body data-theme="light">
+
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Chapter</div>
+                    <div class="panel-heading">Episode</div>
+
                     <div class="panel-body">
-                        <form role="form" method="POST" action="{{ route('chapter.update',$chapter->id) }}">
-                            <input type="hidden" name="episode_id" value="{{ $chapter['episode_id'] }}">
+
+
+                        <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('episode.update') }}">
                             @csrf
-                            @method('PUT')
+                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+
                             <div class="form-group clearfix required">
-                                <label class="col-md-2 control-label pt-7">Tiêu đề</label>
+                                <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="{{ $chapter['title'] }}">
+                                    <input type="text" class="form-control" name="title" value="">
                                 </div>
                             </div>
-                            <div class="form-group clearfix required">
-                                <div class="col-md-12">
-                                    <label class="control-label">Nội dung</label>
-                                    <textarea id="LN_Chapter_Content" name="content">{{ $chapter['content'] }}</textarea>
+                            <div class="form-group clearfix">
+                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa </label>
+                                <div class="col-md-8">
+                                    <input type="file" class="form-control" name="episode_path" value="">
                                 </div>
                             </div>
+
+                            <div class="form-group clearfix">
+                                <label class="col-md-2 control-label text-right">Tóm tắt</label>
+                                <div class="col-md-10">
+                                    <textarea id="LN_Book_Summary" name="description"></textarea>
+                                </div>
+                            </div>
+
+
                             <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
                             <script>
                                 tinymce.init({
@@ -77,19 +90,16 @@
                                     }
                                 });
                             </script>
-
                             <div class="form-group">
-                                <div class="col-md-10">
+                                <div class="col-md-10 col-md-offset-2">
                                     <button type="submit" class="btn btn-primary">
-                                        Sửa chương
+                                        Sửa Tập
                                     </button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

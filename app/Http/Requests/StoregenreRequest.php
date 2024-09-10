@@ -11,7 +11,7 @@ class StoregenreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoregenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'slug' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 }

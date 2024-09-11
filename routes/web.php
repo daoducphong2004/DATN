@@ -9,6 +9,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -58,7 +59,6 @@ Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
 Route::get('sangtac', [UserController::class, 'sangtac']);
 Route::get('xuatban', [UserController::class, 'xuatban']);
 
@@ -161,5 +161,7 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 // End Phong
 
-
-
+//dung
+Route::get('thao-luan', [ForumController::class, 'index'])->name('thaoluan');
+Route::get('thao-luan/addThao-luan',[ForumController::class,'create'])->name('themthaoluan');
+Route::post('thao-luan/addThao-Luana',[ForumController::class,'store'])->name('store_thaoluan');

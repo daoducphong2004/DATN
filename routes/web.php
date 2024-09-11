@@ -12,7 +12,7 @@ use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
@@ -37,8 +37,8 @@ use App\Models\genre;
 
 Auth::routes();
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 // Route::get('vuadang', [UserController::class, 'vuadang']);

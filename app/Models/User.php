@@ -25,4 +25,9 @@ class User extends Authenticatable
         'full_name',
         'remember_token'
     ];
+
+    public function comments()
+{
+    return $this->hasMany(bookcomment::class);
+}
 }

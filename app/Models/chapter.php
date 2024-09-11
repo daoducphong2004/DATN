@@ -16,13 +16,19 @@ class chapter extends Model
         'episode_id',
         // 'user_id',
     ];
-    public function chaptercomments()
-    {
-        return $this->hasMany(ChapterComment::class);
-    }
+
     public function episode()
     {
-        return $this->belongsTo(episode::class);
+        return $this->belongsTo(episode::class, 'episode_id');
+    }
+    public function chaptercomments()
+    {
+        return $this->hasMany(chaptercomment::class);
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(book::class);
     }
     public function previous()
     {

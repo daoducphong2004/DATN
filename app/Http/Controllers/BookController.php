@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\bookcomment;
 use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -25,13 +28,49 @@ class BookController extends Controller
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapter_slug)
+    public function bookComment($bookId)
     {
-        // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+        $comments = bookcomment::with('user')
+        ->where('book_id', $bookId)
+        ->whereNull('parent_id')->get();
 
-        // Tìm kiếm chapter dựa trên chapter_slug
-        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+        $book = book::findOrFail($bookId);
+
+        return view('story.show', compact('comments', 'book'));
+
+    }
+
+    // public function chapterComment($chapterId)
+    // {
+    //     $comments = chaptercomment::with('user')
+    //     ->where('chapter_id', $chapterId)
+    //     ->whereNull('parent_id')->get();
+
+    //     $chapter = chapter::findOrFail($chapterId);
+
+    //     return view('story.reading', compact('comments', 'chapter'));
+
+    // }
+    public function reading(string $slug, string $chapter_slug,  Request $request){
+     // Tìm kiếm book dựa trên slug
+     $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+
+     // Tìm kiếm chapter dựa trên chapter_slug
+     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+
+     // Lấy episode liên quan đến chapter
+     $episode = $chapter->episode()->with('chapters')->firstOrFail();
+
+     // Lấy danh sách các chapters trong episode của chapter hiện tại
+     $chapters = $episode->chapters;
+
+     $comments = chaptercomment::with('user')
+     ->where('chapter_id', $chapter->id)
+     ->whereNull('parent_id')->get();
+
+     $parentId = $request->input('parent_id');
+
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments','parentId'));
 
         // Lấy episode liên quan đến chapter
         $episode = $chapter->episode()->with('chapters')->firstOrFail();
@@ -121,7 +160,15 @@ class BookController extends Controller
         )->firstOrFail();
         $episodes = $book->episodes;
         // dd($book,$episodes);
-        return view('story.show', compact('book', 'episodes'));
+
+        $comments = bookcomment::with('user')
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')->get();
+
+        // dd($comments);
+
+
+        return view('story.show', compact('book', 'episodes', 'comments'));
     }
 
     /**

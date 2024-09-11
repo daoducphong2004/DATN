@@ -42,4 +42,4 @@ class episode extends Model
             });
         });
     }
-
+}

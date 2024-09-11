@@ -10,7 +10,9 @@ class Forum extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'categories',
+        'title',
+        'content',
+        'category_id',
         'book_id',
         'viewer',
         'slug',

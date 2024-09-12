@@ -178,7 +178,7 @@ class BookController extends Controller
     {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
         $genres = genre::pluck('id', 'name');
-                return view('stories.iframe.information', compact('book','genres'));
+        return view('stories.iframe.information', compact('book', 'genres'));
     }
 
     /**
@@ -206,8 +206,8 @@ class BookController extends Controller
             'description' => $request->description,
             'note' => $request->note,
             'is_VIP' => 0,
-            'book_path'=>$book_path,
-            'slug'=>$slug,
+            'book_path' => $book_path,
+            'slug' => $slug,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
         ]);

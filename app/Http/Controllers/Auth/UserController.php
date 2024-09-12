@@ -94,11 +94,13 @@ class UserController extends Controller
         return redirect()->back()->with('message', 'Cập nhật dữ liệu thành công');
     }
 
-    public function change(User $user) {
+    public function change(User $user)
+    {
         return view('user.change', compact('user'));
     }
 
-    public function userChange(Request $request, User $user) {
+    public function userChange(Request $request, User $user)
+    {
         $request->validate([
             'old_password' => 'required',
             'password' => 'required|min:8',

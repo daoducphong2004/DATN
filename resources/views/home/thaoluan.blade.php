@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
                     @foreach ($data_forums as $item_forums)
-                    @foreach ($data_categories_forums as $item_categories)
+
                     <tr class="d-flex">
                         <td class="col-8 col-md-4 col-lg-5 col-xl-5">
                             <a class="topic-title" href="https://docln.net/thao-luan/2266-thao-luan-cho-tac-gia-oln"><i
@@ -65,20 +65,20 @@
                             <div class="subtitle-category none-m">
                                 <span class="category-circle"><i class="fas fa-circle" aria-hidden="true"
                                         style="color:
-                                        {{$item_categories->color}}
+                                        {{$item_forums->color}}
                                       "></i></span>
                                 <a href="/thao-luan?chuyen-muc=5">
-                                        {{$item_categories->content_categories}}
+                                        {{$item_forums->content_categories}}
                                        </a>
                             </div>
                         </td>
                         <td class="col-md-3 col-lg-2 d-none d-md-block">
                             <span class="category-circle"><i class="fas fa-circle" aria-hidden="true"
                                     style="color: 
-                                        {{$item_categories->color}}
+                                        {{$item_forums->color}}
                                         "></i></span>
                             <a href="/thao-luan?chuyen-muc=5">
-                                        {{$item_categories->content_categories}}
+                                        {{$item_forums->content_categories}}
                                        </a>
                         </td>
                         <td class="col-1 d-none d-lg-block">{{$item_forums->viewer}}</td>
@@ -87,26 +87,26 @@
 
                         <td class="col-md-2 col-lg-1 d-none d-md-block">
                             <time class="topic-time timeago" title="{{$item_forums->created_at}}"
-                                datetime="{{$item_forums->created_at}}">2 phút</time>
+                                datetime="{{$item_forums->created_at}}">{{$item_forums->time_ago}}</time>
                         </td>
 
                         <td class="col-4 col-md-3 col-lg-2 text-right">
                             <div class="topic-avatar none block-m">
                                 <img
-                                    src=" @foreach ($data_user_forums as $item_user)
-                                    {{$item_user->avt_user}}
-                                    @endforeach ">
+                                    src=" 
+                                    {{$item_forums->avt_user}}
+                                     ">
                             </div>
                             <div class="topic-username block-m">
-                                <a href="/thanh-vien/147882">@foreach ($data_user_forums as $item_user)
-                                    {{$item_user->username}}
-                                    @endforeach</a>
+                                <a href="/thanh-vien/147882">
+                                    {{$item_forums->username}}
+                                    </a>
                                 <time class="topic-time block md:hidden timeago" title="{{$item_forums->created_at}}"
                                     datetime="{{$item_forums->created_at}}">2 phút</time>
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+  
                     @endforeach
                     
                 </tbody>

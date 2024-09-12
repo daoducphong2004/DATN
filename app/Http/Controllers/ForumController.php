@@ -31,8 +31,21 @@ class ForumController extends Controller
         'categories.content as content_categories',
         'categories.slug as slug_categories'
     ]);
-    $data_forums = Forum::all();
+    $data_forums = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
+        'categories.color as color',
+        'categories.content as content_categories',
+        'categories.slug as slug_categories',
+        'users.username as username', 
+        'users.avatar_url as avt_user',
+        'forums.id as id', 
+        'forums.title as title',
+        'forums.content as content', 
+        'forums.created_at as created_at'
+    ])->orderBy('created_at','desc')->get();
     $categories = Category::all();
+    foreach ($data_forums as $forum) {
+        $forum->time_ago = Carbon::parse($forum->created_at)->diffForHumans();
+    }
         return view('home.thaoluan', compact('data_forums','data_user_forums','data_categories_forums','categories'));
     }
 
@@ -82,7 +95,6 @@ class ForumController extends Controller
             'slug'=>'',
             'created_at'=>Carbon::now()
         ];
-        dd($bruh);
         Forum::query()->create($bruh);
         return redirect()->route('thaoluan');
     }

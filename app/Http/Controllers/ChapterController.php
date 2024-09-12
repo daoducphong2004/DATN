@@ -46,6 +46,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
+        $chapter->user_id = 1;
         // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
         $chapter->save();

@@ -84,7 +84,7 @@
                                             <a href="{{route('truyen.truyen', $item->slug)}}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{ $item->book_path }}')">
+                                                        style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
                                                     </div>
                                                 </div>
                                             </a>

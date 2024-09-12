@@ -171,5 +171,4 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');

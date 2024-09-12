@@ -35,7 +35,7 @@
                                             </div>
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ $book->book_path }}')">
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
                                                 </div>
                                             </div>
                                         </div>
@@ -222,17 +222,7 @@
                                 class="mobile-icon"><i class="fas fa-chevron-down"></i></span></header>
                         <main class="d-lg-block">
                             <div class="long-text" style='word-wrap: break-word;'>
-                                <p>Lần đầu dịch truyện ;P<br><br>Link raw: <a href="https://ncode.syosetu.com/n5522if/"
-                                        rel="nofollow noreferrer noopener"
-                                        target="_blank">ギャルの自転車を直したら懐かれた【８月２５日・第１巻発売予定】</a><br><br>Mình dịch từ eng, có thể
-                                    sẽ dịch từ jap khi đã tự tin...<br><br>Bản Light Novel đã ra mắt vào
-                                    25/8/2024!<br><br><strong>Dịch theo eng tới chết, free chap nào quất chap đó.</strong>
-                                </p>
-                                <p>Cơ mà tụi nó lock chap cả đống huhu, ước ai đó đô nết để mình mở khóa 20 chap của tụi
-                                    nó:(((<br><br>Link momo cho các bạn có lòng thành nhé, cảm ơn mọi ngườiiii<br><br><img
-                                        src="https://i.postimg.cc/g2KNst0y/n-t.png" alt=""></p>
-                                <p> </p>
-                                <p> </p>
+                                {!! $book->note !!}
                             </div>
                         </main>
                     </section>
@@ -263,7 +253,8 @@
                                 @foreach ($book->episodes as $item)
                                     <li data-scrollTo="#volume_{{ $item->id }}"><span
                                             class="list_vol-order">{{ $loop->index }}.</span><span
-                                            class="list_vol-title">{{ $item->title }})</span></li>
+                                            class="list_vol-title">{{ $item->title }}</span>
+                                        </li>
                                 @endforeach
 
                             </ol>

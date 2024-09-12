@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class book extends Model
 {
     use HasFactory;
-    protected $fillable =
-    [
+    protected $fillable = [
         'type',
         'status',
         'like',
@@ -27,6 +26,9 @@ class book extends Model
         'group_id'
     ];
 
+    public function group(){
+        return $this->belongsTo(group::class,'group_id');
+    }
     public function genres()
     {
         return $this->belongsToMany(Genre::class);

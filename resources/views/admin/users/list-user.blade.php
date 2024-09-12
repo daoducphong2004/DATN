@@ -19,13 +19,16 @@
         <h2 class="text-primary mb-4">Danh sách người dùng</h2>
         <table border="1" class="table">
             <tr>
-                <th>Tên Đăng Nhập</th>
-                <th>Pass</th>
+                <th>STT</th>
+                <th>Tên người dùng</th>
                 <th>Email</th>
-                <th>Kinh Nghiệm</th>
-                <th>Cấp Độ</th>
-                <th>Vai Trò</th>
+                <th>Mật khẩu</th>
+                <th>Tên đầy đủ</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
                 <th>Ảnh Đại Diện</th>
+                <th>Trạng thái</th>
+                <th>Số xu</th>
                 <th>
                     <a class="btn btn-primary" href="">Thêm Tài Khoản</a>
                 </th>
@@ -38,9 +41,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>
                         <img width="50px" src="" alt="Không có ảnh đại diện">
                     </td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <a class="btn btn-warning" href="">Sửa</a>
                         <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>

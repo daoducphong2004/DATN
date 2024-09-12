@@ -21,7 +21,7 @@
 
                             <textarea name="content" class="comment_content"></textarea>
                             <input type="hidden" name="chapter_id" value="{{ $chapter->id }}">
-                        <input type="hidden" name="parent_id" value="">
+                            <input type="hidden" name="parent_id" value="">
                             <div class="comment_toolkit clear">
                                 <input class="button" type="submit" value="Đăng bình luận">
                             </div>

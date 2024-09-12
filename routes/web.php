@@ -9,10 +9,11 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
@@ -38,12 +39,8 @@ use App\Models\genre;
 
 Auth::routes();
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index'])->name('home');
-// Route::get('gioithieu', [UserController::class, 'gioithieu']);
-// Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('vuadang', [UserController::class, 'vuadang']);
-// Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
@@ -60,7 +57,6 @@ Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
 Route::get('sangtac', [UserController::class, 'sangtac']);
 Route::get('xuatban', [UserController::class, 'xuatban']);
 
@@ -170,3 +166,10 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 // End Phong
+
+
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+
+Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');

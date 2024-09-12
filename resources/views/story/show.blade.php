@@ -174,7 +174,7 @@
                                         <div class="series-summary">
                                             <h4 class="font-bold">Tóm tắt</h4>
                                             <div class="summary-content">
-                                                 {!! $book->description !!}
+                                                {!! $book->description !!}
                                             </div>
                                             <div class="summary-more none more-state">
                                                 <div class="see_more">Xem thêm</div>
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -254,7 +254,7 @@
                                     <li data-scrollTo="#volume_{{ $item->id }}"><span
                                             class="list_vol-order">{{ $loop->index }}.</span><span
                                             class="list_vol-title">{{ $item->title }}</span>
-                                        </li>
+                                    </li>
                                 @endforeach
 
                             </ol>
@@ -399,8 +399,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-2">
                                         <div class="volume-cover">
-                                            <a
-                                                href="{{route('truyen.tap',[$book->slug,$item->slug]) }}">
+                                            <a href="{{ route('truyen.tap', [$book->slug, $item->slug]) }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
                                                         style="background-image: url('{{ asset(Storage::url($item->episode_path)) }}')">
@@ -506,7 +505,7 @@
                                                                         class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
                                                                         <div class="self-center">
                                                                             <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="">{{$comment->user->username}}</a>
+                                                                                href="">{{ $comment->user->username }}</a>
                                                                         </div>
                                                                         <div class="self-center">
                                                                             <div
@@ -566,7 +565,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @foreach($comment->replies as $reply)
+                                                @foreach ($comment->replies as $reply)
                                                     <div class="ln-comment-reply">
                                                         <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
                                                             data-comment="2560870" data-parent="2559913">
@@ -593,7 +592,8 @@
                                                                                 <div class="" @click="show = !show">
                                                                                     <i class="fas fa-angle-down"></i>
                                                                                 </div>
-                                                                                <div class="ln-comment-toolkit" x-show="show"
+                                                                                <div class="ln-comment-toolkit"
+                                                                                    x-show="show"
                                                                                     @click.outside="show = false"
                                                                                     style="display: none">
 
@@ -604,12 +604,14 @@
                                                                         <div class="ln-comment-content long-text">
                                                                             {{ $reply->content }}
                                                                         </div>
-                                                                        <div class="comment_see_more expand none">Xem thêm</div>
+                                                                        <div class="comment_see_more expand none">Xem thêm
+                                                                        </div>
                                                                         <div
                                                                             class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                                             <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
                                                                                 class="text-slate-500">
-                                                                                <time class="timeago" title="22-08-2024 23:44:19"
+                                                                                <time class="timeago"
+                                                                                    title="22-08-2024 23:44:19"
                                                                                     datetime="2024-08-22T23:44:19+07:00">
                                                                                     {{ $reply->create_at }}
                                                                                 </time>
@@ -617,7 +619,8 @@
                                                                             <a
                                                                                 class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                                 <i class="fas fa-thumbs-up me-1"></i>
-                                                                                <span class="likecount font-semibold"></span>
+                                                                                <span
+                                                                                    class="likecount font-semibold"></span>
                                                                             </a>
                                                                             <a
                                                                                 class="self-center visible-toolkit-item do-reply cursor-pointer">
@@ -634,6 +637,7 @@
                                                 @endforeach
                                             </div>
                                         @endforeach
+
 
                                         <div class="ln-comment-page">
                                             <div class="pagination-footer">

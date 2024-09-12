@@ -25,7 +25,7 @@ class CommentChapterController extends Controller
      */
     public function create(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $request->validate([
             'chapter_id' => 'required|exists:chapters,id',
             'content' => 'required|string',
@@ -37,7 +37,7 @@ class CommentChapterController extends Controller
             // 'user_id' => auth()->id(),
             'user_id' => 1,
             'content' => strip_tags($request->input('content')),
-            'parent_id' => $request->chapter_id,
+            'parent_id' => $request->parent_id,
         ]);
 
         return back()->with('success', 'Bình luận đã được gửi.');

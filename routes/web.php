@@ -39,20 +39,20 @@ use App\Models\genre;
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-], function(){
-    Route::get('/list-user', function(){
+], function () {
+    Route::get('/list-user', function () {
         return view('admin.users.list-user');
     })->name('listUser');
 
-    Route::get('/list-category', function(){
+    Route::get('/list-category', function () {
         return view('admin.categories.list-category');
     })->name('listCategory');
 
-    Route::get('/list-story', function(){
+    Route::get('/list-story', function () {
         return view('admin.stories.list-story');
     })->name('listStory');
 
-    Route::get('/list-comment', function(){
+    Route::get('/list-comment', function () {
         return view('admin.comments.list-comment');
     })->name('listComment');
 });
@@ -61,7 +61,6 @@ Route::controller(HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
         Route::get('/chuongtruyen', 'chuongtruyen')->name('chuongtruyen');
-
     });
 
 // Route::get('home', [UserController::class, 'index']);
@@ -144,6 +143,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
+
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
+    Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
+    Route::get('/groups/edit/{id}', [GroupController::class, 'edit'])->name('groups_edit');
+    Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
+    Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 });
 
 
@@ -174,6 +180,3 @@ Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.da
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 // End Phong
-
-
-

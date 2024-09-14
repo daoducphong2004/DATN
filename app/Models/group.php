@@ -18,4 +18,8 @@ class group extends Model
     {
         return $this->hasMany(Book::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -9,17 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-    {
-        // Schema::table('groups', function (Blueprint $table) {
-        //     $table->softDeletes();
-        // });
-    }
-
-    public function down()
+    public function up(): void
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            $table->string('slug');
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('groups', function (Blueprint $table) {
+            $table->string('slug');
         });
     }
 };

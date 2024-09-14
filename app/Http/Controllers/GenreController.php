@@ -2,65 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\genre;
 use App\Http\Requests\StoregenreRequest;
-use App\Http\Requests\UpdategenreRequest;
+use App\Models\genre;
+use Illuminate\Http\Request;
+use Exception;
 
 class GenreController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        try {
+            $genres = genre::paginate(10);
+            return view('admin.genre.index', compact('genres'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load genre: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        try {
+            return view('admin.genre.create');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load create form: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoregenreRequest $request)
     {
-        //
+
+        try {
+            genre::create($request->validated());
+            return redirect()->route('genres_index')->with('success', 'Genre created successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create Genre: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(genre $genre)
+    public function edit(genre $id)
     {
-        //
+        try {
+            return view('admin.genre.edit', compact('id'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load edit form: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(genre $genre)
+    public function update(StoregenreRequest $request, genre $id)
     {
-        //
+        try {
+            $id->update($request->validated());
+            return redirect()->route('genres_index')->with('success', 'Genre updated successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update Genre: ' . $e->getMessage()]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdategenreRequest $request, genre $genre)
+    public function destroy(genre $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(genre $genre)
-    {
-        //
+        try {
+            $id->delete();
+            return redirect()->route('genres_index')->with('success', 'Genre deleted successfully.');
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete Genre: ' . $e->getMessage()]);
+        }
     }
 }

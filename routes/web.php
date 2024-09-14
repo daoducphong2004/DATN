@@ -10,14 +10,18 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\CommentChapterController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -36,12 +40,8 @@ use App\Models\genre;
 
 Auth::routes();
 
-Route::get('home', [UserController::class, 'index']);
-Route::get('/', [UserController::class, 'index'])->name('home');
-// Route::get('gioithieu', [UserController::class, 'gioithieu']);
-// Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('vuadang', [UserController::class, 'vuadang']);
-// Route::get('thaoluan', [UserController::class, 'thaoluan']);
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
@@ -54,19 +54,17 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 // })->name('storyinformation');
 
 
-Route::get('home', [UserController::class, 'index']);
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('danhsach', [UserController::class, 'danhsach']);
 Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('thaoluan', [UserController::class, 'thaoluan']);
 Route::get('sangtac', [UserController::class, 'sangtac']);
 Route::get('xuatban', [UserController::class, 'xuatban']);
 
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan']);
+Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('register', [UserController::class, 'register'])->name('register');
 Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
@@ -119,7 +117,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
+
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres_store');
+    Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
+    Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
+    Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
 });
+
 
 Route::prefix('chapter-comments')->group(function () {
     Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
@@ -163,9 +169,12 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 // End Phong
 
 // User trong Group
-Route::prefix('groups/{group}')->group(function () {
-    Route::get('users', [UserGroupController::class, 'index'])->name('groups.users.index');
-    Route::get('users/create', [UserGroupController::class, 'create'])->name('groups.users.create');
-    Route::post('users', [UserGroupController::class, 'store'])->name('groups.users.store');
-    Route::delete('users/{user}', [UserGroupController::class, 'destroy'])->name('groups.users.destroy');
+Route::prefix('groups')->group(function () {
+    Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
+    Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
+
+
+Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');

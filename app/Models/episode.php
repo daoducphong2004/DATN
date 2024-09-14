@@ -29,7 +29,7 @@ class episode extends Model
 
     public function latestChapter()
     {
-        return $this->hasOne(Chapter::class)->latest();
+        return $this->hasOne(chapter::class)->latest();
     }
 
     protected static function boot()

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
@@ -161,5 +162,10 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 // End Phong
 
-
-
+// User trong Group
+Route::prefix('groups/{group}')->group(function () {
+    Route::get('users', [UserGroupController::class, 'index'])->name('groups.users.index');
+    Route::get('users/create', [UserGroupController::class, 'create'])->name('groups.users.create');
+    Route::post('users', [UserGroupController::class, 'store'])->name('groups.users.store');
+    Route::delete('users/{user}', [UserGroupController::class, 'destroy'])->name('groups.users.destroy');
+});

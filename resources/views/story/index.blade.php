@@ -174,7 +174,7 @@
                                                 title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio lazyload"
-                                                        style="background-image: url('{{ $item->book_path }}');">
+                                                        style="background-image: url('{{ asset(Storage::url( $item->book_path ))}}');">
                                                     </div>
                                                 </div>
                                             </a>

@@ -143,7 +143,13 @@
                                         <div class="row statistic-list">
                                             @php
                                                 use Carbon\Carbon;
+                                                use Carbon\CarbonInterval;
+                                                use Illuminate\Support\Facades\App;
+
+                                                App::setLocale('vi'); // Đặt ngôn ngữ là tiếng Việt
+
                                                 $updatedAt = Carbon::parse($book->updated_at);
+                                                CarbonInterval::setLocale('vi'); // Đặt ngôn ngữ cho CarbonInterval
                                             @endphp
 
                                             <div class="col-12 col-md-3 statistic-item block-wide at-mobile">
@@ -208,7 +214,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>

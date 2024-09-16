@@ -6,6 +6,7 @@ use App\Models\episode;
 use App\Http\Requests\StoreepisodeRequest;
 use App\Http\Requests\UpdateepisodeRequest;
 use App\Models\book;
+use Illuminate\Support\Facades\Storage;
 use Str;
 
 class EpisodeController extends Controller
@@ -81,18 +82,62 @@ class EpisodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(episode $episode)
+    public function edit(string $id)
     {
-        //
+        $episode = episode::findOrFail($id);
+        // dd($episode)
+
+        // Lấy danh sách các chapters trong episode của chapter hiện tại
+        // dd($book->episodes);
+        return view('stories.iframe.episodes.formUpdateEpisode', compact( 'episode'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateepisodeRequest $request, episode $episode)
+    public function update(UpdateEpisodeRequest $request, $id)
     {
-        //
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'string',
+            'episode_path' => 'nullable|file|mimes:png,jpg,jpeg,gif|max:2048', // File is optional during update
+        ]);
+
+        // Find the episode by ID
+        $episode = Episode::findOrFail($id);
+
+        // Update the title and description
+        $episode->title = $validatedData['title'];
+        $episode->description = $validatedData['description'];
+
+        // Handle file upload if a new file is provided
+        if ($request->hasFile('episode_path')) {
+            $file = $request->file('episode_path');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/episodes', $filename);
+
+            // Delete the old file if it exists
+            if ($episode->episode_path && Storage::exists($episode->episode_path)) {
+                Storage::delete($episode->episode_path);
+            }
+
+            // Update the file path
+            $episode->episode_path = $filePath;
+        }
+
+        // Save the updated episode
+        $episode->save();
+
+        // Update the slug after saving to ensure the episode ID is included in the slug
+        $slug = Str::slug('t' . $episode->id . '-' . $validatedData['title']);
+        $episode->slug = $slug;
+        $episode->save();
+
+        // Redirect or return a success message
+        return redirect()->route('episode.index')->with('success', 'Episode updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.

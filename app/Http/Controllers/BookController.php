@@ -180,20 +180,14 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         try {
-            // Find the book or fail if it doesn't exist
             $book = Book::findOrFail($id);
-
-            // Detach the associated genres
             $book->genres()->detach();
-
-            // Delete the book
             $book->delete();
-
-            // Redirect to the story tree with a success message
-            return redirect()->route('danh-sach')->with('success', 'Truyện đã được xóa thành công!');
+            return response()->json(['success' => 'Truyện đã được xóa thành công!']);
         } catch (\Exception $e) {
-            // Handle errors and redirect back with an error message
-            return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.');
+            return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
+
+
 }

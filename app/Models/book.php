@@ -24,7 +24,9 @@ class book extends Model
         'is_VIP',
         'is_delete',
         'adult',
-        'group_id'
+        'group_id',
+        'user_id',
+        'Is_Inspect'
     ];
 
     public function group(){

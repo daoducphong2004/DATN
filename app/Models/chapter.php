@@ -15,7 +15,7 @@ class chapter extends Model
         'title',
         'content',
         'episode_id',
-        // 'user_id',
+        'user_id',
     ];
 
     public function episode()

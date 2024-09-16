@@ -16,6 +16,8 @@ class episode extends Model
         'description',
         'episode_path',
         'book_id',
+        'user_id',
+
     ];
 
     public function chapters()

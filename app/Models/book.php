@@ -37,11 +37,16 @@ class book extends Model
 
     public function comments()
     {
-        return $this->hasMany(BookComment::class);
+        return $this->hasMany(bookcomment::class);
     }
 
     public function episodes()
     {
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(episode::class);
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(chapter::class);
     }
 }

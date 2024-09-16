@@ -23,5 +23,16 @@ class User extends Authenticatable
         'status',
         'coin_earned',
         'full_name',
+        'remember_token',
+        'group',
     ];
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(bookcomment::class);
+    }
 }

@@ -28,7 +28,6 @@ return new class extends Migration
             $table->timestamp('last_login')->nullable();
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
             $table->integer('coin_earned')->default(0);
-            $table->string('remember_token')->nullable();
         });
     }
 

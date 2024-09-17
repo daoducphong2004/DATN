@@ -1,4 +1,4 @@
-@extends('home2.layout.master')
+@extends('home.layout.master')
 @section('content')
     <div class="page-top-group ">
         <a href="/thao-luan/2591">
@@ -113,157 +113,11 @@
                             </div>
                             <div class="section-content">
                                 <ul class="filter-type unstyled clear">
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/action">Action</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/adapted-to-anime">Adapted to Anime</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/adapted-to-drama-cd">Adapted to Drama CD</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/adapted-to-manga">Adapted to Manga</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/adult">Adult</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/adventure">Adventure</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/age-gap">Age Gap</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/boys-love">Boys
-                                            Love</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/character-growth">Character Growth</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/chinese-novel">Chinese Novel</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/comedy">Comedy</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/cooking">Cooking</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/different-social-status">Different Social
-                                            Status</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/drama">Drama</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/ecchi">Ecchi</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/english-novel">English Novel</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/fantasy">Fantasy</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/female-protagonist">Female Protagonist</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/game">Game</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/gender-bender">Gender
-                                            Bender</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/harem">Harem</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/historical">Historical</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/horror">Horror</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/incest">Incest</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/isekai">Isekai</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/josei">Josei</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/korean-novel">Korean
-                                            Novel</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/magic">Magic</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/martial-arts">Martial
-                                            Arts</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/mature">Mature</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/mecha">Mecha</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/military">Military</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/misunderstanding">Misunderstanding</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/mystery">Mystery</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/netorare">Netorare</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/one-shot">One
-                                            shot</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/otome-game">Otome
-                                            Game</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/parody">Parody</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/psychological">Psychological</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/reverse-harem">Reverse Harem</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/romance">Romance</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/school-life">School
-                                            Life</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/science-fiction">Science Fiction</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/seinen">Seinen</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/shoujo">Shoujo</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/shoujo-ai">Shoujo
-                                            ai</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/shounen">Shounen</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/shounen-ai">Shounen
-                                            ai</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/slice-of-life">Slice
-                                            of Life</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/slow-life">Slow
-                                            Life</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/sports">Sports</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/super-power">Super
-                                            Power</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/supernatural">Supernatural</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/suspense">Suspense</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/tragedy">Tragedy</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/wars">Wars</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/web-novel">Web
-                                            Novel</a>
-                                    </li>
-                                    <li class="filter-type_item"><a
-                                            href="https://docln.net/the-loai/workplace">Workplace</a>
-                                    </li>
-                                    <li class="filter-type_item"><a href="https://docln.net/the-loai/yuri">Yuri</a>
-                                    </li>
+                                    @foreach ($genres as $key => $value)
+                                        <li class="filter-type_item"><a
+                                                href="the-loai/{{ $value }}">{{ $key }}</a>
+                                    @endforeach
+
                                 </ul>
                             </div>
                         </section>
@@ -311,33 +165,31 @@
                                 </div>
                             </header>
                             <main class="row">
-                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                                    <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_15056">
-                                        <a href="/truyen/15056-kisu-nante-dekinai-deshoto-chouhatsu-suru-namaikina-osananajimi-wo-wakarasete-yattara-yosou-ijou-ni-dereta/c138630-chuong-03-tro-choc-gheo"
-                                            title="Chương 03: Trò chọc ghẹo">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio lazyloaded"
-                                                    data-bg="https://i2.docln.net/ln/series/covers/s15056-da17f7fd-9793-42a5-9f5b-64c8a7927853.jpg"
-                                                    style="background-image: url(&quot;https://i2.docln.net/ln/series/covers/s15056-da17f7fd-9793-42a5-9f5b-64c8a7927853.jpg&quot;);">
+                                @foreach ($data as $item)
+                                    <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                                        <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_15056">
+                                            <a href="{{route('truyen.truyen', $item->slug)}}">
+                                                <div class="a6-ratio">
+                                                    <div class="content img-in-ratio lazyloaded"
+                                                        data-bg="https://i2.docln.net/ln/series/covers/s15056-da17f7fd-9793-42a5-9f5b-64c8a7927853.jpg"
+                                                        style="background-image: url('{{ $item->book_path }}');">
+                                                    </div>
                                                 </div>
+                                            </a>
+                                            <div class="thumb-detail">
+                                                <div class="thumb_attr chapter-title" title="Chương 03: Trò chọc ghẹo"><a
+                                                        href="{{route('truyen.truyen', $item->slug)}}">{{ $item->title}}</a></div>
+                                                <div class="thumb_attr volume-title">Vol 2</div>
                                             </div>
-                                        </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr chapter-title" title="Chương 03: Trò chọc ghẹo"><a
-                                                    href="/truyen/15056-kisu-nante-dekinai-deshoto-chouhatsu-suru-namaikina-osananajimi-wo-wakarasete-yattara-yosou-ijou-ni-dereta/c138630-chuong-03-tro-choc-gheo"
-                                                    title="Chương 03: Trò chọc ghẹo">Chương 03: Trò chọc ghẹo</a></div>
-                                            <div class="thumb_attr volume-title">Vol 2</div>
                                         </div>
-                                    </div>
-                                    <div class="thumb_attr series-title"><a
-                                            href="/truyen/15056-kisu-nante-dekinai-deshoto-chouhatsu-suru-namaikina-osananajimi-wo-wakarasete-yattara-yosou-ijou-ni-dereta"
-                                            title="&quot;Cậu chẳng thể hôn được đâu ha?&quot; Khi tôi khiến cho cô bạn thuở nhỏ luôn trêu chọc mình hiểu chuyện, cô ấy đột nhiên trở nên dễ thương hơn nhiều">"Cậu
-                                            chẳng thể hôn được đâu ha?" Khi tôi khiến cho cô bạn thuở nhỏ luôn trêu chọc
-                                            mình hiểu chuyện, cô ấy đột nhiên trở nên dễ thương hơn nhiều</a></div>
-                                </div>
+                                        <div class="thumb_attr series-title"><a
+                                                href="{{route('truyen.truyen', $item->slug)}}">{{ $item->description}}</a>
+                                        </div>
 
+                                    </div>
+                                @endforeach
                                 <!-- Tooltip -->
-                                <div style="display: none">
+                                {{-- <div style="display: none">
                                     <div id="series_15056">
                                         <div style="margin: 10px 0; width: 250px">
                                             <p style="color: white; font-weight: bold">
@@ -357,8 +209,8 @@
                                             xanh lam...
                                         </div>
                                     </div>
-                                </div>
-                                <!-- // Tooltip -->
+                                </div> --}}
+                               {{--  <!-- // Tooltip -->
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                     <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_12808">
                                         <a href="/truyen/12808-dont-take-it-wrong-thats-what-my-childhood-friend-who-gave-me-love-chocolate-said-but-what-does-that-mean-dont-take-it-wrong/c99490-oneshot"
@@ -405,6 +257,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- // Tooltip -->
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                     <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_11923">
@@ -2255,7 +2108,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- // Tooltip -->
+                                <!-- // Tooltip --> --}}
                             </main>
                             <div class="pagination-footer">
                                 <div class="pagination_wrap">

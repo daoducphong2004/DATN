@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class book extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $fillable = [
         'type',
         'status',
@@ -23,7 +24,9 @@ class book extends Model
         'is_VIP',
         'is_delete',
         'adult',
-        'group_id'
+        'group_id',
+        'user_id',
+        'Is_Inspect'
     ];
 
     public function group(){
@@ -36,11 +39,16 @@ class book extends Model
 
     public function comments()
     {
-        return $this->hasMany(BookComment::class);
+        return $this->hasMany(bookcomment::class);
     }
 
     public function episodes()
     {
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(episode::class);
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(chapter::class);
     }
 }

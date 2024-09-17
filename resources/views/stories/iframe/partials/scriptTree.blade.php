@@ -53,8 +53,8 @@
                             $.ajax({
                                 url: '{{ route('story.destroy', $book->id) }}',
                                 type: 'DELETE',
-                                data: {
-                                    _token: '{{ csrf_token() }}'
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                                 },
                                 success: function(result) {
                                     alert('Truyện đã được xóa thành công!');
@@ -64,9 +64,11 @@
                                     alert('Xóa truyện thất bại. Vui lòng thử lại.');
                                 }
                             });
+
                         }
                     };
                     break;
+
                 case 'Sắp xếp tập':
                     child.onclick = () => openLink(
                         'https://docln.net/action/series/19025/order?navbar=0',
@@ -83,7 +85,7 @@
                     break;
                 case 'Sửa tập':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/book/' + id + '/edit?navbar=0',
+                        '{{ route('episode.edit', ':id') }}'.replace(':id', id),
                         'action',
                         'book_id=' + id + '&action=editbook'
                     );
@@ -93,7 +95,7 @@
                     child.onclick = () => {
                         if (confirm(
                                 'Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!'
-                                )) {
+                            )) {
                             $.ajax({
                                 url: '{{ route('episode.destroy', ':id') }}'.replace(':id', id),
                                 type: 'DELETE',
@@ -114,7 +116,7 @@
                             });
                         }
                     };
-break;
+                    break;
                 case 'Xóa nhiều chương':
                     child.onclick = () => openLink(
                         'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',

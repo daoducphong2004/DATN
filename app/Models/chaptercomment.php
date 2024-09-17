@@ -14,11 +14,25 @@ class chaptercomment extends Model
         'user_id',
         'content',
         'parent_id'
-        ];
+    ];
 
-        public function children (){
-            return $this->hasMany(chaptercomment::class,'parent_id')->with('children');
-        }
+    public function chapter()
+    {
+        return $this->belongsTo(chapter::class);
+    }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
+    public function parent()
+    {
+        return $this->belongsTo(chaptercomment::class, 'parent_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(chaptercomment::class, 'parent_id');
+    }
 }

@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
+use App\Models\bookcomment;
 use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -21,30 +25,60 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->paginate(30);
+        $data = book::query()->where('Is_Inspect',"Đã Duyệt")->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
-    public function reading(string $slug, string $chapter_slug)
+    public function bookComment($bookId)
     {
-        // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+        $comments = bookcomment::with('user')
+        ->where('book_id', $bookId)
+        ->whereNull('parent_id')->get();
 
-        // Tìm kiếm chapter dựa trên chapter_slug
-        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+        $book = book::findOrFail($bookId);
 
-        // Lấy episode liên quan đến chapter
-        $episode = $chapter->episode()->with('chapters')->firstOrFail();
-        // Lấy danh sách các chapters trong episode của chapter hiện tại
-        $chapters = $episode->chapters;
+        return view('story.show', compact('comments', 'book'));
 
-        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
+    }
+
+    // public function chapterComment($chapterId)
+    // {
+    //     $comments = chaptercomment::with('user')
+    //     ->where('chapter_id', $chapterId)
+    //     ->whereNull('parent_id')->get();
+
+    //     $chapter = chapter::findOrFail($chapterId);
+
+    //     return view('story.reading', compact('comments', 'chapter'));
+
+    // }
+    public function reading(string $slug, string $chapter_slug,  Request $request){
+     // Tìm kiếm book dựa trên slug
+     $book = book::where('slug', $slug)->where('Is_Inspect',"Đã Duyệt")->with('episodes')->firstOrFail();
+
+     // Tìm kiếm chapter dựa trên chapter_slug
+     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+
+     // Lấy episode liên quan đến chapter
+     $episode = $chapter->episode()->with('chapters')->firstOrFail();
+
+     // Lấy danh sách các chapters trong episode của chapter hiện tại
+     $chapters = $episode->chapters;
+
+     $comments = chaptercomment::with('user')
+     ->where('chapter_id', $chapter->id)
+     ->whereNull('parent_id')->get();
+
+     $parentId = $request->input('parent_id');
+
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments','parentId'));
+
     }
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->paginate(30);
+        $data = book::query()->where('Is_Inspect',"Đã Duyệt")->paginate(30);
         // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
@@ -81,6 +115,7 @@ class BookController extends Controller
             // 'is_delete' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
+            'user_id'=>1//Auth::id(),
         ]);
         $slug = Str::slug($book->id . '-' . $request->title);
         $book->slug = $slug;
@@ -121,7 +156,15 @@ class BookController extends Controller
         )->firstOrFail();
         $episodes = $book->episodes;
         // dd($book,$episodes);
-        return view('story.show', compact('book', 'episodes'));
+
+        $comments = bookcomment::with('user')
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')->get();
+
+        // dd($comments);
+
+
+        return view('story.show', compact('book', 'episodes', 'comments'));
     }
 
     /**
@@ -131,7 +174,7 @@ class BookController extends Controller
     {
         $book = Book::with('genres', 'episodes')->findOrFail($id);
         $genres = genre::pluck('id', 'name');
-                return view('stories.iframe.information', compact('book','genres'));
+        return view('stories.iframe.information', compact('book', 'genres'));
     }
 
     /**
@@ -159,8 +202,8 @@ class BookController extends Controller
             'description' => $request->description,
             'note' => $request->note,
             'is_VIP' => 0,
-            'book_path'=>$book_path,
-            'slug'=>$slug,
+            'book_path' => $book_path,
+            'slug' => $slug,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
         ]);
@@ -180,20 +223,14 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         try {
-            // Find the book or fail if it doesn't exist
             $book = Book::findOrFail($id);
-
-            // Detach the associated genres
             $book->genres()->detach();
-
-            // Delete the book
             $book->delete();
-
-            // Redirect to the story tree with a success message
-            return redirect()->route('danh-sach')->with('success', 'Truyện đã được xóa thành công!');
+            return response()->json(['success' => 'Truyện đã được xóa thành công!']);
         } catch (\Exception $e) {
-            // Handle errors and redirect back with an error message
-            return redirect()->route('storytree')->with('error', 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.');
+            return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
+
+
 }

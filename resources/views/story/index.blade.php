@@ -128,26 +128,26 @@
                         <section class="thumb-section-flow">
                             <header class="filter-container pad-bottom-10">
                                 <!-- <button class="button button-general" type="submit" name="sapxep" value="tentruyen">
-                                <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A - Z
-                            </button>
-                            <button class="button button-general" type="submit" name="sapxep" value="tentruyenza">
-                                <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z - A
-                            </button>
-                            <button class="button button-general" type="submit" name="sapxep" value="capnhat">
-                                <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Mới cập nhật
-                            </button>
-                            <button class="button button-general" type="submit" name="sapxep" value="truyenmoi">
-                                <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Truyện mới
-                            </button>
-                            <button class="button button-general" type="submit" name="sapxep" value="theodoi">
-                                <i class="fa fa-heart" aria-hidden="true"></i> Theo dõi
-                            </button>
-                            <button class="button button-general button-primary-green" type="submit" name="sapxep" value="top">
-                                <i class="fa fa-fire" aria-hidden="true"></i> Top
-                            </button>
-                            <button class="button button-general type="submit" name="sapxep" value="topthang">
-                                <i class="fa fa-fire" aria-hidden="true"></i> Top tháng
-                            </button>  -->
+                                    <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A - Z
+                                </button>
+                                <button class="button button-general" type="submit" name="sapxep" value="tentruyenza">
+                                    <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z - A
+                                </button>
+                                <button class="button button-general" type="submit" name="sapxep" value="capnhat">
+                                    <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Mới cập nhật
+                                </button>
+                                <button class="button button-general" type="submit" name="sapxep" value="truyenmoi">
+                                    <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Truyện mới
+                                </button>
+                                <button class="button button-general" type="submit" name="sapxep" value="theodoi">
+                                    <i class="fa fa-heart" aria-hidden="true"></i> Theo dõi
+                                </button>
+                                <button class="button button-general button-primary-green" type="submit" name="sapxep" value="top">
+                                    <i class="fa fa-fire" aria-hidden="true"></i> Top
+                                </button>
+                                <button class="button button-general type="submit" name="sapxep" value="topthang">
+                                    <i class="fa fa-fire" aria-hidden="true"></i> Top tháng
+                                </button>  -->
                                 <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
                                     <option value="tentruyen">A - Z</option>
                                     <option value="tentruyenza">Z - A</option>
@@ -174,7 +174,7 @@
                                                 title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio lazyload"
-                                                        style="background-image: url('{{ asset(Storage::url( $item->book_path ))}}');">
+                                                        style="background-image: url('{{ asset(Storage::url($item->book_path)) }}');">
                                                     </div>
                                                 </div>
                                             </a>

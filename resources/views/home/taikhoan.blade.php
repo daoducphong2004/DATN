@@ -1,4 +1,4 @@
-@extends('home2.layout.master')
+@extends('home.layout.master')
 @section('content')
     <main id="mainpart" class="profile-page">
         <div class="profile-feature-wrapper">

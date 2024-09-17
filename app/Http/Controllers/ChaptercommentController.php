@@ -71,7 +71,6 @@ class ChaptercommentController extends Controller
         $chapterComment->user_id = Auth::user()->id;
         $chapterComment->chapter_id = $request->chapter_id;
         $chapterComment->parent_id = $request->parent_id;
-
     }
 
     /**

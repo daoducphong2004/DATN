@@ -14,7 +14,12 @@ class group extends Model
         'name',
         'description',
     ];
-    public function books(){
+    public function books()
+    {
         return $this->hasMany(Book::class);
+    }
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

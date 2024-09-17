@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class episode extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -15,6 +16,8 @@ class episode extends Model
         'description',
         'episode_path',
         'book_id',
+        'user_id',
+
     ];
 
     public function chapters()
@@ -29,7 +32,7 @@ class episode extends Model
 
     public function latestChapter()
     {
-        return $this->hasOne(Chapter::class)->latest();
+        return $this->hasOne(chapter::class)->latest();
     }
 
     protected static function boot()
@@ -37,9 +40,14 @@ class episode extends Model
         parent::boot();
 
         static::deleting(function ($episode) {
-            $episode->chapters()->each(function ($chapter) {
-                $chapter->delete();
-            });
+            if ($episode->isForceDeleting()) {
+                // Permanently delete chapters
+                $episode->chapters()->forceDelete();
+            } else {
+                // Soft delete chapters
+                $episode->chapters()->delete();
+            }
         });
     }
+
 }

@@ -5,25 +5,14 @@
     <div class="page-top-group  at-index ">
         <a href="/truyen/13957">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_d.png')"></div>
+                style="background-image: url('{{asset('users/user/img/path/12890_d_l.jpg')}}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('https://i2.docln.net/ln/banners/2024-06-23/13957_m.png'); background-size: cover">
+                style="background-image: url('{{asset('users/user/img/path/12890_m_l.jpg')}}'); background-size: cover">
             </div>
         </a>
     </div>
 
     <main id="mainpart" class="at-index">
-        <!--<header class="page-title">
-        <div class="page-name_wrapper">
-            <div class="container">
-                <h2 class="page-name"><a href="/">Trang chủ</a></h2>
-            </div>
-        </div>
-    </header>-->
-
-
-
-
         <div class="container" style="margin-bottom: 40px;">
             <div class="row">
                 <div class="no-push col-12 push-2-l col-8-l">
@@ -88,109 +77,26 @@
                                     t/gian</a></span>
                         </header>
                         <main class="row slider d-block">
-
-                            {{-- bắt đầu truyện đơn --}}
-                            <div class="popular-thumb-item mr-1">
-                                <div class="thumb-wrapper">
-                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
+                            @foreach ($data as $item)
+                                {{-- bắt đầu truyện đơn --}}
+                                <div class="popular-thumb-item mr-1">
+                                        <div class="thumb-wrapper">
+                                            <a href="{{route('truyen.truyen', $item->slug)}}">
+                                                <div class="a6-ratio">
+                                                    <div class="content img-in-ratio"
+                                                        style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="thumb-detail">
+                                                <div class="thumb_attr series-title"
+                                                    title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
+                                                        href="{{route('truyen.truyen', $item->slug)}}">{{ $item->title}}</a></div>
                                             </div>
                                         </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr series-title"
-                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
-                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
-                                    </div>
                                 </div>
-                            </div>
-                            {{-- kết thúc truyện đơn --}}
-{{-- bắt đầu truyện đơn --}}
-<div class="popular-thumb-item mr-1">
-    <div class="thumb-wrapper">
-        <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
-            <div class="a6-ratio">
-                <div class="content img-in-ratio"
-                    style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
-                </div>
-            </div>
-        </a>
-        <div class="thumb-detail">
-            <div class="thumb_attr series-title"
-                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                    href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                    title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
-                    nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
-        </div>
-    </div>
-</div>
-{{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
-                            <div class="popular-thumb-item mr-1">
-                                <div class="thumb-wrapper">
-                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr series-title"
-                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
-                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
-                            <div class="popular-thumb-item mr-1">
-                                <div class="thumb-wrapper">
-                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr series-title"
-                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
-                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- kết thúc truyện đơn --}}{{-- bắt đầu truyện đơn --}}
-                            <div class="popular-thumb-item mr-1">
-                                <div class="thumb-wrapper">
-                                    <a href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                        title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s15034-0435fc13-744a-45f4-871e-14901db315cb.jpg')">
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr series-title"
-                                            title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                                                href="/truyen/15034-co-nang-yankee-shimizu-san-ban-ben-da-nhuom-toc-den-mat-roi"
-                                                title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi">Cô
-                                                nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- kết thúc truyện đơn --}}
+                                {{-- kết thúc truyện đơn --}}
+                            @endforeach
                         </main>
                     </div>
                 </div>

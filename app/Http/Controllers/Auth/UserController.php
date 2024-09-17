@@ -196,7 +196,7 @@ class UserController extends Controller
 
     public function OLNDaDang()
     {
-        return view('user.OLNDaDang');
+        return view('user.OLNDaDang'); 
     }
 
     public function OLNThamGia()

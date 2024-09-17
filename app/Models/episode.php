@@ -40,9 +40,14 @@ class episode extends Model
         parent::boot();
 
         static::deleting(function ($episode) {
-            $episode->chapters()->each(function ($chapter) {
-                $chapter->delete();
-            });
+            if ($episode->isForceDeleting()) {
+                // Permanently delete chapters
+                $episode->chapters()->forceDelete();
+            } else {
+                // Soft delete chapters
+                $episode->chapters()->delete();
+            }
         });
     }
+
 }

@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Chapter</div>
                     <div class="panel-body">
-                        <form role="form" method="POST" action="{{ route('chapter.update',$chapter->id) }}">
+                        <form role="form" method="POST" id="RePage" action="{{ route('chapter.update',$chapter->id) }}">
                             <input type="hidden" name="episode_id" value="{{ $chapter['episode_id'] }}">
                             @csrf
                             @method('PUT')
@@ -93,4 +93,6 @@
             </div>
         </div>
     </div>
+    @include('stories.iframe.partials.scriptAjaxforChapter')
+
 @endsection

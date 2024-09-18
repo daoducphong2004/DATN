@@ -11,7 +11,7 @@
                     <div class="panel-body">
 
 
-                        <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('episode.update',$episode->id) }}">
+                        <form role="form" id='RePage' method="POST" enctype="multipart/form-data" action="{{ route('episode.update',$episode->id) }}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="episode_id" value="{{ $episode->id }}">
@@ -105,4 +105,6 @@
             </div>
         </div>
     </div>
+    @include('stories.iframe.partials.scriptAjaxForm')
+
 @endsection

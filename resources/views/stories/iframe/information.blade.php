@@ -141,10 +141,11 @@
                                     <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>
                                     <div class="col-md-10">
                                         <select class="input-sm" name="status">
-                                            <option value="1">Đang tiến hành</option>
-                                            <option value="2" selected>Tạm ngưng</option>
-                                            <option value="3">Đã hoàn thành</option>
+                                            <option value="1" {{ $book->status == 1 ? 'selected' : '' }}>Đang tiến hành</option>
+                                            <option value="2" {{ $book->status == 2 ? 'selected' : '' }}>Tạm ngưng</option>
+                                            <option value="3" {{ $book->status == 3 ? 'selected' : '' }}>Đã hoàn thành</option>
                                         </select>
+
                                     </div>
                                 </div>
 

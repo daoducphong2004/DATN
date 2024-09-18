@@ -7,6 +7,7 @@ use App\Http\Requests\StorechapterRequest;
 use App\Http\Requests\UpdatechapterRequest;
 use App\Models\episode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -33,6 +34,7 @@ class ChapterController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validation
         $validatedData = $request->validate([
             'episode_id' => 'required|integer|exists:episodes,id',
@@ -46,7 +48,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
-        $chapter->user_id = 1;
+        $chapter->user_id = Auth::id();
         // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
         $chapter->save();

@@ -115,7 +115,7 @@ class BookController extends Controller
             // 'is_delete' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
-            'user_id'=>1//Auth::id(),
+            'user_id'=>Auth::id(),
         ]);
         $slug = Str::slug($book->id . '-' . $request->title);
         $book->slug = $slug;
@@ -182,17 +182,20 @@ class BookController extends Controller
      */
     public function update(UpdatebookRequest $request, string $id)
     {
-        $book = book::findOrFail($id)->first();
+        $book = Book::findOrFail($id);
         $adult = $request->has('adult') ? 1 : 0;
 
         // Update book information
         $slug = Str::slug($book->id . '-' . $request->title);
+        $book_path = $book->book_path; // Giữ nguyên ảnh cũ
+
         if ($request->hasFile('book_path')) {
             $image = $request->file('book_path');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $path = Storage::put('public/books', $image); // Using Storage::put to store the image
             $book_path = str_replace('public/', '', $path); // Save relative path to the database
         }
+
         $book->update([
             'type' => $request->type,
             'status' => $request->status,
@@ -206,6 +209,7 @@ class BookController extends Controller
             'slug' => $slug,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
+            'user_id' => Auth::id(),
         ]);
 
         // Attach genres

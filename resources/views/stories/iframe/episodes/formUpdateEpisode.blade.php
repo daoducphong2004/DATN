@@ -11,18 +11,20 @@
                     <div class="panel-body">
 
 
-                        <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('episode.update') }}">
+                        <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('episode.update',$episode->id) }}">
                             @csrf
-                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                            @method('PUT')
+                            <input type="hidden" name="episode_id" value="{{ $episode->id }}">
 
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title" value="">
+                                    <input type="text" class="form-control" name="title" value="{{ $episode->title }}">
                                 </div>
                             </div>
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa </label>
+                                <img width="200px"  src="{{ asset(Storage::url($episode->episode_path)) }}" alt="">
                                 <div class="col-md-8">
                                     <input type="file" class="form-control" name="episode_path" value="">
                                 </div>
@@ -31,7 +33,7 @@
                             <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right">Tóm tắt</label>
                                 <div class="col-md-10">
-                                    <textarea id="LN_Book_Summary" name="description"></textarea>
+                                    <textarea id="LN_Book_Summary" name="description">{!! $episode->description !!}</textarea>
                                 </div>
                             </div>
 

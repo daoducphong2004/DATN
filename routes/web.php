@@ -175,6 +175,7 @@ Route::prefix('groups')->group(function () {
 });
 
 
-Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
+
+require __DIR__ . '/admin.php';

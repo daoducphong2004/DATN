@@ -13,9 +13,10 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\UserController as ControllersUserController;
+use App\Http\Controllers\UsersController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -150,6 +151,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/groups/edit/{id}', [GroupController::class, 'edit'])->name('groups_edit');
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
+
+    Route::get('/user', [ControllersUserController::class, 'index'])->name('user_index');
+    Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
+    Route::post('/user/store', [ControllersUserController::class, 'store'])->name('user_store');
+    Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
+    Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
+    Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
 });
 
 
@@ -180,3 +188,10 @@ Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.da
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 
 // End Phong
+
+
+
+
+
+
+

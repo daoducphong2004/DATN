@@ -70,7 +70,7 @@ class UserController extends Controller
         return view('home.taikhoan');
     }
 
-    
+
     public function update(Request $request, User $user)
     {
         //        dd($request->all());
@@ -94,11 +94,13 @@ class UserController extends Controller
         return redirect()->back()->with('message', 'Cập nhật dữ liệu thành công');
     }
 
-    public function change(User $user) {
+    public function change(User $user)
+    {
         return view('user.change', compact('user'));
     }
 
-    public function userChange(Request $request, User $user) {
+    public function userChange(Request $request, User $user)
+    {
         $request->validate([
             'old_password' => 'required',
             'password' => 'required|min:8',
@@ -114,6 +116,50 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('login')->with('message', 'Đổi mật khẩu thành công!');
+    }
+    public function register()
+    {
+        return view('auth.register');
+    }
+
+    public function createAccount(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:6|confirmed'
+        ]);
+
+        $user = new User();
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+        return redirect()->route('login')->with("success", "Register account success.");
+    }
+
+    public function dialogLogin()
+    {
+        return view('auth/login');
+    }
+
+    public function login(Request $request)
+    {
+        $remember = $request->remember;
+        $requestInfo = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+
+        if (Auth::attempt($requestInfo, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->route('home')->with("success", "Login account success.");
+        }
+
+        return redirect()->back()->with("error", "Authentication failed.");
     }
     public function email()
     {

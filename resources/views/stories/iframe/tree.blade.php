@@ -79,7 +79,7 @@
             <li>Sửa tập</li>
 
             <li class="sep">&nbsp;</li>
-
+            <li style="color: red">Xóa tập</li>
             <li class="sep">&nbsp;</li>
             <li>Sắp xếp chương</li>
             <li>Thêm chương</li>

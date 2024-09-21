@@ -21,12 +21,10 @@ use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\UsersController;
-=======
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
->>>>>>> 270bac024411516bcd5f6b54f5b3501d524ca720
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;

@@ -15,13 +15,21 @@ class BookcommentController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request, $book_id)
+    {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StorebookcommentRequest $request, $book_id)
     {
         // dd($request->all());
         $request->validate([
@@ -31,21 +39,13 @@ class BookcommentController extends Controller
 
         bookcomment::create([
             'book_id' => $book_id,
-            // 'user_id' => auth()->id(),
-             'user_id' => 1,
+            'user_id' => auth()->id(),
+            //  'user_id' => 1,
             'content' => $request->input('content'),
             'parent_id' => $request->input('parent_id')
         ]);
 
-        return back();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorebookcommentRequest $request)
-    {
-        //
+        return back()->with('success', 'Comment added successfully!');
     }
 
     /**

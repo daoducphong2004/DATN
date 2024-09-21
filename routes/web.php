@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\UsersController;
 =======
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
 >>>>>>> 270bac024411516bcd5f6b54f5b3501d524ca720
 use App\Models\book;
@@ -88,8 +90,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
-    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
 
+    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+    Route::resource('bookComment', AdminBookCommentController::class);
 
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
@@ -188,6 +191,5 @@ Route::prefix('groups')->group(function () {
 
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
 
 require __DIR__ . '/admin.php';

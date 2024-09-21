@@ -37,7 +37,7 @@ class BookSeeder extends Seeder
                 'adult' => $faker->boolean,
                 'type' => $faker->randomElement([1,2,3]),
                 'group_id' => $faker->randomElement($validGroupIds),
-
+                'user_id' => 1,
             ]);
         }
     }

@@ -15,7 +15,14 @@
                 <li><a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li>
                 <li><a href="{{ route('user_index') }}" style="color: #3107dc">User</a></li>
                 <li><a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a></li>
-                <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li>
+                {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('bookComment.index') }}">Bình luận chuyện</a></li>
+                        <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
+                    </ul>
+                </li>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>

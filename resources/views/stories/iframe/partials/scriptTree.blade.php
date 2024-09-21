@@ -87,7 +87,7 @@
                     child.onclick = () => openLink(
                         '{{ route('episode.edit', ':id') }}'.replace(':id', id),
                         'action',
-                        'book_id=' + id + '&action=editbook'
+                        'episode_id=' + id + '&action=editepisode'
                     );
 
                     break;
@@ -121,14 +121,14 @@
                     child.onclick = () => openLink(
                         'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',
                         'action',
-                        'book_id=' + id + '&action=book.manage.delete_chapters'
+                        'episode_id=' + id + '&action=episode.manage.delete_chapters'
                     );
                     break;
                 case 'Sắp xếp chương':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/book/' + id + '/order?navbar=0',
+                        'https://docln.net/action/episode/' + id + '/order?navbar=0',
                         'action',
-                        'book_id=' + id + '&action=orderchapter'
+                        'episode_id=' + id + '&action=orderchapter'
 
                     );
                     break;
@@ -137,7 +137,7 @@
                     child.onclick = () => openLink(
                         '{{ route('storychapter', ':id') }}'.replace(':id', id),
                         'action',
-                        'book_id=' + id + '&action=createchapter'
+                        'episode_id=' + id + '&action=createchapter'
                     );
                     break;
                 case 'Sửa chương':

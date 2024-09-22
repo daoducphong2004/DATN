@@ -35,7 +35,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thảo luận <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="https://docln.net/action/page/create">Thêm thảo luận</a></li>
-                        <li><a href="https://docln.net/action/page/mypages">Thảo luận của bạn</a></li>
+                        <li><a href="{{route('thao_luan')}}">Thảo luận của bạn</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

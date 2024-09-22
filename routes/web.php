@@ -81,6 +81,9 @@ Route::get('theLoai', [UserController::class, 'theLoai']);
 Route::get('thuVien', [UserController::class, 'thuVien']);
 Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
+Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
+Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
+Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
 
 
 Route::prefix('admin')->group(function () {
@@ -197,6 +200,3 @@ Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::c
 require __DIR__ . '/admin.php';
 
 
-Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
-Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
-Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');

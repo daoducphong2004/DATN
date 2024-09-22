@@ -25,6 +25,7 @@ use App\Http\Controllers\CommentChapterController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
+use App\Models\Forum;
 use App\Models\genre;
 
 Route::get('/admin/dashboard', function () {
@@ -71,4 +72,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
     Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
+
+    //forum
+    Route::get('/thao-luan',[ForumController::class,'indexadmin'])->name('thao_luan');
+    Route::get('/updateforum/{id}/edit',[ForumController::class,'editforum'])->name('editforum');
+    Route::put('/updateforum/{id}/update',[ForumController::class,'updateadmin'])->name('updateadmin');
+    Route::delete('/deleteForum/{id}',[ForumController::class,'destroy'])->name('deleteforum');
 });

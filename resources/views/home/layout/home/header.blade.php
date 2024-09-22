@@ -22,7 +22,7 @@
                     <li><a class="nav-menu_item" href="sangtac"><span class="">Sáng tác</span></a></li>
                     <li><a class="nav-menu_item" href="convert"><span class="">Máy dịch</span></a></li>
                     <li><a class="nav-menu_item" href="xuatban"><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href="thaoluan"><span class="">Thảo luận</span></a></li>
+                    <li><a class="nav-menu_item" href="thao-luan"><span class="">Thảo luận</span></a></li>
                     <li><a class="nav-menu_item" href="danh-sach"><span class="">Danh sách</span></a></li>
 
                     <li class="nav-has-submenu">
@@ -126,7 +126,7 @@
                 <li><a class="nav-menu_item" href="xuatban"><i class="fas fa-calendar menu-icon"></i><span
                             class="">Xuất bản</span></a></li>
 
-                <li><a class="nav-menu_item" href="thaoluan"><i class="fas fa-users menu-icon"></i><span
+                <li><a class="nav-menu_item" href="thao-luan"><i class="fas fa-users menu-icon"></i><span
                             class="">Thảo luận</span></a></li>
 
                 <li><a class="nav-menu_item" href="danh-sach"><i class="fas fa-th-list menu-icon"></i><span

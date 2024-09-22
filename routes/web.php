@@ -177,5 +177,9 @@ Route::prefix('groups')->group(function () {
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
-
 require __DIR__ . '/admin.php';
+
+
+Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
+Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
+Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');

@@ -96,7 +96,7 @@ class ForumController extends Controller
             'created_at'=>Carbon::now()
         ];
         Forum::query()->create($bruh);
-        return redirect()->route('thaoluan');
+        return redirect()->route('thao-luan');
     }
 
     /**

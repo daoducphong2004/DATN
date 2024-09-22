@@ -27,6 +27,7 @@ class EpisodeSeeder extends Seeder
                 'description' => $faker->paragraph,
                 'episode_path' => $faker->filePath(),
                 'book_id' => $faker->randomElement($validBookIds),
+                'user_id' => 1,
             ]);
         }
     }

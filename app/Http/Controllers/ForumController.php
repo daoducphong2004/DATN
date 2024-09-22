@@ -9,6 +9,7 @@ use App\Models\book;
 use App\Models\Category;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Nette\Utils\Strings;
 
 class ForumController extends Controller
 {
@@ -110,9 +111,9 @@ class ForumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Forum $forum)
+    public function edit(Forum $forum, string $id )
     {
-        //
+        
     }
 
     /**

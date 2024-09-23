@@ -71,4 +71,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
     Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
+
+    // Phong
+        Route::get('/story',[StoryController::class,'index'])->name('admin_storylist');
+        Route::get('/story/create',[StoryController::class,'createBook'])->name('admin_storycreate');
+        Route::post('/story/store',[StoryController::class,'storeBook'])->name('admin_storystore');
+
+
+
+    // end phong
 });

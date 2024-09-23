@@ -117,7 +117,7 @@ class BookController extends Controller
             'group_id' => $request->group_id,
             'user_id'=>Auth::id(),
         ]);
-        $slug = Str::slug($book->id . '-' . $request->title);
+        $slug = Str::slug('b'.$book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload

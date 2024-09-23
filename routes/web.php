@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
@@ -44,7 +45,7 @@ Route::get('home', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
+Route::get('login', [UserController::class, 'dialogLogin'])->name('login');
 Route::post('login', [UserController::class, 'login'])->name('login');
 // Route::get('register', [UserController::class, 'register']);
 // Route::resource('story', BookController::class);
@@ -52,7 +53,6 @@ Route::post('login', [UserController::class, 'login'])->name('login');
 // Route::get('stories/information', function () {
 //     return view('stories.iframe.information');
 // })->name('storyinformation');
-
 
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
@@ -85,9 +85,17 @@ Route::get('theLoai', [UserController::class, 'theLoai']);
 Route::get('thuVien', [UserController::class, 'thuVien']);
 Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
+Route::get('/no-permission', function () {
+    return view('no_permission');
+})->name('no_permission');
+
+
 
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    });
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
@@ -124,7 +132,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
     Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
-});
+})->middleware('auth');
 
 
 Route::prefix('chapter-comments')->group(function () {
@@ -179,3 +187,6 @@ Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
 
 require __DIR__ . '/admin.php';
+//Authentication roles
+
+// Route::get('login-auth', [AuthController::class, 'home']);

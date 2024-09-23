@@ -65,13 +65,7 @@ class BookController extends Controller
      // Lấy danh sách các chapters trong episode của chapter hiện tại
      $chapters = $episode->chapters;
 
-     $comments = chaptercomment::with('user')
-     ->where('chapter_id', $chapter->id)
-     ->whereNull('parent_id')->get();
-
-     $parentId = $request->input('parent_id');
-
-     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments','parentId'));
+     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
 
     }
     public function index()

@@ -13,30 +13,30 @@
 
                     <div class="panel-body">
 
-                        <form method="POST" action="{{route('store_thaoluan')}}" enctype="multipart/form-data">
+                        <form method="post" action="{{route('updateadmin',$data->id)}}" enctype="multipart/form-data">
                             @csrf
-                            @method('POST')
+                            @method('PUT')
 
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="title" >
+                <input type="text" class="form-control" name="title" value="{{$data->title}}">
             </div>
         </div>
 
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label text-right">Nội dung</label>
             <div class="col-md-10">
-                <textarea id="Page_Content" name="content" aria-hidden="true" value="SQLSTATE[HY000]: General error: 1364 Field 'title' doesn't have a default value"></textarea>
+                <textarea id="Page_Content" name="content" aria-hidden="true" value="SQLSTATE[HY000]: General error: 1364 Field 'title' doesn't have a default value" >{{$data->content}}</textarea>
             </div>
         </div>
 
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Chọn chuyên mục</label>
             <div class="col-md-8">
-                <select class="input-sm" name="category_id">
+                <select class="input-sm" name="category_id"  >
                                 @foreach ($categories as $item_categories)
-                                <option value="{{$item_categories->id}}">{{$item_categories->content}}</option> 
+                                <option value="{{$item_categories->id}}" @if($item_categories->id == $data->category_id) selected @endif>{{$item_categories->content}}</option> 
                                 @endforeach
                             </select>
             </div>
@@ -49,8 +49,7 @@
                 <option value="0">--- Chọn truyện ---</option>
                                 <optgroup label="translations">
                                         @foreach ($books as $item_books)
-                                        <option value="{{$item_books->id}}">{{$item_books->title}}</option>
-                                        
+                                        <option value="{{$item_books->id}}" @if($item_books->id == $data->book_id) selected @endif >{{$item_books->title}}</option>
                                         @endforeach
                                             </optgroup></select>
             </div>

@@ -69,6 +69,7 @@ class StoryController extends Controller
             'description' => 'nullable|string',
             'note' => 'nullable|string',
         ]);
+
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
 
@@ -93,8 +94,10 @@ class StoryController extends Controller
 
         // Generate slug and update the book
         $slug = Str::slug($book->id . '-' . $request->title);
-        // dd($slug);
-        $book->save(['slug' => $slug]);
+
+        // Update the slug field
+        $book->slug = $slug;
+        $book->save();  // Save the book with the new slug
 
         // Handle image upload if provided
         if ($request->hasFile('book_path')) {
@@ -112,6 +115,7 @@ class StoryController extends Controller
         // Redirect to story view
         return redirect()->route('story.show', $book->id)->with('success', 'Book created successfully');
     }
+
 
 
 

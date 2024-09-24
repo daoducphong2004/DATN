@@ -38,7 +38,11 @@ Route::prefix('admin')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
-    Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
+
+
+    Route::get('/story', [StoryController::class, 'index'])->name('story_index');
+    Route::get('/story/add',[StoryController::class,'createboook'])->name('story_add');
+
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
 
 

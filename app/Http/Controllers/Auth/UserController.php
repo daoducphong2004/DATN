@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -135,6 +136,14 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+
+        $userRole = Role::where('name', 'user')->first();
+        if ($userRole) {
+            $user->role_id = $userRole->id;
+        } else {
+            return redirect()->back()->withErrors(['role' => 'Role user not found.']);
+        }
+
 
         $user->save();
         return redirect()->route('login')->with("success", "Register account success.");

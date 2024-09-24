@@ -23,14 +23,6 @@ class BookcommentController extends Controller
      */
     public function create(Request $request, $book_id)
     {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorebookcommentRequest $request, $book_id)
-    {
         // dd($request->all());
         $request->validate([
             'content' => 'required',
@@ -46,6 +38,28 @@ class BookcommentController extends Controller
         ]);
 
         return back()->with('success', 'Comment added successfully!');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StorebookcommentRequest $request, $book_id)
+    {
+        // // dd($request->all());
+        // $request->validate([
+        //     'content' => 'required',
+        //     'parent_id' => 'nullable|exists:book_comments,id'
+        // ]);
+
+        // bookcomment::create([
+        //     'book_id' => $book_id,
+        //     'user_id' => auth()->id(),
+        //     //  'user_id' => 1,
+        //     'content' => $request->input('content'),
+        //     'parent_id' => $request->input('parent_id')
+        // ]);
+
+        // return back()->with('success', 'Comment added successfully!');
     }
 
     /**

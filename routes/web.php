@@ -81,6 +81,9 @@ Route::get('theLoai', [UserController::class, 'theLoai']);
 Route::get('thuVien', [UserController::class, 'thuVien']);
 Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
+Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
+Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
+Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
 
 
 Route::prefix('admin')->group(function () {
@@ -187,7 +190,13 @@ Route::prefix('groups')->group(function () {
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+});
+// Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 
-Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+Route::middleware(['auth', 'role:author'])->group(function () {
+    Route::resource('story', BookController::class);
+});
 
 require __DIR__ . '/admin.php';

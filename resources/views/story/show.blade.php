@@ -482,17 +482,21 @@
 
                                     <main class="ln-comment-body">
                                         <div id="ln-comment-submit" class="ln-comment-form clear">
+                                            @if (Auth::check())
+                                                <form action="{{ route('addComment', $book->id) }}" method="POST"
+                                                    class="comment_form">
+                                                    @csrf
+                                                    <textarea name="content" class="" required></textarea>
 
-                                            <form action="{{ route('addComment', $book->id) }}" method="POST"
-                                                class="comment_form">
-                                                @csrf
-                                                <textarea name="content" class="" required></textarea>
-
-                                                <div class="comment_toolkit clear">
-                                                    <input class="button" type="submit" value="Đăng bình luận">
-                                                </div>
-                                            </form>
+                                                    <div class="comment_toolkit clear">
+                                                        <input class="button" type="submit" value="Đăng bình luận">
+                                                    </div>
+                                                </form>
+                                            @else
+                                                <p><strong style="font-size: 15px">Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để bình luận.</strong></p>
+                                            @endif
                                         </div>
+
                                         @foreach ($comments as $comment)
                                             <div class="ln-comment-group">
                                                 <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"

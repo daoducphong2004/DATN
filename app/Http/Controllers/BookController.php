@@ -156,7 +156,9 @@ class BookController extends Controller
         ->whereNull('parent_id')->get();
 
         // dd($comments);
-
+        if (Auth::check() && Auth::user()->role->name === 'guest' && $book->is_paid) {
+            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy nâng cấp tài khoản');
+        }
 
         return view('story.show', compact('book', 'episodes', 'comments'));
     }

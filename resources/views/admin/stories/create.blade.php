@@ -2,7 +2,7 @@
 @section('content')
 @include('stories.partials.header')
 
-    <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
+    <form role="form" method="POST" action="{{ route('admin_storystore') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
@@ -11,20 +11,13 @@
             </div>
         </div>
 
-        {{-- <div class="form-group clearfix">
-                                <label class="col-md-2 control-label pt-7 text-right">Tên khác</label>
-                                <div class="col-md-8">
-                                    <input type="text" placeholder="Ngăn cách nhiều tên bằng dấu chấm phẩy ;"
-                                        class="form-control" name="altname" value="">
-                                </div>
-                            </div> --}}
-
         <div class="form-group clearfix">
             <label class="col-md-2 control-label text-right"><b>Nội dung nhạy cảm?</b></label>
             <div class="col-md-8">
                 <input type="checkbox" name="adult">
             </div>
         </div>
+
         <div class="form-group clearfix">
             <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa</label>
             <div class="col-md-8">
@@ -33,18 +26,11 @@
                         <a>Chọn ảnh</a>
                         <input type="file" name="book_path" accept="image/*" />
                     </div>
-                    <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    <div id="progress" class="progress" style="display: none">
-                        <div class="progress-bar progress-bar-success"></div>
-                    </div>
                     <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview" src="" />
                 </div>
             </div>
         </div>
+
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
             <div class="col-md-8">
@@ -106,6 +92,8 @@
             </div>
         </div>
 
+        @include('layouts.TinyMCEscript')
+
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>
             <div class="col-md-10">
@@ -116,7 +104,41 @@
                 </select>
             </div>
         </div>
-        @include('layouts.TinyMCEscript')
+
+        <!-- Custom fields as per your request -->
+
+        <div class="form-group clearfix required">
+            <label class="col-md-2 control-label pt-7 text-right">Người đăng (user_id)</label>
+            <div class="col-md-8">
+                <select class="input-sm" name="user_id">
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->username }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group clearfix required">
+            <label class="col-md-2 control-label pt-7 text-right">Lượt thích</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control" name="like" value="0" min="0">
+            </div>
+        </div>
+
+        <div class="form-group clearfix required">
+            <label class="col-md-2 control-label pt-7 text-right">Lượt xem</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control" name="view" value="0" min="0">
+            </div>
+        </div>
+
+        <div class="form-group clearfix required">
+            <label class="col-md-2 control-label pt-7 text-right">Trạng thái kiểm duyệt (Is_Inspect)</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="Is_Inspect" value="đang duyệt">
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
                 <button type="submit" class="btn btn-primary">

@@ -28,7 +28,7 @@
                     <th>VIP</th>
                     <th>Trạng thái</th>
                     <th>
-                        <a class="btn btn-primary" href="{{ route('story_add') }}">Thêm Truyện</a>
+                        <a class="btn btn-primary" href="{{ route('admin_storycreate') }}">Thêm Truyện</a>
                     </th>
                 </tr>
             </thead>

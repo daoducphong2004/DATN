@@ -1,9 +1,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
-        selector: '#LN_Chapter_Content',
+        selector: 'textarea',
         inline: false,
-        height: 400,
+        height: 200,
         skin: 'oxide',
         content_css: 'default',
         branding: false,
@@ -22,33 +22,7 @@
                 remove: 'all'
             },
         },
-        plugins: 'wordcount link code fullscreen paste emoticons',
-        toolbar: 'undo redo | bold italic underline strikethrough fore | alignleft aligncenter alignright alignjustify | removeformat | fullscreen',
-        setup: function (editor) {
-            editor.ui.registry.addButton('alignleft', {
-                text: 'Align Left',
-                onAction: function () {
-                    editor.execCommand('JustifyLeft');
-                }
-            });
-            editor.ui.registry.addButton('aligncenter', {
-                text: 'Align Center',
-                onAction: function () {
-                    editor.execCommand('JustifyCenter');
-                }
-            });
-            editor.ui.registry.addButton('alignright', {
-                text: 'Align Right',
-                onAction: function () {
-                    editor.execCommand('JustifyRight');
-                }
-            });
-            editor.ui.registry.addButton('alignjustify', {
-                text: 'Justify',
-                onAction: function () {
-                    editor.execCommand('JustifyFull');
-                }
-            });
-        }
+        plugins: 'wordcount link image code fullscreen paste emoticons',
+        toolbar: 'undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
     });
 </script>

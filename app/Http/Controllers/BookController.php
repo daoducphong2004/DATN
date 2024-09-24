@@ -25,20 +25,19 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect',"Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
     public function bookComment($bookId)
     {
         $comments = bookcomment::with('user')
-        ->where('book_id', $bookId)
-        ->whereNull('parent_id')->get();
+            ->where('book_id', $bookId)
+            ->whereNull('parent_id')->get();
 
         $book = book::findOrFail($bookId);
 
         return view('story.show', compact('comments', 'book'));
-
     }
 
     // public function chapterComment($chapterId)
@@ -52,27 +51,33 @@ class BookController extends Controller
     //     return view('story.reading', compact('comments', 'chapter'));
 
     // }
-    public function reading(string $slug, string $chapter_slug,  Request $request){
-     // Tìm kiếm book dựa trên slug
-     $book = book::where('slug', $slug)->where('Is_Inspect',"Đã Duyệt")->with('episodes')->firstOrFail();
+    public function reading(string $slug, string $chapter_slug,  Request $request)
+    {
+        // Tìm kiếm book dựa trên slug
+        $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
 
-     // Tìm kiếm chapter dựa trên chapter_slug
-     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+        // Tìm kiếm chapter dựa trên chapter_slug
+        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
-     // Lấy episode liên quan đến chapter
-     $episode = $chapter->episode()->with('chapters')->firstOrFail();
+        // Lấy episode liên quan đến chapter
+        $episode = $chapter->episode()->with('chapters')->firstOrFail();
 
-     // Lấy danh sách các chapters trong episode của chapter hiện tại
-     $chapters = $episode->chapters;
+        // Lấy danh sách các chapters trong episode của chapter hiện tại
+        $chapters = $episode->chapters;
 
-     return view('story.reading', compact('book', 'episode', 'chapters', 'chapter'));
+        $comments = chaptercomment::with('user')
+            ->where('chapter_id', $chapter->id)
+            ->whereNull('parent_id')->get();
 
+        $parentId = $request->input('parent_id');
+
+        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId'));
     }
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect',"Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
         // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
@@ -109,9 +114,9 @@ class BookController extends Controller
             // 'is_delete' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
-            'user_id'=>Auth::id(),
+            'user_id' => Auth::id(),
         ]);
-        $slug = Str::slug($book->id . '-' . $request->title);
+        $slug = Str::slug('b'.$book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload
@@ -152,8 +157,8 @@ class BookController extends Controller
         // dd($book,$episodes);
 
         $comments = bookcomment::with('user')
-        ->where('book_id', $book->id)
-        ->whereNull('parent_id')->get();
+            ->where('book_id', $book->id)
+            ->whereNull('parent_id')->get();
 
         // dd($comments);
         if (Auth::check() && Auth::user()->role->name === 'guest' && $book->is_paid) {
@@ -231,6 +236,4 @@ class BookController extends Controller
             return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
-
-
 }

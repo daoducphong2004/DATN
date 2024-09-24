@@ -76,6 +76,11 @@
                                     href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=top">Toàn
                                     t/gian</a></span>
                         </header>
+                        <script>
+                            @if (session('error'))
+                                alert("{{ session('error') }}");
+                            @endif
+                        </script>
                         <main class="row slider d-block">
                             @foreach ($data as $item)
                                 {{-- bắt đầu truyện đơn --}}

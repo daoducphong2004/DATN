@@ -1,3 +1,4 @@
+
 <body>
     <div id="page-top"></div>
     <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
@@ -87,7 +88,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="/action"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();

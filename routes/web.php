@@ -190,8 +190,14 @@ Route::prefix('groups')->group(function () {
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+});
+// Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 
-Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+Route::middleware(['auth', 'role:author'])->group(function () {
+    Route::resource('story', BookController::class);
+});
 
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
 

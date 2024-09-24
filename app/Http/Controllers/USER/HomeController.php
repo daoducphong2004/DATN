@@ -108,7 +108,7 @@ class HomeController extends Controller
 
 
 //bên thêm truyện
-    public function home(){
+    public function Userhome(){
         return view('user.index');
     }
 

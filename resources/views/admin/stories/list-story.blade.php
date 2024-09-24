@@ -55,7 +55,7 @@
                     </td>
 
                      <td>
-                        <a class="btn btn-success" href="{{ route('story.show', $story->id) }}">Chi tiết</a>
+                        <a class="btn btn-success" href="{{ route('admin_storyshow', $story->id) }}">Chi tiết</a>
                         <a class="btn btn-warning" href="{{ route('story.edit', $story->id) }}">Sửa</a>
                         <a class="btn btn-danger" href="{{ route('story.destroy', $story->id) }}" onclick="return confirmDelete()">Xoá</a>
                     </td>

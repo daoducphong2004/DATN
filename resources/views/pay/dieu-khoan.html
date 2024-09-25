@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="vi" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta property="fb:app_id" content="376408899112473">
+    <meta name="theme-color" content="#052c3e">
+
+    <title>Nạp Xu: Điều Khoản</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-32.png">
+    <link rel="apple-touch-icon" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-1024.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-144.png">
+    <link rel="icon" sizes="192x192" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-192.png">
+
+    
+    
+        
+        <meta property="og:image" content="https://yystatic.codeprime.net/img/ogimages/yy-2.jpg" />
+    
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://yystatic.codeprime.net/css/mobile-base-2016.1263b4.css">
+
+    <script src="https://yystatic.codeprime.net/bower_components/jquery/dist/jquery.min.js"></script>
+    
+</head>
+<body  class="">
+
+
+<div id="toptop"></div>
+
+
+<div >
+
+    <header class="header">
+        
+        <a onclick="history.go(-1)" class="header-back">
+            <i class="material-icons">&#xE5CB;</i>
+        </a>
+        
+        <h1 class="header-back-title">Nạp Xu: Điều Khoản</h1>
+        
+    </header>
+
+    
+</div>
+
+
+
+
+
+<main class="content">
+
+<div class="account pt-2">
+
+    <div class="cell-box">
+        <a href="/account/vip/checkout/" class="weui_btn weui_btn_primary">
+            <i class="material-icons">&#xE5CA;</i> Tôi đồng ý với các điều khoản
+        </a>
+
+        
+    </div>
+
+    <div class="well">
+        <div class="well-title">Một số điều kiện cần lưu ý:</div>
+
+        <div class="well-content wiki-content">
+            <ol>
+                <li><b>Xu</b> là đơn vị tiền tệ ảo chỉ lưu hành trong NovelPub.</li>
+                <li>Xu chỉ có thể dùng để mua truyện VIP, mua vật phẩm VIP, ủng hộ (donate) cho tác giả, dịch giả.</li>
+                <li><b>Giá trị quy đổi</b> so với VND là do NovelPub quy định, báo trước mỗi khi bạn nạp tiền.</li>
+                <li>NovelPub chỉ cộng xu cho bạn chỉ khi nào chúng tôi chắc chắn rằng đã nhận được thanh toán của bạn.</li>
+                <li>Một khi đã quy đổi thành xu, NovelPub sẽ <b>không hoàn lại</b> với bất cứ lý do nào.</li>
+                <li>Các khoản phí từ cổng thanh toán, ngân hàng được NovelPub thông báo rõ ràng để bạn biết trước.</li>
+                <li>Nếu tài khoản của bạn bị giam vì vi phạm nội quy, NovelPub vẫn giữ nguyên số xu bạn đã mua, nhưng không thể sử dụng
+                    trong thời hạn bị giam.</li>
+                <li>Bạn tiến hành nạp xu tức là đồng nghĩa với việc bạn đồng ý và hiểu rõ mọi quy định của NovelPub.</li>
+                <li>Các điều khoản đầy đủ hơn xem tại <a href="/page/noi-quy-website/">Nội Quy Website</a></li>
+            </ol>
+        </div>
+    </div>
+
+
+
+</div>
+
+</main>
+
+
+<footer class="site-footer">
+    <div class="copyright">&copy; 2024 NovelPub.</div>
+    <div class="weui_grids">
+        <a href="/page/noi-quy-website/" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Nội Quy</div>
+        </a>
+        <a href="/page/quy-dinh-rieng-tu/" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Riêng Tư</div>
+        </a>
+        <a href="/page/van-de-ban-quyen/" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Bản Quyền</div>
+        </a>
+        <a href="/about/" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Giới Thiệu</div>
+        </a>
+        <a href="/contact/" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Liên Hệ</div>
+        </a>
+        <a href="https://www.facebook.com/TruyenYY/" target="_blank" rel="noopener" class="weui_grid js_grid" data-id="button">
+            <div class="weui_grid_label">Facebook</div>
+        </a>
+    </div>
+</footer>
+
+
+
+<form id="search_pop" class="weui-popup-container" style="z-index: 9999;"  ng-controller="SearchCtrl" action="/tim-kiem/nang-cao/">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal">
+        <div class="weui_search_bar" id="home_search_bar">
+            <div class="weui_search_outer">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search"></i>
+                    <input type="search" class="weui_search_input" id="home_search_input" placeholder="Tên truyện, tác giả..." required ng-model="query" name="q" ng-model-options="{debounce: 400}">
+                    <a class="weui_icon_clear" id="home_search_clear"></a>
+                </div>
+                <label for="search_input" class="weui_search_text" id="home_search_text">
+                    <i class="weui_icon_search"></i>
+                    <span>Tìm Kiếm</span>
+                </label>
+            </div>
+            <a class="close-popup ml-1" style="line-height:38px;">Bỏ Qua</a>
+        </div>
+
+        
+        <div class="weui_cells weui_cells_access ng-cloak">
+            <a ng-href="{{ item.url }}" class="weui_cell" ng-repeat="item in search_results" id="{{ item.id }}">
+                <div class="weui_cell_bd weui_cell_primary">{{ item.title }}</div>
+                <div class="weui_cell_ft"></div>
+            </a>
+        </div>
+        
+        <button class="weui_btn weui_btn_plain_primary">Tìm Nâng Cao</button>
+    </div>
+</form>
+
+<script src="https://yystatic.codeprime.net/js/mobile-base-2016.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var menu_btn = $('#open_hd_menu');
+        var menu = $('.header-menu');
+        var menu_overlay = $('.header-menu-overlay');
+        menu_btn.click(function () {
+            if (menu_btn.hasClass('active')) {
+                menu.css('top', '-185px');
+                menu_overlay.hide();
+                menu_btn.removeClass('active');
+                menu_btn.parent().removeClass('active');
+            } else {
+                menu.css('top', 54);
+                menu_overlay.show();
+                menu_btn.addClass('active');
+                menu_btn.parent().addClass('active');
+            }
+        });
+        menu_overlay.click(function () {
+            menu.css('top', '-185px');
+            menu_overlay.hide();
+            menu_btn.removeClass('active');
+        });
+
+    });
+
+    $(document).on("open", ".weui-popup-modal", function () {
+        $('#home_search_bar').addClass('weui_search_focusing').find('input').focus();
+    }).on("close", ".weui-popup-modal", function () {});
+
+    var app = angular.module('MyApp', ['angularMoment']);
+    app.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }]);
+    app.run(function (amMoment) {
+        amMoment.changeLocale('vi');
+    });
+
+    app.controller('SearchCtrl', function ($scope, $http) {
+        $scope.search_results = [];
+
+        $scope.$watch('query', function(newVal, oldVal) {
+            if (newVal) {
+                $http.get("/novel/search/autocomplete/?q="+newVal).then(function(resp){
+                     $scope.search_results = resp['data'];
+                });
+            }
+        });
+    });
+</script>
+
+
+
+    
+
+    
+        
+            <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6SE80VQKJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6SE80VQKJ2');
+</script>
+        
+    
+
+
+</body>
+</html>

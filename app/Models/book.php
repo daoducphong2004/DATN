@@ -22,7 +22,7 @@ class book extends Model
         'description',
         'note',
         'is_VIP',
-        'is_delete',
+
         'adult',
         'group_id',
         'user_id',

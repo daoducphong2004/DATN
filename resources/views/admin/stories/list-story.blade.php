@@ -56,8 +56,12 @@
 
                      <td>
                         <a class="btn btn-success" href="{{ route('admin_storyshow', $story->id) }}">Chi tiết</a>
-                        <a class="btn btn-warning" href="{{ route('story.edit', $story->id) }}">Sửa</a>
-                        <a class="btn btn-danger" href="{{ route('story.destroy', $story->id) }}" onclick="return confirmDelete()">Xoá</a>
+                        <a class="btn btn-warning" href="{{ route('admin_storyedit', $story->id) }}">Sửa</a>
+                        <form action="{{ route('admin_storydestroy', $story->id) }}" method="POST" onsubmit="return confirmDelete();">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Xoá</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -68,6 +72,9 @@
 
 @push('scripts')
     <script>
+        function confirmDelete() {
+    return confirm('Bạn có chắc chắn muốn xóa không?');
+}
         jQuery(document).ready(function() {
             console.log("jQuery version:", jQuery.fn.jquery);
             jQuery('#list-story').DataTable();

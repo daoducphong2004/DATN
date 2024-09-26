@@ -181,7 +181,6 @@ Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truy
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
-
 // End Phong
 
 // User trong Group

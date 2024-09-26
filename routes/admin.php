@@ -35,14 +35,14 @@ Route::get('/admin/dashboard', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
-        });
+    });
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
 
 
     Route::get('/story', [StoryController::class, 'index'])->name('story_index');
-    Route::get('/story/add',[StoryController::class,'createboook'])->name('story_add');
+    Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
 
@@ -78,16 +78,18 @@ Route::prefix('admin')->group(function () {
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
 
     // Phong
-        Route::get('/story',[StoryController::class,'index'])->name('admin_storylist');
-        Route::get('/story/create',[StoryController::class,'createBook'])->name('admin_storycreate');
-        Route::post('/story/store',[StoryController::class,'storeBook'])->name('admin_storystore');
-
-
-
+    Route::get('/story', [StoryController::class, 'index'])->name('admin_storylist');
+    Route::get('/story/create', [StoryController::class, 'createBook'])->name('admin_storycreate');
+    Route::get('/story/{id}', [StoryController::class, 'showBook'])->name('admin_storyshow');
+    Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
+    Route::post('/story/store', [StoryController::class, 'storeBook'])->name('admin_storystore');
+    Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
+    Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
     // end phong
+
     //forum
-    Route::get('/thao-luan',[ForumController::class,'indexadmin'])->name('thao_luan');
-    Route::get('/updateforum/{id}/edit',[ForumController::class,'editforum'])->name('editforum');
-    Route::put('/updateforum/{id}/update',[ForumController::class,'updateadmin'])->name('updateadmin');
-    Route::delete('/deleteForum/{id}',[ForumController::class,'destroy'])->name('deleteforum');
+    Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
+    Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
+    Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
+    Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
 });

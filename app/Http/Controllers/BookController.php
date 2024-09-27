@@ -153,7 +153,8 @@ class BookController extends Controller
 
         $comments = bookcomment::with('user')
         ->where('book_id', $book->id)
-        ->whereNull('parent_id')->get();
+        ->whereNull('parent_id')
+        ->with('replies.replies')->get();
 
         // dd($comments);
         if (Auth::check() && Auth::user()->role->name === 'guest' && $book->is_paid) {

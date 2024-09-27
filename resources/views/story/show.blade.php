@@ -214,7 +214,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -554,11 +554,10 @@
                                                                 <div class="comment_see_more expand none">Xem thêm</div>
                                                                 <div
                                                                     class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913#ln-comment-2559913"
-                                                                        class="text-slate-500">
+                                                                    <a href="#">
                                                                         <time class="timeago" title="22-08-2024 09:59:00"
-                                                                            datetime="2024-08-22T09:59:00+07:00">
-                                                                            {{ $comment->created_at }}
+                                                                            datetime="{{ $comment->created_at }}">
+                                                                            {{ $comment->created_at->diffForHumans() }}
                                                                         </time>
                                                                     </a>
                                                                     <a
@@ -566,17 +565,37 @@
                                                                         <i class="fas fa-thumbs-up me-1"></i>
                                                                         <span class="likecount font-semibold">4</span>
                                                                     </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                                    <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
+                                                                        class="self-center visible-toolkit-item cursor-pointer">
                                                                         <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
+                                                                        <span class="likecount font-semibold">Trả lời</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @foreach ($comment->replies as $reply)
+                                                @if (request('reply_to') == $comment->id)
+                                                    <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
+                                                        @if (Auth::check())
+                                                            <form action="{{ route('addComment', $book->id) }}" method="POST" class="reply_form">
+                                                                @csrf
+                                                                <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username .': '}}</textarea>
+                                                                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                                                <div class="comment_toolkit clear">
+                                                                    <input class="button" type="submit" value="Trả lời">
+                                                                </div>
+                                                            </form>
+                                                        @else
+                                                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình luận.</strong></p>
+                                                        @endif
+                                                    </div>
+                                                @endif
+                                                <!-- Lặp qua các replies -->
+                                                @if ($comment->replies->isNotEmpty())
+                                                    @include('partials.comment', ['comments' => $comment->replies])
+                                                @endif
+                                                {{-- @foreach ($comment->replies as $reply)
                                                     <div class="ln-comment-reply">
                                                         <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
                                                             data-comment="2560870" data-parent="2559913">
@@ -622,9 +641,8 @@
                                                                             <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
                                                                                 class="text-slate-500">
                                                                                 <time class="timeago"
-                                                                                    title="22-08-2024 23:44:19"
-                                                                                    datetime="2024-08-22T23:44:19+07:00">
-                                                                                    {{ $reply->create_at }}
+                                                                                    title="22-08-2024 23:44:19" datetime="{{ $comment->created_at }}">
+                                                                                    {{ $comment->created_at->diffForHumans() }}
                                                                                 </time>
                                                                             </a>
                                                                             <a
@@ -636,7 +654,8 @@
                                                                             <a
                                                                                 class="self-center visible-toolkit-item do-reply cursor-pointer">
                                                                                 <i class="fas fa-comment me-1"></i>
-                                                                                <span class="font-semibold">Trả lời</span>
+                                                                                <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{$reply->id }}"
+                                                                                    class="likecount font-semibold">Trả lời</a>
                                                                             </a>
 
                                                                         </div>
@@ -646,6 +665,24 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
+
+                                                @if (request('reply_to') == $reply->id)
+                                                    <div class="ln-comment-reply ln-comment-form mt-3">
+                                                        @if (Auth::check())
+                                                            <form action="{{ route('addComment', $book->id) }}"
+                                                                method="POST" class="reply_form">
+                                                                @csrf
+                                                                <textarea name="content" class="comment_reply form-control" required></textarea>
+                                                                <input type="hidden" name="parent_id" value="{{  $reply->id }}">
+                                                                <div class="comment_toolkit clear">
+                                                                    <input class="button" type="submit" value="Trả lời">
+                                                                </div>
+                                                            </form>
+                                                        @else
+                                                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình luận.</strong></p>
+                                                        @endif
+                                                    </div>
+                                                @endif --}}
                                             </div>
                                         @endforeach
 
@@ -662,5 +699,14 @@
                                             </div>
                                         </div>
                                     </main>
-                                    @include('layouts.TinyMCEscript')
-                                @endsection
+                                    {{-- @include('layouts.TinyMCEscript') --}}
+                                </section>
+                            </div>
+                        </main>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+@endsection

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatebookcommentRequest;
 use App\Models\book;
 use App\Models\bookcomment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookCommentController extends Controller
 {

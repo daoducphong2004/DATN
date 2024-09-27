@@ -199,10 +199,6 @@ Route::middleware(['auth', 'role:author'])->group(function () {
     Route::resource('story', BookController::class);
 });
 
-Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
-
-
-
 require __DIR__ . '/admin.php';
 
 

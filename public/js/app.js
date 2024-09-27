@@ -397,48 +397,50 @@ if ($(".ln-comment-body").on("click", "span.span-pin", (function () {
     ))
 }
 )),
-    $(".ln-comment-body").on("click", "a.do-like", (function () {
-        var e = $(this);
-        $.post("/action/comment/like-unlike", {
-            _token: token,
-            comment_id: $(this).closest(".ln-comment-item").data("comment")
-        }, (function (t) {
-            "success" == t.status ? (console.log(e),
-                t.liked ? (e.addClass("liked"),
-                    e.find("span.likecount").text(t.like_count)) : (e.removeClass("liked"),
-                        e.find("span.likecount").text(t.like_count))) : alert(t.message)
-        }
-        ))
-    }
-    )),
+    // $(".ln-comment-body").on("click", "a.do-like", (function () {
+    //     var e = $(this);
+    //     $.post("/action/comment/like-unlike", {
+    //         _token: token,
+    //         comment_id: $(this).closest(".ln-comment-item").data("comment")
+    //     }, (function (t) {
+    //         "success" == t.status ? (console.log(e),
+    //             t.liked ? (e.addClass("liked"),
+    //                 e.find("span.likecount").text(t.like_count)) : (e.removeClass("liked"),
+    //                     e.find("span.likecount").text(t.like_count))) : alert(t.message)
+    //     }
+    //     ))
+    // }
+    // )),
     seeMoreButtons(),
     $(".ln-comment-body").on("click", ".comment_see_more", (function (e) {
         clickSeeMore($(this))
     }
     )),
-    $("form.comment_form input.button").on("click", (function () {
-        var e = tinymce.activeEditor.getContent();
-        $.post("/action/comment/new", {
-            _token: token,
-            type: comment_type,
-            type_id: comment_typeid,
-            content: e,
-            parent_id: 0
-        }, (function (e) {
-            if ("success" == e.status && "" != e.html) {
-                var t = $(".ln-comment-body");
-                $("html,body").animate({
-                    scrollTop: t.offset().top - $("body").offset().top + t.scrollTop()
-                }),
-                    $("#ln-comment-submit").after($('<div class="ln-comment-group">' + e.html + "</div>").fadeIn(700)),
-                    tinymce.activeEditor.setContent(""),
-                    seeMoreButton($("#ln-comment-" + e.comment_id).find(".ln-comment-content"))
-            } else
-                alert(e.message)
-        }
-        ), "json")
-    }
-    )),
+    // $("form.comment_form input.button").on("click", (function () {
+    //     var e = tinymce.activeEditor.getContent();
+    //     $.post("/action/comment/new", {
+    //         _token: token,
+    //         type: comment_type,
+    //         type_id: comment_typeid,
+    //         content: e,
+    //         parent_id: 0
+    //     }, (function (e) {
+    //         if ("success" == e.status && "" != e.html) {
+    //             var t = $(".ln-comment-body");
+    //             $("html,body").animate({
+    //                 scrollTop: t.offset().top - $("body").offset().top + t.scrollTop()
+    //             }),
+    //                 $("#ln-comment-submit").after($('<div class="ln-comment-group">' + e.html + "</div>").fadeIn(700)),
+    //                 tinymce.activeEditor.setContent(""),
+    //                 seeMoreButton($("#ln-comment-" + e.comment_id).find(".ln-comment-content"))
+    //         } else
+    //             alert(e.message)
+    //     }
+    //     ), "json")
+    // }
+    // )),
+
+    //sửa thông tin trong đây để lấy được tên người dùng
     $(".ln-comment-body").on("click", ".do-reply", (function () {
         var e = $(this)
             , t = e.closest(".ln-comment-item").data("comment")
@@ -454,66 +456,68 @@ if ($(".ln-comment-body").on("click", "span.span-pin", (function () {
         }
     }
     )),
-    $(".ln-comment-body").on("click", "input.submit_reply", (function () {
-        var e = tinymce.activeEditor.getContent()
-            , t = parseInt($(this).data("parent")) || 0;
-        $.post("/action/comment/new", {
-            _token: token,
-            type: comment_type,
-            type_id: comment_typeid,
-            content: e,
-            parent_id: t
-        }, (function (e) {
-            if ("success" == e.status && "" != e.html) {
-                $("#ln-comment-" + t).parent().append($('<div class="ln-comment-reply">' + e.html + "</div>"));
-                var n = $("#ln-comment-" + e.comment_id);
-                $("html,body").animate({
-                    scrollTop: n.offset().top - $("body").offset().top + n.scrollTop() - 270
-                }),
-                    seeMoreButton(n.find(".ln-comment-content"))
-            } else
-                alert(e.message);
-            $(".reply-form").remove()
-        }
-        ), "json")
-    }
-    )),
-    $(".ln-comment-body").on("click", ".span-edit", (function () {
-        var e = $(this).closest(".ln-comment-item").data("comment")
-            , t = $("#ln-comment-" + e)
-            , n = t.find(".ln-comment-content");
-        if (t.find(".ln-comment-content .comment_hidden").length && n.html(t.find(".ln-comment-content .comment_hidden").html()),
-            t.find(".ln-comment-form").length)
-            return t.find(".ln-comment-form").remove(),
-                void n.show();
-        $(".edit-form").remove(),
-            n.css("max-height", "initial"),
-            n.next(".comment_see_more").remove(),
-            n.after('<div class="ln-comment-form edit-form" style="padding-left: 10px"><textarea class="comment_edit"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_edit" value="Sửa" data-comment="' + e + '"></div></div>'),
-            n.hide(),
-            tinymce.init(tinymce.activeEditor.settings),
-            tinymce.activeEditor.setContent(n.html())
-    }
-    )),
-    $(".ln-comment-body").on("click", "input.submit_edit", (function () {
-        var e = parseInt($(this).data("comment")) || 0
-            , t = tinymce.activeEditor.getContent();
-        $.post("/action/comment/update", {
-            _token: token,
-            comment_id: e,
-            content: t
-        }, (function (t) {
-            var n = $("#ln-comment-" + e);
-            "success" == t.status && "" != t.html ? ($("html,body").animate({
-                scrollTop: n.offset().top - $("body").offset().top + n.scrollTop()
-            }),
-                n.find(".ln-comment-content").html(t.html).show()) : (n.find(".ln-comment-content").show(),
-                    alert(t.message)),
-                $(".edit-form").remove()
-        }
-        ), "json")
-    }
-    )),
+    // $(".ln-comment-body").on("click", "input.submit_reply", (function () {
+    //     var e = tinymce.activeEditor.getContent()
+    //         , t = parseInt($(this).data("parent")) || 0;
+    //     $.post("/action/comment/new", {
+    //         _token: token,
+    //         type: comment_type,
+    //         type_id: comment_typeid,
+    //         content: e,
+    //         parent_id: t
+    //     }, (function (e) {
+    //         if ("success" == e.status && "" != e.html) {
+    //             $("#ln-comment-" + t).parent().append($('<div class="ln-comment-reply">' + e.html + "</div>"));
+    //             var n = $("#ln-comment-" + e.comment_id);
+    //             $("html,body").animate({
+    //                 scrollTop: n.offset().top - $("body").offset().top + n.scrollTop() - 270
+    //             }),
+    //                 seeMoreButton(n.find(".ln-comment-content"))
+    //         } else
+    //             alert(e.message);
+    //         $(".reply-form").remove()
+    //     }
+    //     ), "json")
+    // }
+    // )),
+    // $(".ln-comment-body").on("click", ".span-edit", (function () {
+    //     var e = $(this).closest(".ln-comment-item").data("comment")
+    //         , t = $("#ln-comment-" + e)
+    //         , n = t.find(".ln-comment-content");
+    //     if (t.find(".ln-comment-content .comment_hidden").length && n.html(t.find(".ln-comment-content .comment_hidden").html()),
+    //         t.find(".ln-comment-form").length)
+    //         return t.find(".ln-comment-form").remove(),
+    //             void n.show();
+    //     $(".edit-form").remove(),
+    //         n.css("max-height", "initial"),
+    //         n.next(".comment_see_more").remove(),
+    //         n.after('<div class="ln-comment-form edit-form" style="padding-left: 10px"><textarea class="comment_edit"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_edit" value="Sửa" data-comment="' + e + '"></div></div>'),
+    //         n.hide(),
+    //         tinymce.init(tinymce.activeEditor.settings),
+    //         tinymce.activeEditor.setContent(n.html())
+    // }
+    // )),
+    // $(".ln-comment-body").on("click", "input.submit_edit", (function () {
+    //     var e = parseInt($(this).data("comment")) || 0
+    //         , t = tinymce.activeEditor.getContent();
+    //     $.post("/action/comment/update", {
+    //         _token: token,
+    //         comment_id: e,
+    //         content: t
+    //     }, (function (t) {
+    //         var n = $("#ln-comment-" + e);
+    //         "success" == t.status && "" != t.html ? ($("html,body").animate({
+    //             scrollTop: n.offset().top - $("body").offset().top + n.scrollTop()
+    //         }),
+    //             n.find(".ln-comment-content").html(t.html).show()) : (n.find(".ln-comment-content").show(),
+    //                 alert(t.message)),
+    //             $(".edit-form").remove()
+    //     }
+    //     ), "json")
+    // }
+    // )),
+
+    //Sử lý xóa ở đây
     $(".ln-comment-body").on("click", ".span-delete", (function () {
         var e = $(this)
             , t = parseInt(e.closest(".ln-comment-item").data("comment"));
@@ -534,6 +538,7 @@ if ($(".ln-comment-body").on("click", "span.span-pin", (function () {
         ))
     }
     )),
+
     $(".ln-comment-body").on("click", ".paging_item, #refresh_comment", (function (e) {
         e.preventDefault();
         var t = $(this);

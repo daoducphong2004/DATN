@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="vi" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="">
+    <meta property="fb:app_id" content="376408899112473">
+    <meta name="theme-color" content="#052c3e">
+
+    <title>Nạp Xu: Phương Thức Nạp Xu</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-32.png">
+    <link rel="apple-touch-icon" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-1024.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-144.png">
+    <link rel="icon" sizes="192x192" href="https://yystatic.codeprime.net/v2018/img/icon-v2018-192.png">
+
+    
+    
+        
+        <meta property="og:image" content="https://yystatic.codeprime.net/img/ogimages/yy-1.jpg" />
+    
+    <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://yystatic.codeprime.net/css/mobile-base-2016.1263b4.css">
+
+    <script src="https://yystatic.codeprime.net/bower_components/jquery/dist/jquery.min.js"></script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .coin {
+            color: gold; /* Màu vàng */
+            font-size: 15px; /* Kích thước biểu tượng */
+        }
+    </style>
+</head>
+<body  class="">
+
+
+<div id="toptop"></div>
+
+
+<div >
+
+    <header class="header">
+        
+        <a onclick="history.go(-1)" class="header-back">
+            <i class="material-icons">&#xE5CB;</i>
+        </a>
+        
+        <h1 class="header-back-title">Nạp Xu: Phương Thức Nạp Xu</h1>
+        
+    </header>
+
+    
+</div>
+
+
+
+
+
+<main class="content">
+
+<div class="account pt-2">
+
+    <div class="cell-box">
+        <div>
+            
+            
+                
+                
+            
+        
+            <a href="" class="weui_btn weui_btn_default mt-2">
+                <img src="https://cdn.tgdd.vn/2020/03/GameApp/Untitled-2-200x200.jpg" alt="" height="32" class="mt-2">
+                <img src="https://cdn-new.topcv.vn/unsafe/150x/https://static.topcv.vn/company_logos/cong-ty-cp-giai-phap-thanh-toan-viet-nam-vnpay-6194ba1fa3d66.jpg" alt="" height="32" class="mt-2">
+                <div class="small" style="margin-top: -10px;">Nạp thông qua dịch vụ thanh toán điện tử (có MOMO, VNPay)</div>
+            </a>
+            <!-- <a href="/account/vip/paypal/checkout/" class="weui_btn weui_btn_default mt-2">
+                <img src="https://yystatic.codeprime.net/svg/paypal.svg" alt="paypal" height="24" class="mt-2">
+                <div class="small" style="margin-top: -10px;"></div>
+                <div class="small" style="margin-top: -10px; line-height: 1.5;">
+                    Thẻ Visa, MasterCard... (hỗ trợ thẻ tín dụng quốc tế, thanh toán toàn cầu, có TLT ngay)
+                </div>
+                <div class="small text-success" style="margin-top: 0px; line-height: 1.5;">
+                    Tăng tỉ lệ quy đổi: 1 USD => 2200 TLT
+                </div>
+                <div class="mt-2 clearfix"></div>
+            </a> -->
+            <a href="/account/" class="weui_btn weui_btn_default">Trở lại trang Tài khoản</a>
+        </div>
+
+        <p class="mb-2 mt-4">Nếu có thắc mắc mời bạn liên hệ team NovelPub qua page facebook
+                <a href="https://m.me/TruyenYY" rel="noreferrer noopener nofollow">fb.com/NovelPub</a> (từ 9:00-18:30)
+                để được hỗ trợ nhanh nhất.</p>
+
+        <p class="my-2"><b class="text-success">Các thông tin cần biết:</b></p>
+
+        <p class="mb-2">Tỉ lệ quy đổi: 10.000 VND = 1000 <i class="fas fa-coins coin"></i></p>
+
+        <p class="mb-2">NovelPub sử dụng dịch vụ thanh toán bên thứ 3 là <b>Momo</b>
+            hoặc <b>VNPay</b>.</p>
+
+        <p class="mb-2">
+            Khi nạp tiền tùy theo phương thức thanh toán mà sẽ có các phí phát sinh khác nhau.
+            Bạn có thể tham khảo tại trang chủ của dịch vụ tương ứng.
+        </p>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+
+
+<form id="search_pop" class="weui-popup-container" style="z-index: 9999;"  ng-controller="SearchCtrl" action="/tim-kiem/nang-cao/">
+    <div class="weui-popup-overlay"></div>
+    <div class="weui-popup-modal">
+        <div class="weui_search_bar" id="home_search_bar">
+            <div class="weui_search_outer">
+                <div class="weui_search_inner">
+                    <i class="weui_icon_search"></i>
+                    <input type="search" class="weui_search_input" id="home_search_input" placeholder="Tên truyện, tác giả..." required ng-model="query" name="q" ng-model-options="{debounce: 400}">
+                    <a class="weui_icon_clear" id="home_search_clear"></a>
+                </div>
+                <label for="search_input" class="weui_search_text" id="home_search_text">
+                    <i class="weui_icon_search"></i>
+                    <span>Tìm Kiếm</span>
+                </label>
+            </div>
+            <a class="close-popup ml-1" style="line-height:38px;">Bỏ Qua</a>
+        </div>
+
+        
+        <div class="weui_cells weui_cells_access ng-cloak">
+            <a ng-href="{{ item.url }}" class="weui_cell" ng-repeat="item in search_results" id="{{ item.id }}">
+                <div class="weui_cell_bd weui_cell_primary">{{ item.title }}</div>
+                <div class="weui_cell_ft"></div>
+            </a>
+        </div>
+        
+        <button class="weui_btn weui_btn_plain_primary">Tìm Nâng Cao</button>
+    </div>
+</form>
+
+<script src="https://yystatic.codeprime.net/js/mobile-base-2016.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var menu_btn = $('#open_hd_menu');
+        var menu = $('.header-menu');
+        var menu_overlay = $('.header-menu-overlay');
+        menu_btn.click(function () {
+            if (menu_btn.hasClass('active')) {
+                menu.css('top', '-185px');
+                menu_overlay.hide();
+                menu_btn.removeClass('active');
+                menu_btn.parent().removeClass('active');
+            } else {
+                menu.css('top', 54);
+                menu_overlay.show();
+                menu_btn.addClass('active');
+                menu_btn.parent().addClass('active');
+            }
+        });
+        menu_overlay.click(function () {
+            menu.css('top', '-185px');
+            menu_overlay.hide();
+            menu_btn.removeClass('active');
+        });
+
+    });
+
+    $(document).on("open", ".weui-popup-modal", function () {
+        $('#home_search_bar').addClass('weui_search_focusing').find('input').focus();
+    }).on("close", ".weui-popup-modal", function () {});
+
+    var app = angular.module('MyApp', ['angularMoment']);
+    app.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    }]);
+    app.run(function (amMoment) {
+        amMoment.changeLocale('vi');
+    });
+
+    app.controller('SearchCtrl', function ($scope, $http) {
+        $scope.search_results = [];
+
+        $scope.$watch('query', function(newVal, oldVal) {
+            if (newVal) {
+                $http.get("/novel/search/autocomplete/?q="+newVal).then(function(resp){
+                     $scope.search_results = resp['data'];
+                });
+            }
+        });
+    });
+</script>
+
+
+
+    
+
+    
+        
+            <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6SE80VQKJ2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6SE80VQKJ2');
+</script>
+        
+    
+
+
+</body>
+</html>

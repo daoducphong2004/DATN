@@ -1,6 +1,14 @@
-@extends('stories.partials.master')
+@extends('admin.layouts.default')
+
+@section('title')
+    @parent
+     Danh sách truyện
+@endsection
+
+@push('styles')
+
+@endpush
 @section('content')
-@include('stories.partials.header')
 
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
         @csrf
@@ -116,7 +124,36 @@
                 </select>
             </div>
         </div>
-        @include('layouts.TinyMCEscript')
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                inline: false,
+                height: 300,
+                skin: 'oxide',
+                content_css: 'default',
+                branding: false,
+                menubar: false,
+                contextmenu: false,
+                entities: '160,nbsp,38,amp,60,lt,62,gt',
+                paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
+                element_format: 'html',
+                formats: {
+                    strikethrough: {
+                        inline: 's',
+                        remove: 'all'
+                    },
+                    underline: {
+                        inline: 'u',
+                        remove: 'all'
+                    },
+                },
+                plugins: 'wordcount link image code fullscreen paste emoticons',
+                toolbar: 'undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
+            });
+        </script>
+
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
                 <button type="submit" class="btn btn-primary">
@@ -129,3 +166,37 @@
         </div>
     </form>
 @endsection
+@push('scripts')
+    <script>
+        jQuery(document).ready(function() {
+            console.log("jQuery version:", jQuery.fn.jquery);
+            jQuery('#list-story').DataTable();
+        });
+    </script>
+@endpush
+@push('styles')
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table th {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            font-size: 0.9rem;
+        }
+
+        .table img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            margin: 2px;
+        }
+    </style>
+@endpush

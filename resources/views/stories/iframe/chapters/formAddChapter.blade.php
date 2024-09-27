@@ -29,14 +29,13 @@
                                 </div>
                             </div> --}}
                                 <input type="hidden" id="word_count" name="word_count" value="0">
-
                                 <div class="form-group clearfix required">
                                     <div class="col-md-12">
                                         <label class="control-label">Nội dung</label>
                                         <textarea id="LN_Chapter_Content" name="content"></textarea>
                                     </div>
                                 </div>
-                                @include('layouts.TinyMCEscript');
+                                @include('layouts.TinyMCEscript')
                                 <div class="form-group">
                                     <div class="col-md-10">
                                         <button type="submit" class="btn btn-primary">
@@ -45,10 +44,8 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

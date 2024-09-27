@@ -10,12 +10,13 @@
 @endpush
 
 @section('content')
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="p-4" style="min-height: 800px;">
-        @if (session('message'))
-            <div class="alert alert-primary" role="alert">
-                {{ session('message') }}
-            </div>
-        @endif
         <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
         <table border="1" class="table">
             <tr>
@@ -38,12 +39,17 @@
                     <td>
                         <a href="{{ route('bookComment.create') }}" class="btn btn-primary">Thêm</a>
                         <a class="btn btn-warning" href="">Sửa</a>
-                        <form action="{{ route('bookComment.destroy', $comment) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+                        @if (Auth::user() && Auth::user()->role->name === 'mod' || Auth::user()->role->name === 'admin')
+                            <form action="{{ route('bookComment.destroy', $comment) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                            <button class="btn btn-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này không?')">Xóa</button>
-                        </form>
+                                <button class="btn btn-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này không?')">Xóa</button>
+                            </form>
+                        @else
+                            <a href="#" class="btn btn-danger"
+                                onclick="alert('Bạn không có quyền truy cập tính năng này!')">Xoá</a>
+                        @endif
                         {{-- <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a> --}}
                     </td>
                 </tr>

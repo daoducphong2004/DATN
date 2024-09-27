@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatebookcommentRequest;
 use App\Models\book;
 use App\Models\bookcomment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookCommentController extends Controller
 {
@@ -76,6 +77,10 @@ class BookCommentController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::check() || Auth::user()->role->name !== 'mod' && Auth::user()->role->name !== 'admin') {
+            return redirect()->route('bookComment.index')->with('error', 'Bạn không có quyền xóa bình luận!');
+        }
+
         $bookComment = $this->getbookCommentById($id);
         $bookComment->delete();
 

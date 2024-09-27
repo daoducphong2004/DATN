@@ -30,7 +30,7 @@ class bookcomment extends Model
     // Quan hệ bình luận con
     public function replies()
     {
-        return $this->hasMany(bookcomment::class, 'parent_id');
+        return $this->hasMany(bookcomment::class, 'parent_id')->with('replies');
     }
 
     // Quan hệ bình luận cha

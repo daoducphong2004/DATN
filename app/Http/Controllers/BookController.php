@@ -33,7 +33,8 @@ class BookController extends Controller
     {
         $comments = bookcomment::with('user')
             ->where('book_id', $bookId)
-            ->whereNull('parent_id')->get();
+            ->whereNull('parent_id')
+            ->with('replies.replies')->get();
 
         $book = book::findOrFail($bookId);
 
@@ -157,8 +158,10 @@ class BookController extends Controller
         // dd($book,$episodes);
 
         $comments = bookcomment::with('user')
-            ->where('book_id', $book->id)
-            ->whereNull('parent_id')->get();
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')
+        ->with('replies.replies')->get();
+
 
         // dd($comments);
         if (Auth::check() && Auth::user()->role->name === 'guest' && $book->is_paid) {

@@ -13,27 +13,27 @@
             <ul class="nav navbar-nav ">
                 <li><a href="" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
                 
-                @if (Auth::user()->role === 'super_admin' || Auth::user()->role === 'admin')
+                @if (Auth::user()->role_id === 'super_admin' || Auth::user()->role_id === 'admin')
                     <!-- Cả Super Admin và Admin đều có thể truy cập vào danh sách truyện -->
                     <li><a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li>
                 @endif
                 
-                @if (Auth::user()->role === 'super_admin')
+                @if (Auth::user()->role_id === 'super_admin')
                     <!-- Chỉ Super Admin có quyền truy cập quản lý User -->
                     <li><a href="{{ route('user_index') }}" style="color: #3107dc">User</a></li>
                 @endif
                 
-                @if (Auth::user()->role === 'super_admin' || Auth::user()->role === 'admin')
+                @if (Auth::user()->role_id === 'super_admin' || Auth::user()->role_id === 'admin')
                     <!-- Cả Super Admin và Admin đều có thể quản lý thể loại -->
                     <li><a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a></li>
                 @endif
                 
-                @if (Auth::user()->role === 'super_admin' || Auth::user()->role === 'admin')
+                @if (Auth::user()->role_id === 'super_admin' || Auth::user()->role_id === 'admin'|| Auth::user()->role_id === 'mod')
                     <!-- Cả Super Admin và Admin đều có thể quản lý bình luận -->
                     <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li>
                 @endif
                 
-                @if (Auth::user()->role === 'super_admin')
+                @if (Auth::user()->role_id === 'super_admin')
                     <!-- Chỉ Super Admin có quyền truy cập vào các chức năng này -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
@@ -58,7 +58,7 @@
                     </li>
                 @endif
             
-                @if (Auth::user()->role === 'admin')
+                @if (Auth::user()->role_id === 'admin')
                     <!-- Admin có thể thực hiện xóa truyện và ban tài khoản -->
                     <li><a href="{{ route('story_index') }}" style="color: red">Quản lý Truyện</a></li>
                     <li><a href="{{ route('user_index') }}" style="color: #3107dc">Ban User</a></li>

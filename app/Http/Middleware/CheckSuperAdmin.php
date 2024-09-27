@@ -16,7 +16,7 @@ class CheckSuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || Auth::user()->role !== 'super_admin') {
+        if (!Auth::check() || Auth::user()->role_id !== 'super_admin') {
             return redirect()->route('no_permission')->with('error', 'Bạn không có quyền truy cập vào chức năng này.');
         }
         return $next($request);

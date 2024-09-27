@@ -23,11 +23,11 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('avatar_url')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
             $table->timestamp('last_login')->nullable();
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
             $table->integer('coin_earned')->default(0);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

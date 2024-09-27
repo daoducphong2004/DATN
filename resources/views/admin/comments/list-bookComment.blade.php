@@ -44,8 +44,12 @@
                                 @csrf
                                 @method('DELETE')
 
-                            <button class="btn btn-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này không?')">Xóa</button>
-                        </form>
+                                <button class="btn btn-danger" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này không?')">Xóa</button>
+                            </form>
+                        @else
+                            <a href="#" class="btn btn-danger"
+                                onclick="alert('Bạn không có quyền truy cập tính năng này!')">Xoá</a>
+                        @endif
                         {{-- <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a> --}}
                     </td>
                 </tr>

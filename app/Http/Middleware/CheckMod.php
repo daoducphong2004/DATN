@@ -17,7 +17,7 @@ class CheckMod
         }
 
         // Kiểm tra quyền truy cập của mod và super_admin
-        if (!Auth::check() || (Auth::user()->role_id !== 'mod' && Auth::user()->role_id !== 'super_admin')) {
+        if (!Auth::check() || (Auth::user()->role_id !== 'mod' && Auth::user()->role_id !== 'admin')) {
             return redirect()->route('no_permission')->with('error', 'Bạn không có quyền truy cập vào chức năng này.');
         }
 

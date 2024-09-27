@@ -20,6 +20,7 @@ class CheckLoginAdmin
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Bạn chưa đăng nhập.');
         }
+        // dd('admin');
 
         // Kiểm tra nếu người dùng không phải là admin
         if (!Auth::check() || (Auth::user()->role_id !== 'admin' && Auth::user()->role_id !== 'super_admin')) {

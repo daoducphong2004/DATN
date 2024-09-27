@@ -14,12 +14,10 @@
                 <li><a href="" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
                 
                 @if (Auth::user()->role_id === 'super_admin' || Auth::user()->role_id === 'admin')
-                    <!-- Cả Super Admin và Admin đều có thể truy cập vào danh sách truyện -->
                     <li><a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li>
                 @endif
                 
                 @if (Auth::user()->role_id === 'super_admin')
-                    <!-- Chỉ Super Admin có quyền truy cập quản lý User -->
                     <li><a href="{{ route('user_index') }}" style="color: #3107dc">User</a></li>
                 @endif
                 

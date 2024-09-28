@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class book extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'type',
         'status',
@@ -22,15 +22,15 @@ class book extends Model
         'description',
         'note',
         'is_VIP',
-
         'adult',
         'group_id',
         'user_id',
         'Is_Inspect'
     ];
 
-    public function group(){
-        return $this->belongsTo(group::class,'group_id');
+    public function group()
+    {
+        return $this->belongsTo(group::class, 'group_id');
     }
     public function genres()
     {
@@ -51,11 +51,16 @@ class book extends Model
     {
         return $this->hasMany(chapter::class);
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     public function groups()
     {
         return $this->belongsTo(group::class);
+    }
+    public function episodeCount()
+    {
+        return $this->episodes()->count();
     }
 }

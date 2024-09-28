@@ -80,11 +80,34 @@ Route::prefix('admin')->group(function () {
     // Phong
     Route::get('/story', [StoryController::class, 'index'])->name('admin_storylist');
     Route::get('/story/create', [StoryController::class, 'createBook'])->name('admin_storycreate');
+    Route::post('/story/store', [StoryController::class, 'storeBook'])->name('admin_storystore');
     Route::get('/story/{id}', [StoryController::class, 'showBook'])->name('admin_storyshow');
     Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
-    Route::post('/story/store', [StoryController::class, 'storeBook'])->name('admin_storystore');
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
     Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
+
+
+    //episode
+    Route::get('/episode/create/{book_id}',[StoryController::class,'createEpisode'])->name('admin_episodecreate');
+    Route::post('/episode/store',[StoryController::class,'storeEpisode'])->name('admin_episodestore');
+    Route::get('/episodes/{id}/edit', [StoryController::class, 'editEpisode'])->name('admin_episodeedit');
+    Route::put('/episodes/{id}', [StoryController::class, 'updateEpisode'])->name('admin_episodeupdate');
+    Route::delete('/episode/{id}/delete', [StoryController::class, 'destroyEpisode'])->name('admin_episdestroy');
+
+
+    //end episode
+
+
+    //chapter
+    Route::get('/chapter/create/{episode_id}',[StoryController::class,'createChapter'])->name('admin_chaptercreate');
+    Route::post('/chapter/store',[StoryController::class,'storeChapter'])->name('admin_chapterstore');
+    Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
+    Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
+    Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
+
+    //end chapter
+
+
     // end phong
 
     //forum

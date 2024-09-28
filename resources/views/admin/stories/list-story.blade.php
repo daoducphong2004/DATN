@@ -23,6 +23,7 @@
                     <th>Ảnh truyện</th>
                     <th>Người đăng</th>
                     <th>Nhóm đăng</th>
+                    <th>Số Tập</th>
                     <th>Lượt xem</th>
                     <th>Lượt thích</th>
                     <th>VIP</th>
@@ -41,6 +42,7 @@
                     </td>
                     <td>{{ $story->user->username }}</td>
                     <td>{{ $story->group->name }}</td>
+                    <td>{{ $story->episodeCount(); }}</td>
                     <td>{{ $story->view }}</td>
                     <td>{{ $story->like }}</td>
                     <td>{{ $story->is_VIP ? 'Có' : 'Không' }}</td>

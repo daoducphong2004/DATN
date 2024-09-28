@@ -23,6 +23,7 @@
                     <th>Ảnh truyện</th>
                     <th>Người đăng</th>
                     <th>Nhóm đăng</th>
+                    <th>Số Tập</th>
                     <th>Lượt xem</th>
                     <th>Lượt thích</th>
                     <th>VIP</th>
@@ -41,6 +42,7 @@
                     </td>
                     <td>{{ $story->user->username }}</td>
                     <td>{{ $story->group->name }}</td>
+                    <td>{{ $story->episodeCount(); }}</td>
                     <td>{{ $story->view }}</td>
                     <td>{{ $story->like }}</td>
                     <td>{{ $story->is_VIP ? 'Có' : 'Không' }}</td>
@@ -56,8 +58,12 @@
 
                      <td>
                         <a class="btn btn-success" href="{{ route('admin_storyshow', $story->id) }}">Chi tiết</a>
-                        <a class="btn btn-warning" href="{{ route('story.edit', $story->id) }}">Sửa</a>
-                        <a class="btn btn-danger" href="{{ route('story.destroy', $story->id) }}" onclick="return confirmDelete()">Xoá</a>
+                        <a class="btn btn-warning" href="{{ route('admin_storyedit', $story->id) }}">Sửa</a>
+                        <form action="{{ route('admin_storydestroy', $story->id) }}" method="POST" onsubmit="return confirmDelete();">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Xoá</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -68,6 +74,9 @@
 
 @push('scripts')
     <script>
+        function confirmDelete() {
+    return confirm('Bạn có chắc chắn muốn xóa không?');
+}
         jQuery(document).ready(function() {
             console.log("jQuery version:", jQuery.fn.jquery);
             jQuery('#list-story').DataTable();

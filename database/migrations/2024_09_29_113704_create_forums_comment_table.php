@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Forum::class)->constrained();
-            $table->bigInteger('total_user_see');
-            $table->string('slug');
+            $table->foreignId('parent_id')->nullable()->constrained('forums_comment')->onDelete('cascade');
             $table->timestamps();
         });
     }

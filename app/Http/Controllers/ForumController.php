@@ -7,6 +7,10 @@ use App\Http\Requests\StoreForumRequest;
 use App\Http\Requests\UpdateForumRequest;
 use App\Models\book;
 use App\Models\Category;
+use App\Models\CommentForum;
+use App\Models\ForumComment;
+use App\Models\forums_comment;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Nette\Utils\Strings;
@@ -137,9 +141,30 @@ class ForumController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Forum $forum)
+    public function show(Forum $forum, string $id)
     {
-        //
+        $data = Forum::findOrFail($id);
+        // dd($data);
+        $data_forums = Forum::findOrFail($id)->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
+            'categories.color as color',
+            'categories.content as content_categories',
+            'categories.slug as slug_categories',
+            'users.username as username', 
+            'users.avatar_url as avt_user',
+            'forums.id as id', 
+            'forums.title as title',
+            'forums.content as content', 
+            'forums.created_at as created_at'
+        ])->orderBy('created_at','desc')->get();
+        $data_user = User::findOrFail($data->user_id);
+        $data_list_forum = ForumComment::with('user')->whereNull('parent_id')->get();
+
+        $data_child_list_forum = [];
+        foreach ($data_list_forum as $parentComment) {
+            $childComments = ForumComment::with('user')->where('parent_id', $parentComment->id)->get();
+            $data_child_list_forum[$parentComment->id] = $childComments; // Lưu bình luận con vào mảng
+        }
+        return view('user.chitiet_forum',compact('data','data_forums','data_user','data_list_forum','data_child_list_forum'));
     }
 
     /**
@@ -177,6 +202,7 @@ class ForumController extends Controller
             $userID = 1;
         }
          $data = Forum::findOrFail($id);
+        
          return view('admin.forum.editforum',compact('data','userID','books','categories'));
     }
 

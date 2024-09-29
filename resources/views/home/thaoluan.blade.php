@@ -27,7 +27,7 @@
                     <li class="l-l-d_item">Chuyên mục <i class="fas fa-caret-down"></i></li>
                 </ul>
                 <ul class="ln-list-option none">
-                    <li class="l-l-o_item"><a href="https://docln.net/thao-luan"><i class="fas fa-circle"
+                    <li class="l-l-o_item"><a href="{{route('thao-luan')}}"><i class="fas fa-circle"
                                 aria-hidden="true" style="color: black"></i> Tất cả</a></li>
                     @foreach ($categories as $item_categories)
                     <li class="l-l-o_item"><a href="/thao-luan?chuyen-muc={{$item_categories->id}}"><i class="fas fa-circle" aria-hidden="true"
@@ -57,10 +57,9 @@
                 </thead>
                 <tbody>
                     @foreach ($data_forums as $item_forums)
-
                     <tr class="d-flex">
                         <td class="col-8 col-md-4 col-lg-5 col-xl-5">
-                            <a class="topic-title" href="https://docln.net/thao-luan/2266-thao-luan-cho-tac-gia-oln"><i
+                            <a class="topic-title" href="{{route('chi-tiet-thao-luan',$item_forums->id)}}"><i
                                     class="fas fa-star"></i> {{$item_forums->title}}</a>
                             <div class="subtitle-category none-m">
                                 <span class="category-circle"><i class="fas fa-circle" aria-hidden="true"

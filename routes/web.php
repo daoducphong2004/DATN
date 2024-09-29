@@ -25,6 +25,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
+use App\Http\Controllers\ForumCommentController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -84,7 +85,8 @@ Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
 Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
 Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
 Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
-
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin

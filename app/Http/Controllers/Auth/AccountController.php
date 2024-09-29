@@ -10,67 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class AccountController extends Controller
 {
-    public function index()
-    {
-        return view('home.index');
-    }
-
-    public function gioithieu()
-    {
-        return view('home.stories');
-    }
-
-    public function chuong()
-    {
-        return view('home.reader');
-    }
-
-    public function danhsach()
-    {
-        return view('home.show');
-    }
-
-    public function vuadang()
-    {
-        return view('home.vuadang');
-    }
-
-    public function thaoluan()
-    {
-        return view('home.thaoluan');
-    }
-
-    public function sangtac()
-    {
-        return view('home.sangtac');
-    }
-
-    public function xuatban()
-    {
-        return view('home.xuatban');
-    }
-
-    public function huongdan_dangtruyen()
-    {
-        return view('home.hd_dangtruyen');
-    }
-    public function huongdan_gioithieu()
-    {
-        return view('home.gioithieu');
-    }
-
-    public function huongdan_gopy()
-    {
-        return view('home.gopy');
-    }
-
-    public function taikhoan()
-    {
-        return view('home.taikhoan');
-    }
-
 
     public function update(Request $request, User $user)
     {
@@ -130,11 +71,11 @@ class UserController extends Controller
             'email' => 'required|unique:users',
             'password' => 'required|min:6|confirmed'
         ]);
-
         $user = new User();
 
         $user->username = $request->username;
         $user->email = $request->email;
+        // $user->role_id = 1;
         $user->password = Hash::make($request->password);
 
         $userRole = Role::where('name', 'user')->first();
@@ -143,8 +84,6 @@ class UserController extends Controller
         } else {
             return redirect()->back()->withErrors(['role' => 'Role user not found.']);
         }
-
-
         $user->save();
         return redirect()->route('login')->with("success", "Register account success.");
     }
@@ -180,68 +119,5 @@ class UserController extends Controller
         return view('auth.password.reset');
     }
 
-    public function createTruyen()
-    {
-        return view('user.createTruyen');
-    }
 
-    public function truyenDaDang()
-    {
-        return view('user.truyenDaDang');
-    }
-
-    public function truyenThamGia()
-    {
-        return view('user.truyenThamGia');
-    }
-
-    public function conventThamGia()
-    {
-        return view('user.conventThamGia');
-    }
-
-    public function conventDaDang()
-    {
-        return view('user.conventDaDang');
-    }
-
-    public function OLNDaDang()
-    {
-        return view('user.OLNDaDang');
-    }
-
-    public function OLNThamGia()
-    {
-        return view('user.OLNThamGia');
-    }
-
-    public function themThaoLuan()
-    {
-        return view('user.themThaoLuan');
-    }
-
-    public function thaoLuanCuaBan()
-    {
-        return view('user.thaoLuanCuaBan');
-    }
-
-    public function theLoai()
-    {
-        return view('user.theLoai');
-    }
-
-    public function thuVien()
-    {
-        return view('user.truyenThamGia');
-    }
-
-    public function nhomSoHuu()
-    {
-        return view('user.nhomSoHuu');
-    }
-
-    public function nhomThamGia()
-    {
-        return view('user.nhomThamGia');
-    }
 }

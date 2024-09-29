@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -18,9 +18,7 @@ use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\Auth\UserController;
-use App\Http\Controllers\UserController as ControllersUserController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
@@ -47,8 +45,12 @@ Route::get('home', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
-Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
-Route::post('login', [UserController::class, 'login'])->name('login');
+Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
+Route::post('login', [AccountController::class, 'login'])->name('login');
+Route::get('register', [AccountController::class, 'register'])->name('register');
+Route::post('register', [AccountController::class, 'createAccount'])->name('createAccount');
+Route::get('email', [AccountController::class, 'email']);
+Route::get('reset', [AccountController::class, 'reset']);
 
 Route::get('gioithieu', [UserController::class, 'gioithieu']);
 Route::get('chuong', [UserController::class, 'chuong']);
@@ -62,10 +64,7 @@ Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
 Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
 
-Route::get('register', [UserController::class, 'register'])->name('register');
-Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
-Route::get('email', [UserController::class, 'email']);
-Route::get('reset', [UserController::class, 'reset']);
+
 
 Route::get('UserHome', [UserController::class, 'home']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);

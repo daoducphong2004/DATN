@@ -11,8 +11,20 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index(){
-        $data = book::orderBy('like', 'desc')->take(5)->get();
-        return view('home.index', compact('data'));
+        $truyen_noibat = book::orderBy('like', 'desc')->take(8)->get();
+
+        $sangtac_moinhat = book::orderBy('created_at', 'desc')->take(5)->get();
+
+        $chuong_moinhat = book::orderBy('created_at', 'desc')->take(17)->get();
+
+        $truyen_vuadang = book::orderBy('created_at', 'desc')->take(6)->get();
+
+        $truyen_dahoanthanh = Book::where('status', 3)
+                                  ->orderBy('created_at', 'desc')
+                                  ->take(5)
+                                  ->get();
+
+        return view('home.index', compact('truyen_noibat','sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
     }
 
     public function convert(){

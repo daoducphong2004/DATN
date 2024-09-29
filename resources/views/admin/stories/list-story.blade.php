@@ -42,7 +42,7 @@
                     </td>
                     <td>{{ $story->user->username }}</td>
                     <td>{{ $story->group->name }}</td>
-                    <td>{{ $story->episodeCount(); }}</td>
+                    <td>{{ $story->episodeCount() }}</td>
                     <td>{{ $story->view }}</td>
                     <td>{{ $story->like }}</td>
                     <td>{{ $story->is_VIP ? 'Có' : 'Không' }}</td>

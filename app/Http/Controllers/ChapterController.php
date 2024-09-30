@@ -34,7 +34,6 @@ class ChapterController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         // Validation
         $validatedData = $request->validate([
             'episode_id' => 'required|integer|exists:episodes,id',
@@ -42,28 +41,35 @@ class ChapterController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|string',
         ]);
+
+        // Calculate word count
+        $wordCount = str_word_count(strip_tags($validatedData['content']));
+
         $book = episode::find($request->episode_id)->book()->first();
-        // Tạo mới chapter
+
+        // Create new chapter
         $chapter = new Chapter();
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
         $chapter->user_id = Auth::id();
-        // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
+        $chapter->word_count = $wordCount; // Save the word count
         $chapter->save();
 
-        // Tạo slug từ chapter_id và tiêu đề
+        // Create slug from chapter_id and title
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
 
-        // Lưu lại chapter với slug mới
+        // Save the chapter again with the updated slug
         $chapter->save();
 
-        // Trigger sẽ tự động cập nhật trường 'updated_at' trong bảng 'book'
-
+        // Update the word count for the book (sum of all chapters)
+        $book->word_count += $wordCount;
+        $book->save();
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }
+
     public function uploadImage(Request $request)
     {
         try {

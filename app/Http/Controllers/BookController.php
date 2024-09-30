@@ -52,10 +52,13 @@ class BookController extends Controller
     //     return view('story.reading', compact('comments', 'chapter'));
 
     // }
-    public function reading(string $slug, string $chapter_slug,  Request $request)
+    public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
         $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
+
+        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
+        $book->increment('view');
 
         // Tìm kiếm chapter dựa trên chapter_slug
         $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
@@ -66,6 +69,7 @@ class BookController extends Controller
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
 
+        // Lấy danh sách comments cho chapter này
         $comments = chaptercomment::with('user')
             ->where('chapter_id', $chapter->id)
             ->whereNull('parent_id')->get();

@@ -162,8 +162,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Số từ( Phần này sẽ làm sau )</div>
-                                                <div class="statistic-value">8.681</div>
+                                                <div class="statistic-name">Số từ</div>
+                                                <div class="statistic-value">{{ $book->word_count ?? 0 }}</div>
+
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">

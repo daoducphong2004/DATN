@@ -202,3 +202,4 @@ Route::middleware(['auth', 'role:author'])->group(function () {
 require __DIR__ . '/admin.php';
 
 
+Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi

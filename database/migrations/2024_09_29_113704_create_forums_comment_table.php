@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forums_comment', function (Blueprint $table) {
+        Schema::create('forum_comments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->string('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Forum::class)->constrained();
-            $table->foreignId('parent_id')->nullable()->constrained('forums_comment')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('forum_comments')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forums_comment');
+        Schema::dropIfExists('forum_comments');
     }
 };

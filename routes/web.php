@@ -64,11 +64,18 @@ Route::get('xuatban', [UserController::class, 'xuatban']);
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
+
+Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('lichsu', [HomeController::class, 'lichsu']);
+Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tinnhan', [HomeController::class, 'tinnhan']);
+Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
+Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 
-Route::get('UserHome', [UserController::class, 'home']);
+Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);

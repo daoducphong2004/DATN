@@ -15,8 +15,11 @@ class chapter extends Model
         'title',
         'content',
         'episode_id',
+        'word_count',
         'user_id',
+        'price', // thêm cột price vào đây
     ];
+
 
     public function episode()
     {

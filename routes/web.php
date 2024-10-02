@@ -67,7 +67,7 @@ Route::post('register', [UserController::class, 'createAccount'])->name('createA
 Route::get('email', [UserController::class, 'email']);
 Route::get('reset', [UserController::class, 'reset']);
 
-Route::get('UserHome', [UserController::class, 'home']);
+Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -32,7 +33,7 @@ Route::get('/admin/dashboard', function () {
     return 'Admin Dashboard';
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
@@ -44,8 +45,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
-    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
-
+    Route::get('/list-comment', [CommentController::class, 'index'])->middleware('role:super_admin,admin,mod')->name('comment_index');
+    Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
 
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');

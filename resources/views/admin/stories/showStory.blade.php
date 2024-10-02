@@ -41,6 +41,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Danh sách tập</h2>
+                <a href="{{ route('admin_episodecreate',$book->id) }}" class="btn btn-primary btn-sm">Thêm tập</a>
                 <div class="list-group">
                     @foreach ($episodes as $episode)
                         <div class="episode-item">
@@ -77,7 +78,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger chapter-action">Xóa chương</button>
-                                            </form>
+                                             </form>
                                         </li>
                                     @endforeach
                                 </ul>

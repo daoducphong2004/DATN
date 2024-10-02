@@ -68,7 +68,8 @@ class BookController extends Controller
 
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
-
+        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
+        $book->increment('view');
         // Lấy danh sách comments cho chapter này
         $comments = chaptercomment::with('user')
             ->where('chapter_id', $chapter->id)
@@ -162,9 +163,9 @@ class BookController extends Controller
         // dd($book,$episodes);
 
         $comments = bookcomment::with('user')
-        ->where('book_id', $book->id)
-        ->whereNull('parent_id')
-        ->with('replies.replies')->get();
+            ->where('book_id', $book->id)
+            ->whereNull('parent_id')
+            ->with('replies.replies')->get();
 
 
         // dd($comments);

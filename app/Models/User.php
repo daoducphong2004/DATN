@@ -40,4 +40,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function readingHistories()
+    {
+        return $this->hasMany(ReadingHistory::class);
+    }
+
+    public function purchasedStories()
+    {
+        return $this->hasMany(PurchasedStory::class);
+    }
 }

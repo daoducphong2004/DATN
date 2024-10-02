@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Category::class)->constrained();
-            $table->foreignIdFor(book::class)->nullable()->constrained();
+            $table->foreignIdFor(book::class)->nullable()->constrained()->onDelete('cascade');
             $table->integer('viewer');
             $table->string('slug');
             $table->timestamps();

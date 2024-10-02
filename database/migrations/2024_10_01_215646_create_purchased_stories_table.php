@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Forum;
+use App\Models\book;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forums_comment', function (Blueprint $table) {
+        Schema::create('purchased_stories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('content');
+            $table->foreignIdFor(book::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Forum::class)->constrained();
-            $table->bigInteger('total_user_see');
-            $table->string('slug');
+            $table->timestamp('purchase_date')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forums_comment');
+        Schema::dropIfExists('purchased_stories');
     }
 };

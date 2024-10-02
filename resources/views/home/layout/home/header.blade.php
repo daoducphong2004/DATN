@@ -131,7 +131,7 @@
                 <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><i class="fas fa-calendar menu-icon"></i><span
                             class="">Xuất bản</span></a></li>
 
-                <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><i class="fas fa-users menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><i class="fas fa-users menu-icon"></i><span
                             class="">Thảo luận</span></a></li>
 
                 <li><a class="nav-menu_item" href="{{ url('danh-sach') }}"><i class="fas fa-th-list menu-icon"></i><span

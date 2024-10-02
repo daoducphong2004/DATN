@@ -1,6 +1,6 @@
 @extends('stories.partials.master')
 @section('content')
-@include('stories.partials.header')
+    @include('stories.partials.header')
 
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
         @csrf
@@ -103,6 +103,13 @@
             <label class="col-md-2 control-label text-right">Chú thích thêm</label>
             <div class="col-md-10">
                 <textarea class="form-control" id="extrainfo" name="note"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group clearfix">
+            <label class="col-md-2 control-label pt-7 text-right">Giá</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control" name="painter" value="0">
             </div>
         </div>
 

@@ -41,17 +41,6 @@ class BookController extends Controller
         return view('story.show', compact('comments', 'book'));
     }
 
-    // public function chapterComment($chapterId)
-    // {
-    //     $comments = chaptercomment::with('user')
-    //     ->where('chapter_id', $chapterId)
-    //     ->whereNull('parent_id')->get();
-
-    //     $chapter = chapter::findOrFail($chapterId);
-
-    //     return view('story.reading', compact('comments', 'chapter'));
-
-    // }
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
@@ -117,7 +106,7 @@ class BookController extends Controller
             'description' => $request->description,
             'note' => $request->note,
             'is_VIP' => 0,
-            // 'is_delete' => 0,
+            'price' => $request->price,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),

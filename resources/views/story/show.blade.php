@@ -75,7 +75,17 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="col-4 col-md feature-item width-auto-xl">
+                                            <!-- Thêm phần hiển thị giá và nút mua -->
+                                            <div class="price-buy-button flex justify-between items-center p-2 border border-gray-300 rounded">
+                                                <span class="block feature-value">
+                                                    Giá: {{ $book->price }}
+                                                </span>
+                                                <a href="" class="btn btn-primary ml-2">
+                                                    Mua
+                                                </a>
+                                            </div>
+                                        </div>
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">

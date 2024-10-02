@@ -1,4 +1,3 @@
-
 <body>
     <div id="page-top"></div>
     <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
@@ -20,11 +19,11 @@
                         </form>
                     </div>
 
-                    <li><a class="nav-menu_item" href="sangtac"><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="convert"><span class="">Máy dịch</span></a></li>
-                    <li><a class="nav-menu_item" href="xuatban"><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href="thao-luan"><span class="">Thảo luận</span></a></li>
-                    <li><a class="nav-menu_item" href="danh-sach"><span class="">Danh sách</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('sangtac') }}"><span class="">Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('convert') }}"><span class="">Máy dịch</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><span class="">Xuất bản</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><span class="">Thảo luận</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('danh-sach') }}"><span class="">Danh sách</span></a></li>
 
                     <li class="nav-has-submenu">
                         <a class="nav-menu_item">
@@ -33,11 +32,16 @@
                         </a>
 
                         <ul class="nav-submenu list-unstyled none">
-                            <li><a href="huongdan_dangtruyen"><span>Đăng truyện</span></a></li>
-                            <li><a href="huongdan_gioithieu"><span>Giới thiệu</span></a></li>
-                            <li><a href="huongdan_gopy"><span>Góp ý - Báo
+                            <li><a href="{{ url('huongdan_dangtruyen') }}"><span>Đăng truyện</span></a></li>
+                            <li><a href="{{ url('huongdan_gioithieu') }}"><span>Giới thiệu</span></a></li>
+                            <li><a href="{{ url('huongdan_gopy') }}"><span>Góp ý - Báo
                                         lỗi</span></a></li>
                         </ul>
+                    </li>
+                    <li>
+                        @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod'))
+                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a>
+                        @endif
                     </li>
                 </ul>
             </div>
@@ -64,19 +68,19 @@
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">
                                 <li>
-                                    <a href="/thanh-vien/199850"><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                                    <a href="{{ route('taikhoan') }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
-                                    <a href="/lich-su-doc"><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                                    <a href="{{ url('lichsu') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>
-                                    <a href="/bookmark"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
+                                    <a href="{{ url('bookmark') }}"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="/ke-sach"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="{{ url('kesach') }}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
-                                    <a href="/tin-nhan"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
+                                    <a href="{{ url('tinnhan') }}"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                         <div class="at-user_list"></div>
                                     </a>
                                 </li>
@@ -118,19 +122,19 @@
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
-                <li><a class="nav-menu_item" href="sangtac"><i class="fas fa-pen-nib menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('sangtac') }}"><i class="fas fa-pen-nib menu-icon"></i><span
                             class="">Sáng tác</span></a></li>
 
-                <li><a class="nav-menu_item" href="convert"><i class="fas fa-book menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('convert') }}"><i class="fas fa-book menu-icon"></i><span
                             class="">Máy dịch</span></a></li>
 
-                <li><a class="nav-menu_item" href="xuatban"><i class="fas fa-calendar menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><i class="fas fa-calendar menu-icon"></i><span
                             class="">Xuất bản</span></a></li>
 
-                <li><a class="nav-menu_item" href="thao-luan"><i class="fas fa-users menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><i class="fas fa-users menu-icon"></i><span
                             class="">Thảo luận</span></a></li>
 
-                <li><a class="nav-menu_item" href="danh-sach"><i class="fas fa-th-list menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('danh-sach') }}"><i class="fas fa-th-list menu-icon"></i><span
                             class="">Danh sách</span></a></li>
 
                 <li class="nav-has-submenu">
@@ -141,15 +145,21 @@
                     </a>
 
                     <ul class="nav-submenu hidden-block unstyled none">
-                        <li><a href="huongdan_dangtruyen"><span>Đăng truyện</span></a></li>
-                        <li><a href="huongdan_gioithieu"><span>Giới thiệu</span></a></li>
-                        <li><a href="huongdan_gopy"><span>Góp ý - Báo
+                        <li><a href="{{ url('huongdan_dangtruyen') }}"><span>Đăng truyện</span></a></li>
+                        <li><a href="{{ url('huongdan_gioithieu') }}"><span>Giới thiệu</span></a></li>
+                        <li><a href="{{ url('huongdan_gopy') }}"><span>Góp ý - Báo
                                     lỗi</span></a></li>
                     </ul>
+                </li>
+                <li>
+                    @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod'))
+                        <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
+                    @endif
+                    {{-- <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a> --}}
                 </li>
             </ul>
         </div>
 
         <!--<section id="nav-search"></section>-->
     </div>
-    </div>
+</body>

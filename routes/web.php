@@ -25,6 +25,7 @@ use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ReadingHistoryController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -190,6 +191,10 @@ Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truy
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
+
+Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
+Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
+
 // End Phong
 
 //Thanh toan

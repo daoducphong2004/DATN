@@ -8,6 +8,7 @@ class ReadingHistory extends Model
 {
     protected $fillable = [
         'user_id',
+        'book_id',
         'chapter_id',
         'last_read_at',
     ];

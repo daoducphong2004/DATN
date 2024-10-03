@@ -30,6 +30,7 @@
                 @enderror
             </div>
         </div>
+        @include('layouts.TinyMCEscript')
 
         <!-- Hidden input để chứa episode_id -->
         <input type="hidden" name="episode_id" value="{{ $episode->id }}">

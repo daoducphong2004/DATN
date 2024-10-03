@@ -17,7 +17,6 @@ class chapter extends Model
         'episode_id',
         'word_count',
         'user_id',
-        'price', // thêm cột price vào đây
     ];
 
 

@@ -46,7 +46,7 @@ class ChapterController extends Controller
         $wordCount = str_word_count(strip_tags($validatedData['content']));
 
         $book = episode::find($request->episode_id)->book()->first();
-
+        // Calculate word count
         // Create new chapter
         $chapter = new Chapter();
         $chapter->episode_id = $validatedData['episode_id'];
@@ -66,6 +66,7 @@ class ChapterController extends Controller
 
         // Update the word count for the book (sum of all chapters)
         $book->word_count += $wordCount;
+
         $book->save();
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }

@@ -10,8 +10,11 @@ use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use App\Models\ReadingHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -66,7 +69,94 @@ class BookController extends Controller
 
         $parentId = $request->input('parent_id');
 
+        // Call the function to save the reading history
+        $this->storeReadingHistory($book->id, $chapter->id);
+
         return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId'));
+    }
+    // Function to save reading history
+    private function storeReadingHistory($bookId, $chapterId)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            // Check if a reading history already exists for the current book
+            $existingHistory = ReadingHistory::where('user_id', $user->id)
+                ->where('book_id', $bookId)
+                ->first();
+
+            if ($existingHistory) {
+                // Update the existing history with the new chapter
+                $existingHistory->chapter_id = $chapterId;
+                $existingHistory->last_read_at = Carbon::now();
+                $existingHistory->save();
+            } else {
+                // Create a new reading history entry
+                $readingHistory = new ReadingHistory();
+                $readingHistory->user_id = $user->id;
+                $readingHistory->book_id = $bookId; // Add the book ID
+                $readingHistory->chapter_id = $chapterId;
+                $readingHistory->last_read_at = Carbon::now();
+                $readingHistory->save();
+            }
+        } else {
+            // Save to cookie or cache for guest users
+            $this->saveToLocal($bookId,$chapterId);
+        }
+    }
+
+    // Save to local storage (cookie or cache)
+    private function saveToLocal($bookId, $chapterId)
+    {
+        $cookieName = 'reading_history';
+        $existingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
+
+        // Ensure that the history entry for the book is an array, not a scalar value
+        if (!isset($existingHistory[$bookId]) || !is_array($existingHistory[$bookId])) {
+            $existingHistory[$bookId] = [
+                'book_id' => $bookId,
+                'chapter_id' => $chapterId,
+                'last_read_at' => now()->timestamp, // Store timestamp of the last read
+            ];
+        } else {
+            // If the book already exists, just update the chapter_id and last_read_at
+            $existingHistory[$bookId]['chapter_id'] = $chapterId;
+            $existingHistory[$bookId]['last_read_at'] = now()->timestamp;
+        }
+
+        // Save updated history to the cookie (expires in 30 days)
+        Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
+    }
+
+
+    public function showReadingHistory()
+    {
+        $readingHistories = [];
+        $user = Auth::user();
+
+        if ($user) {
+            // Get reading history from the database for logged-in users
+            $readingHistories = ReadingHistory::where('user_id', $user->id)
+                ->with('book', 'chapter')
+                ->orderBy('last_read_at', 'desc')
+                ->take(4) // Limit to the latest 4 items
+                ->get();
+        } else {
+            // Get reading history from cookies for guest users
+            $cookieName = 'reading_history';
+            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+            dd($readingHistoriesFromCookie);
+            // Retrieve books/chapters from DB based on the IDs stored in the cookie
+            if (!empty($readingHistoriesFromCookie)) {
+                $readingHistories = \App\Models\Book::whereIn('id', $readingHistoriesFromCookie)
+                    ->with('chapters')
+                    ->take(4) // Limit to the latest 4 items
+                    ->get();
+            }
+        }
+
+        // Pass the reading history to the view
+        return view('reading-history', compact('readingHistories'));
     }
     public function index()
     {
@@ -112,7 +202,7 @@ class BookController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $slug = Str::slug('b'.$book->id . '-' . $request->title);
+        $slug = Str::slug('b' . $book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload

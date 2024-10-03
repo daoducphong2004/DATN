@@ -42,5 +42,24 @@
     </div>
 </div>
 </main>
+<script>
+    function saveReadingHistory(storyId) {
+    fetch('/reading-history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            story_id: storyId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
+</script>
 @include('story.partials.script')
 @endsection

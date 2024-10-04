@@ -554,7 +554,7 @@ if (
                     : "";
             $("#ln-comment-" + t).after(
                 $(
-                    '<form><div class="ln-comment-reply reply-form"><div class="ln-comment-form"><textarea class="comment_reply"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_reply" value="Trả lời" data-parent="' +
+                    '<form action="{{route("cmt-child-forum",$id)}}" method="post"> <div class="ln-comment-reply reply-form"><div class="ln-comment-form"><input type="hidden" name="parent_id" value="{{$id}}"><textarea class="comment_reply"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_reply" value="Trả lời" data-parent="' +
                         n +
                         '"></div></div></div></form>'
                 )

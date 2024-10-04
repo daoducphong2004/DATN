@@ -5,12 +5,10 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -19,16 +17,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\UserController as ControllersUserController;
-use App\Http\Controllers\UsersController;
-=======
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentChapterController;
->>>>>>> 270bac024411516bcd5f6b54f5b3501d524ca720
 use App\Models\book;
-use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +40,7 @@ Auth::routes();
 
 Route::get('home', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
 Route::post('login', [UserController::class, 'login'])->name('login');
@@ -90,14 +85,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
 
-
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
     Route::post('/letter/store', [LetterController::class, 'store'])->name('letter_store');
     Route::get('/letter/edit/{id}', [LetterController::class, 'edit'])->name('letter_edit');
     Route::put('/letter/update/{id}', [LetterController::class, 'update'])->name('letter_update');
     Route::delete('/letter/delete/{id}', [LetterController::class, 'destroy'])->name('letter_delete');
-
 
     Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
     Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
@@ -106,14 +99,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
     Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
 
-
     Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');
     Route::get('/bookshelves/create', [BookshelvesController::class, 'create'])->name('bookshelves_create');
     Route::post('/bookshelves/store', [BookshelvesController::class, 'store'])->name('bookshelves_store');
     Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
-
 
     Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
@@ -128,7 +119,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
-
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -185,7 +175,6 @@ Route::prefix('groups')->group(function () {
     Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
-
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');

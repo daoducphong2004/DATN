@@ -72,3 +72,5 @@ Route::prefix('admin')->group(function () {
     Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
 });
+
+

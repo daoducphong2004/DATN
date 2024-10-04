@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,6 +54,7 @@ class UserController extends Controller
     {
         return view('home.hd_dangtruyen');
     }
+    
     public function huongdan_gioithieu()
     {
         return view('home.gioithieu');
@@ -70,7 +70,6 @@ class UserController extends Controller
         return view('home.taikhoan');
     }
 
-
     public function update(Request $request, User $user)
     {
         //        dd($request->all());
@@ -80,17 +79,14 @@ class UserController extends Controller
         //update data
         $user->update($data);
         $old_image = $user->avatar;
-
         if ($request->avatar) {
             $data["avatar"] = Storage::put('users', $request->avatar);
         }
-
         $user->update($data);
 
         if ($request->avatar && $old_image && Storage::exists($old_image)) {
             Storage::delete($old_image);
         }
-
         return redirect()->back()->with('message', 'Cập nhật dữ liệu thành công');
     }
 
@@ -152,7 +148,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
 
         if (Auth::attempt($requestInfo, $remember)) {
             $request->session()->regenerate();

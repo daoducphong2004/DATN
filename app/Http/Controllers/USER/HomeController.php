@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactEmail;
 use App\Models\book;
 use App\Models\genre;
 use App\Models\group;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {

@@ -10,13 +10,14 @@ class AddBookIdToReadingHistoriesTable extends Migration
     public function up()
     {
         Schema::table('reading_histories', function (Blueprint $table) {
-            $table->foreignIdFor(book::class)->after('user_id')->constrained(); // Add book_id column
+            $table->foreignIdFor(Book::class)->after('user_id')->constrained(); // Add book_id column
         });
     }
 
     public function down()
     {
         Schema::table('reading_histories', function (Blueprint $table) {
+            $table->dropForeign(['book_id']);
             $table->dropColumn('book_id');
         });
     }

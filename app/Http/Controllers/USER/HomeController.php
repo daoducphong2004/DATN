@@ -23,9 +23,9 @@ class HomeController extends Controller
         if ($user) {
             // Get reading history from the database for logged-in users
             $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with(['book', 'chapter']) // Ensure book and chapter relationships are loaded
+                ->with(['book','chapter']) // Nạp cả quan hệ với chapter và book
                 ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
+                ->take(4) // Giới hạn 4 mục gần nhất
                 ->get();
         } else {
             // Lấy lịch sử đọc từ cookie cho người dùng khách
@@ -45,11 +45,7 @@ class HomeController extends Controller
                 foreach ($readingHistories as $chapter) {
                     $episode = $chapter->episode; // Lấy episode tương ứng
                     $book = $episode->book; // Lấy book tương ứng
-
-
                 }
-
-                // dd($readingHistories); // Kiểm tra các chương đã lấy cùng với thông tin episode và book
             }
         }
 
@@ -65,7 +61,7 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
-
+        // dd($readingHistories);
         return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
     }
 

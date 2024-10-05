@@ -341,19 +341,22 @@
                                 @if (empty($readingHistories))
                                     <p>Chưa có lịch sử đọc!</p>
                                 @else
-                                    @foreach ($readingHistories as $chapter)
-                                        {{-- {{ dd($chapter) }} --}}
+                                    @foreach ($readingHistories as $history)
+                                        {{-- {{ dd($history) }} --}}
                                         @if (auth()->check())
                                             @php
-                                                // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
-                                                $book = $chapter->book; // Lấy book tương ứng
-                                            @endphp
+                                               $episode = $history->episode; // Lấy episode tương ứng
+                                               $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                               $chapter = $history->chapter;
+
+                                           @endphp
                                         @else
                                             @php
                                                 // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
-                                                $episode = $chapter->episode; // Lấy episode tương ứng
+                                                $episode = $history->episode; // Lấy episode tương ứng
                                                 $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
-                                            @endphp
+
+                                          @endphp
                                         @endif
 
                                         <div class="row ml-1 mb-3">

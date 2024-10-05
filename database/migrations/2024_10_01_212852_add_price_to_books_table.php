@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::table('books', function (Blueprint $table) {
+    Schema::table('chapters', function (Blueprint $table) {
         $table->decimal('price', 8, 2)->after('user_id')->nullable();
     });
 }
 
 public function down()
 {
-    Schema::table('books', function (Blueprint $table) {
-        $table->dropColumn('price');
+    Schema::table('chapters', function (Blueprint $table) {
+        // $table->dropColumn('price');
     });
 }
 

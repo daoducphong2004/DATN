@@ -25,7 +25,10 @@ class book extends Model
         'adult',
         'group_id',
         'user_id',
-        'Is_Inspect'
+        'Is_Inspect',
+        'user_id',
+        'is_paid'
+
     ];
 
     public function group()

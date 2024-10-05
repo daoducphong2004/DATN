@@ -7,7 +7,7 @@ class PurchasedStory extends Model
 {
     protected $fillable = [
         'user_id',
-        'book_id',
+        'chapter_id',
         'purchase_date',
     ];
 
@@ -18,6 +18,6 @@ class PurchasedStory extends Model
 
     public function story()
     {
-        return $this->belongsTo(book::class);
+        return $this->belongsTo(Book::class, 'book_id'); // Chỉ rõ khóa ngoại
     }
 }

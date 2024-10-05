@@ -24,6 +24,7 @@ class book extends Model
         'is_VIP',
         'adult',
         'group_id',
+        'price',
         'user_id',
         'Is_Inspect',
         'user_id',

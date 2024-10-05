@@ -52,6 +52,7 @@
                 @enderror
             </div>
         </div>
+        @include('layouts.TinyMCEscript')
 
         <!-- Nút lưu và quay lại -->
         <div class="form-group">

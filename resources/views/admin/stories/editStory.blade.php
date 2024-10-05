@@ -42,8 +42,20 @@
                             <label for="like">Lượt thích:</label>
                             <input type="number" name="like" class="form-control" value="{{ $book->like }}">
                         </li>
+                        <div class="list-group-item ">
+                            <label for='select-genre'>Thể loại</label>
+                            <select class="input-sm" name="genres[]" id="select-genre" multiple style="width: 100%">
+                                @foreach ($genres as $key => $value)
+                                    <option @selected(in_array($value, $book->genres->pluck('id')->all())) value="{{ $value }}">
+                                        {{ $key }}</option>
+                                    {{-- <option value="{{ $value }}" @if (in_array($value, $book->genres->pluck('id')->all())) selected @endif>{{ $key }}</option> --}}
+                                @endforeach
+                            </select>
+                        </div>
+
+
                         <li class="list-group-item">
-                            <label for="type">Thể loại:</label>
+                            <label for="type">Loại truyện:</label>
                             <input type="text" name="type" class="form-control" value="{{ $book->type }}">
                         </li>
                         <li class="list-group-item">

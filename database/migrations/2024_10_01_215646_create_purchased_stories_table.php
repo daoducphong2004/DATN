@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\book;
+use App\Models\chapter;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('purchased_stories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(book::class)->constrained();
+            $table->foreignIdFor(chapter::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamp('purchase_date')->nullable();
             $table->timestamps();

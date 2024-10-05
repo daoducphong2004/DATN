@@ -1,6 +1,6 @@
 @extends('stories.partials.master')
 @section('content')
-@include('stories.partials.header')
+    @include('stories.partials.header')
 
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
         @csrf
@@ -105,6 +105,8 @@
                 <textarea class="form-control" id="extrainfo" name="note"></textarea>
             </div>
         </div>
+
+
 
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>

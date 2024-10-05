@@ -71,6 +71,11 @@
                             </div>
                         </div>
                     </form>
+
+                    <form action="{{ url('/vnpay_payment') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Thanh toán vnpay</button>
+                    </form>
                 </div>
             </div>
         </div>

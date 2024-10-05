@@ -208,7 +208,8 @@ class StoryController extends Controller
     public function editBook(String $id)
     {
         $book = Book::findOrFail($id);
-        return view('admin.stories.editStory', compact('book'));
+        $genres = genre::pluck('id', 'name');
+        return view('admin.stories.editStory', compact('book','genres'));
     }
 
     public function editEpisode($id)

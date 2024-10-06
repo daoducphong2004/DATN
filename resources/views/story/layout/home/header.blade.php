@@ -1,3 +1,4 @@
+
 <body>
     <div id="page-top"></div>
     <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
@@ -19,11 +20,11 @@
                         </form>
                     </div>
 
-                    <li><a class="nav-menu_item" href="{{ url('sangtac') }}"><span class="">Sáng tác</span></a></li>
-                    <li><a class="nav-menu_item" href="{{ url('convert') }}"><span class="">Máy dịch</span></a></li>
-                    <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><span class="">Xuất bản</span></a></li>
-                    <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><span class="">Thảo luận</span></a></li>
-                    <li><a class="nav-menu_item" href="{{ url('danh-sach') }}"><span class="">Danh sách</span></a></li>
+                    <li><a class="nav-menu_item" href="sangtac"><span class="">Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href="convert"><span class="">Máy dịch</span></a></li>
+                    <li><a class="nav-menu_item" href="xuatban"><span class="">Xuất bản</span></a></li>
+                    <li><a class="nav-menu_item" href="{{route('thao-luan')}}"><span class="">Thảo luận</span></a></li>
+                    <li><a class="nav-menu_item" href="danh-sach"><span class="">Danh sách</span></a></li>
 
                     <li class="nav-has-submenu">
                         <a class="nav-menu_item">
@@ -69,19 +70,19 @@
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">
                                 <li>
-                                    <a href="{{ route('taikhoan') }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                                    <a href="/thanh-vien/199850"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('lichsu') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                                    <a href="/lich-su-doc"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('bookmark') }}"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
+                                    <a href="/bookmark"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('kesach') }}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="/ke-sach"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('tinnhan') }}"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
+                                    <a href="/tin-nhan"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                         <div class="at-user_list"></div>
                                     </a>
                                 </li>
@@ -120,6 +121,8 @@
                 <form class="" action="/tim-kiem" method="get">
                     <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
+                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
+                    <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
@@ -132,7 +135,7 @@
                 <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><i class="fas fa-calendar menu-icon"></i><span
                             class="">Xuất bản</span></a></li>
 
-                <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><i class="fas fa-users menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{route('thao-luan')}}"><i class="fas fa-users menu-icon"></i><span
                             class="">Thảo luận</span></a></li>
 
                 <li><a class="nav-menu_item" href="{{ url('danh-sach') }}"><i class="fas fa-th-list menu-icon"></i><span

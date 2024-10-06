@@ -19,7 +19,7 @@ return new class extends Migration
 public function down()
 {
     Schema::table('chapters', function (Blueprint $table) {
-        // $table->dropColumn('price');
+        $table->dropColumn('price');
     });
 }
 

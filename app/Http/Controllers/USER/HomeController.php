@@ -49,18 +49,30 @@ class HomeController extends Controller
             }
         }
 
-        $truyen_noibat = book::orderBy('like', 'desc')->take(8)->get();
+        $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('like', 'desc')
+                            ->take(8)
+                            ->get();
 
-        $sangtac_moinhat = book::orderBy('created_at', 'desc')->take(5)->get();
+        $sangtac_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
 
-        $chuong_moinhat = book::orderBy('created_at', 'desc')->take(17)->get();
+        $chuong_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(17)
+                            ->get();
 
-        $truyen_vuadang = book::orderBy('created_at', 'desc')->take(6)->get();
+        $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(6)
+                            ->get();
 
         $truyen_dahoanthanh = Book::where('status', 3)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
         // dd($readingHistories);
         return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
     }

@@ -26,6 +26,8 @@ use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\AdminAuthorRequestController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReadingHistoryController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;

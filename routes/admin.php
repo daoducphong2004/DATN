@@ -33,7 +33,7 @@ Route::get('/admin/dashboard', function () {
     return 'Admin Dashboard';
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
@@ -110,27 +110,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
     Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
     Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
-});
-Route::middleware(['auth', 'checkLoginAdmin'])->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    });
-
-
-    // Giao diện admin
-    Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
-    Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
-    Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
-    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
-});
-Route::middleware(['auth', 'checkMod'])->prefix('admin')->group(function () {
-    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
-    Route::get('/', function () {
-        return view('home');
-    });
-    //dc trang admmin
-    // Edit and delete comments routes
-    Route::get('/comment/edit/{id}', [CommentController::class, 'edit'])->name('comment_edit');
-    Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment_update');
-    Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
 });

@@ -23,7 +23,6 @@
                 @enderror
             </div>
         </div>
-
         <!-- Mô tả Episode -->
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Mô tả Episode</label>
@@ -35,6 +34,7 @@
                 @enderror
             </div>
         </div>
+        @include('layouts.TinyMCEscript')
 
         <!-- Ảnh Episode -->
         <div class="form-group clearfix required">

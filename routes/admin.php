@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -32,7 +33,7 @@ Route::get('/admin/dashboard', function () {
     return 'Admin Dashboard';
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
@@ -44,8 +45,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
-    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
-
+    Route::get('/list-comment', [CommentController::class, 'index'])->middleware('role:super_admin,admin,mod')->name('comment_index');
+    Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
 
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
@@ -86,15 +87,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
     Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
 
-
     //episode
     Route::get('/episode/create/{book_id}',[StoryController::class,'createEpisode'])->name('admin_episodecreate');
     Route::post('/episode/store',[StoryController::class,'storeEpisode'])->name('admin_episodestore');
     Route::get('/episodes/{id}/edit', [StoryController::class, 'editEpisode'])->name('admin_episodeedit');
     Route::put('/episodes/{id}', [StoryController::class, 'updateEpisode'])->name('admin_episodeupdate');
     Route::delete('/episode/{id}/delete', [StoryController::class, 'destroyEpisode'])->name('admin_episdestroy');
-
-
     //end episode
 
 
@@ -104,10 +102,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
     Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
     Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
-
     //end chapter
-
-
     // end phong
 
     //forum

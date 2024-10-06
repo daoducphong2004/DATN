@@ -17,8 +17,6 @@ class User extends Authenticatable
         'gender',
         'date_of_birth',
         'avatar_url',
-        'created_at',
-        'updated_at',
         'last_login',
         'status',
         'coin_earned',
@@ -29,7 +27,7 @@ class User extends Authenticatable
 
     public function group()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class, 'group');
     }
     public function comments()
     {
@@ -39,5 +37,18 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function readingHistories()
+    {
+        return $this->hasMany(ReadingHistory::class);
+    }
+
+    public function purchasedStories()
+    {
+        return $this->hasMany(PurchasedStory::class);
+    }
+    public function hasPurchased($chapterId)
+    {
+        return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
 }

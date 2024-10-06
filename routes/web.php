@@ -15,6 +15,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ReadingHistoryController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -63,11 +65,18 @@ Route::get('xuatban', [UserController::class, 'xuatban']);
 Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
+
+Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('lichsu', [HomeController::class, 'lichsu']);
+Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tinnhan', [HomeController::class, 'tinnhan']);
+Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
+Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 
-Route::get('UserHome', [UserController::class, 'home']);
+Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
@@ -182,7 +191,17 @@ Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truy
 Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
+
+Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
+Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
+Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
+Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+
 // End Phong
+
+//Thanh toan
+Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
+Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
 
 // User trong Group
 Route::prefix('groups')->group(function () {

@@ -127,21 +127,43 @@ class ChapterController extends Controller
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|string',
+            'price' => 'required|numeric', // Thêm xác thực cho 'price'
         ]);
 
         // Tìm chapter cần cập nhật
         $chapter = Chapter::findOrFail($id);
+
+        // Tính lại số từ mới
+        $newWordCount = str_word_count(strip_tags($validatedData['content']));
+
+        // Lấy thông tin về episode và book liên quan
+        $book = $chapter->episode->book;
+
+        // Cập nhật các thông tin của chapter
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
+        $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
+        $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
+
+        // Xử lý cập nhật hình ảnh nếu có
+        if ($request->hasFile('image')) {
+            // Lưu hình ảnh và cập nhật đường dẫn
+            $imagePath = $request->file('image')->store('images/chapters', 'public');
+            $chapter->image = $imagePath;
+        }
+
         $chapter->save();
 
-        // Trigger sẽ tự động cập nhật trường 'updated_at' trong bảng 'book'
+        // Cập nhật lại số từ tổng cộng cho sách (book)
+        // Trừ đi số từ cũ và thêm vào số từ mới
+        $book->word_count = $book->word_count - $chapter->getOriginal('word_count') + $newWordCount;
+        $book->save();
 
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -209,6 +231,11 @@ class ChapterController extends Controller
     }
     public function purchase($bookSlug, $chapterId)
     {
+        // Kiểm tra xem người dùng có đăng nhập không
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua chương này.');
+        }
+
         $user = auth()->user(); // Lấy thông tin người dùng hiện tại
 
         // Tìm chương cần mua
@@ -244,4 +271,5 @@ class ChapterController extends Controller
         return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
                          ->with('message', 'Mua chương thành công!');
     }
+
 }

@@ -1,6 +1,5 @@
 
 <script>
-    token = '0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk';
 
     function turnoffall() {
         $(".rdtoggle").removeClass("on");
@@ -197,21 +196,21 @@
         }
     });
 
-    isLoggedIn = 1;
-    series_id = parseInt('19112');
-    chapter_id = parseInt('142162');
+    // isLoggedIn = 1;
+    // series_id = parseInt('19112');
+    // chapter_id = parseInt('142162');
 
-    readingObject = {
-        series_id: series_id,
-        series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
-        series_url: $('i.fa-home').first().parent().attr('href'),
-        series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-        chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-        chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-        book_title: $('ul#chap_list > li.current a').text(),
-        book_url: $('ul#chap_list > li.current a').attr('href'),
-        read_time: +new Date() / 1000 | 0,
-    };
+    // readingObject = {
+    //     series_id: series_id,
+    //     series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
+    //     series_url: $('i.fa-home').first().parent().attr('href'),
+    //     series_cover: $('.rd_sidebar-header a.img').css('background-image'),
+    //     chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
+    //     chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
+    //     book_title: $('ul#chap_list > li.current a').text(),
+    //     book_url: $('ul#chap_list > li.current a').attr('href'),
+    //     read_time: +new Date() / 1000 | 0,
+    // };
 </script>
 
 

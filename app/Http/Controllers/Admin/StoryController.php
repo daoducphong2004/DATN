@@ -180,6 +180,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
         ]);
 
         $book = episode::find($request->episode_id)->book()->first();
@@ -190,6 +191,7 @@ class StoryController extends Controller
             'slug' => $validatedData['title'],
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
+            'price' => $validatedData['price'],
         ]);
         // Tạo slug từ chapter_id và tiêu đề
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
@@ -335,6 +337,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
         ]);
 
         // Lấy chương cần cập nhật
@@ -350,6 +353,7 @@ class StoryController extends Controller
             'slug' => $slug,
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
+            'price' => $validatedData['price'],
         ]);
         $episode = episode::findOrFail($request->episode_id);
         // Điều hướng về trang chi tiết truyện

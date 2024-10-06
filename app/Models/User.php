@@ -47,6 +47,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
+
+    public function author()
+    {
+        return $this->hasMany(Author::class);
+    }
     public function hasPurchased($chapterId)
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();

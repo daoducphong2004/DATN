@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -15,17 +16,16 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
-use App\Http\Controllers\ReadingHistoryController;
+use App\Http\Controllers\AdminAuthorRequestController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -90,11 +90,11 @@ Route::get('theLoai', [UserController::class, 'theLoai']);
 Route::get('thuVien', [UserController::class, 'thuVien']);
 Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
-Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
-Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
-Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
-Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
-Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
+Route::get('thao-luan', [ForumController::class, 'index'])->name('thao-luan');
+Route::get('themthaoluan', [ForumController::class, 'create'])->name('themthaoluan');
+Route::post('store_thaoluan', [ForumController::class, 'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}', [ForumController::class, 'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}', [ForumCommentController::class, 'store'])->name('cmt-child-forum');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin
@@ -136,7 +136,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
-    Route::get('/user', [UserController::class,'index'])->name('user_index');
+    Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/user/create', [UserController::class, 'create'])->name('user_create');
     Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
@@ -218,5 +218,10 @@ Route::middleware(['auth', 'role:author'])->group(function () {
 
 require __DIR__ . '/admin.php';
 
+Route::resource('author', AuthorController::class);
+Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
 
-Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
+
+Route::get('/admin/author-requests', [AdminAuthorRequestController::class, 'index'])->name('admin.requests');
+Route::post('/admin/author-requests/{id}/accept', [AdminAuthorRequestController::class, 'accept'])->name('admin.accept_request');
+Route::post('/admin/author-requests/{id}/reject', [AdminAuthorRequestController::class, 'reject'])->name('admin.reject_request');

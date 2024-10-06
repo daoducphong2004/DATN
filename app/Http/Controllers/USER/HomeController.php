@@ -20,38 +20,38 @@ class HomeController extends Controller
         $readingHistories = [];
         $user = Auth::user();
 
-        if ($user) {
-            // Get reading history from the database for logged-in users
-            $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with(['book', 'chapter']) // Ensure book and chapter relationships are loaded
-                ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
-        } else {
-            // Lấy lịch sử đọc từ cookie cho người dùng khách
-            $cookieName = 'reading_history';
-            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+        // if ($user) {
+        //     // Get reading history from the database for logged-in users
+        //     $readingHistories = ReadingHistory::where('user_id', $user->id)
+        //         ->with(['book', 'chapter']) // Ensure book and chapter relationships are loaded
+        //         ->orderBy('last_read_at', 'desc')
+        //         ->take(4) // Limit to the latest 4 items
+        //         ->get();
+        // } else {
+        //     // Lấy lịch sử đọc từ cookie cho người dùng khách
+        //     $cookieName = 'reading_history';
+        //     $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
 
-            if (!empty($readingHistoriesFromCookie)) {
-                // Lấy ID chương từ cookie
-                $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
+        //     if (!empty($readingHistoriesFromCookie)) {
+        //         // Lấy ID chương từ cookie
+        //         $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
 
-                // Lấy các chương và bao gồm episode và book
-                $readingHistories = chapter::whereIn('id', $chapterIds)
-                    ->with(['episode.book']) // eager load episode và book
-                    ->get();
+        //         // Lấy các chương và bao gồm episode và book
+        //         $readingHistories = chapter::whereIn('id', $chapterIds)
+        //             ->with(['episode.book']) // eager load episode và book
+        //             ->get();
 
-                // Kiểm tra và hiển thị thông tin
-                foreach ($readingHistories as $chapter) {
-                    $episode = $chapter->episode; // Lấy episode tương ứng
-                    $book = $episode->book; // Lấy book tương ứng
+        //         // Kiểm tra và hiển thị thông tin
+        //         foreach ($readingHistories as $chapter) {
+        //             $episode = $chapter->episode; // Lấy episode tương ứng
+        //             $book = $episode->book; // Lấy book tương ứng
 
 
-                }
+        //         }
 
-                // dd($readingHistories); // Kiểm tra các chương đã lấy cùng với thông tin episode và book
-            }
-        }
+        // dd($readingHistories); // Kiểm tra các chương đã lấy cùng với thông tin episode và book
+
+
 
         $truyen_noibat = book::orderBy('like', 'desc')->take(8)->get();
 

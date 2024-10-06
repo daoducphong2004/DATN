@@ -10,6 +10,7 @@ use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use App\Models\PurchasedStory;
 use App\Models\ReadingHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,6 +47,7 @@ class BookController extends Controller
 
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
+
         // Tìm kiếm book dựa trên slug
         $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
 
@@ -68,6 +70,15 @@ class BookController extends Controller
             ->whereNull('parent_id')->get();
 
         $parentId = $request->input('parent_id');
+        // lấy thông tin của user
+         // Kiểm tra chương này có giá bao nhiêu
+         if ($chapter->price > 0) {
+            // Nếu chương có giá trị, kiểm tra người dùng đã mua chưa
+            $user = auth()->user();
+            if (!$user || !$user->hasPurchased($chapter->id)) {
+                return redirect()->back()->with('error', 'Bạn cần mua chương này để xem nội dung.');
+            }
+        }
 
         // Call the function to save the reading history
         $this->storeReadingHistory($book->id, $chapter->id);
@@ -101,7 +112,7 @@ class BookController extends Controller
             }
         } else {
             // Save to cookie or cache for guest users
-            $this->saveToLocal($bookId,$chapterId);
+            $this->saveToLocal($bookId, $chapterId);
         }
     }
 
@@ -196,7 +207,6 @@ class BookController extends Controller
             'description' => $request->description,
             'note' => $request->note,
             'is_VIP' => 0,
-            'price' => $request->price,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),

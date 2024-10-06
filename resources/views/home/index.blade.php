@@ -169,30 +169,41 @@
                                 {{-- Phần hiển thị cho màn hình mobile --}}
                                 <div class="d-lg-none">
                                     @if (empty($readingHistories))
-                                        <p>Chưa có lịch sử đọc!</p>
-                                    @else
-                                        @foreach ($readingHistories as $chapter)
+                                    <p>Chưa có lịch sử đọc!</p>
+                                @else
+                                    @foreach ($readingHistories as $chapter)
+                                        {{-- {{ dd($chapter) }} --}}
+                                        @if (auth()->check())
                                             @php
-                                                $episode = $chapter->episode; // Lấy episode tương ứng
-                                                $book = $episode->book; // Lấy book tương ứng
+                                                // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
+                                                $book = $chapter->book; // Lấy book tương ứng
                                             @endphp
-                                            <div class="row ml-1 mb-3">
-                                                <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                                    <div class="img-contain-ratio content"
-                                                        style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
-                                                    </div>
-                                                </div>
-                                                <div class="col-8 col-md-9 col-lg-8">
-                                                    <a href="/truyen/{{ $book->slug }}"
-                                                        class="text-truncate block font-weight-bold">{{ $book->title }}</a>
-                                                    <div class="small mb-3 text-truncate">Web Novel</div>
-                                                    <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
-                                                        class="text-truncate block">{{ $chapter->title }}</a>
+                                        @else
+                                            @php
+                                                // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
+                                                $episode = $chapter->episode; // Lấy episode tương ứng
+                                                $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                            @endphp
+                                        @endif
+
+                                        <div class="row ml-1 mb-3">
+                                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
+                                                <div class="img-contain-ratio content"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    @endif
+                                            <div class="col-8 col-md-9 col-lg-8">
+                                                <a href="/truyen/{{ $book->slug }}"
+                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <div class="small mb-3 text-truncate">Web Novel</div>
+                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                    class="text-truncate block">{{ $chapter->title }}</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                                 </div>
+
                             </main>
                         </section>
                     </div>
@@ -330,11 +341,24 @@
                                 @if (empty($readingHistories))
                                     <p>Chưa có lịch sử đọc!</p>
                                 @else
-                                    @foreach ($readingHistories as $chapter)
-                                        @php
-                                            $episode = $chapter->episode; // Lấy episode tương ứng
-                                            $book = $episode->book; // Lấy book tương ứng
-                                        @endphp
+                                    @foreach ($readingHistories as $history)
+                                        {{-- {{ dd($history) }} --}}
+                                        @if (auth()->check())
+                                            @php
+                                               $episode = $history->episode; // Lấy episode tương ứng
+                                               $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                               $chapter = $history->chapter;
+
+                                           @endphp
+                                        @else
+                                            @php
+                                                // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
+                                                $episode = $history->episode; // Lấy episode tương ứng
+                                                $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+
+                                          @endphp
+                                        @endif
+
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
@@ -435,7 +459,7 @@
                                                         <div class="series-summary">{{ $item->description }}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                                                                        <small>cánh cửa thứ nhất</small>-->
+                                                                                                    <small>cánh cửa thứ nhất</small>-->
                                                         </div>
                                                     </div>
                                                 </div>

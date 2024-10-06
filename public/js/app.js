@@ -573,7 +573,7 @@ if (
                     : "";
             $("#ln-comment-" + t).after(
                 $(
-                    '<div class="ln-comment-reply reply-form"><div class="ln-comment-form"><textarea class="comment_reply"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_reply" value="Trả lời" data-parent="' +
+                    '<form><div class="ln-comment-reply reply-form"><div class="ln-comment-form"><textarea class="comment_reply"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_reply" value="Trả lời" data-parent="' +
                         n +
                         '"></div></div></div>'
                 )

@@ -108,8 +108,19 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div style="width:100%;height:auto">
+                                <form action="{{route("cmt-child-forum",$data->id)}}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="ln-comment-reply reply-form">
+                                        <div class="ln-comment-form"><input type="hidden" name="forum_parent_id" value="{{$comment->id}}"><textarea name="content" class="comment_reply"></textarea>
+                                            <div class="comment_toolkit clear"><input type="submit" class="button" value="Trả lời"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             @foreach ($data_child_list_forum[$comment->id] as $comment_child)
+
                             <div class="ln-comment-reply">
 
                                 <div id="ln-comment-{{$comment_child->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment_child->id}}" data-parent="{{$comment->id}}">
@@ -150,12 +161,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="ln-comment-content long-text">
-                                                    {{$comment_child->content}}
+                                                    {!!$comment_child->content!!}
                                                 </div>
                                                 <div class="comment_see_more expand none">Xem thêm</div>
                                                 <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                     <a href="/thao-luan/368-huong-dan-dang-truyen?comment_id=2571363&amp;reply_id=2571366#ln-comment-2571366" class="text-slate-500">
-                                                        <time class="timeago" title="29-08-2024 22:08:48" datetime="2024-08-29T22:08:48+07:00">3 ngày</time>
+                                                        <time class="timeago" title="29-08-2024 22:08:48" datetime="{{$comment->created_at}}">3 ngày</time>
                                                     </a>
                                                     <a class="self-center visible-toolkit-item do-like cursor-pointer">
                                                         <i class="fas fa-thumbs-up me-1"></i>
@@ -171,6 +182,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             @endforeach
                             <!-- <div class="fetch_reply" data-parent="2571363">
                 Xem thêm 1 trả lời <i class="fas fa-chevron-down" style="margin-left: 4px;"></i>

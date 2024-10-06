@@ -77,7 +77,8 @@
                                         </div>
                                         <div class="col-4 col-md feature-item width-auto-xl">
                                             <!-- Thêm phần hiển thị giá và nút mua -->
-                                            <div class="price-buy-button flex justify-between items-center p-2 border border-gray-300 rounded">
+                                            <div
+                                                class="price-buy-button flex justify-between items-center p-2 border border-gray-300 rounded">
                                                 <span class="block feature-value">
                                                     Giá: {{ $book->price }}
                                                 </span>
@@ -225,7 +226,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -428,26 +429,50 @@
                                     <div class="col-12 col-md-10">
                                         <ul class="list-chapters at-series">
                                             @foreach ($item->chapters as $chapter)
-                                                <li>
-                                                    <div class="chapter-name">
-                                                        @if ($chapter->is_new)
-                                                            <div class="new-status badge">
-                                                                <div class="badge-item new">Mới</div>
-                                                            </div>
-                                                        @endif
-                                                        @if ($chapter->contains_image)
-                                                            <i class="fas fa-image" aria-hidden="true"
-                                                                title="Có chứa ảnh"></i>
-                                                        @endif
+                                            <li>
+                                                <div class="chapter-name">
+                                                    {{-- Hiển thị badge "Mới" nếu chương là mới --}}
+                                                    @if ($chapter->is_new)
+                                                        <div class="new-status badge">
+                                                            <div class="badge-item new">Mới</div>
+                                                        </div>
+                                                    @endif
+
+                                                    {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
+                                                    @if ($chapter->contains_image)
+                                                        <i class="fas fa-image" aria-hidden="true" title="Có chứa ảnh"></i>
+                                                    @endif
+
+                                                    {{-- Kiểm tra giá của chương --}}
+                                                    @if ($chapter->price == 0)
+                                                        {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
                                                         <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                            title="{{ $chapter->title }}">
-                                                            {{ $chapter->title }}
+                                                           title="{{ $chapter->title }}">
+                                                           {{ $chapter->title }} (Miễn phí)
                                                         </a>
-                                                    </div>
-                                                    <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}
-                                                    </div>
-                                                </li>
-                                            @endforeach
+                                                    @else
+                                                        {{-- Kiểm tra người dùng đã mua chương chưa --}}
+                                                        @if (auth()->check() && auth()->user()->hasPurchased($chapter->id))
+                                                            {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                            <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                               title="{{ $chapter->title }}">
+                                                               {{ $chapter->title }}
+                                                            </a>
+                                                        @else
+                                                            {{-- Nếu chưa mua, hiển thị nút mua chương --}}
+                                                            <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                {{ $chapter->title }} - <a href="{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}">Mua chương ({{ $chapter->price }} coin)</a>
+                                                            </span>
+                                                        @endif
+                                                    @endif
+                                                </div>
+
+                                                {{-- Hiển thị thời gian tạo chương --}}
+                                                <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}</div>
+                                            </li>
+                                        @endforeach
+
+
                                         </ul>
                                     </div>
                                 </div>
@@ -504,7 +529,9 @@
                                                     </div>
                                                 </form>
                                             @else
-                                                <p><strong style="font-size: 15px">Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để bình luận.</strong></p>
+                                                <p><strong style="font-size: 15px">Bạn phải <a
+                                                            href="{{ route('login') }}" style="color: red">đăng nhập</a>
+                                                        để bình luận.</strong></p>
                                             @endif
                                         </div>
 
@@ -579,7 +606,8 @@
                                                                     <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
                                                                         class="self-center visible-toolkit-item cursor-pointer">
                                                                         <i class="fas fa-comment me-1"></i>
-                                                                        <span class="likecount font-semibold">Trả lời</span>
+                                                                        <span class="likecount font-semibold">Trả
+                                                                            lời</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -587,24 +615,31 @@
                                                     </div>
                                                 </div>
                                                 @if (request('reply_to') == $comment->id)
-                                                    <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
+                                                    <div class="ln-comment-reply ln-comment-form mt-3"
+                                                        id="reply-form-{{ $comment->id }}">
                                                         @if (Auth::check())
-                                                            <form action="{{ route('addComment', $book->id) }}" method="POST" class="reply_form">
+                                                            <form action="{{ route('addComment', $book->id) }}"
+                                                                method="POST" class="reply_form">
                                                                 @csrf
-                                                                <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username .': '}}</textarea>
-                                                                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                                                <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                                                <input type="hidden" name="parent_id"
+                                                                    value="{{ $comment->id }}">
                                                                 <div class="comment_toolkit clear">
                                                                     <input class="button" type="submit" value="Trả lời">
                                                                 </div>
                                                             </form>
                                                         @else
-                                                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình luận.</strong></p>
+                                                            <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                        style="color: red">đăng nhập</a> để trả lời bình
+                                                                    luận.</strong></p>
                                                         @endif
                                                     </div>
                                                 @endif
                                                 <!-- Lặp qua các replies -->
                                                 @if ($comment->replies->isNotEmpty())
-                                                    @include('partials.comment', ['comments' => $comment->replies])
+                                                    @include('partials.comment', [
+                                                        'comments' => $comment->replies,
+                                                    ])
                                                 @endif
                                                 {{-- @foreach ($comment->replies as $reply)
                                                     <div class="ln-comment-reply">
@@ -719,5 +754,4 @@
             </div>
         </div>
     </main>
-
 @endsection

@@ -33,7 +33,7 @@ Route::get('/admin/dashboard', function () {
     return 'Admin Dashboard';
 });
 
-Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
@@ -85,11 +85,11 @@ Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function
     Route::get('/story/{id}', [StoryController::class, 'showBook'])->name('admin_storyshow');
     Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
-    Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
+    Route::delete('story/{id}/delete', [StoryController::class, 'destroyBook'])->name('admin_storydestroy');
 
     //episode
-    Route::get('/episode/create/{book_id}',[StoryController::class,'createEpisode'])->name('admin_episodecreate');
-    Route::post('/episode/store',[StoryController::class,'storeEpisode'])->name('admin_episodestore');
+    Route::get('/episode/create/{book_id}', [StoryController::class, 'createEpisode'])->name('admin_episodecreate');
+    Route::post('/episode/store', [StoryController::class, 'storeEpisode'])->name('admin_episodestore');
     Route::get('/episodes/{id}/edit', [StoryController::class, 'editEpisode'])->name('admin_episodeedit');
     Route::put('/episodes/{id}', [StoryController::class, 'updateEpisode'])->name('admin_episodeupdate');
     Route::delete('/episode/{id}/delete', [StoryController::class, 'destroyEpisode'])->name('admin_episdestroy');
@@ -97,8 +97,8 @@ Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function
 
 
     //chapter
-    Route::get('/chapter/create/{episode_id}',[StoryController::class,'createChapter'])->name('admin_chaptercreate');
-    Route::post('/chapter/store',[StoryController::class,'storeChapter'])->name('admin_chapterstore');
+    Route::get('/chapter/create/{episode_id}', [StoryController::class, 'createChapter'])->name('admin_chaptercreate');
+    Route::post('/chapter/store', [StoryController::class, 'storeChapter'])->name('admin_chapterstore');
     Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
     Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
     Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
@@ -110,4 +110,27 @@ Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function
     Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
     Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
     Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
+});
+Route::middleware(['auth', 'checkLoginAdmin'])->prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    });
+
+
+    // Giao diện admin
+    Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
+    Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
+    Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
+    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+});
+Route::middleware(['auth', 'checkMod'])->prefix('admin')->group(function () {
+    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+    Route::get('/', function () {
+        return view('home');
+    });
+    //dc trang admmin
+    // Edit and delete comments routes
+    Route::get('/comment/edit/{id}', [CommentController::class, 'edit'])->name('comment_edit');
+    Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment_update');
+    Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
 });

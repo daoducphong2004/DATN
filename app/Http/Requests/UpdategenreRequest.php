@@ -22,7 +22,9 @@ class UpdategenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'slug' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 }

@@ -182,7 +182,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
+            'price' => 'required|numeric|10000', // Thêm quy tắc xác thực cho price
         ]);
 
         $book = episode::find($request->episode_id)->book()->first();

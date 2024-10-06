@@ -8,6 +8,11 @@
         {{ session('error') }}
     </div>
 @endif
+@if (session('message'))
+    <div id="toast-message" class="toast-message success">
+        {{ session('message') }}
+    </div>
+@endif
 
 @if (session('success'))
     <div id="toast-message" class="toast-message success">

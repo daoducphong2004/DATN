@@ -37,9 +37,12 @@
                     <td>{{ $comment -> content }}</td>
                     <td>{{ $comment -> created_at->format('H:i, d-m-Y') }}</td>
                     <td>
-                        <a href="{{ route('bookComment.create') }}" class="btn btn-primary">Thêm</a>
-                        <a class="btn btn-warning" href="">Sửa</a>
-                        @if (Auth::user() && Auth::user()->role->name === 'mod' || Auth::user()->role->name === 'admin')
+                        <a href="{{ route('truyen.truyen', ['slug' => $comment->book->slug, 'reply_to' => $comment->id]) }}#reply-form-{{ $comment->id }}" class="btn btn-primary">Chi tiết</a>
+                        {{-- <a class="btn btn-warning" href="">Sửa</a> --}}
+                        @if (!Auth::check())
+                            <a href="{{ route('login') }}" class="btn btn-danger"
+                                onclick="alert('Bạn phải đăng nhập để thực hiện tính năng này!')">Xóa</a>
+                        @elseif (Auth::user() && Auth::user()->role->name === 'mod' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'super_admin')
                             <form action="{{ route('bookComment.destroy', $comment) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

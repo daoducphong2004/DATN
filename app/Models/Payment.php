@@ -19,5 +19,6 @@ class Payment extends Model
     'description',
     'coin_earned',
     'final_amount',
+    'user_id'
     ];
 }

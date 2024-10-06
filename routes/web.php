@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
@@ -54,21 +56,28 @@ Route::post('register', [AccountController::class, 'createAccount'])->name('crea
 Route::get('email', [AccountController::class, 'email']);
 Route::get('reset', [AccountController::class, 'reset']);
 
-Route::get('gioithieu', [UserController::class, 'gioithieu']);
-Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('danhsach', [UserController::class, 'danhsach']);
-Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('sangtac', [UserController::class, 'sangtac']);
-Route::get('xuatban', [UserController::class, 'xuatban']);
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+// Route::get('danhsach', [UserController::class, 'danhsach']);
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
 
-Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
-Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
-Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
+
+Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('lichsu', [HomeController::class, 'lichsu']);
+Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tinnhan', [HomeController::class, 'tinnhan']);
+Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
+Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 
-Route::get('UserHome', [UserController::class, 'home']);
+Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
@@ -191,6 +200,10 @@ Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'
 
 // End Phong
 
+//Thanh toan
+Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
+Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
+
 // User trong Group
 Route::prefix('groups')->group(function () {
     Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
@@ -208,5 +221,5 @@ Route::middleware(['auth', 'role:author'])->group(function () {
 
 require __DIR__ . '/admin.php';
 
-
+Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi

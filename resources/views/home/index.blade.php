@@ -575,13 +575,8 @@
                                     <div class="thumb_attr volume-title">{{ $item->title }}</div>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <div class="thumb_attr series-title"><a href="{{route('truyen.truyen', $item->slug)}}"
                                     title="{{ $item->title}}">{{ $item->title}}</a></div>
-=======
-                            <div class="thumb_attr series-title"><a href="{{ route('truyen.truyen', $item->slug) }}"
-                                    title="Ngày ấy, có trái bom rơi">{{ $item->title }}</a></div>
->>>>>>> 0a5949ce03313d8dfcc6e1d83b4758993ef2d717
                         </div>
                         {{-- truyện kết thúc --}}
                     @endforeach

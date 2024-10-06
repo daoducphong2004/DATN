@@ -24,7 +24,7 @@ class HomeController extends Controller
                                   ->take(5)
                                   ->get();
 
-        return view('home.index', compact('truyen_noibat','sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
+        return view('home.index', compact('truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
     }
 
     public function convert(){

@@ -386,7 +386,7 @@
                                                         <h4 class="series-title text-xl font-bold"><a
                                                                 href="{{route('truyen.truyen', $item->slug)}}">{{ $item->title}}</a>
                                                         </h4>
-                                                        <div class="series-summary">{{ $item->description}}</div>
+                                                        <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
                                                 <small>cánh cửa thứ nhất</small>-->
@@ -507,7 +507,7 @@
                                 </div>
                             </div>
                             <div class="thumb_attr series-title"><a href="{{route('truyen.truyen', $item->slug)}}"
-                                    title="Ngày ấy, có trái bom rơi">{{ $item->title}}</a></div>
+                                    title="{{ $item->title}}">{{ $item->title}}</a></div>
                         </div>
                         {{-- truyện kết thúc --}}
                     @endforeach

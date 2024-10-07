@@ -47,11 +47,10 @@ class BookController extends Controller
 
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
-
         // Tìm kiếm book dựa trên slug
         $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
 
-        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
+        // Tăng giá trị của trường `view`
         $book->increment('view');
 
         // Tìm kiếm chapter dựa trên chapter_slug
@@ -62,29 +61,59 @@ class BookController extends Controller
 
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
-        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
-        $book->increment('view');
+
         // Lấy danh sách comments cho chapter này
         $comments = chaptercomment::with('user')
             ->where('chapter_id', $chapter->id)
             ->whereNull('parent_id')->get();
 
         $parentId = $request->input('parent_id');
-        // lấy thông tin của user
-         // Kiểm tra chương này có giá bao nhiêu
-         if ($chapter->price > 0) {
-            // Nếu chương có giá trị, kiểm tra người dùng đã mua chưa
-            $user = auth()->user();
+
+        // Kiểm tra xem người dùng có đăng nhập hay không
+        $user = auth()->user();
+        $fullContent = $chapter->content; // Nội dung đầy đủ của chương
+        $partialContent = null; // Nội dung hiển thị một phần
+        $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
+
+        // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
+        if ($chapter->price > 0) {
+            // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
             if (!$user || !$user->hasPurchased($chapter->id)) {
-                return redirect()->back()->with('error', 'Bạn cần mua chương này để xem nội dung.');
+                // Chỉ hiển thị 2/10 nội dung chương nếu chưa mua
+                $partialContent = $this->getPartialContent($fullContent);
+            } else {
+                // Người dùng đã mua, có thể xem toàn bộ nội dung
+                $canViewFullContent = true;
+                $partialContent = $fullContent;
             }
+        } else {
+            // Nếu chương miễn phí, người dùng có thể xem toàn bộ
+            $canViewFullContent = true;
+            $partialContent = $fullContent;
         }
 
-        // Call the function to save the reading history
+        // Lưu lịch sử đọc chương
         $this->storeReadingHistory($book->id, $chapter->id);
 
-        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId'));
+        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId', 'partialContent', 'fullContent', 'canViewFullContent'));
     }
+
+    /**
+     * Cắt nội dung để hiển thị 2/10 nội dung.
+     */
+    private function getPartialContent($content)
+    {
+        $totalWords = str_word_count(strip_tags($content));
+        $wordsToShow = (int) ($totalWords * 0.2); // Hiển thị 20% số từ
+
+        // Cắt nội dung theo số từ cần hiển thị
+        $wordsArray = explode(' ', strip_tags($content));
+        $partialContent = implode(' ', array_slice($wordsArray, 0, $wordsToShow));
+
+        return $partialContent . '...'; // Thêm dấu "..." để hiển thị phần còn lại bị ẩn
+    }
+
+
     // Function to save reading history
     private function storeReadingHistory($bookId, $chapterId)
     {

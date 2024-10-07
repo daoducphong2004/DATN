@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +21,20 @@ class RoleMiddleware
             return redirect('/login')->with('error', 'Bạn cần đăng nhập.');
         }
 
-        $userRole = Auth::user()->role->name ?? null;
+        $user = Auth::user();
+        $userRole = $user->role->name ?? null;
 
-        if ($userRole === $role) {
-            return $next($request);
+        // Kiểm tra vai trò của người dùng
+        if (!in_array($userRole, ['super_admin', 'admin', 'mod'])) {
+            return redirect('/')->with('error', 'Bạn không có quyền truy cập vào chức năng này.');
         }
 
+
+        if ($userRole === $role || in_array($userRole, ['super_admin', 'admin', 'mod'])) {
+            return $next($request);
+        }
         return redirect('/')->with('error', 'Bạn không có quyền truy cập vào chức năng này.');
     }
+
 
 }

@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->softDeletes();
-            $table->string('slug');
-
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn(['is_paid']);
         });
     }
 
@@ -23,9 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('groups', function (Blueprint $table) {
-                $table->string('delete_at');
-                $table->string('slug');
+        Schema::table('books', function (Blueprint $table) {
+            // $table->decimal('price', 8, 2)->nullable();
+            $table->boolean('is_paid')->default(false);
         });
     }
 };

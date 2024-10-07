@@ -10,8 +10,12 @@ use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
+use App\Models\PurchasedStory;
+use App\Models\ReadingHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -41,23 +45,12 @@ class BookController extends Controller
         return view('story.show', compact('comments', 'book'));
     }
 
-    // public function chapterComment($chapterId)
-    // {
-    //     $comments = chaptercomment::with('user')
-    //     ->where('chapter_id', $chapterId)
-    //     ->whereNull('parent_id')->get();
-
-    //     $chapter = chapter::findOrFail($chapterId);
-
-    //     return view('story.reading', compact('comments', 'chapter'));
-
-    // }
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
         $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
 
-        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
+        // Tăng giá trị của trường `view`
         $book->increment('view');
 
         // Tìm kiếm chapter dựa trên chapter_slug
@@ -76,7 +69,134 @@ class BookController extends Controller
 
         $parentId = $request->input('parent_id');
 
-        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId'));
+        // Kiểm tra xem người dùng có đăng nhập hay không
+        $user = auth()->user();
+        $fullContent = $chapter->content; // Nội dung đầy đủ của chương
+        $partialContent = null; // Nội dung hiển thị một phần
+        $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
+
+        // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
+        if ($chapter->price > 0) {
+            // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
+            if (!$user || !$user->hasPurchased($chapter->id)) {
+                // Chỉ hiển thị 2/10 nội dung chương nếu chưa mua
+                $partialContent = $this->getPartialContent($fullContent);
+            } else {
+                // Người dùng đã mua, có thể xem toàn bộ nội dung
+                $canViewFullContent = true;
+                $partialContent = $fullContent;
+            }
+        } else {
+            // Nếu chương miễn phí, người dùng có thể xem toàn bộ
+            $canViewFullContent = true;
+            $partialContent = $fullContent;
+        }
+
+        // Lưu lịch sử đọc chương
+        $this->storeReadingHistory($book->id, $chapter->id);
+
+        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId', 'partialContent', 'fullContent', 'canViewFullContent'));
+    }
+
+    /**
+     * Cắt nội dung để hiển thị 2/10 nội dung.
+     */
+    private function getPartialContent($content)
+    {
+        $totalWords = str_word_count(strip_tags($content));
+        $wordsToShow = (int) ($totalWords * 0.2); // Hiển thị 20% số từ
+
+        // Cắt nội dung theo số từ cần hiển thị
+        $wordsArray = explode(' ', strip_tags($content));
+        $partialContent = implode(' ', array_slice($wordsArray, 0, $wordsToShow));
+
+        return $partialContent . '...'; // Thêm dấu "..." để hiển thị phần còn lại bị ẩn
+    }
+
+
+    // Function to save reading history
+    private function storeReadingHistory($bookId, $chapterId)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            // Check if a reading history already exists for the current book
+            $existingHistory = ReadingHistory::where('user_id', $user->id)
+                ->where('book_id', $bookId)
+                ->first();
+
+            if ($existingHistory) {
+                // Update the existing history with the new chapter
+                $existingHistory->chapter_id = $chapterId;
+                $existingHistory->last_read_at = Carbon::now();
+                $existingHistory->save();
+            } else {
+                // Create a new reading history entry
+                $readingHistory = new ReadingHistory();
+                $readingHistory->user_id = $user->id;
+                $readingHistory->book_id = $bookId; // Add the book ID
+                $readingHistory->chapter_id = $chapterId;
+                $readingHistory->last_read_at = Carbon::now();
+                $readingHistory->save();
+            }
+        } else {
+            // Save to cookie or cache for guest users
+            $this->saveToLocal($bookId, $chapterId);
+        }
+    }
+
+    // Save to local storage (cookie or cache)
+    private function saveToLocal($bookId, $chapterId)
+    {
+        $cookieName = 'reading_history';
+        $existingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
+
+        // Ensure that the history entry for the book is an array, not a scalar value
+        if (!isset($existingHistory[$bookId]) || !is_array($existingHistory[$bookId])) {
+            $existingHistory[$bookId] = [
+                'book_id' => $bookId,
+                'chapter_id' => $chapterId,
+                'last_read_at' => now()->timestamp, // Store timestamp of the last read
+            ];
+        } else {
+            // If the book already exists, just update the chapter_id and last_read_at
+            $existingHistory[$bookId]['chapter_id'] = $chapterId;
+            $existingHistory[$bookId]['last_read_at'] = now()->timestamp;
+        }
+
+        // Save updated history to the cookie (expires in 30 days)
+        Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
+    }
+
+
+    public function showReadingHistory()
+    {
+        $readingHistories = [];
+        $user = Auth::user();
+
+        if ($user) {
+            // Get reading history from the database for logged-in users
+            $readingHistories = ReadingHistory::where('user_id', $user->id)
+                ->with('book', 'chapter')
+                ->orderBy('last_read_at', 'desc')
+                ->take(4) // Limit to the latest 4 items
+                ->get();
+        } else {
+            // Get reading history from cookies for guest users
+            $cookieName = 'reading_history';
+            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+            dd($readingHistoriesFromCookie);
+            // Retrieve books/chapters from DB based on the IDs stored in the cookie
+            if (!empty($readingHistoriesFromCookie)) {
+                $readingHistories = \App\Models\Book::whereIn('id', $readingHistoriesFromCookie)
+                    ->with('chapters')
+                    ->take(4) // Limit to the latest 4 items
+                    ->get();
+            }
+        }
+
+        // Pass the reading history to the view
+        return view('reading-history', compact('readingHistories'));
     }
     public function index()
     {
@@ -116,12 +236,12 @@ class BookController extends Controller
             'description' => $request->description,
             'note' => $request->note,
             'is_VIP' => 0,
-            // 'is_delete' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
         ]);
-        $slug = Str::slug('b'.$book->id . '-' . $request->title);
+
+        $slug = Str::slug('b' . $book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload
@@ -162,14 +282,14 @@ class BookController extends Controller
         // dd($book,$episodes);
 
         $comments = bookcomment::with('user')
-        ->where('book_id', $book->id)
-        ->whereNull('parent_id')
-        ->with('replies.replies')->get();
+            ->where('book_id', $book->id)
+            ->whereNull('parent_id')
+            ->with('replies.replies')->get();
 
 
         // dd($comments);
-        if (Auth::check() && Auth::user()->role->name === 'guest' && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy nâng cấp tài khoản');
+        if (Auth::guest() && $book->is_paid) {
+            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
         }
 
         return view('story.show', compact('book', 'episodes', 'comments'));

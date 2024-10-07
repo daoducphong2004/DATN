@@ -8,15 +8,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="UserHome">Bảng điều khiển</a>
+            <a class="navbar-brand" href="/UserHome">Bảng điều khiển</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
-                <li><a href="home" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
+                <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
                             Cổng Light Novel</span></a></li>
                 <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'author')
+                    @if (Auth::check() && Auth::user()->role->name === 'author' || Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod')
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
                     @else
                         <a href="" style="color: red"
@@ -27,10 +27,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="truyenDaDang">Truyện đã
-                                đăng</a></li>
-                        <li><a href="truyenThamGia">Truyện tham
-                                gia</a></li>
+                        <li><a href="truyenDaDang">Truyện đã đăng</a></li>
+                        <li><a href="truyenThamGia">Truyện tham gia</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -78,6 +76,9 @@
                         <li><a href="nhomThamGia">Nhóm tham gia</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -86,7 +87,7 @@
                         aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
                             class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a>LinhLinh</a></li>
+                        <li><a>{{ Auth::user()->username}}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="">Đổi Thông Tin</a></li>
                         <li><a href="">Đổi Mật Khẩu</a></li>
@@ -94,7 +95,17 @@
                         <li><a href="">Đổi Email</a></li>
                         <li><a href="">Đổi Username</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="https://docln.net/logout">Thoát</a></li>
+                        <li>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
+                                class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
+
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                            {{-- <a href="https://docln.net/logout">Thoát</a> --}}
+                        </li>
                     </ul>
                 </li>
             </ul>

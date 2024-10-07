@@ -35,6 +35,12 @@
                                         <textarea id="LN_Chapter_Content" name="content"></textarea>
                                     </div>
                                 </div>
+                                <div class="form-group clearfix">
+                                    <label class="col-md-2 control-label pt-7 text-right">Giá</label>
+                                    <div class="col-md-8">
+                                        <input type="number" class="form-control" name="price" value="0">
+                                    </div>
+                                </div>
                                 @include('layouts.TinyMCEscript')
                                 <div class="form-group">
                                     <div class="col-md-10">

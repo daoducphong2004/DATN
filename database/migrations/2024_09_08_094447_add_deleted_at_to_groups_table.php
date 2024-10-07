@@ -19,7 +19,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->dropSoftDeletes();
+            // $table->dropSoftDeletes();
         });
     }
 };

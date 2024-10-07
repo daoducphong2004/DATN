@@ -30,10 +30,16 @@
                 @enderror
             </div>
         </div>
+        @include('layouts.TinyMCEscript')
 
         <!-- Hidden input để chứa episode_id -->
         <input type="hidden" name="episode_id" value="{{ $episode->id }}">
-
+        <div class="form-group clearfix">
+            <label class="col-md-2 control-label pt-7 text-right">Giá</label>
+            <div class="col-md-8">
+                <input type="number" class="form-control" name="price" value="0">
+            </div>
+        </div>
         <!-- Chọn Người Đăng -->
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Người Đăng</label>

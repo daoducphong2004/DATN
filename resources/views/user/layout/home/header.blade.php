@@ -8,12 +8,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="UserHome">Bảng điều khiển</a>
+            <a class="navbar-brand" href="/UserHome">Bảng điều khiển</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
-                <li><a href="home" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
+                <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
                             Cổng Light Novel</span></a></li>
                 <li>
                     @if (Auth::check() && Auth::user()->role->name === 'author' || Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod')
@@ -75,6 +75,9 @@
                         <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
                         <li><a href="nhomThamGia">Nhóm tham gia</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
                 </li>
             </ul>
 

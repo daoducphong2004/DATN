@@ -17,9 +17,12 @@ class ReadingHistory extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     public function chapter()
     {
         return $this->belongsTo(Chapter::class);
+    }
+    public function book()
+    {
+        return $this->belongsTo(book::class);
     }
 }

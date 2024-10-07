@@ -25,9 +25,9 @@ class HomeController extends Controller
         if ($user) {
             // Get reading history from the database for logged-in users
             $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with(['book', 'chapter']) // Ensure book and chapter relationships are loaded
+                ->with(['book','chapter']) // Nạp cả quan hệ với chapter và book
                 ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
+                ->take(4) // Giới hạn 4 mục gần nhất
                 ->get();
         } else {
             // Lấy lịch sử đọc từ cookie cho người dùng khách
@@ -47,27 +47,35 @@ class HomeController extends Controller
                 foreach ($readingHistories as $chapter) {
                     $episode = $chapter->episode; // Lấy episode tương ứng
                     $book = $episode->book; // Lấy book tương ứng
-
-
                 }
-
-                // dd($readingHistories); // Kiểm tra các chương đã lấy cùng với thông tin episode và book
             }
         }
 
-        $truyen_noibat = book::orderBy('like', 'desc')->take(8)->get();
+        $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('like', 'desc')
+                            ->take(8)
+                            ->get();
 
-        $sangtac_moinhat = book::orderBy('created_at', 'desc')->take(5)->get();
+        $sangtac_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
 
-        $chuong_moinhat = book::orderBy('created_at', 'desc')->take(17)->get();
+        $chuong_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(17)
+                            ->get();
 
-        $truyen_vuadang = book::orderBy('created_at', 'desc')->take(6)->get();
+        $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
+                            ->orderBy('created_at', 'desc')
+                            ->take(6)
+                            ->get();
 
         $truyen_dahoanthanh = Book::where('status', 3)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+        // dd($readingHistories);
         return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
     }
 

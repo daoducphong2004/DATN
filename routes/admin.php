@@ -33,7 +33,8 @@ Route::get('/admin/dashboard', function () {
     return 'Admin Dashboard';
 });
 
-Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
+// Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });

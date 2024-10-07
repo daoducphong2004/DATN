@@ -67,4 +67,9 @@ class book extends Model
     {
         return $this->episodes()->count();
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

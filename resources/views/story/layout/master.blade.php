@@ -56,6 +56,49 @@
             modal.style.display = "none";
         }
     }
+
+    // rating
+    const ratingInputs = document.querySelectorAll('.rating-input');
+    const ratingLabels = document.querySelectorAll('.rating-label');
+
+    ratingLabels.forEach((label, index) => {
+        // Hiển thị màu vàng khi hover
+        label.addEventListener('mouseenter', function() {
+            for (let i = 0; i <= index; i++) {
+                ratingLabels[i].style.color = '#f39c12'; // Màu vàng cho ngôi sao hiện tại và trước đó
+            }
+        });
+
+        // Đặt lại màu khi không còn hover
+        label.addEventListener('mouseleave', function() {
+            ratingLabels.forEach((label) => {
+                label.style.color = '#ccc'; // Màu mặc định
+            });
+
+            // Nếu đã chọn ngôi sao, giữ màu vàng
+            ratingInputs.forEach((input) => {
+                if (input.checked) {
+                    for (let i = 0; i < input.value; i++) {
+                        ratingLabels[i].style.color = '#f39c12'; // Giữ màu vàng cho ngôi sao đã chọn
+                    }
+                }
+            });
+        });
+
+        // Lưu màu vàng khi click
+        label.addEventListener('click', function() {
+            ratingInputs.forEach((input) => {
+                if (input.id === label.getAttribute('for')) {
+                    input.checked = true; // Đánh dấu ngôi sao được chọn
+                }
+            });
+
+            // Đặt màu vàng cho tất cả các ngôi sao trước đó
+            for (let i = 0; i <= index; i++) {
+                ratingLabels[i].style.color = '#f39c12'; // Màu vàng cho ngôi sao đã chọn và trước đó
+            }
+        });
+    });
 </script>
 
 </html>

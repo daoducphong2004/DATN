@@ -127,3 +127,31 @@
         transform: translateY(2px);
     }
 </style>
+
+<style>
+    ..rating {
+    direction: rtl;
+}
+
+.rating-input {
+    display: none;
+}
+
+.rating-label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s; /* Hiệu ứng chuyển màu */
+}
+
+/* Hover effect */
+.rating-label:hover,
+.rating-label:hover ~ .rating-label {
+    color: #f39c12;
+}
+
+.rating-input:checked + .rating-label,
+.rating-input:checked + .rating-label ~ .rating-label {
+    color: #f39c12;
+}
+</style>

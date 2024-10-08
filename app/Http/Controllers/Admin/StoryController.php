@@ -19,8 +19,13 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups')->paginate(10);
-        // dd($storys);
+        $stories = book::query()->with('user', 'groups', 'ratings')->paginate(10);
+
+        // Tính trung bình số sao cho mỗi truyện
+        foreach ($stories as $story) {
+            $averageRating = $story->ratings->isNotEmpty() ? $story->ratings->avg('rating') : 0;
+            $story->average_stars = round($averageRating * 5 / 5, 1);
+        }
         return view('admin.stories.list-story', compact('stories'));
     }
     //Create

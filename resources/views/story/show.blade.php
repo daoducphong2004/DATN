@@ -89,13 +89,12 @@
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="https://docln.net/truyen/18997/danh-gia">
+                                                        <a href="/rating/{{$book->slug}}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
                                                                         class="far fa-star"></i></span>
-                                                                <span class="block feature-name">Đánh giá( sẽ làm
-                                                                    sau)</span>
+                                                                <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
 

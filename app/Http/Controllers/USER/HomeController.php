@@ -4,7 +4,9 @@ namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
 use App\Models\book;
+use App\Models\Bookmarks;
 use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\ReadingHistory;
@@ -165,7 +167,12 @@ class HomeController extends Controller
     }
     public function taikhoan()
     {
-        return view('home.taikhoan');
+        $userInfor = Auth::user();
+        $bookHasJoin = book::with('user')->get();
+        $countChapters = chapter::where('user_id',$userInfor->id)->count();
+        $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
+        $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
     }
 
     public function login()

@@ -348,7 +348,7 @@ class StoryController extends Controller
         $chapter = Chapter::findOrFail($id);
 
         // Tạo slug mới nếu tiêu đề thay đổi
-        $slug = Str::slug($validatedData['title']);
+        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
 
         // Cập nhật dữ liệu của chương
         $chapter->update([

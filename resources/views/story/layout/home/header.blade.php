@@ -121,8 +121,7 @@
                 <form class="" action="/tim-kiem" method="get">
                     <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
-                    <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
+
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">

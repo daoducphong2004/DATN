@@ -200,6 +200,9 @@ Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name(
 Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
 Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
 
+
+Route::post('/book/{book}/share-access', [BookController::class, 'shareEditAccess'])->name('book.shareAccess');
+Route::post('/book/{book}/transfer-ownership', [BookController::class, 'transferOwnership'])->name('book.transferOwnership');
 // End Phong
 
 //Thanh toan

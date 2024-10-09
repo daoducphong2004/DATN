@@ -7,6 +7,7 @@ use App\Models\book;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
+use App\Models\Forum;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\ReadingHistory;
@@ -18,7 +19,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-
+        
         $readingHistories = [];
         $user = Auth::user();
 
@@ -76,7 +77,18 @@ class HomeController extends Controller
                             ->take(5)
                             ->get();
         // dd($readingHistories);
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
+        $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
+            'categories.color as color',
+            'categories.content as content_categories',
+            'categories.slug as slug_categories',
+            'users.username as username',
+            'users.avatar_url as avt_user',
+            'forums.id as id',
+            'forums.title as title',
+            'forums.content as content',
+            'forums.created_at as created_at'
+        ])->orderBy('created_at', 'desc')->get();
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home'));
     }
 
     public function convert()

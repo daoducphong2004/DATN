@@ -16,11 +16,12 @@
                 <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
                             Cổng Light Novel</span></a></li>
                 <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'author' || Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod')
+                    @if (Auth::check() && Auth::user()->role &&
+                        (Auth::user()->role->name === 'author' ||
+                        Auth::user()->role->name === 'super_admin' ||
+                        Auth::user()->role->name === 'admin' ||
+                        Auth::user()->role->name === 'mod'))
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
-                    @else
-                        <a href="" style="color: red"
-                            onclick="alert('Bạn không có quyền truy cập tính năng này!')">Thêm truyện</a>
                     @endif
                 </li>
                 <li class="dropdown">
@@ -82,12 +83,23 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a>{{ Auth::user()->username}}</a></li>
+                @guest
+                    <li>
+                        <a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+                    </li>
+                @else
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a>
+                                    @if (Auth::check() && Auth::user()->username)
+                                        {{ Auth::user()->username }}
+                                    @endif
+                                </a>
+                            </li>
                         <li role="separator" class="divider"></li>
                         <li><a href="">Đổi Thông Tin</a></li>
                         <li><a href="">Đổi Mật Khẩu</a></li>
@@ -101,13 +113,14 @@
                                 class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
 
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                            {{-- <a href="https://docln.net/logout">Thoát</a> --}}
-                        </li>
-                    </ul>
-                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                {{-- <a href="https://docln.net/logout">Thoát</a> --}}
+                            </li>
+                        </ul>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>

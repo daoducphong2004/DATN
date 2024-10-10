@@ -28,10 +28,12 @@ use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\AdminAuthorRequestController;
+use App\Http\Controllers\RatingController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +75,7 @@ Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
+Route::get('search', [HomeController::class, 'search']);
 Route::get('kesach', [HomeController::class, 'kesach']);
 Route::get('bookmark', [HomeController::class, 'bookmark']);
 Route::get('lichsu', [HomeController::class, 'lichsu']);
@@ -85,18 +88,18 @@ Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
-Route::get('conventThamGia', [UserController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [UserController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [UserController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [UserController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [UserController::class, 'thaoLuanCuaBan']);
-Route::get('theLoai', [UserController::class, 'theLoai']);
-Route::get('thuVien', [UserController::class, 'thuVien']);
-Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
-Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
+Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
+Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
+Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
+Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
+Route::get('theLoai', [HomeController::class, 'theLoai']);
+Route::get('thuVien', [HomeController::class, 'thuVien']);
+Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
+Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 Route::get('thao-luan', [ForumController::class, 'index'])->name('thao-luan');
 Route::get('themthaoluan', [ForumController::class, 'create'])->name('themthaoluan');
 Route::post('store_thaoluan', [ForumController::class, 'store'])->name('store_thaoluan');
@@ -225,8 +228,15 @@ Route::middleware(['auth', 'role:author'])->group(function () {
     Route::resource('story', BookController::class);
 });
 
+// Rating hoalt
+// Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
+
 require __DIR__ . '/admin.php';
 
+
+Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
 Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
 Route::get('/admin/author-requests', [AdminAuthorRequestController::class, 'index'])->name('admin.requests');

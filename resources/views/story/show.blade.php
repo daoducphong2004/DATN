@@ -1,4 +1,6 @@
 @extends('story.layout.master')
+
+
 @section('content')
     <div class="page-top-group ">
         <a href="/thao-luan/2591">
@@ -75,18 +77,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4 col-md feature-item width-auto-xl">
-                                            <!-- Thêm phần hiển thị giá và nút mua -->
-                                            <div
-                                                class="price-buy-button flex justify-between items-center p-2 border border-gray-300 rounded">
-                                                <span class="block feature-value">
-                                                    Giá: {{ $book->price }}
-                                                </span>
-                                                <a href="" class="btn btn-primary ml-2">
-                                                    Mua
-                                                </a>
-                                            </div>
-                                        </div>
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -99,13 +89,12 @@
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="https://docln.net/truyen/18997/danh-gia">
+                                                        <a href="/rating/{{$book->slug}}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
                                                                         class="far fa-star"></i></span>
-                                                                <span class="block feature-name">Đánh giá( sẽ làm
-                                                                    sau)</span>
+                                                                <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
 
@@ -226,7 +215,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -429,56 +418,80 @@
                                     <div class="col-12 col-md-10">
                                         <ul class="list-chapters at-series">
                                             @foreach ($item->chapters as $chapter)
-                                            <li>
-                                                <div class="chapter-name">
-                                                    {{-- Hiển thị badge "Mới" nếu chương là mới --}}
-                                                    @if ($chapter->is_new)
-                                                        <div class="new-status badge">
-                                                            <div class="badge-item new">Mới</div>
-                                                        </div>
-                                                    @endif
+                                                <li>
+                                                    <div class="chapter-name">
+                                                        {{-- Hiển thị badge "Mới" nếu chương là mới --}}
+                                                        @if ($chapter->is_new)
+                                                            <div class="new-status badge">
+                                                                <div class="badge-item new">Mới</div>
+                                                            </div>
+                                                        @endif
 
-                                                    {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
-                                                    @if ($chapter->contains_image)
-                                                        <i class="fas fa-image" aria-hidden="true" title="Có chứa ảnh"></i>
-                                                    @endif
+                                                        {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
+                                                        @if ($chapter->contains_image)
+                                                            <i class="fas fa-image" aria-hidden="true"
+                                                                title="Có chứa ảnh"></i>
+                                                        @endif
 
-                                                    {{-- Kiểm tra giá của chương --}}
-                                                    @if ($chapter->price == 0)
-                                                        {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                           title="{{ $chapter->title }}">
-                                                           {{ $chapter->title }} (Miễn phí)
-                                                        </a>
-                                                    @else
-                                                        {{-- Kiểm tra người dùng đã mua chương chưa --}}
-                                                        @if (auth()->check() && auth()->user()->hasPurchased($chapter->id))
-                                                            {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                        {{-- Kiểm tra giá của chương --}}
+                                                        @if ($chapter->price == 0)
+                                                            {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
                                                             <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                               title="{{ $chapter->title }}">
-                                                               {{ $chapter->title }}
+                                                                title="{{ $chapter->title }}">
+                                                                {{ $chapter->title }} (Miễn phí)
                                                             </a>
                                                         @else
-                                                            {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                            <span class="chapter-locked" title="Bạn cần mua chương để đọc">
-                                                                {{ $chapter->title }} - <a href="{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}">Mua chương ({{ $chapter->price }} coin)</a>
-                                                            </span>
+                                                            {{-- Kiểm tra người dùng đã mua chương chưa --}}
+                                                            @if (auth()->check() &&
+                                                                    auth()->user()->hasPurchased($chapter->id))
+                                                                {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                    title="{{ $chapter->title }}">
+                                                                    {{ $chapter->title }}
+                                                                </a>
+                                                            @else
+                                                                {{-- Nếu chưa mua, hiển thị nút mua chương --}}
+                                                                <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                        title="{{ $chapter->title }}">
+                                                                        {{ $chapter->title }}
+                                                                    </a>
+
+                                                                    <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
+                                                                       href="javascript:void(0);"
+                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                                                                        {{ $chapter->price }} coin
+                                                                    </a>
+                                                                </span>
+
+
+
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                </div>
+                                                    </div>
 
-                                                {{-- Hiển thị thời gian tạo chương --}}
-                                                <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}</div>
-                                            </li>
-                                        @endforeach
-
-
+                                                    {{-- Hiển thị thời gian tạo chương --}}
+                                                    <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}
+                                                    </div>
+                                                </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             </main>
                         </section>
                     @endforeach
+                    <div id="purchaseModal" class="purchase-modal" style="display:none;">
+                        <div class="purchase-modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <h2 id="modalTitle">Xác nhận mua chương</h2>
+                            <p id="modalContent">Bạn có chắc chắn muốn mua chương này với giá <span
+                                    id="chapterPrice"></span> coin?</p>
+                            <a href="#" id="confirmPurchaseButton" class="btn btn-primary">Xác nhận</a>
+                            <div style="display: block; width: 10px;"></div>
+                            <button onclick="closeModal()" class="btn btn-secondary">Hủy</button>
+                        </div>
+                    </div>
 
 
 

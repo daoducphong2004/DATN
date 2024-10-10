@@ -20,6 +20,11 @@ class ForumController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function indexHome(){
+        $data_forum_home = Forum::all();
+        dd($data_forum_home);
+        return view('home.thaoluantrangchu',compact('data_forum_home'));
+    }
     public function index()
     {
         $data_user_forums = Forum::query()->join('users', 'users.id', '=', 'forums.user_id')

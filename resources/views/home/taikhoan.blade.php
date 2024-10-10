@@ -24,7 +24,7 @@
                                                                     <div id="profile-changer_ava" class="profile-changer">
                                         <span class="p-c_text"><i class="fas fa-camera"></i></span>
                                     </div>
-                                                                <img src="https://docln.net/img/noava.png">
+                                                                <img src="{{!empty($userInfor) ? $userInfor->avatar_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWwfGUCDwrZZK12xVpCOqngxSpn0BDpq6ewQ&s'}}">
                             </div>
                         </div>
                         <div class="profile-function at-desktop none block-m">
@@ -33,7 +33,7 @@
                         <div class="profile-intro">
                             <!-- <span class="line-through decoration-4"></span>-->
                             <h3 class="profile-intro_name text-lg font-bold ">
-                                LinhLinh931993
+                                {{!empty($userInfor) ? $userInfor->username : ''}}
                             </h3>
                             <div class="flex flex-wrap gap-x-2 gap-y-2 align-middle pt-1 justify-center md:justify-start">
                     </div>
@@ -78,16 +78,16 @@
                         <ul class="statistic-top row">
                             <li class="col-6">
                                 <div class="statistic-value">
-                                    0
+                                    {{$countChapters}}
                                 </div>
                                 <div class="statistic-name">Chương đã đăng</div>
                             </li>
                             <li class="col-6">
-                                <div class="statistic-value">1</div>
+                                <div class="statistic-value">{{$countBookmark}}</div>
                                 <div class="statistic-name">Đang theo dõi</div>
                             </li>
                             <li class="col-12 mt-2">
-                                <div class="statistic-value"><a href="https://docln.net/lich-su-binh-luan">0</a></div>
+                                <div class="statistic-value"><a href="https://docln.net/lich-su-binh-luan">{{$countComment}}</a></div>
                                 <div class="statistic-name">Bình luận</div>
                             </li>
                         </ul>
@@ -103,15 +103,29 @@
                     <section class="profile-showcase">
                         <header><span class="number">0</span><span class="showcase-title">Truyện đã đăng</span></header>
                         <div class="row">
-                                                            <span>Không có truyện nào</span>
-                                                    </div>
+                                <div>
+                                     @if(!empty($bookHasJoin))
+                                        @foreach($bookHasJoin as $item)
+                                            <p>- Tên truyện đã đăng : {{$item->title}} - tác giả: {{$item->author}}</p>
+                                        @endforeach
+                                     @else
+                                                                    <span>Không có truyện nào</span>
+                                     @endif
+                                </div>
+                        </div>
                     </section>
 
                     <section class="profile-showcase">
                         <header><span class="number">0</span><span class="showcase-title">Truyện đang tham gia</span></header>
                         <div class="row">
-                                                            <span>Không có truyện nào</span>
-                                                    </div>
+                            @if(!empty($bookHasJoin))
+                                @foreach($bookHasJoin as $item)
+                                    <p>- Tên truyện đã tham gia : {{$item->title}} - tác giả: {{$item->author}}</p>
+                                @endforeach
+                            @else
+                                <span>Không có truyện nào</span>
+                            @endif                            
+                        </div>
                     </section>
                 </div>
             </div>

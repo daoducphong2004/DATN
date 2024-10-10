@@ -89,13 +89,12 @@
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="https://docln.net/truyen/18997/danh-gia">
+                                                        <a href="/rating/{{$book->slug}}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
                                                                         class="far fa-star"></i></span>
-                                                                <span class="block feature-name">Đánh giá( sẽ làm
-                                                                    sau)</span>
+                                                                <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
 
@@ -452,14 +451,21 @@
                                                                 </a>
                                                             @else
                                                                 {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                                <span class="chapter-locked"
-                                                                    title="Bạn cần mua chương để đọc">
-                                                                    {{ $chapter->title }} -
-                                                                    <a href="javascript:void(0);"
-                                                                        onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
-                                                                        Mua chương ({{ $chapter->price }} coin)
+                                                                <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                        title="{{ $chapter->title }}">
+                                                                        {{ $chapter->title }}
+                                                                    </a>
+
+                                                                    <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
+                                                                       href="javascript:void(0);"
+                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                                                                        {{ $chapter->price }} coin
                                                                     </a>
                                                                 </span>
+
+
+
                                                             @endif
                                                         @endif
                                                     </div>

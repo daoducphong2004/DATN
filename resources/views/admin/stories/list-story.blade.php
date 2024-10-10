@@ -26,6 +26,7 @@
                     <th>Số Tập</th>
                     <th>Lượt xem</th>
                     <th>Lượt thích</th>
+                    <th>Đánh giá</th>
                     <th>VIP</th>
                     <th>Trạng thái</th>
                     <th>
@@ -45,6 +46,7 @@
                     <td>{{ $story->episodeCount() }}</td>
                     <td>{{ $story->view }}</td>
                     <td>{{ $story->like }}</td>
+                    <td>{{ $story->average_stars }}/5 <i class="fas fa-star"></i></td>
                     <td>{{ $story->is_VIP ? 'Có' : 'Không' }}</td>
                     <td>
                         @if($story->status == 1)

@@ -11,6 +11,8 @@ use App\Models\ReadingHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use App\Models\User;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -33,10 +35,8 @@ class HomeController extends Controller
             $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
 
             if (!empty($readingHistoriesFromCookie)) {
-                // Lấy ID chương từ cookie
                 $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
 
-                // Lấy các chương và bao gồm episode và book
                 $readingHistories = chapter::whereIn('id', $chapterIds)
                     ->with(['episode.book']) // eager load episode và book
                     ->get();
@@ -246,5 +246,45 @@ class HomeController extends Controller
     public function nhomThamGia()
     {
         return view('user.nhomThamGia');
+    }
+
+    public function testEmail($userId)
+    {
+        // Tìm người dùng dựa trên ID
+        $user = User::find($userId);
+
+        if ($user) {
+            $name = $user->name;
+            $email = $user->email;
+
+            Mail::send('emails.test', compact('name'), function ($message) use ($name, $email) {
+                $message->subject('Yêu cầu tác giả được chấp nhận');
+                $message->to($email, $name);
+            });
+
+            return "Email đã được gửi đến $name";
+        }
+
+        return "Không tìm thấy người dùng.";
+    }
+
+    public function refuseEmail($userId)
+    {
+        // Tìm người dùng dựa trên ID
+        $user = User::find($userId);
+
+        if ($user) {
+            $name = $user->name;
+            $email = $user->email;
+
+            Mail::send('emails.refuse', compact('name'), function ($message) use ($name, $email) {
+                $message->subject('Yêu cầu tác giả bị từ chối');
+                $message->to($email, $name);
+            });
+
+            return "Email từ chối đã được gửi đến $name";
+        }
+
+        return "Không tìm thấy người dùng.";
     }
 }

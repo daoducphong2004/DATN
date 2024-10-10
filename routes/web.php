@@ -16,6 +16,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
@@ -25,9 +26,8 @@ use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
-use App\Http\Controllers\AdminAuthorRequestController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReadingHistoryController;
+use App\Http\Controllers\AdminAuthorRequestController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -52,21 +52,26 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
 Route::post('login', [AccountController::class, 'login'])->name('login');
+
+Route::get('test-email', [HomeController::class, 'testEmail']);
+Route::get('refuse-email', [HomeController::class, 'refuseEmail']);
+
+
 Route::get('register', [AccountController::class, 'register'])->name('register');
 Route::post('register', [AccountController::class, 'createAccount'])->name('createAccount');
 Route::get('email', [AccountController::class, 'email']);
 Route::get('reset', [AccountController::class, 'reset']);
 
-Route::get('gioithieu', [UserController::class, 'gioithieu']);
-Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('danhsach', [UserController::class, 'danhsach']);
-Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('sangtac', [UserController::class, 'sangtac']);
-Route::get('xuatban', [UserController::class, 'xuatban']);
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+// Route::get('danhsach', [UserController::class, 'danhsach']);
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
 
-Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
-Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
-Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('kesach', [HomeController::class, 'kesach']);
 Route::get('bookmark', [HomeController::class, 'bookmark']);
@@ -224,8 +229,6 @@ require __DIR__ . '/admin.php';
 
 Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
-
-
 Route::get('/admin/author-requests', [AdminAuthorRequestController::class, 'index'])->name('admin.requests');
 Route::post('/admin/author-requests/{id}/accept', [AdminAuthorRequestController::class, 'accept'])->name('admin.accept_request');
 Route::post('/admin/author-requests/{id}/reject', [AdminAuthorRequestController::class, 'reject'])->name('admin.reject_request');

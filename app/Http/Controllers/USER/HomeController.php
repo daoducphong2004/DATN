@@ -153,6 +153,11 @@ class HomeController extends Controller
         return view('home.gopy');
     }
 
+    public function search()
+    {
+        return view('home.search');
+    }
+
     public function kesach()
     {
         return view('home.kesach');

@@ -62,10 +62,10 @@
 
         <ul id="series" class="menu">
             <li>Sửa truyện</li>
-            {{--
-        <li class="sep">&nbsp;</li>
-        <li>Chuyển quyền</li>
-        <li>Thêm quyền</li> --}}
+
+            <li class="sep">&nbsp;</li>
+            <li id="transfer-ownership-btn">Chuyển quyền</li>
+            <li id="share-access-btn">Thêm quyền</li>
 
             <li class="sep">&nbsp;</li>
             <li style="color: red">Xóa truyện</li>
@@ -93,4 +93,28 @@
         </ul>
 
         @include('stories.iframe.partials.scriptTree')
+
+        <!-- Modal for sharing access -->
+        <div id="shareAccessModal" class="modal">
+            <div class="modal-content">
+                <h2>Thêm quyền chỉnh sửa</h2>
+                <form id="shareAccessForm">
+                    <label for="user_id">Chọn người dùng để chia sẻ quyền:</label>
+                    <input type="text" name="user_id" placeholder="Nhập ID người dùng">
+                    <button type="submit">Thêm quyền</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal for transferring ownership -->
+        <div id="transferOwnershipModal" class="modal">
+            <div class="modal-content">
+                <h2>Chuyển quyền sở hữu</h2>
+                <form id="transferOwnershipForm">
+                    <label for="new_owner_id">Chọn người dùng nhận quyền:</label>
+                    <input type="text" name="new_owner_id" placeholder="Nhập ID người dùng">
+                    <button type="submit">Chuyển quyền</button>
+                </form>
+            </div>
+        </div>
     @endsection

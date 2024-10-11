@@ -96,4 +96,17 @@ class UserController extends Controller
             return back()->withErrors(['error' => 'Failed to delete User: ' . $e->getMessage()]);
         }
     }
+    public function showBooks($userId)
+    {
+        // Lấy thông tin user
+        // dd($userId);
+        $user = User::findOrFail($userId);
+
+        // Lấy danh sách truyện của user
+        $userBooks = $user->books; // Truyện do user đăng
+        $sharedBooks = $user->sharedBooks; // Truyện user được chia sẻ quyền
+
+        // Trả về view với dữ liệu
+        return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
+    }
 }

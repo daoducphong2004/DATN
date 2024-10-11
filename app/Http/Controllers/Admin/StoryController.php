@@ -78,6 +78,7 @@ class StoryController extends Controller
     //Store
     public function storeBook(Request $request)
     {
+
         // Validate input data
         $request->validate([
             'title' => 'required|string|max:255',
@@ -91,9 +92,8 @@ class StoryController extends Controller
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
-            'is_inspect'=> 'required',
+            'Is_Inspect'=> 'required',
         ]);
-
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
         // dd($request->all());
@@ -114,7 +114,7 @@ class StoryController extends Controller
             'adult' => $adult,  // 0 or 1
             'group_id' => $request->group_id,
             'user_id' => $request->user_id,
-            'is_inspect' =>$request -> is_inspect,
+            'Is_Inspect' =>$request -> Is_Inspect,
         ]);
 
         // Generate slug and update the book
@@ -266,8 +266,6 @@ class StoryController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'group_id' => 'nullable|integer',
             'book_path' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Giới hạn file ảnh
-            'is_inspect'=> 'required',
-
         ]);
 
         // Handle image upload if provided
@@ -292,7 +290,7 @@ class StoryController extends Controller
             'is_VIP' => $request->is_VIP,
             'adult' => $request->adult,
             'is_delete' => $request->is_delete,
-            'is_inspect' => $request->Is_Inspect,
+            'Is_Inspect' => $request->Is_Inspect,
             'user_id' => $request->user_id,
             'group_id' => $request->group_id,
         ]);

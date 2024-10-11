@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\book;
+use App\Models\Like;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,16 @@ class RatingController extends Controller
             return redirect()->back()->with('error', 'Truyện không tồn tại.');
         }
 
+         // Kiểm tra người dùng đã đánh giá sách này chưa
+            $existingRating = Rating::where('user_id', Auth::id())
+            ->where('book_id', $book->id)
+            ->first();
+
+            if ($existingRating) {
+            // Nếu đã đánh giá, không cho phép đánh giá lại
+            return redirect()->back()->with('error', 'Bạn đã đánh giá cuốn sách này trước đó.');
+            }
+
         // Lưu đánh giá
         $rating = new Rating();
         $rating->user_id = Auth::id(); // Lưu ID người dùng hiện tại
@@ -52,4 +63,31 @@ class RatingController extends Controller
 
         return redirect()->back()->with('success', 'Cảm ơn bạn đã đánh giá!');
     }
+
+     public function toggleLike(Request $request, $ratingId)
+     {
+         if (!Auth::check()) {
+             return redirect()->back()->with('error', 'Bạn cần đăng nhập để like đánh giá.');
+         }
+
+         $rating = Rating::find($ratingId);
+         if (!$rating) {
+             return redirect()->back()->with('error', 'Đánh giá không tồn tại.');
+         }
+
+         $like = Like::where('user_id', Auth::id())
+             ->where('rating_id', $ratingId)
+             ->first();
+
+         if ($like) {
+             $like->delete();
+             return redirect()->back()->with('success', 'Bạn đã bỏ like đánh giá này.');
+         } else {
+             Like::create([
+                 'user_id' => Auth::id(),
+                 'rating_id' => $ratingId,
+             ]);
+             return redirect()->back()->with('success', 'Bạn đã like đánh giá này.');
+         }
+     }
 }

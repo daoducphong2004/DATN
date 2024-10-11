@@ -225,6 +225,7 @@ Route::middleware(['auth', 'role:author'])->group(function () {
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
+Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
 
 require __DIR__ . '/admin.php';
 

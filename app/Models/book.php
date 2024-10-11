@@ -67,4 +67,13 @@ class book extends Model
     {
         return $this->episodes()->count();
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+    public function sharedUsers()
+    {
+        return $this->belongsToMany(User::class, 'shared_books', 'book_id', 'user_id');
+    }
 }

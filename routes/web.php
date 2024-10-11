@@ -27,10 +27,12 @@ use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
+use App\Http\Controllers\RatingController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -198,6 +200,9 @@ Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name(
 Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
 Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
 
+
+Route::post('/book/{book}/share-access', [BookController::class, 'shareEditAccess'])->name('book.shareAccess');
+Route::post('/book/{book}/transfer-ownership', [BookController::class, 'transferOwnership'])->name('book.transferOwnership');
 // End Phong
 
 //Thanh toan
@@ -218,6 +223,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:author'])->group(function () {
     Route::resource('story', BookController::class);
 });
+
+// Rating hoalt
+// Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
 
 require __DIR__ . '/admin.php';
 

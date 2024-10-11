@@ -316,38 +316,107 @@ class BookController extends Controller
         // Update book information
         $slug = Str::slug($book->id . '-' . $request->title);
         $book_path = $book->book_path; // Giữ nguyên ảnh cũ
+        if ($this->canEditBook($request->user(), $book)) {
+            if ($request->hasFile('book_path')) {
+                $image = $request->file('book_path');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $path = Storage::put('public/books', $image); // Using Storage::put to store the image
+                $book_path = str_replace('public/', '', $path); // Save relative path to the database
+            }
 
-        if ($request->hasFile('book_path')) {
-            $image = $request->file('book_path');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $path = Storage::put('public/books', $image); // Using Storage::put to store the image
-            $book_path = str_replace('public/', '', $path); // Save relative path to the database
+            $book->update([
+                'type' => $request->type,
+                'status' => $request->status,
+                'title' => $request->title,
+                'author' => $request->author,
+                'painter' => $request->painter,
+                'description' => $request->description,
+                'note' => $request->note,
+                'is_VIP' => 0,
+                'book_path' => $book_path,
+                'slug' => $slug,
+                'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
+                'group_id' => $request->group_id,
+                'user_id' => Auth::id(),
+            ]);
+
+            // Attach genres
+            if ($request->input('genres')) {
+                $book->genres()->sync($request->input('genres')); // Use sync to update genres
+            }
+
+            return redirect()->route('storyinformation', $book->id);
+        } else {
+            // Người dùng không có quyền, trả về lỗi 403
+            return response()->json(['message' => 'Forbidden'], 403);
         }
-
-        $book->update([
-            'type' => $request->type,
-            'status' => $request->status,
-            'title' => $request->title,
-            'author' => $request->author,
-            'painter' => $request->painter,
-            'description' => $request->description,
-            'note' => $request->note,
-            'is_VIP' => 0,
-            'book_path' => $book_path,
-            'slug' => $slug,
-            'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
-            'group_id' => $request->group_id,
-            'user_id' => Auth::id(),
-        ]);
-
-        // Attach genres
-        if ($request->input('genres')) {
-            $book->genres()->sync($request->input('genres')); // Use sync to update genres
-        }
-
-        return redirect()->route('storyinformation', $book->id);
     }
 
+    // Hàm kiểm tra quyền sửa đổi
+    private function canEditBook($user, $book)
+    {
+        // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
+        return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
+    }
+    public function transferOwnership(Request $request, Book $book)
+    {
+        // Kiểm tra xem người dùng hiện tại có phải là chủ sở hữu không
+        if ($request->user()->id !== $book->user_id) {
+            return response()->json(['message' => 'You are not the owner of this book'], 403);
+        }
+
+        // Xác định người dùng mới mà bạn muốn chuyển quyền sở hữu
+        $newOwnerId = $request->input('new_owner_id');
+
+        // Cập nhật quyền sở hữu
+        $book->update(['user_id' => $newOwnerId]);
+
+        // Xóa tất cả các quyền chia sẻ liên quan (nếu có)
+        $book->sharedUsers()->detach();
+
+        return response()->json(['message' => 'Book ownership transferred successfully']);
+    }
+    public function shareEditAccess(Request $request, Book $book)
+    {
+        // Chỉ người sở hữu mới có thể chia sẻ quyền chỉnh sửa
+        if ($request->user()->id !== $book->user_id) {
+            return response()->json(['message' => 'You do not have permission to share this book'], 403);
+        }
+
+        // Xác định người dùng được chia sẻ quyền
+        $sharedUserId = $request->input('user_id');
+
+        // Kiểm tra xem người dùng này đã có quyền hay chưa
+        if ($book->sharedUsers()->where('user_id', $sharedUserId)->exists()) {
+            return response()->json(['message' => 'This user already has edit access']);
+        }
+
+        // Chia sẻ quyền chỉnh sửa
+        $book->sharedUsers()->attach($sharedUserId);
+
+        return response()->json(['message' => 'Edit access shared successfully']);
+    }
+
+    public function revokeEditAccess(Request $request, Book $book)
+    {
+        // Chỉ người sở hữu mới có thể thu hồi quyền chỉnh sửa
+        if ($request->user()->id !== $book->user_id) {
+            return response()->json(['message' => 'You do not have permission to revoke access'], 403);
+        }
+
+        // Xác định người dùng cần thu hồi quyền
+        $sharedUserId = $request->input('user_id');
+
+        // Kiểm tra xem người dùng này có trong danh sách chia sẻ hay không
+        if (!$book->sharedUsers()->where('user_id', $sharedUserId)->exists()) {
+            return response()->json(['message' => 'This user does not have edit access']);
+        }
+
+        // Thu hồi quyền chỉnh sửa
+        $book->sharedUsers()->detach($sharedUserId);
+
+        return response()->json(['message' => 'Edit access revoked successfully']);
+    }
 
     /**
      * Remove the specified resource from storage.

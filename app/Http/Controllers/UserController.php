@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Models\book;
+use App\Models\Bookmarks;
+use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -100,13 +104,16 @@ class UserController extends Controller
     {
         // Lấy thông tin user
         // dd($userId);
-        $user = User::findOrFail($userId);
-
-        // Lấy danh sách truyện của user
-        $userBooks = $user->books; // Truyện do user đăng
-        $sharedBooks = $user->sharedBooks; // Truyện user được chia sẻ quyền
+        $userInfor = User::findOrFail($userId);
 
         // Trả về view với dữ liệu
-        return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
+        // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
+        $userBooks = $userInfor->books; // Truyện do user đăng
+        $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
+        $countBook = book::where('user_id',$userInfor->id)->count();
+        $countChapters = chapter::where('user_id',$userInfor->id)->count();
+        $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
+        $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
     }
 }

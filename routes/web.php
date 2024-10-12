@@ -204,7 +204,7 @@ Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'
 Route::post('/book/{book}/share-access', [BookController::class, 'shareEditAccess'])->name('book.shareAccess');
 Route::post('/book/{book}/transfer-ownership', [BookController::class, 'transferOwnership'])->name('book.transferOwnership');
 
-Route::get('/thanh-vien/{userId}/books', [UserController::class, 'showBooks'])->name('user.books');
+Route::get('/thanh-vien/{userId}', [UserController::class, 'showBooks'])->name('user.books');
 
 // End Phong
 

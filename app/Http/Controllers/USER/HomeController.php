@@ -165,7 +165,7 @@ class HomeController extends Controller
     {
         return view('home.guitinnhan');
     }
-    public function taikhoan()
+    public function thanhvien(string $id)
     {
         $userInfor = Auth::user();
         $bookHasJoin = book::with('user')->get();

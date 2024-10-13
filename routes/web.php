@@ -28,10 +28,12 @@ use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SharedBookController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use App\Models\SharedBook;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -201,10 +203,12 @@ Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchase
 Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
 
 
-Route::post('/book/{book}/share-access', [BookController::class, 'shareEditAccess'])->name('book.shareAccess');
-Route::post('/book/{book}/transfer-ownership', [BookController::class, 'transferOwnership'])->name('book.transferOwnership');
+Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
+Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
+Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('sharedbook.list');
 
-Route::get('/thanh-vien/{userId}', [UserController::class, 'showBooks'])->name('user.books');
+
+Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 
 // End Phong
 

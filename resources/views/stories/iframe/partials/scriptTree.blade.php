@@ -168,6 +168,18 @@
                         }
                     };
                     break;
+                    // New cases for sharing access and transferring ownership
+                case 'Thêm quyền':
+                    child.onclick = () => {
+                        document.getElementById('shareAccessModal').style.display = 'block';
+                    };
+                    break;
+
+                case 'Chuyển quyền':
+                    child.onclick = () => {
+                        document.getElementById('transferOwnershipModal').style.display = 'block';
+                    };
+                    break;
 
             }
 
@@ -218,15 +230,6 @@
             $(this).nextAll('ul').toggleClass('show hide');
         });
     });
-    // Open modals
-    document.getElementById('share-access-btn').onclick = function() {
-        document.getElementById('shareAccessModal').style.display = 'block';
-    };
-
-    document.getElementById('transfer-ownership-btn').onclick = function() {
-        document.getElementById('transferOwnershipModal').style.display = 'block';
-    };
-
     // Close modals when clicking outside of them
     window.onclick = function(event) {
         var shareModal = document.getElementById('shareAccessModal');

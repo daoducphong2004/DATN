@@ -12,6 +12,7 @@ use App\Models\genre;
 use App\Models\group;
 use App\Models\PurchasedStory;
 use App\Models\ReadingHistory;
+use App\Models\SharedBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -241,7 +242,7 @@ class BookController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $slug = Str::slug( $book->id . '-' . $request->title);
+        $slug = Str::slug($book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload
@@ -358,65 +359,7 @@ class BookController extends Controller
         // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
         return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
     }
-    public function transferOwnership(Request $request, Book $book)
-    {
-        // Kiểm tra xem người dùng hiện tại có phải là chủ sở hữu không
-        if ($request->user()->id !== $book->user_id) {
-            return response()->json(['message' => 'You are not the owner of this book'], 403);
-        }
 
-        // Xác định người dùng mới mà bạn muốn chuyển quyền sở hữu
-        $newOwnerId = $request->input('new_owner_id');
-
-        // Cập nhật quyền sở hữu
-        $book->update(['user_id' => $newOwnerId]);
-
-        // Xóa tất cả các quyền chia sẻ liên quan (nếu có)
-        $book->sharedUsers()->detach();
-
-        return response()->json(['message' => 'Book ownership transferred successfully']);
-    }
-    public function shareEditAccess(Request $request, Book $book)
-    {
-        // Chỉ người sở hữu mới có thể chia sẻ quyền chỉnh sửa
-        if ($request->user()->id !== $book->user_id) {
-            return response()->json(['message' => 'You do not have permission to share this book'], 403);
-        }
-
-        // Xác định người dùng được chia sẻ quyền
-        $sharedUserId = $request->input('user_id');
-
-        // Kiểm tra xem người dùng này đã có quyền hay chưa
-        if ($book->sharedUsers()->where('user_id', $sharedUserId)->exists()) {
-            return response()->json(['message' => 'This user already has edit access']);
-        }
-
-        // Chia sẻ quyền chỉnh sửa
-        $book->sharedUsers()->attach($sharedUserId);
-
-        return response()->json(['message' => 'Edit access shared successfully']);
-    }
-
-    public function revokeEditAccess(Request $request, Book $book)
-    {
-        // Chỉ người sở hữu mới có thể thu hồi quyền chỉnh sửa
-        if ($request->user()->id !== $book->user_id) {
-            return response()->json(['message' => 'You do not have permission to revoke access'], 403);
-        }
-
-        // Xác định người dùng cần thu hồi quyền
-        $sharedUserId = $request->input('user_id');
-
-        // Kiểm tra xem người dùng này có trong danh sách chia sẻ hay không
-        if (!$book->sharedUsers()->where('user_id', $sharedUserId)->exists()) {
-            return response()->json(['message' => 'This user does not have edit access']);
-        }
-
-        // Thu hồi quyền chỉnh sửa
-        $book->sharedUsers()->detach($sharedUserId);
-
-        return response()->json(['message' => 'Edit access revoked successfully']);
-    }
 
     /**
      * Remove the specified resource from storage.

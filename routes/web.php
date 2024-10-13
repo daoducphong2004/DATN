@@ -25,6 +25,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
@@ -192,7 +193,7 @@ Route::get('stories/addchapter/{episode}', function (episode $episode) {
 })->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
-Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+// Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
@@ -235,3 +236,6 @@ require __DIR__ . '/admin.php';
 
 Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
+
+// Bộ lọc
+Route::get('danh-sach', [FilterController::class, 'filter'])->name('filter');

@@ -100,34 +100,103 @@
                     </section>
                 </div>
                 <div class="col-12 col-md-12 col-lg-9 col-xl-9">
+                    <!-- Section for "Truyện đã đăng" -->
                     <section class="profile-showcase">
-                        <header><span class="number">0</span><span class="showcase-title">Truyện đã đăng</span></header>
+                        <header><span class="number">{{ $userBooks->count() }}</span><span class="showcase-title">Truyện đã đăng</span></header>
                         <div class="row">
-                                <div>
-                                     @if(!empty($bookHasJoin))
-                                        @foreach($bookHasJoin as $item)
-                                            <p>- Tên truyện đã đăng : {{$item->title}} - tác giả: {{$item->author}}</p>
-                                        @endforeach
-                                     @else
-                                                                    <span>Không có truyện nào</span>
-                                     @endif
+                            @foreach($userBooks as $book)
+                            <div class="col-12 col-md-6">
+                                <div class="showcase-item">
+                                    <div class="row">
+                                        <div class="series-cover col-4">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="series-info">
+                                                <div class="series-type-wrapper">
+                                                    <small class="series-type type-translation">
+                                                        {{ $book->is_VIP ? 'Truyện VIP' : 'Truyện thường' }}
+                                                    </small>
+                                                </div>
+                                                <h5 class="series-name text-base font-bold">
+                                                    <a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a>
+                                                </h5>
+                                            </div>
+                                            <div class="series-status">
+                                                <div class="status-item">
+                                                    <span class="status-name">Tình trạng:</span>
+                                                    <span class="status-value">{{ $book->status == 1 ? 'Đang tiến hành' : 'Đã hoàn thành' }}</span>
+                                                </div>
+                                                <div class="status-item">
+                                                    <span class="status-name">Lần cuối:</span>
+                                                    <span class="status-value">
+                                                        <time class="timeago" title="{{ $book->updated_at->format('d/m/Y H:i:s') }}"
+                                                            datetime="{{ $book->updated_at }}">{{ $book->updated_at->diffForHumans() }}</time>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            @endforeach
                         </div>
                     </section>
 
+                    <!-- Section for "Truyện đang tham gia" -->
                     <section class="profile-showcase">
-                        <header><span class="number">0</span><span class="showcase-title">Truyện đang tham gia</span></header>
+                        <header><span class="number">1</span><span class="showcase-title">Truyện đang tham gia</span></header>
                         <div class="row">
-                            @if(!empty($bookHasJoin))
-                                @foreach($bookHasJoin as $item)
-                                    <p>- Tên truyện đã tham gia : {{$item->title}} - tác giả: {{$item->author}}</p>
-                                @endforeach
-                            @else
-                                <span>Không có truyện nào</span>
-                            @endif                            
+                            @if($bookHasJoin->isNotEmpty())
+                            @foreach($bookHasJoin as $book)
+                            <div class="col-12 col-md-6">
+                                <div class="showcase-item">
+                                    <div class="row">
+                                        <div class="series-cover col-4">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="series-info">
+                                                <div class="series-type-wrapper">
+                                                    <small class="series-type type-translation">
+                                                        {{ $book->is_VIP ? 'Truyện VIP' : 'Truyện thường' }}
+                                                    </small>
+                                                </div>
+                                                <h5 class="series-name text-base font-bold">
+                                                    <a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a>
+                                                </h5>
+                                            </div>
+                                            <div class="series-status">
+                                                <div class="status-item">
+                                                    <span class="status-name">Tình trạng:</span>
+                                                    <span class="status-value">{{ $book->status == 1 ? 'Đang tiến hành' : 'Đã hoàn thành' }}</span>
+                                                </div>
+                                                <div class="status-item">
+                                                    <span class="status-name">Lần cuối:</span>
+                                                    <span class="status-value">
+                                                        <time class="timeago" title="{{ $book->updated_at->format('d/m/Y H:i:s') }}"
+                                                            datetime="{{ $book->updated_at }}">{{ $book->updated_at->diffForHumans() }}</time>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
                         </div>
                     </section>
                 </div>
+
             </div>
         </div>
     </main>

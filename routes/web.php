@@ -207,7 +207,8 @@ Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'
 
 Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
 Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
-Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('sharedbook.list');
+Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
+Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
 
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');

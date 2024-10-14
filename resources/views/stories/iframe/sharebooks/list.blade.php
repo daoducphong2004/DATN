@@ -26,15 +26,15 @@
             <tbody>
                 @foreach($sharedUsers as $user)
                     <tr>
-                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            {{-- <!-- Form để thu hồi quyền chỉnh sửa -->
-                            <form action="{{ route('sharedbook.revoke', $book->id) }}" method="POST">
+                            <!-- Form để thu hồi quyền chỉnh sửa -->
+                            <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                                 <button type="submit" class="btn btn-danger">Thu hồi quyền</button>
-                            </form> --}}
+                            </form>
                         </td>
                     </tr>
                 @endforeach

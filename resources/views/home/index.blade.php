@@ -127,7 +127,7 @@
                             </div>
                             @endforeach
                             {{-- kết thúc thảo luận đơn --}}
-                            
+
                         </main>
                     </section>
                     {{-- Lịch sử truyện vừa đọc --}}
@@ -357,39 +357,37 @@
                             <span class="sts-bold">Bình luận</span><span class="sts-empty">gần đây</span>
                         </header>
                         <main class="sect-body pr-5">
-                            {{-- Bắt đầu comment --}}
-                            <div class="comment-item-at-index">
-                                <div class="comment-info">
-                                    <span class="series-name"><a
-                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">Hakuyoku
-                                            no Polaris</a></span>
-
-                                    <div class="comment-content">
-                                        var
-                                    </div>
-
-                                    <div class="comment-top">
-                                        <div class="comment-user_ava">
-                                            <a href="https://docln.net/thanh-vien/142791">
-                                                <img src="https://i2.docln.net/ln/users/avatars/u142791-c5ea9c36-b7e4-4103-b69f-6dfa31fd9dee.jpg"
-                                                    alt="Commenter's avatar">
-                                            </a>
+                            @foreach($bookComments as $comment)
+                                <div class="comment-item-at-index">
+                                    <div class="comment-info">
+                                        <span class="series-name"><a
+                                            href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
+                                        </span>
+                                        <div class="comment-content">
+                                            {{ $comment->content }}
                                         </div>
-                                        <a href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031"
-                                            rel="nofollow" class="comment-user_name strong">m4dness</a>
-                                        <small class="comment-location">
-                                            <a
-                                                href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">
-                                                <time class="timeago" title="31-08-2024 08:15:25"
-                                                    datetime="2024-08-31T08:15:25+07:00">
-                                                    31-08-2024 08:15:25
-                                                </time>
-                                            </a>
-                                        </small>
+
+                                        <div class="comment-top">
+                                            <div class="comment-user_ava">
+                                                <a href="">
+                                                    <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                        alt="Commenter's avatar">
+                                                </a>
+                                            </div>
+                                            <a href=""
+                                                rel="nofollow" class="comment-user_name strong">{{ $comment->user->username }}</a>
+                                            <small class="comment-location">
+                                                <a href="#">
+                                                    <time class="timeago" title=""
+                                                        datetime="{{ $comment->created_at }}">
+                                                        {{ $comment->created_at->diffForHumans() }}
+                                                    </time>
+                                                </a>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- kết thúc comment --}}
+                            @endforeach
                         </main>
                     </section>
                 </div>

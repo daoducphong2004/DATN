@@ -33,7 +33,34 @@
                                 </tr>
 
                                 <tr>
+                                    @forelse ($books as $book)
+                                <tr>
+                                    <!-- Tên truyện -->
+                                    <td>{{ $book->title }}</td>
+
+                                    <!-- Người đăng (lấy từ quan hệ user) -->
+                                    <td>{{ $book->user->username ?? 'N/A' }}</td>
+
+                                    <!-- Nhóm dịch (lấy từ quan hệ group) -->
+                                    <td>{{ $book->group->name ?? 'Không có nhóm' }}</td>
+
+                                    <!-- Quản lý (các thao tác như xem, sửa, xóa) -->
+                                    <td class="text-right">
+                                        <a href="{{ route('truyen.truyen', $book->slug) }}"
+                                            class="btn btn-info btn-sm">Xem</a>
+                                        <a href="#" class="btn btn-warning btn-sm">Sửa</a>
+                                        <form action="#" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
                                     <td colspan="4">Không có truyện nào</td>
+                                </tr>
+                                @endforelse
                                 </tr>
                             </tbody>
                         </table>

@@ -30,6 +30,7 @@ use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SharedBookController;
+use App\Http\Controllers\StoryManageController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -85,7 +86,6 @@ Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
 Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
 Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
@@ -209,6 +209,8 @@ Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEdi
 Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
 Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('sharedbook.list');
 
+
+Route::get('/truyenDaDang',[StoryManageController::class,'Storylist'])->name('manage.book');
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 

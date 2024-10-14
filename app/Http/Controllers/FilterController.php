@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 
 class FilterController extends Controller
 {
-    public function filter(Request $request)
+    public function filter(Request $request, $alphabet = null)
     {
+        // Lấy tất cả truyện đã duyệt
         $query = book::query()->where('Is_Inspect', "Đã Duyệt");
 
+        // Kiểm tra điều kiện và lọc dữ liệu cơ bản
         $sapxep = $request->input('sapxep');
-
-        // Kiểm tra điều kiện và lọc dữ liệu
         switch($sapxep) {
             case 'tentruyen':
                 $query->orderBy('title', 'asc');
@@ -46,6 +46,40 @@ class FilterController extends Controller
                 $query->orderBy('title', 'asc');
         }
 
+        // Lọc theo chữ cái
+        if ($alphabet) {
+            // Lọc truyện theo chữ cái đã chọn
+            if ($alphabet !== '#') {
+                $query->where('title', 'like', $alphabet . '%');
+            }
+        }
+
+        // Lọc theo phân loại
+        if ($request->has('truyendich')) {
+            $query->where('type', 'truyendich');
+        }
+
+        if ($request->has('sangtac')) {
+            $query->where('type', 'sangtac');
+        }
+
+        if ($request->has('convert')) {
+            $query->where('type', 'convert');
+        }
+
+        // Lọc theo tình trạng
+        if ($request->has('dangtienhanh')) {
+            $query->where('status', 'dangtienhanh');
+        }
+
+        if ($request->has('tamngung')) {
+            $query->where('status', 'tamngung');
+        }
+
+        if ($request->has('hoanthanh')) {
+            $query->where('status', 'hoanthanh');
+        }
+
         // Lấy danh sách truyện sau khi lọc
         $data = $query->get();
 
@@ -53,6 +87,6 @@ class FilterController extends Controller
         $groups = group::pluck('id', 'name');
 
         $data = $query->paginate(42);
-        return view('story.index', compact('data', 'genres', 'groups'));
+        return view('story.index', compact('data', 'genres', 'groups', 'alphabet'));
         }
 }

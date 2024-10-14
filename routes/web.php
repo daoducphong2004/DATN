@@ -246,3 +246,5 @@ Route::post('comment')->name('addChapterComment');//sau làm phần comment chap
 
 // Bộ lọc
 Route::get('danh-sach', [FilterController::class, 'filter'])->name('filter');
+Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
+

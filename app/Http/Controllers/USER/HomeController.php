@@ -4,10 +4,12 @@ namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
 use App\Models\book;
+use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\ReadingHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -62,7 +64,18 @@ class HomeController extends Controller
             ->take(5)
             ->get();
         // dd($readingHistories);
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh'));
+        $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
+            'categories.color as color',
+            'categories.content as content_categories',
+            'categories.slug as slug_categories',
+            'users.username as username',
+            'users.avatar_url as avt_user',
+            'forums.id as id',
+            'forums.title as title',
+            'forums.content as content',
+            'forums.created_at as created_at'
+        ])->orderBy('created_at', 'desc')->get();
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh', 'data_forum_home'));
     }
 
     public function convert()
@@ -113,6 +126,11 @@ class HomeController extends Controller
         return view('home.xuatban');
     }
 
+    public function the_loai()
+    {
+        return view('home.the_loai');
+    }
+
     public function huongdan_dangtruyen()
     {
         return view('home.hd_dangtruyen');
@@ -151,9 +169,14 @@ class HomeController extends Controller
     {
         return view('home.guitinnhan');
     }
-    public function taikhoan()
+    public function thanhvien(string $userId)
     {
-        return view('home.taikhoan');
+        $userInfor = Auth::user();
+        $bookHasJoin = book::with('user')->get();
+        $countChapters = chapter::where('user_id', $userInfor->id)->count();
+        $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
+        $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
+        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
     }
 
     public function login()

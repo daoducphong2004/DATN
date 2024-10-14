@@ -517,7 +517,7 @@
                     <section id="series-comments" class="basic-section">
                         <header class="sect-header tab-list">
                             <span class="sect-title tab-title" data-tab-index="1">Tổng bình luận <span
-                                    class="comments-count">(282)</span></span>
+                                    class="comments-count">({{ $totalComments }})</span></span>
                         </header>
                         <main id="fbcmt_root" class="comment-wrapper d-lg-block clear">
                             <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
@@ -525,7 +525,7 @@
                             <div id="tab-content-1" class="tab-content clear">
                                 <section class="ln-comment">
                                     <header>
-                                        <h3 class="text-lg font-bold dark:text-white">103 Bình luận </h3>
+                                        <h3 class="text-lg font-bold dark:text-white">{{ $totalComments }} Bình luận </h3>
                                         <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                                     </header>
 
@@ -555,7 +555,7 @@
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
+                                                                <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>

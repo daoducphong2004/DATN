@@ -17,8 +17,6 @@ class User extends Authenticatable
         'gender',
         'date_of_birth',
         'avatar_url',
-        'created_at',
-        'updated_at',
         'last_login',
         'status',
         'coin_earned',
@@ -29,7 +27,7 @@ class User extends Authenticatable
 
     public function group()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class, 'group');
     }
     public function comments()
     {
@@ -49,12 +47,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
-    public function hasPurchased($chapterId)
-    {
-        return $this->hasMany(Author::class);
-    }
+
     public function author()
     {
         return $this->hasMany(Author::class);
+    }
+    public function hasPurchased($chapterId)
+    {
+        return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
+    }
+    // Quan hệ để lấy các truyện mà user đã đăng
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'user_id');
+    }
+
+    // Quan hệ để lấy các truyện mà user được chia sẻ quyền
+    public function sharedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
     }
 }

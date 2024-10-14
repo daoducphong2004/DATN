@@ -4,7 +4,7 @@
             <div class="flex gap-1 max-w-full">
                 <div class="w-[50px]">
                     <div class="mx-1 my-1">
-                        <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
+                        <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
                             class="w-full rounded-full" />
                     </div>
                 </div>

@@ -12,6 +12,7 @@ use App\Models\genre;
 use App\Models\group;
 use App\Models\PurchasedStory;
 use App\Models\ReadingHistory;
+use App\Models\SharedBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -241,7 +242,7 @@ class BookController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $slug = Str::slug('b' . $book->id . '-' . $request->title);
+        $slug = Str::slug($book->id . '-' . $request->title);
         $book->slug = $slug;
         $book->save();
         // Handle image upload
@@ -286,13 +287,13 @@ class BookController extends Controller
             ->whereNull('parent_id')
             ->with('replies.replies')->get();
 
-
+        $totalComments = bookcomment::where('book_id', $book->id)->count();
         // dd($comments);
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
+        // if (Auth::guest() && $book->is_paid) {
+        //     return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
+        // }
 
-        return view('story.show', compact('book', 'episodes', 'comments'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'totalComments'));
     }
 
     /**
@@ -316,36 +317,47 @@ class BookController extends Controller
         // Update book information
         $slug = Str::slug($book->id . '-' . $request->title);
         $book_path = $book->book_path; // Giữ nguyên ảnh cũ
+        if ($this->canEditBook($request->user(), $book)) {
+            if ($request->hasFile('book_path')) {
+                $image = $request->file('book_path');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $path = Storage::put('public/books', $image); // Using Storage::put to store the image
+                $book_path = str_replace('public/', '', $path); // Save relative path to the database
+            }
 
-        if ($request->hasFile('book_path')) {
-            $image = $request->file('book_path');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $path = Storage::put('public/books', $image); // Using Storage::put to store the image
-            $book_path = str_replace('public/', '', $path); // Save relative path to the database
+            $book->update([
+                'type' => $request->type,
+                'status' => $request->status,
+                'title' => $request->title,
+                'author' => $request->author,
+                'painter' => $request->painter,
+                'description' => $request->description,
+                'note' => $request->note,
+                'is_VIP' => 0,
+                'book_path' => $book_path,
+                'slug' => $slug,
+                'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
+                'group_id' => $request->group_id,
+                'user_id' => Auth::id(),
+            ]);
+
+            // Attach genres
+            if ($request->input('genres')) {
+                $book->genres()->sync($request->input('genres')); // Use sync to update genres
+            }
+
+            return redirect()->route('storyinformation', $book->id);
+        } else {
+            // Người dùng không có quyền, trả về lỗi 403
+            return response()->json(['message' => 'Forbidden'], 403);
         }
+    }
 
-        $book->update([
-            'type' => $request->type,
-            'status' => $request->status,
-            'title' => $request->title,
-            'author' => $request->author,
-            'painter' => $request->painter,
-            'description' => $request->description,
-            'note' => $request->note,
-            'is_VIP' => 0,
-            'book_path' => $book_path,
-            'slug' => $slug,
-            'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
-            'group_id' => $request->group_id,
-            'user_id' => Auth::id(),
-        ]);
-
-        // Attach genres
-        if ($request->input('genres')) {
-            $book->genres()->sync($request->input('genres')); // Use sync to update genres
-        }
-
-        return redirect()->route('storyinformation', $book->id);
+    // Hàm kiểm tra quyền sửa đổi
+    private function canEditBook($user, $book)
+    {
+        // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
+        return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
     }
 
 

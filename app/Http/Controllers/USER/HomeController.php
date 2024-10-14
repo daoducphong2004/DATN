@@ -142,6 +142,11 @@ class HomeController extends Controller
         return view('home.xuatban');
     }
 
+    public function the_loai()
+    {
+        return view('home.the_loai');
+    }
+
     public function huongdan_dangtruyen()
     {
         return view('home.hd_dangtruyen');

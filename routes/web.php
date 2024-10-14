@@ -64,6 +64,8 @@ Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sangtac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
+Route::get('the-loai', [HomeController::class, 'the_loai']);
+
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);

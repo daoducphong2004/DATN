@@ -63,10 +63,12 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('danhsach', [UserController::class, 'danhsach']);
+Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sangtac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
+Route::get('the-loai', [HomeController::class, 'the_loai']);
+
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
@@ -225,14 +227,9 @@ Route::prefix('groups')->group(function () {
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-});
-// Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 
-Route::middleware(['auth', 'role:author'])->group(function () {
-    Route::resource('story', BookController::class);
-});
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+
 
 // Rating hoalt
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');

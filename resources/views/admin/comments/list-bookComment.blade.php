@@ -23,6 +23,7 @@
                 <th>ID</th>
                 <th>Truyện</th>
                 <th>Người Bình Luận</th>
+                <th>Email</th>
                 <th>ID bình luận (nếu có)</th>
                 <th>Nội Dung</th>
                 <th>Ngày Bình Luận</th>
@@ -33,6 +34,7 @@
                     <td>{{ $comment -> id }}</td>
                     <td>{{ $comment->book->title }}</td>
                     <td>{{ $comment->user->username }}</td>
+                    <td>{{ $comment->user->email }}</td>
                     <td>{{ $comment -> parent_id }}</td>
                     <td>{{ $comment -> content }}</td>
                     <td>{{ $comment -> created_at->format('H:i, d-m-Y') }}</td>

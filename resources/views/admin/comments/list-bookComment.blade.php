@@ -23,6 +23,7 @@
                 <th>ID</th>
                 <th>Truyện</th>
                 <th>Người Bình Luận</th>
+                <th>Email</th>
                 <th>ID bình luận (nếu có)</th>
                 <th>Nội Dung</th>
                 <th>Ngày Bình Luận</th>

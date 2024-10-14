@@ -4,6 +4,7 @@ namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
 use App\Models\book;
+use App\Models\bookcomment;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
@@ -19,7 +20,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        
+
         $readingHistories = [];
         $user = Auth::user();
 
@@ -88,7 +89,9 @@ class HomeController extends Controller
             'forums.content as content',
             'forums.created_at as created_at'
         ])->orderBy('created_at', 'desc')->get();
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home'));
+
+        $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home', 'bookComments'));
     }
 
     public function convert()

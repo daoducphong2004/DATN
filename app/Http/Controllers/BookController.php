@@ -286,13 +286,13 @@ class BookController extends Controller
             ->whereNull('parent_id')
             ->with('replies.replies')->get();
 
-
+        $totalComments = bookcomment::where('book_id', $book->id)->count();
         // dd($comments);
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
+        // if (Auth::guest() && $book->is_paid) {
+        //     return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
+        // }
 
-        return view('story.show', compact('book', 'episodes', 'comments'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'totalComments'));
     }
 
     /**

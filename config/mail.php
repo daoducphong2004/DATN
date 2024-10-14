@@ -109,7 +109,7 @@ return [
 
     'from' => [
         'address' => 'vipten2003@gmail.com',
-        'name' => 'dat dz',
+        'name' => 'Novel Pub',
     ],
 
     /*

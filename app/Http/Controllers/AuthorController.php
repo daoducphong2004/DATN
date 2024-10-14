@@ -37,7 +37,6 @@ class AuthorController extends Controller
             'back_id_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'portrait_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'reason' => 'required|string',
-            'requested_role' => 'required|string|in:author,mod,admin',
         ]);
 
         $front_id_image = null;
@@ -60,7 +59,6 @@ class AuthorController extends Controller
             'back_id_image' => $back_id_image,
             'portrait_image' => $portrait_image,
             'reason' => $cleaned_reason,
-            'requested_role' => $request->requested_role,
             'status' => 'pending',
         ]);
 

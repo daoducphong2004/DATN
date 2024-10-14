@@ -26,7 +26,10 @@ class book extends Model
         'group_id',
         'price',
         'user_id',
-        'Is_Inspect'
+        'Is_Inspect',
+        'user_id',
+        'is_paid'
+
     ];
 
     public function group()
@@ -63,5 +66,10 @@ class book extends Model
     public function episodeCount()
     {
         return $this->episodes()->count();
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 }

@@ -26,7 +26,6 @@
                 <th>Email</th>
                 <th>Vai trò hiện tại</th>
                 <th>Lý do</th>
-                <th>Vai trò mong muốn</th>
                 <th>Ảnh CMND/CCCD (Trước)</th>
                 <th>Ảnh CMND/CCCD (Sau)</th>
                 <th>Ảnh chân dung</th>
@@ -42,7 +41,6 @@
                 <td>{{ $request->user->email }}</td>
                 <td>{{ $request->user->role->name }}</td>
                 <td>{{ $request->reason }}</td>
-                <td>{{ $request->requested_role }}</td>
                 <td>
                     @if($request->front_id_image)
                         <img src="{{ Storage::url($request->front_id_image) }}" alt="CMND/CCCD Trước" width="100">

@@ -19,8 +19,13 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups')->paginate(10);
-        // dd($storys);
+        $stories = book::query()->with('user', 'groups', 'ratings')->paginate(10);
+
+        // Tính trung bình số sao cho mỗi truyện
+        foreach ($stories as $story) {
+            $averageRating = $story->ratings->isNotEmpty() ? $story->ratings->avg('rating') : 0;
+            $story->average_stars = round($averageRating * 5 / 5, 1);
+        }
         return view('admin.stories.list-story', compact('stories'));
     }
     //Create
@@ -86,6 +91,7 @@ class StoryController extends Controller
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
+            'is_inspect'=> 'required',
         ]);
 
         // Process input data
@@ -108,6 +114,7 @@ class StoryController extends Controller
             'adult' => $adult,  // 0 or 1
             'group_id' => $request->group_id,
             'user_id' => $request->user_id,
+            'is_inspect' =>$request -> is_inspect,
         ]);
 
         // Generate slug and update the book
@@ -180,6 +187,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric|10000', // Thêm quy tắc xác thực cho price
         ]);
 
         $book = episode::find($request->episode_id)->book()->first();
@@ -190,6 +198,7 @@ class StoryController extends Controller
             'slug' => $validatedData['title'],
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
+            'price' => $validatedData['price'],
         ]);
         // Tạo slug từ chapter_id và tiêu đề
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
@@ -257,6 +266,8 @@ class StoryController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'group_id' => 'nullable|integer',
             'book_path' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Giới hạn file ảnh
+            'is_inspect'=> 'required',
+
         ]);
 
         // Handle image upload if provided
@@ -281,7 +292,7 @@ class StoryController extends Controller
             'is_VIP' => $request->is_VIP,
             'adult' => $request->adult,
             'is_delete' => $request->is_delete,
-            'Is_Inspect' => $request->Is_Inspect,
+            'is_inspect' => $request->Is_Inspect,
             'user_id' => $request->user_id,
             'group_id' => $request->group_id,
         ]);
@@ -335,6 +346,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
         ]);
 
         // Lấy chương cần cập nhật
@@ -350,6 +362,7 @@ class StoryController extends Controller
             'slug' => $slug,
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
+            'price' => $validatedData['price'],
         ]);
         $episode = episode::findOrFail($request->episode_id);
         // Điều hướng về trang chi tiết truyện

@@ -47,11 +47,10 @@ class BookController extends Controller
 
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
-
         // Tìm kiếm book dựa trên slug
         $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
 
-        // Tăng giá trị của trường `view_count` hoặc tên trường mà bạn muốn cộng thêm 1
+        // Tăng giá trị của trường `view`
         $book->increment('view');
 
         // Tìm kiếm chapter dựa trên chapter_slug
@@ -77,7 +76,7 @@ class BookController extends Controller
         $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
 
         // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
-         if ($chapter->price > 0) {
+        if ($chapter->price > 0) {
             // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
             if (!$user || !$user->hasPurchased($chapter->id)) {
                 // Chỉ hiển thị 2/10 nội dung chương nếu chưa mua

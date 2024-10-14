@@ -35,43 +35,43 @@ class ChapterController extends Controller
      */
     public function store(Request $request)
     {
-           // Validation
-    $validatedData = $request->validate([
-        'episode_id' => 'required|integer|exists:episodes,id',
-        'title' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'content' => 'required|string',
-        'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
-    ]);
+        // Validation
+        $validatedData = $request->validate([
+            'episode_id' => 'required|integer|exists:episodes,id',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'content' => 'required|string',
+            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
+        ]);
 
-    // Calculate word count
-    $wordCount = str_word_count(strip_tags($validatedData['content']));
+        // Calculate word count
+        $wordCount = str_word_count(strip_tags($validatedData['content']));
 
-    $book = Episode::find($validatedData['episode_id'])->book()->first();
+        $book = Episode::find($validatedData['episode_id'])->book()->first();
 
-    // Create new chapter
-    $chapter = new Chapter();
-    $chapter->episode_id = $validatedData['episode_id'];
-    $chapter->title = $validatedData['title'];
-    $chapter->slug = '';
-    $chapter->user_id = Auth::id();
-    $chapter->content = $validatedData['content'];
-    $chapter->price = $validatedData['price']; // Gán giá
-    $chapter->word_count = $wordCount; // Lưu số từ
-    $chapter->save();
+        // Create new chapter
+        $chapter = new Chapter();
+        $chapter->episode_id = $validatedData['episode_id'];
+        $chapter->title = $validatedData['title'];
+        $chapter->slug = '';
+        $chapter->user_id = Auth::id();
+        $chapter->content = $validatedData['content'];
+        $chapter->price = $validatedData['price']; // Gán giá
+        $chapter->word_count = $wordCount; // Lưu số từ
+        $chapter->save();
 
-    // Create slug from chapter_id and title
-    $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-    $chapter->slug = $slug;
+        // Create slug from chapter_id and title
+        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+        $chapter->slug = $slug;
 
-    // Save the chapter again with the updated slug
-    $chapter->save();
+        // Save the chapter again with the updated slug
+        $chapter->save();
 
-    // Update the word count for the book (sum of all chapters)
-    $book->word_count += $wordCount;
-    $book->save();
+        // Update the word count for the book (sum of all chapters)
+        $book->word_count += $wordCount;
+        $book->save();
 
-    return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
+        return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }
 
     public function uploadImage(Request $request)
@@ -245,13 +245,13 @@ class ChapterController extends Controller
         // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
         if ($chapter->price == 0) {
             return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Chương này miễn phí, bạn không cần mua.');
+                ->with('message', 'Chương này miễn phí, bạn không cần mua.');
         }
 
         // Kiểm tra nếu người dùng đã mua chương này
         if ($user->hasPurchased($chapter->id)) {
             return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Bạn đã mua chương này rồi.');
+                ->with('message', 'Bạn đã mua chương này rồi.');
         }
 
         // Kiểm tra số dư coin của người dùng
@@ -270,7 +270,6 @@ class ChapterController extends Controller
         ]);
 
         return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                         ->with('message', 'Mua chương thành công!');
+            ->with('message', 'Mua chương thành công!');
     }
-
 }

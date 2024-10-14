@@ -49,7 +49,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
-
+    public function hasPurchased($chapterId)
+    {
+        return $this->hasMany(Author::class);
+    }
     public function author()
     {
         return $this->hasMany(Author::class);

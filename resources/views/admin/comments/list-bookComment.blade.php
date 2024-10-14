@@ -33,6 +33,7 @@
                     <td>{{ $comment -> id }}</td>
                     <td>{{ $comment->book->title }}</td>
                     <td>{{ $comment->user->username }}</td>
+                    <td>{{ $comment->user->email }}</td>
                     <td>{{ $comment -> parent_id }}</td>
                     <td>{{ $comment -> content }}</td>
                     <td>{{ $comment -> created_at->format('H:i, d-m-Y') }}</td>

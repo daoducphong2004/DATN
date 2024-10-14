@@ -56,28 +56,28 @@ class FilterController extends Controller
 
         // Lọc theo phân loại
         if ($request->has('truyendich')) {
-            $query->where('type', 'truyendich');
-        }
-
-        if ($request->has('sangtac')) {
-            $query->where('type', 'sangtac');
+            $query->where('type', '1');
         }
 
         if ($request->has('convert')) {
-            $query->where('type', 'convert');
+            $query->where('type', '2');
+        }
+
+        if ($request->has('sangtac')) {
+            $query->where('type', '3');
         }
 
         // Lọc theo tình trạng
         if ($request->has('dangtienhanh')) {
-            $query->where('status', 'dangtienhanh');
+            $query->where('status', '1');
         }
 
         if ($request->has('tamngung')) {
-            $query->where('status', 'tamngung');
+            $query->where('status', '2');
         }
 
         if ($request->has('hoanthanh')) {
-            $query->where('status', 'hoanthanh');
+            $query->where('status', '3');
         }
 
         // Lấy danh sách truyện sau khi lọc

@@ -112,8 +112,8 @@
                                 </ul> --}}
                                 <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="truyendich" value="1" {{ request('truyendich') ? 'checked' : '' }}> Truyện dịch</li>
-                                    <li><input type="checkbox" name="sangtac" value="1" {{ request('sangtac') ? 'checked' : '' }}> Truyện sáng tác</li>
                                     <li><input type="checkbox" name="convert" value="1" {{ request('convert') ? 'checked' : '' }}> Convert</li>
+                                    <li><input type="checkbox" name="sangtac" value="1" {{ request('sangtac') ? 'checked' : '' }}> Truyện sáng tác</li>
                                 </ul>
                                 <div class="submit-wrapper">
                                     <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
@@ -158,7 +158,6 @@
                                                 href="the-loai/{{ $value }}">{{ $key }}</a>
                                     @endforeach
                                     <li class="filter-type_item"><a href="the-loai/action.html">Action</a>
-
                                 </ul>
                             </div>
                         </section>

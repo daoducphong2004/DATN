@@ -30,6 +30,7 @@ use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SharedBookController;
+use App\Http\Controllers\StoryManageController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -87,9 +88,6 @@ Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
 Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
 Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
 Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
@@ -211,6 +209,18 @@ Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEdi
 Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
 Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
 Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
+
+
+
+Route::get('/truyenDaDang',[StoryManageController::class,'StoryTranslatelist'])->name('manage.mytranslatebook');
+Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
+
+Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
+Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->name('manage.bookOLNshared');
+
+Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
+Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
+
 
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');

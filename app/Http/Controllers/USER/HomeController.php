@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index1()
     {
 
         $readingHistories = [];

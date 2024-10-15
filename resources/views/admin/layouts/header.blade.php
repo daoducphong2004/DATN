@@ -13,20 +13,19 @@
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
                 <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin')
-                        <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li>
-                    @endif
-                    {{-- <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a></li> --}}
-                <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin')
-                        <a href="{{ route('user_index') }}" style="color: #3107dc">User</a>
-                    @endif
-                    {{-- <a href="{{ route('user_index') }}" style="color: #3107dc">User</a> --}}
+                    @can('view-story', Auth::user())
+                        <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a>
+                    @endcan
                 </li>
                 <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin')
+                    @can('view-users', Auth::user())
+                        <a href="{{ route('user_index') }}" style="color: #3107dc">User</a>
+                    @endcan
+                </li>
+                <li>
+                    @can('view-categories', Auth::user())
                         <a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a>
-                    @endif
+                    @endcan
                 </li>
                 {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
                 <li class="dropdown">
@@ -38,22 +37,22 @@
                 </li>
                 </li>
                 <li class="dropdown">
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin')
+                    @can('manage-creative', Auth::user())
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="https://docln.net/action/series/index?type=original&amp;of=self">OLN đã đăng</a></li>
                             <li><a href="https://docln.net/action/series/index?type=original&amp;of=shared">OLN tham gia</a></li>
                         </ul>
-                    @endif
+                    @endcan
                 </li>
                 <li class="dropdown">
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin')
+                    @can('manage-discussions', Auth::user())
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thảo luận <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="https://docln.net/action/page/create">Thêm thảo luận</a></li>
                             <li><a href="{{route('thao_luan')}}">Thảo luận của bạn</a></li>
                         </ul>
-                    @endif
+                    @endcan
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -65,15 +64,14 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    @if (Auth::check() && Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin')
+                    @can('manage-groups', Auth::user())
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href="">Nhóm của bạn</a>
-                                {{-- <a href="https://docln.net/action/group/mygroups">Nhóm của bạn</a> --}}
                             </li>
                         </ul>
-                    @endif
+                    @endcan
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

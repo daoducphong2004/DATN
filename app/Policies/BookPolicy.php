@@ -29,7 +29,7 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return in_array($user->role->name, ['author', 'super_admin', 'admin', 'mod', 'author']);
     }
 
     /**

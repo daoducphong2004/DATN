@@ -170,7 +170,7 @@
                     break;
                     // New cases for sharing access and transferring ownership
                 case 'Thêm quyền':
-                    child.onclick = () => openLink(
+                    child.onclick = () =>  openLink(
                         '{{ route('book.shareList', ':id') }}'.replace(':id', id),
                         'action',
                         'chapter_id=' + id + '&action=editchapter'

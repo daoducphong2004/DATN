@@ -64,10 +64,12 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
-// Route::get('danhsach', [UserController::class, 'danhsach']);
+Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sangtac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
+Route::get('the-loai', [HomeController::class, 'the_loai']);
+
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
@@ -209,6 +211,7 @@ Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listShare
 Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
 
 
+
 Route::get('/truyenDaDang',[StoryManageController::class,'StoryTranslatelist'])->name('manage.mytranslatebook');
 Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
 
@@ -217,6 +220,7 @@ Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->
 
 Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
 Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
+
 
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
@@ -233,14 +237,9 @@ Route::prefix('groups')->group(function () {
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-});
-// Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 
-Route::middleware(['auth', 'role:author'])->group(function () {
-    Route::resource('story', BookController::class);
-});
+Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
+
 
 // Rating hoalt
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
@@ -255,3 +254,5 @@ Route::post('comment')->name('addChapterComment');//sau làm phần comment chap
 
 // Bộ lọc
 Route::get('danh-sach', [FilterController::class, 'filter'])->name('filter');
+Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
+

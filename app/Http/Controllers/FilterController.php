@@ -12,7 +12,7 @@ class FilterController extends Controller
     public function filterDanhSach(Request $request, $alphabet = null)
     {
         // Lấy tất cả truyện đã duyệt
-        $query = book::query()->where('Is_Inspect', "Đã Duyệt");
+        $query = book::query()->where('Is_Inspect', 1);
 
         // Kiểm tra điều kiện và lọc dữ liệu cơ bản
         $sapxep = $request->input('sapxep');
@@ -97,7 +97,7 @@ class FilterController extends Controller
             $genre = genre::where('slug', $slug)->firstOrFail();
 
             // Lấy tất cả truyện đã duyệt thuộc thể loại đã chọn
-            $query = book::query()->where('Is_Inspect', "Đã Duyệt")
+            $query = book::query()->where('Is_Inspect', 1)
                                 ->whereHas('genres', function($q) use ($genre) {
                                     $q->where('genres.id', $genre->id);
                                 });

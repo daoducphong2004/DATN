@@ -20,6 +20,7 @@ use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentChapterController;
@@ -87,11 +88,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/story/{id}', [StoryController::class, 'showBook'])->name('admin_storyshow');
         Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
         Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
-        Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
+        Route::delete('story/{id}/delete', [StoryController::class, 'destroyBook'])->name('admin_storydestroy');
 
         //episode
-        Route::get('/episode/create/{book_id}',[StoryController::class,'createEpisode'])->name('admin_episodecreate');
-        Route::post('/episode/store',[StoryController::class,'storeEpisode'])->name('admin_episodestore');
+        Route::get('/episode/create/{book_id}', [StoryController::class, 'createEpisode'])->name('admin_episodecreate');
+        Route::post('/episode/store', [StoryController::class, 'storeEpisode'])->name('admin_episodestore');
         Route::get('/episodes/{id}/edit', [StoryController::class, 'editEpisode'])->name('admin_episodeedit');
         Route::put('/episodes/{id}', [StoryController::class, 'updateEpisode'])->name('admin_episodeupdate');
         Route::delete('/episode/{id}/delete', [StoryController::class, 'destroyEpisode'])->name('admin_episdestroy');
@@ -99,12 +100,18 @@ Route::prefix('admin')->group(function () {
 
 
         //chapter
-        Route::get('/chapter/create/{episode_id}',[StoryController::class,'createChapter'])->name('admin_chaptercreate');
-        Route::post('/chapter/store',[StoryController::class,'storeChapter'])->name('admin_chapterstore');
+        Route::get('/chapter/create/{episode_id}', [StoryController::class, 'createChapter'])->name('admin_chaptercreate');
+        Route::post('/chapter/store', [StoryController::class, 'storeChapter'])->name('admin_chapterstore');
         Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
         Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
         Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
         //end chapter
+
+        //duyệt truyện
+        Route::get('/books/approval', [BookApprovalController::class, 'index'])->name('books.approval');
+        Route::post('/books/approve/{id}', [BookApprovalController::class, 'approve'])->name('books.approve');
+        // end duyệt truyện
+
         // end phong
 
         //forum
@@ -114,4 +121,3 @@ Route::prefix('admin')->group(function () {
         Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
     });
 });
-

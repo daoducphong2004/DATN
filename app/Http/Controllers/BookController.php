@@ -30,7 +30,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
@@ -49,7 +49,7 @@ class BookController extends Controller
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
+        $book = book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
 
         // Tăng giá trị của trường `view`
         $book->increment('view');
@@ -203,7 +203,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
         // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }

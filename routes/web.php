@@ -25,13 +25,17 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SharedBookController;
+use App\Http\Controllers\StoryManageController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
+use App\Models\SharedBook;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -47,8 +51,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index']);
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index1']);
+Route::get('/', [HomeController::class, 'index1'])->name('home');
 
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
@@ -84,9 +88,6 @@ Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
 Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
 Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
 Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
@@ -194,7 +195,7 @@ Route::get('stories/addchapter/{episode}', function (episode $episode) {
 })->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
-Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+// Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
@@ -202,6 +203,27 @@ Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
 Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
 Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+
+
+Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
+Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
+Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
+Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
+
+
+
+Route::get('/truyenDaDang',[StoryManageController::class,'StoryTranslatelist'])->name('manage.mytranslatebook');
+Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
+
+Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
+Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->name('manage.bookOLNshared');
+
+Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
+Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
+
+
+
+Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 
 // End Phong
 
@@ -223,8 +245,14 @@ Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
+Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
 
 require __DIR__ . '/admin.php';
 
 Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
+
+// Bộ lọc
+Route::get('danh-sach', [FilterController::class, 'filter'])->name('filter');
+Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
+

@@ -12,13 +12,14 @@ use App\Models\Forum;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\ReadingHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index1()
     {
 
         $readingHistories = [];
@@ -190,14 +191,21 @@ class HomeController extends Controller
     {
         return view('home.guitinnhan');
     }
-    public function taikhoan()
+    public function thanhvien(string $userId)
     {
-        $userInfor = Auth::user();
-        $bookHasJoin = book::with('user')->get();
+
+        $userInfor = User::findOrFail($userId);
+
+        // Trả về view với dữ liệu
+        // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
+        $userBooks = $userInfor->books; // Truyện do user đăng
+        $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
+        $countBook = book::where('user_id',$userInfor->id)->count();
         $countChapters = chapter::where('user_id',$userInfor->id)->count();
         $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
-        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
+        // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
+        return view('home.taikhoan', compact('userInfor','userBooks', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
     }
 
     public function login()

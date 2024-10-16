@@ -99,7 +99,7 @@
                         <div class="overflow-hidden shadow">
                             <ul role="list" class="">
                                 @foreach ($ratings as $item)
-                                    <li>
+                                    <li class="border-bottom pb-3">
                                         <a href=""
                                             class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
                                             <div class="px-4 py-4 sm:px-6">
@@ -144,6 +144,10 @@
                                                 </div>
                                             </div>
                                         </a>
+                                        <form action="{{ route('rating.toggleLike', $item->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="ml-5"><i class="fa fa-thumbs-up"></i> <span class="ml-1">{{ $item->likes->count() }} người đồng ý</span></button>
+                                        </form>
                                     </li>
                                 @endforeach
                             </ul>

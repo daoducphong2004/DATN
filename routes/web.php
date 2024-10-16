@@ -67,7 +67,6 @@ Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sangtac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
-Route::get('the-loai', [HomeController::class, 'the_loai']);
 
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
@@ -243,6 +242,6 @@ Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
 
 // Bộ lọc
-Route::get('danh-sach', [FilterController::class, 'filter'])->name('filter');
+Route::get('danh-sach', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
-
+Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');

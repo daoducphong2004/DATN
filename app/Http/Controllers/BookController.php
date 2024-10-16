@@ -11,6 +11,7 @@ use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\PurchasedStory;
+use App\Models\Rating;
 use App\Models\ReadingHistory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -291,8 +292,8 @@ class BookController extends Controller
         if (Auth::guest() && $book->is_paid) {
             return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
         }
-
-        return view('story.show', compact('book', 'episodes', 'comments'));
+        $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings'));
     }
 
     /**

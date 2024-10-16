@@ -56,14 +56,14 @@ class HomeController extends Controller
             }
         }
 
-        $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
+        $truyen_noibat = book::where('Is_Inspect', 1)
                             ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
                             ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
                             ->take(8) // Giới hạn 8 truyện
                             ->get();
 
         $sangtac_moinhat = chapter::whereHas('book', function ($query) {
-                                $query->where('Is_Inspect', 'Đã duyệt')
+                                $query->where('Is_Inspect', 1)
                                       ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
                             })
                             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
@@ -73,14 +73,14 @@ class HomeController extends Controller
         $chuong_moinhat = DB::table('chapters')
                             ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
                             ->join('books', 'chapters.book_id', '=', 'books.id')
-                            ->where('books.Is_Inspect', 'Đã duyệt')
+                            ->where('books.Is_Inspect', 1)
                             ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
                             ->orderBy('chapters.created_at', 'desc')
                             ->take(17)
                             ->get();
-                        
 
-        $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
+
+        $truyen_vuadang = book::where('Is_Inspect', 1)
                             ->orderBy('created_at', 'desc')
                             ->take(6)
                             ->get();

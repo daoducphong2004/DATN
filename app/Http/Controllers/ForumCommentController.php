@@ -39,6 +39,7 @@ class ForumCommentController extends Controller
             $userID = 1;
         }
         $bruh = [
+            
             'content' => $request->content,
             'user_id' => $userID,
             'forum_id'=>$data->id,

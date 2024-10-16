@@ -54,7 +54,7 @@
             <main>
                 <section class="ln-comment">
                     <header>
-                        <h3 class="text-lg font-bold dark:text-white">2000 bình luận</h3>
+                        <!-- <h3 class="text-lg font-bold dark:text-white">2000 bình luận</h3> -->
                         <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                     </header>
 
@@ -99,26 +99,20 @@
                                                     <i class="fas fa-thumbs-up me-1"></i>
                                                     <span class="likecount font-semibold"></span>
                                                 </a>
-                                                <a class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                <a href="{{route("cmt-child-forum",$data->id)}}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
+                                                    class="self-center visible-toolkit-item cursor-pointer">
                                                     <i class="fas fa-comment me-1"></i>
-                                                    <span class="font-semibold">Trả lời</span>
+                                                    <span class="likecount font-semibold">Trả lời</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div style="width:100%;height:auto">
-                                <form action="{{route("cmt-child-forum",$data->id)}}" method="post">
-                                    @csrf
-                                    @method('POST')
-                                    <div class="ln-comment-reply reply-form">
-                                        <div class="ln-comment-form"><input type="hidden" name="forum_parent_id" value="{{$comment->id}}"><textarea name="content" class="comment_reply"></textarea>
-                                            <div class="comment_toolkit clear"><input type="submit" class="button" value="Trả lời"></div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+
+                            
+
+
                             @foreach ($data_child_list_forum[$comment->id] as $comment_child)
 
                             <div class="ln-comment-reply">
@@ -166,15 +160,16 @@
                                                 <div class="comment_see_more expand none">Xem thêm</div>
                                                 <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                     <a href="/thao-luan/368-huong-dan-dang-truyen?comment_id=2571363&amp;reply_id=2571366#ln-comment-2571366" class="text-slate-500">
-                                                        <time class="timeago" title="29-08-2024 22:08:48" datetime="{{$comment->created_at}}">3 ngày</time>
+                                                        <time class="timeago" title="29-08-2024 22:08:48" datetime="{{$comment_child->created_at}}"></time>
                                                     </a>
                                                     <a class="self-center visible-toolkit-item do-like cursor-pointer">
                                                         <i class="fas fa-thumbs-up me-1"></i>
                                                         <span class="likecount font-semibold"></span>
                                                     </a>
-                                                    <a class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                    <a href="{{route("cmt-child-forum",$data->id)}}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
+                                                        class="self-center visible-toolkit-item cursor-pointer">
                                                         <i class="fas fa-comment me-1"></i>
-                                                        <span class="font-semibold">Trả lời</span>
+                                                        <span class="likecount font-semibold">Trả lời</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -184,13 +179,31 @@
                             </div>
 
                             @endforeach
+                            @if (request('reply_to') == $comment->id)
+                        <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
+                            @if (Auth::check())
+                            <form action="{{route("cmt-child-forum",$data->id)}}" method="post">
+                                @csrf
+                                @method('POST')
+                                <div class="ln-comment-reply reply-form">
+                                    <div class="ln-comment-form"><input type="hidden" name="forum_parent_id" value="{{$comment->id}}"><textarea name="content" class="comment_reply">{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                        <div class="comment_toolkit clear"><input type="submit" class="button" value="Trả lời"></div>
+                                    </div>
+                                </div>
+                            </form>
+                            @else
+                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình
+                                    luận.</strong></p>
+                            @endif
+                        </div>
+                        @endif
                             <!-- <div class="fetch_reply" data-parent="2571363">
                 Xem thêm 1 trả lời <i class="fas fa-chevron-down" style="margin-left: 4px;"></i>
             </div>
             <img class="loading" src="/img/loading.svg" style="width: auto; height: 15px; margin-left: 10px; display: none"> -->
                         </div>
                         @endforeach
-
+                        
 
     </div>
 </main>

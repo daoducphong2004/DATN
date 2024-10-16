@@ -80,12 +80,6 @@ class ChapterController extends Controller
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }
 
-    private function canEditBook($user, $book)
-    {
-        // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
-        return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
-    }
-
 
     public function uploadImage(Request $request)
     {

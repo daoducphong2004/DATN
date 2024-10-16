@@ -289,10 +289,13 @@ class BookController extends Controller
         $episodes = $book->episodes;
         // dd($book,$episodes);
 
-        $comments = bookcomment::with('user')
-            ->where('book_id', $book->id)
-            ->whereNull('parent_id')
-            ->with('replies.replies')->get();
+        $comments = bookcomment::with(['user', 'replies' => function ($query) {
+            $query->orderBy('created_at', 'DESC');
+        }])
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')
+        ->orderBy('created_at', 'DESC')
+        ->get();
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
         // dd($comments);

@@ -94,7 +94,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="/UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();

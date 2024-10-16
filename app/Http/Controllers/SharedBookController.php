@@ -32,9 +32,15 @@ class SharedBookController extends Controller
         // Xác định người dùng được chia sẻ quyền chỉnh sửa
         $sharedUserId = $request->input('user_id');
 
+
         // Lấy ID của người dùng hiện tại (người đăng nhập)
         $currentUserId = $request->user()->id;
 
+
+        // Kiểm tra nếu người dùng hiện tại là chủ sở hữu của truyện
+        if ($book->user_id != $currentUserId) {
+            return redirect()->back()->with('error', 'Chỉ chủ sở hữu của truyện mới có quyền chia sẻ quyền chỉnh sửa.');
+        }
         // Kiểm tra nếu người dùng hiện tại là chủ sở hữu của truyện
         if ($book->user_id == $sharedUserId) {
             return redirect()->back()->with('error', 'Bạn không thể chia sẻ quyền chỉnh sửa cho chính mình.');
@@ -54,7 +60,7 @@ class SharedBookController extends Controller
         return redirect()->back()->with('success', 'Quyền chỉnh sửa đã được chia sẻ thành công.');
     }
 
-   /**
+    /**
      * Thu hồi quyền chỉnh sửa từ một người dùng cho một truyện.
      */
     public function revokeEditAccess(Request $request, Book $book)
@@ -81,7 +87,7 @@ class SharedBookController extends Controller
     /**
      * Lấy danh sách người dùng được chia sẻ quyền chỉnh sửa truyện.
      */
-     /**
+    /**
      * Lấy danh sách người dùng được chia sẻ quyền chỉnh sửa truyện.
      */
     public function listSharedUsers(Book $book)

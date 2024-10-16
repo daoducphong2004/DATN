@@ -176,7 +176,6 @@
                         'chapter_id=' + id + '&action=editchapter'
                     );
                     break;
-
                 case 'Chuyển quyền':
                     child.onclick = () => {
                         document.getElementById('transferOwnershipModal').style.display = 'block';

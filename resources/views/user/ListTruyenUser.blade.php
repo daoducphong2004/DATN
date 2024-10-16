@@ -24,19 +24,37 @@
                         </div>
 
                         <table class="table">
-                            <tbody>
+                            <thead>
                                 <tr>
                                     <th class="col-xs-7 col-sm-6 col-md-5 col-lg-6">Tên truyện</th>
                                     <th class="hidden-xs col-sm-3 col-md-2 col-lg-2">Người đăng</th>
                                     <th class="hidden-xs hidden-sm col-md-2 col-lg-2">Nhóm dịch</th>
-                                    <th class="col-xs-5 col-sm-3 col-md-3 col-lg-2 text-right">Quản lý</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($books as $book)
+                                <tr>
+                                    <!-- Tên truyện -->
+                                    <td>
+                                        <a href="{{ route('story.show', $book->slug) }}">
+                                            {{ $book->title }}
+                                        </a>
+                                    </td>
 
+                                    <!-- Người đăng (lấy từ quan hệ user) -->
+                                    <td>{{ $book->user->username ?? 'N/A' }}</td>
+
+                                    <!-- Nhóm dịch (lấy từ quan hệ group) -->
+                                    <td>{{ $book->group->name ?? 'Không có nhóm' }}</td>
+                                </tr>
+                                @empty
                                 <tr>
                                     <td colspan="4">Không có truyện nào</td>
                                 </tr>
+                                @endforelse
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

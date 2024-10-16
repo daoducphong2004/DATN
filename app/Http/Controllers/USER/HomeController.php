@@ -13,9 +13,11 @@ use App\Models\genre;
 use App\Models\group;
 use App\Models\ReadingHistory;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -55,19 +57,28 @@ class HomeController extends Controller
         }
 
         $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
-                            ->orderBy('like', 'desc')
-                            ->take(8)
+                            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
+                            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
+                            ->take(8) // Giới hạn 8 truyện
                             ->get();
 
-        $sangtac_moinhat = book::where('Is_Inspect', 'Đã duyệt')
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
+        $sangtac_moinhat = chapter::whereHas('book', function ($query) {
+                                $query->where('Is_Inspect', 'Đã duyệt')
+                                      ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+                            })
+                            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
+                            ->take(5) // Giới hạn 5 chương mới nhất
                             ->get();
 
-        $chuong_moinhat = book::where('Is_Inspect', 'Đã duyệt')
-                            ->orderBy('created_at', 'desc')
+        $chuong_moinhat = DB::table('chapters')
+                            ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
+                            ->join('books', 'chapters.book_id', '=', 'books.id')
+                            ->where('books.Is_Inspect', 'Đã duyệt')
+                            ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
+                            ->orderBy('chapters.created_at', 'desc')
                             ->take(17)
                             ->get();
+                        
 
         $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
                             ->orderBy('created_at', 'desc')
@@ -92,7 +103,7 @@ class HomeController extends Controller
         ])->orderBy('created_at', 'desc')->get();
 
         $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home', 'bookComments'));
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home', 'bookComments'));
     }
 
     public function convert()

@@ -112,8 +112,8 @@
                                 </ul> --}}
                                 <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="truyendich" value="1" {{ request('truyendich') ? 'checked' : '' }}> Truyện dịch</li>
-                                    <li><input type="checkbox" name="sangtac" value="1" {{ request('sangtac') ? 'checked' : '' }}> Truyện sáng tác</li>
                                     <li><input type="checkbox" name="convert" value="1" {{ request('convert') ? 'checked' : '' }}> Convert</li>
+                                    <li><input type="checkbox" name="sangtac" value="1" {{ request('sangtac') ? 'checked' : '' }}> Truyện sáng tác</li>
                                 </ul>
                                 <div class="submit-wrapper">
                                     <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
@@ -154,11 +154,11 @@
                             <div class="section-content">
                                 <ul class="filter-type unstyled clear">
                                     @foreach ($genres as $key => $value)
-                                        <li class="filter-type_item"><a
-                                                href="the-loai/{{ $value }}">{{ $key }}</a>
+                                        <li class="filter-type_item">
+                                            {{-- <a href="the-loai/{{ $value }}">{{ $key }}</a> --}}
+                                            <a href="{{ route('filterTheLoai', ['slug' => $value]) }}">{{ $key }}</a>
                                     @endforeach
-                                    <li class="filter-type_item"><a href="the-loai/action.html">Action</a>
-
+                                    {{-- <li class="filter-type_item"><a href="the-loai/action.html">Action</a> --}}
                                 </ul>
                             </div>
                         </section>
@@ -188,7 +188,7 @@
                                 <button class="button button-general type="submit" name="sapxep" value="topthang">
                                     <i class="fa fa-fire" aria-hidden="true"></i> Top tháng
                                 </button>  -->
-                                <form method="GET" action="{{ route('filter') }}">
+                                <form method="GET" action="{{ route('filterDanhSach') }}">
                                     <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
                                         <option value="tentruyen" {{ request('sapxep') == 'tentruyen' ? 'selected' : '' }}>A - Z</option>
                                         <option value="tentruyenza" {{ request('sapxep') == 'tentruyenza' ? 'selected' : '' }}>Z - A</option>

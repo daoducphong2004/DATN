@@ -199,24 +199,25 @@
                                 {{-- Bắt đầu truyện đơn --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.truyen', $item->slug) }}" title="">
+                                        <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
-                                                    data-bg="{{ asset(Storage::url($item->book_path)) }}">
+                                                    data-bg="{{ asset(Storage::url($item->book->book_path)) }}">
                                                 </div>
                                             </div>
                                         </a>
                                         <div class="thumb-detail">
-                                            <div class="thumb_attr chapter-title" title="Chương 15: Con đường thành thần">
-                                                <a href="{{ route('truyen.truyen', $item->slug) }}"
-                                                    title="">{{ $item->title }}</a>
+                                            <div class="thumb_attr chapter-title" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                                    {{ $item->title }}
+                                                </a>
                                             </div>
-                                            <div class="thumb_attr volume-title">Quyển 1: Dị giới</div>
+                                            <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="/sang-tac/17768-tro-thanh-quy-toc-tai-di-gioi"
-                                            title="">{{ $item->title }}</a>
+                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
                                 {{-- kết thúc truyện đơn --}}
@@ -228,7 +229,7 @@
                                         <div class="content img-in-ratio"
                                             style="background-image: url('img/nocover.jpg');"></div>
                                     </div>
-                                    <a href="https://docln.net/sang-tac">
+                                    <a href="/sangtac">
                                         <div class="thumb-see-more">
                                             <div class="see-more-inside">
                                                 <div class="see-more-content">
@@ -250,31 +251,30 @@
                             <span class="sts-bold">Chương</span><span class="sts-empty">mới nhất</span>
                         </header>
                         <main class="row">
-                            {{-- Bắt đầu truyện đơn  --}}
-                            <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                                <div class="thumb-wrapper ln-tooltip">
-                                    <a href="/truyen/18315-chuyen-sinh-vao-game-romcom-yandere-co-nang-nguy-hiem-bong-nhien-tro-thanh-em-gai-toi/c142233-chap-54-em-ay-da-quen"
-                                        title="Chap 54: Em ấy đã quên">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio lazyload"
-                                                data-bg="https://docln.net/img/nocover.jpg"></div>
+                            @foreach ($chuong_moinhat as $item)
+                                {{-- Bắt đầu truyện đơn  --}}
+                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                                    <div class="thumb-wrapper ln-tooltip">
+                                        <a href="{{ route('truyen.chuong', $item->slug) }}"
+                                            title="{{ $item->title }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio lazyload"
+                                                    data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}"></div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
+                                                    href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                            <div class="thumb_attr volume-title">{{ $item->title }}</div>
                                         </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
-                                                href="url chương" title="Chap 54: Em ấy đã quên">Chap 54: Em ấy đã
-                                                quên</a></div>
-                                        <div class="thumb_attr volume-title">WN</div>
+                                    </div>
+                                    <div class="thumb_attr series-title"><a
+                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
-                                <div class="thumb_attr series-title"><a
-                                        href="/truyen/18315-chuyen-sinh-vao-game-romcom-yandere-co-nang-nguy-hiem-bong-nhien-tro-thanh-em-gai-toi"
-                                        title="Chuyển sinh vào game Romcom Yandere, cô nàng nguy hiểm bỗng nhiên trở thành em gái tôi.">Chuyển
-                                        sinh vào game Romcom Yandere, cô nàng nguy hiểm bỗng nhiên trở thành em gái
-                                        tôi.</a>
-                                </div>
-                            </div>
-                            {{-- Kết thúc truyện đơn --}}
+                                {{-- Kết thúc truyện đơn --}}
+                            @endforeach
 
 
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
@@ -283,7 +283,7 @@
                                         <div class="content img-in-ratio"
                                             style="background-image: url('img/nocover.jpg');"></div>
                                     </div>
-                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=capnhat">
+                                    <a href="/danh-sach?truyendich=1&amp;sapxep=capnhat">
                                         <div class="thumb-see-more">
                                             <div class="see-more-inside">
                                                 <div class="see-more-content">

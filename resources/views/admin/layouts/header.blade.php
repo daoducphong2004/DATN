@@ -12,6 +12,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
+                <li><a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a></li>
+
                 <li>
                     @can('view-story', Auth::user())
                         <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a>

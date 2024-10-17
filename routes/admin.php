@@ -20,6 +20,7 @@ use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentChapterController;
@@ -105,6 +106,12 @@ Route::prefix('admin')->group(function () {
         Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
         Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
         //end chapter
+
+        //duyệt truyện
+        Route::get('/books/approval', [BookApprovalController::class, 'index'])->name('books.approval');
+        Route::post('/books/approve/{id}', [BookApprovalController::class, 'approve'])->name('books.approve');
+        // end duyệt truyện
+
         // end phong
 
         //forum

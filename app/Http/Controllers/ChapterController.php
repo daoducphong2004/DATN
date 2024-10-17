@@ -43,12 +43,38 @@ class ChapterController extends Controller
             'content' => 'required|string',
             'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
         ]);
+        // Validation
+        $validatedData = $request->validate([
+            'episode_id' => 'required|integer|exists:episodes,id',
+            'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'content' => 'required|string',
+            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
+        ]);
 
         // Calculate word count
         $wordCount = str_word_count(strip_tags($validatedData['content']));
+        // Calculate word count
+        $wordCount = str_word_count(strip_tags($validatedData['content']));
 
+        // Get the book associated with the episode
         $book = Episode::find($validatedData['episode_id'])->book()->first();
 
+        // Check if the user has permission to edit the book
+        if (!$this->canEditBook(Auth::user(), $book)) {
+            return redirect()->back()->with('error', 'You do not have permission to edit this book.');
+        }
+
+        // Create new chapter
+        $chapter = new Chapter();
+        $chapter->episode_id = $validatedData['episode_id'];
+        $chapter->title = $validatedData['title'];
+        $chapter->slug = '';
+        $chapter->user_id = Auth::id();
+        $chapter->content = $validatedData['content'];
+        $chapter->price = $validatedData['price']; // Gán giá
+        $chapter->word_count = $wordCount; // Lưu số từ
+        $chapter->save();
         // Create new chapter
         $chapter = new Chapter();
         $chapter->episode_id = $validatedData['episode_id'];
@@ -63,16 +89,26 @@ class ChapterController extends Controller
         // Create slug from chapter_id and title
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
+        // Create slug from chapter_id and title
+        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+        $chapter->slug = $slug;
 
+        // Save the chapter again with the updated slug
+        $chapter->save();
         // Save the chapter again with the updated slug
         $chapter->save();
 
         // Update the word count for the book (sum of all chapters)
         $book->word_count += $wordCount;
         $book->save();
+        // Update the word count for the book (sum of all chapters)
+        $book->word_count += $wordCount;
+        $book->save();
 
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
+        return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }
+
 
     public function uploadImage(Request $request)
     {

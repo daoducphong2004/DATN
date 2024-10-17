@@ -30,7 +30,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
@@ -49,7 +49,7 @@ class BookController extends Controller
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->where('Is_Inspect', "Đã Duyệt")->with('episodes')->firstOrFail();
+        $book = book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
 
         // Tăng giá trị của trường `view`
         $book->increment('view');
@@ -203,7 +203,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', "Đã Duyệt")->paginate(30);
+        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
         // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
@@ -223,6 +223,7 @@ class BookController extends Controller
      */
     public function store(StorebookRequest $request)
     {
+
         $adult = $request->has('adult') ? 1 : 0;
         $book = Book::create([
             'type' => $request->type,
@@ -267,8 +268,14 @@ class BookController extends Controller
     //show admin
     public function show(String $id)
     {
+
         $book = Book::with('genres', 'episodes')->findOrFail($id);
-        return view('stories.show', compact('book'));
+        if ($this->canEditBook(Auth::user(), $book)) {
+            return view('stories.show', compact('book'));
+        } else {
+            // Người dùng không có quyền, trả về lỗi 403
+            return response()->view('errors.403', [], 403);
+        }
     }
     //end show admin
 
@@ -282,10 +289,13 @@ class BookController extends Controller
         $episodes = $book->episodes;
         // dd($book,$episodes);
 
-        $comments = bookcomment::with('user')
-            ->where('book_id', $book->id)
-            ->whereNull('parent_id')
-            ->with('replies.replies')->get();
+        $comments = bookcomment::with(['user', 'replies' => function ($query) {
+            $query->orderBy('created_at', 'DESC');
+        }])
+        ->where('book_id', $book->id)
+        ->whereNull('parent_id')
+        ->orderBy('created_at', 'DESC')
+        ->get();
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
         // dd($comments);
@@ -301,6 +311,7 @@ class BookController extends Controller
      */
     public function edit(String $id)
     {
+
         $book = Book::with('genres', 'episodes')->findOrFail($id);
         $genres = genre::pluck('id', 'name');
         return view('stories.iframe.information', compact('book', 'genres'));
@@ -349,16 +360,12 @@ class BookController extends Controller
             return redirect()->route('storyinformation', $book->id);
         } else {
             // Người dùng không có quyền, trả về lỗi 403
-            return response()->json(['message' => 'Forbidden'], 403);
+            return response()->view('errors.403', [], 403);
         }
     }
 
     // Hàm kiểm tra quyền sửa đổi
-    private function canEditBook($user, $book)
-    {
-        // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
-        return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
-    }
+
 
 
     /**

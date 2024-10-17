@@ -43,7 +43,7 @@
                 <td>{{ $request->reason }}</td>
                 <td>
                     @if($request->front_id_image)
-                        <img src="{{ Storage::url($request->front_id_image) }}" alt="CMND/CCCD Trước" width="100">
+                        <img src="{{ asset('storage/' .$request->front_id_image) }}" alt="CMND/CCCD Trước" width="100">
                     @else
                         Không có ảnh
                     @endif

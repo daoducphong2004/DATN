@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\bookcomment;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\genre;
 use App\Models\group;
-use App\Models\ReadingHistory;
 use App\Models\User;
+use App\Models\book;
+use App\Models\Mail;
+use App\Models\Forum;
+use App\Models\ReadingHistory;
+use App\Models\chaptercomment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use App\Models\User;
-use Mail;
+
 
 class HomeController extends Controller
 {
@@ -37,8 +40,10 @@ class HomeController extends Controller
             $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
 
             if (!empty($readingHistoriesFromCookie)) {
+                // Lấy ID chương từ cookie
                 $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
 
+                // Lấy các chương và bao gồm episode và book
                 $readingHistories = chapter::whereIn('id', $chapterIds)
                     ->with(['episode.book']) // eager load episode và book
                     ->get();
@@ -51,13 +56,25 @@ class HomeController extends Controller
             }
         }
 
-        $truyen_noibat = book::orderBy('like', 'desc')->take(8)->get();
+        $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
+            ->orderBy('like', 'desc')
+            ->take(8)
+            ->get();
 
-        $sangtac_moinhat = book::orderBy('created_at', 'desc')->take(5)->get();
+        $sangtac_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
-        $chuong_moinhat = book::orderBy('created_at', 'desc')->take(17)->get();
+        $chuong_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+            ->orderBy('created_at', 'desc')
+            ->take(17)
+            ->get();
 
-        $truyen_vuadang = book::orderBy('created_at', 'desc')->take(6)->get();
+        $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
 
         $truyen_dahoanthanh = Book::where('status', 3)
             ->orderBy('created_at', 'desc')
@@ -75,7 +92,9 @@ class HomeController extends Controller
             'forums.content as content',
             'forums.created_at as created_at'
         ])->orderBy('created_at', 'desc')->get();
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh', 'data_forum_home'));
+
+        $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh', 'data_forum_home', 'bookComments'));
     }
 
     public function convert()
@@ -145,6 +164,11 @@ class HomeController extends Controller
         return view('home.gopy');
     }
 
+    public function search()
+    {
+        return view('home.search');
+    }
+
     public function kesach()
     {
         return view('home.kesach');
@@ -171,12 +195,19 @@ class HomeController extends Controller
     }
     public function thanhvien(string $userId)
     {
-        $userInfor = Auth::user();
-        $bookHasJoin = book::with('user')->get();
+
+        $userInfor = User::findOrFail($userId);
+
+        // Trả về view với dữ liệu
+        // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
+        $userBooks = $userInfor->books; // Truyện do user đăng
+        $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
+        $countBook = book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
         $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
-        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
+        // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
     }
 
     public function login()

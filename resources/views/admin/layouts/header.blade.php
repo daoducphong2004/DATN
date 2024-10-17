@@ -45,6 +45,13 @@
                         </ul>
                     @endcan
                 </li>
+                <li>
+                    @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin'))
+                        <a href="{{ route('admin.requests') }}" style="color: #3107dc">Authors</a>
+                    @else
+                        <a href="#" style="color: #3107dc" onclick="alert('Bạn không có quyền truy cập tính năng này!')">Authors</a>
+                    @endif
+                </li>
                 <li class="dropdown">
                     @can('manage-discussions', Auth::user())
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thảo luận <span class="caret"></span></a>

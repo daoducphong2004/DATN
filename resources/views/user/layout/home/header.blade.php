@@ -16,64 +16,49 @@
                 <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
                             Cổng Light Novel</span></a></li>
                 <li>
-                    @can('create', App\Models\Story::class)
+                    @if (Auth::check() && Auth::user()->role &&
+                        (Auth::user()->role->name === 'author' ||
+                        Auth::user()->role->name === 'super_admin' ||
+                        Auth::user()->role->name === 'admin' ||
+                        Auth::user()->role->name === 'mod'))
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
-                    @endcan
-                </li>
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #10b591"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Truyện dịch</a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/truyenDaDang">Truyện đã đăng</a></li>
-                            <li><a href="/truyenThamGia">Truyện tham gia</a></li>
-                        </ul>
                     @endif
                 </li>
                 <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #e3953e"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Convert <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="conventDaDang">Convert đã đăng</a>
-                            </li>
-                            <li><a href="convertThamGia">Convert tham gia</a></li>
-                        </ul>
-                    @endif
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="truyenDaDang">Truyện đã đăng</a></li>
+                        <li><a href="truyenThamGia">Truyện tham gia</a></li>
+                    </ul>
                 </li>
                 <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #1389c6"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Sáng tác <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="OLNDaDang">OLN đã đăng</a>
-                            </li>
-                            <li><a href="OLNThamGia">OLN tham gia</a>
-                            </li>
-                        </ul>
-                    @endif
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="conventDaDang">Convert đã đăng</a>
+                        </li>
+                        <li><a href="convertThamGia">Convert tham
+                                gia</a></li>
+                    </ul>
                 </li>
                 <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class=""
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Thảo luận <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Thảo luận <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="themThaoLuan">Thêm thảo luận</a></li>
-                            <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
-                        </ul>
-                    @endif
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="OLNDaDang">OLN đã đăng</a>
+                        </li>
+                        <li><a href="OLNThamGia">OLN tham gia</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false">Thảo luận <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="themThaoLuan">Thêm thảo luận</a></li>
+                        <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -85,27 +70,15 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class=""
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Nhóm dịch <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
-                            <li><a href="nhomThamGia">Nhóm tham gia</a></li>
-                        </ul>
-                    @endif
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
+                        <li><a href="nhomThamGia">Nhóm tham gia</a></li>
+                    </ul>
                 </li>
                 <li>
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: rgb(242, 0, 255)"
-                            onclick="alert('Bạn cần phải đăng nhập trước')">Nâng cấp</a>
-                    @else
-                        @can('upgrade', Auth::user())
-                            <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
-                        @endcan
-                    @endif
+                    <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
                 </li>
             </ul>
 

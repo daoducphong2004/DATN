@@ -67,22 +67,22 @@ class HomeController extends Controller
             }
         }
 
-        $truyen_noibat = book::where('Is_Inspect', 'Đã duyệt')
+        $truyen_noibat = book::where('Is_Inspect', 1)
                             ->orderBy('like', 'desc')
                             ->take(8)
                             ->get();
 
-        $sangtac_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+        $sangtac_moinhat = book::where('Is_Inspect', 1)
                             ->orderBy('created_at', 'desc')
                             ->take(5)
                             ->get();
 
-        $chuong_moinhat = book::where('Is_Inspect', 'Đã duyệt')
+        $chuong_moinhat = book::where('Is_Inspect', 1)
                             ->orderBy('created_at', 'desc')
                             ->take(17)
                             ->get();
 
-        $truyen_vuadang = book::where('Is_Inspect', 'Đã duyệt')
+        $truyen_vuadang = book::where('Is_Inspect', 1)
                             ->orderBy('created_at', 'desc')
                             ->take(6)
                             ->get();

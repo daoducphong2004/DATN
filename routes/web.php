@@ -29,6 +29,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Models\book;
@@ -101,6 +102,7 @@ Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan
 Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
+Route::get('search',[SearchController::class,'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin

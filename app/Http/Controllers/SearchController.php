@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\book;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -9,9 +10,12 @@ class SearchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home.search');
+        $title = $request->input('title');
+
+        $data_book = book::where('title','LIKE',"%{$title}%")->get();
+        return view('home.search',compact('data_book','title'));
     }
 
     /**

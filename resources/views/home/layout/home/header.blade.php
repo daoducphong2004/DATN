@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod'))
-                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a>
+                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
                         @endif
                     </li>
                 </ul>
@@ -92,7 +92,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="/UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();

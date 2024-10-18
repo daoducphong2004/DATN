@@ -112,6 +112,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/books/approve/{id}', [BookApprovalController::class, 'approve'])->name('books.approve');
         // end duyệt truyện
 
+
+        Route::resource('admin/banners', BannerController::class);
+
         // end phong
 
         //forum

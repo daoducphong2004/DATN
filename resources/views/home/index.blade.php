@@ -1,9 +1,7 @@
 @extends('home.layout.master')
 @section('content')
-
-
     <div class="page-top-group  at-index ">
-        <a href="/truyen/13957">
+        <a href="">
             <div class="index-background d-none d-lg-block"
                 style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"

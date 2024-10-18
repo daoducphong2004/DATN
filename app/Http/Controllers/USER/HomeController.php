@@ -108,7 +108,14 @@ class HomeController extends Controller
 
     public function convert()
     {
-        return view('home.convert');
+        $bookComments = bookcomment::with('book')
+        ->whereHas('book', function($query) {
+            $query->where('type', 2);
+        })
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+        return view('home.convert', compact('bookComments'));
     }
 
     // public function danhsach(){
@@ -120,15 +127,15 @@ class HomeController extends Controller
 
     // }
 
-    public function show(String $slug)
-    {
-        $book = Book::with('genres', 'episodes', 'group')
-            ->where('slug', $slug)
-            ->firstOrFail();
-        $episodes = $book->episodes;
-        // dd($book,$episodes);
-        return view('home.stories', compact('book', 'episodes'));
-    }
+    // public function show(String $slug)
+    // {
+    //     $book = Book::with('genres', 'episodes', 'group')
+    //         ->where('slug', $slug)
+    //         ->firstOrFail();
+    //     $episodes = $book->episodes;
+    //     // dd($book,$episodes);
+    //     return view('home.stories', compact('book', 'episodes'));
+    // }
 
     public function vuadang()
     {
@@ -146,7 +153,14 @@ class HomeController extends Controller
 
     public function sangtac()
     {
-        return view('home.sangtac');
+        $bookComments = bookcomment::with('book')
+        ->whereHas('book', function($query) {
+            $query->where('type', 3);
+        })
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+        return view('home.sangtac', compact('bookComments'));
     }
 
     public function xuatban()
@@ -154,10 +168,10 @@ class HomeController extends Controller
         return view('home.xuatban');
     }
 
-    public function the_loai()
-    {
-        return view('home.the_loai');
-    }
+    // public function the_loai()
+    // {
+    //     return view('home.the_loai');
+    // }
 
     public function huongdan_dangtruyen()
     {

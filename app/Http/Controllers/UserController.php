@@ -14,9 +14,6 @@ class UserController extends Controller
         try {
             $users = User::paginate(10);
             return view('admin.users.index', compact('users'));
-            // dd($users);
-            // $groups = group::paginate(10);
-            // return view('admin.group.index', compact('groups'));
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to load User: ' . $e->getMessage()]);
         }

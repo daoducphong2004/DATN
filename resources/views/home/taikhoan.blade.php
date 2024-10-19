@@ -24,7 +24,7 @@
                                                                     <div id="profile-changer_ava" class="profile-changer">
                                         <span class="p-c_text"><i class="fas fa-camera"></i></span>
                                     </div>
-                                                                <img src="https://docln.net/img/noava.png">
+                                                                <img src="{{!empty($userInfor) ? $userInfor->avatar_url : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWwfGUCDwrZZK12xVpCOqngxSpn0BDpq6ewQ&s'}}">
                             </div>
                         </div>
                         <div class="profile-function at-desktop none block-m">
@@ -33,7 +33,7 @@
                         <div class="profile-intro">
                             <!-- <span class="line-through decoration-4"></span>-->
                             <h3 class="profile-intro_name text-lg font-bold ">
-                                LinhLinh931993
+                                {{!empty($userInfor) ? $userInfor->username : ''}}
                             </h3>
                             <div class="flex flex-wrap gap-x-2 gap-y-2 align-middle pt-1 justify-center md:justify-start">
                     </div>
@@ -78,16 +78,16 @@
                         <ul class="statistic-top row">
                             <li class="col-6">
                                 <div class="statistic-value">
-                                    0
+                                    {{$countChapters}}
                                 </div>
                                 <div class="statistic-name">Chương đã đăng</div>
                             </li>
                             <li class="col-6">
-                                <div class="statistic-value">1</div>
+                                <div class="statistic-value">{{$countBookmark}}</div>
                                 <div class="statistic-name">Đang theo dõi</div>
                             </li>
                             <li class="col-12 mt-2">
-                                <div class="statistic-value"><a href="https://docln.net/lich-su-binh-luan">0</a></div>
+                                <div class="statistic-value"><a href="https://docln.net/lich-su-binh-luan">{{$countComment}}</a></div>
                                 <div class="statistic-name">Bình luận</div>
                             </li>
                         </ul>
@@ -100,20 +100,103 @@
                     </section>
                 </div>
                 <div class="col-12 col-md-12 col-lg-9 col-xl-9">
+                    <!-- Section for "Truyện đã đăng" -->
                     <section class="profile-showcase">
-                        <header><span class="number">0</span><span class="showcase-title">Truyện đã đăng</span></header>
+                        <header><span class="number">{{ $userBooks->count() }}</span><span class="showcase-title">Truyện đã đăng</span></header>
                         <div class="row">
-                                                            <span>Không có truyện nào</span>
-                                                    </div>
+                            @foreach($userBooks as $book)
+                            <div class="col-12 col-md-6">
+                                <div class="showcase-item">
+                                    <div class="row">
+                                        <div class="series-cover col-4">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="series-info">
+                                                <div class="series-type-wrapper">
+                                                    <small class="series-type type-translation">
+                                                        {{ $book->is_VIP ? 'Truyện VIP' : 'Truyện thường' }}
+                                                    </small>
+                                                </div>
+                                                <h5 class="series-name text-base font-bold">
+                                                    <a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a>
+                                                </h5>
+                                            </div>
+                                            <div class="series-status">
+                                                <div class="status-item">
+                                                    <span class="status-name">Tình trạng:</span>
+                                                    <span class="status-value">{{ $book->status == 1 ? 'Đang tiến hành' : 'Đã hoàn thành' }}</span>
+                                                </div>
+                                                <div class="status-item">
+                                                    <span class="status-name">Lần cuối:</span>
+                                                    <span class="status-value">
+                                                        <time class="timeago" title="{{ $book->updated_at->format('d/m/Y H:i:s') }}"
+                                                            datetime="{{ $book->updated_at }}">{{ $book->updated_at->diffForHumans() }}</time>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </section>
 
+                    <!-- Section for "Truyện đang tham gia" -->
                     <section class="profile-showcase">
-                        <header><span class="number">0</span><span class="showcase-title">Truyện đang tham gia</span></header>
+                        <header><span class="number">1</span><span class="showcase-title">Truyện đang tham gia</span></header>
                         <div class="row">
-                                                            <span>Không có truyện nào</span>
-                                                    </div>
+                            @if($bookHasJoin->isNotEmpty())
+                            @foreach($bookHasJoin as $book)
+                            <div class="col-12 col-md-6">
+                                <div class="showcase-item">
+                                    <div class="row">
+                                        <div class="series-cover col-4">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="series-info">
+                                                <div class="series-type-wrapper">
+                                                    <small class="series-type type-translation">
+                                                        {{ $book->is_VIP ? 'Truyện VIP' : 'Truyện thường' }}
+                                                    </small>
+                                                </div>
+                                                <h5 class="series-name text-base font-bold">
+                                                    <a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a>
+                                                </h5>
+                                            </div>
+                                            <div class="series-status">
+                                                <div class="status-item">
+                                                    <span class="status-name">Tình trạng:</span>
+                                                    <span class="status-value">{{ $book->status == 1 ? 'Đang tiến hành' : 'Đã hoàn thành' }}</span>
+                                                </div>
+                                                <div class="status-item">
+                                                    <span class="status-name">Lần cuối:</span>
+                                                    <span class="status-value">
+                                                        <time class="timeago" title="{{ $book->updated_at->format('d/m/Y H:i:s') }}"
+                                                            datetime="{{ $book->updated_at }}">{{ $book->updated_at->diffForHumans() }}</time>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
                     </section>
                 </div>
+
             </div>
         </div>
     </main>

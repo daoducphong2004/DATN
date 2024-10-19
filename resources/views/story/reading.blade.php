@@ -21,7 +21,20 @@
             </div>
 
             <div id="chapter-content" class="long-text text-justify" style="font-family:'Nunito', 'Times New Roman', Georgia, serif;">
-                {!!$chapter->content !!}
+                @if ($canViewFullContent)
+                {{-- Nếu người dùng đã mua hoặc chương miễn phí, hiển thị toàn bộ nội dung --}}
+                {!! $fullContent !!}
+            @else
+                {{-- Nếu người dùng chưa mua, hiển thị một phần nội dung và nút mua chương --}}
+                {!! $partialContent !!}
+                <div class="buy-chapter mt-4">
+                    <p class="text-red-500">Bạn cần mua chương này để đọc tiếp phần còn lại.</p>
+                    <a   href="javascript:void(0);"
+                    onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                        Mua chương với giá {{ $chapter->price }} coin
+                    </a>
+                </div>
+            @endif
             </div>
 
             <div style="text-align: center; margin: 20px auto 10px auto;">
@@ -40,7 +53,37 @@
             @include('story.layout.reading.comment')
         </div>
     </div>
+    <div id="purchaseModal" class="purchase-modal" style="display:none;">
+        <div class="purchase-modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Xác nhận mua chương</h2>
+            <p id="modalContent">Bạn có chắc chắn muốn mua chương này với giá <span
+                    id="chapterPrice"></span> coin?</p>
+            <a href="#" id="confirmPurchaseButton" class="btn btn-primary">Xác nhận</a>
+            <div style="display: block; width: 10px;"></div>
+            <button onclick="closeModal()" class="btn btn-secondary">Hủy</button>
+        </div>
+    </div>
 </div>
 </main>
+<script>
+    function saveReadingHistory(storyId) {
+    fetch('/reading-history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            story_id: storyId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+    });
+}
+
+</script>
 @include('story.partials.script')
 @endsection

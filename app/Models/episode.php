@@ -15,6 +15,7 @@ class episode extends Model
         'title',
         'description',
         'episode_path',
+        'slug',
         'book_id',
         'user_id',
 

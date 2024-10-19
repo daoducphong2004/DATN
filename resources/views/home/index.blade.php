@@ -1,13 +1,11 @@
 @extends('home.layout.master')
 @section('content')
-
-
     <div class="page-top-group  at-index ">
-        <a href="/truyen/13957">
+        <a href="">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{asset('users/user/img/path/12890_d_l.jpg')}}')"></div>
+                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{asset('users/user/img/path/12890_m_l.jpg')}}'); background-size: cover">
+                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>
@@ -19,8 +17,8 @@
                     <div id="announcements" class="index-top_notification">
 
                         <div class="annoucement-item">
-                            <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat"
-                                style=" color:  Violet">SỰ KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
+                            <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat" style=" color:  Violet">SỰ
+                                KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
                         </div>
 
                         <div class="annoucement-item">
@@ -69,31 +67,32 @@
                     <div class="daily-recent_views">
                         <header class="title">
                             <span class="top-tab_title title-active"><i class="fas fa-trophy"></i> Nổi bật</span>
-                            <span class="top-tab_title"><a
-                                    href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=topthang">Top
-                                    tháng</a></span>
-                            <span class="top-tab_title"><a
-                                    href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=top">Toàn
-                                    t/gian</a></span>
+                            <span class="top-tab_title"><a href="#">Top tháng</a></span>
+                            <span class="top-tab_title"><a href="#">Toàn t/gian</a></span>
                         </header>
+                        <script>
+                            @if (session('error'))
+                                alert("{{ session('error') }}");
+                            @endif
+                        </script>
                         <main class="row slider d-block">
-                            @foreach ($data as $item)
+                            @foreach ($truyen_noibat as $item)
                                 {{-- bắt đầu truyện đơn --}}
                                 <div class="popular-thumb-item mr-1">
-                                        <div class="thumb-wrapper">
-                                            <a href="{{route('truyen.truyen', $item->slug)}}">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
-                                                    </div>
+                                    <div class="thumb-wrapper">
+                                        <a href="{{ route('truyen.truyen', $item->slug) }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
                                                 </div>
-                                            </a>
-                                            <div class="thumb-detail">
-                                                <div class="thumb_attr series-title"
-                                                    title="Cô nàng Yankee Shimizu-san bàn bên đã nhuộm tóc đen mất rồi"><a
-                                                        href="{{route('truyen.truyen', $item->slug)}}">{{ $item->title}}</a></div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr series-title" title=""><a
+                                                    href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                                 {{-- kết thúc truyện đơn --}}
                             @endforeach
@@ -108,65 +107,74 @@
                         </header>
                         <main>
                             {{-- bắt đầu bài thảo luận đơn --}}
+                            @foreach ($data_forum_home as $item_forum_home)
                             <div class="topic-item">
                                 <div class="row">
                                     <div class="col-9 line-ellipsis">
-                                        <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
+                                        <i class="fas fa-circle" style="color: {{$item_forum_home->color}}; margin-right: 4px;"></i>
                                         <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2572581&amp;reply_id=2573000#ln-comment-2573000"
-                                            title="Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0">
-                                            Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
+                                            title="{{$item_forum_home->title}}">
+                                            {{$item_forum_home->title}}
                                         </a>
                                     </div>
                                     <div class="col-3 topic-data text-right">
-                                        <time class="timeago" title="31-08-2024 07:18:30"
-                                            datetime="2024-08-31T07:18:30+07:00"></time>
+                                        <time class="timeago" title="{{$item_forum_home->created_at}}"
+                                            datetime="{{$item_forum_home->created_at}}"></time>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                             {{-- kết thúc thảo luận đơn --}}
-                            <div class="topic-item">
-                                <div class="row">
-                                    <div class="col-9 line-ellipsis">
-                                        <i class="fas fa-circle" style="color: #eb1d57; margin-right: 4px;"></i>
-                                        <a href="/thao-luan/1610-trang-yeu-cau-xoa-truyentapchuong?comment_id=2572306&amp;reply_id=2572686#ln-comment-2572686"
-                                            title="Trang yêu cầu xóa truyện/tập/chương">
-                                            Trang yêu cầu xóa truyện/tập/chương
-                                        </a>
-                                    </div>
-                                    <div class="col-3 topic-data text-right">
-                                        <time class="timeago" title="30-08-2024 22:12:52"
-                                            datetime="2024-08-30T22:12:52+07:00"></time>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="topic-item">
-                                <div class="row">
-                                    <div class="col-9 line-ellipsis">
-                                        <i class="fas fa-circle" style="color: #28e1e8; margin-right: 4px;"></i>
-                                        <a href="/thao-luan/2874-ai-doc-roi-cho-minh-xin-xiu-y-de-sua"
-                                            title="Ai đọc rồi cho mình xin xíu ý đê sửa">
-                                            Ai đọc rồi cho mình xin xíu ý đê sửa
-                                        </a>
-                                    </div>
-                                    <div class="col-3 topic-data text-right">
-                                        <time class="timeago" title="30-08-2024 21:59:16"
-                                            datetime="2024-08-30T21:59:16+07:00"></time>
-                                    </div>
-                                </div>
-                            </div>
+
                         </main>
                     </section>
-
                     {{-- Lịch sử truyện vừa đọc --}}
                     <div class="d-lg-none" style="margin-top: 20px">
                         <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
                             <header class="section-title">
-                                <a href="https://docln.net/lich-su-doc">
+                                <a href="https://ln.hako.vn/lich-su-doc">
                                     <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
                                 </a>
                             </header>
                             <main class="sect-body">
-                                Chưa có lịch sử đọc!
+                                {{-- Phần hiển thị cho màn hình mobile --}}
+                                <div class="d-lg-none">
+                                    @if (empty($readingHistories))
+                                    <p>Chưa có lịch sử đọc!</p>
+                                @else
+                                    @foreach ($readingHistories as $chapter)
+                                        {{-- {{ dd($chapter) }} --}}
+                                        @if (auth()->check())
+                                            @php
+                                                // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
+                                                $book = $chapter->book; // Lấy book tương ứng
+                                            @endphp
+                                        @else
+                                            @php
+                                                // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
+                                                $episode = $chapter->episode; // Lấy episode tương ứng
+                                                $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                            @endphp
+                                        @endif
+
+                                        <div class="row ml-1 mb-3">
+                                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
+                                                <div class="img-contain-ratio content"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                            <div class="col-8 col-md-9 col-lg-8">
+                                                <a href="/truyen/{{ $book->slug }}"
+                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <div class="small mb-3 text-truncate">Web Novel</div>
+                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                    class="text-truncate block">{{ $chapter->title }}</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                                </div>
+
                             </main>
                         </section>
                     </div>
@@ -184,36 +192,36 @@
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <section class="index-section thumb-section-flow last-chapter original one-row">
-                        <header class="section-title"><span class="sts-bold">Sáng tác</span><span
-                                class="sts-empty">Mới Nhất</span></header>
+                        <header class="section-title"><span class="sts-bold">Sáng tác</span><span class="sts-empty">Mới
+                                Nhất</span></header>
                         <main class="row">
-
-                            {{-- Bắt đầu truyện đơn --}}
-                            <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
-                                <div class="thumb-wrapper ln-tooltip">
-                                    <a href="/sang-tac/17768-tro-thanh-quy-toc-tai-di-gioi/c142234-chuong-15-con-duong-thanh-than"
-                                        title="Chương 15: Con đường thành thần">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio lazyload"
-                                                data-bg="https://i2.docln.net/ln/series/covers/s17768-3949a606-d319-4347-8411-283a037baf06.jpg">
+                            @foreach ($sangtac_moinhat as $item)
+                                {{-- Bắt đầu truyện đơn --}}
+                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
+                                    <div class="thumb-wrapper ln-tooltip">
+                                        <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio lazyload"
+                                                    data-bg="{{ asset(Storage::url($item->book->book_path)) }}">
+                                                </div>
                                             </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                                    {{ $item->title }}
+                                                </a>
+                                            </div>
+                                            <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                         </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr chapter-title" title="Chương 15: Con đường thành thần">
-                                            <a href="/sang-tac/17768-tro-thanh-quy-toc-tai-di-gioi/c142234-chuong-15-con-duong-thanh-than"
-                                                title="Chương 15: Con đường thành thần">Chương 15: Con đường thành
-                                                thần</a>
-                                        </div>
-                                        <div class="thumb_attr volume-title">Quyển 1: Dị giới</div>
+                                    </div>
+                                    <div class="thumb_attr series-title"><a
+                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
-                                <div class="thumb_attr series-title"><a
-                                        href="/sang-tac/17768-tro-thanh-quy-toc-tai-di-gioi"
-                                        title="Trở Thành Quý Tộc Ở Thế Giới Khác">Trở Thành Quý Tộc Ở Thế Giới Khác</a>
-                                </div>
-                            </div>
-                            {{-- kết thúc truyện đơn --}}
+                                {{-- kết thúc truyện đơn --}}
+                            @endforeach
 
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
                                 <div class="thumb-wrapper">
@@ -221,12 +229,12 @@
                                         <div class="content img-in-ratio"
                                             style="background-image: url('img/nocover.jpg');"></div>
                                     </div>
-                                    <a href="https://docln.net/sang-tac">
+                                    <a href="/sangtac">
                                         <div class="thumb-see-more">
                                             <div class="see-more-inside">
                                                 <div class="see-more-content">
-                                                    <div class="see-more-icon"><i
-                                                            class="fas fa-arrow-circle-right"></i></div>
+                                                    <div class="see-more-icon"><i class="fas fa-arrow-circle-right"></i>
+                                                    </div>
                                                     <div class="see-more-text">Xem thêm</div>
                                                 </div>
                                             </div>
@@ -243,31 +251,30 @@
                             <span class="sts-bold">Chương</span><span class="sts-empty">mới nhất</span>
                         </header>
                         <main class="row">
-                            {{-- Bắt đầu truyện đơn  --}}
-                            <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                                <div class="thumb-wrapper ln-tooltip">
-                                    <a href="/truyen/18315-chuyen-sinh-vao-game-romcom-yandere-co-nang-nguy-hiem-bong-nhien-tro-thanh-em-gai-toi/c142233-chap-54-em-ay-da-quen"
-                                        title="Chap 54: Em ấy đã quên">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio lazyload"
-                                                data-bg="https://docln.net/img/nocover.jpg"></div>
+                            @foreach ($chuong_moinhat as $item)
+                                {{-- Bắt đầu truyện đơn  --}}
+                                <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                                    <div class="thumb-wrapper ln-tooltip">
+                                        <a href="{{ route('truyen.chuong', $item->slug) }}"
+                                            title="{{ $item->title }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio lazyload"
+                                                    data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}"></div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
+                                                    href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                            <div class="thumb_attr volume-title">{{ $item->title }}</div>
                                         </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
-                                                href="/truyen/18315-chuyen-sinh-vao-game-romcom-yandere-co-nang-nguy-hiem-bong-nhien-tro-thanh-em-gai-toi/c142233-chap-54-em-ay-da-quen"
-                                                title="Chap 54: Em ấy đã quên">Chap 54: Em ấy đã quên</a></div>
-                                        <div class="thumb_attr volume-title">WN</div>
+                                    </div>
+                                    <div class="thumb_attr series-title"><a
+                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
-                                <div class="thumb_attr series-title"><a
-                                        href="/truyen/18315-chuyen-sinh-vao-game-romcom-yandere-co-nang-nguy-hiem-bong-nhien-tro-thanh-em-gai-toi"
-                                        title="Chuyển sinh vào game Romcom Yandere, cô nàng nguy hiểm bỗng nhiên trở thành em gái tôi.">Chuyển
-                                        sinh vào game Romcom Yandere, cô nàng nguy hiểm bỗng nhiên trở thành em gái
-                                        tôi.</a>
-                                </div>
-                            </div>
-                            {{-- Kết thúc truyện đơn --}}
+                                {{-- Kết thúc truyện đơn --}}
+                            @endforeach
 
 
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
@@ -276,12 +283,12 @@
                                         <div class="content img-in-ratio"
                                             style="background-image: url('img/nocover.jpg');"></div>
                                     </div>
-                                    <a href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=capnhat">
+                                    <a href="/danh-sach?truyendich=1&amp;sapxep=capnhat">
                                         <div class="thumb-see-more">
                                             <div class="see-more-inside">
                                                 <div class="see-more-content">
-                                                    <div class="see-more-icon"><i
-                                                            class="fas fa-arrow-circle-right"></i></div>
+                                                    <div class="see-more-icon"><i class="fas fa-arrow-circle-right"></i>
+                                                    </div>
                                                     <div class="see-more-text">Xem thêm</div>
                                                 </div>
                                             </div>
@@ -297,53 +304,88 @@
                     <div class="d-none d-lg-block">
                         <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
                             <header class="section-title">
-                                <a href="https://docln.net/lich-su-doc">
+                                <a href="https://ln.hako.vn/lich-su-doc">
                                     <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
                                 </a>
                             </header>
                             <main class="sect-body">
-                                Chưa có lịch sử đọc!
+                                @if (empty($readingHistories))
+                                    <p>Chưa có lịch sử đọc!</p>
+                                @else
+                                    @foreach ($readingHistories as $history)
+                                        {{-- {{ dd($history) }} --}}
+                                        @if (auth()->check())
+                                            @php
+                                               $episode = $history->episode; // Lấy episode tương ứng
+                                               $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                               $chapter = $history->chapter;
+
+                                           @endphp
+                                        @else
+                                            @php
+                                                // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
+                                                $episode = $history->episode; // Lấy episode tương ứng
+                                                $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+
+                                          @endphp
+                                        @endif
+
+                                        <div class="row ml-1 mb-3">
+                                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
+                                                <div class="img-contain-ratio content"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                </div>
+                                            </div>
+                                            <div class="col-8 col-md-9 col-lg-8">
+                                                <a href="/truyen/{{ $book->slug }}"
+                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <div class="small mb-3 text-truncate">Web Novel</div>
+                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                    class="text-truncate block">{{ $chapter->title }}</a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </main>
                         </section>
                     </div>
+
                     <section id="recent-comments" class="index-section">
                         <header class="section-title">
                             <span class="sts-bold">Bình luận</span><span class="sts-empty">gần đây</span>
                         </header>
                         <main class="sect-body pr-5">
-                            {{-- Bắt đầu comment --}}
-                            <div class="comment-item-at-index">
-                                <div class="comment-info">
-                                    <span class="series-name"><a
-                                            href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">Hakuyoku
-                                            no Polaris</a></span>
-
-                                    <div class="comment-content">
-                                        var
-                                    </div>
-
-                                    <div class="comment-top">
-                                        <div class="comment-user_ava">
-                                            <a href="https://docln.net/thanh-vien/142791">
-                                                <img src="https://i2.docln.net/ln/users/avatars/u142791-c5ea9c36-b7e4-4103-b69f-6dfa31fd9dee.jpg"
-                                                    alt="Commenter's avatar">
-                                            </a>
+                            @foreach($bookComments as $comment)
+                                <div class="comment-item-at-index">
+                                    <div class="comment-info">
+                                        <span class="series-name"><a
+                                            href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
+                                        </span>
+                                        <div class="comment-content">
+                                            {{ $comment->content }}
                                         </div>
-                                        <a href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031"
-                                            rel="nofollow" class="comment-user_name strong">m4dness</a>
-                                        <small class="comment-location">
-                                            <a
-                                                href="https://docln.net/truyen/16865-hakuyoku-no-polaris?comment_id=2573031#ln-comment-2573031">
-                                                <time class="timeago" title="31-08-2024 08:15:25"
-                                                    datetime="2024-08-31T08:15:25+07:00">
-                                                    31-08-2024 08:15:25
-                                                </time>
-                                            </a>
-                                        </small>
+
+                                        <div class="comment-top">
+                                            <div class="comment-user_ava">
+                                                <a href="">
+                                                    <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                        alt="Commenter's avatar">
+                                                </a>
+                                            </div>
+                                            <a href=""
+                                                rel="nofollow" class="comment-user_name strong">{{ $comment->user->username }}</a>
+                                            <small class="comment-location">
+                                                <a href="#">
+                                                    <time class="timeago" title=""
+                                                        datetime="{{ $comment->created_at }}">
+                                                        {{ $comment->created_at->diffForHumans() }}
+                                                    </time>
+                                                </a>
+                                            </small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- kết thúc comment --}}
+                            @endforeach
                         </main>
                     </section>
                 </div>
@@ -358,50 +400,46 @@
                 <div class="row">
                     <div class="col-12 col-md-8 col-lg-9">
                         <section class="index-section new-series">
-                            <header class="section-title"><span class="sts-bold">Truyện</span><span
-                                    class="sts-empty">Vừa Đăng</span>
+                            <header class="section-title"><span class="sts-bold">Truyện</span><span class="sts-empty">Vừa
+                                    Đăng</span>
                             </header>
                             <main class="sect-body">
                                 <div class="row">
-
-                                    {{-- bắt đầu truyện  --}}
-                                    <article class="list-item list-none col-12 col-lg-6">
-                                        <div class="row">
-                                            <div class="col-4 col-md-3 col-lg-4">
-                                                <div class="series-cover">
-                                                    <a href="/truyen/19103-ngoi-nha-quy-di">
-                                                        <div class="a6-ratio">
-                                                            <div class="content img-in-ratio lazyload"
-                                                                data-bg="https://i2.docln.net/ln/series/covers/s19103-11931bc8-0477-4e2c-95d0-5266dad9d570.jpg">
+                                    @foreach ($truyen_vuadang as $item)
+                                        {{-- bắt đầu truyện  --}}
+                                        <article class="list-item list-none col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-4 col-md-3 col-lg-4">
+                                                    <div class="series-cover">
+                                                        <a href="{{ route('truyen.truyen', $item->slug) }}">
+                                                            <div class="a6-ratio">
+                                                                <div class="content img-in-ratio lazyload"
+                                                                    data-bg="{{ asset(Storage::url($item->book_path)) }}">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-8 col-md-9 col-lg-8">
-                                                <div class="list-detail">
-                                                    <h4 class="series-title text-xl font-bold"><a
-                                                            href="/truyen/19103-ngoi-nha-quy-di">ngôi nhà quỷ dị</a>
-                                                    </h4>
-                                                    <div class="series-summary">Một chiếc xe buýt không có tài xế, chở
-                                                        theo một nhóm người bị nguyền rủa, tiến đến một ngôi nhà ma quái
-                                                        màu đen...
-                                                        Trong...</div>
-                                                    <div class="lastest-chapter">
-                                                        <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                            <small>cánh cửa thứ nhất</small>-->
+                                                <div class="col-8 col-md-9 col-lg-8">
+                                                    <div class="list-detail">
+                                                        <h4 class="series-title text-xl font-bold"><a
+                                                                href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                        </h4>
+                                                        <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
+                                                        <div class="lastest-chapter">
+                                                            <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
+                                                                                                    <small>cánh cửa thứ nhất</small>-->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </article>
-                                    {{-- kết thúc truyện --}}
-
+                                        </article>
+                                        {{-- kết thúc truyện --}}
+                                    @endforeach
                                 </div>
                             </main>
                             <div class="see-more_cover">
-                                <a class="see-more"
-                                    href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=truyenmoi">
+                                <a class="see-more" href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=truyenmoi">
                                     <i class="fas fa-hand-point-right"></i>Xem thêm
                                 </a>
                             </div>
@@ -488,30 +526,32 @@
                     <span class="sts-bold">Truyện</span><span class="sts-empty">đã hoàn thành</span>
                 </header>
                 <main class="row slider">
-                    {{-- truyện bắt đầu ( ở đây sẽ lấy chapter cuôis) --}}
-                    <div class="thumb-item-flow thumb-slider">
-                        <div class="thumb-wrapper">
-                            <a href="/truyen/5842-ngay-ay-co-trai-bom-roi/c56348-oneshot" title="Oneshot">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio lazyload"
-                                        data-bg="https://i.docln.net/lightnovel/covers/s5842-b6df17ff-6eed-4121-9057-4899fa49ed34-m.jpg">
+                    @foreach ($truyen_dahoanthanh as $item)
+                        {{-- truyện bắt đầu ( ở đây sẽ lấy chapter cuối) --}}
+                        <div class="thumb-item-flow thumb-slider">
+                            <div class="thumb-wrapper">
+                                <a href="{{ route('truyen.truyen', $item->slug) }}" title="Oneshot">
+                                    <div class="a6-ratio">
+                                        <div class="content img-in-ratio lazyload"
+                                            data-bg="{{ asset(Storage::url($item->book_path)) }}">
+                                        </div>
                                     </div>
+                                </a>
+                                <div class="thumb-detail">
+                                    <div class="thumb_attr chapter-title" title="Oneshot"><a
+                                            href="{{ route('truyen.truyen', $item->slug) }}"
+                                            title="Oneshot">{{ $item->title }}</a></div>
+                                    <div class="thumb_attr volume-title">{{ $item->title }}</div>
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Oneshot"><a
-                                        href="/truyen/5842-ngay-ay-co-trai-bom-roi/c56348-oneshot"
-                                        title="Oneshot">Oneshot</a></div>
-                                <div class="thumb_attr volume-title">Truyện ngắn</div>
                             </div>
+                            <div class="thumb_attr series-title"><a href="{{route('truyen.truyen', $item->slug)}}"
+                                    title="{{ $item->title}}">{{ $item->title}}</a></div>
                         </div>
-                        <div class="thumb_attr series-title"><a href="/truyen/5842-ngay-ay-co-trai-bom-roi"
-                                title="Ngày ấy, có trái bom rơi">Ngày ấy, có trái bom rơi</a></div>
-                    </div>
-                    {{-- truyện kết thúc --}}
+                        {{-- truyện kết thúc --}}
+                    @endforeach
                 </main>
             </section>
         </div>
 
 
-@endsection
+    @endsection

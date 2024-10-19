@@ -1,11 +1,11 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
+    <div class="page-top-group  at-index ">
+        <a href="">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
+                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
+                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>

@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
+use App\Http\Controllers\Auth\AccountController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
@@ -12,6 +15,7 @@ use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
@@ -19,22 +23,23 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
+use App\Http\Controllers\FilterController;
+use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\ReadingHistoryController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SharedBookController;
+use App\Http\Controllers\StoryManageController;
 use App\Models\book;
 use App\Models\episode;
 use App\Models\genre;
+use App\Models\SharedBook;
 use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Auth::routes();
 
@@ -42,48 +47,62 @@ Route::get('home', [HomeController::class, 'index']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
-Route::get('login', [UserController::class, 'dialogLogin'])->name('dialogLogin');
-Route::post('login', [UserController::class, 'login'])->name('login');
+Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
+Route::post('login', [AccountController::class, 'login'])->name('login');
+Route::get('register', [AccountController::class, 'register'])->name('register');
+Route::post('register', [AccountController::class, 'createAccount'])->name('createAccount');
+Route::get('email', [AccountController::class, 'email']);
+Route::get('reset', [AccountController::class, 'reset']);
 
-Route::get('gioithieu', [UserController::class, 'gioithieu']);
-Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('danhsach', [UserController::class, 'danhsach']);
-Route::get('vuadang', [UserController::class, 'vuadang']);
-Route::get('sangtac', [UserController::class, 'sangtac']);
-Route::get('xuatban', [UserController::class, 'xuatban']);
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+Route::get('convert', [HomeController::class, 'convert']);
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
 
-Route::get('huongdan_dangtruyen', [UserController::class, 'huongdan_dangtruyen']);
-Route::get('huongdan_gioithieu', [UserController::class, 'huongdan_gioithieu']);
-Route::get('huongdan_gopy', [UserController::class, 'huongdan_gopy']);
-Route::get('taikhoan', [UserController::class, 'taikhoan'])->name('taikhoan');
 
-Route::get('register', [UserController::class, 'register'])->name('register');
-Route::post('register', [UserController::class, 'createAccount'])->name('createAccount');
-Route::get('email', [UserController::class, 'email']);
-Route::get('reset', [UserController::class, 'reset']);
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
-Route::get('UserHome', [UserController::class, 'home']);
+Route::get('search', [HomeController::class, 'search']);
+Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('lichsu', [HomeController::class, 'lichsu']);
+Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tinnhan', [HomeController::class, 'tinnhan']);
+Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
+Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
+
+
+
+Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
-Route::get('conventThamGia', [UserController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [UserController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [UserController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [UserController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [UserController::class, 'thaoLuanCuaBan']);
-Route::get('theLoai', [UserController::class, 'theLoai']);
-Route::get('thuVien', [UserController::class, 'thuVien']);
-Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
-Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
-
+Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
+Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
+Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
+Route::get('theLoai', [HomeController::class, 'theLoai']);
+Route::get('thuVien', [HomeController::class, 'thuVien']);
+Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
+Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
+Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
+Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
+Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
+Route::get('search',[SearchController::class,'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
+
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+    Route::resource('bookComment', AdminBookCommentController::class);
 
     Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
     Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
@@ -113,7 +132,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
-    Route::get('/user', [ControllersUserController::class, 'index'])->name('user_index');
+    Route::get('/user', [ControllersUserController::class,'index'])->name('user_index');
     Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
     Route::post('/user/store', [ControllersUserController::class, 'store'])->name('user_store');
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
@@ -164,11 +183,41 @@ Route::get('stories/addchapter/{episode}', function (episode $episode) {
 })->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
-Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
+// Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
+Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
+Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
+Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
+Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+
+
+Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
+Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
+Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
+Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
+
+
+
+Route::get('/truyenDaDang',[StoryManageController::class,'StoryTranslatelist'])->name('manage.mytranslatebook');
+Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
+
+Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
+Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->name('manage.bookOLNshared');
+
+Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
+Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
+
+
+
+Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
+
 // End Phong
+
+//Thanh toan
+Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
+Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
 
 // User trong Group
 Route::prefix('groups')->group(function () {
@@ -177,6 +226,20 @@ Route::prefix('groups')->group(function () {
 });
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-Route::post('truyen/{slug}/{chapter_slug}/comment', [CommentChapterController::class, 'create'])->name('addChapterComment');
+
+
+// Rating hoalt
+// Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
+Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
+Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
 
 require __DIR__ . '/admin.php';
+
+Route::resource('author', AuthorController::class);
+Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
+
+// Bộ lọc
+Route::get('danh-sach', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
+Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
+Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');

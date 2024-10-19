@@ -17,31 +17,40 @@
             </div>
         @endif
         <h2 class="text-primary mb-4">Danh Sách Thể Loại Sách</h2>
-        <table border="1" class="table">
-            <tr>
-                <th>STT</th>
-                <th>Thể loại</th>
-                <th>Mô tả</th>
-                <th>
-                    <a class="btn btn-primary" href="">Thêm thể loại</a>
-                </th>
-            </tr>
-            {{-- @foreach ($comments as $comment) --}}
+        <table border="1" id="list-category" class="table">
+            <thead>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a class="btn btn-warning" href="">Sửa</a>
-                        <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
-                    </td>
+                    <th>STT</th>
+                    <th>Thể loại</th>
+                    <th>Mô tả</th>
+                    <th>
+                        <a class="btn btn-primary" href="">Thêm thể loại</a>
+                    </th>
                 </tr>
-            {{-- @endforeach --}}
+            </thead>
+            <tbody>
+                {{-- @foreach ($comments as $comment) --}}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a class="btn btn-warning" href="">Sửa</a>
+                            <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
+                        </td>
+                    </tr>
+                {{-- @endforeach --}}
+            </tbody>
         </table>
     </div>
 @endsection
 
 @push('scripts')
-
+    <script>
+        jQuery(document).ready(function() {
+            console.log("jQuery version:", jQuery.fn.jquery);
+            jQuery('#list-category').DataTable();
+        });
+    </script>
 @endpush
 

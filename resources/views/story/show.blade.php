@@ -1,4 +1,6 @@
 @extends('story.layout.master')
+
+
 @section('content')
     <div class="page-top-group ">
         <a href="/thao-luan/2591">
@@ -75,7 +77,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -88,13 +89,12 @@
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="https://docln.net/truyen/18997/danh-gia">
+                                                        <a href="/rating/{{$book->slug}}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
                                                                         class="far fa-star"></i></span>
-                                                                <span class="block feature-name">Đánh giá( sẽ làm
-                                                                    sau)</span>
+                                                                <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
 
@@ -162,8 +162,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Số từ( Phần này sẽ làm sau )</div>
-                                                <div class="statistic-value">8.681</div>
+                                                <div class="statistic-name">Số từ</div>
+                                                <div class="statistic-value">{{ $book->word_count ?? 0 }}</div>
+
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">
@@ -214,7 +215,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -419,20 +420,57 @@
                                             @foreach ($item->chapters as $chapter)
                                                 <li>
                                                     <div class="chapter-name">
+                                                        {{-- Hiển thị badge "Mới" nếu chương là mới --}}
                                                         @if ($chapter->is_new)
                                                             <div class="new-status badge">
                                                                 <div class="badge-item new">Mới</div>
                                                             </div>
                                                         @endif
+
+                                                        {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
                                                         @if ($chapter->contains_image)
                                                             <i class="fas fa-image" aria-hidden="true"
                                                                 title="Có chứa ảnh"></i>
                                                         @endif
-                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                            title="{{ $chapter->title }}">
-                                                            {{ $chapter->title }}
-                                                        </a>
+
+                                                        {{-- Kiểm tra giá của chương --}}
+                                                        @if ($chapter->price == 0)
+                                                            {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
+                                                            <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                title="{{ $chapter->title }}">
+                                                                {{ $chapter->title }} (Miễn phí)
+                                                            </a>
+                                                        @else
+                                                            {{-- Kiểm tra người dùng đã mua chương chưa --}}
+                                                            @if (auth()->check() &&
+                                                                    auth()->user()->hasPurchased($chapter->id))
+                                                                {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                    title="{{ $chapter->title }}">
+                                                                    {{ $chapter->title }}
+                                                                </a>
+                                                            @else
+                                                                {{-- Nếu chưa mua, hiển thị nút mua chương --}}
+                                                                <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                        title="{{ $chapter->title }}">
+                                                                        {{ $chapter->title }}
+                                                                    </a>
+
+                                                                    <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
+                                                                       href="javascript:void(0);"
+                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                                                                        {{ $chapter->price }} coin
+                                                                    </a>
+                                                                </span>
+
+
+
+                                                            @endif
+                                                        @endif
                                                     </div>
+
+                                                    {{-- Hiển thị thời gian tạo chương --}}
                                                     <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}
                                                     </div>
                                                 </li>
@@ -443,6 +481,17 @@
                             </main>
                         </section>
                     @endforeach
+                    <div id="purchaseModal" class="purchase-modal" style="display:none;">
+                        <div class="purchase-modal-content">
+                            <span class="close" onclick="closeModal()">&times;</span>
+                            <h2 id="modalTitle">Xác nhận mua chương</h2>
+                            <p id="modalContent">Bạn có chắc chắn muốn mua chương này với giá <span
+                                    id="chapterPrice"></span> coin?</p>
+                            <a href="#" id="confirmPurchaseButton" class="btn btn-primary">Xác nhận</a>
+                            <div style="display: block; width: 10px;"></div>
+                            <button onclick="closeModal()" class="btn btn-secondary">Hủy</button>
+                        </div>
+                    </div>
 
 
 
@@ -468,7 +517,7 @@
                     <section id="series-comments" class="basic-section">
                         <header class="sect-header tab-list">
                             <span class="sect-title tab-title" data-tab-index="1">Tổng bình luận <span
-                                    class="comments-count">(282)</span></span>
+                                    class="comments-count">({{ $totalComments }})</span></span>
                         </header>
                         <main id="fbcmt_root" class="comment-wrapper d-lg-block clear">
                             <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
@@ -476,31 +525,37 @@
                             <div id="tab-content-1" class="tab-content clear">
                                 <section class="ln-comment">
                                     <header>
-                                        <h3 class="text-lg font-bold dark:text-white">103 Bình luận </h3>
+                                        <h3 class="text-lg font-bold dark:text-white">{{ $totalComments }} Bình luận </h3>
                                         <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                                     </header>
 
                                     <main class="ln-comment-body">
                                         <div id="ln-comment-submit" class="ln-comment-form clear">
+                                            @if (Auth::check())
+                                                <form action="{{ route('addComment', $book->id) }}" method="POST"
+                                                    class="comment_form">
+                                                    @csrf
+                                                    <textarea name="content" class="" required></textarea>
 
-                                            <form action="{{ route('addComment', $book->id) }}" method="POST"
-                                                class="comment_form">
-                                                @csrf
-                                                <textarea name="content" class="" required></textarea>
-
-                                                <div class="comment_toolkit clear">
-                                                    <input class="button" type="submit" value="Đăng bình luận">
-                                                </div>
-                                            </form>
+                                                    <div class="comment_toolkit clear">
+                                                        <input class="button" type="submit" value="Đăng bình luận">
+                                                    </div>
+                                                </form>
+                                            @else
+                                                <p><strong style="font-size: 15px">Bạn phải <a
+                                                            href="{{ route('login') }}" style="color: red">đăng nhập</a>
+                                                        để bình luận.</strong></p>
+                                            @endif
                                         </div>
+
                                         @foreach ($comments as $comment)
                                             <div class="ln-comment-group">
                                                 <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2559913" data-parent="2559913">
+                                                    data-comment="2559913" data-parent="2559913"  x-data="{ showReplies: false, showReplyForm: false }">
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
+                                                                <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>
@@ -531,30 +586,24 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
+                                                                    @if (Auth::check())
+                                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                            <div @click="showReplies = !showReplies">
+                                                                                <i :class="showReplies ? 'fas fa-angle-up' : 'fas fa-angle-down'"></i>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="ln-comment-content long-text">
                                                                     {{ $comment->content }}
                                                                 </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
+                                                                {{-- <div class="comment_see_more expand none">Xem thêm</div> --}}
                                                                 <div
                                                                     class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913#ln-comment-2559913"
-                                                                        class="text-slate-500">
+                                                                    <a href="#">
                                                                         <time class="timeago" title="22-08-2024 09:59:00"
-                                                                            datetime="2024-08-22T09:59:00+07:00">
-                                                                            {{ $comment->created_at }}
+                                                                            datetime="{{ $comment->created_at }}">
+                                                                            {{ $comment->created_at->diffForHumans() }}
                                                                         </time>
                                                                     </a>
                                                                     <a
@@ -562,86 +611,58 @@
                                                                         <i class="fas fa-thumbs-up me-1"></i>
                                                                         <span class="likecount font-semibold">4</span>
                                                                     </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-reply cursor-pointer">
+                                                                    @if (Auth::check())
+                                                                        <a @click.prevent="showReplyForm = !showReplyForm" class="self-center visible-toolkit-item cursor-pointer">
+                                                                            <i class="fas fa-comment me-1"></i>
+                                                                            <span class="likecount font-semibold">Trả lời</span>
+                                                                        </a>
+                                                                    @endif
+                                                                    {{-- <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
+                                                                        class="self-center visible-toolkit-item cursor-pointer">
                                                                         <i class="fas fa-comment me-1"></i>
-                                                                        <span class="font-semibold">Trả lời</span>
+                                                                        <span class="likecount font-semibold">Trả
+                                                                            lời</span>
+                                                                    </a> --}}
+                                                                    <a href="">
+                                                                        <span>{{ $comment->replies->count() }} đã trả lời</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @foreach ($comment->replies as $reply)
-                                                    <div class="ln-comment-reply">
-                                                        <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
-                                                            data-comment="2560870" data-parent="2559913">
-                                                            <div class="flex gap-1 max-w-full">
-                                                                <div class="w-[50px]">
-                                                                    <div class="mx-1 my-1">
-                                                                        <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
-                                                                            class="w-full rounded-full" />
-                                                                    </div>
-                                                                </div>
-                                                                <div
-                                                                    class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                                    <div class="flex min-w-0 flex-col px-2">
-                                                                        <div class="flex align-top justify-between">
-                                                                            <div
-                                                                                class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                                <div class="self-center">
-                                                                                    <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                        href="{{ $reply->user->id }}">{{ $reply->user->username }}</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                                x-data="{ show: false }">
-                                                                                <div class="" @click="show = !show">
-                                                                                    <i class="fas fa-angle-down"></i>
-                                                                                </div>
-                                                                                <div class="ln-comment-toolkit"
-                                                                                    x-show="show"
-                                                                                    @click.outside="show = false"
-                                                                                    style="display: none">
 
-
-                                                                                </div>
-                                                                            </div>
+                                                    <div x-show="showReplyForm" class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}" x-cloak>
+                                                        {{-- @if (request('reply_to') == $comment->id) --}}
+                                                            <div class="ln-comment-reply ln-comment-form mt-3"
+                                                                id="reply-form-{{ $comment->id }}">
+                                                                @if (Auth::check())
+                                                                    <form action="{{ route('addComment', $book->id) }}"
+                                                                        method="POST" class="reply_form">
+                                                                        @csrf
+                                                                        <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                                                        <input type="hidden" name="parent_id"
+                                                                            value="{{ $comment->id }}">
+                                                                        <div class="comment_toolkit clear">
+                                                                            <input class="button" type="submit" value="Trả lời">
                                                                         </div>
-                                                                        <div class="ln-comment-content long-text">
-                                                                            {{ $reply->content }}
-                                                                        </div>
-                                                                        <div class="comment_see_more expand none">Xem thêm
-                                                                        </div>
-                                                                        <div
-                                                                            class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                            <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
-                                                                                class="text-slate-500">
-                                                                                <time class="timeago"
-                                                                                    title="22-08-2024 23:44:19"
-                                                                                    datetime="2024-08-22T23:44:19+07:00">
-                                                                                    {{ $reply->create_at }}
-                                                                                </time>
-                                                                            </a>
-                                                                            <a
-                                                                                class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                                <i class="fas fa-thumbs-up me-1"></i>
-                                                                                <span
-                                                                                    class="likecount font-semibold"></span>
-                                                                            </a>
-                                                                            <a
-                                                                                class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                                <i class="fas fa-comment me-1"></i>
-                                                                                <span class="font-semibold">Trả lời</span>
-                                                                            </a>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                    </form>
+                                                                @else
+                                                                    <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                                style="color: red">đăng nhập</a> để trả lời bình
+                                                                            luận.</strong></p>
+                                                                @endif
                                                             </div>
-                                                        </div>
+                                                        {{-- @endif --}}
                                                     </div>
-                                                @endforeach
+                                                    <div x-show="showReplies" class="mt-3" x-cloak>
+                                                        <!-- Lặp qua các replies -->
+                                                        @if ($comment->replies->isNotEmpty())
+                                                            @include('partials.comment', [
+                                                                'comments' => $comment->replies,
+                                                            ])
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endforeach
 
@@ -658,5 +679,13 @@
                                             </div>
                                         </div>
                                     </main>
-                                    @include('layouts.TinyMCEscript')
-                                @endsection
+                                    {{-- @include('layouts.TinyMCEscript') --}}
+                                </section>
+                            </div>
+                        </main>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+@endsection

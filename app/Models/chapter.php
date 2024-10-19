@@ -10,13 +10,15 @@ class chapter extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'id',
         'slug',
         'title',
         'content',
         'episode_id',
+        'word_count',
+        'price',
         'user_id',
     ];
+
 
     public function episode()
     {

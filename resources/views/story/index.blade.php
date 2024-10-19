@@ -1,11 +1,11 @@
 @extends('story.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="truyen/13957.html">
+    <div class="page-top-group  at-index ">
+        <a href="">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
+                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
+                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>
@@ -18,9 +18,9 @@
 
             <div class="container">
                 <div class="page-breadcrumb">
-                    <span class="breadcrum-level"><a href="index.html"><i class="fas fa-home"></i></a></span>
+                    <span class="breadcrum-level"><a href="/"><i class="fas fa-home"></i></a></span>
                     <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
-                    <span class="breadcrum-level"><a href="danh-sach.html">Danh sách</a></span>
+                    <span class="breadcrum-level"><a href="/danh-sach">Danh sách</a></span>
                 </div>
 
             </div>
@@ -36,36 +36,66 @@
                             <div class="title-wrapper">
                                 <div class="section-title">Chữ cái</div>
                             </div>
-                            <div class="browse-alphabet">
-                                <a class="alphabet_item  current " href="danh-sach.html">Tất cả</a>
-                                <a class="alphabet_item " href="danh-sach/khac.html">#</a>
-                                <a class="alphabet_item " href="danh-sach/a.html">A</a>
-                                <a class="alphabet_item " href="danh-sach/b.html">B</a>
-                                <a class="alphabet_item " href="danh-sach/c.html">C</a>
-                                <a class="alphabet_item " href="danh-sach/d.html">D</a>
-                                <a class="alphabet_item " href="danh-sach/e.html">E</a>
-                                <a class="alphabet_item " href="danh-sach/f.html">F</a>
-                                <a class="alphabet_item " href="danh-sach/g.html">G</a>
-                                <a class="alphabet_item " href="danh-sach/h.html">H</a>
-                                <a class="alphabet_item " href="danh-sach/i.html">I</a>
-                                <a class="alphabet_item " href="danh-sach/j.html">J</a>
-                                <a class="alphabet_item " href="danh-sach/k.html">K</a>
-                                <a class="alphabet_item " href="danh-sach/l.html">L</a>
-                                <a class="alphabet_item " href="danh-sach/m.html">M</a>
-                                <a class="alphabet_item " href="danh-sach/n.html">N</a>
-                                <a class="alphabet_item " href="danh-sach/o.html">O</a>
-                                <a class="alphabet_item " href="danh-sach/p.html">P</a>
-                                <a class="alphabet_item " href="danh-sach/q.html">Q</a>
-                                <a class="alphabet_item " href="danh-sach/r.html">R</a>
-                                <a class="alphabet_item " href="danh-sach/s.html">S</a>
-                                <a class="alphabet_item " href="danh-sach/t.html">T</a>
-                                <a class="alphabet_item " href="danh-sach/u.html">U</a>
-                                <a class="alphabet_item " href="danh-sach/v.html">V</a>
-                                <a class="alphabet_item " href="danh-sach/w.html">W</a>
-                                <a class="alphabet_item " href="danh-sach/x.html">X</a>
-                                <a class="alphabet_item " href="danh-sach/y.html">Y</a>
-                                <a class="alphabet_item " href="danh-sach/z.html">Z</a>
+                            {{-- <div class="browse-alphabet">
+                                <a class="alphabet_item  current " href="danh-sach">Tất cả</a>
+                                <a class="alphabet_item " href="danh-sach/khac">#</a>
+                                <a class="alphabet_item " href="danh-sach/a">A</a>
+                                <a class="alphabet_item " href="danh-sach/b">B</a>
+                                <a class="alphabet_item " href="danh-sach/c">C</a>
+                                <a class="alphabet_item " href="danh-sach/d">D</a>
+                                <a class="alphabet_item " href="danh-sach/e">E</a>
+                                <a class="alphabet_item " href="danh-sach/f">F</a>
+                                <a class="alphabet_item " href="danh-sach/g">G</a>
+                                <a class="alphabet_item " href="danh-sach/h">H</a>
+                                <a class="alphabet_item " href="danh-sach/i">I</a>
+                                <a class="alphabet_item " href="danh-sach/j">J</a>
+                                <a class="alphabet_item " href="danh-sach/k">K</a>
+                                <a class="alphabet_item " href="danh-sach/l">L</a>
+                                <a class="alphabet_item " href="danh-sach/m">M</a>
+                                <a class="alphabet_item " href="danh-sach/n">N</a>
+                                <a class="alphabet_item " href="danh-sach/o">O</a>
+                                <a class="alphabet_item " href="danh-sach/p">P</a>
+                                <a class="alphabet_item " href="danh-sach/q">Q</a>
+                                <a class="alphabet_item " href="danh-sach/r">R</a>
+                                <a class="alphabet_item " href="danh-sach/s">S</a>
+                                <a class="alphabet_item " href="danh-sach/t">T</a>
+                                <a class="alphabet_item " href="danh-sach/u">U</a>
+                                <a class="alphabet_item " href="danh-sach/v">V</a>
+                                <a class="alphabet_item " href="danh-sach/w">W</a>
+                                <a class="alphabet_item " href="danh-sach/x">X</a>
+                                <a class="alphabet_item " href="danh-sach/y">Y</a>
+                                <a class="alphabet_item " href="danh-sach/z">Z</a>
 
+                            </div> --}}
+                            <div class="browse-alphabet">
+                                <a class="alphabet_item {{ $alphabet === null ? 'current' : '' }}" href="{{ url('danh-sach') }}">Tất cả</a>
+                                <a class="alphabet_item {{ $alphabet === '#' ? 'current' : '' }}" href="{{ url('danh-sach/khac') }}">#</a>
+                                <a class="alphabet_item {{ $alphabet === 'a' ? 'current' : '' }}" href="{{ url('danh-sach/a') }}">A</a>
+                                <a class="alphabet_item {{ $alphabet === 'b' ? 'current' : '' }}" href="{{ url('danh-sach/b') }}">B</a>
+                                <a class="alphabet_item {{ $alphabet === 'c' ? 'current' : '' }}" href="{{ url('danh-sach/c') }}">C</a>
+                                <a class="alphabet_item {{ $alphabet === 'd' ? 'current' : '' }}" href="{{ url('danh-sach/d') }}">D</a>
+                                <a class="alphabet_item {{ $alphabet === 'e' ? 'current' : '' }}" href="{{ url('danh-sach/e') }}">E</a>
+                                <a class="alphabet_item {{ $alphabet === 'f' ? 'current' : '' }}" href="{{ url('danh-sach/f') }}">F</a>
+                                <a class="alphabet_item {{ $alphabet === 'g' ? 'current' : '' }}" href="{{ url('danh-sach/g') }}">G</a>
+                                <a class="alphabet_item {{ $alphabet === 'h' ? 'current' : '' }}" href="{{ url('danh-sach/h') }}">H</a>
+                                <a class="alphabet_item {{ $alphabet === 'i' ? 'current' : '' }}" href="{{ url('danh-sach/i') }}">I</a>
+                                <a class="alphabet_item {{ $alphabet === 'j' ? 'current' : '' }}" href="{{ url('danh-sach/j') }}">J</a>
+                                <a class="alphabet_item {{ $alphabet === 'k' ? 'current' : '' }}" href="{{ url('danh-sach/k') }}">K</a>
+                                <a class="alphabet_item {{ $alphabet === 'l' ? 'current' : '' }}" href="{{ url('danh-sach/l') }}">L</a>
+                                <a class="alphabet_item {{ $alphabet === 'm' ? 'current' : '' }}" href="{{ url('danh-sach/m') }}">M</a>
+                                <a class="alphabet_item {{ $alphabet === 'n' ? 'current' : '' }}" href="{{ url('danh-sach/n') }}">N</a>
+                                <a class="alphabet_item {{ $alphabet === 'o' ? 'current' : '' }}" href="{{ url('danh-sach/o') }}">O</a>
+                                <a class="alphabet_item {{ $alphabet === 'p' ? 'current' : '' }}" href="{{ url('danh-sach/p') }}">P</a>
+                                <a class="alphabet_item {{ $alphabet === 'q' ? 'current' : '' }}" href="{{ url('danh-sach/q') }}">Q</a>
+                                <a class="alphabet_item {{ $alphabet === 'r' ? 'current' : '' }}" href="{{ url('danh-sach/r') }}">R</a>
+                                <a class="alphabet_item {{ $alphabet === 's' ? 'current' : '' }}" href="{{ url('danh-sach/s') }}">S</a>
+                                <a class="alphabet_item {{ $alphabet === 't' ? 'current' : '' }}" href="{{ url('danh-sach/t') }}">T</a>
+                                <a class="alphabet_item {{ $alphabet === 'u' ? 'current' : '' }}" href="{{ url('danh-sach/u') }}">U</a>
+                                <a class="alphabet_item {{ $alphabet === 'v' ? 'current' : '' }}" href="{{ url('danh-sach/v') }}">V</a>
+                                <a class="alphabet_item {{ $alphabet === 'w' ? 'current' : '' }}" href="{{ url('danh-sach/w') }}">W</a>
+                                <a class="alphabet_item {{ $alphabet === 'x' ? 'current' : '' }}" href="{{ url('danh-sach/x') }}">X</a>
+                                <a class="alphabet_item {{ $alphabet === 'y' ? 'current' : '' }}" href="{{ url('danh-sach/y') }}">Y</a>
+                                <a class="alphabet_item {{ $alphabet === 'z' ? 'current' : '' }}" href="{{ url('danh-sach/z') }}">Z</a>
                             </div>
                         </section>
 
@@ -74,11 +104,16 @@
                                 <div class="section-title">Phân loại</div>
                             </div>
                             <div class="section-content">
-                                <ul class="filter-type unstyled">
+                                {{-- <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="truyendich" value="1" checked> Truyện dịch
                                     </li>
                                     <li><input type="checkbox" name="sangtac" value="1"> Truyện sáng tác</li>
                                     <li><input type="checkbox" name="convert" value="1"> Convert</li>
+                                </ul> --}}
+                                <ul class="filter-type unstyled">
+                                    <li><input type="checkbox" name="truyendich" value="1" {{ request('truyendich') ? 'checked' : '' }}> Truyện dịch</li>
+                                    <li><input type="checkbox" name="convert" value="1" {{ request('convert') ? 'checked' : '' }}> Convert</li>
+                                    <li><input type="checkbox" name="sangtac" value="1" {{ request('sangtac') ? 'checked' : '' }}> Truyện sáng tác</li>
                                 </ul>
                                 <div class="submit-wrapper">
                                     <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
@@ -92,12 +127,17 @@
                                 <div class="section-title">Tình trạng</div>
                             </div>
                             <div class="section-content">
-                                <ul class="filter-type unstyled">
+                                {{-- <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="dangtienhanh" value="1" checked> Đang tiến
                                         hành</li>
                                     <li><input type="checkbox" name="tamngung" value="1" checked> Tạm ngưng</li>
                                     <li><input type="checkbox" name="hoanthanh" value="1" checked> Đã hoàn thành
                                     </li>
+                                </ul> --}}
+                                <ul class="filter-type unstyled">
+                                    <li><input type="checkbox" name="dangtienhanh" value="1" {{ request('dangtienhanh') ? 'checked' : '' }}> Đang tiến hành</li>
+                                    <li><input type="checkbox" name="tamngung" value="1" {{ request('tamngung') ? 'checked' : '' }}> Tạm ngưng</li>
+                                    <li><input type="checkbox" name="hoanthanh" value="1" {{ request('hoanthanh') ? 'checked' : '' }}> Đã hoàn thành</li>
                                 </ul>
                                 <div class="submit-wrapper">
                                     <input type="submit" class="button bg-green-600 text-white hover:bg-green-700"
@@ -114,11 +154,11 @@
                             <div class="section-content">
                                 <ul class="filter-type unstyled clear">
                                     @foreach ($genres as $key => $value)
-                                        <li class="filter-type_item"><a
-                                                href="the-loai/{{ $value }}">{{ $key }}</a>
+                                        <li class="filter-type_item">
+                                            {{-- <a href="the-loai/{{ $value }}">{{ $key }}</a> --}}
+                                            <a href="{{ route('filterTheLoai', ['slug' => $value]) }}">{{ $key }}</a>
                                     @endforeach
-                                    <li class="filter-type_item"><a href="the-loai/action.html">Action</a>
-
+                                    {{-- <li class="filter-type_item"><a href="the-loai/action.html">Action</a> --}}
                                 </ul>
                             </div>
                         </section>
@@ -148,16 +188,19 @@
                                 <button class="button button-general type="submit" name="sapxep" value="topthang">
                                     <i class="fa fa-fire" aria-hidden="true"></i> Top tháng
                                 </button>  -->
-                                <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
-                                    <option value="tentruyen">A - Z</option>
-                                    <option value="tentruyenza">Z - A</option>
-                                    <option value="capnhat">Mới cập nhật</option>
-                                    <option value="truyenmoi">Truyện mới</option>
-                                    <option value="theodoi">Theo dõi</option>
-                                    <option value="top" selected=&quot;selected&quot;>Top toàn thời gian</option>
-                                    <option value="topthang">Top tháng</option>
-                                    <option value="sotu">Số từ</option>
-                                </select>
+                                <form method="GET" action="{{ route('filterDanhSach') }}">
+                                    <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
+                                        <option value="tentruyen" {{ request('sapxep') == 'tentruyen' ? 'selected' : '' }}>A - Z</option>
+                                        <option value="tentruyenza" {{ request('sapxep') == 'tentruyenza' ? 'selected' : '' }}>Z - A</option>
+                                        <option value="capnhat" {{ request('sapxep') == 'capnhat' ? 'selected' : '' }}>Mới cập nhật</option>
+                                        <option value="truyenmoi" {{ request('sapxep') == 'truyenmoi' ? 'selected' : '' }}>Truyện mới</option>
+                                        <option value="theodoi" {{ request('sapxep') == 'theodoi' ? 'selected' : '' }}>Theo dõi</option>
+                                        <option value="top" {{ request('sapxep') == 'top' ? 'selected' : '' }}>Top toàn thời gian</option>
+                                        <option value="topthang" {{ request('sapxep') == 'topthang' ? 'selected' : '' }}>Top tháng</option>
+                                        <option value="sotu" {{ request('sapxep') == 'sotu' ? 'selected' : '' }}>Số từ</option>
+                                    </select>
+                                </form>
+
                                 <div class="text-right inline-block-m right-m none-l">
                                     <span class="button button-green js-call-filters-wrapper"><i class="fas fa-filter"
                                             style="margin-right: 10px;"></i>Bộ lọc</span>

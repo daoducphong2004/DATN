@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactEmail;
 use App\Models\book;
 use App\Models\bookcomment;
 use App\Models\Bookmarks;
@@ -15,6 +16,7 @@ use App\Models\ReadingHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;

@@ -12,7 +12,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -20,41 +19,33 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Models\book;
-use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
 use App\Models\SharedBook;
 use Illuminate\Support\Facades\Auth;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index1']);
-Route::get('/', [HomeController::class, 'index1'])->name('home');
-
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
 Route::post('login', [AccountController::class, 'login'])->name('login');
@@ -120,14 +111,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/letter/update/{id}', [LetterController::class, 'update'])->name('letter_update');
     Route::delete('/letter/delete/{id}', [LetterController::class, 'destroy'])->name('letter_delete');
 
-
     Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
     Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
     Route::post('/bookmarks/store', [BookmarksController::class, 'store'])->name('bookmarks_store');
     Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
     Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
     Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
-
 
     Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');
     Route::get('/bookshelves/create', [BookshelvesController::class, 'create'])->name('bookshelves_create');
@@ -136,7 +125,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 
-
     Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
     Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
@@ -144,13 +132,12 @@ Route::prefix('admin')->group(function () {
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
-    Route::get('/user', [UserController::class,'index'])->name('user_index');
-    Route::get('/user/create', [UserController::class, 'create'])->name('user_create');
-    Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
-    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
-    Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user_update');
-    Route::delete('/user/delete/{id}', [UserController::class, 'destroy'])->name('user_delete');
-
+    Route::get('/user', [ControllersUserController::class,'index'])->name('user_index');
+    Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
+    Route::post('/user/store', [ControllersUserController::class, 'store'])->name('user_store');
+    Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
+    Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
+    Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -237,7 +224,6 @@ Route::prefix('groups')->group(function () {
     Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
     Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
 });
-
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 

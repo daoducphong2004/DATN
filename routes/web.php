@@ -43,8 +43,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index']);
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index1']);
+Route::get('/', [HomeController::class, 'index1'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');

@@ -221,7 +221,7 @@
                                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                         <div class="thumb-wrapper ln-tooltip"
                                             data-tooltip-content="#series_{{ $item->id }}">
-                                            <a href="truyen/{{ $item->slug }}"
+                                            <a href="../truyen/{{ $item->slug }}"
                                                 title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio lazyload"
@@ -232,7 +232,7 @@
                                             <div class="thumb-detail">
                                                 <div class="thumb_attr chapter-title"
                                                     title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
-                                                    <a href="truyen/{{ $item->slug }}"
+                                                    <a href="../truyen/{{ $item->slug }}"
                                                         title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                         {{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}
                                                     </a>
@@ -242,7 +242,7 @@
                                             </div>
                                         </div>
                                         <div class="thumb_attr series-title">
-                                            <a href="truyen/{{ $item->title }}"
+                                            <a href="../truyen/{{ $item->title }}"
                                                 title="{{ $item->title }}">{{ $item->title }}</a>
                                         </div>
                                     </div>

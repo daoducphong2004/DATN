@@ -199,7 +199,7 @@
                                 {{-- Bắt đầu truyện đơn --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
                                                     data-bg="{{ asset(Storage::url($item->book->book_path)) }}">
@@ -208,7 +208,7 @@
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="{{ $item->title }}">
-                                                <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
                                                     {{ $item->title }}
                                                 </a>
                                             </div>
@@ -216,7 +216,7 @@
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@
                                 {{-- Bắt đầu truyện đơn  --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.chuong', $item->slug) }}"
+                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
@@ -264,12 +264,12 @@
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
-                                                    href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
-                                            <div class="thumb_attr volume-title">{{ $item->title }}</div>
+                                                    href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                            <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>

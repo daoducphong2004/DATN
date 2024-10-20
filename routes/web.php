@@ -240,6 +240,5 @@ Route::resource('author', AuthorController::class);
 Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
 
 // Bộ lọc
-Route::get('danh-sach', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
-Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filter'])->name('filter');
+Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');

@@ -60,6 +60,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
+        $chapter->book_id=$book->id;
         $chapter->user_id = Auth::id();
         $chapter->content = $validatedData['content'];
         $chapter->price = $validatedData['price']; // Gán giá
@@ -139,7 +140,7 @@ class ChapterController extends Controller
 
         // Tìm chapter cần cập nhật
         $chapter = Chapter::findOrFail($id);
-
+        $book = Episode::findOrFail($validatedData['episode_id']);
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
 
@@ -150,6 +151,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+        $chapter->book_id=$book->id;
         $chapter->content = $validatedData['content'];
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới

@@ -252,6 +252,9 @@
                         </header>
                         <main class="row">
                             @foreach ($chuong_moinhat as $item)
+                                @php
+
+                                @endphp
                                 {{-- Bắt đầu truyện đơn  --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                     <div class="thumb-wrapper ln-tooltip">

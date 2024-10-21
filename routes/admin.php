@@ -20,6 +20,7 @@ use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
@@ -113,7 +114,7 @@ Route::prefix('admin')->group(function () {
         // end duyệt truyện
 
 
-        Route::resource('admin/banners', BannerController::class);
+        Route::resource('/banners', BannerController::class);
 
         // end phong
 

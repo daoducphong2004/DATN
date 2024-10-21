@@ -20,6 +20,7 @@ use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
@@ -189,8 +191,8 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
-Route::post('/chapters/{chapter}/purchase', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
-Route::get('/truyen/{book}/{chapter}/mua', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/chapters/{chapter}/purchase/{price}', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
+Route::get('/truyen/{book}/{chapter}/purchase/{price}', [ChapterController::class, 'purchase'])->name('chapter.purchase');
 
 
 Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
@@ -212,6 +214,9 @@ Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListSh
 
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
+Route::resource('banners', BannerController::class);
+
+Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
 
 // End Phong
 

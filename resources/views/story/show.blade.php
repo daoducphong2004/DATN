@@ -459,7 +459,7 @@
 
                                                                     <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
                                                                        href="javascript:void(0);"
-                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id,$chapter->price]) }}')">
                                                                         {{ $chapter->price }} coin
                                                                     </a>
                                                                 </span>

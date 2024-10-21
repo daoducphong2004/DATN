@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // $table->rememberToken();
+        Schema::table('banners', function (Blueprint $table) {
+            $table->string('device_type')->nullable(); // Thêm cột device_type
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('banners', function (Blueprint $table) {
+            $table->dropColumn('device_type'); // Xóa cột device_type nếu rollback
         });
     }
 };

@@ -124,3 +124,5 @@ Route::prefix('admin')->group(function () {
         Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
     });
 });
+
+

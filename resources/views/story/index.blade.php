@@ -1,11 +1,11 @@
 @extends('story.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="truyen/13957.html">
+    <div class="page-top-group  at-index ">
+        <a href="">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
+                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
+                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>
@@ -96,7 +96,7 @@
                                 <a class="alphabet_item {{ $alphabet === 'x' ? 'current' : '' }}" href="{{ url('danh-sach/x') }}">X</a>
                                 <a class="alphabet_item {{ $alphabet === 'y' ? 'current' : '' }}" href="{{ url('danh-sach/y') }}">Y</a>
                                 <a class="alphabet_item {{ $alphabet === 'z' ? 'current' : '' }}" href="{{ url('danh-sach/z') }}">Z</a>
-                            </div>                            
+                            </div>
                         </section>
 
                         <section class="sub-index-style filter-section">
@@ -200,7 +200,7 @@
                                         <option value="sotu" {{ request('sapxep') == 'sotu' ? 'selected' : '' }}>Số từ</option>
                                     </select>
                                 </form>
-                                
+
                                 <div class="text-right inline-block-m right-m none-l">
                                     <span class="button button-green js-call-filters-wrapper"><i class="fas fa-filter"
                                             style="margin-right: 10px;"></i>Bộ lọc</span>

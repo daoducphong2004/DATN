@@ -11,9 +11,9 @@
                 </div>
                 <ul class="navbar-menu none hidden-block at-mobile unstyle">
                     <div class="navbar-search block none-m in-navbar-menu">
-                        <form class="" action="" >
-                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
-                                value="">
+                        <form class="" action="{{route('search')}}" >
+                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title"
+                                >
                             <button  type="submit" value="Tìm kiếm"><i
                                     class="fas fa-search"></i></button>
                         </form>
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod'))
-                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a>
+                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
                         @endif
                     </li>
                 </ul>
@@ -92,7 +92,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="/UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -116,8 +116,8 @@
         </div>
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
-                <form class="" action="" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
+                <form class="" action="{{route('search')}}" method="get">
+                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 </form>
             </div>

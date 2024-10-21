@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactEmail;
 use App\Models\book;
 use App\Models\bookcomment;
 use App\Models\Bookmarks;
@@ -15,6 +16,7 @@ use App\Models\ReadingHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -62,7 +64,8 @@ class HomeController extends Controller
                             ->take(8) // Giới hạn 8 truyện
                             ->get();
 
-        $sangtac_moinhat = chapter::whereHas('book', function ($query) {
+        $sangtac_moinhat = chapter::with('book')
+                            ->whereHas('book', function ($query) {
                                 $query->where('Is_Inspect', 1)
                                       ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
                             })
@@ -70,12 +73,12 @@ class HomeController extends Controller
                             ->take(5) // Giới hạn 5 chương mới nhất
                             ->get();
 
-        $chuong_moinhat = DB::table('chapters')
-                            ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
-                            ->join('books', 'chapters.book_id', '=', 'books.id')
-                            ->where('books.Is_Inspect', 1)
-                            ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
-                            ->orderBy('chapters.created_at', 'desc')
+        $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
+                            ->whereHas('book', function($query) {
+                                $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
+                            })
+                            ->select('id', 'title', 'slug', 'book_id')
+                            ->orderBy('created_at', 'desc')
                             ->take(17)
                             ->get();
 
@@ -108,7 +111,14 @@ class HomeController extends Controller
 
     public function convert()
     {
-        return view('home.convert');
+        $bookComments = bookcomment::with('book')
+        ->whereHas('book', function($query) {
+            $query->where('type', 2);
+        })
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+        return view('home.convert', compact('bookComments'));
     }
 
     // public function danhsach(){
@@ -120,15 +130,15 @@ class HomeController extends Controller
 
     // }
 
-    public function show(String $slug)
-    {
-        $book = Book::with('genres', 'episodes', 'group')
-            ->where('slug', $slug)
-            ->firstOrFail();
-        $episodes = $book->episodes;
-        // dd($book,$episodes);
-        return view('home.stories', compact('book', 'episodes'));
-    }
+    // public function show(String $slug)
+    // {
+    //     $book = Book::with('genres', 'episodes', 'group')
+    //         ->where('slug', $slug)
+    //         ->firstOrFail();
+    //     $episodes = $book->episodes;
+    //     // dd($book,$episodes);
+    //     return view('home.stories', compact('book', 'episodes'));
+    // }
 
     public function vuadang()
     {
@@ -146,7 +156,14 @@ class HomeController extends Controller
 
     public function sangtac()
     {
-        return view('home.sangtac');
+        $bookComments = bookcomment::with('book')
+        ->whereHas('book', function($query) {
+            $query->where('type', 3);
+        })
+        ->orderBy('created_at', 'desc')
+        ->take(10)
+        ->get();
+        return view('home.sangtac', compact('bookComments'));
     }
 
     public function xuatban()
@@ -154,10 +171,10 @@ class HomeController extends Controller
         return view('home.xuatban');
     }
 
-    public function the_loai()
-    {
-        return view('home.the_loai');
-    }
+    // public function the_loai()
+    // {
+    //     return view('home.the_loai');
+    // }
 
     public function huongdan_dangtruyen()
     {

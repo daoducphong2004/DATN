@@ -82,8 +82,11 @@
                                     <div class="thumb-wrapper">
                                         <a href="{{ route('truyen.truyen', $item->slug) }}">
                                             <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
+                                                {{-- <div class="content img-in-ratio"
                                                     style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
+                                                </div> --}}
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
                                                 </div>
                                             </div>
                                         </a>

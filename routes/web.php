@@ -69,13 +69,13 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('kesach', [HomeController::class, 'kesach']);
+Route::get('ke-sach', [HomeController::class, 'kesach']);
 Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lichsu', [HomeController::class, 'lichsu']);
-Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi']);
-Route::get('tinnhan', [HomeController::class, 'tinnhan']);
-Route::get('guitinnhan', [HomeController::class, 'guitinnhan']);
-Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
+Route::get('lich-su', [HomeController::class, 'lichsu']);
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+// Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 

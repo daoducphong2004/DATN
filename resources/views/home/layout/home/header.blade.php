@@ -63,7 +63,7 @@
                     <div id="navbar-user">
                         <div class="nav-user_icon">
                             <div class="nav-user_avatar">
-                                <img src="{{ Auth::user()->avatar_url }}" alt="Your avatar">
+                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
                             </div>
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">
@@ -71,16 +71,16 @@
                                     <a href="{{ route('user.books',['userId' => Auth::user()->id]) }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('lichsu') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                                    <a href="{{ url('lich-su') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ url('bookmark') }}"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('kesach') }}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="{{ url('ke-sach') }}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('tinnhan') }}"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
+                                    <a href="{{ url('tin-nhan') }}"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                         <div class="at-user_list"></div>
                                     </a>
                                 </li>

@@ -38,22 +38,20 @@
             <main class="sect-body">
                 <div class="row">
                     @foreach ($data_book as $item)
-                    <div class="popular-thumb-item mr-1">
-                                    <div class="thumb-wrapper">
-                                        <a href="{{ route('truyen.truyen', $item->slug) }}">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr series-title" title=""><a
-                                                    href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
+                        <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_6650">
+                            <a href="{{ route('truyen.truyen', $item->slug) }}" title="{!!$item->title!!}">
+                                <div class="a6-ratio">
+                                    <div class="content img-in-ratio lazyloaded" data-bg="{{ asset(Storage::url($item->book_path)) }}" style="background-image: url('{{ asset(Storage::url($item->book_path)) }}');"></div>
                                 </div>
+                            </a>
+                            <div class="thumb-detail">
+                                <div class="thumb_attr chapter-title" title="{!!$item->title!!}"><a href="{{ route('truyen.truyen', $item->slug) }}" title="{!!$item->title!!}">{!!$item->title!!}</a></div>
+                                <div class="thumb_attr volume-title">{!!$item->description!!}</div>
+                            </div>
+                        </div>
+                        <div class="thumb_attr series-title"><a href="{{ route('truyen.truyen', $item->slug) }}" title="{!!$item->note!!}">{!!$item->note!!}</a></div>
+                    </div>
                     @endforeach
                 </div>
             </main>

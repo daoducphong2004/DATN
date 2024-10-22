@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\Auth\UserController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
@@ -30,16 +32,11 @@ use App\Models\episode;
 use App\Models\Forum;
 use App\Models\genre;
 
-Route::get('/admin/dashboard', function () {
-    return 'Admin Dashboard';
-});
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::middleware('can:access-admin')->group(function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        });
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         // Giao diện admin
         Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
         Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
@@ -111,6 +108,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/books/approval', [BookApprovalController::class, 'index'])->name('books.approval');
         Route::post('/books/approve/{id}', [BookApprovalController::class, 'approve'])->name('books.approve');
         // end duyệt truyện
+
+
+        Route::resource('/banners', BannerController::class);
 
         // end phong
 

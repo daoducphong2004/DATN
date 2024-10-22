@@ -12,6 +12,7 @@ use App\Models\chaptercomment;
 use App\Models\Forum;
 use App\Models\genre;
 use App\Models\group;
+use App\Models\Letter;
 use App\Models\ReadingHistory;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index1()
+    public function index()
     {
 
         $readingHistories = [];
@@ -32,7 +33,7 @@ class HomeController extends Controller
         if ($user) {
             // Get reading history from the database for logged-in users
             $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with(['book','chapter']) // Nạp cả quan hệ với chapter và book
+                ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
                 ->orderBy('last_read_at', 'desc')
                 ->take(4) // Giới hạn 4 mục gần nhất
                 ->get();
@@ -59,38 +60,38 @@ class HomeController extends Controller
         }
 
         $truyen_noibat = book::where('Is_Inspect', 1)
-                            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
-                            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
-                            ->take(8) // Giới hạn 8 truyện
-                            ->get();
+            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
+            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
+            ->take(8) // Giới hạn 8 truyện
+            ->get();
 
         $sangtac_moinhat = chapter::whereHas('book', function ($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
-                            })
-                            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
-                            ->take(5) // Giới hạn 5 chương mới nhất
-                            ->get();
+            $query->where('Is_Inspect', 1)
+                ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+        })
+            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
+            ->take(5) // Giới hạn 5 chương mới nhất
+            ->get();
 
         $chuong_moinhat = DB::table('chapters')
-                            ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
-                            ->join('books', 'chapters.book_id', '=', 'books.id')
-                            ->where('books.Is_Inspect', 1)
-                            ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
-                            ->orderBy('chapters.created_at', 'desc')
-                            ->take(17)
-                            ->get();
+            ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            ->where('books.Is_Inspect', 1)
+            ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
+            ->orderBy('chapters.created_at', 'desc')
+            ->take(17)
+            ->get();
 
 
         $truyen_vuadang = book::where('Is_Inspect', 1)
-                            ->orderBy('created_at', 'desc')
-                            ->take(6)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
 
         $truyen_dahoanthanh = Book::where('status', 3)
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
         // dd($readingHistories);
         $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
             'categories.color as color',
@@ -105,18 +106,18 @@ class HomeController extends Controller
         ])->orderBy('created_at', 'desc')->get();
 
         $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh','data_forum_home', 'bookComments'));
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh', 'data_forum_home', 'bookComments'));
     }
 
     public function convert()
     {
         $bookComments = bookcomment::with('book')
-        ->whereHas('book', function($query) {
-            $query->where('type', 2);
-        })
-        ->orderBy('created_at', 'desc')
-        ->take(10)
-        ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('type', 2);
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
         return view('home.convert', compact('bookComments'));
     }
 
@@ -156,12 +157,12 @@ class HomeController extends Controller
     public function sangtac()
     {
         $bookComments = bookcomment::with('book')
-        ->whereHas('book', function($query) {
-            $query->where('type', 3);
-        })
-        ->orderBy('created_at', 'desc')
-        ->take(10)
-        ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('type', 3);
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
         return view('home.sangtac', compact('bookComments'));
     }
 
@@ -196,7 +197,9 @@ class HomeController extends Controller
 
     public function kesach()
     {
-        return view('home.kesach');
+        $user = auth()->user();
+        $likedBooks = $user->likedBooks;
+        return view('home.kesach', compact('likedBooks'));
     }
     public function bookmark()
     {
@@ -214,10 +217,18 @@ class HomeController extends Controller
     {
         return view('home.hopthu');
     }
+
+
     public function guitinnhan()
     {
-        return view('home.guitinnhan');
+        $userId = auth()->user()->id; 
+        $sentLetters = Letter::where('sender_id', $userId)->get();
+        return view('home.guitinnhan', compact('sentLetters'));
     }
+
+
+
+
     public function thanhvien(string $userId)
     {
 
@@ -227,12 +238,12 @@ class HomeController extends Controller
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         $userBooks = $userInfor->books; // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id',$userInfor->id)->count();
-        $countChapters = chapter::where('user_id',$userInfor->id)->count();
-        $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
-        $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countChapters = chapter::where('user_id', $userInfor->id)->count();
+        $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
+        $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
         // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
-        return view('home.taikhoan', compact('userInfor','userBooks', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
     }
 
     public function login()

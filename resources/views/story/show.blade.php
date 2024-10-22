@@ -80,16 +80,37 @@
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <a id="collect" class="side-feature-button button-follow follow">
-                                                        <span class="block feature-value"><i
-                                                                class="far fa-heart"></i></span>
-                                                        <span class="block feature-name"> {{ $book->like }} </span>
-                                                    </a>
+                                                    {{-- <form action="{{ route('book.like', $book->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="side-feature-button button-follow follow">
+                                                            <span class="block feature-value" id="favorite-icon">
+                                                                <i class="far fa-heart"></i>
+                                                            </span>
+                                                            <span class="block feature-name">{{ $book->like }}</span>
+                                                        </button>
+                                                    </form> --}}
+
+                                                    <form action="{{ route('book.like', $book->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="side-feature-button button-follow follow">
+                                                            @if (auth()->user() && auth()->user()->likedBooks()->where('book_id', $book->id)->exists())
+                                                                <span class="block feature-value" id="favorite-icon">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </span>
+                                                            @else
+                                                                <span class="block feature-value" id="favorite-icon">
+                                                                    <i class="far fa-heart"></i> 
+                                                                </span>
+                                                            @endif
+                                                            <span class="block feature-name">{{ $book->like }}</span>
+                                                        </button>
+                                                    </form>
                                                 </div>
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="/rating/{{$book->slug}}">
+                                                        <a href="/rating/{{ $book->slug }}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
@@ -215,7 +236,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -451,21 +472,19 @@
                                                                 </a>
                                                             @else
                                                                 {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                                <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                <span class="chapter-locked"
+                                                                    title="Bạn cần mua chương để đọc">
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
                                                                         {{ $chapter->title }}
                                                                     </a>
 
                                                                     <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
-                                                                       href="javascript:void(0);"
-                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
+                                                                        href="javascript:void(0);"
+                                                                        onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
                                                                         {{ $chapter->price }} coin
                                                                     </a>
                                                                 </span>
-
-
-
                                                             @endif
                                                         @endif
                                                     </div>
@@ -551,7 +570,7 @@
                                         @foreach ($comments as $comment)
                                             <div class="ln-comment-group">
                                                 <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2559913" data-parent="2559913"  x-data="{ showReplies: false, showReplyForm: false }">
+                                                    data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
@@ -587,9 +606,12 @@
                                                                         </div>
                                                                     </div>
                                                                     @if (Auth::check())
-                                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                        <div
+                                                                            class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
                                                                             <div @click="showReplies = !showReplies">
-                                                                                <i :class="showReplies ? 'fas fa-angle-up' : 'fas fa-angle-down'"></i>
+                                                                                <i
+                                                                                    :class="showReplies ? 'fas fa-angle-up' :
+                                                                                        'fas fa-angle-down'"></i>
                                                                             </div>
                                                                         </div>
                                                                     @endif
@@ -612,9 +634,11 @@
                                                                         <span class="likecount font-semibold">4</span>
                                                                     </a>
                                                                     @if (Auth::check())
-                                                                        <a @click.prevent="showReplyForm = !showReplyForm" class="self-center visible-toolkit-item cursor-pointer">
+                                                                        <a @click.prevent="showReplyForm = !showReplyForm"
+                                                                            class="self-center visible-toolkit-item cursor-pointer">
                                                                             <i class="fas fa-comment me-1"></i>
-                                                                            <span class="likecount font-semibold">Trả lời</span>
+                                                                            <span class="likecount font-semibold">Trả
+                                                                                lời</span>
                                                                         </a>
                                                                     @endif
                                                                     {{-- <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
@@ -624,34 +648,39 @@
                                                                             lời</span>
                                                                     </a> --}}
                                                                     <a href="">
-                                                                        <span>{{ $comment->replies->count() }} đã trả lời</span>
+                                                                        <span>{{ $comment->replies->count() }} đã trả
+                                                                            lời</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                    <div x-show="showReplyForm" class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}" x-cloak>
+                                                    <div x-show="showReplyForm"
+                                                        class="ln-comment-reply ln-comment-form mt-3"
+                                                        id="reply-form-{{ $comment->id }}" x-cloak>
                                                         {{-- @if (request('reply_to') == $comment->id) --}}
-                                                            <div class="ln-comment-reply ln-comment-form mt-3"
-                                                                id="reply-form-{{ $comment->id }}">
-                                                                @if (Auth::check())
-                                                                    <form action="{{ route('addComment', $book->id) }}"
-                                                                        method="POST" class="reply_form">
-                                                                        @csrf
-                                                                        <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
-                                                                        <input type="hidden" name="parent_id"
-                                                                            value="{{ $comment->id }}">
-                                                                        <div class="comment_toolkit clear">
-                                                                            <input class="button" type="submit" value="Trả lời">
-                                                                        </div>
-                                                                    </form>
-                                                                @else
-                                                                    <p><strong>Bạn phải <a href="{{ route('login') }}"
-                                                                                style="color: red">đăng nhập</a> để trả lời bình
-                                                                            luận.</strong></p>
-                                                                @endif
-                                                            </div>
+                                                        <div class="ln-comment-reply ln-comment-form mt-3"
+                                                            id="reply-form-{{ $comment->id }}">
+                                                            @if (Auth::check())
+                                                                <form action="{{ route('addComment', $book->id) }}"
+                                                                    method="POST" class="reply_form">
+                                                                    @csrf
+                                                                    <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                                                    <input type="hidden" name="parent_id"
+                                                                        value="{{ $comment->id }}">
+                                                                    <div class="comment_toolkit clear">
+                                                                        <input class="button" type="submit"
+                                                                            value="Trả lời">
+                                                                    </div>
+                                                                </form>
+                                                            @else
+                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                            style="color: red">đăng nhập</a> để trả lời
+                                                                        bình
+                                                                        luận.</strong></p>
+                                                            @endif
+                                                        </div>
                                                         {{-- @endif --}}
                                                     </div>
                                                     <div x-show="showReplies" class="mt-3" x-cloak>

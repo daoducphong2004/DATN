@@ -29,6 +29,12 @@ class book extends Model
         'user_id',
     ];
 
+    public function likedBooks()
+{
+    return $this->belongsToMany(Book::class, 'likes');
+}
+
+
     public function group()
     {
         return $this->belongsTo(group::class, 'group_id');

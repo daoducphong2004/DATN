@@ -76,9 +76,7 @@ class PaymentController extends Controller
             'payment_method' => 'Thanh toán online',
             'transaction_id' => $vnp_TxnRef
         ]);
-
         return redirect($vnp_Url);
-
     }
 
     public function paymentReturn(Request $request)
@@ -124,5 +122,4 @@ class PaymentController extends Controller
             dd(['message' => 'Chữ ký không hợp lệ']);
         }
     }
-
 }

@@ -14,6 +14,7 @@ use App\Models\PurchasedStory;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -292,13 +293,13 @@ class BookController extends Controller
         $comments = bookcomment::with(['user', 'replies' => function ($query) {
             $query->orderBy('created_at', 'DESC');
         }])
-        ->where('book_id', $book->id)
-        ->whereNull('parent_id')
-        ->orderBy('created_at', 'DESC')
-        ->get();
+            ->where('book_id', $book->id)
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
-        // dd($comments);
+        // dd($book);
         // if (Auth::guest() && $book->is_paid) {
         //     return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
         // }
@@ -378,8 +379,32 @@ class BookController extends Controller
             $book->genres()->detach();
             $book->delete();
             return response()->json(['success' => 'Truyện đã được xóa thành công!']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
+
+
+
+
+    public function bookLike(Book $id)
+    {
+        $user = Auth::user();
+        $like = $user->likedBooks()->where('book_id', $id->id)->first();
+
+        if ($like) {
+            $user->likedBooks()->detach($id->id);
+            $id->like -= 1;
+        } else {
+            $user->likedBooks()->attach($id->id);
+            $id->like += 1;
+        }
+
+        $id->save();
+
+        // Quay lại trang trước
+        return redirect()->back();
+    }
+
+
 }

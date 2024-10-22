@@ -79,7 +79,7 @@
                                     <a href="/bookmark"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="/ke-sach"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="{{route ('ke-sach')}}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
                                     <a href="/tin-nhan"><i class="fas fa-envelope"></i><span>Tin nhắn</span>

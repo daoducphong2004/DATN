@@ -217,6 +217,7 @@ Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('
 Route::resource('banners', BannerController::class);
 
 Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
+Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
 // End Phong
 

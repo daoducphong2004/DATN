@@ -10,7 +10,11 @@
             {{ session('error') }}
         </div>
     @endif
-
+    @if (session('message'))
+        <div id="toast-message" class="toast-message">
+            {{ session('message') }}
+        </div>
+    @endif
     @include('story.layout.home.header')
 
     @yield('content')

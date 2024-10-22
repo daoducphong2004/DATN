@@ -22,7 +22,6 @@
                     <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
                     <span class="breadcrum-level"><a href="/danh-sach">Danh sách</a></span>
                 </div>
-
             </div>
 
             <div class="container">
@@ -36,37 +35,6 @@
                             <div class="title-wrapper">
                                 <div class="section-title">Chữ cái</div>
                             </div>
-                            {{-- <div class="browse-alphabet">
-                                <a class="alphabet_item  current " href="danh-sach">Tất cả</a>
-                                <a class="alphabet_item " href="danh-sach/khac">#</a>
-                                <a class="alphabet_item " href="danh-sach/a">A</a>
-                                <a class="alphabet_item " href="danh-sach/b">B</a>
-                                <a class="alphabet_item " href="danh-sach/c">C</a>
-                                <a class="alphabet_item " href="danh-sach/d">D</a>
-                                <a class="alphabet_item " href="danh-sach/e">E</a>
-                                <a class="alphabet_item " href="danh-sach/f">F</a>
-                                <a class="alphabet_item " href="danh-sach/g">G</a>
-                                <a class="alphabet_item " href="danh-sach/h">H</a>
-                                <a class="alphabet_item " href="danh-sach/i">I</a>
-                                <a class="alphabet_item " href="danh-sach/j">J</a>
-                                <a class="alphabet_item " href="danh-sach/k">K</a>
-                                <a class="alphabet_item " href="danh-sach/l">L</a>
-                                <a class="alphabet_item " href="danh-sach/m">M</a>
-                                <a class="alphabet_item " href="danh-sach/n">N</a>
-                                <a class="alphabet_item " href="danh-sach/o">O</a>
-                                <a class="alphabet_item " href="danh-sach/p">P</a>
-                                <a class="alphabet_item " href="danh-sach/q">Q</a>
-                                <a class="alphabet_item " href="danh-sach/r">R</a>
-                                <a class="alphabet_item " href="danh-sach/s">S</a>
-                                <a class="alphabet_item " href="danh-sach/t">T</a>
-                                <a class="alphabet_item " href="danh-sach/u">U</a>
-                                <a class="alphabet_item " href="danh-sach/v">V</a>
-                                <a class="alphabet_item " href="danh-sach/w">W</a>
-                                <a class="alphabet_item " href="danh-sach/x">X</a>
-                                <a class="alphabet_item " href="danh-sach/y">Y</a>
-                                <a class="alphabet_item " href="danh-sach/z">Z</a>
-
-                            </div> --}}
                             <div class="browse-alphabet">
                                 <a class="alphabet_item {{ $alphabet === null ? 'current' : '' }}" href="{{ url('danh-sach') }}">Tất cả</a>
                                 <a class="alphabet_item {{ $alphabet === '#' ? 'current' : '' }}" href="{{ url('danh-sach/khac') }}">#</a>
@@ -104,12 +72,6 @@
                                 <div class="section-title">Phân loại</div>
                             </div>
                             <div class="section-content">
-                                {{-- <ul class="filter-type unstyled">
-                                    <li><input type="checkbox" name="truyendich" value="1" checked> Truyện dịch
-                                    </li>
-                                    <li><input type="checkbox" name="sangtac" value="1"> Truyện sáng tác</li>
-                                    <li><input type="checkbox" name="convert" value="1"> Convert</li>
-                                </ul> --}}
                                 <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="truyendich" value="1" {{ request('truyendich') ? 'checked' : '' }}> Truyện dịch</li>
                                     <li><input type="checkbox" name="convert" value="1" {{ request('convert') ? 'checked' : '' }}> Convert</li>
@@ -127,13 +89,6 @@
                                 <div class="section-title">Tình trạng</div>
                             </div>
                             <div class="section-content">
-                                {{-- <ul class="filter-type unstyled">
-                                    <li><input type="checkbox" name="dangtienhanh" value="1" checked> Đang tiến
-                                        hành</li>
-                                    <li><input type="checkbox" name="tamngung" value="1" checked> Tạm ngưng</li>
-                                    <li><input type="checkbox" name="hoanthanh" value="1" checked> Đã hoàn thành
-                                    </li>
-                                </ul> --}}
                                 <ul class="filter-type unstyled">
                                     <li><input type="checkbox" name="dangtienhanh" value="1" {{ request('dangtienhanh') ? 'checked' : '' }}> Đang tiến hành</li>
                                     <li><input type="checkbox" name="tamngung" value="1" {{ request('tamngung') ? 'checked' : '' }}> Tạm ngưng</li>
@@ -155,10 +110,8 @@
                                 <ul class="filter-type unstyled clear">
                                     @foreach ($genres as $key => $value)
                                         <li class="filter-type_item">
-                                            {{-- <a href="the-loai/{{ $value }}">{{ $key }}</a> --}}
                                             <a href="{{ route('filterTheLoai', ['slug' => $value]) }}">{{ $key }}</a>
                                     @endforeach
-                                    {{-- <li class="filter-type_item"><a href="the-loai/action.html">Action</a> --}}
                                 </ul>
                             </div>
                         </section>
@@ -167,27 +120,6 @@
                     <div class="col-12 float-left col-lg-9">
                         <section class="thumb-section-flow">
                             <header class="filter-container pad-bottom-10">
-                                <!-- <button class="button button-general" type="submit" name="sapxep" value="tentruyen">
-                                    <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> A - Z
-                                </button>
-                                <button class="button button-general" type="submit" name="sapxep" value="tentruyenza">
-                                    <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Z - A
-                                </button>
-                                <button class="button button-general" type="submit" name="sapxep" value="capnhat">
-                                    <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Mới cập nhật
-                                </button>
-                                <button class="button button-general" type="submit" name="sapxep" value="truyenmoi">
-                                    <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> Truyện mới
-                                </button>
-                                <button class="button button-general" type="submit" name="sapxep" value="theodoi">
-                                    <i class="fa fa-heart" aria-hidden="true"></i> Theo dõi
-                                </button>
-                                <button class="button button-general button-primary-green" type="submit" name="sapxep" value="top">
-                                    <i class="fa fa-fire" aria-hidden="true"></i> Top
-                                </button>
-                                <button class="button button-general type="submit" name="sapxep" value="topthang">
-                                    <i class="fa fa-fire" aria-hidden="true"></i> Top tháng
-                                </button>  -->
                                 <form method="GET" action="{{ route('filterDanhSach') }}">
                                     <select name="sapxep" onchange="this.form.submit()" class="block inline-m">
                                         <option value="tentruyen" {{ request('sapxep') == 'tentruyen' ? 'selected' : '' }}>A - Z</option>
@@ -209,6 +141,7 @@
                             <main class="row">
 
                                 {{-- Bắt đầu truyện đơn --}}
+
                                 @foreach ($data as $item)
                                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                         <div class="thumb-wrapper ln-tooltip"
@@ -253,9 +186,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-
-
+                                
                                 {{-- Kết thúc truyện đơn --}}
 
                             </main>
@@ -335,5 +266,6 @@
                 }
             });
         });
+
     </script>
 @endsection

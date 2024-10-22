@@ -86,11 +86,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/story/{id}', [StoryController::class, 'showBook'])->name('admin_storyshow');
     Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
-    Route::delete('story/{id}/delete',[StoryController::class,'destroyBook'])->name('admin_storydestroy');
+    Route::delete('story/{id}/delete', [StoryController::class, 'destroyBook'])->name('admin_storydestroy');
 
     //episode
-    Route::get('/episode/create/{book_id}',[StoryController::class,'createEpisode'])->name('admin_episodecreate');
-    Route::post('/episode/store',[StoryController::class,'storeEpisode'])->name('admin_episodestore');
+    Route::get('/episode/create/{book_id}', [StoryController::class, 'createEpisode'])->name('admin_episodecreate');
+    Route::post('/episode/store', [StoryController::class, 'storeEpisode'])->name('admin_episodestore');
     Route::get('/episodes/{id}/edit', [StoryController::class, 'editEpisode'])->name('admin_episodeedit');
     Route::put('/episodes/{id}', [StoryController::class, 'updateEpisode'])->name('admin_episodeupdate');
     Route::delete('/episode/{id}/delete', [StoryController::class, 'destroyEpisode'])->name('admin_episdestroy');
@@ -98,8 +98,8 @@ Route::prefix('admin')->group(function () {
 
 
     //chapter
-    Route::get('/chapter/create/{episode_id}',[StoryController::class,'createChapter'])->name('admin_chaptercreate');
-    Route::post('/chapter/store',[StoryController::class,'storeChapter'])->name('admin_chapterstore');
+    Route::get('/chapter/create/{episode_id}', [StoryController::class, 'createChapter'])->name('admin_chaptercreate');
+    Route::post('/chapter/store', [StoryController::class, 'storeChapter'])->name('admin_chapterstore');
     Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
     Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
     Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
@@ -111,4 +111,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
     Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
     Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
+
+    //Hòa thêm router 
+    Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
+    Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
+    Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
+    Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
+    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
+    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
 });

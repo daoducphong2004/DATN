@@ -19,7 +19,7 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups', 'ratings')->paginate(10);
+        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 'Chờ Duyệt')->paginate(10);
 
         // Tính trung bình số sao cho mỗi truyện
         foreach ($stories as $story) {
@@ -91,12 +91,11 @@ class StoryController extends Controller
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
-            'is_inspect'=> 'required',
+            'Is_Inspect' => 'required',
         ]);
 
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
-        // dd($request->all());
         // Create a new book entry
         $book = Book::create([
             'type' => $request->type,
@@ -114,7 +113,7 @@ class StoryController extends Controller
             'adult' => $adult,  // 0 or 1
             'group_id' => $request->group_id,
             'user_id' => $request->user_id,
-            'is_inspect' =>$request -> is_inspect,
+            'Is_Inspect' => $request->Is_Inspect,
         ]);
 
         // Generate slug and update the book
@@ -123,7 +122,6 @@ class StoryController extends Controller
         // Update the slug field
         $book->slug = $slug;
         $book->save();  // Save the book with the new slug
-
         // Handle image upload if provided
         if ($request->hasFile('book_path')) {
             $image = $request->file('book_path');
@@ -218,7 +216,7 @@ class StoryController extends Controller
     {
         $book = Book::findOrFail($id);
         $genres = genre::pluck('id', 'name');
-        return view('admin.stories.editStory', compact('book','genres'));
+        return view('admin.stories.editStory', compact('book', 'genres'));
     }
 
     public function editEpisode($id)
@@ -266,7 +264,7 @@ class StoryController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'group_id' => 'nullable|integer',
             'book_path' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Giới hạn file ảnh
-            'is_inspect'=> 'required',
+            'is_inspect' => 'required',
 
         ]);
 
@@ -404,16 +402,78 @@ class StoryController extends Controller
         return redirect()->route('admin_storyshow', ['id' => $episode->book_id])
             ->with('success', 'Tập đã được xóa thành công.');
     }
-        // Xử lý xóa chương
-        public function destroyChapter($id)
-        {
-            // Tìm chương theo id
-            $chapter = Chapter::findOrFail($id);
+    // Xử lý xóa chương
+    public function destroyChapter($id)
+    {
+        // Tìm chương theo id
+        $chapter = Chapter::findOrFail($id);
 
-            // Xóa chương
-            $chapter->delete();
+        // Xóa chương
+        $chapter->delete();
 
-            // Điều hướng về trang chi tiết tập truyện hoặc danh sách tập
-            return redirect()->back()->with('success', 'Chương đã được xóa thành công.');
+        // Điều hướng về trang chi tiết tập truyện hoặc danh sách tập
+        return redirect()->back()->with('success', 'Chương đã được xóa thành công.');
+    }
+
+    public function trashedStories()
+    {
+        // Lấy danh sách các truyện đã bị xóa mềm
+        $trashedStories = book::onlyTrashed()->with('user', 'group')->paginate(10);
+
+        return view('admin.stories.trashed-story', compact('trashedStories'));
+    }
+
+    public function restoreStory($id)
+    {
+        $story = book::onlyTrashed()->findOrFail($id);
+        $story->restore();
+        return redirect()->route('admin_stories_trashed')->with('success', 'Truyện đã được khôi phục.');
+    }
+
+    public function forceDeleteStory($id)
+    {
+        $story = book::onlyTrashed()->with('episodes')->findOrFail($id);
+
+        // Kiểm tra nếu truyện còn tập liên kết
+        if ($story->episodes()->count() > 0) {
+            // Hiển thị thông báo nếu còn dữ liệu liên kết
+            return redirect()->route('admin_stories_trashed')->with('error', 'Không thể xóa truyện vì còn tồn tại tập liên kết.');
         }
+
+        // Nếu không có dữ liệu liên kết, thực hiện xóa vĩnh viễn
+        $story->forceDelete();
+
+        return redirect()->route('admin_stories_trashed')->with('success', 'Truyện đã bị xóa vĩnh viễn.');
+    }
+
+    public function approvalList()
+    {
+        // Lấy danh sách các truyện chưa được duyệt (ví dụ: is_inspect là 'pending')
+        $pendingStories = book::where('Is_Inspect', 'Chờ Duyệt')->paginate(10);
+
+        return view('admin.stories.approval-list', compact('pendingStories'));
+    }
+
+    public function approveStory($id)
+    {
+        $story = book::findOrFail($id);
+
+        // Cập nhật trạng thái duyệt của truyện
+        $story->update([
+            'Is_Inspect' => 'Đã duyệt',  // Gán trạng thái duyệt là "Đã duyệt"
+        ]);
+
+        return redirect()->route('admin_stories_approval')->with('success', 'Truyện đã được duyệt.');
+    }
+
+    public function rejectStory($id)
+    {
+        $story = book::findOrFail($id);
+        // Cập nhật trạng thái duyệt của truyện
+        $story->update([
+            'Is_Inspect' => 'Từ chối',  // Gán trạng thái là "Từ chối"
+        ]);
+
+        return redirect()->route('admin_stories_approval')->with('error', 'Truyện đã bị từ chối.');
+    }
 }

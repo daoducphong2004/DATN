@@ -23,7 +23,7 @@ use App\Http\Controllers\LetterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ReadingHistoryController;
@@ -93,11 +93,11 @@ Route::get('theLoai', [UserController::class, 'theLoai']);
 Route::get('thuVien', [UserController::class, 'thuVien']);
 Route::get('nhomSoHuu', [UserController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [UserController::class, 'nhomThamGia']);
-Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
-Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
-Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
-Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
-Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
+Route::get('thao-luan', [ForumController::class, 'index'])->name('thao-luan');
+Route::get('themthaoluan', [ForumController::class, 'create'])->name('themthaoluan');
+Route::post('store_thaoluan', [ForumController::class, 'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}', [ForumController::class, 'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}', [ForumCommentController::class, 'store'])->name('cmt-child-forum');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin
@@ -131,7 +131,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
     Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 
-
     Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
     Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
@@ -139,7 +138,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
-    Route::get('/user', [UserController::class,'index'])->name('user_index');
+    Route::get('/user', [UserController::class, 'index'])->name('user_index');
     Route::get('/user/create', [UserController::class, 'create'])->name('user_create');
     Route::post('/user/store', [UserController::class, 'store'])->name('user_store');
     Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
@@ -226,6 +225,7 @@ Route::middleware(['auth', 'role:author'])->group(function () {
 Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
 Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
+
 
 require __DIR__ . '/admin.php';
 

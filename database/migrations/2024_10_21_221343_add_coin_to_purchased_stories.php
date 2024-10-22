@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // $table->rememberToken();
+        Schema::table('purchased_stories', function (Blueprint $table) {
+            $table->decimal('price', 10, 2);
         });
     }
 
@@ -21,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('purchased_stories', function (Blueprint $table) {
+            $table->dropColumn('price');
         });
     }
+
 };

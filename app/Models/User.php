@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable; 
-use Illuminate\Notifications\Notifiable; 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
-
+    public function countPurchasedChapters()
+    {
+        return $this->purchasedStories()->count();
+    }
     public function author()
     {
         return $this->hasMany(Author::class);

@@ -476,4 +476,11 @@ class StoryController extends Controller
 
         return redirect()->route('admin_stories_approval')->with('error', 'Truyện đã bị từ chối.');
     }
+     public function showPublicationHistory($bookId)
+    {
+        // Lấy sách cùng với các tập, chương và người dùng được chia sẻ
+        $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])->findOrFail($bookId);
+
+        return view('admin.books.history', compact('book'));
+    }
 }

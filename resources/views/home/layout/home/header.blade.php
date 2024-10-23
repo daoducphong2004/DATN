@@ -74,6 +74,9 @@
                                     <a href="{{ url('lichsu') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('purchase.history') }}"><i class="fas fa-history"></i><span>Lịch sử mua</span></a>
+                                </li>
+                                <li>
                                     <a href="{{ url('bookmark') }}"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>

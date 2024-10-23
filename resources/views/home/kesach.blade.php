@@ -75,40 +75,50 @@
                                     <!--<th class="none table-cell-l col-2-l">Cập nhật</th>-->
                                     <th class="col-4 col-md-2 text-right">Chưa đọc</th>
                                 </tr>
+
+                                @if ($likedBooks->isEmpty())
                                 <tr>
                                     <td>
-                                        <div class="a6-ratio series-cover">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i.docln.net/lightnovel/covers/s5184-5c9063be-fe93-45af-b80a-a8c416d91788-m.jpg')">
-                                            </div>
-                                        </div>
-                                        <div class="series-name">
-                                            <a
-                                                href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita">10
-                                                năm sau khi nói câu “Cứ đi đi, ở đây để tôi lo”, tôi đã trở thành một huyền
-                                                thoại</a>
-                                            <small class="type-translation">Truyện dịch</small>
-                                        </div>
-                                    </td>
-                                    <td class="none table-cell-m">
-                                        <a
-                                            href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita/c58018-chuong-20-di-nhan-nhiem-vu-nao">Chương
-                                            20: Đi nhận nhiệm vụ nào</a>
-                                        <small class="volume-name">Web Novel</small>
-                                    </td>
-                                    <!--<td class="none table-cell-l">
+                                    <p>Bạn chưa yêu thích cuốn sách nào.</p>
+                                </td>
+                            </tr>
+                                @else
+                                    @foreach ($likedBooks as $book)
+                                        <tr>
+                                            <td>
+                                                <div class="a6-ratio series-cover">
+                                                    <div class="content img-in-ratio"
+                                                        style="background-image: url('https://i.docln.net/lightnovel/covers/s5184-5c9063be-fe93-45af-b80a-a8c416d91788-m.jpg')">
+                                                    </div>
+                                                </div>
+                                                <div class="series-name">
+                                                    <a
+                                                        href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita">{{ $book->title }}</a>
+                                                    <small class="type-translation">Truyện dịch</small>
+                                                </div>
+                                            </td>
+                                            <td class="none table-cell-m">
+                                                <a
+                                                    href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita/c58018-chuong-20-di-nhan-nhiem-vu-nao">Chương
+                                                    20: Đi nhận nhiệm vụ nào</a>
+                                                <small class="volume-name">Web Novel</small>
+                                            </td>
+                                            <!--<td class="none table-cell-l">
 
-                                        <small>26/11/2019 17:03:06</small>
-                                    </td>-->
-                                    <td class="text-right update-action">
+                                                <small>26/11/2019 17:03:06</small>
+                                            </td>-->
+                                            <td class="text-right update-action">
 
-                                        <span class="update-status no-chapters disabled">Không có</span><br>
+                                                <span class="update-status no-chapters disabled">Không có</span><br>
 
-                                    </td>
-                                    <!-- Tooltip -->
+                                            </td>
+                                            <!-- Tooltip -->
+                                            <!-- // Tooltip -->
+                                        </tr>
+                                    @endforeach
+                                @endif
 
-                                    <!-- // Tooltip -->
-                                </tr>
+
                             </tbody>
                         </table>
 

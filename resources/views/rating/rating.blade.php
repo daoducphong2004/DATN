@@ -23,7 +23,7 @@
                                         <span class="series-owner_name"><a>Truyện sáng tác</a></span>
                                     </div>
                                     <img width="100%" height="50px"
-                                    src="{{!empty($book->book_path) ? $book->book_path : 'https://m.media-amazon.com/images/I/712pj+kPziL._AC_UF1000,1000_QL80_.jpg'}}"
+                                    src="{{!empty($book->book_path) ? asset(Storage::url($book->book_path)) : 'https://m.media-amazon.com/images/I/712pj+kPziL._AC_UF1000,1000_QL80_.jpg'}}"
                                     alt="{{$book->book_path}}">
                                     <div class="fantrans-section">
                                         <div class="fantrans-name justify-content-center d-flex align-items-center">

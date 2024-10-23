@@ -23,7 +23,6 @@ class SharedBookController extends Controller
 
         // Xóa tất cả các quyền chia sẻ liên quan (nếu có)
         $book->sharedUsers()->detach();
-
         return response()->json(['message' => 'Book ownership transferred successfully']);
     }
 
@@ -31,11 +30,8 @@ class SharedBookController extends Controller
     {
         // Xác định người dùng được chia sẻ quyền chỉnh sửa
         $sharedUserId = $request->input('user_id');
-
-
         // Lấy ID của người dùng hiện tại (người đăng nhập)
         $currentUserId = $request->user()->id;
-
 
         // Kiểm tra nếu người dùng hiện tại là chủ sở hữu của truyện
         if ($book->user_id != $currentUserId) {
@@ -50,13 +46,11 @@ class SharedBookController extends Controller
         if (SharedBook::where('user_id', $sharedUserId)->where('book_id', $book->id)->exists()) {
             return redirect()->back()->with('error', 'Người dùng này đã có quyền chỉnh sửa.');
         }
-
         // Chia sẻ quyền chỉnh sửa
         SharedBook::create([
             'user_id' => $sharedUserId,
             'book_id' => $book->id,
         ]);
-
         return redirect()->back()->with('success', 'Quyền chỉnh sửa đã được chia sẻ thành công.');
     }
 
@@ -67,21 +61,17 @@ class SharedBookController extends Controller
     {
         // Xác định người dùng cần thu hồi quyền chỉnh sửa
         $sharedUserId = $request->input('user_id');
-
         // Kiểm tra nếu người dùng hiện tại là chủ sở hữu của truyện
         if ($request->user()->id !== $book->user_id) {
             return redirect()->back()->with('error', 'Bạn không có quyền thu hồi quyền chỉnh sửa từ truyện này.');
         }
-
         // Kiểm tra nếu người dùng đã có quyền chỉnh sửa
         $sharedBook = SharedBook::where('user_id', $sharedUserId)->where('book_id', $book->id)->first();
         if (!$sharedBook) {
             return redirect()->back()->with('error', 'Người dùng này không có quyền chỉnh sửa truyện này.');
         }
-
         // Thu hồi quyền chỉnh sửa
         $sharedBook->delete();
-
         return redirect()->back()->with('success', 'Quyền chỉnh sửa đã được thu hồi thành công.');
     }
     /**
@@ -96,5 +86,13 @@ class SharedBookController extends Controller
         $sharedUsers = $book->sharedUsers;
 
         return view('stories.iframe.sharebooks.list', compact('sharedUsers', 'book'));
+    }
+
+
+
+
+
+    function bookFavorite(){
+        
     }
 }

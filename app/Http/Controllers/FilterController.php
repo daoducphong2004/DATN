@@ -81,7 +81,7 @@ class FilterController extends Controller
         }
 
         // Lấy danh sách truyện sau khi lọc
-        $data = $query->get();
+        $data = $query->get();      
 
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');

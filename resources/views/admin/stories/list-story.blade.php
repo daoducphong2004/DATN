@@ -16,6 +16,15 @@
             </div>
         @endif
         <h2 class="text-primary mb-4">Danh Sách Truyện</h2>
+        <a href="{{ route('admin_stories_trashed') }}" class="btn btn-secondary">
+            <i class="fa fa-trash"></i> Thùng rác
+        </a>
+        <!-- Thêm nút Duyệt Truyện -->
+        <div class="mb-4">
+            <a class="btn btn-info" href="{{ route('admin_stories_approval') }}">
+                <i class="fas fa-check-circle"></i> Duyệt Truyện
+            </a>
+        </div>
         <table border="1" id="list-story" class="table">
             <thead>
                 <tr>

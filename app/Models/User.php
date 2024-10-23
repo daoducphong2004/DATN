@@ -29,6 +29,11 @@ class User extends Authenticatable
         'group',
     ];
 
+    public function likedBooks()
+    {
+        return $this->belongsToMany(book::class, 'likes');
+    }
+
     public function group()
     {
         return $this->belongsTo(Group::class, 'group');

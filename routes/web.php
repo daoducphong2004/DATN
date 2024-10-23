@@ -25,6 +25,8 @@ use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
@@ -44,8 +46,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index1']);
-Route::get('/', [HomeController::class, 'index1'])->name('home');
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
@@ -80,20 +82,21 @@ Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
+Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
+Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
+Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
+Route::get('conventThamGia', [UserController::class, 'conventThamGia']);
+Route::get('OLNDaDang', [UserController::class, 'OLNDaDang']);
+Route::get('OLNThamGia', [UserController::class, 'OLNThamGia']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
-Route::get('thao-luan', [ForumController::class, 'index'])->name('thao-luan');
-Route::get('themthaoluan', [ForumController::class, 'create'])->name('themthaoluan');
-Route::post('store_thaoluan', [ForumController::class, 'store'])->name('store_thaoluan');
-Route::get('/thao-luan/chi-tiet-thao-luan/{id}', [ForumController::class, 'show'])->name('chi-tiet-thao-luan');
-Route::post('/thao-luan/chi-tiet-thao-luan/{id}', [ForumCommentController::class, 'store'])->name('cmt-child-forum');
+Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
+Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
@@ -245,6 +248,7 @@ Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->
 Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
 Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
+
 
 require __DIR__ . '/admin.php';
 

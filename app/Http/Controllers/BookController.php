@@ -11,6 +11,7 @@ use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\PurchasedStory;
+use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
 use Carbon\Carbon;
@@ -295,16 +296,15 @@ class BookController extends Controller
         }])
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
-            ->orderBy('created_at', 'DESC')
-            ->get();
+            ->with('replies.replies')->get();
 
-        $totalComments = bookcomment::where('book_id', $book->id)->count();
-        // dd($book);
-        // if (Auth::guest() && $book->is_paid) {
-        //     return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        // }
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'totalComments'));
+        // dd($comments);
+        if (Auth::guest() && $book->is_paid) {
+            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
+        }
+        $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings'));
     }
 
     /**

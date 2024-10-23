@@ -116,6 +116,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/purchase_history',[PurchaseManageController::class,'index'])->name('ListPurchaseUser');
         Route::get('/purchase_history/{user}', [PurchaseManageController::class, 'showUserPurchasedChapters'])->name('detailPurchaseUser');
 
+        Route::get('/history/{bookId}',[StoryController::class,'showPublicationHistory'])->name('showPublicationHistory');
         // end phong
 
     //forum

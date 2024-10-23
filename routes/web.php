@@ -165,7 +165,7 @@ Route::prefix('chapter-comments')->group(function () {
 
 
 
-
+//Phong
 
 
 Route::resource('story', BookController::class);
@@ -226,10 +226,12 @@ Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchas
 
 Route::post('/like/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
+Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
+    ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
+    ->name('user.books.history');
 
 
-
-
+//End Phong
 
 //Thanh toan
 Route::post("/vnpay_payment", [PaymentController::class, 'payment']);

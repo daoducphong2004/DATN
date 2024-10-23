@@ -163,14 +163,14 @@
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
                                                 </div>
                                             </div>
                                             <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ $book->slug }}"
-                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
+                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
                                                 <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
                                                     class="text-truncate block">{{ $chapter->title }}</a>
                                             </div>
                                         </div>
@@ -339,14 +339,14 @@
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
                                                 </div>
                                             </div>
                                             <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ $book->slug }}"
-                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
+                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
                                                 <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
                                                     class="text-truncate block">{{ $chapter->title }}</a>
                                             </div>
                                         </div>

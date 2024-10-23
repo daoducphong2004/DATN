@@ -1,11 +1,11 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
+    <div class="page-top-group  at-index ">
+        <a href="">
             <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
+                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
             <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
+                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
             </div>
         </a>
     </div>
@@ -43,9 +43,18 @@
                                 <input type="hidden" name="_token" value="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK">
                             </div>
                             <ul class="mail-list">
-                                <li style="padding: 10px 20px; text-align: center">
-                                    Chưa có thư
+                                @forelse ($sentLetters as $letter)
+                                <li style="padding: 10px 20px;">
+                                    <h1>Tiêu đề: {{ $letter->title }} </h1> 
+                                    <p>Nội dung: {{ $letter->content }}</p> 
+                                    <p>Người nhận:  {{ $letter->receiver->email}}</p>
+                                    <p>Ngày gửi: {{ $letter->created_at->format('d/m/Y H:i') }}</p> 
                                 </li>
+                            @empty
+                                <li style="padding: 10px 20px; text-align: center">
+                                    Bạn chưa gửi thư nào.
+                                </li>
+                            @endforelse
                             </ul>
                         </form>
 

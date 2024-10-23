@@ -12,8 +12,8 @@
                 </div>
                 <ul class="navbar-menu none hidden-block at-mobile unstyle">
                     <div class="navbar-search block none-m in-navbar-menu">
-                        <form class="" action="/tim-kiem" method="get">
-                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
+                        <form class="" action="{{route('search')}}" method="get">
+                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title"
                                 value="">
                             <button class="search-submit" type="submit" value="Tìm kiếm"><i
                                     class="fas fa-search"></i></button>
@@ -79,7 +79,7 @@
                                     <a href="/bookmark"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="/ke-sach"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="{{route ('ke-sach')}}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
                                     <a href="/tin-nhan"><i class="fas fa-envelope"></i><span>Tin nhắn</span>
@@ -94,7 +94,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="/UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -118,8 +118,8 @@
         </div>
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
-                <form class="" action="/tim-kiem" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
+                <form class="" action="{{route('search')}}" method="get">
+                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title" value="">
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
 
                 </form>

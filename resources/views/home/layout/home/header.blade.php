@@ -11,10 +11,10 @@
                 </div>
                 <ul class="navbar-menu none hidden-block at-mobile unstyle">
                     <div class="navbar-search block none-m in-navbar-menu">
-                        <form class="" action="/tim-kiem" method="get">
-                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords"
-                                value="">
-                            <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                        <form class="" action="{{route('search')}}" >
+                            <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title"
+                                >
+                            <button  type="submit" value="Tìm kiếm"><i
                                     class="fas fa-search"></i></button>
                         </form>
                     </div>
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod'))
-                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a>
+                            <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
                         @endif
                     </li>
                 </ul>
@@ -63,12 +63,12 @@
                     <div id="navbar-user">
                         <div class="nav-user_icon">
                             <div class="nav-user_avatar">
-                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
+                                <img src="{{ Auth::user()->avatar_url }}" alt="Your avatar">
                             </div>
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">
                                 <li>
-                                    <a href="{{ route('taikhoan') }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
+                                    <a href="{{ route('user.books',['userId' => Auth::user()->id]) }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ url('lichsu') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
@@ -92,7 +92,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
+                                    <a href="/UserHome"><i class="fas fa-cog"></i><span>Hệ thống</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -116,8 +116,8 @@
         </div>
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
-                <form class="" action="/tim-kiem" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="keywords" value="">
+                <form class="" action="{{route('search')}}" method="get">
+                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 </form>
             </div>

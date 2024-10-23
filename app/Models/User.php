@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable; 
+use Illuminate\Notifications\Notifiable; 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use HasFactory;
+    use SoftDeletes;
+    use Notifiable;
 
     protected $fillable = [
         'username',
@@ -24,6 +28,11 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
+
+    public function likedBooks()
+    {
+        return $this->belongsToMany(book::class, 'likes');
+    }
 
     public function group()
     {
@@ -56,4 +65,15 @@ class User extends Authenticatable
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
+     // Quan hệ để lấy các truyện mà user đã đăng
+     public function books()
+     {
+         return $this->hasMany(Book::class, 'user_id');
+     }
+
+     // Quan hệ để lấy các truyện mà user được chia sẻ quyền
+     public function sharedBooks()
+     {
+         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
+     }
 }

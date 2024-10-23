@@ -47,6 +47,7 @@
                         'action=editseries'
                     );
                     break;
+
                 case 'Xóa truyện':
                     child.onclick = () => {
                         if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
@@ -167,6 +168,19 @@
                         }
                     };
                     break;
+                    // New cases for sharing access and transferring ownership
+                case 'Thêm quyền':
+                    child.onclick = () =>  openLink(
+                        '{{ route('book.shareList', ':id') }}'.replace(':id', id),
+                        'action',
+                        'chapter_id=' + id + '&action=editchapter'
+                    );
+                    break;
+                case 'Chuyển quyền':
+                    child.onclick = () => {
+                        document.getElementById('transferOwnershipModal').style.display = 'block';
+                    };
+                    break;
 
             }
 
@@ -216,5 +230,68 @@
                 '<i class="fas fa-plus-square"></i>' : '<i class="fas fa-minus-square"></i>');
             $(this).nextAll('ul').toggleClass('show hide');
         });
+    });
+    // Close modals when clicking outside of them
+    window.onclick = function(event) {
+        var shareModal = document.getElementById('shareAccessModal');
+        var transferModal = document.getElementById('transferOwnershipModal');
+        if (event.target == shareModal) {
+            shareModal.style.display = 'none';
+        } else if (event.target == transferModal) {
+            transferModal.style.display = 'none';
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle form submissions
+        document.getElementById('shareAccessForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            // Get the user_id to share access with
+            var userId = document.querySelector('#shareAccessForm input[name="user_id"]').value;
+
+            // Send AJAX request to share access
+            $.ajax({
+                url: '{{ route('book.shareAccess', $book->id) }}',
+                type: 'POST',
+                data: {
+                    user_id: userId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    alert('Quyền chỉnh sửa đã được chia sẻ.');
+                    document.getElementById('shareAccessModal').style.display = 'none';
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                }
+            });
+        };
+
+        document.getElementById('transferOwnershipForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            // Get the new owner ID
+            var newOwnerId = document.querySelector('#transferOwnershipForm input[name="new_owner_id"]')
+                .value;
+
+            // Send AJAX request to transfer ownership
+            $.ajax({
+                url: '{{ route('book.transferOwnership', $book->id) }}',
+                type: 'POST',
+                data: {
+                    new_owner_id: newOwnerId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    alert('Quyền sở hữu đã được chuyển.');
+                    document.getElementById('transferOwnershipModal').style.display = 'none';
+                    window.location.reload();
+                },
+                error: function(xhr) {
+                    alert('Có lỗi xảy ra. Vui lòng thử lại.');
+                }
+            });
+        };
     });
 </script>

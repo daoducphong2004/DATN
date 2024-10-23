@@ -14,50 +14,88 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
-                            Cổng Light Novel</span></a></li>
-                <li>
-                    @if (Auth::check() && Auth::user()->role->name === 'author' || Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'mod')
-                        <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
-                    @else
-                        <a href="" style="color: red"
-                            onclick="alert('Bạn không có quyền truy cập tính năng này!')">Thêm truyện</a>
-                    @endif
+                    Cổng Light Novel</span></a>
                 </li>
-                <li class="dropdown">
+                <li>
+                    @can('create', App\Models\Story::class)
+                        <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
+                    @endcan
+                </li>
+
+                  {{--<li class="dropdown">
+
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="truyenDaDang">Truyện đã đăng</a></li>
-                        <li><a href="truyenThamGia">Truyện tham gia</a></li>
+                        <li><a href="{{ route('manage.mytranslatebook') }}">Truyện đã đăng</a></li>
+                        <li><a href="{{ route('manage.booktranslateshared') }}">Truyện tham gia</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="conventDaDang">Convert đã đăng</a>
+                        <li><a href="{{ route('manage.myConvertbook') }}">Convert đã đăng</a>
                         </li>
-                        <li><a href="convertThamGia">Convert tham
+                        <li><a href="{{ route('manage.bookConvertshared') }}">Convert tham
                                 gia</a></li>
                     </ul>
+                </li> --}}
+                <li class="dropdown">
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class="" style="color: #10b591"
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Truyện dịch</a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="{{ route('manage.mytranslatebook') }}">Truyện đã đăng</a></li>
+                        <li><a href="{{ route('manage.booktranslateshared') }}">Truyện tham gia</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="OLNDaDang">OLN đã đăng</a>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class="" style="color: #e3953e"
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Convert <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                           <li><a href="{{ route('manage.myConvertbook') }}">Convert đã đăng</a>
                         </li>
-                        <li><a href="OLNThamGia">OLN tham gia</a>
-                        </li>
-                    </ul>
+                        <li><a href="{{ route('manage.bookConvertshared') }}">Convert tham
+                                gia</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Thảo luận <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="themThaoLuan">Thêm thảo luận</a></li>
-                        <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
-                    </ul>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class="" style="color: #1389c6"
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Sáng tác <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ route('manage.mybookOLN') }}">OLN đã đăng</a>
+                        </li>
+                        <li><a href="{{ route('manage.bookOLNshared') }}">OLN tham gia</a>
+                        </li>
+                        </ul>
+                    @endif
+                </li>
+                <li class="dropdown">
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class=""
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Thảo luận <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Thảo luận <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="themThaoLuan">Thêm thảo luận</a></li>
+                            <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -69,45 +107,69 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
-                        <li><a href="nhomThamGia">Nhóm tham gia</a></li>
-                    </ul>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class=""
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Nhóm dịch <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
+                            <li><a href="nhomThamGia">Nhóm tham gia</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li>
-                    <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class="" style="color: rgb(242, 0, 255)"
+                            onclick="alert('Bạn cần phải đăng nhập trước')">Nâng cấp</a>
+                    @else
+                        @can('upgrade', Auth::user())
+                            <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
+                        @endcan
+                    @endif
                 </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
-                            class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a>{{ Auth::user()->username}}</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="">Đổi Thông Tin</a></li>
-                        <li><a href="">Đổi Mật Khẩu</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="">Đổi Email</a></li>
-                        <li><a href="">Đổi Username</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
-                                class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
+                @guest
+                    <li>
+                        <a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+                    </li>
+                @else
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a>
+                                    @if (Auth::check() && Auth::user()->username)
+                                        {{ Auth::user()->username }}
+                                    @endif
+                                </a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="">Đổi Thông Tin</a></li>
+                            <li><a href="">Đổi Mật Khẩu</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="">Đổi Email</a></li>
+                            <li><a href="">Đổi Username</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
+                                    class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
 
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                            {{-- <a href="https://docln.net/logout">Thoát</a> --}}
-                        </li>
-                    </ul>
-                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                {{-- <a href="https://docln.net/logout">Thoát</a> --}}
+                            </li>
+                        </ul>
+                    </li>
+                @endguest
             </ul>
         </div>
     </div>

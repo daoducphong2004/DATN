@@ -372,6 +372,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+
     public function destroy(string $id)
     {
         try {
@@ -383,7 +385,6 @@ class BookController extends Controller
             return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
-
 
 
 
@@ -399,12 +400,9 @@ class BookController extends Controller
             $user->likedBooks()->attach($id->id);
             $id->like += 1;
         }
-
         $id->save();
 
-        // Quay lại trang trước
         return redirect()->back();
     }
-
 
 }

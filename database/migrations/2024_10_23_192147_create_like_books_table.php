@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('like_rating', function (Blueprint $table) {
+        Schema::create('like_books', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('rating_id');
+            $table->unsignedBigInteger('book_id');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->timestamps();
 
-            // Thiết lập khóa ngoại
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('rating_id')->references('id')->on('ratings')->onDelete('cascade');
-
-            // Đảm bảo không có bản ghi trùng (một người chỉ có thể like một đánh giá một lần)
-            $table->unique(['user_id', 'rating_id']);
+            $table->unique(['user_id', 'book_id']);
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes_rating');
+        Schema::dropIfExists('like_books');
     }
 };

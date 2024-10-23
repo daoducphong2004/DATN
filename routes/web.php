@@ -215,7 +215,7 @@ Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('
 
 
 
-Route::post('/like/{id}', [BookController::class, 'bookLike'])->name('book.like');
+Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
 
 

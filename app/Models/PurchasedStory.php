@@ -9,6 +9,7 @@ class PurchasedStory extends Model
         'user_id',
         'chapter_id',
         'purchase_date',
+        'price'
     ];
 
     public function user()
@@ -16,8 +17,13 @@ class PurchasedStory extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function story()
+    public function chapter()
     {
-        return $this->belongsTo(Book::class, 'book_id'); // Chỉ rõ khóa ngoại
+        return $this->belongsTo(Chapter::class);
+    }
+
+    public function book()
+    {
+        return $this->hasOneThrough(Book::class, Chapter::class, 'id', 'id', 'chapter_id', 'book_id');
     }
 }

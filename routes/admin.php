@@ -127,4 +127,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
     Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
     Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+
 });
+});
+
+
+

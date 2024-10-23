@@ -19,7 +19,7 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 'Chờ Duyệt')->paginate(10);
+        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->paginate(10);
 
         // Tính trung bình số sao cho mỗi truyện
         foreach ($stories as $story) {
@@ -449,7 +449,7 @@ class StoryController extends Controller
     public function approvalList()
     {
         // Lấy danh sách các truyện chưa được duyệt (ví dụ: is_inspect là 'pending')
-        $pendingStories = book::where('Is_Inspect', 'Chờ Duyệt')->paginate(10);
+        $pendingStories = book::where('Is_Inspect', '0')->paginate(10);
 
         return view('admin.stories.approval-list', compact('pendingStories'));
     }
@@ -460,7 +460,7 @@ class StoryController extends Controller
 
         // Cập nhật trạng thái duyệt của truyện
         $story->update([
-            'Is_Inspect' => 'Đã duyệt',  // Gán trạng thái duyệt là "Đã duyệt"
+            'Is_Inspect' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
         ]);
 
         return redirect()->route('admin_stories_approval')->with('success', 'Truyện đã được duyệt.');
@@ -471,7 +471,7 @@ class StoryController extends Controller
         $story = book::findOrFail($id);
         // Cập nhật trạng thái duyệt của truyện
         $story->update([
-            'Is_Inspect' => 'Từ chối',  // Gán trạng thái là "Từ chối"
+            'Is_Inspect' => '2',  // Gán trạng thái là "Từ chối"
         ]);
 
         return redirect()->route('admin_stories_approval')->with('error', 'Truyện đã bị từ chối.');

@@ -112,7 +112,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
     Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
 
-    //Hòa thêm router 
+    //Hòa thêm router
     Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
     Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
     Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');

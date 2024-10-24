@@ -29,6 +29,11 @@ class User extends Authenticatable
         'group',
     ];
 
+    public function likedBooks()
+    {
+        return $this->belongsToMany(book::class, 'likes');
+    }
+
     public function group()
     {
         return $this->belongsTo(Group::class, 'group');
@@ -51,7 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
-
+    public function countPurchasedChapters()
+    {
+        return $this->purchasedStories()->count();
+    }
     public function author()
     {
         return $this->hasOne(Author::class);

@@ -43,9 +43,18 @@
                                 <input type="hidden" name="_token" value="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK">
                             </div>
                             <ul class="mail-list">
-                                <li style="padding: 10px 20px; text-align: center">
-                                    Chưa có thư
+                                @forelse ($sentLetters as $letter)
+                                <li style="padding: 10px 20px;">
+                                    <h1>Tiêu đề: {{ $letter->title }} </h1> 
+                                    <p>Nội dung: {{ $letter->content }}</p> 
+                                    <p>Người nhận:  {{ $letter->receiver->email}}</p>
+                                    <p>Ngày gửi: {{ $letter->created_at->format('d/m/Y H:i') }}</p> 
                                 </li>
+                            @empty
+                                <li style="padding: 10px 20px; text-align: center">
+                                    Bạn chưa gửi thư nào.
+                                </li>
+                            @endforelse
                             </ul>
                         </form>
 

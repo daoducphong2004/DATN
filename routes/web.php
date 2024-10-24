@@ -24,11 +24,12 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CommentBookController ;
 use App\Http\Controllers\CommentChapterController;
-use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
@@ -45,8 +46,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index1']);
-Route::get('/', [HomeController::class, 'index1'])->name('home');
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
@@ -81,21 +82,22 @@ Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
+Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
 Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
 Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
 Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
-Route::get('thao-luan',[ForumController::class,'index'])->name('thao-luan');
-Route::get('themthaoluan',[ForumController::class,'create'])->name('themthaoluan');
-Route::post('store_thaoluan',[ForumController::class,'store'])->name('store_thaoluan');
-Route::get('/thao-luan/chi-tiet-thao-luan/{id}',[ForumController::class,'show'])->name('chi-tiet-thao-luan');
-Route::post('/thao-luan/chi-tiet-thao-luan/{id}',[ForumCommentController::class,'store'])->name('cmt-child-forum');
-Route::get('search',[SearchController::class,'index'])->name('search');
+Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
+Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
+Route::get('search', [SearchController::class, 'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
     // Giao diện admin
@@ -134,7 +136,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
     Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
-    Route::get('/user', [ControllersUserController::class,'index'])->name('user_index');
+    Route::get('/user', [ControllersUserController::class, 'index'])->name('user_index');
     Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
     Route::post('/user/store', [ControllersUserController::class, 'store'])->name('user_store');
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
@@ -161,7 +163,11 @@ Route::prefix('chapter-comments')->group(function () {
     Route::delete('/delete/{id}', [ChaptercommentController::class, 'delete'])->name('chapter_comments_delete');
 });
 
-// Phong
+
+
+//Phong
+
+
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
@@ -201,8 +207,7 @@ Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listShare
 Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
 
 
-
-Route::get('/truyenDaDang',[StoryManageController::class,'StoryTranslatelist'])->name('manage.mytranslatebook');
+Route::get('/truyenDaDang', [StoryManageController::class, 'StoryTranslatelist'])->name('manage.mytranslatebook');
 Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
 
 Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
@@ -211,14 +216,22 @@ Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->
 Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
 Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
 
-
-
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 Route::resource('banners', BannerController::class);
 
 Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
+Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
-// End Phong
+
+
+Route::post('/like/{id}', [BookController::class, 'bookLike'])->name('book.like');
+Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
+Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
+    ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
+    ->name('user.books.history');
+
+
+//End Phong
 
 //Thanh toan
 Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
@@ -238,6 +251,7 @@ Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->
 Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
 Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
+
 
 require __DIR__ . '/admin.php';
 

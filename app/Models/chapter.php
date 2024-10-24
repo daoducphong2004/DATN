@@ -19,7 +19,9 @@ class chapter extends Model
         'user_id',
     ];
 
-
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function episode()
     {
         return $this->belongsTo(Episode::class, 'episode_id');

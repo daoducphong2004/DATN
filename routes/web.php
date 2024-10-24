@@ -224,7 +224,7 @@ Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchas
 
 
 
-Route::post('/like/{id}', [BookController::class, 'bookLike'])->name('book.like');
+Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
 Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
     ->middleware('auth') // Đảm bảo người dùng phải đăng nhập

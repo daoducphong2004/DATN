@@ -25,7 +25,7 @@ use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\FilterController;
-use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
@@ -230,6 +230,12 @@ Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
     ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
     ->name('user.books.history');
 
+//Sắp xếp thứ tự của tập truyện và chương truyện
+Route::get('/episodes/sort/{bookId}', [EpisodeController::class, 'sortView'])->name('episodes.sortView');
+Route::post('/episodes/update-order', [EpisodeController::class, 'updateOrder'])->name('episodes.updateOrder');
+
+Route::get('/chapters/{episodeId}/', [ChapterController::class, 'showChapters'])->name('chapter.sortView');
+Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
 
 //End Phong
 
@@ -259,9 +265,8 @@ Route::resource('author', AuthorController::class);
 Route::post('/accept-request/{id}', [AuthorController::class, 'acceptRequest'])->name('accept_request');
 Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])->name('reject_request');
 
-Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
+Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
 
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');
-

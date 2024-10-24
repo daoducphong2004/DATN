@@ -25,7 +25,7 @@
                                 <div id="profile-changer_ava" class="profile-changer">
                                     <span class="p-c_text"><i class="fas fa-camera"></i></span>
                                 </div>
-                                <img src="{{ !empty($userInfor) ? $userInfor->avatar_url : 'http://datn.test/img/user-cover.gif' }}">
+                                <img src="{{ !empty($userInfor->avatar_url) ? $userInfor->avatar_url : asset('img/noava.png') }}">
                             </div>
                         </div>
                         <div class="profile-function at-desktop none block-m">

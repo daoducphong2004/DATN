@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
     public function author()
     {
-        return $this->hasMany(Author::class);
+        return $this->hasOne(Author::class);
     }
     public function hasPurchased($chapterId)
     {

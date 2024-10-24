@@ -34,6 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('view-story', function ($user) {
             return in_array($user->role->name, ['super_admin', 'admin']);
         });
+        Gate::define('view-author', function ($user) {
+            return in_array($user->role->name, ['super_admin', 'admin']);
+        });
 
         Gate::define('view-users', function ($user) {
             return $user->role->name === 'super_admin';

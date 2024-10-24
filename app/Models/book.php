@@ -30,9 +30,9 @@ class book extends Model
     ];
 
     public function likedBooks()
-{
-    return $this->belongsToMany(Book::class, 'likes');
-}
+    {
+        return $this->belongsToMany(Book::class, 'likes');
+    }
 
 
     public function group()
@@ -77,6 +77,6 @@ class book extends Model
     }
     public function sharedUsers()
     {
-        return $this->belongsToMany(User::class, 'shared_books', 'book_id', 'user_id');
-    }
+        return $this->hasMany(SharedBook::class);
+        }
 }

@@ -461,17 +461,16 @@
 
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
-                                                        <a href="">
-                                                            <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                        <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>
-                                                    <a href="" rel="nofollow"
+                                                    <a href="{{ route('user.books',['userId' => $comment->user->id]) }}" rel="nofollow"
                                                         class="comment-user_name strong">{{ $comment->user->username }}</a>
                                                     <small class="comment-location">
                                                         <a href="#">
-                                                            <time class="timeago" title=""
-                                                                datetime="{{ $comment->created_at }}">
+                                                            <time class="timeago" datetime="{{ $comment->created_at }}">
                                                                 {{ $comment->created_at->diffForHumans() }}
                                                             </time>
                                                         </a>

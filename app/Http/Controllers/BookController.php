@@ -201,6 +201,12 @@ class BookController extends Controller
         // Pass the reading history to the view
         return view('reading-history', compact('readingHistories'));
     }
+
+    public function __construct()
+    {
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
+
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
@@ -298,13 +304,13 @@ class BookController extends Controller
             ->whereNull('parent_id')
             ->with('replies.replies')->get();
 
-
+            $totalComments = bookcomment::where('book_id', $book->id)->count();
         // dd($comments);
         if (Auth::guest() && $book->is_paid) {
             return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
         }
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings','totalComments'));
     }
 
     /**
@@ -372,6 +378,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+
     public function destroy(string $id)
     {
         try {
@@ -383,7 +391,6 @@ class BookController extends Controller
             return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
-
 
 
 
@@ -399,11 +406,25 @@ class BookController extends Controller
             $user->likedBooks()->attach($id->id);
             $id->like += 1;
         }
-
         $id->save();
 
-        // Quay lại trang trước
         return redirect()->back();
+    }
+    public function showUserHistory($bookId)
+    {
+        $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])
+                    ->findOrFail($bookId);
+
+        $currentUser = Auth::user();
+
+
+        // Kiểm tra xem người dùng hiện tại có phải là người đăng sách hoặc được chia sẻ quyền không
+        if ($book->user_id !== $currentUser->id && !$book->sharedUsers->contains('user_id', $currentUser->id)) {
+            // Nếu không có quyền, trả về 403 Forbidden
+            abort(403, 'Bạn không có quyền truy cập vào lịch sử này.');
+        }
+
+        return view('user.user_history', compact('book'));
     }
 
 

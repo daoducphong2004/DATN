@@ -12,8 +12,16 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                <li><a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a></li>
-
+                <li>
+                    @can('view-users', Auth::user())
+                        <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
+                    @endcan
+                </li>
+                <li>
+                    @can('view-author', Auth::user())
+                        <a href="{{ route('author.index') }}" style="color: #3107dc">Duyệt Author</a>
+                     @endcan
+                </li>
                 <li>
                     @can('view-categories', Auth::user())
                         <a href="{{ route('ListPurchaseUser') }}" style="color: #19fe00">Quản lý Mua</a>

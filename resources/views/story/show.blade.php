@@ -91,7 +91,7 @@
                                                         </button>
                                                     </form> --}}
 
-                                                    <form action="{{ route('book.like', $book->id) }}" method="POST">
+                                                    {{-- <form action="{{ route('book.like', $book->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit" class="side-feature-button button-follow follow">
                                                             @if (auth()->user() && auth()->user()->likedBooks()->where('book_id', $book->id)->exists())
@@ -105,7 +105,7 @@
                                                             @endif
                                                             <span class="block feature-name">{{ $book->like }}</span>
                                                         </button>
-                                                    </form>
+                                                    </form> --}}
                                                 </div>
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">

@@ -70,7 +70,7 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach']);
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('bookmark', [HomeController::class, 'bookmark']);
 Route::get('lich-su', [HomeController::class, 'lichsu']);
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);

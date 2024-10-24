@@ -303,10 +303,10 @@ class BookController extends Controller
         $comments = bookcomment::with(['user', 'replies' => function ($query) {
             $query->orderBy('created_at', 'DESC');
         }])
-        ->where('book_id', $book->id)
-        ->whereNull('parent_id')
-        ->with('replies.replies')
-        ->get();
+            ->where('book_id', $book->id)
+            ->whereNull('parent_id')
+            ->with('replies.replies')
+            ->get();
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 
@@ -404,6 +404,10 @@ class BookController extends Controller
     public function bookLike(Book $id)
     {
         $user = Auth::user();
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!$user) {
+            return redirect()->route('login')->with('mesage', 'You must be logged in to like a book.');
+        }
         $like = $user->likedBooks()->where('book_id', $id->id)->first();
 
         if ($like) {
@@ -420,7 +424,7 @@ class BookController extends Controller
     public function showUserHistory($bookId)
     {
         $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])
-                    ->findOrFail($bookId);
+            ->findOrFail($bookId);
 
         $currentUser = Auth::user();
 
@@ -433,6 +437,4 @@ class BookController extends Controller
 
         return view('user.user_history', compact('book'));
     }
-
-
 }

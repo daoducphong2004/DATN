@@ -69,19 +69,6 @@
             </div>
         </div>
 
-        <div class="form-group clearfix required">
-            <label class="col-md-2 control-label text-right">Vai Trò Yêu Cầu:</label>
-            <div class="col-md-8">
-                <select class="form-control" name="requested_role" id="requested_role" required>
-                    <option value="">----</option>
-                    <option value="author">Tác Giả</option>
-                    <option value="mod">Mod</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-        </div>
-
-
         @include('layouts.TinyMCEscript')
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">

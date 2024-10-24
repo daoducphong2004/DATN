@@ -385,6 +385,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+
     public function destroy(string $id)
     {
         try {
@@ -396,7 +398,6 @@ class BookController extends Controller
             return response()->json(['error' => 'Có lỗi xảy ra khi xóa truyện. Vui lòng thử lại.'], 500);
         }
     }
-
 
 
 
@@ -412,10 +413,8 @@ class BookController extends Controller
             $user->likedBooks()->attach($id->id);
             $id->like += 1;
         }
-
         $id->save();
 
-        // Quay lại trang trước
         return redirect()->back();
     }
     public function showUserHistory($bookId)
@@ -425,6 +424,7 @@ class BookController extends Controller
 
         $currentUser = Auth::user();
 
+
         // Kiểm tra xem người dùng hiện tại có phải là người đăng sách hoặc được chia sẻ quyền không
         if ($book->user_id !== $currentUser->id && !$book->sharedUsers->contains('user_id', $currentUser->id)) {
             // Nếu không có quyền, trả về 403 Forbidden
@@ -433,5 +433,6 @@ class BookController extends Controller
 
         return view('user.user_history', compact('book'));
     }
+
 
 }

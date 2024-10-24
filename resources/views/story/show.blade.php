@@ -80,16 +80,6 @@
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    {{-- <form action="{{ route('book.like', $book->id) }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="side-feature-button button-follow follow">
-                                                            <span class="block feature-value" id="favorite-icon">
-                                                                <i class="far fa-heart"></i>
-                                                            </span>
-                                                            <span class="block feature-name">{{ $book->like }}</span>
-                                                        </button>
-                                                    </form> --}}
 
                                                     {{-- <form action="{{ route('book.like', $book->id) }}" method="POST">
                                                         @csrf

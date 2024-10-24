@@ -348,7 +348,19 @@
                                 <span class="sect-title">
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
+
+                                {{-- Thêm form với phương thức POST để mua tất cả chương --}}
+                                <span class="buy-all-button">
+                                    <form action="{{ route('episode.purchase',  $item->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                            Mua tất cả chương
+                                        </button>
+                                    </form>
+                                </span>
+
                             </header>
+
                             <main class="d-lg-block">
                                 <div class="row">
                                     <div class="col-12 col-md-2">
@@ -643,4 +655,17 @@
             </div>
         </div>
     </main>
+    <script>
+   function confirmPurchaseEpisode(episodeTitle, episodeId) {
+    document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' + episodeTitle;
+    document.getElementById('modalContent').innerText = 'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
+    document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
+    document.getElementById('purchaseModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('purchaseModal').style.display = 'none';
+}
+
+    </script>
 @endsection

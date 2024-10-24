@@ -35,7 +35,9 @@ class episode extends Model
     {
         return $this->hasOne(chapter::class)->latest();
     }
-
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     protected static function boot()
     {
         parent::boot();

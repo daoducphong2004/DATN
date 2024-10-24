@@ -199,6 +199,12 @@ class BookController extends Controller
         // Pass the reading history to the view
         return view('reading-history', compact('readingHistories'));
     }
+
+    public function __construct()
+    {
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
+
     public function index()
     {
         $genres = genre::pluck('slug', 'name');

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('rating_likes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('rating_id');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('rating_id')->references('id')->on('ratings')->onDelete('cascade');
 
-            // Đảm bảo không có bản ghi trùng (một người chỉ có thể like một đánh giá một lần)
+            // Đảm bảo không có bản ghi trùng
             $table->unique(['user_id', 'rating_id']);
         });
     }
@@ -31,6 +31,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes_rating');
+        Schema::table('rating_likes', function (Blueprint $table) {
+            //
+        });
     }
 };

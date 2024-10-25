@@ -11,6 +11,8 @@ class Like_rating extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'likes_rating';
+
     protected $fillable = [
         'user_id',
         'rating_id',

@@ -7,7 +7,7 @@
             <span class="save_bookmark" style="position: absolute; top: 9999px; display: none"><i class="fas fa-bookmark"></i></span>
 
             <div class="title-top" style="padding-top: 20px">
-                <h2 class="title-item text-xl font-bold" align="center">{{ $book->title }}</h2>
+                <h2 class="title-item text-xl font-bold" align="center">{{ $episode->title }}</h2>
                 <h4 class="title-item text-base font-bold" align="center">{{ $chapter->title }}</h4>
                 <h6 class="title-item font-bold" align="center">
                     <a href="#chapter-comments" style="text-decoration: underline">Sau sẽ làm Bình luận</a> -
@@ -42,10 +42,24 @@
             </div>
 
             <section class="rd-basic_icon row">
-                <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previous()->slug ?? '#']) }}" class="dark:text-black col text-center {{ $chapter->previous() ? '' : 'disabled' }}"><i class="fas fa-backward"></i></a>
-                <a href="{{ route('truyen.truyen',$book->slug) }}" class="dark:text-black col text-center"><i class="fas fa-home"></i></a>
-                <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->next()->slug ?? '#']) }}" class="dark:text-black col text-center {{ $chapter->next() ? '' : 'disabled' }}"><i class="fas fa-forward"></i></a>
+                <!-- Previous Chapter Link -->
+                <a href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
+                   class="dark:text-black col text-center {{ $chapter->previousChapter() ? '' : 'disabled' }}">
+                   <i class="fas fa-backward"></i>
+                </a>
+
+                <!-- Home Link -->
+                <a href="{{ route('truyen.truyen', $book->slug) }}" class="dark:text-black col text-center">
+                    <i class="fas fa-home"></i>
+                </a>
+
+                <!-- Next Chapter Link -->
+                <a href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
+                   class="dark:text-black col text-center {{ $chapter->nextChapter() ? '' : 'disabled' }}">
+                   <i class="fas fa-forward"></i>
+                </a>
             </section>
+
 
             <!--the code style is important to keep this comment section be out of the effect of user reading's setting-->
         </div>

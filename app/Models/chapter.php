@@ -41,19 +41,64 @@ class chapter extends Model
     }
 
 
-    public function previous()
-    {
-        return static::where('episode_id', $this->episode_id)
-            ->where('id', '<', $this->id)
-            ->orderBy('id', 'desc')
-            ->first();
-    }
+      // Get the previous chapter, considering episodes in the same book
+      public function previousChapter()
+      {
+          // Find the previous chapter in the same episode
+          $previousChapter = $this->where('episode_id', $this->episode_id)
+                                  ->where('order', '<', $this->order)
+                                  ->orderBy('order', 'desc')
+                                  ->first();
 
-    public function next()
-    {
-        return static::where('episode_id', $this->episode_id)
-            ->where('id', '>', $this->id)
-            ->orderBy('id', 'asc')
-            ->first();
-    }
+          // If there is a previous chapter in the same episode, return it
+          if ($previousChapter) {
+              return $previousChapter;
+          }
+
+          // Otherwise, find the previous episode within the same book by order
+          $previousEpisode = Episode::where('book_id', $this->book_id)
+                                    ->where('order', '<', $this->episode->order)
+                                    ->orderBy('order', 'desc')
+                                    ->first();
+
+          // If a previous episode exists, return its last chapter
+          if ($previousEpisode) {
+              return Chapter::where('episode_id', $previousEpisode->id)
+                            ->orderBy('order', 'desc')
+                            ->first();
+          }
+
+          // If no previous episode exists, return null (start of book)
+          return null;
+      }
+
+      public function nextChapter()
+      {
+          // Find the next chapter in the same episode
+          $nextChapter = $this->where('episode_id', $this->episode_id)
+                              ->where('order', '>', $this->order)
+                              ->orderBy('order', 'asc')
+                              ->first();
+
+          // If there is a next chapter in the same episode, return it
+          if ($nextChapter) {
+              return $nextChapter;
+          }
+
+          // Otherwise, find the next episode within the same book by order
+          $nextEpisode = Episode::where('book_id', $this->book_id)
+                                ->where('order', '>', $this->episode->order)
+                                ->orderBy('order', 'asc')
+                                ->first();
+
+          // If a next episode exists, return its first chapter
+          if ($nextEpisode) {
+              return Chapter::where('episode_id', $nextEpisode->id)
+                            ->orderBy('order', 'asc')
+                            ->first();
+          }
+
+          // If no next episode exists, return null (end of book)
+          return null;
+      }
 }

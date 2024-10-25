@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
                 <li>
-                    @can('view-users', Auth::user())
+                    @can('view-story', Auth::user())
                         <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
                     @endcan
                 </li>
@@ -55,8 +55,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false">Tiện ích <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="theLoai">Thể loại</a></li>
-                        <li><a href="thuVien">Thư viện</a></li>
+                        <li><a href="/theLoai">Thể loại</a></li>
+                        <li><a href="/thuVien">Thư viện</a></li>
 
                     </ul>
                 </li>

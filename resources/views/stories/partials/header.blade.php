@@ -17,7 +17,7 @@
                     Cổng Light Novel</span></a>
                 </li>
                 <li>
-                    @can('create', App\Models\Story::class)
+                    @can('create')
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
                     @endcan
                 </li>

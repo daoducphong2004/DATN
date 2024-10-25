@@ -59,23 +59,23 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
-Route::get('convert', [HomeController::class, 'convert']);
-Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sangtac', [HomeController::class, 'sangtac']);
-Route::get('xuatban', [HomeController::class, 'xuatban']);
+Route::get('convert', [HomeController::class, 'convert'])->name('convert');
+// Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
+Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
 
 
-Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
-Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
-Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen'])->name('huongdan_dangtruyen');
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])->name('huongdan_gioithieu');
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
-Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach']);
-Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lich-su', [HomeController::class, 'lichsu']);
-Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
-Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
-Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+// Route::get('search', [HomeController::class, 'search']);
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
+Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
+Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
 // Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 

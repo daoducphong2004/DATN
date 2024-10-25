@@ -16,7 +16,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $requests = Author::all();
+        $requests = Author::query()->latest('id')->paginate(10);
         return view('admin.authors.author_requests', compact('requests'));
     }
 

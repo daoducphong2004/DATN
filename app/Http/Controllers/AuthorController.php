@@ -109,7 +109,7 @@ class AuthorController extends Controller
         $accept = Author::find($id);
 
         if ($accept) {
-            $accept->is_approved = 'accepted';
+            $accept->is_approve = 'accepted';
             $accept->save();
 
             $user = $accept->user;
@@ -139,7 +139,7 @@ class AuthorController extends Controller
         $rejected = Author::find($id);
 
         if ($rejected) {
-            $rejected->is_approved = 'rejected';
+            $rejected->is_approve = 'rejected';
             $rejected->save();
 
             $name = $rejected->user->username;

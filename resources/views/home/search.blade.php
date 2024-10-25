@@ -3,13 +3,7 @@
 
 
 <div class="page-top-group  at-index ">
-    <a href="/truyen/13957">
-        <div class="index-background d-none d-lg-block"
-            style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
-        <div class="index-background d-lg-none"
-            style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
-        </div>
-    </a>
+    @include('partials.banner')
 </div>
 
 <main id="mainpart" class="search-page" style="min-height: 181px;">

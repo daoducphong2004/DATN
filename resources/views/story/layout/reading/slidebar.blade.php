@@ -14,24 +14,40 @@
     <main id="mainpart" class="reading-page style-4">
         <section id="rd-side_icon" class="none force-block-l">
 
-            <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previous()->slug ?? '#']) }}"
-                class="rd_sd-button_item rd_top-left {{ $chapter->previous() ? '' : 'disabled' }}">
+            <!-- Previous Chapter Link -->
+            <a href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
+               class="rd_sd-button_item rd_top-left {{ $chapter->previousChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-backward"></i>
             </a>
 
-            <a class="rd_sd-button_item" href="{{ route('truyen.truyen', $book->slug) }}"><i class="fas fa-home"></i></a>
-            <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
-            <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i
-                    class="fas fa-info"></i></a>
-            <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item"><i
-                    class="fas fa-bookmark"></i></a>
+            <!-- Home Link -->
+            <a class="rd_sd-button_item" href="{{ route('truyen.truyen', $book->slug) }}">
+                <i class="fas fa-home"></i>
+            </a>
 
+            <!-- Settings Icon -->
+            <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item">
+                <i class="fas fa-font"></i>
+            </a>
 
-            <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->next()->slug ?? '#']) }}"
-                class="rd_sd-button_item rd_top-right {{ $chapter->next() ? '' : 'disabled' }}">
+            <!-- Info Icon -->
+            <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item">
+                <i class="fas fa-info"></i>
+            </a>
+
+            <!-- Bookmark Icon -->
+            <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item">
+                <i class="fas fa-bookmark"></i>
+            </a>
+
+            <!-- Next Chapter Link -->
+            <a href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
+               class="rd_sd-button_item rd_top-right {{ $chapter->nextChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-forward"></i>
             </a>
+
         </section>
+
 
         <section id="chapters" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">

@@ -344,6 +344,24 @@ class ChapterController extends Controller
                 ->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
         }
     }
+    //sắp xếp thứ tự chapter
+    public function showChapters($episodeId)
+    {
+        // Lấy tất cả các chương của tập truyện cụ thể và sắp xếp theo 'order'
+        $chapters = Chapter::where('episode_id', $episodeId)->orderBy('order')->get();
+        return view('stories.iframe.chapters.sort', compact('chapters','episodeId'));
+    }
+    public function updateChapterOrder(Request $request, $episodeId)
+    {
+        $order = $request->input('order'); // Nhận thứ tự từ request
 
+        foreach ($order as $position => $id) {
+            Chapter::where('id', $id)
+                ->where('episode_id', $episodeId) // Đảm bảo chỉ cập nhật các chương của tập truyện cụ thể
+                ->update(['order' => $position + 1]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
 
 }

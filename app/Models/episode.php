@@ -8,17 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class episode extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id',
         'title',
         'description',
         'episode_path',
         'slug',
         'book_id',
         'user_id',
-
+        'order',
     ];
 
     public function chapters()
@@ -30,12 +29,23 @@ class episode extends Model
     {
         return $this->belongsTo(Book::class, 'book_id');
     }
-
+    /**
+     * Get the highest order value for episodes of a specific book.
+     *
+     * @param int $bookId
+     * @return int|null
+     */
+    public static function getMaxOrderByBook($bookId)
+    {
+        return self::where('book_id', $bookId)
+            ->max('order');
+    }
     public function latestChapter()
     {
         return $this->hasOne(chapter::class)->latest();
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
     protected static function boot()
@@ -52,5 +62,4 @@ class episode extends Model
             }
         });
     }
-
 }

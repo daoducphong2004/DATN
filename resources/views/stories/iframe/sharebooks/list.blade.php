@@ -29,8 +29,7 @@
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <!-- Form để thu hồi quyền chỉnh sửa -->
-                            <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST">
+                            <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                                 <button type="submit" class="btn btn-danger">Thu hồi quyền</button>
@@ -43,13 +42,14 @@
     @endif
 
     <!-- Form chia sẻ quyền chỉnh sửa -->
-    <form action="{{ route('book.shareAccess', $book->id) }}" method="POST">
+    <form action="{{ route('book.shareAccess', $book->id) }}" method="POST" class="mt-4">
         @csrf
         <div class="form-group">
             <label for="user_id">Chọn người dùng để chia sẻ quyền chỉnh sửa:</label>
-            <input type="text" name="user_id" class="form-control" placeholder="Nhập ID người dùng">
+            <input type="text" name="user_id" class="form-control" placeholder="Nhập ID người dùng" required>
         </div>
         <button type="submit" class="btn btn-primary">Chia sẻ quyền</button>
     </form>
+  
 </div>
 @endsection

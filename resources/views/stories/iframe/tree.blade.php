@@ -1,120 +1,132 @@
 @extends('stories.partials.master')
+
 @section('content')
 
-    <body data-theme="light">
+<body data-theme="light">
 
-        <script>
-            $(document).ready(function() {
-
-
-                $('ul.hide').each(function() {
-                    if ($(this).find('li').length == 0) $(this).prev().prev().prev().hide();
-                });
-
-                $('ul.show').each(function() {
-                    if ($(this).find('li').length == 0) $(this).prev().prev().prev().hide();
-                });
+    <script>
+        $(document).ready(function () {
+            $('ul.hide').each(function () {
+                if ($(this).find('li').length == 0) $(this).prev().prev().prev().hide();
             });
-        </script>
 
-        @include('stories.iframe.partials.styleTree')
+            $('ul.show').each(function () {
+                if ($(this).find('li').length == 0) $(this).prev().prev().prev().hide();
+            });
+        });
+    </script>
 
-        <div id="actiontree">
-            <p class="root">
-                <span class="block small" style="color: orange">Lưu ý: Click chuột trái (hoặc chạm trên di động) vào mục muốn
-                    chỉnh sửa để bật Menu</span>
-                <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank"><i
-                        class="fas fa-external-link-alt"></i></a>
-                <span class="series_name" data-item="{{ $book->id }}">{{ $book->title }}</span>
-            </p>
-            <ul class="tree">
-                @foreach ($book->episodes as $item)
-                    <li>
+    @include('stories.iframe.partials.styleTree')
 
-                        <span class="book-status"><i class="fas fa-plus-square"></i></span>
-                        <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank"><i
-                                class="fas fa-external-link-alt"></i></a>
-                        <span class="book-name level1" id="book_{{ $item->id }}"
-                            data-item="{{ $item->id }}">{{ $item->title }}</span>
-                        {{-- {{ dd($item->chapters()->get()); }} --}}
-                        @if (!$item->chapters()->get()->isEmpty())
-                            <ul class="hide">
-                                @foreach ($item->chapters()->get() as $chapter)
-                                    <li>
-                                        <a class="li-link" href="{{ route('chapter.show', $chapter->id) }}"
-                                            target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                                        <span class="chapter-name level2" id="chapter_{{ $chapter->id }}"
-                                            data-item="{{ $chapter->id }}">{{ $chapter->title }}</span>
-                                    </li>
-                                @endforeach
+    <div id="actiontree">
+        <p class="root">
+            <span class="block small" style="color: orange">Lưu ý: Click chuột trái (hoặc chạm trên di động) vào mục muốn
+                chỉnh sửa để bật Menu</span>
+            <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+            <span class="series_name" data-item="{{ $book->id }}">{{ $book->title }}</span>
+        </p>
+        
+        <ul class="tree">
+            @foreach ($book->episodes as $item)
+                <li>
+                    <span class="book-status"><i class="fas fa-plus-square"></i></span>
+                    <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <span class="book-name level1" id="book_{{ $item->id }}" data-item="{{ $item->id }}">
+                        {{ $item->title }}
+                    </span>
 
-                            </ul>
-                        @endif
-
-                    </li>
-                @endforeach
-
-
-
-            </ul>
-            <div style="width: 1px; height: 170px"></div>
-        </div>
-
-        <ul id="series" class="menu">
-            <li>Sửa truyện</li>
-
-            <li class="sep">&nbsp;</li>
-            <li id="transfer-ownership-btn">Chuyển quyền</li>
-            <li id="share-access-btn">Thêm quyền</li>
-
-            <li class="sep">&nbsp;</li>
-            <li style="color: red">Xóa truyện</li>
-
-            <li class="sep">&nbsp;</li>
-            <li>Sắp xếp tập</li>
-            <li>Thêm tập</li>
+                    @if ($item->chapters()->exists())
+                        <ul class="hide">
+                            @foreach ($item->chapters as $chapter)
+                                <li>
+                                    <a class="li-link" href="{{ route('chapter.show', $chapter->id) }}" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <span class="chapter-name level2" id="chapter_{{ $chapter->id }}" data-item="{{ $chapter->id }}">
+                                        {{ $chapter->title }}
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @endforeach
         </ul>
 
-        <ul id="book" class="menu">
-            <li>Sửa tập</li>
+        <div style="width: 1px; height: 170px"></div>
+    </div>
 
-            <li class="sep">&nbsp;</li>
-            <li style="color: red">Xóa tập</li>
-            <li class="sep">&nbsp;</li>
-            <li>Sắp xếp chương</li>
-            <li>Thêm chương</li>
-        </ul>
+    <ul id="series" class="menu">
+        <li>Sửa truyện</li>
+        <li class="sep">&nbsp;</li>
+        <li id="transfer-ownership-btn">Chuyển quyền</li>
+        <li id="share-access-btn">Thêm quyền</li>
+        <li class="sep">&nbsp;</li>
+        <li style="color: red">Xóa truyện</li>
+        <li class="sep">&nbsp;</li>
+        <li>Sắp xếp tập</li>
+        <li>Thêm tập</li>
+    </ul>
 
-        <ul id="chapter" class="menu">
-            <li>Sửa chương</li>
+    <ul id="book" class="menu">
+        <li>Sửa tập</li>
+        <li class="sep">&nbsp;</li>
+        <li style="color: red">Xóa tập</li>
+        <li class="sep">&nbsp;</li>
+        <li id="share-access-btn">Chia sẻ</li>
+        <li id="share-access-btn">Thêm quyền</li>
+        <li>Sắp xếp chương</li>
+        <li>Thêm chương</li>
+    </ul>
 
-            <li class="sep">&nbsp;</li>
-            <li style="color: red">Xóa chương</li>
-        </ul>
+    <ul id="chapter" class="menu">
+        <li>Sửa chương</li>
+        <li class="sep">&nbsp;</li>
+        <li style="color: red">Xóa chương</li>
+    </ul>
 
-        @include('stories.iframe.partials.scriptTree')
+    @include('stories.iframe.partials.scriptTree')
 
-        <!-- Modal for sharing access -->
-        <div id="shareAccessModal" class="modal">
-            <div class="modal-content">
-                <h2>Thêm quyền chỉnh sửa</h2>
-                <form id="shareAccessForm">
-                    <label for="user_id">Chọn người dùng để chia sẻ quyền:</label>
-                    <input type="text" name="user_id" placeholder="Nhập ID người dùng">
-                    <button type="submit">Thêm quyền</button>
-                </form>
-            </div>
+    <!-- Modal for sharing access -->
+    <div id="shareAccessModal" class="modal">
+        <div class="modal-content">
+            <h2>Thêm quyền chỉnh sửa</h2>
+            <form id="shareAccessForm">
+                <label for="user_id">Chọn người dùng để chia sẻ quyền:</label>
+                <input type="text" name="user_id" placeholder="Nhập ID người dùng" required>
+                <button type="submit">Thêm quyền</button>
+            </form>
         </div>
+    </div>
 
-        <!-- Modal for transferring ownership -->
-        <div id="transferOwnershipModal" class="modal">
-            <div class="modal-content">
-                <h2>Chuyển quyền sở hữu</h2>
-                <form id="transferOwnershipForm">
-                    <label for="new_owner_id">Chọn người dùng nhận quyền:</label>
-                    <input type="text" name="new_owner_id" placeholder="Nhập ID người dùng">
-                    <button type="submit">Chuyển quyền</button>
-                </form>
-            </div>
+    <!-- Modal for transferring ownership -->
+    <div id="transferOwnershipModal" class="modal">
+        <div class="modal-content">
+            <h2>Chuyển quyền sở hữu</h2>
+            <form id="transferOwnershipForm">
+                <label for="new_owner_id">Chọn người dùng nhận quyền :</label>
+                <input type="text" name="new_owner_id" placeholder="Nhập ID người dùng" required>
+                <button type="submit">Chuyển quyền</button>
+            </form>
         </div>
-    @endsection
+    </div>
+
+    <!-- Modal for sharing chapter -->
+    <div id="shareChapterModal" class="modal">
+        <div class="modal-content">
+            <h2>Chia sẻ chương</h2>
+            <form id="shareChapterForm">
+                <label for="user_id">Chọn người dùng để chia sẻ chương:</label>
+                <input type="text" name="user_id" placeholder="Nhập ID người dùng" required>
+                <button type="submit">Chia sẻ chương</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+@endsection

@@ -22,180 +22,191 @@
     }
 
     function prepareContextMenu(type, event) {
-        event.stopPropagation();
-        event.preventDefault();
+    event.stopPropagation();
+    event.preventDefault();
 
-        closeAllMenus();
+    closeAllMenus();
 
-        var element = event.target;
-        var menu = $('#' + type);
-        var chil = menu.children();
+    var element = event.target;
+    var menu = $('#' + type);
+    var chil = menu.children();
 
-        $('span').removeClass('current');
-        $(element).addClass('current');
+    $('span').removeClass('current');
+    $(element).addClass('current');
 
-        var id = element.getAttribute('data-item');
+    var id = element.getAttribute('data-item');
 
-        for (var i = 0; i < chil.length; i++) {
-            var child = chil[i];
+    for (var i = 0; i < chil.length; i++) {
+        var child = chil[i];
 
-            switch (child.innerText) {
-                case 'Sửa truyện':
-                    child.onclick = () => openLink(
-                        '{{ route('story.edit', $book->id) }}',
-                        'action',
-                        'action=editseries'
-                    );
-                    break;
+        switch (child.innerText) {
+            case 'Sửa truyện':
+                child.onclick = () => openLink(
+                    '{{ route('story.edit', $book->id) }}',
+                    'action',
+                    'action=editseries'
+                );
+                break;
 
-                case 'Xóa truyện':
-                    child.onclick = () => {
-                        if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
-                            $.ajax({
-                                url: '{{ route('story.destroy', $book->id) }}',
-                                type: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                },
-                                success: function(result) {
-                                    alert('Truyện đã được xóa thành công!');
+            case 'Xóa truyện':
+                child.onclick = () => {
+                    if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
+                        $.ajax({
+                            url: '{{ route('story.destroy', $book->id) }}',
+                            type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                alert('Truyện đã được xóa thành công!');
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+                                alert('Xóa truyện thất bại. Vui lòng thử lại.');
+                            }
+                        });
+                    }
+                };
+                break;
+
+            case 'Sắp xếp tập':
+                child.onclick = () => openLink(
+                    'https://docln.net/action/series/19025/order?navbar=0',
+                    'action',
+                    'action=orderbook'
+                );
+                break;
+
+            case 'Thêm tập':
+                child.onclick = () => openLink(
+                    '{{ route('storyepisode', $book->id) }}',
+                    'action',
+                    'action=createbook'
+                );
+                break;
+
+            case 'Sửa tập':
+                child.onclick = () => openLink(
+                    '{{ route('episode.edit', ':id') }}'.replace(':id', id),
+                    'action',
+                    'episode_id=' + id + '&action=editepisode'
+                );
+                break;
+
+            case 'Xóa tập':
+                child.onclick = () => {
+                    if (confirm('Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!')) {
+                        $.ajax({
+                            url: '{{ route('episode.destroy', ':id') }}'.replace(':id', id),
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                if (result.success) {
+                                    alert(result.message);
                                     window.location.reload();
-                                },
-                                error: function(xhr) {
-                                    alert('Xóa truyện thất bại. Vui lòng thử lại.');
+                                } else {
+                                    alert(result.message);
                                 }
-                            });
+                            },
+                            error: function(xhr) {
+                                alert('Xóa tập thất bại. Vui lòng thử lại.');
+                            }
+                        });
+                    }
+                };
+                break;
 
-                        }
-                    };
-                    break;
+            case 'Xóa nhiều chương':
+                child.onclick = () => openLink(
+                    'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',
+                    'action',
+                    'episode_id=' + id + '&action=episode.manage.delete_chapters'
+                );
+                break;
 
-                case 'Sắp xếp tập':
-                    child.onclick = () => openLink(
-                        'https://docln.net/action/series/19025/order?navbar=0',
-                        'action',
-                        'action=orderbook'
-                    );
-                    break;
-                case 'Thêm tập':
-                    child.onclick = () => openLink(
-                        '{{ route('storyepisode', $book->id) }}',
-                        'action',
-                        'action=createbook'
-                    );
-                    break;
-                case 'Sửa tập':
-                    child.onclick = () => openLink(
-                        '{{ route('episode.edit', ':id') }}'.replace(':id', id),
-                        'action',
-                        'episode_id=' + id + '&action=editepisode'
-                    );
+            case 'Sắp xếp chương':
+                child.onclick = () => openLink(
+                    'https://docln.net/action/episode/' + id + '/order?navbar=0',
+                    'action',
+                    'episode_id=' + id + '&action=orderchapter'
+                );
+                break;
 
-                    break;
-                case 'Xóa tập':
-                    child.onclick = () => {
-                        if (confirm(
-                                'Bạn có chắc muốn xóa tập này không? Khi xóa tập này sẽ mất hết chương truyện! vui lòng cân nhắc kỹ!'
-                            )) {
-                            $.ajax({
-                                url: '{{ route('episode.destroy', ':id') }}'.replace(':id', id),
-                                type: 'DELETE',
-                                data: {
-                                    _token: '{{ csrf_token() }}'
-                                },
-                                success: function(result) {
-                                    if (result.success) {
-                                        alert(result.message);
-                                        window.location.reload();
-                                    } else {
-                                        alert(result.message);
-                                    }
-                                },
-                                error: function(xhr) {
-                                    alert('Xóa tập thất bại. Vui lòng thử lại.');
-                                }
-                            });
-                        }
-                    };
-                    break;
-                case 'Xóa nhiều chương':
-                    child.onclick = () => openLink(
-                        'https://docln.net/action/book/' + id + '/delete-chapters?navbar=0',
-                        'action',
-                        'episode_id=' + id + '&action=episode.manage.delete_chapters'
-                    );
-                    break;
-                case 'Sắp xếp chương':
-                    child.onclick = () => openLink(
-                        'https://docln.net/action/episode/' + id + '/order?navbar=0',
-                        'action',
-                        'episode_id=' + id + '&action=orderchapter'
+            case 'Thêm chương':
+                child.onclick = () => openLink(
+                    '{{ route('storychapter', ':id') }}'.replace(':id', id),
+                    'action',
+                    'episode_id=' + id + '&action=createchapter'
+                );
+                break;
 
-                    );
-                    break;
-                case 'Thêm chương':
-                    // Use the correct `id` of the selected episode here
-                    child.onclick = () => openLink(
-                        '{{ route('storychapter', ':id') }}'.replace(':id', id),
-                        'action',
-                        'episode_id=' + id + '&action=createchapter'
-                    );
-                    break;
-                case 'Sửa chương':
-                    child.onclick = () => openLink(
-                        '{{ route('chapter.edit', ':id') }}'.replace(':id', id),
-                        'action',
-                        'chapter_id=' + id + '&action=editchapter'
-                    );
-                    break;
-                case 'Xóa chương':
-                    child.onclick = () => {
-                        if (confirm('Bạn có chắc muốn xóa truyện này không?')) {
-                            $.ajax({
-                                url: '{{ route('chapter.destroy', ':id') }}'.replace(':id', id),
-                                type: 'DELETE',
-                                data: {
-                                    _token: '{{ csrf_token() }}'
-                                },
-                                success: function(result) {
-                                    alert('Chapter đã được xóa thành công!');
-                                    window.location.reload();
-                                },
-                                error: function(xhr) {
-                                    alert('Xóa chapter thất bại. Vui lòng thử lại.');
-                                }
-                            });
-                        }
-                    };
-                    break;
-                    // New cases for sharing access and transferring ownership
-                case 'Thêm quyền':
-                    child.onclick = () =>  openLink(
-                        '{{ route('book.shareList', ':id') }}'.replace(':id', id),
-                        'action',
-                        'chapter_id=' + id + '&action=editchapter'
-                    );
-                    break;
-                case 'Chuyển quyền':
-                    child.onclick = () => {
-                        document.getElementById('transferOwnershipModal').style.display = 'block';
-                    };
-                    break;
+            case 'Sửa chương':
+                child.onclick = () => openLink(
+                    '{{ route('chapter.edit', ':id') }}'.replace(':id', id),
+                    'action',
+                    'chapter_id=' + id + '&action=editchapter'
+                );
+                break;
 
-            }
+            case 'Xóa chương':
+                child.onclick = () => {
+                    if (confirm('Bạn có chắc muốn xóa chương này không?')) {
+                        $.ajax({
+                            url: '{{ route('chapter.destroy', ':id') }}'.replace(':id', id),
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(result) {
+                                alert('Chapter đã được xóa thành công!');
+                                window.location.reload();
+                            },
+                            error: function(xhr) {
+                                alert('Xóa chapter thất bại. Vui lòng thử lại.');
+                            }
+                        });
+                    }
+                };
+                break;
 
+            // Các trường hợp mới cho việc chia sẻ quyền và chuyển quyền sở hữu
+            case 'Thêm quyền':
+                child.onclick = () => openLink(
+                    '{{ route('book.shareList', ':id') }}'.replace(':id', id),
+                    'action',
+                    'chapter_id=' + id + '&action=editchapter'
+                );
+                break;
+
+            case 'Chuyển quyền':
+                child.onclick = () => {
+                    // Mở modal để chuyển quyền sở hữu
+                    document.getElementById('transferOwnershipModal').style.display = 'block';
+                };
+                break;
+
+            case 'Chia sẻ':
+                child.onclick = () => openLink(
+                    '{{ route('book.shareList', ':id') }}'.replace(':id', id),
+                    'action',
+                    'chapter_id=' + id + '&action=editchapter'
+                );
+                break;
         }
-
-        menu.css({
-            display: 'block',
-            position: 'absolute',
-            left: (event.pageX + 20 > (menuLeft = document.body.clientWidth - menu.width()) ? menuLeft : event
-                .pageX + 20) + 'px',
-            top: event.pageY + 'px'
-        });
-
-        return false;
     }
+
+    menu.css({
+        display: 'block',
+        position: 'absolute',
+        left: (event.pageX + 20 > (menuLeft = document.body.clientWidth - menu.width()) ? menuLeft : event.pageX + 20) + 'px',
+        top: event.pageY + 'px'
+    });
+
+    return false;
+}
+
 
     var home = document.getElementsByClassName('series_name')[0];
     var book = document.getElementsByClassName('level1');

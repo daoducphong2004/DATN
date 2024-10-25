@@ -84,14 +84,6 @@
                         </li>
                         </ul>
                     @endif
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="OLNDaDang">OLN đã đăng</a>
-                        </li>
-                        <li><a href="OLNThamGia">OLN tham gia</a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

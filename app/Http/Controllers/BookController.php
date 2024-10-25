@@ -201,6 +201,12 @@ class BookController extends Controller
         // Pass the reading history to the view
         return view('reading-history', compact('readingHistories'));
     }
+
+    public function __construct()
+    {
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
+
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
@@ -284,28 +290,35 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes', 'group')->where(
-            'slug',
-            $slug
-        )->firstOrFail();
+        // Lấy thông tin sách với các quan hệ
+        $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
+
+        // Kiểm tra trường Is_Inspect
+        if ($book->Is_Inspect == 0) {
+            abort(403, 'Truyện này chưa được kiểm duyệt');
+        }
+
         $episodes = $book->episodes;
-        // dd($book,$episodes);
 
         $comments = bookcomment::with(['user', 'replies' => function ($query) {
             $query->orderBy('created_at', 'DESC');
         }])
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
-            ->with('replies.replies')->get();
+            ->with('replies.replies')
+            ->get();
 
+        $totalComments = bookcomment::where('book_id', $book->id)->count();
 
-        // dd($comments);
         if (Auth::guest() && $book->is_paid) {
             return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
         }
+
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings'));
+
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -372,6 +385,8 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+
     public function destroy(string $id)
     {
         try {
@@ -386,10 +401,13 @@ class BookController extends Controller
 
 
 
-
     public function bookLike(Book $id)
     {
         $user = Auth::user();
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!$user) {
+            return redirect()->route('login')->with('mesage', 'You must be logged in to like a book.');
+        }
         $like = $user->likedBooks()->where('book_id', $id->id)->first();
 
         if ($like) {
@@ -399,12 +417,24 @@ class BookController extends Controller
             $user->likedBooks()->attach($id->id);
             $id->like += 1;
         }
-
         $id->save();
 
-        // Quay lại trang trước
         return redirect()->back();
     }
+    public function showUserHistory($bookId)
+    {
+        $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])
+            ->findOrFail($bookId);
+
+        $currentUser = Auth::user();
 
 
+        // Kiểm tra xem người dùng hiện tại có phải là người đăng sách hoặc được chia sẻ quyền không
+        if ($book->user_id !== $currentUser->id && !$book->sharedUsers->contains('user_id', $currentUser->id)) {
+            // Nếu không có quyền, trả về 403 Forbidden
+            abort(403, 'Bạn không có quyền truy cập vào lịch sử này.');
+        }
+
+        return view('user.user_history', compact('book'));
+    }
 }

@@ -1,13 +1,7 @@
 @extends('home.layout.master')
 @section('content')
     <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+        @include('partials.banner')
     </div>
 
     <main id="mainpart" class="user-page">
@@ -17,16 +11,16 @@
                     <section class="private-tabs">
                         <header>
                             <h4 class="section-name">Tài khoản</h4>
-                            <span class="user-name">LinhLinh</span>
+                            <span class="user-name">{{ Auth::user()->username}}</span>
                         </header>
                         <ul class="user-private-tabs">
-                            <li class="current"><a href="kesach"><span class="none inline-l"><i
+                            <li class="current"><a href="/ke-sach"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Kệ sách</a></li>
-                            <li class=""><a href="bookmark"><span class="none inline-l"><i
+                            <li class=""><a href="/bookmark"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Bookmark</a></li>
-                            <li class=""><a href="tinnhan"><span class="none inline-l"><i
+                            <li class=""><a href="/tin-nhan"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
                         </ul>

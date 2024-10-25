@@ -9,6 +9,7 @@ use App\Models\episode;
 use App\Models\PurchasedStory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -281,6 +282,86 @@ class ChapterController extends Controller
 
         return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
                          ->with('message', 'Mua chương thành công!');
+    }
+    public function purchaseAllChaptersInEpisode($episodeId)
+    {
+        // Lấy người dùng hiện tại
+        $user = Auth::user();
+
+        // Lấy tập truyện theo id
+        $episode = Episode::findOrFail($episodeId);
+
+        // Lấy tất cả các chương trong tập truyện
+        $chapters = $episode->chapters;
+
+        // Kiểm tra các chương nào chưa được mua
+        $chaptersToPurchase = $chapters->filter(function ($chapter) use ($user) {
+            return !PurchasedStory::where('chapter_id', $chapter->id)->where('user_id', $user->id)->exists();
+        });
+
+        // Nếu tất cả các chương đã được mua
+        if ($chaptersToPurchase->isEmpty()) {
+            return redirect()->back()->with('message', 'Bạn đã mua tất cả các chương trong tập truyện này.');
+        }
+
+        // Tính tổng giá của các chương chưa được mua
+        $totalPrice = $chaptersToPurchase->sum('price');
+
+        // Kiểm tra xem người dùng có đủ tiền không
+        if ($user->coin_earned < $totalPrice) {
+            return redirect()->back()->with('error', 'Bạn không đủ coin để mua tất cả các chương này.');
+        }
+
+        // Thực hiện logic thanh toán (trừ tiền người dùng)
+        try {
+            DB::beginTransaction();
+
+            // Trừ số dư người dùng
+            $user->coin_earned -= $totalPrice;
+            $user->save();
+
+            // Lưu các chương đã mua vào bảng PurchasedStory
+            foreach ($chaptersToPurchase as $chapter) {
+                PurchasedStory::create([
+                    'user_id' => $user->id,
+                    'chapter_id' => $chapter->id,
+                    'purchase_date' => now(),
+                    'price' => $chapter->price,
+                ]);
+            }
+
+            DB::commit();
+
+            // Trả về trang chi tiết truyện và hiển thị thông báo thành công
+            return redirect()->back()
+                ->with('message', 'Thanh toán thành công. Bạn đã mua tất cả các chương trong tập truyện.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Nếu có lỗi xảy ra, trả về trang chi tiết truyện và hiển thị thông báo lỗi
+            return redirect()->back()
+                ->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
+        }
+    }
+    //sắp xếp thứ tự chapter
+    public function showChapters($episodeId)
+    {
+        // Lấy tất cả các chương của tập truyện cụ thể và sắp xếp theo 'order'
+        $chapters = Chapter::where('episode_id', $episodeId)->orderBy('order')->get();
+        return view('stories.iframe.chapters.sort', compact('chapters','episodeId'));
+    }
+    public function updateChapterOrder(Request $request, $episodeId)
+    {
+        $order = $request->input('order'); // Nhận thứ tự từ request
+
+        foreach ($order as $position => $id) {
+            Chapter::where('id', $id)
+                ->where('episode_id', $episodeId) // Đảm bảo chỉ cập nhật các chương của tập truyện cụ thể
+                ->update(['order' => $position + 1]);
+        }
+
+        return response()->json(['status' => 'success']);
     }
 
 }

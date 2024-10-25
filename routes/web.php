@@ -25,7 +25,7 @@ use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\FilterController;
-use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
@@ -70,24 +70,24 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('kesach', [HomeController::class, 'kesach'])->name("ke-sach");
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lichsu', [HomeController::class, 'lichsu']);
-Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi'])->name("tin-nhan-email");
-Route::get('tinnhan', [HomeController::class, 'tinnhan']);
-Route::get('guitinnhan', [HomeController::class, 'guitinnhan'])->name("thu-da-gui");
-Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
+Route::get('lich-su', [HomeController::class, 'lichsu']);
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+// Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [UserController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [UserController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [UserController::class, 'conventDaDang']);
-Route::get('conventThamGia', [UserController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [UserController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [UserController::class, 'OLNThamGia']);
+Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
+Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
@@ -165,7 +165,7 @@ Route::prefix('chapter-comments')->group(function () {
 
 
 
-
+//Phong
 
 
 Route::resource('story', BookController::class);
@@ -220,15 +220,24 @@ Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('
 Route::resource('banners', BannerController::class);
 
 Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
+Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
 
 
-Route::post('/like/{id}', [BookController::class, 'bookLike'])->name('book.like');
+Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
+Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
+    ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
+    ->name('user.books.history');
 
+//Sắp xếp thứ tự của tập truyện và chương truyện
+Route::get('/episodes/sort/{bookId}', [EpisodeController::class, 'sortView'])->name('episodes.sortView');
+Route::post('/episodes/update-order', [EpisodeController::class, 'updateOrder'])->name('episodes.updateOrder');
 
+Route::get('/chapters/{episodeId}/', [ChapterController::class, 'showChapters'])->name('chapter.sortView');
+Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
 
-
+//End Phong
 
 //Thanh toan
 Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
@@ -253,6 +262,9 @@ Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->
 require __DIR__ . '/admin.php';
 
 Route::resource('author', AuthorController::class);
+Route::post('/accept-request/{id}', [AuthorController::class, 'acceptRequest'])->name('accept_request');
+Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])->name('reject_request');
+
 Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
 
 // Bộ lọc

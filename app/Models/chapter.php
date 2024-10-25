@@ -17,23 +17,29 @@ class chapter extends Model
         'word_count',
         'price',
         'user_id',
+        'book_id',
+        'order',
     ];
 
-
+    public function book()
+    {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
     public function episode()
     {
         return $this->belongsTo(Episode::class, 'episode_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 
     public function chaptercomments()
     {
         return $this->hasMany(ChapterComment::class);
     }
 
-    public function book()
-    {
-        return $this->belongsTo(Book::class, 'book_id');
-    }
 
     public function previous()
     {

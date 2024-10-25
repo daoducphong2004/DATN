@@ -6,16 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Like extends Model
+class Like_rating extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'likes_rating';
-
     protected $fillable = [
         'user_id',
-        'book_id',
+        'rating_id',
     ];
 
     public function user()

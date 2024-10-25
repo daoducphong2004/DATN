@@ -26,13 +26,20 @@ class book extends Model
         'group_id',
         'user_id',
         'Is_Inspect',
-        'user_id',
     ];
+    public function episodes()
+    {
+        return $this->hasMany(episode::class);
+    }
 
+    public function chapters()
+    {
+        return $this->hasMany(chapter::class);
+    }
     public function likedBooks()
-{
-    return $this->belongsToMany(Book::class, 'likes');
-}
+    {
+        return $this->belongsToMany(Book::class, 'likes');
+    }
 
 
     public function group()
@@ -49,15 +56,7 @@ class book extends Model
         return $this->hasMany(bookcomment::class);
     }
 
-    public function episodes()
-    {
-        return $this->hasMany(episode::class);
-    }
 
-    public function chapters()
-    {
-        return $this->hasMany(chapter::class);
-    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -77,6 +76,6 @@ class book extends Model
     }
     public function sharedUsers()
     {
-        return $this->belongsToMany(User::class, 'shared_books', 'book_id', 'user_id');
-    }
+        return $this->hasMany(SharedBook::class);
+        }
 }

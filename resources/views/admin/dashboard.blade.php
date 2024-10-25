@@ -16,10 +16,10 @@
     <div class="panel-heading">Home</div>
     <div class="panel-body">
     <h4>Thống kê</h4>
-    <p>Số truyện: 3.766</p>
-    <p>Số tập: 9.246</p>
-    <p>Số chương: 84.914</p>
-    <p>Số người dùng: 113</p>
+    <p>Số truyện: {{ $totalStories }}</p>
+    <p>Số tập: {{ $totalEpisodes }}</p>
+    <p>Số chương: {{ $totalChapters }}</p>
+    <p>Số người dùng: {{ $totalUsers }}</p>
     </div>
     </div>
     </div>

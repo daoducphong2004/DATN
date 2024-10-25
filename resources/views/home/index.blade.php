@@ -1,15 +1,7 @@
 @extends('home.layout.master')
 @section('content')
-
-
     <div class="page-top-group  at-index ">
-        <a href="/truyen/13957">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+        @include('partials.banner')
     </div>
 
     <main id="mainpart" class="at-index">
@@ -84,8 +76,11 @@
                                     <div class="thumb-wrapper">
                                         <a href="{{ route('truyen.truyen', $item->slug) }}">
                                             <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
+                                                {{-- <div class="content img-in-ratio"
                                                     style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
+                                                </div> --}}
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
                                                 </div>
                                             </div>
                                         </a>
@@ -160,14 +155,14 @@
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
                                                 </div>
                                             </div>
                                             <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ $book->slug }}"
-                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
+                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
                                                 <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
                                                     class="text-truncate block">{{ $chapter->title }}</a>
                                             </div>
                                         </div>
@@ -199,7 +194,7 @@
                                 {{-- Bắt đầu truyện đơn --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
                                                     data-bg="{{ asset(Storage::url($item->book->book_path)) }}">
@@ -208,7 +203,7 @@
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="{{ $item->title }}">
-                                                <a href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
                                                     {{ $item->title }}
                                                 </a>
                                             </div>
@@ -216,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
@@ -252,10 +247,13 @@
                         </header>
                         <main class="row">
                             @foreach ($chuong_moinhat as $item)
+                                @php
+
+                                @endphp
                                 {{-- Bắt đầu truyện đơn  --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.chuong', $item->slug) }}"
+                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
@@ -264,12 +262,12 @@
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
-                                                    href="{{ route('truyen.chuong', $item->slug) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
-                                            <div class="thumb_attr volume-title">{{ $item->title }}</div>
+                                                    href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                            <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', $item->book->slug) }}"
+                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
@@ -333,14 +331,14 @@
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
                                                 </div>
                                             </div>
                                             <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ $book->slug }}"
-                                                    class="text-truncate block font-weight-bold">{{ $book->title }}</a>
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
+                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
                                                 <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ $book->slug }}/{{ $chapter->slug }}"
+                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
                                                     class="text-truncate block">{{ $chapter->title }}</a>
                                             </div>
                                         </div>
@@ -367,17 +365,16 @@
 
                                         <div class="comment-top">
                                             <div class="comment-user_ava">
-                                                <a href="">
-                                                    <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
+                                                    <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
                                                         alt="Commenter's avatar">
                                                 </a>
                                             </div>
-                                            <a href=""
+                                            <a href="{{ route('user.books',['userId' => $comment->user->id]) }}"
                                                 rel="nofollow" class="comment-user_name strong">{{ $comment->user->username }}</a>
                                             <small class="comment-location">
                                                 <a href="#">
-                                                    <time class="timeago" title=""
-                                                        datetime="{{ $comment->created_at }}">
+                                                    <time class="timeago" datetime="{{ $comment->created_at }}">
                                                         {{ $comment->created_at->diffForHumans() }}
                                                     </time>
                                                 </a>

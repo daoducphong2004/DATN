@@ -9,6 +9,7 @@ use App\Models\episode;
 use App\Models\PurchasedStory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -80,6 +81,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
+        $chapter->book_id = $book->id;
         $chapter->user_id = Auth::id();
         $chapter->content = $validatedData['content'];
         $chapter->price = $validatedData['price']; // Gán giá
@@ -168,7 +170,7 @@ class ChapterController extends Controller
 
         // Tìm chapter cần cập nhật
         $chapter = Chapter::findOrFail($id);
-
+        $book = Episode::findOrFail($validatedData['episode_id']);
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
 
@@ -179,7 +181,6 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        // $chapter->image = $imagePath;
         $chapter->content = $validatedData['content'];
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
@@ -230,7 +231,7 @@ class ChapterController extends Controller
             return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa chapter. Vui lòng thử lại.']);
         }
     }
-    public function purchaseChapter(Request $request, $chapterId)
+    public function purchaseChapter(Request $request, $chapterId, $price)
     {
         $user = auth()->user(); // Lấy thông tin người dùng hiện tại
 
@@ -247,7 +248,7 @@ class ChapterController extends Controller
         $chapter = Chapter::findOrFail($chapterId);
 
         // Kiểm tra nếu người dùng có đủ coin để mua
-        $price = $chapter->price; // Giả sử mỗi chapter có giá trị 'price'
+        $price = $chapter->price;
 
         if ($user->coin_earned < $price) {
             return response()->json(['message' => 'Bạn không đủ coin để mua chapter này.'], 400);
@@ -261,12 +262,13 @@ class ChapterController extends Controller
         PurchasedStory::create([
             'user_id' => $user->id,
             'chapter_id' => $chapter->id,
+            'price' => $price,
             'purchase_date' => now(),
         ]);
 
         return response()->json(['message' => 'Mua chapter thành công!'], 200);
     }
-    public function purchase($bookSlug, $chapterId)
+    public function purchase($bookSlug, $chapterId, $price)
     {
         // Kiểm tra xem người dùng có đăng nhập không
         if (!auth()->check()) {
@@ -279,7 +281,7 @@ class ChapterController extends Controller
         $chapter = Chapter::findOrFail($chapterId);
 
         // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
-        if ($chapter->price == 0) {
+        if ($price == 0) {
             return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
                 ->with('message', 'Chương này miễn phí, bạn không cần mua.');
         }
@@ -291,17 +293,18 @@ class ChapterController extends Controller
         }
 
         // Kiểm tra số dư coin của người dùng
-        if ($user->coin_earned < $chapter->price) {
+        if ($user->coin_earned < $price) {
             return redirect()->back()->with('error', 'Bạn không đủ coin để mua chương này.');
         }
 
         // Trừ coin và lưu thông tin mua chương
-        $user->coin_earned -= $chapter->price;
+        $user->coin_earned -= $price;
         $user->save();
 
         PurchasedStory::create([
             'user_id' => $user->id,
             'chapter_id' => $chapter->id,
+            'price' => $price,
             'purchase_date' => now(),
         ]);
 

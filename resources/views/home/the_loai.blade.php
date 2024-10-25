@@ -1,13 +1,7 @@
 @extends('story.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="truyen/13957.html">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+    <div class="page-top-group  at-index ">
+        @include('partials.banner')
     </div>
 
 
@@ -96,7 +90,7 @@
                                 <a class="alphabet_item {{ $alphabet === 'x' ? 'current' : '' }}" href="{{ url('danh-sach/x') }}">X</a>
                                 <a class="alphabet_item {{ $alphabet === 'y' ? 'current' : '' }}" href="{{ url('danh-sach/y') }}">Y</a>
                                 <a class="alphabet_item {{ $alphabet === 'z' ? 'current' : '' }}" href="{{ url('danh-sach/z') }}">Z</a>
-                            </div>                            
+                            </div>
                         </section>
 
                         <section class="sub-index-style filter-section">
@@ -172,7 +166,7 @@
                                 {{-- Thể loại hành động, thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh. --}}
                             </div>
                         </section>
-                        
+
                         <section class="thumb-section-flow">
                             <header class="filter-container pad-bottom-10">
                                 <!-- <button class="button button-general" type="submit" name="sapxep" value="tentruyen">
@@ -208,7 +202,7 @@
                                         <option value="sotu" {{ request('sapxep') == 'sotu' ? 'selected' : '' }}>Số từ</option>
                                     </select>
                                 </form>
-                                
+
                                 <div class="text-right inline-block-m right-m none-l">
                                     <span class="button button-green js-call-filters-wrapper"><i class="fas fa-filter"
                                             style="margin-right: 10px;"></i>Bộ lọc</span>
@@ -221,7 +215,7 @@
                                     <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                         <div class="thumb-wrapper ln-tooltip"
                                             data-tooltip-content="#series_{{ $item->id }}">
-                                            <a href="truyen/{{ $item->slug }}"
+                                            <a href="../truyen/{{ $item->slug }}"
                                                 title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio lazyload"
@@ -232,7 +226,7 @@
                                             <div class="thumb-detail">
                                                 <div class="thumb_attr chapter-title"
                                                     title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
-                                                    <a href="truyen/{{ $item->slug }}"
+                                                    <a href="../truyen/{{ $item->slug }}"
                                                         title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                                         {{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}
                                                     </a>
@@ -242,7 +236,7 @@
                                             </div>
                                         </div>
                                         <div class="thumb_attr series-title">
-                                            <a href="truyen/{{ $item->title }}"
+                                            <a href="../truyen/{{ $item->title }}"
                                                 title="{{ $item->title }}">{{ $item->title }}</a>
                                         </div>
                                     </div>

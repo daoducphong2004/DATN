@@ -25,6 +25,6 @@ class Rating extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like_rating::class);
     }
 }

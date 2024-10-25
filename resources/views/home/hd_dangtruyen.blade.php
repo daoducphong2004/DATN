@@ -1,13 +1,7 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+    <div class="page-top-group  at-index ">
+        @include('partials.banner')
     </div>
 
     <main id="mainpart" class="custome-page"> <!--style="background: url('img/background/bg_yuudachi.jpg') no-repeat fixed 70px center"-->

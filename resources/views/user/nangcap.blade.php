@@ -65,11 +65,9 @@
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label text-right">Lý do</label>
             <div class="col-md-10">
-                <textarea name="reason" id="reason" class="form-control">{{ strip_tags(old('reason', $reason ?? '')) }}</textarea>
+                <textarea  name="reason" id="reason"></textarea>
             </div>
         </div>
-
-
 
         @include('layouts.TinyMCEscript')
         <div class="form-group">

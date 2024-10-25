@@ -12,8 +12,21 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                <li><a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a></li>
-
+                <li>
+                    @can('view-users', Auth::user())
+                        <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
+                    @endcan
+                </li>
+                <li>
+                    @can('view-author', Auth::user())
+                        <a href="{{ route('author.index') }}" style="color: #3107dc">Duyệt Author</a>
+                     @endcan
+                </li>
+                <li>
+                    @can('view-categories', Auth::user())
+                        <a href="{{ route('ListPurchaseUser') }}" style="color: #19fe00">Quản lý Mua</a>
+                    @endcan
+                </li>
                 <li>
                     @can('view-story', Auth::user())
                         <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a>
@@ -39,31 +52,6 @@
                 </li>
                 </li>
                 <li class="dropdown">
-                    @can('manage-creative', Auth::user())
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="https://docln.net/action/series/index?type=original&amp;of=self">OLN đã đăng</a></li>
-                            <li><a href="https://docln.net/action/series/index?type=original&amp;of=shared">OLN tham gia</a></li>
-                        </ul>
-                    @endcan
-                </li>
-                <li>
-                    @if (Auth::check() && (Auth::user()->role->name === 'super_admin' || Auth::user()->role->name === 'admin'))
-                        <a href="{{ route('admin.requests') }}" style="color: #3107dc">Authors</a>
-                    @else
-                        <a href="#" style="color: #3107dc" onclick="alert('Bạn không có quyền truy cập tính năng này!')">Authors</a>
-                    @endif
-                </li>
-                <li class="dropdown">
-                    @can('manage-discussions', Auth::user())
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Thảo luận <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="https://docln.net/action/page/create">Thêm thảo luận</a></li>
-                            <li><a href="{{route('thao_luan')}}">Thảo luận của bạn</a></li>
-                        </ul>
-                    @endcan
-                </li>
-                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false">Tiện ích <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -71,16 +59,6 @@
                         <li><a href="thuVien">Thư viện</a></li>
 
                     </ul>
-                </li>
-                <li class="dropdown">
-                    @can('manage-groups', Auth::user())
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="">Nhóm của bạn</a>
-                            </li>
-                        </ul>
-                    @endcan
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

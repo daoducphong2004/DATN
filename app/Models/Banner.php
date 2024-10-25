@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Like extends Model
+class Banner extends Model
 {
     use HasFactory;
+    protected $fillable = ['title', 'image_path', 'is_active','device_type'];
 
-    protected $fillable = ['rating_id', 'user_id', 'created_at', 'updated_at'];
 }

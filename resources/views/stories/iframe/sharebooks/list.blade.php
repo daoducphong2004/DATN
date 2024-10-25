@@ -12,7 +12,7 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    @if($sharedUsers->isEmpty())
+    @if($book->sharedUsers->isEmpty())
         <p>Không có người dùng nào được chia sẻ quyền chỉnh sửa.</p>
     @else
         <table class="table">
@@ -24,14 +24,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($sharedUsers as $user)
+                @foreach($book->sharedUsers as $sharedBook)
                     <tr>
-                        <td>{{ $user->username }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>{{ $sharedBook->user->username  }}</td>
+                        <td>{{  $sharedBook->user->email }}</td>
                         <td>
-                            <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST" style="display: inline;">
+                            <!-- Form để thu hồi quyền chỉnh sửa -->
+                            <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                <input type="hidden" name="user_id" value="{{ $sharedBook->user->id }}">
                                 <button type="submit" class="btn btn-danger">Thu hồi quyền</button>
                             </form>
                         </td>
@@ -42,14 +43,14 @@
     @endif
 
     <!-- Form chia sẻ quyền chỉnh sửa -->
-    <form action="{{ route('book.shareAccess', $book->id) }}" method="POST" class="mt-4">
+    <form action="{{ route('book.shareAccess', $book->id) }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="user_id">Chọn người dùng để chia sẻ quyền chỉnh sửa:</label>
-            <input type="text" name="user_id" class="form-control" placeholder="Nhập ID người dùng" required>
+            <label for="user_email">Chọn người dùng để chia sẻ quyền chỉnh sửa:</label>
+            <input type="email" name="user_email" class="form-control" placeholder="Nhập email người dùng" required>
         </div>
         <button type="submit" class="btn btn-primary">Chia sẻ quyền</button>
     </form>
-  
+
 </div>
 @endsection

@@ -61,7 +61,7 @@ Route::get('reset', [AccountController::class, 'reset']);
 // Route::get('chuong', [UserController::class, 'chuong']);
 Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('sang-tac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 

@@ -77,7 +77,7 @@
                                     <a href="{{ url('bookmark') }}"><i class="fas fa-bookmark"></i><span>Đánh dấu</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{route ('ke-sach')}}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
+                                    <a href="{{ url ('ke-sach')}}"><i class="fas fa-heart"></i><span>Kệ sách</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ url('tin-nhan') }}"><i class="fas fa-envelope"></i><span>Tin nhắn</span>

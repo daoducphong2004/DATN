@@ -19,7 +19,7 @@
                         </form>
                     </div>
 
-                    <li><a class="nav-menu_item" href="{{ url('sangtac') }}"><span class="">Sáng tác</span></a></li>
+                    <li><a class="nav-menu_item" href="{{ url('sang-tac') }}"><span class="">Sáng tác</span></a></li>
                     <li><a class="nav-menu_item" href="{{ url('convert') }}"><span class="">Máy dịch</span></a></li>
                     <li><a class="nav-menu_item" href="{{ url('xuatban') }}"><span class="">Xuất bản</span></a></li>
                     <li><a class="nav-menu_item" href="{{ url('thao-luan') }}"><span class="">Thảo luận</span></a></li>
@@ -125,7 +125,7 @@
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
-                <li><a class="nav-menu_item" href="{{ url('sangtac') }}"><i class="fas fa-pen-nib menu-icon"></i><span
+                <li><a class="nav-menu_item" href="{{ url('sang-tac') }}"><i class="fas fa-pen-nib menu-icon"></i><span
                             class="">Sáng tác</span></a></li>
 
                 <li><a class="nav-menu_item" href="{{ url('convert') }}"><i class="fas fa-book menu-icon"></i><span

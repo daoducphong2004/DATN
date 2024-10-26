@@ -43,7 +43,7 @@
     $(document).ready(function() {
     $('#search').on('keyup', function() {
         let query = $(this).val();
-        if (query.length > 1) { // Tìm kiếm từ 2 ký tự trở lên
+        if (query.length > 0) { // Tìm kiếm từ 2 ký tự trở lên
             $.ajax({
                 url: "{{ route('search_re') }}",
                 type: "GET",

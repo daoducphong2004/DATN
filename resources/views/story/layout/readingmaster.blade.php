@@ -54,9 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('rd-side_icon').classList.toggle('show');
             }
             bookmarkData.line_id = index + 1;
+            bookmarkData.book_id = {{ $book->id }};
+            bookmarkData.chapter_id = {{ $chapter->id }};
+
         });
     });
-
+    console.log(bookmarkData);
     var isLoggedIn = @json(Auth::check());
 
     // Save bookmark

@@ -72,7 +72,7 @@
 
                 case 'Sắp xếp tập':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/series/19025/order?navbar=0',
+                        '{{ route('episodes.sortView', $book->id) }}',
                         'action',
                         'action=orderbook'
                     );
@@ -127,7 +127,7 @@
                     break;
                 case 'Sắp xếp chương':
                     child.onclick = () => openLink(
-                        'https://docln.net/action/episode/' + id + '/order?navbar=0',
+                        '{{ route('chapter.sortView',':id') }}'.replace(':id', id),
                         'action',
                         'episode_id=' + id + '&action=orderchapter'
 

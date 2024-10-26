@@ -22,24 +22,26 @@
                         </header>
                         <main class="row slider d-block">
                             {{-- Bắt đầu truyện  --}}
-                            <div class="popular-thumb-item mr-1">
-                                <div class="thumb-wrapper">
-                                    <a href="/sang-tac/16682-cot-truyen-cua-nhan-vat-phu"
-                                        title="Cốt Truyện Của Nhân Vật Phụ">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s16682-ad6f16e2-acb3-4d4f-acb2-0e4d488f97dc.jpg')">
+                            @foreach ($sangtac_noibat as $item)
+                                <div class="popular-thumb-item mr-1">
+                                    <div class="thumb-wrapper">
+                                        <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                            title="{{ $item->title }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr series-title" title="Cốt Truyện Của Nhân Vật Phụ"><a
-                                                href="/sang-tac/16682-cot-truyen-cua-nhan-vat-phu"
-                                                title="Cốt Truyện Của Nhân Vật Phụ">Cốt Truyện Của Nhân Vật Phụ</a>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr series-title" title="{{ $item->title }}"><a
+                                                    href="{{ route('truyen.truyen', $item->slug) }}"
+                                                    title="{{ $item->title }}">{{ $item->title }}</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                             {{-- kết thúc truyện  --}}
                         </main>
                     </div>
@@ -48,44 +50,39 @@
                         <header class="section-title"><span>Mới cập nhật</span></header>
                         <main class="sect-body">
                             {{-- Bắt đầu truyện  --}}
-                            <article class="detail-list-item">
-                                <div class="cover-wrapper">
-                                    <a href="/sang-tac/19121-hon-nguyen-the-loan-hang-that-thu">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('https://i2.docln.net/ln/series/covers/s19121-adb7ea65-775b-402a-bcdb-ed164af8fbb2.jpg')">
+                            @foreach ($moi_cap_nhat as $item)
+                                <article class="detail-list-item">
+                                    <div class="cover-wrapper">
+                                        <a href="{{ route('truyen.truyen', $item->book->slug) }}">
+                                            <div class="series-cover">
+                                                <div class="a6-ratio">
+                                                    <div class="content img-in-ratio"
+                                                        style="background-image: url('{{ !empty($item->book->book_path) ? asset(Storage::url($item->book->book_path)) : asset('img/noava.png') }}')">
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </a>
+                                    </div>
+                                    <div class="detail-list-detail">
+                                        <h4 class="series-title text-xl font-bold">
+                                            <a href="{{ route('truyen.truyen', $item->book->slug) }}">{{ $item->book->title }}</a>
+                                        </h4>
+                                        <div class="sub-attr">
+                                            <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
+                                                    href="/thanh-vien/62311">Lwy C.Theory</a></div>
+                                            <div class="sub-attr-item"><span class="attr-name">Số
+                                                    từ</span>{{ $item->book->word_count }}</a></span></div>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="detail-list-detail">
-                                    <h4 class="series-title text-xl font-bold">
-                                        <a href="/sang-tac/19121-hon-nguyen-the-loan-hang-that-thu">Hỗn Nguyên Thể:
-                                            Loạn Hàng Thất Thứ</a>
-                                    </h4>
-                                    <div class="sub-attr">
-                                        <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
-                                                href="/thanh-vien/62311">Lwy C.Theory</a></div>
-                                        <div class="sub-attr-item"><span class="attr-name">Số
-                                                từ</span>14,007</a></span></div>
+                                        <div class="series-summary">{!! Str::words($item->book->description, 66, '...') !!}</div>
+                                        <div class="lastest-chapter">
+                                            <a
+                                                href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}">{{ $item->title }}</a>
+                                            <small>{{ $item->episode->title }}</small>
+                                        </div>
                                     </div>
-                                    <div class="series-summary">Trong suốt hàng nghìn năm, nhân loại không nhận ra sức
-                                        mạnh tiềm ẩn bên trong mình, thứ năng lượng vô hạn tạo nền tảng cho Hòa thuật
-                                        định hình thế giới.
-                                        Thứ được gọi là Hòa Thuật này dựa trên hai nguồn năng lượng cơ bản: Dương Năng,
-                                        đại diện cho sức mạnh vật lý và khả năng thay đổi thực tại, và Âm...</div>
-                                    <div class="lastest-chapter">
-                                        <a
-                                            href="/sang-tac/19121-hon-nguyen-the-loan-hang-that-thu/c142322-chuong-03-cuoc-chien-trong-rung">Chương
-                                            03: Cuộc Chiến Trong Rừng</a>
-                                        <small>Tập 01</small>
-                                    </div>
-                                </div>
-                            </article>
+                                </article>
+                            @endforeach
                             {{-- Kết thúc truyện  --}}
-
                         </main>
                         {{-- <div class="pagination-footer">
                             <div class="pagination_wrap">
@@ -105,7 +102,33 @@
                                     class="paging_item paging_prevnext next ">Cuối</a>
                             </div>
                         </div> --}}
-                        Pagination sau PHP sẽ có
+                        
+                        <div class="pagination-footer">
+                            <div class="pagination_wrap">
+                                {{-- Nút Đầu --}}
+                                @if ($moi_cap_nhat->onFirstPage())
+                                    <span class="paging_item paging_prevnext prev disabled">Đầu</span>
+                                @else
+                                    <a href="{{ $moi_cap_nhat->url(1) }}" class="paging_item paging_prevnext prev">Đầu</a>
+                                @endif
+                        
+                                {{-- Các trang --}}
+                                @foreach ($moi_cap_nhat->getUrlRange(1, $moi_cap_nhat->lastPage()) as $page => $url)
+                                    @if ($page == $moi_cap_nhat->currentPage())
+                                        <span class="paging_item page_num current">{{ $page }}</span>
+                                    @else
+                                        <a href="{{ $url }}" class="paging_item page_num">{{ $page }}</a>
+                                    @endif
+                                @endforeach
+                        
+                                {{-- Nút Cuối --}}
+                                @if ($moi_cap_nhat->hasMorePages())
+                                    <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
+                                @else
+                                    <span class="paging_item paging_prevnext next disabled">Cuối</span>
+                                @endif
+                            </div>
+                        </div>
                     </section>
                 </div>
 
@@ -114,29 +137,27 @@
 
                         <div class="col-12 col-md-6 col-lg-12">
                             {{-- Bắt đầu giới thiệu truyện --}}
-                            <section class="sub-index-style sub-index-introduce">
-                                <div class="title-wrapper">
-                                    <div class="section-title">Giới thiệu truyện</div>
-                                </div>
-                                <div class="section-content">
-                                    <div class="series-cover">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('https://i2.docln.net/ln/series/covers/s8476-c787cc41-7cd3-4740-a0ee-a7e1e2b6ff0b.jpg')">
+                            @foreach ($sangtac_noibat->random(1) as $item)
+                                <section class="sub-index-style sub-index-introduce">
+                                    <div class="title-wrapper">
+                                        <div class="section-title">Giới thiệu truyện</div>
+                                    </div>
+                                    <div class="section-content">
+                                        <div class="series-cover">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="series-information">
+                                            <h3 class="series-title"><a
+                                                    href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h3>
+                                            <div class="series-summary">{!! Str::words($item->description, 33, '...') !!}</div>
+                                        </div>
                                     </div>
-                                    <div class="series-information">
-                                        <h3 class="series-title"><a
-                                                href="/sang-tac/8476-kiep-nay-la-anh-trai-cua-nhan-vat-chinh">Anh Trai
-                                                Nhân Vật Chính</a></h3>
-                                        <div class="series-summary">ANH TRAI NHÂN VẬT CHÍNH - TẬP 1 ĐÃ ĐƯỢC XUẤT BẢN!
-                                            ---
-                                            Huyền Thoại Tái Sinh là cuốn tiểu thuyết em gái của Khang viết ra, và hắn
-                                            tái sinh thành một nhâ...</div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            @endforeach
                             {{-- kết thúc giới thiệu truyện --}}
 
                             <section id="recent-comments" class="index-section">

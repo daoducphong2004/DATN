@@ -63,14 +63,7 @@
     });
 
     // Ngăn gửi form mặc định nếu không có kết quả được chọn
-    $('form').on('submit', function(event) {
-        let query = $('#search').val();
-        if (query.length <= 1) { // Nếu tìm kiếm ít hơn 2 ký tự
-            event.preventDefault();
-            alert("Vui lòng nhập ít nhất 2 ký tự.");
-        }
-        // Nếu có kết quả từ AJAX, bạn có thể tự xử lý việc này ở đây
-    });
+    
 
     // Ẩn kết quả khi nhấp ra ngoài
     $(document).on('click', function(e) {

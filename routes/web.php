@@ -59,10 +59,12 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
+
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
 // Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
 Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
+
 
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen'])->name('huongdan_dangtruyen');

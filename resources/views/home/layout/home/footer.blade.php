@@ -41,42 +41,52 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#search').on('keyup', function() {
-            let query = $(this).val();
-            if (query.length > 0) {
-                $.ajax({
-                    url: "{{ route('search_re') }}",
-                    type: "GET",
-                    data: {
-                        'query': query
-                    }, // Sử dụng 'title' nếu controller dùng 'title'
-                    success: function(data) {
-                        console.log(data); // Kiểm tra dữ liệu trả về từ server
-                        $('#search-results').html(data).show();
-                    },
-                    error: function() {
-                        console.error("Có lỗi xảy ra với AJAX.");
-                    }
-                });
-            } else {
-                $('#search-results').hide();
-            }
-        });
-
-
-        // Ẩn kết quả khi nhấp ra ngoài
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('#search').length) {
-                $('#search-results').hide();
-            }
-        });
-
-        // Điền giá trị từ dropdown vào ô tìm kiếm khi nhấp
-        $(document).on('click', '#search-results p', function() {
-            $('#search').val($(this).text());
+    $('#search').on('keyup', function() {
+        let query = $(this).val();
+        if (query.length > 1) { // Tìm kiếm từ 2 ký tự trở lên
+            $.ajax({
+                url: "{{ route('search_re') }}",
+                type: "GET",
+                data: {
+                    'title': query
+                },
+                success: function(data) {
+                    $('#search-results').html(data).show();
+                },
+                error: function() {
+                    console.error("Có lỗi xảy ra với AJAX.");
+                }
+            });
+        } else {
             $('#search-results').hide();
-        });
+        }
     });
+
+    // Ngăn gửi form mặc định nếu không có kết quả được chọn
+    $('form').on('submit', function(event) {
+        let query = $('#search').val();
+        if (query.length <= 1) { // Nếu tìm kiếm ít hơn 2 ký tự
+            event.preventDefault();
+            alert("Vui lòng nhập ít nhất 2 ký tự.");
+        }
+        // Nếu có kết quả từ AJAX, bạn có thể tự xử lý việc này ở đây
+    });
+
+    // Ẩn kết quả khi nhấp ra ngoài
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('#search').length) {
+            $('#search-results').hide();
+        }
+    });
+
+    // Điền giá trị từ dropdown vào ô tìm kiếm khi nhấp
+    $(document).on('click', '#search-results p', function() {
+        $('#search').val($(this).text());
+        $('#search-results').hide();
+    });
+});
+console.log("URL:", "{{ route('search_re') }}");
+
 </script>
 
 </body>

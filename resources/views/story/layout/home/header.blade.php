@@ -117,7 +117,8 @@
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
                 <form class="" action="{{route('search')}}" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
+                    <input class="search-input" type="text" id="search" placeholder="Tối thiểu 2 kí tự" name="title">
+                    <div id="search-results"></div>
                     <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 </form>
             </div>

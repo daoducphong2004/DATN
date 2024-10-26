@@ -97,8 +97,9 @@ Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthao
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
-Route::get('search', [SearchController::class, 'index'])->name('search');
-
+Route::get('/search/form', [SearchController::class, 'indexRe']);
+Route::get('/search/results',[SearchController::class,'index'])->name('search_re');
+Route::get('/search', [SearchController::class, 'indexShow'])->name('search');
 Route::prefix('admin')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');

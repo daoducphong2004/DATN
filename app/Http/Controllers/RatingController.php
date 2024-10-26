@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\book;
 use App\Models\Like;
+use App\Models\Like_rating;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,7 @@ class RatingController extends Controller
              return redirect()->back()->with('error', 'Đánh giá không tồn tại.');
          }
 
-         $like = Like::where('user_id', Auth::id())
+         $like = Like_rating::where('user_id', Auth::id())
              ->where('rating_id', $ratingId)
              ->first();
 
@@ -83,7 +84,7 @@ class RatingController extends Controller
              $like->delete();
              return redirect()->back()->with('success', 'Bạn đã bỏ like đánh giá này.');
          } else {
-             Like::create([
+            Like_rating::create([
                  'user_id' => Auth::id(),
                  'rating_id' => $ratingId,
              ]);

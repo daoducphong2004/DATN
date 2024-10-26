@@ -20,7 +20,7 @@ return new class extends Migration
             // Thiết lập khóa ngoại
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('rating_id')->references('id')->on('ratings')->onDelete('cascade');
-
+            $table->softDeletes();
             // Đảm bảo không có bản ghi trùng
             $table->unique(['user_id', 'rating_id']);
         });
@@ -31,7 +31,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rating_likes');
+        Schema::table('rating_likes', function (Blueprint $table) {
+            Schema::dropIfExists('rating_likes');
 
+        });
     }
 };

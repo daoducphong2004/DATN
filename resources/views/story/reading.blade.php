@@ -20,7 +20,7 @@
                 <!-- Bạn có thể thêm nội dung quảng cáo hoặc hình ảnh ở đây -->
             </div>
 
-            <div id="chapter-content" class="long-text text-justify" style="font-family:'Nunito', 'Times New Roman', Georgia, serif;">
+            <div id="chapter-content" class="long-text no-select text-justify" style="font-family:'Nunito', 'Times New Roman', Georgia, serif;">
                 @if ($canViewFullContent)
                 {{-- Nếu người dùng đã mua hoặc chương miễn phí, hiển thị toàn bộ nội dung --}}
                 {!! $fullContent !!}

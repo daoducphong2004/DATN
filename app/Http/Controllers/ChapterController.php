@@ -45,8 +45,17 @@ class ChapterController extends Controller
             'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
         ]);
 
+        // Add IDs to <p> tags
+        $dom = new \DOMDocument();
+        @$dom->loadHTML($validatedData['content'], LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
+        $paragraphs = $dom->getElementsByTagName('p');
+        foreach ($paragraphs as $index => $p) {
+            $p->setAttribute('id', $index + 1);
+        }
+        $contentWithIDs = $dom->saveHTML();
+
         // Calculate word count
-        $wordCount = str_word_count(strip_tags($validatedData['content']));
+        $wordCount = str_word_count(strip_tags($contentWithIDs));
 
         // Get the book associated with the episode
         $book = Episode::find($validatedData['episode_id'])->book()->first();
@@ -61,9 +70,9 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = '';
-        $chapter->book_id=$book->id;
+        $chapter->book_id = $book->id;
         $chapter->user_id = Auth::id();
-        $chapter->content = $validatedData['content'];
+        $chapter->content = $contentWithIDs;
         $chapter->price = $validatedData['price']; // Gán giá
         $chapter->word_count = $wordCount; // Lưu số từ
         $chapter->save();
@@ -81,6 +90,7 @@ class ChapterController extends Controller
 
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
     }
+
 
 
     public function uploadImage(Request $request)

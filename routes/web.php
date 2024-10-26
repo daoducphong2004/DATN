@@ -24,6 +24,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
@@ -236,6 +237,12 @@ Route::post('/episodes/update-order', [EpisodeController::class, 'updateOrder'])
 
 Route::get('/chapters/{episodeId}/', [ChapterController::class, 'showChapters'])->name('chapter.sortView');
 Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
+
+//Thêm bookmark cho truyện
+Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
+Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);
+Route::delete('/chapter/bookmark/{id}', [BookmarkController::class, 'destroy']);
+
 
 //End Phong
 

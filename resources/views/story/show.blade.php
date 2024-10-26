@@ -179,7 +179,7 @@
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Đánh giá( phần này sẽ làm sau)</div>
+                                                <div class="statistic-name">Đánh giá</div>
                                                 <div class="statistic-value">5,00 / <small>2</small></div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">

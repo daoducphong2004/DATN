@@ -12,60 +12,95 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                <li>
-                    @can('view-users', Auth::user())
-                        <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
-                    @endcan
-                </li>
-                <li>
-                    @can('view-author', Auth::user())
-                        <a href="{{ route('author.index') }}" style="color: #3107dc">Duyệt Author</a>
-                     @endcan
-                </li>
-                <li>
-                    @can('view-categories', Auth::user())
-                        <a href="{{ route('ListPurchaseUser') }}" style="color: #19fe00">Quản lý Mua</a>
-                    @endcan
-                </li>
-                <li>
-                    @can('view-story', Auth::user())
-                        <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a>
-                    @endcan
-                </li>
-                <li>
-                    @can('view-users', Auth::user())
-                        <a href="{{ route('user_index') }}" style="color: #3107dc">User</a>
-                    @endcan
-                </li>
-                <li>
-                    @can('view-categories', Auth::user())
-                        <a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a>
-                    @endcan
-                </li>
-                {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('bookComment.index') }}">Bình luận chuyện</a></li>
-                        <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
-                    </ul>
-                </li>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Tiện ích <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="theLoai">Thể loại</a></li>
-                        <li><a href="thuVien">Thư viện</a></li>
+                @if(Auth::check())
+                    <li>
+                        @can('view-story', Auth::user())
+                            <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
+                        @endcan
+                    </li>
+                    <li>
+                        @can('view-author', Auth::user())
+                            <a href="{{ route('author.index') }}" style="color: #3107dc">Duyệt Author</a>
+                        @endcan
+                    </li>
+                    <li>
+                        @can('view-categories', Auth::user())
+                            <a href="{{ route('ListPurchaseUser') }}" style="color: #19fe00">Quản lý Mua</a>
+                        @endcan
+                    </li>
+                    <li>
+                        @can('view-story', Auth::user())
+                            <a href="{{ route('admin_storylist') }}" style="color: red">Danh Sách Truyện</a>
+                        @endcan
+                    </li>
+                    <li>
+                        @can('view-users', Auth::user())
+                            <a href="{{ route('user_index') }}" style="color: #3107dc">User</a>
+                        @endcan
+                    </li>
+                    <li>
+                        @can('view-categories', Auth::user())
+                            <a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a>
+                        @endcan
+                    </li>
+                    {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ route('bookComment.index') }}">Bình luận chuyện</a></li>
+                            <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" target="_blank">Duyệt Truyện</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #3107dc">Duyệt Author</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #19fe00">Quản lý Mua</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: red">Danh Sách Truyện</a>
+                    </li>
+                    <li>
+                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href=""  onclick="alert('Bạn cần đăng nhập để xem')">Bình luận chuyện</a></li>
+                            <li><a href=""  onclick="alert('Bạn cần đăng nhập để xem')">Bình luận chap</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Thể Loại</a>
+                        {{-- <a href="" onclick="return('Bạn cần đăng nhập để xem')"></a> --}}
+                    </li>
 
-                    </ul>
-                </li>
+                @endif
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Tiện ích <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/theLoai">Thể loại</a></li>
+                            <li><a href="/thuVien">Thư viện</a></li>
+
+                        </ul>
+                    </li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a>{{ Auth::user()->username}}</a></li>
+                        <li>
+                            <a href="{{ Auth::check() ? '#' : route('login') }}">
+                                @if (Auth::check() && Auth::user()->username)
+                                    {{ Auth::user()->username }}
+                                @else
+                                    Bạn cần đăng nhập để xem thông tin này.
+                                @endif
+                            </a>
+                        </li>
                         <li role="separator" class="divider"></li>
                         <li><a href="https://docln.net/action/profile">Đổi Thông Tin</a></li>
                         <li><a href="https://docln.net/action/password">Đổi Mật Khẩu</a></li>

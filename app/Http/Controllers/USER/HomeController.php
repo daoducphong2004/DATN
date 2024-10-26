@@ -181,15 +181,15 @@ class HomeController extends Controller
     //     return view('home.stories', compact('book', 'episodes'));
     // }
 
-    public function vuadang()
-    {
-        return view('home.vuadang');
-    }
+    // public function vuadang()
+    // {
+    //     return view('home.vuadang');
+    // }
 
-    public function thaoluan()
-    {
-        return view('home.thaoluan');
-    }
+    // public function thaoluan()
+    // {
+    //     return view('home.thaoluan');
+    // }
     public function CDthaoluan()
     {
         return view('home.chudeThaoluan');
@@ -252,10 +252,10 @@ class HomeController extends Controller
         return view('home.gopy');
     }
 
-    public function search()
-    {
-        return view('home.search');
-    }
+    // public function search()
+    // {
+    //     return view('home.search');
+    // }
 
     public function kesach()
     {

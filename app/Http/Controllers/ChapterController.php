@@ -47,13 +47,22 @@ class ChapterController extends Controller
 
         // Add IDs to <p> tags
         $dom = new \DOMDocument();
-        @$dom->loadHTML($validatedData['content'], LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
+
+        // Thiết lập mã hóa cho DOMDocument để xử lý UTF-8
+        $dom->encoding = 'UTF-8';
+
+        // Load HTML với encoding UTF-8
+        @$dom->loadHTML(mb_convert_encoding($validatedData['content'], 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
+
         $paragraphs = $dom->getElementsByTagName('p');
+
+        // Thêm ID cho từng <p>
         foreach ($paragraphs as $index => $p) {
             $p->setAttribute('id', $index + 1);
         }
-        $contentWithIDs = $dom->saveHTML();
 
+        // Lưu lại nội dung HTML với các ID đã thêm
+        $contentWithIDs = $dom->saveHTML();
         // Calculate word count
         $wordCount = str_word_count(strip_tags($contentWithIDs));
 
@@ -80,7 +89,8 @@ class ChapterController extends Controller
         // Create slug from chapter_id and title
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
-
+        $lastOder = $chapter->getMaxOrderByBook($chapter->episode);
+        $chapter->order = $lastOder + 1;
         // Save the chapter again with the updated slug
         $chapter->save();
 
@@ -155,6 +165,26 @@ class ChapterController extends Controller
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
 
+
+        // Add IDs to <p> tags
+        $dom = new \DOMDocument();
+
+        // Thiết lập mã hóa cho DOMDocument để xử lý UTF-8
+        $dom->encoding = 'UTF-8';
+
+        // Load HTML với encoding UTF-8
+        @$dom->loadHTML(mb_convert_encoding($validatedData['content'], 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
+
+        $paragraphs = $dom->getElementsByTagName('p');
+
+        // Thêm ID cho từng <p>
+        foreach ($paragraphs as $index => $p) {
+            $p->setAttribute('id', $index + 1);
+        }
+
+        // Lưu lại nội dung HTML với các ID đã thêm
+        $contentWithIDs = $dom->saveHTML();
+
         // Lấy thông tin về episode và book liên quan
         $book = $chapter->episode->book;
 
@@ -162,7 +192,7 @@ class ChapterController extends Controller
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        $chapter->book_id=$book->id;
+        $chapter->book_id = $book->id;
         $chapter->content = $validatedData['content'];
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
@@ -213,7 +243,7 @@ class ChapterController extends Controller
             return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa chapter. Vui lòng thử lại.']);
         }
     }
-    public function purchaseChapter(Request $request, $chapterId,$price)
+    public function purchaseChapter(Request $request, $chapterId, $price)
     {
         $user = auth()->user(); // Lấy thông tin người dùng hiện tại
 
@@ -244,13 +274,13 @@ class ChapterController extends Controller
         PurchasedStory::create([
             'user_id' => $user->id,
             'chapter_id' => $chapter->id,
-            'price'=>$price,
+            'price' => $price,
             'purchase_date' => now(),
         ]);
 
         return response()->json(['message' => 'Mua chapter thành công!'], 200);
     }
-    public function purchase($bookSlug, $chapterId,$price)
+    public function purchase($bookSlug, $chapterId, $price)
     {
         // Kiểm tra xem người dùng có đăng nhập không
         if (!auth()->check()) {
@@ -265,13 +295,13 @@ class ChapterController extends Controller
         // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
         if ($price == 0) {
             return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Chương này miễn phí, bạn không cần mua.');
+                ->with('message', 'Chương này miễn phí, bạn không cần mua.');
         }
 
         // Kiểm tra nếu người dùng đã mua chương này
         if ($user->hasPurchased($chapter->id)) {
             return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Bạn đã mua chương này rồi.');
+                ->with('message', 'Bạn đã mua chương này rồi.');
         }
 
         // Kiểm tra số dư coin của người dùng
@@ -286,12 +316,12 @@ class ChapterController extends Controller
         PurchasedStory::create([
             'user_id' => $user->id,
             'chapter_id' => $chapter->id,
-            'price'=>$price,
+            'price' => $price,
             'purchase_date' => now(),
         ]);
 
         return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                         ->with('message', 'Mua chương thành công!');
+            ->with('message', 'Mua chương thành công!');
     }
     public function purchaseAllChaptersInEpisode($episodeId)
     {
@@ -345,7 +375,6 @@ class ChapterController extends Controller
             // Trả về trang chi tiết truyện và hiển thị thông báo thành công
             return redirect()->back()
                 ->with('message', 'Thanh toán thành công. Bạn đã mua tất cả các chương trong tập truyện.');
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -359,7 +388,7 @@ class ChapterController extends Controller
     {
         // Lấy tất cả các chương của tập truyện cụ thể và sắp xếp theo 'order'
         $chapters = Chapter::where('episode_id', $episodeId)->orderBy('order')->get();
-        return view('stories.iframe.chapters.sort', compact('chapters','episodeId'));
+        return view('stories.iframe.chapters.sort', compact('chapters', 'episodeId'));
     }
     public function updateChapterOrder(Request $request, $episodeId)
     {
@@ -373,5 +402,4 @@ class ChapterController extends Controller
 
         return response()->json(['status' => 'success']);
     }
-
 }

@@ -33,8 +33,12 @@ class chapter extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
-
-
+    // lấy oder lớn nhất
+    public static function getMaxOrderByBook($episodeId)
+    {
+        return self::where('episode_id', $episodeId)
+            ->max('order');
+    }
     public function chaptercomments()
     {
         return $this->hasMany(ChapterComment::class);

@@ -8,7 +8,15 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function payment()
+    public function indexPayment(){
+        return view('pay.choose-payment');
+    }
+
+    public function indexCash(){
+        return view('pay.choose-cash');
+    }
+
+    public function payment(Request $request)
     {
         $vnp_TmnCode = "ME3DBPPL";
         $vnp_HashSecret = "I4DW6LYA3KPCUK7ZYC1GR7054X59P7L3";
@@ -18,7 +26,7 @@ class PaymentController extends Controller
         $vnp_TxnRef = 'MRD' . rand(00, 9999);
         $vnp_OrderInfo = "Thanh toán online";
         $vnp_OrderType = "vnpay";
-        $vnp_Amount = 100000 * 100;
+        $vnp_Amount = $request->cash * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -108,18 +116,30 @@ class PaymentController extends Controller
                         'status' => 'completed',
                         'transaction_id' => $inputData['vnp_TransactionNo']
                     ]);
-                    dd('payment_success', ['transaction' => $payment]);
+                    $encodedData = base64_encode(json_encode($request->all()));
+                    $userInfo = Auth::user();
+                    // $requestObject = (object) $request->all();
+                    $userInfo->coin_earned +=  $request->vnp_Amount/100;
+                    $userInfo->save();
+                    return redirect()->route('paymentSuccess', ['paymentData' => $encodedData])->with('message', 'Giao dịch thành công!');
                 } else {
                     $payment->update([
                         'status' => 'failed'
                     ]);
-                    dd(['message' => 'Giao dịch không thành công']);
+                    return redirect()->route('indexCash')->with('message', 'Giao dịch không thành công');
                 }
             } else {
-                dd(['message' => 'Giao dịch không tồn tại']);
+                return redirect()->route('indexCash')->with('message', 'Giao dịch không tồn tại');
             }
         } else {
-            dd(['message' => 'Chữ ký không hợp lệ']);
+            return redirect()->route('indexCash')->with('message', 'Chữ ký không hợp lệ');
         }
+    }
+
+    public function paymentSuccess($paymentData){
+        $dataInput = json_decode(base64_decode($paymentData), true);
+        $dataInput = (object) $dataInput;
+        $userInfo = Auth::user();
+        return view('pay.payment-status', compact('dataInput', 'userInfo'));
     }
 }

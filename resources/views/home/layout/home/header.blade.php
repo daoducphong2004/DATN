@@ -71,6 +71,9 @@
                                     <a href="{{ route('user.books',['userId' => Auth::user()->id]) }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('indexPayment')}}"><i class="fas fa-user"></i><span>Nạp tiền</span></a>
+                                </li>
+                                <li>
                                     <a href="{{ url('lich-su') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>

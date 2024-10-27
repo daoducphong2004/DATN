@@ -25,12 +25,14 @@ use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
@@ -195,6 +197,15 @@ Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
 Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);
 Route::delete('/chapter/bookmark/{id}', [BookmarkController::class, 'destroy']);
 Route::get('/chapter/{chapter}/bookmarks', [BookmarkController::class, 'getUserBookmarks']);
+
+//order và cart
+Route::post('/cart/add', [CartController::class, 'addToCart']);
+Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
+Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
+Route::get('/cart/count', [CartController::class, 'getCartCount']);
+Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
+
+Route::post('/order/create', [OrderController::class, 'createOrder']);
 
 
 //End Phong

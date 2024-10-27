@@ -11,38 +11,6 @@
     });
 </script>
 {{-- <script src="js/truyen.js"></script> --}}
-<script>
-       // Toggle lớp "none" khi bấm vào nút mục lục
-       document.querySelector('.catalog-icon').addEventListener('click', function() {
-        var listVolSection = document.getElementById('list-vol');
-        listVolSection.classList.toggle('none');
-    });
-
-    // Cuộn màn hình đến tập truyện khi bấm vào mục lục
-    document.querySelectorAll('.list-volume li').forEach(function(item) {
-        item.addEventListener('click', function() {
-            var targetId = this.getAttribute('data-scrollTo');
-            var targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
- // Ẩn mục lục khi bấm vào nút "list-vol_off"
-    document.querySelector('.list-vol_off').addEventListener('click', function() {
-        var listVolSection = document.getElementById('list-vol');
-        listVolSection.classList.add('none');
-    });
-
-    // Ẩn mục lục khi bấm ra ngoài mục lục
-    document.addEventListener('click', function(event) {
-        var listVolSection = document.getElementById('list-vol');
-        var isClickInside = listVolSection.contains(event.target) || document.querySelector('.catalog-icon').contains(event.target);
-        if (!isClickInside) {
-            listVolSection.classList.add('none');
-        }
-    });
-</script>
 
 </main>
 

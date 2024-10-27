@@ -334,14 +334,14 @@ class ChapterController extends Controller
         // Lấy tất cả các chương trong tập truyện
         $chapters = $episode->chapters;
 
-        // Kiểm tra các chương nào chưa được mua
+        // Kiểm tra các chương nào chưa được mua và có giá trị lớn hơn 0
         $chaptersToPurchase = $chapters->filter(function ($chapter) use ($user) {
-            return !PurchasedStory::where('chapter_id', $chapter->id)->where('user_id', $user->id)->exists();
+            return $chapter->price > 0 && !PurchasedStory::where('chapter_id', $chapter->id)->where('user_id', $user->id)->exists();
         });
 
-        // Nếu tất cả các chương đã được mua
+        // Nếu tất cả các chương đã được mua hoặc không có chương nào có giá trị
         if ($chaptersToPurchase->isEmpty()) {
-            return redirect()->back()->with('message', 'Bạn đã mua tất cả các chương trong tập truyện này.');
+            return redirect()->back()->with('message', 'Bạn đã mua tất cả các chương có giá trị trong tập truyện này.');
         }
 
         // Tính tổng giá của các chương chưa được mua
@@ -373,16 +373,14 @@ class ChapterController extends Controller
             DB::commit();
 
             // Trả về trang chi tiết truyện và hiển thị thông báo thành công
-            return redirect()->back()
-                ->with('message', 'Thanh toán thành công. Bạn đã mua tất cả các chương trong tập truyện.');
+            return redirect()->back()->with('message', 'Thanh toán thành công. Bạn đã mua tất cả các chương có giá trị trong tập truyện.');
         } catch (\Exception $e) {
             DB::rollBack();
-
             // Nếu có lỗi xảy ra, trả về trang chi tiết truyện và hiển thị thông báo lỗi
-            return redirect()->back()
-                ->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
         }
     }
+
     //sắp xếp thứ tự chapter
     public function showChapters($episodeId)
     {

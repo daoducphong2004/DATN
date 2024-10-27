@@ -24,7 +24,7 @@ class BookmarkController extends Controller
         ])->first();
 
         if ($existingBookmark) {
-            return response()->json(['status' => 'exists', 'message' => 'Bookmark already exists']);
+            return response()->json(['status' => 'exists', 'message' => 'Bookmark đã tồn tại']);
         }
 
         $bookmark = Bookmarks::create([
@@ -58,7 +58,7 @@ class BookmarkController extends Controller
         $bookmark = Bookmarks::findOrFail($id);
         $bookmark->delete();
 
-        return response()->json(['status' => 'success', 'message' => 'Bookmark deleted successfully']);
+        return response()->json(['status' => 'success', 'message' => 'Xóa Bookmark thành công']);
     }
     public function getUserBookmarks($chapter)
     {

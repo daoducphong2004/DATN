@@ -192,8 +192,11 @@ Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateCha
 //End Phong
 
 //Thanh toan
-Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
+Route::get("/choose_payment", [PaymentController::class, 'indexPayment'])->name('indexPayment');
+Route::get("/choose_cash", [PaymentController::class, 'indexCash'])->name('indexCash');
+Route::post("/vnpay_payment", [PaymentController::class, 'payment'])->name('payment');
 Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
+Route::get('/payment-success/{paymentData}', [PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
 
 // User trong Group
 Route::prefix('groups')->group(function () {

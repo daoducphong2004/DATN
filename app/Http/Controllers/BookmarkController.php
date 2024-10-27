@@ -60,4 +60,20 @@ class BookmarkController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'Bookmark deleted successfully']);
     }
+    public function getUserBookmarks($chapter)
+    {
+
+        $userId = Auth::id(); // Lấy ID của người dùng hiện tại
+
+        // Lấy danh sách bookmark của người dùng trong chapter cụ thể
+        $bookmarks = Bookmarks::where('user_id', $userId)
+            ->where('chapter_id', $chapter)
+            ->get();
+        // dd($bookmarks);
+        // Trả về danh sách bookmark dưới dạng JSON
+        return response()->json([
+            'status' => 'success',
+            'bookmarks' => $bookmarks
+        ]);
+    }
 }

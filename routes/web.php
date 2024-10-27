@@ -194,6 +194,7 @@ Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateCha
 Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
 Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);
 Route::delete('/chapter/bookmark/{id}', [BookmarkController::class, 'destroy']);
+Route::get('/chapter/{chapter}/bookmarks', [BookmarkController::class, 'getUserBookmarks']);
 
 
 //End Phong

@@ -34,6 +34,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\purchaseStoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
@@ -152,8 +153,8 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
-Route::post('/chapters/{chapter}/purchase/{price}', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
-Route::get('/truyen/{book}/{chapter}/purchase/{price}', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/chapters/{chapter}/purchase/{price}', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
+Route::get('/truyen/{book}/{chapter}/purchase/{price}', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 
 
 Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
@@ -175,7 +176,7 @@ Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('
 Route::resource('banners', BannerController::class);
 
 Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
-Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
+Route::post('/purchase/episode/{episodeId}', [purchaseStoryController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
 
 
@@ -205,7 +206,7 @@ Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
 Route::get('/cart/count', [CartController::class, 'getCartCount']);
 Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
 
-Route::post('/order/create', [OrderController::class, 'createOrder']);
+Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
 
 
 //End Phong

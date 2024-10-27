@@ -11,6 +11,10 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.');
+        }
+
         $exists = Cart::where('user_id', Auth::id())->where('chapter_id', $request->chapter_id)->exists();
 
         if ($exists) {
@@ -28,6 +32,10 @@ class CartController extends Controller
 
     public function viewCart()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.');
+        }
+
         $user = Auth::user();
         $cartItems = Cart::where('user_id', $user->id)->with('chapter')->get();
 
@@ -44,6 +52,10 @@ class CartController extends Controller
 
     public function removeFromCart($id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.');
+        }
+
         $cartItem = Cart::findOrFail($id);
         $cartItem->delete();
 
@@ -56,13 +68,16 @@ class CartController extends Controller
     }
     public function addMultipleToCart(Request $request)
     {
-        $chapterIds = $request->input('chapters');
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.');
+        }
+
+        $chapterIds = $request->input('chapters', []);
         $userId = Auth::id();
         $addedChapters = [];
         $existingChapters = [];
 
         foreach ($chapterIds as $chapterId) {
-            // Kiểm tra nếu chương đã có trong giỏ hàng
             $exists = Cart::where('user_id', $userId)->where('chapter_id', $chapterId)->exists();
 
             if (!$exists) {
@@ -83,5 +98,6 @@ class CartController extends Controller
 
         return redirect()->back()->with('message', $message);
     }
+
 
 }

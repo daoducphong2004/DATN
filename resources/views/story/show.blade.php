@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -347,15 +347,18 @@
                     @foreach ($book->episodes->sortBy('order') as $item)
                         {{-- Sắp xếp theo order --}}
                         <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
-                            <header id="volume_{{ $item->id }}" class="sect-header" style="display: flex; align-items: center;">
+                            <header id="volume_{{ $item->id }}" class="sect-header"
+                                style="display: flex; align-items: center;">
                                 <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
                                 <span class="sect-title" style="flex-grow: 1; margin-right: 10px;">
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
                                 <span class="buy-all-button">
-                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                        style="display: inline;">
                                         @csrf
-                                        <button type="submit" style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                        <button type="submit"
+                                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                             Mua tất cả chương
                                         </button>
                                     </form>
@@ -380,14 +383,13 @@
                                             @csrf
                                             <ul class="list-chapters at-series">
                                                 @foreach ($item->chapters->sortBy('order') as $chapter)
-                                                    {{-- Sắp xếp chương theo order --}}
                                                     <li>
                                                         <div class="chapter-name" style="display: flex; align-items: center;">
-                                                            {{-- Checkbox để chọn chương --}}
-                                                            @if ($chapter->price>0)
-                                                            <input type="checkbox" name="chapters[]" value="{{ $chapter->id }}" style="margin-right: 10px;">
-
+                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                            @if ($chapter->price > 0 && (!auth()->check() || !auth()->user()->hasPurchased($chapter->id)))
+                                                                <input type="checkbox" name="chapters[]" value="{{ $chapter->id }}" style="margin-right: 10px;">
                                                             @endif
+
                                                             {{-- Hiển thị badge "Mới" nếu chương là mới --}}
                                                             @if ($chapter->is_new)
                                                                 <div class="new-status badge">
@@ -420,22 +422,32 @@
                                                                             {{ $chapter->title }}
                                                                         </a>
                                                                         <span style="margin-left: 10px;">{{ $chapter->price }} coins</span>
-                                                                        <a class="btn btn-success add-to-cart" data-chapter-id="{{ $chapter->id }}" style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; margin-left: 10px; display: flex; align-items: center;">
-                                                                            <i class="fas fa-shopping-cart"></i>
-                                                                        </a>
                                                                     </span>
                                                                 @endif
                                                             @endif
                                                         </div>
                                                         {{-- Hiển thị thời gian tạo chương --}}
-                                                        <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}</div>
+                                                        <div class="chapter-time">
+                                                            {{ $chapter->created_at->format('d/m/Y') }}
+                                                        </div>
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                            <button type="submit" class="btn btn-secondary mt-3" style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                                Thêm các chương đã chọn vào giỏ hàng
-                                            </button>
+
+                                            @php
+                                                $allChaptersFreeOrPurchased = $item->chapters->every(function($chapter) {
+                                                    return $chapter->price == 0 || (auth()->check() && auth()->user()->hasPurchased($chapter->id));
+                                                });
+                                            @endphp
+
+                                            @if (!$allChaptersFreeOrPurchased)
+                                                <button type="submit" class="btn btn-secondary mt-3" style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                    Thêm các chương đã chọn vào giỏ hàng
+                                                </button>
+                                            @endif
                                         </form>
+
+
 
                                     </div>
                                 </div>
@@ -661,18 +673,19 @@
         </div>
     </main>
     <script>
-        function confirmPurchaseEpisode(episodeTitle, episodeId) {
-            document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' + episodeTitle;
-            document.getElementById('modalContent').innerText =
-                'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
-            document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
-            document.getElementById('purchaseModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('purchaseModal').style.display = 'none';
-        }
         document.addEventListener('DOMContentLoaded', function() {
+            function confirmPurchaseEpisode(episodeTitle, episodeId) {
+                document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' +
+                    episodeTitle;
+                document.getElementById('modalContent').innerText =
+                    'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
+                document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
+                document.getElementById('purchaseModal').style.display = 'block';
+            }
+
+            function closeModal() {
+                document.getElementById('purchaseModal').style.display = 'none';
+            }
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', function() {
                     const chapterId = this.dataset.chapterId;
@@ -701,6 +714,5 @@
                 });
             });
         });
-
     </script>
 @endsection

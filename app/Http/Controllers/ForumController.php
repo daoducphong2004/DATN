@@ -50,7 +50,8 @@ class ForumController extends Controller
             'forums.id as id',
             'forums.title as title',
             'forums.content as content',
-            'forums.created_at as created_at'
+            'forums.created_at as created_at',
+            'forums.viewer as viewer'
         ])->orderBy('created_at', 'desc')->get();
         $categories = Category::all();
         foreach ($data_forums as $forum) {
@@ -84,7 +85,8 @@ class ForumController extends Controller
             'forums.id as id',
             'forums.title as title',
             'forums.content as content',
-            'forums.created_at as created_at'
+            'forums.created_at as created_at',
+            'forums.viewer as viewer'
         ])->orderBy('created_at', 'desc')->get();
         $categories = Category::all();
         foreach ($data_forums as $forum) {

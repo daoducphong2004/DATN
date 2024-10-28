@@ -46,7 +46,7 @@
             <label class="col-md-2 control-label pt-7 text-right">Chọn truyện</label>
             <div class="col-md-8">
                 <select class="input-sm" name="book_id" style="width: 100%">
-                <option value="0">--- Chọn truyện ---</option>
+                <option value="">--- Chọn truyện ---</option>
                                 <optgroup label="translations">
                                         @foreach ($books as $item_books)
                                         <option value="{{$item_books->id}}">{{$item_books->title}}</option>

@@ -70,6 +70,11 @@ class HomeController extends Controller
                                 $query->where('Is_Inspect', 1)
                                       ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
                             })
+                            ->whereIn('id', function($query) {
+                                $query->select(DB::raw('MAX(id)'))
+                                      ->from('chapters')
+                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+                            })
                             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
                             ->take(5) // Giới hạn 5 chương mới nhất
                             ->get();

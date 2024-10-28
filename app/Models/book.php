@@ -26,6 +26,7 @@ class book extends Model
         'group_id',
         'user_id',
         'Is_Inspect',
+        'price',
     ];
     public function episodes()
     {

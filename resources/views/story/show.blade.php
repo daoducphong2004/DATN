@@ -228,7 +228,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -343,6 +343,18 @@
                             </ul>
                         </div>
                     </section>
+                    <form style="width: 100%;text-align: center"
+                        action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST">
+                        @csrf
+                        <button
+                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
+                            type="submit" class="btn btn-primary">Mua tất cả chương trong truyện</button>
+                        <br>
+                        <br>
+
+                    </form>
+                    @include('story.partials.noti')
+
 
                     @foreach ($book->episodes->sortBy('order') as $item)
                         {{-- Sắp xếp theo order --}}
@@ -379,15 +391,22 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-10">
-                                        <form id="addChaptersForm" method="POST" action="{{ route('cart.addMultiple') }}">
+                                        <form id="addChaptersForm" method="POST"
+                                            action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
                                                 @foreach ($item->chapters->sortBy('order') as $chapter)
                                                     <li>
-                                                        <div class="chapter-name" style="display: flex; align-items: center;">
+                                                        <div class="chapter-name"
+                                                            style="display: flex; align-items: center;">
                                                             {{-- Hiển thị checkbox nếu chương chưa mua --}}
-                                                            @if ($chapter->price > 0 && (!auth()->check() || !auth()->user()->hasPurchased($chapter->id)))
-                                                                <input type="checkbox" name="chapters[]" value="{{ $chapter->id }}" style="margin-right: 10px;">
+                                                            @if (
+                                                                $chapter->price > 0 &&
+                                                                    (!auth()->check() ||
+                                                                        !auth()->user()->hasPurchased($chapter->id)))
+                                                                <input type="checkbox" name="chapters[]"
+                                                                    value="{{ $chapter->id }}"
+                                                                    style="margin-right: 10px;">
                                                             @endif
 
                                                             {{-- Hiển thị badge "Mới" nếu chương là mới --}}
@@ -399,29 +418,38 @@
 
                                                             {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
                                                             @if ($chapter->contains_image)
-                                                                <i class="fas fa-image" aria-hidden="true" title="Có chứa ảnh"></i>
+                                                                <i class="fas fa-image" aria-hidden="true"
+                                                                    title="Có chứa ảnh"></i>
                                                             @endif
 
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}" title="{{ $chapter->title }}">
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                    title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
                                                             @else
                                                                 {{-- Kiểm tra người dùng đã mua chương chưa --}}
-                                                                @if (auth()->check() && auth()->user()->hasPurchased($chapter->id))
+                                                                @if (auth()->check() &&
+                                                                        auth()->user()->hasPurchased($chapter->id))
                                                                     {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
-                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}" title="{{ $chapter->title }}">
+                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                        title="{{ $chapter->title }}">
                                                                         {{ $chapter->title }}
                                                                     </a>
                                                                 @else
                                                                     {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                                    <span class="chapter-locked" title="Bạn cần mua chương để đọc" style="display: flex; align-items: center;">
-                                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}" title="{{ $chapter->title }}">
+                                                                    <span class="chapter-locked"
+                                                                        title="Bạn cần mua chương để đọc"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                            title="{{ $chapter->title }}">
                                                                             {{ $chapter->title }}
                                                                         </a>
-                                                                        <span style="margin-left: 10px;">{{ $chapter->price }} coins</span>
+                                                                        <span
+                                                                            style="margin-left: 10px;">{{ $chapter->price }}
+                                                                            coins</span>
                                                                     </span>
                                                                 @endif
                                                             @endif
@@ -435,13 +463,20 @@
                                             </ul>
 
                                             @php
-                                                $allChaptersFreeOrPurchased = $item->chapters->every(function($chapter) {
-                                                    return $chapter->price == 0 || (auth()->check() && auth()->user()->hasPurchased($chapter->id));
+                                                $allChaptersFreeOrPurchased = $item->chapters->every(function (
+                                                    $chapter,
+                                                ) {
+                                                    return $chapter->price == 0 ||
+                                                        (auth()->check() &&
+                                                            auth()
+                                                                ->user()
+                                                                ->hasPurchased($chapter->id));
                                                 });
                                             @endphp
 
                                             @if (!$allChaptersFreeOrPurchased)
-                                                <button type="submit" class="btn btn-secondary mt-3" style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                <button type="submit" class="btn btn-secondary mt-3"
+                                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                                     Thêm các chương đã chọn vào giỏ hàng
                                                 </button>
                                             @endif

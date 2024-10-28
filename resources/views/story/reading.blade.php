@@ -1,5 +1,7 @@
 @extends('story.layout.readingmaster')
 @section('content')
+@include('story.partials.noti')
+
 <div class="container">
     <div class="row">
         <div class="reading-content col-12 col-lg-10 offset-lg-1" style="word-wrap: break-word;">

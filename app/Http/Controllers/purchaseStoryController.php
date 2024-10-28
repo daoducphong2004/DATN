@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\book;
 use App\Models\Cart;
+use App\Models\chapter;
 use App\Models\episode;
 use App\Models\PurchasedStory;
 use Illuminate\Http\Request;
@@ -12,7 +14,8 @@ use Illuminate\Support\Facades\DB;
 class purchaseStoryController extends Controller
 {
 
-    public function createOrder() {
+    public function createOrder()
+    {
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để đặt hàng.');
         }
@@ -151,7 +154,7 @@ class purchaseStoryController extends Controller
         }
 
         // Lấy thông tin chapter cần mua
-        $chapter = Chapter::findOrFail($chapterId);
+        $chapter = chapter::findOrFail($chapterId);
 
         // Kiểm tra nếu người dùng có đủ coin để mua
         $price = $chapter->price;
@@ -217,6 +220,47 @@ class purchaseStoryController extends Controller
         return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
             ->with('message', 'Mua chương thành công!');
     }
+    public function purchaseAllChaptersInBook($bookId)
+    {
+        $user = Auth::user();
+        $book = Book::findOrFail($bookId);
+        $chapters = $book->chapters;
 
+        $chaptersToPurchase = $chapters->filter(function ($chapter) use ($user) {
+            return $chapter->price > 0 && !PurchasedStory::where('chapter_id', $chapter->id)->where('user_id', $user->id)->exists();
+        });
 
+        if ($chaptersToPurchase->isEmpty()) {
+            return redirect()->back()->with('message', 'Bạn đã mua tất cả các chương có giá trị trong sách này.');
+        }
+
+        $totalPrice = $chaptersToPurchase->sum('price');
+
+        if ($user->coin_earned < $totalPrice) {
+            return redirect()->back()->with('error', 'Bạn không đủ coin để mua tất cả các chương này.');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $user->coin_earned -= $totalPrice;
+            $user->save();
+
+            foreach ($chaptersToPurchase as $chapter) {
+                PurchasedStory::create([
+                    'user_id' => $user->id,
+                    'chapter_id' => $chapter->id,
+                    'purchase_date' => now(),
+                    'price' => $chapter->price,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Thanh toán thành công. Bạn đã mua tất cả các chương có giá trị trong sách.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
+        }
+    }
 }

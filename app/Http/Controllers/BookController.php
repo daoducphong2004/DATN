@@ -233,6 +233,7 @@ class BookController extends Controller
     {
 
         $adult = $request->has('adult') ? 1 : 0;
+
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
@@ -249,6 +250,7 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
+            'price' => $request->price,
         ]);
 
         $slug = Str::slug($book->id . '-' . $request->title);
@@ -364,6 +366,7 @@ class BookController extends Controller
                 'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
                 'group_id' => $request->group_id,
                 'user_id' => Auth::id(),
+                'price' => $request->price
             ]);
 
             // Attach genres

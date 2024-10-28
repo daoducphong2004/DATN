@@ -135,9 +135,7 @@
                         <main class="row">
 
                             {{-- Bắt đầu truyện đơn --}}
-                            @if ($data->isEmpty())
-                            <p>Không tìm thấy kết quả nào</p>
-                            @endif
+                          
                             @foreach ($data as $item)
                             <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                 <div class="thumb-wrapper ln-tooltip"

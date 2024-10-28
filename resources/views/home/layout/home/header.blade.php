@@ -76,7 +76,10 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('lich-su') }}">
+                                <a href="{{ route('indexPayment')}}"><i class="fas fa-user"></i><span>Nạp tiền</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('lich-su') }}">
                                     <i class="fas fa-history"></i><span>Lịch sử</span>
                                 </a>
                             </li>
@@ -166,10 +169,10 @@
         </div>
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
-                <form class="" action="{{ route('search') }}" method="get">
-                    <input class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
-                    <button class="search-submit" type="submit" value="Tìm kiếm"><i
-                            class="fas fa-search"></i></button>
+                <form class="" action="{{route('search')}}" method="get">
+                    <input id="search" class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
+                    <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
+                    <div id="search-results"></div>
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">

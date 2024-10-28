@@ -95,6 +95,8 @@
 
         <span>© 2016 - 2024 Cổng Light Novel - Đọc Light Novel</span>
     </div>
+        <span>© 2016 - 2024 Cổng Light Novel - Đọc Light Novel</span>
+    </div>
 </footer>
 
 

@@ -31,8 +31,8 @@
         integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
 
 
-        <script src="{{ asset('js/plugins.js')}}"></script>
-
+    <script src="{{ asset('js/plugins.js')}}"></script>
+   
 
 </head>
 <style>

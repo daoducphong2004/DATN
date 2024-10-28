@@ -104,7 +104,7 @@ Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
 Route::get('search', [SearchController::class, 'index'])->name('search');
-
+Route::get('search/results',[SearchController::class,'indexShow'])->name('search_re');
 
 
 
@@ -212,8 +212,11 @@ Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
 //End Phong
 
 //Thanh toan
-Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
+Route::get("/choose_payment", [PaymentController::class, 'indexPayment'])->name('indexPayment');
+Route::get("/choose_cash", [PaymentController::class, 'indexCash'])->name('indexCash');
+Route::post("/vnpay_payment", [PaymentController::class, 'payment'])->name('payment');
 Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
+Route::get('/payment-success/{paymentData}', [PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
 
 // User trong Group
 Route::prefix('groups')->group(function () {

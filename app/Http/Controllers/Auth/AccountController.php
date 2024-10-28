@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -127,11 +128,11 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
         $user = new User();
-
         $user->username = $request->username;
         $user->email = $request->email;
         // $user->role_id = 1;
         $user->password = Hash::make($request->password);
+
 
         $userRole = Role::where('name', 'user')->first();
         if ($userRole) {
@@ -171,6 +172,4 @@ class AccountController extends Controller
     {
         return view('auth.password.reset');
     }
-
-
 }

@@ -1,6 +1,6 @@
 @extends('stories.partials.master')
 @section('content')
-
+@include('stories.iframe.partials.css_script')
     <body data-theme="light">
 
         <div class="container">
@@ -24,7 +24,8 @@
                                 }
                             </script>
 
-                            <form role="form" method="POST" enctype="multipart/form-data" action="{{ route('story.update', $book->id) }}">
+                            <form role="form" method="POST" enctype="multipart/form-data"
+                                action="{{ route('story.update', $book->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <input type="hidden" name="series_id" value="{{ $book->id }}">
@@ -50,13 +51,12 @@
                                     <div class="col-md-8">
                                         <div id="upload" class="series_cover">
                                             <div id="drop">
-                                                <a>Chọn ảnh</a>
-                                                <input type="file" name="book_path" />
+                                                <a id="selectImageBtn">Chọn ảnh</a>
+                                                <input type="file" name="book_path" id="fileInput" style="display: none" />
                                             </div>
-                                            <div class="alert alert-danger alert-dismissible" role="alert"
-                                                style="display: none">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                    aria-label="Close">
+                                            <img style="max-height: 300px; max-width: 300px" src="{{ asset(Storage::url($book->book_path)) }}">
+                                            <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <span>&times;</span>
                                                 </button>
                                             </div>
@@ -64,10 +64,10 @@
                                                 <div class="progress-bar progress-bar-success"></div>
                                             </div>
                                         </div>
-                                        <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview"
-                                            src="">
+                                        <img style="max-height: 300px; max-width: 300px" id="SeriesCoverPreview" src="">
                                     </div>
                                 </div>
+
 
                                 <div class="form-group clearfix required">
                                     <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
@@ -89,9 +89,9 @@
                                     <label class="col-md-2 control-label pt-5 text-right">Loại truyện</label>
                                     <div class="col-md-10">
                                         <select class="input-sm" name="type_display" disabled>
-                                            <option @selected($book->type==1) value="1">Truyện dịch</option>
-                                            <option @selected($book->type==2) value="2">Truyện convert</option>
-                                            <option @selected($book->type==3) value="3">Truyện sáng tác</option>
+                                            <option @selected($book->type == 1) value="1">Truyện dịch</option>
+                                            <option @selected($book->type == 2) value="2">Truyện convert</option>
+                                            <option @selected($book->type == 3) value="3">Truyện sáng tác</option>
                                         </select>
                                         <!-- Hidden input to pass the value -->
                                         <input type="hidden" name="type" value="{{ $book->type }}">
@@ -140,14 +140,24 @@
                                 <div class="form-group clearfix required">
                                     <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>
                                     <div class="col-md-10">
-                                        <select class="input-sm" name="status">
-                                            <option value="1" {{ $book->status == 1 ? 'selected' : '' }}>Đang tiến hành</option>
-                                            <option value="2" {{ $book->status == 2 ? 'selected' : '' }}>Tạm ngưng</option>
-                                            <option value="3" {{ $book->status == 3 ? 'selected' : '' }}>Đã hoàn thành</option>
+                                        <select class="input-sm" name="status" id='select-status'>
+                                            <option value="1" {{ $book->status == 1 ? 'selected' : '' }}>Đang tiến
+                                                hành</option>
+                                            <option value="2" {{ $book->status == 2 ? 'selected' : '' }}>Tạm ngưng
+                                            </option>
+                                            <option value="3" {{ $book->status == 3 ? 'selected' : '' }}>Đã hoàn
+                                                thành</option>
                                         </select>
-
                                     </div>
+
                                 </div>
+
+                                {{-- <div class="form-group clearfix">
+                                    <label class="col-md-2 control-label pt-7 text-right">Giá</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="price" id='input-price' value="{{ $book->price }}">
+                                    </div>
+                                </div> --}}
 
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
                                 <script>
@@ -201,4 +211,5 @@
                 </div>
             </div>
         </div>
+
     @endsection

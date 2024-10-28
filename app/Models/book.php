@@ -42,7 +42,10 @@ class book extends Model
         return $this->belongsToMany(Book::class, 'likes');
     }
 
-
+    public function totalChapterPrice()
+    {
+        return $this->chapters->sum('price');
+    }
     public function group()
     {
         return $this->belongsTo(group::class, 'group_id');
@@ -78,5 +81,16 @@ class book extends Model
     public function sharedUsers()
     {
         return $this->hasMany(SharedBook::class);
-        }
+    }
+
+
+    public function allChaptersPurchased($userId)
+    {
+        $totalChapters = $this->chapters()->where('price', '>', 0)->count();
+        $purchasedChapters = $this->chapters()->whereHas('purchasedStories', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+
+        return $totalChapters === $purchasedChapters;
+    }
 }

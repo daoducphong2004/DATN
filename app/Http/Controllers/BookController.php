@@ -299,6 +299,7 @@ class BookController extends Controller
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
         }
+        $totalPrice = $book->totalChapterPrice();
 
         $episodes = $book->episodes;
 
@@ -318,7 +319,7 @@ class BookController extends Controller
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments','totalPrice'));
     }
 
 

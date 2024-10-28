@@ -343,16 +343,21 @@
                             </ul>
                         </div>
                     </section>
-                    <form style="width: 100%;text-align: center"
-                        action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST">
-                        @csrf
-                        <button
-                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
-                            type="submit" class="btn btn-primary">Mua tất cả chương trong truyện</button>
-                        <br>
-                        <br>
+                    @php
+                    $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
+                @endphp
 
+                @if (!$allChaptersPurchased)
+                    <form style="width: 100%;text-align: center" action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST">
+                        @csrf
+                        <button style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;" type="submit" class="btn btn-primary">
+                            Mua tất cả chương trong truyện Với giá
+                        </button>
+                        <a class="" style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">{{ $totalPrice }}</a>
+                        <br><br>
                     </form>
+                @endif
+
                     @include('story.partials.noti')
 
 

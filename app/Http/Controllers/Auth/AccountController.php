@@ -55,7 +55,7 @@ class AccountController extends Controller
     {
         return view('home.hd_dangtruyen');
     }
-    
+
     public function huongdan_gioithieu()
     {
         return view('home.gioithieu');
@@ -160,7 +160,6 @@ class AccountController extends Controller
             $request->session()->regenerate();
             return redirect()->route('home')->with("success", "Login account success.");
         }
-
         return redirect()->back()->with("error", "Authentication failed.");
     }
     public function email()

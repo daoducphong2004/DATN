@@ -102,7 +102,7 @@
 
                             <div class="profile-info-item">
                                 <span class="info-name"><i class="fas fa-calendar"></i> Tham gia: </span><span
-                                    class="info-value">24/07/2024</span>
+                                    class="info-value">{{ $userInfor->created_at->format('d/m/Y') }}</span>
                             </div>
                         </main>
                     </section>
@@ -161,7 +161,7 @@
 
                     <!-- Section for "Truyện đang tham gia" -->
                     <section class="profile-showcase">
-                        <header><span class="number">1</span><span class="showcase-title">Truyện đang tham gia</span>
+                        <header><span class="number">0</span><span class="showcase-title">Truyện đang tham gia</span>
                         </header>
                         <div class="row">
                             @if ($bookHasJoin->isNotEmpty())

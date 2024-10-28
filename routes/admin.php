@@ -43,8 +43,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
 
 
-        Route::get('/story', [StoryController::class, 'index'])->name('story_index');
-        Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
+        // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
+        // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
         Route::get('/list-comment', [CommentController::class, 'index'])->middleware('role:super_admin,admin,mod')->name('comment_index');
         Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');

@@ -30,7 +30,7 @@
                     </li>
                     <li>
                         @can('view-story', Auth::user())
-                            <a href="{{ route('story_index') }}" style="color: red">Danh Sách Truyện</a>
+                            <a href="{{ route('admin_storylist') }}" style="color: red">Danh Sách Truyện</a>
                         @endcan
                     </li>
                     <li>

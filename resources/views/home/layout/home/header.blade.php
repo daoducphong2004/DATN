@@ -19,11 +19,13 @@
                         </form>
                     </div>
 
+
                     <li><a class="nav-menu_item" href="{{ route('sangtac') }}"><span class="">Sáng tác</span></a></li>
                     <li><a class="nav-menu_item" href="{{ route('convert') }}"><span class="">Máy dịch</span></a></li>
                     <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a></li>
                     <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><span class="">Thảo luận</span></a></li>
                     <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><span class="">Danh sách</span></a></li>
+
 
                     <li class="nav-has-submenu">
                         <a class="nav-menu_item">
@@ -70,7 +72,10 @@
                                     <a href="{{ route('user.books',['userId' => Auth::user()->id]) }}"><i class="fas fa-user"></i><span>Tài khoản</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('lich-su') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
+                                    <a href="{{ route('indexPayment')}}"><i class="fas fa-user"></i><span>Nạp tiền</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('lich-su') }}"><i class="fas fa-history"></i><span>Lịch sử</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ route('purchase.history') }}"><i class="fas fa-history"></i><span>Lịch sử mua</span></a>
@@ -124,7 +129,9 @@
                 </form>
             </div>
             <ul class="navbar-menu at-navbar none d-xl-block unstyled">
+
                 <li><a class="nav-menu_item" href="{{ route('sangtac') }}"><i class="fas fa-pen-nib menu-icon"></i><span
+
                             class="">Sáng tác</span></a></li>
 
                 <li><a class="nav-menu_item" href="{{ route('convert') }}"><i class="fas fa-book menu-icon"></i><span

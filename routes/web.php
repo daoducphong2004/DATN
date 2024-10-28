@@ -100,7 +100,7 @@ Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
 Route::get('search', [SearchController::class, 'index'])->name('search');
-
+Route::get('search/results',[SearchController::class,'indexShow'])->name('search_re');
 
 
 

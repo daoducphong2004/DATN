@@ -1,4 +1,4 @@
-@extends('user.layout.master')
+@extends('admin.layouts.default')
 
 @section('content')
     <!-- container -->
@@ -83,7 +83,7 @@
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
                 <button type="submit" class="btn btn-primary">
-                    Thêm trang
+                    Sửa
                 </button>
             </div>
         </div>

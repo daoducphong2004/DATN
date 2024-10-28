@@ -1,4 +1,4 @@
-@extends('story.layout.master')
+@extends('home.layout.master')
 
 
 @section('content')
@@ -83,8 +83,10 @@
 
                                                     <form action="{{ route('book.like', $book->id) }}" method="POST">
                                                         @csrf
-                                                        <button type="submit" class="side-feature-button button-follow follow">
-                                                            @if (auth()->user() && auth()->user()->likedBooks()->where('book_id', $book->id)->exists())
+                                                        <button type="submit"
+                                                            class="side-feature-button button-follow follow">
+                                                            @if (auth()->user() &&
+                                                                    auth()->user()->likedBooks()->where('book_id', $book->id)->exists())
                                                                 <span class="block feature-value" id="favorite-icon">
                                                                     <i class="fas fa-heart"></i>
                                                                 </span>
@@ -179,7 +181,7 @@
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Đánh giá( phần này sẽ làm sau)</div>
+                                                <div class="statistic-name">Đánh giá</div>
                                                 <div class="statistic-value">5,00 / <small>2</small></div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
@@ -226,7 +228,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -290,150 +292,208 @@
                         <div class="overflow-hidden shadow">
                             <ul role="list" class="">
                                 @foreach ($ratings as $item)
-                                <li>
-                                    <a href="https://docln.net/truyen/18997/danh-gia"
-                                        class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
-                                        <div class="px-4 py-4 sm:px-6">
-                                            <div class="flex items-center justify-between">
-                                                <p class="truncate text-sm font-bold text-indigo-600 dark:text-white">
-                                                    {{!empty($item->user->full_name) ? $item->user->full_name : $item->user->username}}</p>
-                                                <div class="ml-2 flex flex-shrink-0">
-                                                    <div class="d-flex justify-content-around">
-                                                        @for ($i=0; $i<$item->rating; $i++)
-                                                            <div class="text-base text-yellow-400">
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                        @endfor
+                                    <li>
+                                        <a href="https://docln.net/truyen/18997/danh-gia"
+                                            class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
+                                            <div class="px-4 py-4 sm:px-6">
+                                                <div class="flex items-center justify-between">
+                                                    <p class="truncate text-sm font-bold text-indigo-600 dark:text-white">
+                                                        {{ !empty($item->user->full_name) ? $item->user->full_name : $item->user->username }}
+                                                    </p>
+                                                    <div class="ml-2 flex flex-shrink-0">
+                                                        <div class="d-flex justify-content-around">
+                                                            @for ($i = 0; $i < $item->rating; $i++)
+                                                                <div class="text-base text-yellow-400">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            @endfor
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 sm:flex sm:justify-between">
+                                                    <div class="sm:flex">
+                                                        <p class="flex items-center text-sm text-gray-500 dark:text-white">
+                                                            <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                                                fill="currentColor" aria-hidden="true">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            {{ !empty($item->comment) ? $item->comment : 'Không có nội dung' }}
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 dark:text-white">
+                                                        <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+                                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                            <path fill-rule="evenodd"
+                                                                d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                        <p>
+                                                            <time class="topic-time timeago" title="27-08-2024 12:22:58"
+                                                                datetime="{{ $item->created_at }}"></time>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mt-2 sm:flex sm:justify-between">
-                                                <div class="sm:flex">
-                                                    <p class="flex items-center text-sm text-gray-500 dark:text-white">
-                                                        <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"
-                                                            aria-hidden="true">
-                                                            <path fill-rule="evenodd"
-                                                                d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                        {{!empty($item->comment) ? $item->comment : 'Không có nội dung'}}
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 dark:text-white">
-                                                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fill-rule="evenodd"
-                                                            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    <p>
-                                                        <time class="topic-time timeago" title="27-08-2024 12:22:58"
-                                                        datetime="{{$item->created_at}}"></time>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                     </section>
+                    @php
+                    $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
+                @endphp
 
-                    @foreach ($book->episodes->sortBy('order') as $item) {{-- Sắp xếp theo order --}}
-                    <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
-                        <header id="volume_{{ $item->id }}" class="sect-header">
-                            <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
-                            <span class="sect-title">
-                                {{ $item->title }} <span style="color: red">*</span>
-                            </span>
+                @if (!$allChaptersPurchased)
+                    <form style="width: 100%;text-align: center" action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST">
+                        @csrf
+                        <button style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;" type="submit" class="btn btn-primary">
+                            Mua tất cả chương trong truyện Với giá
+                        </button>
+                        <a class="" style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">{{ $totalPrice }}</a>
+                        <br><br>
+                    </form>
+                @endif
 
-                            {{-- Thêm form với phương thức POST để mua tất cả chương --}}
-                            <span class="buy-all-button">
-                                <form action="{{ route('episode.purchase',  $item->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    <button type="submit" style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                        Mua tất cả chương
-                                    </button>
-                                </form>
-                            </span>
+                    @include('story.partials.noti')
 
-                        </header>
 
-                        <main class="d-lg-block">
-                            <div class="row">
-                                <div class="col-12 col-md-2">
-                                    <div class="volume-cover">
-                                        <a href="{{ route('truyen.tap', [$book->slug, $item->slug]) }}">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($item->episode_path)) }}')">
+                    @foreach ($book->episodes->sortBy('order') as $item)
+                        {{-- Sắp xếp theo order --}}
+                        <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
+                            <header id="volume_{{ $item->id }}" class="sect-header"
+                                style="display: flex; align-items: center;">
+                                <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
+                                <span class="sect-title" style="flex-grow: 1; margin-right: 10px;">
+                                    {{ $item->title }} <span style="color: red">*</span>
+                                </span>
+                                <span class="buy-all-button">
+                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                        style="display: inline;">
+                                        @csrf
+                                        <button type="submit"
+                                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                            Mua tất cả chương
+                                        </button>
+                                    </form>
+                                </span>
+                            </header>
+
+                            <main class="d-lg-block">
+                                <div class="row">
+                                    <div class="col-12 col-md-2">
+                                        <div class="volume-cover">
+                                            <a href="{{ route('truyen.tap', [$book->slug, $item->slug]) }}">
+                                                <div class="a6-ratio">
+                                                    <div class="content img-in-ratio"
+                                                        style="background-image: url('{{ asset(Storage::url($item->episode_path)) }}')">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-10">
-                                    <ul class="list-chapters at-series">
-                                        @foreach ($item->chapters->sortBy('order') as $chapter) {{-- Sắp xếp chương theo order --}}
-                                            <li>
-                                                <div class="chapter-name">
-                                                    {{-- Hiển thị badge "Mới" nếu chương là mới --}}
-                                                    @if ($chapter->is_new)
-                                                        <div class="new-status badge">
-                                                            <div class="badge-item new">Mới</div>
-                                                        </div>
-                                                    @endif
+                                    <div class="col-12 col-md-10">
+                                        <form id="addChaptersForm" method="POST"
+                                            action="{{ route('cart.addMultiple') }}">
+                                            @csrf
+                                            <ul class="list-chapters at-series">
+                                                @foreach ($item->chapters->sortBy('order') as $chapter)
+                                                    <li>
+                                                        <div class="chapter-name"
+                                                            style="display: flex; align-items: center;">
+                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                            @if (
+                                                                $chapter->price > 0 &&
+                                                                    (!auth()->check() ||
+                                                                        !auth()->user()->hasPurchased($chapter->id)))
+                                                                <input type="checkbox" name="chapters[]"
+                                                                    value="{{ $chapter->id }}"
+                                                                    style="margin-right: 10px;">
+                                                            @endif
 
-                                                    {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
-                                                    @if ($chapter->contains_image)
-                                                        <i class="fas fa-image" aria-hidden="true" title="Có chứa ảnh"></i>
-                                                    @endif
+                                                            {{-- Hiển thị badge "Mới" nếu chương là mới --}}
+                                                            @if ($chapter->is_new)
+                                                                <div class="new-status badge">
+                                                                    <div class="badge-item new">Mới</div>
+                                                                </div>
+                                                            @endif
 
-                                                    {{-- Kiểm tra giá của chương --}}
-                                                    @if ($chapter->price == 0)
-                                                        {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                            title="{{ $chapter->title }}">
-                                                            {{ $chapter->title }} (Miễn phí)
-                                                        </a>
-                                                    @else
-                                                        {{-- Kiểm tra người dùng đã mua chương chưa --}}
-                                                        @if (auth()->check() && auth()->user()->hasPurchased($chapter->id))
-                                                            {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
-                                                            <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                                title="{{ $chapter->title }}">
-                                                                {{ $chapter->title }}
-                                                            </a>
-                                                        @else
-                                                            {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                            <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                            {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
+                                                            @if ($chapter->contains_image)
+                                                                <i class="fas fa-image" aria-hidden="true"
+                                                                    title="Có chứa ảnh"></i>
+                                                            @endif
+
+                                                            {{-- Kiểm tra giá của chương --}}
+                                                            @if ($chapter->price == 0)
+                                                                {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
                                                                 <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
-                                                                    {{ $chapter->title }}
+                                                                    {{ $chapter->title }} (Miễn phí)
                                                                 </a>
+                                                            @else
+                                                                {{-- Kiểm tra người dùng đã mua chương chưa --}}
+                                                                @if (auth()->check() &&
+                                                                        auth()->user()->hasPurchased($chapter->id))
+                                                                    {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                                    <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                        title="{{ $chapter->title }}">
+                                                                        {{ $chapter->title }}
+                                                                    </a>
+                                                                @else
+                                                                    {{-- Nếu chưa mua, hiển thị nút mua chương --}}
+                                                                    <span class="chapter-locked"
+                                                                        title="Bạn cần mua chương để đọc"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                            title="{{ $chapter->title }}">
+                                                                            {{ $chapter->title }}
+                                                                        </a>
+                                                                        <span
+                                                                            style="margin-left: 10px;">{{ $chapter->price }}
+                                                                            coins</span>
+                                                                    </span>
+                                                                @endif
+                                                            @endif
+                                                        </div>
+                                                        {{-- Hiển thị thời gian tạo chương --}}
+                                                        <div class="chapter-time">
+                                                            {{ $chapter->created_at->format('d/m/Y') }}
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
 
-                                                                <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
-                                                                    href="javascript:void(0);"
-                                                                    onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id, $chapter->price]) }}')">
-                                                                    {{ $chapter->price }} coin
-                                                                </a>
-                                                            </span>
-                                                        @endif
-                                                    @endif
-                                                </div>
+                                            @php
+                                                $allChaptersFreeOrPurchased = $item->chapters->every(function (
+                                                    $chapter,
+                                                ) {
+                                                    return $chapter->price == 0 ||
+                                                        (auth()->check() &&
+                                                            auth()
+                                                                ->user()
+                                                                ->hasPurchased($chapter->id));
+                                                });
+                                            @endphp
 
-                                                {{-- Hiển thị thời gian tạo chương --}}
-                                                <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}</div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                                            @if (!$allChaptersFreeOrPurchased)
+                                                <button type="submit" class="btn btn-secondary mt-3"
+                                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                    Thêm các chương đã chọn vào giỏ hàng
+                                                </button>
+                                            @endif
+                                        </form>
+
+
+
+                                    </div>
                                 </div>
-                            </div>
-                        </main>
-                    </section>
-                @endforeach
+                            </main>
+                        </section>
+                    @endforeach
 
                     <div id="purchaseModal" class="purchase-modal" style="display:none;">
                         <div class="purchase-modal-content">
@@ -653,16 +713,46 @@
         </div>
     </main>
     <script>
-   function confirmPurchaseEpisode(episodeTitle, episodeId) {
-    document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' + episodeTitle;
-    document.getElementById('modalContent').innerText = 'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
-    document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
-    document.getElementById('purchaseModal').style.display = 'block';
-}
+        document.addEventListener('DOMContentLoaded', function() {
+            function confirmPurchaseEpisode(episodeTitle, episodeId) {
+                document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' +
+                    episodeTitle;
+                document.getElementById('modalContent').innerText =
+                    'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
+                document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
+                document.getElementById('purchaseModal').style.display = 'block';
+            }
 
-function closeModal() {
-    document.getElementById('purchaseModal').style.display = 'none';
-}
+            function closeModal() {
+                document.getElementById('purchaseModal').style.display = 'none';
+            }
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const chapterId = this.dataset.chapterId;
 
+                    fetch('/cart/add', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                chapter_id: chapterId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                alert(data.message);
+                                updateCartCount(); // Update cart count after adding item
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
     </script>
 @endsection

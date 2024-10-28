@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->dropColumn('is_approved');
             }
 
-            $table->enum('is_approve', ['pending', 'accepted', 'rejected'])->default('pending');
+            // $table->enum('is_approve', ['pending', 'accepted', 'rejected'])->default('pending');
         });
     }
 

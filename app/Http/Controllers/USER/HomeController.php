@@ -3,22 +3,24 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactEmail;
 use App\Models\book;
 use App\Models\bookcomment;
 use App\Models\Bookmarks;
 use App\Models\chapter;
+use App\Models\chaptercomment;
+use App\Models\Forum;
 use App\Models\genre;
 use App\Models\group;
+use App\Models\Letter;
 use App\Models\ReadingHistory;
-use App\Models\chaptercomment;
-
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-
 
 class HomeController extends Controller
 {
@@ -68,16 +70,25 @@ class HomeController extends Controller
                 $query->where('Is_Inspect', 1)
                     ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
             })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
             ->take(5) // Giới hạn 5 chương mới nhất
             ->get();
 
-        $chuong_moinhat = DB::table('chapters')
-            ->select('chapters.id', 'chapters.title', 'chapters.slug', 'books.title as book_title', 'books.slug as book_slug')
-            ->join('books', 'chapters.book_id', '=', 'books.id')
-            ->where('books.Is_Inspect', 1)
-            ->groupBy('chapters.book_id', 'chapters.id', 'chapters.title', 'chapters.slug', 'books.title', 'books.slug')  // Nhóm các cột cần thiết
-            ->orderBy('chapters.created_at', 'desc')
+        $chuong_moinhat = chapter::with('book')
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('created_at', 'desc')
             ->take(17)
             ->get();
 
@@ -392,45 +403,5 @@ class HomeController extends Controller
     public function nhomThamGia()
     {
         return view('user.nhomThamGia');
-    }
-
-    public function testEmail($userId)
-    {
-        // Tìm người dùng dựa trên ID
-        $user = User::find($userId);
-
-        if ($user) {
-            $name = $user->name;
-            $email = $user->email;
-
-            Mail::send('emails.test', compact('name'), function ($message) use ($name, $email) {
-                $message->subject('Yêu cầu tác giả được chấp nhận');
-                $message->to($email, $name);
-            });
-
-            return "Email đã được gửi đến $name";
-        }
-
-        return "Không tìm thấy người dùng.";
-    }
-
-    public function refuseEmail($userId)
-    {
-        // Tìm người dùng dựa trên ID
-        $user = User::find($userId);
-
-        if ($user) {
-            $name = $user->name;
-            $email = $user->email;
-
-            Mail::send('emails.refuse', compact('name'), function ($message) use ($name, $email) {
-                $message->subject('Yêu cầu tác giả bị từ chối');
-                $message->to($email, $name);
-            });
-
-            return "Email từ chối đã được gửi đến $name";
-        }
-
-        return "Không tìm thấy người dùng.";
     }
 }

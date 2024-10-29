@@ -54,7 +54,7 @@ class AuthorController extends Controller
         if ($request->hasFile('portrait_image')) {
             $portrait_image = $request->file('portrait_image')->store('images', 'public');
         }
-        $cleaned_reason = strip_tags($request->input('reason'));
+
         Author::create([
             'user_id' => Auth::id(),
             'phone' => $request->phone,
@@ -62,7 +62,6 @@ class AuthorController extends Controller
             'back_id_image' => $back_id_image,
             'portrait_image' => $portrait_image,
             'reason' => $request->reason,
-            'requested_role' => $request->requested_role,
         ]);
 
         return back()->with('success', 'Yêu cầu đã được gửi!');

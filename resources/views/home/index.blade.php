@@ -61,8 +61,8 @@
                     <div class="daily-recent_views">
                         <header class="title">
                             <span class="top-tab_title title-active"><i class="fas fa-trophy"></i> Nổi bật</span>
-                            <span class="top-tab_title"><a href="#">Top tháng</a></span>
-                            <span class="top-tab_title"><a href="#">Toàn t/gian</a></span>
+                            <span class="top-tab_title"><a href="/danh-sach?truyendich=1&sapxep=topthang">Top tháng</a></span>
+                            <span class="top-tab_title"><a href="/danh-sach?truyendich=1&sapxep=top">Toàn t/gian</a></span>
                         </header>
                         <script>
                             @if (session('error'))
@@ -74,18 +74,15 @@
                                 {{-- bắt đầu truyện đơn --}}
                                 <div class="popular-thumb-item mr-1">
                                     <div class="thumb-wrapper">
-                                        <a href="{{ route('truyen.truyen', $item->slug) }}">
+                                        <a href="{{ route('truyen.truyen', $item->slug) }}" title="{{ $item->title }}">
                                             <div class="a6-ratio">
-                                                {{-- <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($item->book_path)) }}')">
-                                                </div> --}}
                                                 <div class="content img-in-ratio"
                                                     style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
                                                 </div>
                                             </div>
                                         </a>
                                         <div class="thumb-detail">
-                                            <div class="thumb_attr series-title" title=""><a
+                                            <div class="thumb_attr series-title" title="{{ $item->title }}"><a
                                                     href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
                                             </div>
                                         </div>
@@ -211,7 +208,7 @@
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                            href="{{ route('truyen.truyen', $item->book->slug) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
@@ -224,7 +221,7 @@
                                         <div class="content img-in-ratio"
                                             style="background-image: url('img/nocover.jpg');"></div>
                                     </div>
-                                    <a href="/sangtac">
+                                    <a href="/sang-tac">
                                         <div class="thumb-see-more">
                                             <div class="see-more-inside">
                                                 <div class="see-more-content">
@@ -267,7 +264,7 @@
                                         </div>
                                     </div>
                                     <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                            href="{{ route('truyen.truyen', $item->book->slug) }}"
                                             title="{{ $item->book->title }}">{{ $item->book->title }}</a>
                                     </div>
                                 </div>
@@ -436,7 +433,7 @@
                                 </div>
                             </main>
                             <div class="see-more_cover">
-                                <a class="see-more" href="https://docln.net/danh-sach?truyendich=1&amp;sapxep=truyenmoi">
+                                <a class="see-more" href="/danh-sach?truyendich=1&sapxep=truyenmoi">
                                     <i class="fas fa-hand-point-right"></i>Xem thêm
                                 </a>
                             </div>
@@ -449,7 +446,30 @@
                             </header>
                             <main>
                                 {{-- truyện top bắt đầu( chỉ có 3 truyện top mới có ảnh) --}}
-                                <div class="rank-circle-item">
+                                
+                                @foreach($theodoi_nhieu as $index => $item)
+                                    <div class="rank-circle-item">
+                                        <span class="rank-number">{{ $index + 1 }}</span>
+                                        <div class="series-detail clear">
+                                            @if($index < 3 && $item->book_path) <!-- Chỉ hiển thị ảnh cho 3 truyện đầu tiên -->
+                                                <div class="series-cover">
+                                                    <div class="a6-ratio">
+                                                        <div class="content img-in-ratio" style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            <h5 class="series-title">
+                                                <a href="{{ route('truyen.truyen', $item->slug) }}" title="{{ $item->title }}">
+                                                    {{ $item->title }}
+                                                </a>
+                                            </h5>
+                                            <small class="rank-count">{{ $item->like }} theo dõi</small>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                {{-- <div class="rank-circle-item">
                                     <span class="rank-number">1</span>
                                     <div class="series-detail clear">
                                         <div class="series-cover">
@@ -508,7 +528,7 @@
                                                 đứa con gái mà tôi cực ghét trong lớp.</a></h5>
                                         <small class="rank-count">10,491 theo dõi</small>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{-- truyện top kết thúc --}}
                             </main>
                         </section>
@@ -527,25 +547,44 @@
                         {{-- truyện bắt đầu ( ở đây sẽ lấy chapter cuối) --}}
                         <div class="thumb-item-flow thumb-slider">
                             <div class="thumb-wrapper">
-                                <a href="{{ route('truyen.truyen', $item->slug) }}" title="Oneshot">
+                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
                                     <div class="a6-ratio">
                                         <div class="content img-in-ratio lazyload"
-                                            data-bg="{{ asset(Storage::url($item->book_path)) }}">
+                                            data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}">
                                         </div>
                                     </div>
                                 </a>
                                 <div class="thumb-detail">
                                     <div class="thumb_attr chapter-title" title="Oneshot"><a
-                                            href="{{ route('truyen.truyen', $item->slug) }}"
-                                            title="Oneshot">{{ $item->title }}</a></div>
-                                    <div class="thumb_attr volume-title">{{ $item->title }}</div>
+                                            href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                            title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                    <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                 </div>
                             </div>
-                            <div class="thumb_attr series-title"><a href="{{ route('truyen.truyen', $item->slug) }}"
-                                    title="Ngày ấy, có trái bom rơi">{{ $item->title }}</a></div>
+                            <div class="thumb_attr series-title"><a href="{{route('truyen.truyen', $item->slug)}}"
+                                    title="{{ $item->title}}">{{ $item->title}}</a></div>
                         </div>
                         {{-- truyện kết thúc --}}
                     @endforeach
+
+
+                    <div class="thumb-item-flow see-more">
+                        <div class="thumb-wrapper">
+                            <div class="a6-ratio">									
+                                <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');"></div>																		
+                            </div>
+                            <a href="/danh-sach?truyendich=1&amp;hoanthanh=1&amp;sapxep=capnhat">
+                                <div class="thumb-see-more">
+                                    <div class="see-more-inside">
+                                        <div class="see-more-content">
+                                            <div class="see-more-icon"><i class="fas fa-arrow-circle-right"></i></div>
+                                            <div class="see-more-text">Xem thêm</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </main>
             </section>
         </div>

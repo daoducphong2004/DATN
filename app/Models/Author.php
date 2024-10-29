@@ -15,7 +15,7 @@ class Author extends Model
         'back_id_image',
         'portrait_image',
         'reason',
-        'is_approved'
+        'is_approve'
     ];
 
     public function user()

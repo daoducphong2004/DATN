@@ -16,7 +16,7 @@
 
             <!-- Previous Chapter Link -->
             <a href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
-               class="rd_sd-button_item rd_top-left {{ $chapter->previousChapter() ? '' : 'disabled' }}">
+                class="rd_sd-button_item rd_top-left {{ $chapter->previousChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-backward"></i>
             </a>
 
@@ -42,7 +42,7 @@
 
             <!-- Next Chapter Link -->
             <a href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
-               class="rd_sd-button_item rd_top-right {{ $chapter->nextChapter() ? '' : 'disabled' }}">
+                class="rd_sd-button_item rd_top-right {{ $chapter->nextChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-forward"></i>
             </a>
 
@@ -90,11 +90,14 @@
         <section id="bookmarks" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">
                 <div class="rd_sidebar-header">
-                    <h2 class="rd_s-name"><i class="fas fa-bookmark"></i><a href="/bookmark" style="color: white;">
-                            Bookmarks</a></h2>
+                    <h2 class="rd_s-name">
+                        <i class="fas fa-bookmark"></i>
+                        <a href="/bookmark" style="color: white;">Bookmarks</a>
+                    </h2>
                 </div>
                 <ul id="bookmarks_list" class="unstyled">
-                    <li>Bạn chưa lưu lại bookmark</li>
+                    <!-- Nội dung bookmark sẽ được thêm ở đây bởi JavaScript -->
+                    <li id="empty_message">Bạn chưa lưu lại bookmark</li>
                 </ul>
             </main>
             <div class="black-click"></div>

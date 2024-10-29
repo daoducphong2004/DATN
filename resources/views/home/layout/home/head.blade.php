@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="vi" class="light">
 
 <head>
     <meta charset="utf-8">
@@ -14,7 +12,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="logged-in" content="1">
+    {{-- <meta name="logged-in" content="1"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="canonical" href="https://datn.test">
     <meta property="og:image" content="https://datn.test/img/nocover.jpg">
@@ -32,7 +31,36 @@
         integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
 
 
-        <script src="{{ asset('js/plugins.js')}}"></script>
-
+    <script src="{{ asset('js/plugins.js')}}"></script>
+   
 
 </head>
+<style>
+.user-sublink {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.5em;
+    font-size: 0.8em;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+}
+
+</style>

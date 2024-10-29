@@ -251,9 +251,7 @@ if (
         $("#navbar .hidden-block").addClass("none"),
             $("#navbar .active").removeClass("active");
     }),
-    $("div.navbar-search").on("click", function (e) {
-        e.stopPropagation();
-    }),
+    
     $(".nightmode-toggle").on("click", function (e) {
         e.stopPropagation(),
             $(this)

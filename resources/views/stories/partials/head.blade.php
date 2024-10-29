@@ -4,7 +4,7 @@
 <meta name="robots" content="NoIndex, NoFollow">
 <title>Bảng điều khiển</title>
 
-<link rel="shortcut icon" href="https://docln.net/img/favicon.png">
+<link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/app_dark.css') }}" rel="stylesheet">
 

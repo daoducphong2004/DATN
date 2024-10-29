@@ -233,6 +233,7 @@ class BookController extends Controller
     {
 
         $adult = $request->has('adult') ? 1 : 0;
+
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
@@ -249,6 +250,7 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
+            'price' => $request->price,
         ]);
 
         $slug = Str::slug($book->id . '-' . $request->title);
@@ -297,6 +299,7 @@ class BookController extends Controller
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
         }
+        $totalPrice = $book->totalChapterPrice();
 
         $episodes = $book->episodes;
 
@@ -316,7 +319,7 @@ class BookController extends Controller
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments','totalPrice'));
     }
 
 
@@ -364,6 +367,7 @@ class BookController extends Controller
                 'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
                 'group_id' => $request->group_id,
                 'user_id' => Auth::id(),
+                'price' => $request->price
             ]);
 
             // Attach genres

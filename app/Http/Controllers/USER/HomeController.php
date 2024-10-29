@@ -63,10 +63,11 @@ class HomeController extends Controller
             ->take(8) // Giới hạn 8 truyện
             ->get();
 
-        $sangtac_moinhat = chapter::whereHas('book', function ($query) {
-            $query->where('Is_Inspect', 1)
-                ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
-        })
+        $sangtac_moinhat = chapter::with('book')
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+            })
             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
             ->take(5) // Giới hạn 5 chương mới nhất
             ->get();
@@ -86,10 +87,25 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        $truyen_dahoanthanh = Book::where('status', 3)
+        $theodoi_nhieu = book::where('Is_Inspect', 1)
+            ->orderBy('like', 'desc')
+            ->take(10)
+            ->get();;
+
+        $truyen_dahoanthanh = chapter::with('book')
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('status', 3); // Thêm điều kiện lấy truyện đã hoàn thành
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
             ->orderBy('created_at', 'desc')
-            ->take(5)
+            ->take(17)
             ->get();
+
         // dd($readingHistories);
         $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
             'categories.color as color',
@@ -104,7 +120,7 @@ class HomeController extends Controller
         ])->orderBy('created_at', 'desc')->get();
 
         $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
-        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'truyen_dahoanthanh', 'data_forum_home', 'bookComments'));
+        return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'theodoi_nhieu', 'truyen_dahoanthanh', 'data_forum_home', 'bookComments'));
     }
 
     public function convert()
@@ -116,7 +132,28 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
-        return view('home.convert', compact('bookComments'));
+
+        $convert = book::where('Is_Inspect', 1)
+            ->where('type', 2)
+            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
+            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
+            ->take(8) // Giới hạn 8 truyện
+            ->get();
+
+        $moi_cap_nhat = chapter::with('book', 'episode')
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 2);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('updated_at', 'asc')
+            ->paginate(10); // Lấy 10 truyện mỗi trang
+
+        return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat'));
     }
 
     // public function danhsach(){
@@ -138,15 +175,15 @@ class HomeController extends Controller
     //     return view('home.stories', compact('book', 'episodes'));
     // }
 
-    public function vuadang()
-    {
-        return view('home.vuadang');
-    }
+    // public function vuadang()
+    // {
+    //     return view('home.vuadang');
+    // }
 
-    public function thaoluan()
-    {
-        return view('home.thaoluan');
-    }
+    // public function thaoluan()
+    // {
+    //     return view('home.thaoluan');
+    // }
     public function CDthaoluan()
     {
         return view('home.chudeThaoluan');
@@ -161,7 +198,28 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(10)
             ->get();
-        return view('home.sangtac', compact('bookComments'));
+
+        $sangtac_noibat = book::where('Is_Inspect', 1)
+            ->where('type', 3)
+            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
+            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
+            ->take(8) // Giới hạn 8 truyện
+            ->get();
+
+        $moi_cap_nhat = chapter::with('book', 'episode')
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('updated_at', 'asc')
+            ->paginate(10); // Lấy 10 truyện mỗi trang
+
+        return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat'));
     }
 
     public function xuatban()
@@ -188,10 +246,10 @@ class HomeController extends Controller
         return view('home.gopy');
     }
 
-    public function search()
-    {
-        return view('home.search');
-    }
+    // public function search()
+    // {
+    //     return view('home.search');
+    // }
 
     public function kesach()
     {

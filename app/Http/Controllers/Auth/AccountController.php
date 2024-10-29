@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
@@ -55,7 +56,7 @@ class AccountController extends Controller
     {
         return view('home.hd_dangtruyen');
     }
-    
+
     public function huongdan_gioithieu()
     {
         return view('home.gioithieu');
@@ -127,11 +128,11 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
         $user = new User();
-
         $user->username = $request->username;
         $user->email = $request->email;
         // $user->role_id = 1;
         $user->password = Hash::make($request->password);
+
 
         $userRole = Role::where('name', 'user')->first();
         if ($userRole) {
@@ -160,7 +161,6 @@ class AccountController extends Controller
             $request->session()->regenerate();
             return redirect()->route('home')->with("success", "Login account success.");
         }
-
         return redirect()->back()->with("error", "Authentication failed.");
     }
     public function email()
@@ -171,70 +171,5 @@ class AccountController extends Controller
     public function reset()
     {
         return view('auth.password.reset');
-    }
-
-    public function createTruyen()
-    {
-        return view('user.createTruyen');
-    }
-
-    public function truyenDaDang()
-    {
-        return view('user.truyenDaDang');
-    }
-
-    public function truyenThamGia()
-    {
-        return view('user.truyenThamGia');
-    }
-
-    public function conventThamGia()
-    {
-        return view('user.conventThamGia');
-    }
-
-    public function conventDaDang()
-    {
-        return view('user.conventDaDang');
-    }
-
-    public function OLNDaDang()
-    {
-        return view('user.OLNDaDang');
-    }
-
-    public function OLNThamGia()
-    {
-        return view('user.OLNThamGia');
-    }
-
-    public function themThaoLuan()
-    {
-        return view('user.themThaoLuan');
-    }
-
-    public function thaoLuanCuaBan()
-    {
-        return view('user.thaoLuanCuaBan');
-    }
-
-    public function theLoai()
-    {
-        return view('user.theLoai');
-    }
-
-    public function thuVien()
-    {
-        return view('user.truyenThamGia');
-    }
-
-    public function nhomSoHuu()
-    {
-        return view('user.nhomSoHuu');
-    }
-
-    public function nhomThamGia()
-    {
-        return view('user.nhomThamGia');
     }
 }

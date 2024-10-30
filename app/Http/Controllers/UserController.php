@@ -10,6 +10,7 @@ use App\Models\chaptercomment;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -99,12 +100,8 @@ class UserController extends Controller
     }
     public function showBooks($userId)
     {
-        // Lấy thông tin user
-        // dd($userId);
         $userInfor = User::findOrFail($userId);
 
-        // Trả về view với dữ liệu
-        // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         $userBooks = $userInfor->books; // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
         $countBook = book::where('user_id',$userInfor->id)->count();
@@ -113,4 +110,9 @@ class UserController extends Controller
         $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
         return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
     }
+        public function purchaseHistory() {
+            $user = Auth::user();
+            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+            return view('user.purchaseHistory', compact('purchasedStories'));
+        }
 }

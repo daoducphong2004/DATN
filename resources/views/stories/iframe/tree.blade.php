@@ -28,7 +28,7 @@
                 <span class="series_name" data-item="{{ $book->id }}">{{ $book->title }}</span>
             </p>
             <ul class="tree">
-                @foreach ($book->episodes as $item)
+                @foreach ($book->episodes->sortBy('order') as $item)
                     <li>
 
                         <span class="book-status"><i class="fas fa-plus-square"></i></span>
@@ -37,9 +37,9 @@
                         <span class="book-name level1" id="book_{{ $item->id }}"
                             data-item="{{ $item->id }}">{{ $item->title }}</span>
                         {{-- {{ dd($item->chapters()->get()); }} --}}
-                        @if (!$item->chapters()->get()->isEmpty())
+                        @if (!$item->chapters->isEmpty())
                             <ul class="hide">
-                                @foreach ($item->chapters()->get() as $chapter)
+                                @foreach ($item->chapters->sortBy('order') as $chapter)
                                     <li>
                                         <a class="li-link" href="{{ route('chapter.show', $chapter->id) }}"
                                             target="_blank"><i class="fas fa-external-link-alt"></i></a>

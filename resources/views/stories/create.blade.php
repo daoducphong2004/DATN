@@ -1,6 +1,7 @@
 @extends('stories.partials.master')
 @section('content')
     @include('stories.partials.header')
+    @include('stories.iframe.partials.css_script')
 
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
         @csrf
@@ -30,8 +31,8 @@
             <div class="col-md-8">
                 <div id="upload" class="series_cover">
                     <div id="drop">
-                        <a>Chọn ảnh</a>
-                        <input type="file" name="book_path" accept="image/*" />
+                        <a id="selectImageBtn">Chọn ảnh</a>
+                        <input type="file" name="book_path" id="fileInput" style="display: none" />
                     </div>
                     <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -41,10 +42,11 @@
                     <div id="progress" class="progress" style="display: none">
                         <div class="progress-bar progress-bar-success"></div>
                     </div>
-                    <img style="max-height: 100px; max-width: 100px" id="SeriesCoverPreview" src="" />
                 </div>
+                <img style="max-height: 300px; max-width: 300px" id="SeriesCoverPreview" src="">
             </div>
         </div>
+
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
             <div class="col-md-8">
@@ -107,17 +109,24 @@
         </div>
 
 
-
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>
             <div class="col-md-10">
-                <select class="input-sm" name="status">
+                <select class="input-sm" name="status" id='select-status'>
                     <option value="1">Đang tiến hành</option>
                     <option value="2">Tạm ngưng</option>
                     <option value="3">Đã hoàn thành</option>
                 </select>
             </div>
         </div>
+
+        <div class="form-group clearfix">
+            <label class="col-md-2 control-label pt-7 text-right">Giá</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="price" id='input-price' value="0">
+            </div>
+        </div>
+
         @include('layouts.TinyMCEscript')
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">

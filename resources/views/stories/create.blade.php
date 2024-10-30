@@ -123,7 +123,7 @@
         <div class="form-group clearfix">
             <label class="col-md-2 control-label pt-7 text-right">Giá</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="price" id='input-price' value="0">
+                <input type="text" class="form-control"  max='999999' name="price" id='input-price' value="0">
             </div>
         </div>
 

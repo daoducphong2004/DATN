@@ -104,6 +104,7 @@ Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthao
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
+Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 

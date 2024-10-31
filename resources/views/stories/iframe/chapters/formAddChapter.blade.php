@@ -39,7 +39,7 @@
                                 <div class="form-group clearfix">
                                     <label class="col-md-2 control-label pt-7 text-right">Giá</label>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control" name="price" value="{{ old('price', 0) }}">
+                                        <input type="number" class="form-control" name="price" max='999999' value="{{ old('price', 0) }}">
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror

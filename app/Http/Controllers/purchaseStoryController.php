@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\DB;
 class purchaseStoryController extends Controller
 {
 
+    public function index()
+    {
+        $user = Auth::user();
+        $purchasedBooks = Book::whereHas('chapters.purchasedStories', function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->distinct()->get();
+
+        return view('user.purchasebookshelf', compact('purchasedBooks'));
+    }
+
     public function createOrder()
     {
         if (!Auth::check()) {

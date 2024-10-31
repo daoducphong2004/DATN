@@ -101,7 +101,7 @@ class HomeController extends Controller
         $theodoi_nhieu = book::where('Is_Inspect', 1)
                             ->orderBy('like', 'desc')
                             ->take(10)
-                            ->get();;
+                            ->get();
 
         $truyen_dahoanthanh = chapter::with('book')
                             ->whereHas('book', function($query) {
@@ -164,7 +164,19 @@ class HomeController extends Controller
                             ->orderBy('updated_at', 'asc')
                             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat'));
+        $xem_nhieu = book::where('Is_Inspect', 1)
+                            ->where('type', 2)
+                            ->orderBy('view', 'desc')
+                            ->take(5)
+                            ->get();
+
+        $convert_moi = book::where('Is_Inspect', 1)
+                            ->where('type', 2)
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+
+        return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat', 'xem_nhieu', 'convert_moi'));
     }
 
     // public function danhsach(){
@@ -230,7 +242,19 @@ class HomeController extends Controller
                             ->orderBy('updated_at', 'asc')
                             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat'));
+        $xem_nhieu = book::where('Is_Inspect', 1)
+                            ->where('type', 3)
+                            ->orderBy('view', 'desc')
+                            ->take(5)
+                            ->get();
+
+        $sangtac_moi = book::where('Is_Inspect', 1)
+                            ->where('type', 3)
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+
+        return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat', 'xem_nhieu', 'sangtac_moi'));
     }
 
     public function xuatban()

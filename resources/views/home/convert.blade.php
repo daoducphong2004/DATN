@@ -173,53 +173,20 @@
                                     <div class="section-title">Xem nhiều</div>
                                 </div>
                                 <div class="section-content">
-                                    <article class="topview-item">
-                                        <div class="topview_rank">01</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/convert/5140-otonari-no-tenshi-sama-ni-itsu-no-aida-ni-ka-dame-ningen-ni-sareteiru-ken">Otonari
-                                                    no Tenshi-sama ni Itsu no Aida ni ka Dame Ningen ni Sareteiru ken</a>
-                                            </h5>
-                                            <small style="display: block; opacity: 0.6;">1.353.531</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">02</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a href="/convert/6260-ankoku-kishi-monogatari">Ankoku
-                                                    kishi monogatari~Yuusha wo taosu tameni Maou ni Shoukansaremashita~</a>
-                                            </h5>
-                                            <small style="display: block; opacity: 0.6;">930.151</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">03</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/convert/737-after-transformation-mine-and-her-wild-fantasy">AFTER
-                                                    TRANSFORMATION, MINE AND HER WILD FANTASY</a></h5>
-                                            <small style="display: block; opacity: 0.6;">838.556</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">04</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a href="/convert/4-date-a-live">Date a Live</a></h5>
-                                            <small style="display: block; opacity: 0.6;">817.026</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">05</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/convert/128-kono-subarashii-sekai-ni-shukufuku-o">Kono
-                                                    Subarashii Sekai Ni Shukufuku o!</a></h5>
-                                            <small style="display: block; opacity: 0.6;">633.157</small>
-                                        </div>
-                                    </article>
+                                    @foreach ($xem_nhieu as $index => $item)
+                                        <article class="topview-item">
+                                            <div class="topview_rank">{{ $index + 1 }}</div>
+                                            <div class="topview_name">
+                                                <h5 class="series-name"><a
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                </h5>
+                                                <small style="display: block; opacity: 0.6;">{{ $item->view }}</small>
+                                            </div>
+                                        </article>
+                                    @endforeach
 
                                     <div class="see-more_text">
-                                        <a href="https://docln.net/convert-xem-nhieu-nhat/tat-ca"><i
+                                        <a href="/danh-sach?convert=1&sapxep=top"><i
                                                 class="fas fa-hand-o-right"></i> Xem thêm</a>
                                     </div>
                                 </div>
@@ -231,87 +198,23 @@
                                 </div>
                                 <div class="section-content">
                                     <ul class="others-list">
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s19079-0470a46d-1b0b-441f-9c9f-3ae2a609d460.jpg')">
+                                        @foreach ($convert_moi as $item)
+                                            <li>
+                                                <div class="others-img no-padding">
+                                                    <div class="a6-ratio">
+                                                        <div class="content img-in-ratio"
+                                                            style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/convert/19079-i-was-caught-up-in-a-hero-summoning-but-that-world-is-at-peace-gg-trans">I
-                                                        Was Caught up in a Hero Summoning, but That World Is at Peace</a>
-                                                </h5>
-                                                <small class="series-summary">Mọi chuyện diễn ra quá đột ngột. Sau khi cuối
-                                                    cùng cũng hiểu được tình h...</small>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s19073-102b93a2-6e62-4109-a5fe-4968bda3f007.jpg')">
-                                                    </div>
+                                                <div class="others-info">
+                                                    <h5 class="others-name"><a
+                                                            href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                    </h5>
+                                                    <small class="series-summary">{!! Str::words($item->description, 33, '...') !!}</small>
                                                 </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/convert/19073-chrome-shelled-regios">Chrome Shelled
-                                                        Regios</a></h5>
-                                                <small class="series-summary">Regios là những thành phố di động, che chở
-                                                    cho nhân loại trên Trái đất c...</small>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18942-65b806e4-3d88-4e45-8b01-b2a6d1619877.jpg')">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/convert/18942-y-kien-ca-nhan-cua-dau-hoang">Ý kiến cá nhân
-                                                        của Đấu hoàng</a></h5>
-                                                <small class="series-summary">Mọi người đều là phàm nhân, và để giết ai đó,
-                                                    đạn là đủ. Đây là suy nghĩ...</small>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://docln.net/img/nocover.jpg')">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/convert/18911-chuyen-sinh-thanh-lap-trinh-vien-toi-hoc-lam-game">tôi
-                                                        học làm game.</a></h5>
-                                                <small class="series-summary">Hãy tưởng tượng bạn đang bước vào một khu
-                                                    rừng đầy bí ẩn, nơi mọi thứ đề...</small>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://i2.docln.net/ln/series/covers/s18909-7a1954d3-a336-47a1-b202-c4c07836e9a1.jpg')">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/convert/18909-ore-no-imouto-ga-saikou-no-okazudatta">Ore no
-                                                        Imouto ga Saikou no Okazudatta</a></h5>
-                                                <small class="series-summary">Một ngày nọ, khi tôi đang chơi trò chơi khiêu
-                                                    dâm thì bị em gái bắt gặp....</small>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </section>

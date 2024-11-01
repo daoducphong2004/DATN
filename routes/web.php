@@ -27,6 +27,8 @@ use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CopyrightController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\CommentBookController ;
+use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
@@ -48,8 +50,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index1']);
-Route::get('/', [HomeController::class, 'index1'])->name('home');
+Route::get('home', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
@@ -72,32 +74,33 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('kesach', [HomeController::class, 'kesach'])->name("ke-sach");
+Route::get('ke-sach', [HomeController::class, 'kesach']);
 Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lichsu', [HomeController::class, 'lichsu']);
-Route::get('tinnhanmoi', [HomeController::class, 'tinnhanmoi'])->name("tin-nhan-email");
-Route::get('tinnhan', [HomeController::class, 'tinnhan']);
-Route::get('guitinnhan', [HomeController::class, 'guitinnhan'])->name("thu-da-gui");
-Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
+Route::get('lich-su', [HomeController::class, 'lichsu']);
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+// Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
+Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
 Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
 Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
 Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
-Route::get('themThaoLuan', [HomeController::class, 'themThaoLuan']);
-Route::get('thaoLuanCuaBan', [HomeController::class, 'thaoLuanCuaBan']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
-Route::get('thao-luan', [ForumController::class, 'index'])->name('thao-luan');
-Route::get('themthaoluan', [ForumController::class, 'create'])->name('themthaoluan');
-Route::post('store_thaoluan', [ForumController::class, 'store'])->name('store_thaoluan');
-Route::get('/thao-luan/chi-tiet-thao-luan/{id}', [ForumController::class, 'show'])->name('chi-tiet-thao-luan');
-Route::post('/thao-luan/chi-tiet-thao-luan/{id}', [ForumCommentController::class, 'store'])->name('cmt-child-forum');
+Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
+Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
+Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
+Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
@@ -191,7 +194,7 @@ Route::prefix('chapter-comments')->group(function () {
 
 
 
-
+//Phong
 
 
 Route::resource('story', BookController::class);
@@ -246,15 +249,18 @@ Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('
 Route::resource('banners', BannerController::class);
 
 Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
+Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
 
 
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
+Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
+    ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
+    ->name('user.books.history');
 
 
-
-
+//End Phong
 
 //Thanh toan
 Route::post("/vnpay_payment", [PaymentController::class, 'payment']);
@@ -275,11 +281,16 @@ Route::get('rating/{slug}', [RatingController::class, 'handleRating'])->name('ra
 Route::post('rating/{slug}', [RatingController::class, 'handleRatingPost'])->name('rating.submit');
 Route::post('/ratings/{rating}/like', [RatingController::class, 'toggleLike'])->name('rating.toggleLike');
 
+
 require __DIR__ . '/admin.php';
 
 Route::resource('author', AuthorController::class);
-Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
+Route::post('/accept-request/{id}', [AuthorController::class, 'acceptRequest'])->name('accept_request');
+Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])->name('reject_request');
+
+Route::post('comment')->name('addChapterComment');//sau làm phần comment chapter thì xóa dòng này đi
 
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');
+

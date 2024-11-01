@@ -11,6 +11,7 @@ use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\PurchasedStory;
+use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
 use Carbon\Carbon;
@@ -200,6 +201,12 @@ class BookController extends Controller
         // Pass the reading history to the view
         return view('reading-history', compact('readingHistories'));
     }
+
+    public function __construct()
+    {
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
+
     public function index()
     {
         $genres = genre::pluck('slug', 'name');
@@ -295,16 +302,15 @@ class BookController extends Controller
         }])
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
-            ->orderBy('created_at', 'DESC')
-            ->get();
+            ->with('replies.replies')->get();
 
-        $totalComments = bookcomment::where('book_id', $book->id)->count();
-        // dd($book);
-        // if (Auth::guest() && $book->is_paid) {
-        //     return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        // }
-
-        return view('story.show', compact('book', 'episodes', 'comments', 'totalComments'));
+            $totalComments = bookcomment::where('book_id', $book->id)->count();
+        // dd($comments);
+        if (Auth::guest() && $book->is_paid) {
+            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
+        }
+        $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings','totalComments'));
     }
 
     /**
@@ -404,5 +410,22 @@ class BookController extends Controller
 
         return redirect()->back();
     }
+    public function showUserHistory($bookId)
+    {
+        $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])
+                    ->findOrFail($bookId);
+
+        $currentUser = Auth::user();
+
+
+        // Kiểm tra xem người dùng hiện tại có phải là người đăng sách hoặc được chia sẻ quyền không
+        if ($book->user_id !== $currentUser->id && !$book->sharedUsers->contains('user_id', $currentUser->id)) {
+            // Nếu không có quyền, trả về 403 Forbidden
+            abort(403, 'Bạn không có quyền truy cập vào lịch sử này.');
+        }
+
+        return view('user.user_history', compact('book'));
+    }
+
 
 }

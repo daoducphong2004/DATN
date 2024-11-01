@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\admin\PurchaseManageController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -112,14 +113,28 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/banners', BannerController::class);
 
+        Route::get('/purchase_history',[PurchaseManageController::class,'index'])->name('ListPurchaseUser');
+        Route::get('/purchase_history/{user}', [PurchaseManageController::class, 'showUserPurchasedChapters'])->name('detailPurchaseUser');
+
+        Route::get('/history/{bookId}',[StoryController::class,'showPublicationHistory'])->name('showPublicationHistory');
         // end phong
 
-        //forum
-        Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
-        Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
-        Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
-        Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
-    });
+    //forum
+    Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
+    Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
+    Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
+    Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
+
+    //Hòa thêm router
+    Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
+    Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
+    Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
+    Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
+    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
+    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+
 });
+});
+
 
 

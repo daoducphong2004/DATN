@@ -26,7 +26,6 @@ class HomeController extends Controller
 {
     public function index1()
     {
-
         $readingHistories = [];
         $user = Auth::user();
 
@@ -74,7 +73,7 @@ class HomeController extends Controller
             ->take(5) // Giới hạn 5 chương mới nhất
             ->get();
 
-        $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
+            $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
             })
@@ -82,6 +81,18 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(17)
             ->get();
+        $chuong_moinhat = chapter::with('book')
+                            ->whereHas('book', function($query) {
+                                $query->where('Is_Inspect', 1);
+                            })
+                            ->whereIn('id', function($query) {
+                                $query->select(DB::raw('MAX(id)'))
+                                      ->from('chapters')
+                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->take(17)
+                            ->get();
 
 
         $truyen_vuadang = book::where('Is_Inspect', 1)

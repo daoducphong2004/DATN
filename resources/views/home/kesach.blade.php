@@ -17,16 +17,16 @@
                     <section class="private-tabs">
                         <header>
                             <h4 class="section-name">Tài khoản</h4>
-                            <span class="user-name">LinhLinh</span>
+                            <span class="user-name">{{ Auth::user()->username}}</span>
                         </header>
                         <ul class="user-private-tabs">
-                            <li class="current"><a href="kesach"><span class="none inline-l"><i
+                            <li class="current"><a href="/ke-sach"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Kệ sách</a></li>
-                            <li class=""><a href="bookmark"><span class="none inline-l"><i
+                            <li class=""><a href="/bookmark"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Bookmark</a></li>
-                            <li class=""><a href="tinnhan"><span class="none inline-l"><i
+                            <li class=""><a href="/tin-nhan"><span class="none inline-l"><i
                                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                                             class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
                         </ul>

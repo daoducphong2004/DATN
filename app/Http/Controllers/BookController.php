@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use App\Events\BookCreated;
 use Str;
 
 class BookController extends Controller
@@ -273,6 +274,8 @@ class BookController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
+
+        event(new BookCreated($book));
         return redirect()->route('story.show', $book->id);
     }
 

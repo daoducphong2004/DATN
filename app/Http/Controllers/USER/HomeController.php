@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index1()
     {
 
         $readingHistories = [];
@@ -66,22 +66,22 @@ class HomeController extends Controller
             ->get();
 
         $sangtac_moinhat = chapter::with('book')
-                            ->whereHas('book', function ($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
-                            })
-                            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
-                            ->take(5) // Giới hạn 5 chương mới nhất
-                            ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+            })
+            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
+            ->take(5) // Giới hạn 5 chương mới nhất
+            ->get();
 
         $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
-                            ->whereHas('book', function($query) {
-                                $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
-                            })
-                            ->select('id', 'title', 'slug', 'book_id')
-                            ->orderBy('created_at', 'desc')
-                            ->take(17)
-                            ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
+            })
+            ->select('id', 'title', 'slug', 'book_id')
+            ->orderBy('created_at', 'desc')
+            ->take(17)
+            ->get();
 
 
         $truyen_vuadang = book::where('Is_Inspect', 1)

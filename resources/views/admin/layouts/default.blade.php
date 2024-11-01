@@ -15,10 +15,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+        integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="4fa4d48513266ca2bda21aed-text/javascript"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <!-- DataTables JS -->
@@ -26,16 +29,64 @@
 
     <link href="{{ asset('css/action.css') }}" rel="stylesheet">
 
+    <script>
+        // const DATA_COUNT = 7;
+        // const NUMBER_CFG = {
+        //     count: DATA_COUNT,
+        //     min: -100,
+        //     max: 100,
+        //     decimals: 0
+        // };
+        // const data = {
+        //     labels: Utils.months({
+        //         count: DATA_COUNT
+        //     }),
+        //     datasets: [{
+        //             label: 'Dataset 1',
+        //             data: Utils.numbers(NUMBER_CFG),
+        //             fill: false,
+        //             borderColor: Utils.CHART_COLORS.red,
+        //             backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+        //         },
+        //         {
+        //             label: 'Dataset 2',
+        //             data: Utils.numbers(NUMBER_CFG),
+        //             fill: false,
+        //             borderColor: Utils.CHART_COLORS.blue,
+        //             backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+        //         },
+        //     ]
+        // };
+
+        // const config = {
+        //     type: 'line',
+        //     data: data,
+        //     options: {
+        //         interaction: {
+        //             intersect: false,
+        //             mode: 'index',
+        //         },
+        //         plugins: {
+        //             tooltip: {
+        //                 callbacks: {
+        //                     footer: footer,
+        //                 }
+        //             }
+        //         }
+        //     }
+        // };
+    </script>
+
     @stack('styles')
+
 </head>
 
 <body>
+
     @include('admin.layouts.header')
 
     <div class="container">
-
         @yield('content')
-        
     </div>
 
     @include('admin.layouts.footer')

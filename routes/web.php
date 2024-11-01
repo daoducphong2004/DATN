@@ -24,10 +24,14 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\CopyrightController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PosController;
+use App\Http\Controllers\PublishingCompanyController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
@@ -97,11 +101,14 @@ Route::post('/thao-luan/chi-tiet-thao-luan/{id}', [ForumCommentController::class
 Route::get('search', [SearchController::class, 'index'])->name('search');
 
 Route::prefix('admin')->group(function () {
+
+    // Route::get('/', [ChartController::class, 'index'])->name('admin_dashboard');
+
+
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
-
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
     Route::resource('bookComment', AdminBookCommentController::class);
 
@@ -146,7 +153,29 @@ Route::prefix('admin')->group(function () {
     Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
     Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
     Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
+
+    Route::get('/publishing_company', [PublishingCompanyController::class, 'index'])->name('publishing_company_index');
+    Route::get('/publishing_company/create', [PublishingCompanyController::class, 'create'])->name('publishing_company_create');
+    Route::post('/publishing_company/store', [PublishingCompanyController::class, 'store'])->name('publishing_company_store');
+    Route::get('/publishing_company/edit/{id}', [PublishingCompanyController::class, 'edit'])->name('publishing_company_edit');
+    Route::put('/publishing_company/update/{id}', [PublishingCompanyController::class, 'update'])->name('publishing_company_update');
+    Route::delete('/publishing_company/delete/{id}', [PublishingCompanyController::class, 'destroy'])->name('publishing_company_delete');
+
+    Route::get('/copyright', [CopyrightController::class, 'index'])->name('copyright_index');
+    Route::get('/copyright/create', [CopyrightController::class, 'create'])->name('copyright_create');
+    Route::post('/copyright/store', [CopyrightController::class, 'store'])->name('copyright_store');
+    Route::get('/copyright/edit/{id}', [CopyrightController::class, 'edit'])->name('copyright_edit');
+    Route::put('/copyright/update/{id}', [CopyrightController::class, 'update'])->name('copyright_update');
+    Route::delete('/copyright/delete/{id}', [CopyrightController::class, 'destroy'])->name('copyright_delete');
+
+    Route::get('/pos', [PosController::class, 'index'])->name('pos_index');
+    Route::get('/pos/create', [PosController::class, 'create'])->name('pos_create');
+    Route::post('/pos/store', [PosController::class, 'store'])->name('pos_store');
+    Route::get('/pos/edit/{id}', [PosController::class, 'edit'])->name('pos_edit');
+    Route::put('/pos/update/{id}', [PosController::class, 'update'])->name('pos_update');
+    Route::delete('/pos/delete/{id}', [PosController::class, 'destroy'])->name('pos_delete');
 });
+
 
 
 Route::prefix('chapter-comments')->group(function () {

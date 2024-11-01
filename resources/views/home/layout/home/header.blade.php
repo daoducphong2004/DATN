@@ -99,6 +99,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('bookshelf.index') }}">
+                                    <i class="fas fa-heart"></i><span>Sách đã mua</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('tin-nhan') }}">
                                     <i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                     <div class="at-user_list"></div>

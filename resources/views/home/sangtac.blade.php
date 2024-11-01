@@ -205,53 +205,18 @@
                                     <div class="section-title">Xem nhiều</div>
                                 </div>
                                 <div class="section-content">
-                                    <article class="topview-item">
-                                        <div class="topview_rank">01</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/sang-tac/8476-kiep-nay-la-anh-trai-cua-nhan-vat-chinh">Anh
-                                                    Trai Nhân Vật Chính</a></h5>
-                                            <small class="ranked-attr">1.054.292</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">02</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/sang-tac/4638-useless-hero-from-another-world">Useless Hero
-                                                    from Another World</a></h5>
-                                            <small class="ranked-attr">963.347</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">03</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/sang-tac/14076-nhan-vat-phan-dien-hang-ba-muon-duoc-song-yen-binh">Nhân
-                                                    Vật Phản Diện Hạng Ba Muốn Được Sống Yên Bình</a></h5>
-                                            <small class="ranked-attr">857.979</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">04</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a
-                                                    href="/sang-tac/481-ngai-vang-cua-hoang-de">Ngai Vàng Của Hoàng
-                                                    Đế</a></h5>
-                                            <small class="ranked-attr">787.925</small>
-                                        </div>
-                                    </article>
-                                    <article class="topview-item">
-                                        <div class="topview_rank">05</div>
-                                        <div class="topview_name">
-                                            <h5 class="series-name"><a href="/sang-tac/2980-huyen-thoai-co-ngoc">Huyền
-                                                    Thoại Cổ Ngọc</a></h5>
-                                            <small class="ranked-attr">542.642</small>
-                                        </div>
-                                    </article>
-
+                                    @foreach ($xem_nhieu as $index => $item)
+                                        <article class="topview-item">
+                                            <div class="topview_rank">{{ $index + 1 }}</div>
+                                            <div class="topview_name">
+                                                <h5 class="series-name"><a
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h5>
+                                                <small class="ranked-attr">{{ $item->view }}</small>
+                                            </div>
+                                        </article>
+                                    @endforeach
                                     <div class="see-more_text">
-                                        <a href="https://docln.net/oln-xem-nhieu-nhat/tat-ca"><i
+                                        <a href="/danh-sach?sangtac=1&sapxep=top"><i
                                                 class="fas fa-hand-o-right"></i> Xem thêm</a>
                                     </div>
                                 </div>
@@ -264,24 +229,23 @@
                                 <div class="section-content">
                                     {{-- Bắt đầu truyện  --}}
                                     <ul class="others-list">
-                                        <li>
-                                            <div class="others-img no-padding">
-                                                <div class="a6-ratio">
-                                                    <div class="content img-in-ratio"
-                                                        style="background-image: url('https://docln.net/img/nocover.jpg')">
+                                        @foreach ($sangtac_moi as $item)
+                                            <li>
+                                                <div class="others-img no-padding">
+                                                    <div class="a6-ratio">
+                                                        <div class="content img-in-ratio"
+                                                            style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="others-info">
-                                                <h5 class="others-name"><a
-                                                        href="/sang-tac/19128-cuoc-hanh-trinh-chinh-phuc-the-gioi-cua-co-cong-chua-tinh-nghich">Cuộc
-                                                        hành trình chinh phục thế giới của cô công chúa tinh nghịch</a>
-                                                </h5>
-                                                <small class="series-summary">&quot;Hừm bạn nói bạn không có lỗi
-                                                    sao?&quot;
-                                                    &quot;Chịu trách nhiệm cho những việc mìn...</small>
-                                            </div>
-                                        </li>
+                                                <div class="others-info">
+                                                    <h5 class="others-name"><a
+                                                            href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                    </h5>
+                                                    <small class="series-summary">{!! Str::words($item->description, 33, '...') !!}</small>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                         {{-- Kết thúc truyện  --}}
 
                                     </ul>

@@ -103,6 +103,7 @@ Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthao
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
+Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 
@@ -171,7 +172,7 @@ Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send'
 
 Route::middleware(['auth'])->group(function () {
     //order và cart
-    Route::post('/cart/add', action: [CartController::class, 'addToCart']);
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
     Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
     Route::get('/cart/count', [CartController::class, 'getCartCount']);
@@ -217,6 +218,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
     Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
     Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
+
+    Route::get('/tu-sach-da-mua', [purchaseStoryController::class, 'index'])->name('bookshelf.index');
+
 });
 
 //End Phong

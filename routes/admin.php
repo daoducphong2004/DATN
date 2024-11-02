@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\PurchaseManageController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -132,6 +133,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
     Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
     Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+
+    // Báo cáo
+    Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
+    Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');
+    Route::patch('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    // end báo cáo
 
 });
 });

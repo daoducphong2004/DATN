@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
@@ -259,3 +260,7 @@ Route::post('comment')->name('addChapterComment'); //sau làm phần comment cha
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');
+
+// Báo cáo
+Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+

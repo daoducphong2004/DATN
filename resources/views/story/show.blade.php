@@ -1,5 +1,66 @@
 @extends('home.layout.master')
 
+<style>
+    /* Phong cách cho hộp thoại report (report-modal) */
+    .report-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        /* Điều chỉnh độ tối nhẹ */
+    }
+
+    /* Nội dung của hộp thoại report */
+    .report-modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .report-modal-content button {
+        background-color: #4CAF50;
+        color: white;
+        margin-top: 10px;
+        padding: 5px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .report-modal-content button:hover {
+        background-color: #45a049;
+        /* Màu nền khi hover */
+    }
+
+    /* Nút đóng (X) */
+    .report-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Căn chỉnh các phần tử bên trong hộp thoại */
+    .report-modal-content h3 {
+        margin-top: 0;
+    }
+
+    .report-modal-content textarea {
+        width: 100%;
+    }
+</style>
 
 @section('content')
     <div class="page-top-group ">
@@ -14,10 +75,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-breadcrumb">
-                        <span class="breadcrum-level"><a href="https://docln.net"><i class="fas fa-home"></i></a></span>
+                        <span class="breadcrum-level"><a href="/"><i class="fas fa-home"></i></a></span>
                         <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
                         <span class="breadcrum-level"><a
-                                href="https://docln.net">{{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
+                                href="{{ $book->type == 1 ? '/danh-sach?truyendich=1&dangtienhanh=1&tamngung=1&hoanthanh=1&sapxep=tentruyen' : ($book->type == 2 ? '/convert' : ($book->type == 3 ? '/sang-tac' : '/loai-khong-xac-dinh')) }}">
+                                {{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
                     </div>
 
                 </div>
@@ -126,6 +188,41 @@
                                                         <span class="block feature-name">Bàn luận</span>
                                                     </a>
                                                 </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <label for="open-report" class="side-feature-button" id="reportButton">
+                                                        <span class="block feature-value"><i class="fas fa-flag"></i></span>
+                                                        <span class="block feature-name">Report</span>
+                                                    </label>
+                                                </div>
+                                                <!-- Hộp thoại báo cáo -->
+                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
+                                                    <div class="report-modal-content">
+                                                        <span class="report-close"
+                                                            onclick="toggleReportBox()">&times;</span>
+                                                        <h3>Vui lòng chọn lý do (bắt buộc):</h3>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Nội dung gây sốc, phản cảm"> Nội dung gây sốc, phản
+                                                            cảm</label><br>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Thù ghét và quấy rối"> Thù ghét và quấy
+                                                            rối</label><br>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Chính trị, tôn giáo"> Chính trị, tôn
+                                                            giáo</label><br>
+                                                        <label><input type="checkbox" name="error" value="Đạo văn"> Đạo
+                                                            văn</label><br>
+                                                        <label><input type="checkbox" name="error" value="Bản quyền">
+                                                            Bản quyền</label><br>
+                                                        <label><input type="checkbox" name="error" value="Khác">
+                                                            Khác</label><br>
+
+                                                        <h3>Mô tả chi tiết:</h3>
+                                                        <textarea id="user-note" rows="4" placeholder="Mô tả chi tiết..."></textarea><br>
+
+                                                        <input type="hidden" id="book_id" value="{{ $book->id }}">
+                                                        <button onclick="submitReport()">Gửi</button>
+                                                    </div>
+                                                </div>
                                                 {{-- <div class="col-4 col-md feature-item width-auto-xl">
                                                     <label for="open-sharing" class="side-feature-button">
                                                         <span class="block feature-value"><i
@@ -228,7 +325,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -378,13 +475,12 @@
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
                                 <span class="buy-all-button">
-                                    <form action="{{ route('episode.purchase', $item->id) }}"
-                                          method="POST"
-                                          style="display: inline;"
-                                          onsubmit="return confirm('Bạn có chắc chắn muốn mua chương này?');">
+                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                        style="display: inline;"
+                                        onsubmit="return confirm('Bạn có chắc chắn muốn mua chương này?');">
                                         @csrf
                                         <button type="submit"
-                                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                             Mua tất cả chương
                                         </button>
                                     </form>
@@ -763,5 +859,56 @@
                 });
             });
         });
+
+        // Bật tắt hộp thoại Report Truyện
+        document.getElementById("reportButton").addEventListener("click", toggleReportBox);
+
+        function toggleReportBox() {
+            var reportBox = document.getElementById("reportModal");
+            reportBox.style.display = reportBox.style.display === "block" ? "none" : "block";
+        }
+
+        function closeOutsideBox(event) {
+            if (event.target === document.getElementById("reportModal")) {
+                toggleReportBox();
+            }
+        }
+
+        // Lấy dữ liệu báo cáo
+        function submitReport() {
+            // Lấy lý do đã chọn, mô tả và book_id
+            const reasons = Array.from(document.querySelectorAll('input[name="error"]:checked')).map(el => el.value);
+            const description = document.getElementById('user-note').value;
+            const bookId = document.getElementById('book_id').value;
+
+            // Kiểm tra nếu lý do trống
+            if (reasons.length === 0) {
+                return alert('Vui lòng chọn ít nhất một lý do.');
+            }
+
+            // Gửi AJAX đến backend
+            fetch('/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ reasons, description, book_id: bookId })
+            })
+            .then(response => response.text())
+            .then(text => {
+                try {
+                    const data = JSON.parse(text);
+                    alert('Báo cáo của bạn đã được gửi.');
+                    toggleReportBox(); // Đóng hộp thoại báo cáo
+                } catch (e) {
+                    alert('Có lỗi xảy ra: ' + text);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra.');
+            });
+        }
     </script>
 @endsection

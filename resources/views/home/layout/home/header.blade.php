@@ -140,9 +140,26 @@
                         </div>
                         <div id="noti-sidebar" class="noti-sidebar hidden-block none">
                             <div class="noti-wrapper">
-                                <div id="noti-content" class="noti-content no-padding">
-                                    Không có thông báo
+                                <div id="noti-content" class="noti-content" style="padding: 15px">
+                                    @php
+                                        $notifications = auth()->user()->notifications()->latest()->take(5)->get();
+                                        $pendingBooksCount = \App\Models\book::where('Is_Inspect', 0)->count();
+                                    @endphp
+
+                                    @if ($pendingBooksCount > 0)
+                                        @foreach($notifications as $notification)
+                                            <div>
+                                                - {{ $notification->data['message'] }}
+                                                <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
+                                                    xem ngay
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <a class="dropdown-item" href="#">Không có thông báo nào.</a>
+                                    @endif
                                 </div>
+
                                 <div class="noti-more">
                                     <a class="noti-url" href="/thong-bao">Xem tất cả</a>
                                 </div>

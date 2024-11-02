@@ -134,7 +134,7 @@ Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('u
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
     return view('stories.iframe.information', compact('book', 'genres'));
-})->name('storyinformation');
+})->middleware('auth')->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
     return view('stories.iframe.tree', compact('book'));

@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Events\BookCreated;
 use Str;
 
 class StoryController extends Controller
@@ -134,6 +135,8 @@ class StoryController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
+
+        event(new BookCreated($book));
 
         // Redirect to story view
         return redirect()->route('admin_storylist')->with('success', 'Book created successfully');

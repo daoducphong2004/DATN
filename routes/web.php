@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
@@ -126,6 +127,27 @@ Route::prefix('chapter-comments')->group(function () {
 //Phong
 
 
+Route::resource('story', BookController::class);
+Route::resource('episode', EpisodeController::class);
+Route::resource('chapter', ChapterController::class);
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+
+Route::get('stories/information/{book}', function (book $book) {
+    $genres = genre::pluck('id', 'name');
+    return view('stories.iframe.information', compact('book', 'genres'));
+})->middleware('auth')->name('storyinformation');
+
+Route::get('stories/tree/{book}', function (book $book) {
+    return view('stories.iframe.tree', compact('book'));
+})->name('storytree');
+
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+})->name('storyepisode');
+
+Route::get('stories/addchapter/{episode}', function (episode $episode) {
+    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+})->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
@@ -267,3 +289,7 @@ Route::post('comment')->name('addChapterComment'); //sau làm phần comment cha
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');
+
+// Báo cáo
+Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+

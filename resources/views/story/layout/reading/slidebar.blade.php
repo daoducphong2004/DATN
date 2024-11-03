@@ -63,14 +63,14 @@
                 </header>
 
                 <ul id="chap_list" class="unstyled">
-                    @foreach ($book->episodes as $item)
+                    @foreach ($book->episodes->sortBy('order') as $item)
                         <li class="@if ($episode->id == $item->id) current @endif">
-                            <a href="{{ route('episode.show', $item->slug) }}">{{ $item->title }}</a>
+                            <a href="{{ route('truyen.tap', [$book->slug,$item->slug]) }}">{{ $item->title }}</a>
                         </li>
                         <!-- Hiển thị các chapter nếu đây là tập truyện hiện tại -->
                         @if ($episode->id == $item->id)
                             <ul class="sub-chap_list unstyled">
-                                @foreach ($chapters as $chap)
+                                @foreach ($chapters->sortBy('order') as $chap)
                                     <li class="@if ($chapter->id === $chap->id) current @endif">
                                         <a href="{{ route('truyen.chuong', [$book->slug, $chap->slug]) }}">
                                             {{ $chap->title }} chapter:{{ $chapter->id }} và {{ $chap->id }}

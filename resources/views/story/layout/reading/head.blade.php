@@ -15,8 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
+    <meta name="user-id" content="{{ Auth::user()->id }}">
     <link rel="canonical"
         href="https://docln.net/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01">
     <meta property="og:image"

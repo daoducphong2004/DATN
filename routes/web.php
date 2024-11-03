@@ -12,6 +12,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -125,27 +126,6 @@ Route::prefix('chapter-comments')->group(function () {
 //Phong
 
 
-Route::resource('story', BookController::class);
-Route::resource('episode', EpisodeController::class);
-Route::resource('chapter', ChapterController::class);
-Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
-
-Route::get('stories/information/{book}', function (book $book) {
-    $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres'));
-})->name('storyinformation');
-
-Route::get('stories/tree/{book}', function (book $book) {
-    return view('stories.iframe.tree', compact('book'));
-})->name('storytree');
-
-Route::get('stories/addepisode/{book}', function (book $book) {
-    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
-})->name('storyepisode');
-
-Route::get('stories/addchapter/{episode}', function (episode $episode) {
-    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
-})->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
@@ -154,8 +134,8 @@ Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'sh
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
-Route::post('/chapters/{chapter}/purchase/{price}', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
-Route::get('/truyen/{book}/{chapter}/purchase/{price}', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
+Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 
 
 
@@ -171,6 +151,34 @@ Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send'
 
 
 Route::middleware(['auth'])->group(function () {
+
+//Hợp đồng
+Route::resource('contracts', ContractController::class);
+// web.php
+Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
+
+    Route::resource('story', BookController::class);
+    Route::resource('episode', EpisodeController::class);
+    Route::resource('chapter', ChapterController::class);
+    Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+
+    Route::get('stories/information/{book}', function (book $book) {
+        $genres = genre::pluck('id', 'name');
+        return view('stories.iframe.information', compact('book', 'genres'));
+    })->name('storyinformation');
+
+    Route::get('stories/tree/{book}', function (book $book) {
+        return view('stories.iframe.tree', compact('book'));
+    })->name('storytree');
+
+    Route::get('stories/addepisode/{book}', function (book $book) {
+        return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+    })->name('storyepisode');
+
+    Route::get('stories/addchapter/{episode}', function (episode $episode) {
+        return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+    })->name('storychapter');
+
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');

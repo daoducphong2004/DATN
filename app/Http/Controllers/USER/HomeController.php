@@ -14,6 +14,7 @@ use App\Models\genre;
 use App\Models\group;
 use App\Models\Letter;
 use App\Models\ReadingHistory;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class HomeController extends Controller
     {
 
         $readingHistories = [];
-        $user = Auth::user();
+        $user = User::with('contract')->find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -116,7 +117,7 @@ class HomeController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->take(17)
                             ->get();
-                            
+
         // dd($readingHistories);
         $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
             'categories.color as color',
@@ -154,7 +155,7 @@ class HomeController extends Controller
         $moi_cap_nhat = chapter::with('book', 'episode')
                             ->whereHas('book', function($query) {
                                 $query->where('Is_Inspect', 1)
-                                      ->where('type', 2); 
+                                      ->where('type', 2);
                             })
                             ->whereIn('id', function($query) {
                                 $query->select(DB::raw('MAX(id)'))
@@ -196,7 +197,7 @@ class HomeController extends Controller
     //     $episodes = $book->episodes;
     //     // dd($book,$episodes);
     //     return view('home.stories', compact('book', 'episodes'));
-    // }
+    // }http://datn.test/
 
     // public function vuadang()
     // {
@@ -232,7 +233,7 @@ class HomeController extends Controller
         $moi_cap_nhat = chapter::with('book', 'episode')
                             ->whereHas('book', function($query) {
                                 $query->where('Is_Inspect', 1)
-                                      ->where('type', 3); 
+                                      ->where('type', 3);
                             })
                             ->whereIn('id', function($query) {
                                 $query->select(DB::raw('MAX(id)'))
@@ -361,6 +362,15 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
+        $role = Role::where('name', 'author')->first();
+        $user = User::with('contract')->find(Auth::id());
+        // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
+        if ($user->role_id == $role->id ) {
+            if ($user->contract==null) {
+                // Nếu không có hợp đồng, chuyển đến trang tạo hợp đồng
+                return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
+            }
+        }
         return view('user.index');
     }
 

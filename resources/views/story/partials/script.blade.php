@@ -193,22 +193,6 @@
             return template ? template.innerHTML : 'Đặt sai ID của note';
         }
     });
-
-    // isLoggedIn = 1;
-    // series_id = parseInt('19112');
-    // chapter_id = parseInt('142162');
-
-    // readingObject = {
-    //     series_id: series_id,
-    //     series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
-    //     series_url: $('i.fa-home').first().parent().attr('href'),
-    //     series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-    //     chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-    //     chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-    //     book_title: $('ul#chap_list > li.current a').text(),
-    //     book_url: $('ul#chap_list > li.current a').attr('href'),
-    //     read_time: +new Date() / 1000 | 0,
-    // };
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -258,46 +242,76 @@
             window.location.href = '/login';
             return;
         }
-            // Gửi yêu cầu AJAX để thêm chương vào giỏ hàng
-            fetch('/cart/add', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        // Gửi yêu cầu AJAX để thêm chương vào giỏ hàng
+        fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    chapter_id: chapterId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification(
+                        `Chương "${chapterTitle}" với giá ${chapterPrice} coin đã được thêm vào giỏ hàng.`,
+                        'success');
+                } else {
+                    showNotification(data.message, 'danger');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+
+        notification.className = 'alert alert-' + type; // Thay đổi lớp CSS dựa trên loại thông báo
+        notificationMessage.innerText = message; // Đặt thông báo
+        notification.style.display = 'block'; // Hiển thị thông báo
+
+        // Tự động đóng thông báo sau 5 giây
+        setTimeout(closeNotification, 5000);
+    }
+
+    function closeNotification() {
+        const notification = document.getElementById('notification');
+        notification.style.display = 'none';
+    }
+
+    $(document).ready(function() {
+        $('.purchase-chapter').on('click', function() {
+            var title = $(this).data('title');
+            var price = $(this).data('price');
+            var url = $(this).data('url');
+
+            // Xác nhận mua chương
+            if (confirm('Bạn có chắc chắn muốn mua chương "' + title + '" với giá ' + price +
+                ' coin?')) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}' // Thêm CSRF token
                     },
-                    body: JSON.stringify({
-                        chapter_id: chapterId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        showNotification(
-                            `Chương "${chapterTitle}" với giá ${chapterPrice} coin đã được thêm vào giỏ hàng.`,
-                            'success');
-                    } else {
-                        showNotification(data.message, 'danger');
+                    success: function(response) {
+                        alert(response.message); // Hiển thị thông báo thành công
+                        location.reload(); // Tải lại trang
+                        // Cập nhật giao diện nếu cần thiết (vd: số dư coin, danh sách đã mua, ...)
+                    },
+                    error: function(xhr) {
+                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
+                            'Đã xảy ra lỗi, vui lòng thử lại.';
+                        alert(errorMessage); // Hiển thị thông báo lỗi
                     }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notificationMessage');
-
-            notification.className = 'alert alert-' + type; // Thay đổi lớp CSS dựa trên loại thông báo
-            notificationMessage.innerText = message; // Đặt thông báo
-            notification.style.display = 'block'; // Hiển thị thông báo
-
-            // Tự động đóng thông báo sau 5 giây
-            setTimeout(closeNotification, 5000);
-        }
-
-        function closeNotification() {
-            const notification = document.getElementById('notification');
-            notification.style.display = 'none';
-        }
+                });
+            }
+        });
+    });
 </script>
 
 

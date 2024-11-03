@@ -1,15 +1,21 @@
+<!-- resources/views/contracts/form.blade.php -->
+
 <!-- Trường chọn User (Tác giả) -->
 <div class="form-group">
     <label for="user_id">Tác giả</label>
-    <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" required>
-        <option value="">Chọn tác giả</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}" {{ old('user_id', $contract->user_id ?? '') == $user->id ? 'selected' : '' }}>
-                {{ $user->username }}
-            </option>
-        @endforeach
-    </select>
+    <input value="{{ Auth::id() }}" type="hidden" name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror"  required>
+    <input value="{{ $user->username }}" type="text" name="" id="user_id" class="form-control @error('user_id') is-invalid @enderror"  disabled>
+
     @error('user_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- Phần trăm chia sẻ doanh thu -->
+<div class="form-group">
+    <label for="revenue_share">Phần trăm chia sẻ doanh thu (%)</label>
+    <input type="number" name="revenue_share" id="revenue_share" class="form-control @error('revenue_share') is-invalid @enderror" value="{{ old('revenue_share', $contract->revenue_share ?? '') }}" required>
+    @error('revenue_share')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
@@ -39,26 +45,6 @@
 </script>
 <input type="hidden" name="contract_code" value="{{ $contract->contract_code ?? '' }}">
 
-<!-- Tải ảnh hợp đồng -->
-<div class="form-group">
-    <label for="contract_image">Ảnh Hợp Đồng</label>
-    <input type="file" class="form-control @error('contract_image') is-invalid @enderror" name="contract_image" id="contract_image" accept="image/*">
-    @if(isset($contract) && $contract->contract_image)
-        <img src="{{ asset(Storage::url($contract->contract_image)) }}" alt="Contract Image" class="img-thumbnail mt-2" style="max-width: 200px;">
-    @endif
-    @error('contract_image')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<!-- Phần trăm chia sẻ doanh thu -->
-<div class="form-group">
-    <label for="revenue_share">Phần trăm chia sẻ doanh thu (%)</label>
-    <input type="number" name="revenue_share" id="revenue_share" class="form-control @error('revenue_share') is-invalid @enderror" value="{{ old('revenue_share', $contract->revenue_share ?? '') }}" required>
-    @error('revenue_share')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
 
 <!-- Ngày bắt đầu -->
 <div class="form-group">
@@ -80,13 +66,7 @@
 
 <!-- Trạng thái hợp đồng -->
 <div class="form-group">
-    <label for="status">Trạng thái hợp đồng</label>
-    <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
-        <option value="active" {{ old('status', $contract->status ?? '') == 'active' ? 'selected' : '' }}>Active</option>
-        <option value="expired" {{ old('status', $contract->status ?? '') == 'expired' ? 'selected' : '' }}>Expired</option>
-        <option value="terminated" {{ old('status', $contract->status ?? '') == 'terminated' ? 'selected' : '' }}>Terminated</option>
-        <option value="pending" {{ old('status', $contract->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
-    </select>
+    <input type="hidden" name="status" value="pending">
     @error('status')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror

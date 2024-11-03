@@ -1,5 +1,5 @@
 <!-- resources/views/contracts/show.blade.php -->
-@extends('admin.layouts.default')
+@extends('user.layout.master')
 @section('content')
 <style>
     body {
@@ -48,8 +48,15 @@
         text-align: center;
     }
 </style>
-<a href="{{ route('contracts-manage.index') }}" class="btn btn-primary" >Quay lại</a>
-<h1>Trạng thái hợp đồng: {{ $contract->status }}</h1>
+<h1 class="text-center">Trạng thái hợp đồng: {{ $contract->status }}</h1>
+
+<form action="{{ route('contract.updateImage', $contract->id) }}" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+    @csrf
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <input type="file" name="contract_image" required style="margin-bottom: 1rem; text-align: center;">
+        <button type="submit" class="btn btn-primary">Cập nhật ảnh</button>
+    </div>
+</form>
 
 <div id="contract" class="contract-container">
     <h3>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h3>

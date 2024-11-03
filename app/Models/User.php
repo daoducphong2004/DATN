@@ -82,9 +82,17 @@ class User extends Authenticatable
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
-     // Quan hệ để lấy các truyện mà user được chia sẻ quyền
-     public function sharedBooks()
-     {
-         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
-     }
+    // Quan hệ để lấy các truyện mà user được chia sẻ quyền
+    public function sharedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
+    }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 }

@@ -35,7 +35,10 @@
                         <div class="buy-chapter mt-4">
                             <p class="text-red-500">Bạn cần mua chương này để đọc tiếp phần còn lại.</p>
                             <a href="javascript:void(0);"
-                                onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id, $chapter->price]) }}')">
+                                class="purchase-chapter"
+                                data-title="{{ $chapter->title }}"
+                                data-price="{{ $chapter->price }}"
+                                data-url="{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}">
                                 Mua chương với giá {{ $chapter->price }} coin
                             </a>
                             <br>

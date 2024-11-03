@@ -14,6 +14,7 @@ use App\Models\PurchasedStory;
 use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -226,9 +227,16 @@ class BookController extends Controller
      */
     public function create()
     {
-        $genres = genre::pluck('id', 'name');
-        $groups = group::pluck('id', 'name');
-        return view('stories.create', compact('genres', 'groups'));
+        $user = User::findOrFail(Auth::id());
+        if($user->contract()->exists()){
+            $genres = genre::pluck('id', 'name');
+            $groups = group::pluck('id', 'name');
+            return view('stories.create', compact('genres', 'groups'));
+        }else{
+            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
+
+        }
+
     }
 
     /**

@@ -28,6 +28,13 @@ class ReportController extends Controller
 
         return redirect()->route('reports.index')->with('success', 'Báo cáo đã bị từ chối.');
     }
+    public function review(Report $report)
+    {
+        $report->status = 'Chờ duyệt';
+        $report->save();
+
+        return redirect()->route('reports.index')->with('success', 'Báo cáo chờ xem xét.');
+    }
 
     public function store(Request $request)
     {

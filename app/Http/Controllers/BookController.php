@@ -30,6 +30,15 @@ class BookController extends Controller
      * Display a listing of the resource.
      */
 
+     public function __construct()
+     {
+
+         // $this->middleware('auth');
+
+         $this->middleware('can:create')->only(['create', 'store']);
+     }
+
+
     public function listStories()
     {
         $genres = genre::pluck('slug', 'name');
@@ -204,13 +213,6 @@ class BookController extends Controller
         return view('reading-history', compact('readingHistories'));
     }
 
-    public function __construct()
-    {
-
-        $this->middleware('auth');
-
-        $this->middleware('can:create')->only(['create', 'store']);
-    }
 
 
     public function index()
@@ -307,6 +309,7 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
+        // dd(10);
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
 
@@ -328,9 +331,6 @@ class BookController extends Controller
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 

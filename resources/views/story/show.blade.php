@@ -310,17 +310,17 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
+                                            src="{{  asset($book->user->avatar_url ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
-                                                    href="/thanh-vien/199104">KadminNodi</a></span>
+                                                    href="{{ route('user.books',$book->user_id) }}">{{ $book->user->username }}</a></span>
                                         </div>
                                     </div>
                                     <div class="fantrans-section">
                                         <div class="fantrans-name">Nhóm dịch</div>
                                         <div class="fantrans-value"><a
-                                                href="https://docln.net/nhom-dich/3122-dark-matter">♪ Dark Matter ⁂</a>
+                                                href="{{ route('group.showU',$book->group->slug) }}">{{ $book->group->name }}</a>
                                         </div>
                                     </div>
                                     <div class="owner-donate" style="padding: 0">

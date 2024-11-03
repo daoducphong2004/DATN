@@ -96,6 +96,11 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="{{ route('paymentHistory', Auth::id()) }}">
+                                        <i class="fas fa-history"></i><span>Lịch sử nạp tiền</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{{ route('bookmark') }}">
                                         <i class="fas fa-bookmark"></i><span>Đánh dấu</span>
                                     </a>

@@ -123,7 +123,14 @@ class ForumController extends Controller
             ])->orderBy('created_at', 'desc')->get();
         }
         $categories = Category::all();
-        return view('home.thaoluan',compact('data_forums','categories', 'data_user_forums', 'data_categories_forums',));
+        $totalforumcomment = [];
+        foreach ($data_forums as $forum) {
+            $forumId = $forum->id; // Lấy ID của forum
+
+            $totalforumcomment[$forumId] = ForumComment::where('forum_id', $forumId)->count();
+            // Bây giờ bạn có $totalforumcomment cho từng forum
+        }
+        return view('home.thaoluan',compact('data_forums','categories', 'data_user_forums', 'data_categories_forums','totalforumcomment'));
     }
     public function indexadmin()
     {

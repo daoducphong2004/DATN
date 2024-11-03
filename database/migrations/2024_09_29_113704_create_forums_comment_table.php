@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('forum_comments', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->string('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Forum::class)->constrained();

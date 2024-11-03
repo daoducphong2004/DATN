@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SharedBook;
 use App\Models\Book;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class SharedBookController extends Controller
         if ($request->user()->id !== $book->user_id) {
             return response()->json(['message' => 'phải là chủ sở hữu của quyển sách này'], 403);
         }
-
+        $role_id = Role::where('name', 'author')->get();
+        if ($request->user()->role_id >= $role_id) {
+            return response()->json(['message' => 'Người được chia sẻ này không có quyền tác giả'], 403);
+        }
         // Xác định người dùng mới mà bạn muốn chuyển quyền sở hữu
         $newOwnerId = $request->input('new_owner_id');
 
@@ -41,7 +45,16 @@ class SharedBookController extends Controller
 
         // Tìm người dùng theo email
         $sharedUser = User::where('email', $sharedUserEmail)->first();
+        $role = Role::where('name', 'author')->first();
 
+        if (!$sharedUser || !$role) {
+          return redirect()->back()->with('error','Người dùng hoặc vai trò không tồn tại.');
+        }
+
+        // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
+        if ($sharedUser->role_id < $role->id) {
+            return redirect()->back()->with('error','Người được chia sẻ này không có quyền tác giả');
+        }
         if (!$sharedUser) {
             return redirect()->back()->with('error', 'Người dùng không tồn tại với email đã cho.');
         }
@@ -96,14 +109,12 @@ class SharedBookController extends Controller
     {
         // $book = Book::with('sharedUsers.user')->find($bookId);
 
-    if (!$book) {
-        return redirect()->back()->with('error', 'Sách không tồn tại.');
+        if (!$book) {
+            return redirect()->back()->with('error', 'Sách không tồn tại.');
+        }
+
+        return view('stories.iframe.sharebooks.list', compact('book'));
     }
 
-    return view('stories.iframe.sharebooks.list', compact('book'));
-    }
-
-    function bookFavorite(){
-
-    }
+    function bookFavorite() {}
 }

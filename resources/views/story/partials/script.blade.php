@@ -1,6 +1,4 @@
-
 <script>
-
     function turnoffall() {
         $(".rdtoggle").removeClass("on");
         $(".rdtoggle_body").removeClass("animation fade-in-left-big fade-in-down");
@@ -195,25 +193,9 @@
             return template ? template.innerHTML : 'Đặt sai ID của note';
         }
     });
-
-    // isLoggedIn = 1;
-    // series_id = parseInt('19112');
-    // chapter_id = parseInt('142162');
-
-    // readingObject = {
-    //     series_id: series_id,
-    //     series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
-    //     series_url: $('i.fa-home').first().parent().attr('href'),
-    //     series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-    //     chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-    //     chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-    //     book_title: $('ul#chap_list > li.current a').text(),
-    //     book_url: $('ul#chap_list > li.current a').attr('href'),
-    //     read_time: +new Date() / 1000 | 0,
-    // };
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var toast = document.getElementById('toast-message');
 
         if (toast) {
@@ -221,11 +203,12 @@
             toast.classList.add('show');
 
             // Tự động ẩn sau 3 giây (3000 milliseconds)
-            setTimeout(function () {
+            setTimeout(function() {
                 toast.classList.remove('show');
             }, 3000); // 3000 ms = 3s
         }
     });
+
     function confirmPurchase(title, price, url) {
         // Hiển thị modal
         var modal = document.getElementById("purchaseModal");
@@ -252,13 +235,84 @@
         }
     }
 
+    function addToCart(chapterId, chapterTitle, chapterPrice) {
+
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!document.querySelector('meta[name="user-id"]')) {
+            window.location.href = '/login';
+            return;
+        }
+        // Gửi yêu cầu AJAX để thêm chương vào giỏ hàng
+        fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    chapter_id: chapterId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification(
+                        `Chương "${chapterTitle}" với giá ${chapterPrice} coin đã được thêm vào giỏ hàng.`,
+                        'success');
+                } else {
+                    showNotification(data.message, 'danger');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+
+        notification.className = 'alert alert-' + type; // Thay đổi lớp CSS dựa trên loại thông báo
+        notificationMessage.innerText = message; // Đặt thông báo
+        notification.style.display = 'block'; // Hiển thị thông báo
+
+        // Tự động đóng thông báo sau 5 giây
+        setTimeout(closeNotification, 5000);
+    }
+
+    function closeNotification() {
+        const notification = document.getElementById('notification');
+        notification.style.display = 'none';
+    }
+
+    $(document).ready(function() {
+        $('.purchase-chapter').on('click', function() {
+            var title = $(this).data('title');
+            var price = $(this).data('price');
+            var url = $(this).data('url');
+
+            // Xác nhận mua chương
+            if (confirm('Bạn có chắc chắn muốn mua chương "' + title + '" với giá ' + price +
+                ' coin?')) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}' // Thêm CSRF token
+                    },
+                    success: function(response) {
+                        alert(response.message); // Hiển thị thông báo thành công
+                        location.reload(); // Tải lại trang
+                        // Cập nhật giao diện nếu cần thiết (vd: số dư coin, danh sách đã mua, ...)
+                    },
+                    error: function(xhr) {
+                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
+                            'Đã xảy ra lỗi, vui lòng thử lại.';
+                        alert(errorMessage); // Hiển thị thông báo lỗi
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 
-<script src="{{ asset('scripts/app.js?id=e6bfa8f47769659b2c4d6e4752cc0d59') }}"></script>
-<script src="{{ asset('livewire/livewire.js?id=f121a5df') }}" data-csrf="0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk"
-    data-update-uri="/livewire/update" data-navigate-once="true"></script>
-
-
-<script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'>
-</script>
+<script src="{{ asset('scripts/app.js') }}"></script>

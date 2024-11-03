@@ -14,6 +14,7 @@ use App\Models\genre;
 use App\Models\group;
 use App\Models\Letter;
 use App\Models\ReadingHistory;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class HomeController extends Controller
     {
 
         $readingHistories = [];
-        $user = Auth::user();
+        $user = User::with('contract')->find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -101,7 +102,7 @@ class HomeController extends Controller
         $theodoi_nhieu = book::where('Is_Inspect', 1)
                             ->orderBy('like', 'desc')
                             ->take(10)
-                            ->get();;
+                            ->get();
 
         $truyen_dahoanthanh = chapter::with('book')
                             ->whereHas('book', function($query) {
@@ -116,7 +117,7 @@ class HomeController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->take(17)
                             ->get();
-                            
+
         // dd($readingHistories);
         $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
             'categories.color as color',
@@ -154,7 +155,7 @@ class HomeController extends Controller
         $moi_cap_nhat = chapter::with('book', 'episode')
                             ->whereHas('book', function($query) {
                                 $query->where('Is_Inspect', 1)
-                                      ->where('type', 2); 
+                                      ->where('type', 2);
                             })
                             ->whereIn('id', function($query) {
                                 $query->select(DB::raw('MAX(id)'))
@@ -164,7 +165,19 @@ class HomeController extends Controller
                             ->orderBy('updated_at', 'asc')
                             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat'));
+        $xem_nhieu = book::where('Is_Inspect', 1)
+                            ->where('type', 2)
+                            ->orderBy('view', 'desc')
+                            ->take(5)
+                            ->get();
+
+        $convert_moi = book::where('Is_Inspect', 1)
+                            ->where('type', 2)
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+
+        return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat', 'xem_nhieu', 'convert_moi'));
     }
 
     // public function danhsach(){
@@ -184,7 +197,7 @@ class HomeController extends Controller
     //     $episodes = $book->episodes;
     //     // dd($book,$episodes);
     //     return view('home.stories', compact('book', 'episodes'));
-    // }
+    // }http://datn.test/
 
     // public function vuadang()
     // {
@@ -220,7 +233,7 @@ class HomeController extends Controller
         $moi_cap_nhat = chapter::with('book', 'episode')
                             ->whereHas('book', function($query) {
                                 $query->where('Is_Inspect', 1)
-                                      ->where('type', 3); 
+                                      ->where('type', 3);
                             })
                             ->whereIn('id', function($query) {
                                 $query->select(DB::raw('MAX(id)'))
@@ -230,7 +243,19 @@ class HomeController extends Controller
                             ->orderBy('updated_at', 'asc')
                             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat'));
+        $xem_nhieu = book::where('Is_Inspect', 1)
+                            ->where('type', 3)
+                            ->orderBy('view', 'desc')
+                            ->take(5)
+                            ->get();
+
+        $sangtac_moi = book::where('Is_Inspect', 1)
+                            ->where('type', 3)
+                            ->orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+
+        return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat', 'xem_nhieu', 'sangtac_moi'));
     }
 
     public function xuatban()
@@ -303,8 +328,8 @@ class HomeController extends Controller
 
         // Trả về view với dữ liệu
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
-        $userBooks = $userInfor->books; // Truyện do user đăng
-        $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
+        $userBooks = $userInfor->books->where('Is_Inspect', 1); // Truyện do user đăng
+        $bookHasJoin = $userInfor->sharedBooks->where('Is_Inspect', 1); // Truyện user được chia sẻ quyền
         $countBook = book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
         $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
@@ -337,6 +362,15 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
+        $role = Role::where('name', 'author')->first();
+        $user = User::with('contract')->find(Auth::id());
+        // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
+        if ($user->role_id == $role->id ) {
+            if ($user->contract==null) {
+                // Nếu không có hợp đồng, chuyển đến trang tạo hợp đồng
+                return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
+            }
+        }
         return view('user.index');
     }
 

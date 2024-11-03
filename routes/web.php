@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
@@ -24,13 +26,17 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CommentBookController;
 use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseHistoryController;
+use App\Http\Controllers\purchaseStoryController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
@@ -99,8 +105,9 @@ Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthao
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
 Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::class,  'store'])->name('cmt-child-forum');
+Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
-Route::get('search/results',[SearchController::class,'indexShow'])->name('search_re');
+Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 
 
 
@@ -118,8 +125,10 @@ Route::prefix('chapter-comments')->group(function () {
 
 
 //Phong
+Route::prefix('action')->group(function () {
+// Trong đây sẽ là những route có trong UserHome
 
-
+});
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
@@ -128,7 +137,7 @@ Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('u
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
     return view('stories.iframe.information', compact('book', 'genres'));
-})->name('storyinformation');
+})->middleware('auth')->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
     return view('stories.iframe.tree', compact('book'));
@@ -145,49 +154,107 @@ Route::get('stories/addchapter/{episode}', function (episode $episode) {
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
-Route::get('truyen/{slug}/truyen/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
+Route::get('truyen/{slug}/tap/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
-Route::post('/chapters/{chapter}/purchase/{price}', [ChapterController::class, 'purchaseChapter'])->middleware('auth');
-Route::get('/truyen/{book}/{chapter}/purchase/{price}', [ChapterController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
+Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 
+//hiển thị nhóm
+Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');
 
-Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
-Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
-Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
-Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
-
-
-Route::get('/truyenDaDang', [StoryManageController::class, 'StoryTranslatelist'])->name('manage.mytranslatebook');
-Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
-
-Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
-Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->name('manage.bookOLNshared');
-
-Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
-Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
 
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
-Route::resource('banners', BannerController::class);
-
-Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
-Route::post('/purchase/episode/{episodeId}', [ChapterController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
 
 
 
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
-Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
-    ->middleware('auth') // Đảm bảo người dùng phải đăng nhập
-    ->name('user.books.history');
 
-//Sắp xếp thứ tự của tập truyện và chương truyện
-Route::get('/episodes/sort/{bookId}', [EpisodeController::class, 'sortView'])->name('episodes.sortView');
-Route::post('/episodes/update-order', [EpisodeController::class, 'updateOrder'])->name('episodes.updateOrder');
+Route::resource('story', BookController::class);
+Route::resource('episode', EpisodeController::class);
+Route::resource('chapter', ChapterController::class);
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
 
-Route::get('/chapters/{episodeId}/', [ChapterController::class, 'showChapters'])->name('chapter.sortView');
-Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
+
+
+Route::middleware(['auth'])->group(function () {
+
+    //Hợp đồng
+    Route::resource('contracts', ContractController::class);
+    // web.php
+    Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
+
+
+
+    Route::get('stories/information/{book}', function (book $book) {
+        $genres = genre::pluck('id', 'name');
+        return view('stories.iframe.information', compact('book', 'genres'));
+    })->name('storyinformation');
+
+    Route::get('stories/tree/{book}', function (book $book) {
+        return view('stories.iframe.tree', compact('book'));
+    })->name('storytree');
+
+    Route::get('stories/addepisode/{book}', function (book $book) {
+        return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+    })->name('storyepisode');
+
+    Route::get('stories/addchapter/{episode}', function (episode $episode) {
+        return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+    })->name('storychapter');
+
+    //order và cart
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
+    Route::get('/cart/count', [CartController::class, 'getCartCount']);
+    Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
+    Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
+    Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
+        ->name('user.books.history');
+
+    Route::post('/books/{bookId}/purchase-all', [purchaseStoryController::class, 'purchaseAllChaptersInBook'])->name('books.purchaseAllChapters');
+
+    Route::get('/lich-su-mua', [PurchaseHistoryController::class, 'index'])->name('purchase.history')->middleware('auth');
+    Route::post('/purchase/episode/{episodeId}', [purchaseStoryController::class, 'purchaseAllChaptersInEpisode'])->name('episode.purchase')->middleware('auth');
+
+
+
+    //Sắp xếp thứ tự của tập truyện và chương truyện
+    Route::get('/episodes/sort/{bookId}', [EpisodeController::class, 'sortView'])->name('episodes.sortView');
+    Route::post('/episodes/update-order', [EpisodeController::class, 'updateOrder'])->name('episodes.updateOrder');
+
+    Route::get('/chapters/{episodeId}/', [ChapterController::class, 'showChapters'])->name('chapter.sortView');
+    Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
+
+
+    //Thêm bookmark cho truyện
+    Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
+    Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);
+    Route::delete('/chapter/bookmark/{id}', [BookmarkController::class, 'destroy']);
+    Route::get('/chapter/{chapter}/bookmarks', [BookmarkController::class, 'getUserBookmarks']);
+
+
+
+    Route::get('/truyenDaDang', [StoryManageController::class, 'StoryTranslatelist'])->name('manage.mytranslatebook');
+    Route::get('/truyenThamGia', [StoryManageController::class, 'StoryTranslateListShare'])->name('manage.booktranslateshared');
+
+    Route::get('/OLNDaDang', [StoryManageController::class, 'StoryOLNlist'])->name('manage.mybookOLN');
+    Route::get('/OLNThamGia', [StoryManageController::class, 'StoryOLNListShare'])->name('manage.bookOLNshared');
+
+    Route::get('/convertDaDang', [StoryManageController::class, 'StoryConvertlist'])->name('manage.myConvertbook');
+    Route::get('/convertThamGia', [StoryManageController::class, 'StoryConvertListShare'])->name('manage.bookConvertshared');
+
+
+    Route::post('/book/{book}/share-access', [SharedBookController::class, 'shareEditAccess'])->name('book.shareAccess');
+    Route::post('/book/{book}/transfer-ownership', [SharedBookController::class, 'transferOwnership'])->name('book.transferOwnership');
+    Route::get('/book/{book}/shared-users', [SharedBookController::class, 'listSharedUsers'])->name('book.shareList');
+    Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
+
+    Route::get('/tu-sach-da-mua', [purchaseStoryController::class, 'index'])->name('bookshelf.index');
+});
 
 //End Phong
 
@@ -225,3 +292,6 @@ Route::post('comment')->name('addChapterComment'); //sau làm phần comment cha
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');
 Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name('filterTheLoai');
+
+// Báo cáo
+Route::post('/report', [ReportController::class, 'store'])->name('report.store');

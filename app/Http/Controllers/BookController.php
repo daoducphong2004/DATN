@@ -14,12 +14,14 @@ use App\Models\PurchasedStory;
 use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use App\Events\BookCreated;
 use Str;
 
 class BookController extends Controller
@@ -27,6 +29,15 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+
+         // $this->middleware('auth');
+
+         $this->middleware('can:create')->only(['create', 'store']);
+     }
+
 
     public function listStories()
     {
@@ -202,10 +213,7 @@ class BookController extends Controller
         return view('reading-history', compact('readingHistories'));
     }
 
-    public function __construct()
-    {
-        $this->middleware('can:create')->only(['create', 'store']);
-    }
+
 
     public function index()
     {
@@ -221,9 +229,16 @@ class BookController extends Controller
      */
     public function create()
     {
-        $genres = genre::pluck('id', 'name');
-        $groups = group::pluck('id', 'name');
-        return view('stories.create', compact('genres', 'groups'));
+        $user = User::findOrFail(Auth::id());
+        if($user->contract()->exists()){
+            $genres = genre::pluck('id', 'name');
+            $groups = group::pluck('id', 'name');
+            return view('stories.create', compact('genres', 'groups'));
+        }else{
+            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
+
+        }
+
     }
 
     /**
@@ -233,6 +248,7 @@ class BookController extends Controller
     {
 
         $adult = $request->has('adult') ? 1 : 0;
+
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
@@ -249,6 +265,7 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
+            'price' => $request->price,
         ]);
 
         $slug = Str::slug($book->id . '-' . $request->title);
@@ -267,6 +284,8 @@ class BookController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
+
+        event(new BookCreated($book));
         return redirect()->route('story.show', $book->id);
     }
 
@@ -290,6 +309,7 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
+        // dd(10);
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
 
@@ -297,6 +317,7 @@ class BookController extends Controller
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
         }
+        $totalPrice = $book->totalChapterPrice();
 
         $episodes = $book->episodes;
 
@@ -310,13 +331,10 @@ class BookController extends Controller
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments'));
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments','totalPrice'));
     }
 
 
@@ -364,6 +382,7 @@ class BookController extends Controller
                 'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
                 'group_id' => $request->group_id,
                 'user_id' => Auth::id(),
+                'price' => $request->price
             ]);
 
             // Attach genres

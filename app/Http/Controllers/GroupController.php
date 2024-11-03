@@ -66,4 +66,9 @@ class GroupController extends Controller
             return back()->withErrors(['error' => 'Failed to delete groups: ' . $e->getMessage()]);
         }
     }
+
+    public function showU(string $slug){
+        $group = group::where('slug',$slug)->with('books')->first();
+        return view('home.group',compact('group'));
+    }
 }

@@ -1,7 +1,7 @@
 @extends('home.layout.master')
 @section('content')
 <style>
-    .cricle_forum{
+    .cricle_forum {
         height: 10px;
         width: 10px;
         background-color: black;
@@ -20,18 +20,21 @@
             </div>
         </div>
     </header>
-    
+
     <div class="container clear">
         <section class="board-toolkit clear">
-
-            <select name="category" id="category" class="board_categ-list">
-                @foreach ($categories as $item_categories)
-                <option value="{{ $item_categories->id }}">
-                   <div class="cricle_forum"></div> {{ $item_categories->content }}
-                </option>
-                @endforeach
-            </select>
-
+            <form method="GET" action="{{ route('thao-luan') }}">
+                <select name="category" id="category" class="board_categ-list" onchange="this.form.submit()">
+                    <option value="" {{ request('category')  }} selected>
+                        Tất cả
+                    </option>
+                    @foreach ($categories as $item_categories)
+                    <option value="{{ $item_categories->id }}" {{ request('category') == $item_categories->id ? 'selected' : '' }}>
+                        {{ $item_categories->content }}
+                    </option>
+                    @endforeach
+                </select>
+            </form>
 
             <a class="button button-newpost button-green" href="{{ route('themthaoluan') }}"><i class="fas fa-plus"></i>
                 Thêm</a>
@@ -54,6 +57,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($data_forums->isEmpty())
+                    <td>Không có thảo luận nào</td>
+                    @else
                     @foreach ($data_forums as $item_forums)
                     <tr class="d-flex">
                         <td class="col-8 col-md-4 col-lg-5 col-xl-5">
@@ -102,6 +108,7 @@
                         </td>
                     </tr>
                     @endforeach
+                    @endif
 
                 </tbody>
             </table>

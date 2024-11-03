@@ -25,20 +25,6 @@
 @yield('content')
 
 @include('story.layout.reading.footer')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var toast = document.getElementById('toast-message');
-
-        if (toast) {
-            // Thêm class 'show' để hiển thị toast
-            toast.classList.add('show');
-
-            // Tự động ẩn sau 3 giây (3000 milliseconds)
-            setTimeout(function () {
-                toast.classList.remove('show');
-            }, 3000); // 3000 ms = 3s
-        }
-    });
-</script>
+@include('story.partials.bookmarkscript')
 
 </html>

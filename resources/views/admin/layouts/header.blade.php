@@ -43,6 +43,11 @@
                             <a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a>
                         @endcan
                     </li>
+                    <li>
+                        {{-- @can('view-contract', Auth::user()) --}}
+                            <a href="{{ route('contracts-manage.index') }}" style="color: #12a724">Hợp Đồng</a>
+                        {{-- @endcan --}}
+                    </li>
                     {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>

@@ -28,6 +28,20 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class);
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
 
     public function likedBooks()
     {
@@ -68,15 +82,17 @@ class User extends Authenticatable
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
-     // Quan hệ để lấy các truyện mà user đã đăng
-     public function books()
-     {
-         return $this->hasMany(Book::class, 'user_id');
-     }
-
-     // Quan hệ để lấy các truyện mà user được chia sẻ quyền
-     public function sharedBooks()
-     {
-         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
-     }
+    // Quan hệ để lấy các truyện mà user được chia sẻ quyền
+    public function sharedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
+    }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 }

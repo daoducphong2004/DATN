@@ -196,7 +196,7 @@
         }
     });
 
-    isLoggedIn = 0;
+    isLoggedIn = 1;
     series_id = parseInt('18741');
     chapter_id = parseInt('139028');
 

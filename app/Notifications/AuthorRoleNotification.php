@@ -3,25 +3,26 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BookPendingNotification extends Notification {
+class AuthorRoleNotification extends Notification
+{
     use Queueable;
+
+    protected $message;
+    protected $userId;
 
     /**
      * Create a new notification instance.
      */
-    // protected $data;
-    protected $pendingBooksCount;
-
-    public function __construct( $pendingBooksCount)
+    public function __construct($userId,$message)
     {
-        $this->pendingBooksCount = $pendingBooksCount;
-        // $this->data = $data;
+        $this->message = $message;
+        $this->userId = $userId;
     }
+
     /**
      * Get the notification's delivery channels.
      *
@@ -38,18 +39,19 @@ class BookPendingNotification extends Notification {
     // public function toMail(object $notifiable): MailMessage
     // {
     //     return (new MailMessage)
-    //         ->subject('Thông báo về truyện chưa được duyệt')
-    //         ->line('Có một số truyện chưa duyệt trong 5 ngày qua. Hãy xem ngay!')
-    //         ->action('Xem danh sách truyện chưa được duyệt', route('books.approval'))
-    //         ->line('Cảm ơn bạn đã xem!');
+    //                 ->line('The introduction to the notification.')
+    //                 ->action('Notification Action', url('/'))
+    //                 ->line('Thank you for using our application!');
     // }
 
     public function toDatabase($notifiable)
     {
         return [
-            'message' => 'Có ' . $this->pendingBooksCount . ' truyện chưa được duyệt. ',
+            'message' => $this->message,
+            'user_id' => $this->userId,
         ];
     }
+
     /**
      * Get the array representation of the notification.
      *
@@ -58,7 +60,7 @@ class BookPendingNotification extends Notification {
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => 'Có ' . $this->pendingBooksCount . ' truyện chưa được duyệt.',
+            //
         ];
     }
 }

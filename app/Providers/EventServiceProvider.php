@@ -20,7 +20,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\BookCreated' => [
             'App\Listeners\SendPendingBookNotification',
-        ]
+        ],
+        'App\Events\AuthorCreated' => [
+        'App\Listeners\AuthorRoleNotification',
+    ],
     ];
 
     /**

@@ -149,11 +149,23 @@
                                         @foreach($notifications as $notification)
                                             <div>
                                                 - {{ $notification->data['message'] }}
-                                                <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
-                                                    xem ngay
-                                                </a>
+
+                                                @if ($notification->type == 'App\Notifications\BookPendingNotification')
+                                                    <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
+                                                        xem ngay
+                                                    </a>
+                                                @endif
                                             </div>
-                                        @endforeach
+
+                                            <div>
+                                                @if(isset($notification->data['user_id']))
+                                                    <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
+                                                        xem ngay
+                                                    </a>
+                                                @endif
+                                            </div>
+                                    @endforeach
+
                                     @else
                                         <a class="dropdown-item" href="#">Không có thông báo nào.</a>
                                     @endif

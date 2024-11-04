@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoregroupRequest;
 use App\Models\group;
 use Illuminate\Http\Request;
 use Exception;
 
-class GroupController extends Controller
+class adminGroupController extends Controller
 {
     public function index()
     {
@@ -65,10 +66,5 @@ class GroupController extends Controller
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to delete groups: ' . $e->getMessage()]);
         }
-    }
-
-    public function showU(string $slug){
-        $group = group::where('slug',$slug)->with('books')->first();
-        return view('home.group',compact('group'));
     }
 }

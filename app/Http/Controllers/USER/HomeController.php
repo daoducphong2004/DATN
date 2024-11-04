@@ -327,8 +327,8 @@ class HomeController extends Controller
 
         // Trả về view với dữ liệu
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
-        $userBooks = $userInfor->books; // Truyện do user đăng
-        $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
+        $userBooks = $userInfor->books->where('Is_Inspect', 1); // Truyện do user đăng
+        $bookHasJoin = $userInfor->sharedBooks->where('Is_Inspect', 1); // Truyện user được chia sẻ quyền
         $countBook = book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
         $countComment = chaptercomment::where('user_id', $userInfor->id)->count();

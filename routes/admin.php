@@ -30,6 +30,7 @@ use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CommentChapterController;
+use App\Http\Controllers\NewsController;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\episode;
@@ -37,9 +38,9 @@ use App\Models\Forum;
 use App\Models\genre;
 
 
-// Route::prefix('admin')->group(function () {
-Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
-    Route::middleware('can:access-admin')->group(function () {
+// Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
+    Route::prefix('admin')->group(function () {
+    // Route::middleware('can:access-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         // Giao diện admin
         Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
@@ -141,7 +142,11 @@ Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function
         Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
         Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
         Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
-    });
+        //Hòa thêm router tin tức
+        Route::get('/news', [NewsController::class, 'newsIndex'])->name('newsIndex');
+        Route::get('/news/add', [NewsController::class, 'newsAdd'])->name('newsAdd');
+        Route::post('/news/add', [NewsController::class, 'newsHandleAdd'])->name('newsHandleAdd');
+    // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
     Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');

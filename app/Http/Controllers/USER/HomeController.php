@@ -61,8 +61,7 @@ class HomeController extends Controller
         }
 
         $truyen_noibat = book::where('Is_Inspect', 1)
-            ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
-            ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
+            ->orderBy('views_week', 'desc') // Sắp xếp theo lượt xem tuần nhiều nhất
             ->take(8) // Giới hạn 8 truyện
             ->get();
 

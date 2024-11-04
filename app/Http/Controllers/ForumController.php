@@ -62,7 +62,8 @@ class ForumController extends Controller
         }
         return view('home.thaoluan', compact('data_forums', 'data_user_forums', 'data_categories_forums', 'categories'));
     }
-    public function filterThaoLuan(Request $request) {
+    public function filterThaoLuan(Request $request)
+    {
         $query = Forum::all();
         $data_user_forums = Forum::query()->join('users', 'users.id', '=', 'forums.user_id')
             ->get([
@@ -95,7 +96,7 @@ class ForumController extends Controller
             $forum->time_ago = Carbon::parse($forum->created_at)->diffForHumans();
         }
         $fillter = $request->input('category');
-        if ($fillter == "20" || $fillter == null || $fillter == "" ) {
+        if ($fillter == "20" || $fillter == null || $fillter == "") {
             $data_forums = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
                 'categories.color as color',
                 'categories.content as content_categories',
@@ -106,10 +107,11 @@ class ForumController extends Controller
                 'forums.title as title',
                 'forums.content as content',
                 'forums.created_at as created_at',
-                'forums.viewer as viewer'
-            ])->orderBy('created_at', 'desc')->get();
-        }else{
-            $data_forums = Forum::where('category_id',$fillter)->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
+                'forums.viewer as viewer',
+                'forums.is_featured as featured'
+            ])->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc')->paginate(10);
+        } else {
+            $data_forums = Forum::where('category_id', $fillter)->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
                 'categories.color as color',
                 'categories.content as content_categories',
                 'categories.slug as slug_categories',
@@ -119,8 +121,9 @@ class ForumController extends Controller
                 'forums.title as title',
                 'forums.content as content',
                 'forums.created_at as created_at',
-                'forums.viewer as viewer'
-            ])->orderBy('created_at', 'desc')->get();
+                'forums.viewer as viewer',
+                'forums.is_featured as featured'
+            ])->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         }
         $categories = Category::all();
         $totalforumcomment = [];
@@ -130,7 +133,7 @@ class ForumController extends Controller
             $totalforumcomment[$forumId] = ForumComment::where('forum_id', $forumId)->count();
             // Bây giờ bạn có $totalforumcomment cho từng forum
         }
-        return view('home.thaoluan',compact('data_forums','categories', 'data_user_forums', 'data_categories_forums','totalforumcomment'));
+        return view('home.thaoluan', compact('data_forums', 'categories', 'data_user_forums', 'data_categories_forums', 'totalforumcomment'));
     }
     public function indexadmin()
     {
@@ -250,7 +253,10 @@ class ForumController extends Controller
                 ->get();
             $data_child_list_forum[$parentComment->id] = $childComments; // Lưu bình luận con vào mảng
         }
-        return view('user.chitiet_forum', compact('data', 'data_forums', 'data_user', 'data_list_forum', 'data_child_list_forum'));
+        $lockforum = Forum::where('id', $id)->value('lock');
+
+
+        return view('user.chitiet_forum', compact('data', 'data_forums', 'data_user', 'data_list_forum', 'data_child_list_forum', 'lockforum'));
     }
 
     /**

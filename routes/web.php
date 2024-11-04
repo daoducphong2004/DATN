@@ -264,6 +264,7 @@ Route::get("/choose_cash", [PaymentController::class, 'indexCash'])->name('index
 Route::post("/vnpay_payment", [PaymentController::class, 'payment'])->name('payment');
 Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
 Route::get('/payment-success/{paymentData}', [PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
+Route::get('/payment-history/{userId}', [PaymentController::class, 'paymentHistory'])->name('paymentHistory');
 
 // User trong Group
 Route::prefix('groups')->group(function () {

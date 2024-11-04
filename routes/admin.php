@@ -146,6 +146,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
     Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');
     Route::patch('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    Route::patch('/reports/{report}/review', [ReportController::class, 'review'])->name('reports.review');
     // end báo cáo
 
 });

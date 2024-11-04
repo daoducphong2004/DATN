@@ -20,6 +20,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
 use Str;
@@ -66,6 +67,16 @@ class BookController extends Controller
 
         // Tăng giá trị của trường `view`
         $book->increment('view');
+
+        // Tăng lượt xem cho tuần và tháng
+        $book->increment('views_week');
+        $book->increment('views_month');
+
+        // Reset lượt xem theo tuần
+        $this->resetWeeklyViews();
+
+        // Reset lượt xem theo tháng
+        $this->resetMonthlyViews();
 
         // Tìm kiếm chapter dựa trên chapter_slug
         $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
@@ -455,5 +466,25 @@ class BookController extends Controller
         }
 
         return view('user.user_history', compact('book'));
+    }
+
+    // Reset lượt xem theo tuần
+    private function resetWeeklyViews()
+    {
+        // Kiểm tra nếu là thứ Hai
+        if (Carbon::now()->isMonday()) {
+            // Reset lượt xem theo tuần
+            DB::table('books')->update(['views_week' => 0]);
+        }
+    }
+
+    // Reset lượt xem theo tháng
+    private function resetMonthlyViews()
+    {
+        // Kiểm tra nếu là ngày đầu tháng
+        if (Carbon::now()->day == 1) {
+            // Reset lượt xem theo tháng
+            DB::table('books')->update(['views_month' => 0]);
+        }
     }
 }

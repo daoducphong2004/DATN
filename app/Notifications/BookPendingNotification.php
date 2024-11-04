@@ -8,19 +8,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BookPendingNotification extends Notification implements ShouldQueue{
+class BookPendingNotification extends Notification {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    protected $data;
-    protected $book;
+    // protected $data;
+    protected $pendingBooksCount;
 
-    public function __construct($data, $book)
+    public function __construct( $pendingBooksCount)
     {
-        $this->book = $book;
-        $this->data = $data;
+        $this->pendingBooksCount = $pendingBooksCount;
+        // $this->data = $data;
     }
     /**
      * Get the notification's delivery channels.
@@ -47,7 +47,7 @@ class BookPendingNotification extends Notification implements ShouldQueue{
     public function toDatabase($notifiable)
     {
         return [
-            'message' => 'Có ' . $this->book->count() . ' truyện chưa được duyệt: ' . $this->book->title,
+            'message' => 'Có ' . $this->pendingBooksCount . ' truyện chưa được duyệt. ',
         ];
     }
     /**
@@ -58,7 +58,7 @@ class BookPendingNotification extends Notification implements ShouldQueue{
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'message' => 'Có ' . $this->pendingBooksCount . ' truyện chưa được duyệt.',
         ];
     }
 }

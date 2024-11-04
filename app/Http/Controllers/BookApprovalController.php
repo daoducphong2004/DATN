@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookApprovalController extends Controller
@@ -22,6 +24,21 @@ class BookApprovalController extends Controller
         // Cập nhật trạng thái Is_Inspect (1: Đã duyệt, 0: Từ chối)
         $book->Is_Inspect = $request->input('approve') ? 1 : 0;
         $book->save();
+
+        $pendingBooksCount = Book::where('Is_Inspect', 0)->count();
+
+        $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
+
+        $admin->notifications()->where('type', 'App\Notifications\BookPendingNotification')->delete();
+
+        if ($pendingBooksCount > 0) {
+            $admin->notifications()->create([
+                'type' => 'App\Notifications\BookPendingNotification',
+                'data' => [
+                    'message' => 'Có ' . $pendingBooksCount . ' truyện chưa được duyệt.',
+                ],
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Trạng thái truyện đã được cập nhật.');
     }

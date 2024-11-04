@@ -62,81 +62,85 @@
                     <a class="login-link" href="{{ route('register') }}">Đăng ký</a>
                 </div>
             @else
-            <div id="navbar-user" class="guest">
-                <div id="navbar-user">
-                    <div class="nav-user_icon">
-                        <div class="nav-user_avatar">
-                            <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
-                        </div>
-                        <div class="at-user_avatar"></div>
-                        <ul class="account-sidebar hidden-block unstyled none">
-                            <li>
-                                <a href="{{ route('user.books', ['userId' => Auth::user()->id]) }}">
-                                    <i class="fas fa-user"></i><span>Tài khoản</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('indexPayment')}}"><i class="fas fa-user"></i><span>Nạp tiền</span></a>
+                <div id="navbar-user" class="guest">
+                    <div id="navbar-user">
+                        <div class="nav-user_icon">
+                            <div class="nav-user_avatar">
+                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
+                            </div>
+                            <div class="at-user_avatar"></div>
+                            <ul class="account-sidebar hidden-block unstyled none">
+                                <li>
+                                    <a href="{{ route('user.books', ['userId' => Auth::user()->id]) }}">
+                                        <i class="fas fa-user"></i><span>Tài khoản</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="coin-earned">
+                                        <i class="fas fa-coins" style="color: gold"></i>
+                                        <span>{{ Auth::user()->coin_earned }} Coins</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('indexPayment') }}"><i class="fas fa-user"></i><span>Nạp
+                                            tiền</span></a>
                                 </li>
                                 <li>
                                     <a href="{{ url('lich-su') }}">
-                                    <i class="fas fa-history"></i><span>Lịch sử</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('purchase.history') }}">
-                                    <i class="fas fa-history"></i><span>Lịch sử mua</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('bookmark') }}">
-                                    <i class="fas fa-bookmark"></i><span>Đánh dấu</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('ke-sach') }}">
-                                    <i class="fas fa-heart"></i><span>Kệ sách</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('bookshelf.index') }}">
-                                    <i class="fas fa-heart"></i><span>Sách đã mua</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('tin-nhan') }}">
-                                    <i class="fas fa-envelope"></i><span>Tin nhắn</span>
-                                    <div class="at-user_list"></div>
-                                </a>
-                            </li>
-                            <hr class="none block-l">
-                            <li>
-                                <div class="nightmode-toggle">
-                                    <i class="fas fa-moon"></i><span>Nền tối</span>
-                                    <div class="toggle-icon"><i class="fas fa-toggle-off"></i></div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="/UserHome">
-                                    <i class="fas fa-cog"></i><span>Hệ thống</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                   class="link-underline link-underline-opacity-0">
-                                    <i class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                    {{-- Icon thông báo --}}
-                    <div id="noti-icon" class="user-sublink">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-bell"></i>
+                                        <i class="fas fa-history"></i><span>Lịch sử</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('purchase.history') }}">
+                                        <i class="fas fa-history"></i><span>Lịch sử mua</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('bookmark') }}">
+                                        <i class="fas fa-bookmark"></i><span>Đánh dấu</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('ke-sach') }}">
+                                        <i class="fas fa-heart"></i><span>Kệ sách</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('bookshelf.index') }}">
+                                        <i class="fas fa-heart"></i><span>Sách đã mua</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('tin-nhan') }}">
+                                        <i class="fas fa-envelope"></i><span>Tin nhắn</span>
+                                        <div class="at-user_list"></div>
+                                    </a>
+                                </li>
+                                <hr class="none block-l">
+                                <li>
+                                    <div class="nightmode-toggle">
+                                        <i class="fas fa-moon"></i><span>Nền tối</span>
+                                        <div class="toggle-icon"><i class="fas fa-toggle-off"></i></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="/UserHome">
+                                        <i class="fas fa-cog"></i><span>Hệ thống</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                        class="link-underline link-underline-opacity-0">
+                                        <i class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                         <div id="noti-sidebar" class="noti-sidebar hidden-block none">
                             <div class="noti-wrapper">
@@ -176,35 +180,37 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- Icon kệ sách --}}
-                    <div id="series-unread-icon" class="user-sublink appearing">
-                        <a class="link-item" href="{{ route('ke-sach') }}">
-                            <div class="icon-wrapper">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </a>
-                    </div>
-                    {{-- Icon giỏ hàng --}}
-                    <div id="series-cart" class="user-sublink appearing">
-                        <a class="link-item" href="{{ route('cart') }}">
-                            <div class="icon-wrapper">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span class="cart-count">0</span> <!-- Số lượng chương sẽ được cập nhật bởi JavaScript -->
-                            </div>
-                        </a>
+
+                        {{-- Icon kệ sách --}}
+                        <div id="series-unread-icon" class="user-sublink appearing">
+                            <a class="link-item" href="{{ route('ke-sach') }}">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </a>
+                        </div>
+                        {{-- Icon giỏ hàng --}}
+                        <div id="series-cart" class="user-sublink appearing">
+                            <a class="link-item" href="{{ route('cart') }}">
+                                <div class="icon-wrapper">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span class="cart-count">0</span>
+                                    <!-- Số lượng chương sẽ được cập nhật bởi JavaScript -->
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
             @endif
 
         </div>
         <div class="navbar-mainblock">
             <div class="navbar-search none block-m">
-                <form class="" action="{{route('search')}}" method="get">
-                    <input id="search" class="search-input" type="text" placeholder="Tối thiểu 2 kí tự" name="title">
-                    <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
+                <form class="" action="{{ route('search') }}" method="get">
+                    <input id="search" class="search-input" type="text" placeholder="Tối thiểu 2 kí tự"
+                        name="title">
+                    <button class="search-submit" type="submit" value="Tìm kiếm"><i
+                            class="fas fa-search"></i></button>
                     <div id="search-results"></div>
                 </form>
             </div>

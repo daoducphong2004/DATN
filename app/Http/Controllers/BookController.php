@@ -14,6 +14,7 @@ use App\Models\PurchasedStory;
 use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,6 +29,15 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+
+         // $this->middleware('auth');
+
+         $this->middleware('can:create')->only(['create', 'store']);
+     }
+
 
     public function listStories()
     {
@@ -203,13 +213,6 @@ class BookController extends Controller
         return view('reading-history', compact('readingHistories'));
     }
 
-    public function __construct()
-    {
-
-        $this->middleware('auth');
-
-        $this->middleware('can:create')->only(['create', 'store']);
-    }
 
 
     public function index()
@@ -226,9 +229,16 @@ class BookController extends Controller
      */
     public function create()
     {
-        $genres = genre::pluck('id', 'name');
-        $groups = group::pluck('id', 'name');
-        return view('stories.create', compact('genres', 'groups'));
+        $user = User::findOrFail(Auth::id());
+        if($user->contract()->exists()){
+            $genres = genre::pluck('id', 'name');
+            $groups = group::pluck('id', 'name');
+            return view('stories.create', compact('genres', 'groups'));
+        }else{
+            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
+
+        }
+
     }
 
     /**
@@ -299,6 +309,7 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
+        // dd(10);
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
 
@@ -320,9 +331,6 @@ class BookController extends Controller
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 

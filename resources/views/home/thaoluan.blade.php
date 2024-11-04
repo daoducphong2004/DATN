@@ -25,6 +25,9 @@
         <section class="board-toolkit clear">
             <form method="GET" action="{{ route('thao-luan') }}">
                 <select name="category" id="category" class="board_categ-list" onchange="this.form.submit()">
+                    <option value="" {{ request('category')  }} selected>
+                        Tất cả
+                    </option>
                     @foreach ($categories as $item_categories)
                     <option value="{{ $item_categories->id }}" {{ request('category') == $item_categories->id ? 'selected' : '' }}>
                         {{ $item_categories->content }}

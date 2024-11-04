@@ -93,4 +93,8 @@ class book extends Model
 
         return $totalChapters === $purchasedChapters;
     }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
 }

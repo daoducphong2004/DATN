@@ -47,10 +47,16 @@ class FilterController extends Controller
         }
 
         // Lọc theo chữ cái
+        if ($alphabet === 'khac') {
+            $alphabet = '#';
+        }
         if ($alphabet) {
             // Lọc truyện theo chữ cái đã chọn
             if ($alphabet !== '#') {
                 $query->where('title', 'like', $alphabet . '%');
+            } else {
+                // Lọc các tiêu đề bắt đầu bằng ký tự không phải chữ cái (A-Z)
+                $query->whereRaw("LEFT(title, 1) NOT REGEXP '^[A-Za-z]'");
             }
         }
 
@@ -138,6 +144,9 @@ class FilterController extends Controller
         if ($alphabet = $request->input('alphabet', null)) {
             if ($alphabet && $alphabet !== '#') {
                 $query->where('title', 'like', $alphabet . '%');
+            } else {
+                // Lọc các tiêu đề bắt đầu bằng ký tự không phải chữ cái (A-Z)
+                $query->whereRaw("LEFT(title, 1) NOT REGEXP '^[A-Za-z]'");
             }
         }
 

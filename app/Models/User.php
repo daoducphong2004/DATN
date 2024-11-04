@@ -87,4 +87,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
     }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 }

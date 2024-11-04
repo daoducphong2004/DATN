@@ -19,7 +19,7 @@
                 <li>
                     @can('create')
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
-                    @endif
+                    @endcan
                 </li>
 
                   {{--<li class="dropdown">
@@ -85,12 +85,17 @@
                     @endif
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Thảo luận <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="themThaoLuan">Thêm thảo luận</a></li>
-                        <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
-                    </ul>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class=""
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Thảo luận <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Thảo luận <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="themThaoLuan">Thêm thảo luận</a></li>
+                            <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -102,15 +107,32 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
-                        <li><a href="nhomThamGia">Nhóm tham gia</a></li>
-                    </ul>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class=""
+                            onclick="alert(' Bạn cần phải đăng nhập trước')">Nhóm dịch <span class="caret"></span></a>
+                    @else
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
+                            <li><a href="nhomThamGia">Nhóm tham gia</a></li>
+                        </ul>
+                    @endif
                 </li>
                 <li>
-                    <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
+                    {{-- @can('view-contract', Auth::user()) --}}
+                        <a href="{{ route('contracts.index') }}" style="color: #12a724">Hợp Đồng</a>
+                    {{-- @endcan --}}
+                </li>
+                <li>
+                    @if(!Auth::check())
+                        <a href="{{ route('login') }}" class="" style="color: rgb(242, 0, 255)"
+                            onclick="alert('Bạn cần phải đăng nhập trước')">Nâng cấp</a>
+                    @else
+                        @can('upgrade', Auth::user())
+                            <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
+                        @endcan
+                    @endif
                 </li>
             </ul>
 
@@ -132,17 +154,17 @@
                                     @endif
                                 </a>
                             </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="">Đổi Thông Tin</a></li>
-                        <li><a href="">Đổi Mật Khẩu</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="">Đổi Email</a></li>
-                        <li><a href="">Đổi Username</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
-                                class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="">Đổi Thông Tin</a></li>
+                            <li><a href="">Đổi Mật Khẩu</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="">Đổi Email</a></li>
+                            <li><a href="">Đổi Username</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
+                                    class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
 
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

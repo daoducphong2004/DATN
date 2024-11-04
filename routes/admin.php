@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\admin\adminContractController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
+use App\Http\Controllers\Admin\ContractController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\PurchaseManageController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController;
@@ -113,28 +116,36 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/banners', BannerController::class);
 
-        Route::get('/purchase_history',[PurchaseManageController::class,'index'])->name('ListPurchaseUser');
+        Route::get('/purchase_history', [PurchaseManageController::class, 'index'])->name('ListPurchaseUser');
         Route::get('/purchase_history/{user}', [PurchaseManageController::class, 'showUserPurchasedChapters'])->name('detailPurchaseUser');
 
-        Route::get('/history/{bookId}',[StoryController::class,'showPublicationHistory'])->name('showPublicationHistory');
+        Route::get('/history/{bookId}', [StoryController::class, 'showPublicationHistory'])->name('showPublicationHistory');
+
+        //Contract (Hợp đồng)
+        Route::resource('/contracts-manage',adminContractController::class);
+
+
+
         // end phong
 
-    //forum
-    Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
-    Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
-    Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
-    Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
+        //forum
+        Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
+        Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
+        Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
+        Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
 
-    //Hòa thêm router
-    Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
-    Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
-    Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
-    Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
-    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
-    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+        //Hòa thêm router
+        Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
+        Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
+        Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
+        Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
+        Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
+        Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+    });
+    // Báo cáo
+    Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
+    Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');
+    Route::patch('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    // end báo cáo
 
 });
-});
-
-
-

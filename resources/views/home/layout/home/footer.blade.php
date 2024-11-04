@@ -77,7 +77,47 @@
         }
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#search').on('keyup', function() {
+            let query = $(this).val();
+            if (query.length > 0) { // Tìm kiếm từ 2 ký tự trở lên
+                $.ajax({
+                    url: "{{ route('search_re') }}",
+                    type: "GET",
+                    data: {
+                        'title': query
+                    },
+                    success: function(data) {
+                        $('#search-results').html(data).show();
+                    },
+                    error: function() {
+                        console.error("Có lỗi xảy ra với AJAX.");
+                    }
+                });
+            } else {
+                $('#search-results').hide();
+            }
+        });
 
+        // Ngăn gửi form mặc định nếu không có kết quả được chọn
+
+
+        // Ẩn kết quả khi nhấp ra ngoài
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('#search').length) {
+                $('#search-results').hide();
+            }
+        });
+
+        // Điền giá trị từ dropdown vào ô tìm kiếm khi nhấp
+        $(document).on('click', '#search-results p', function() {
+            $('#search').val($(this).text());
+            $('#search-results').hide();
+        });
+    });
+    console.log("URL:", "{{ route('search_re') }}");
+</script>
 </main>
 
 <script src="{{ asset('js/app.js?id=b8198cd1707d7a5e169b') }}"></script>

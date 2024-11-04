@@ -41,8 +41,8 @@ class ChapterController extends Controller
             'title' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|string',
-            'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
-        ]);
+            'price' => 'required|numeric|min:0|max:999999', // Thêm quy tắc xác thực cho price với kiểu decimal(8,2)
+            ]);
 
         // Calculate word count
         $wordCount = str_word_count(strip_tags($contentWithIDs));
@@ -92,27 +92,15 @@ class ChapterController extends Controller
 
     public function uploadImage(Request $request)
     {
-        try {
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $imagePath = $image->storeAs('public/uploads', $imageName);
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('uploads', 'public'); // lưu ảnh vào thư mục public/uploads
+            $url = Storage::url($path); // lấy đường dẫn công khai của ảnh
 
-                // Return the URL of the uploaded image
-                return response()->json([
-                    'success' => true,
-                    'url' => asset('storage/uploads/' . $imageName)
-                ]);
-            }
-
-            return response()->json(['success' => false, 'message' => 'No file uploaded']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+            return response()->json(['location' => $url]); // trả về JSON chứa link ảnh cho tinymce
         }
+
+        return response()->json(['error' => 'Upload failed'], 400);
     }
     /**
      * Display the specified resource.
@@ -180,7 +168,7 @@ class ChapterController extends Controller
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->book_id = $book->id;
-        $chapter->content = $validatedData['content'];
+        $chapter->content = $contentWithIDs;
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
 
@@ -197,6 +185,7 @@ class ChapterController extends Controller
         // Trừ đi số từ cũ và thêm vào số từ mới
         $book->word_count = $book->word_count - $chapter->getOriginal('word_count') + $newWordCount;
         $book->save();
+
 
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter updated successfully.');
     }

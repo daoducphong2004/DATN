@@ -84,7 +84,7 @@
                                 {{ $item_forums->content_categories }}
                             </a>
                         </td>
-                        <td class="col-1 d-none d-lg-block">{!! $item_forums->content !!}</td>
+                        <td class="col-1 d-none d-lg-block">{{$totalforumcomment[$item_forums->id]}}</td>
                         <td class="col-md-2 col-lg-1 d-none d-lg-block">{{ $item_forums->viewer }}</td>
 
 

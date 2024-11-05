@@ -79,7 +79,6 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huo
 
 // Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
 Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
@@ -185,6 +184,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
+    
+
 
 
 
@@ -230,7 +231,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/chapters/{episodeId}/order', [ChapterController::class, 'updateChapterOrder'])->name('chapter.updateOrder');
 
 
-    //Thêm bookmark cho truyện
+    //Crud bookmark cho truyện
+        
+    Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmark');
     Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
     Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);
     Route::delete('/chapter/bookmark/{id}', [BookmarkController::class, 'destroy']);

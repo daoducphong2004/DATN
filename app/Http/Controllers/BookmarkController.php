@@ -7,7 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
-{  public function store(Request $request)
+{
+    public function index()
+    {
+        $user = Auth::user();
+        $user->load('bookmarks');
+        $bookmarks = $user->bookmarks;
+        // dd($bookmarks);
+        return view('home.bookmark', compact('user','bookmarks'));
+    }
+    public function store(Request $request)
     {
         $request->validate([
             'book_id' => 'required|integer|exists:books,id',

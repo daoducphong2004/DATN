@@ -254,7 +254,7 @@ class ForumController extends Controller
             $data_child_list_forum[$parentComment->id] = $childComments; // Lưu bình luận con vào mảng
         }
         $lockforum = Forum::where('id', $id)->value('lock');
-
+        Forum::where('id', $id)->increment('viewer');
 
         return view('user.chitiet_forum', compact('data', 'data_forums', 'data_user', 'data_list_forum', 'data_child_list_forum', 'lockforum'));
     }

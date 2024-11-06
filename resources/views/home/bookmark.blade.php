@@ -34,40 +34,38 @@
                     <section class="bookmark-section basic-section">
                         <header class="sect-header"><span class="sect-title">Danh sách đánh dấu</span></header>
                         <main class="sect-body">
-                            {{-- {{ dd($bookmarks) }} --}}
-                            @foreach($bookmarks as $bookmark)
+                            @foreach($groupedBookmarks as $bookId => $bookmarks)
+                            @php
+                                $book = $bookmarks->first()->book; // Get the book information
+                            @endphp
                             <article class="bookmark-item clear">
                                 <div class="series-cover">
                                     <div class="a6-ratio">
-                                        <div class="content img-in-ratio" style="background-image: url('https://i.hako.vn/ln/series/covers/s18800-25238b64-eb85-47c7-afd8-19f595d6312a.jpg');"></div>
+                                        <div class="content img-in-ratio" style="background-image: url('{{ asset(Storage::url($book->book_path)) }}');"></div>
                                     </div>
                                 </div>
                                 <div class="series-title">
-                                    <a href="{{ url('/truyen/' . $bookmark->book_id . '-sau-khi-duoc-toi-an-ui-co-em-gai-cung-cha-khac-me-da-khong-the-song-thieu-toi-duoc-nua') }}" class="">
-                                        Sau khi được tôi an ủi, em gái đã không thể sống thiếu tôi được nữa
-                                    </a>
-                                    <span class="bm-toggle_symbol" style="cursor: pointer">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </span>
+                                    <a href="{{ url('/truyen/' . $book->slug) }}" class="">{{ $book->title }}</a>
+                                    <span class="bm-toggle_symbol" style="cursor: pointer"><i class="fas fa-chevron-down"></i></span>
                                 </div>
                                 <div class="none bm-toggle clear">
                                     <ul class="bookmarks_list unstyled clear">
-                                        @foreach($bookmark as $chapter)
-                                        <li>
-                                            <div class="chapter-title">
-                                                <a href="{{ url('/truyen/' . $bookmark->book_id . '/c' . $chapter->id . '-' . str_slug($chapter->title)) }}">
-                                                    {{ $chapter->title }}
-                                                </a>
-                                            </div>
-                                            <div class="volume-title line-ellipsis">
-                                                <small>Web novel</small>
-                                            </div>
-                                        </li>
+                                        @foreach($bookmarks as $bookmark)
+                                            <li>
+                                                <div class="chapter-title">
+                                                    <a href="{{ url('/truyen/' . $book->slug . '/' . $bookmark->chapter->slug) }}">
+                                                        {{ $bookmark->chapter->title }}
+                                                    </a>
+                                                </div>
+                                                <div class="volume-title line-ellipsis"><small>{{ $bookmark->chapter->episode->title }}</small></div>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </article>
-                            @endforeach
+                        @endforeach
+                        
+                            
                             
 
                         </main>
@@ -78,13 +76,15 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    const toggleButton = document.querySelector(".bm-toggle_symbol");
-    const toggleContent = document.querySelector(".bm-toggle.clear");
-
-    toggleButton.addEventListener("click", function() {
-        toggleContent.classList.toggle("none");
-    });
-});
-
+            const toggleButtons = document.querySelectorAll(".bm-toggle_symbol");
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const toggleContent = this.closest(".bookmark-item").querySelector(".bm-toggle.clear");
+                    toggleContent.classList.toggle("none");
+                });
+            });
+        });
     </script>
+    
 @endsection

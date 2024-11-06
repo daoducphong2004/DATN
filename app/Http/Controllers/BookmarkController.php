@@ -9,13 +9,18 @@ use Illuminate\Support\Facades\Auth;
 class BookmarkController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
-        $user->load('bookmarks');
-        $bookmarks = $user->bookmarks;
-        // dd($bookmarks);
-        return view('home.bookmark', compact('user','bookmarks'));
-    }
+{
+    $user = Auth::user();
+    $user->load('bookmarks.book', 'bookmarks.chapter');
+    $bookmarks = $user->bookmarks;
+
+    // Group bookmarks by book ID, and for each book, group by unique chapters
+    $groupedBookmarks = $bookmarks->groupBy('book_id')->map(function ($bookmarks) {
+        return $bookmarks->unique('chapter_id');
+    });
+
+    return view('home.bookmark', compact('user', 'groupedBookmarks'));
+}
     public function store(Request $request)
     {
         $request->validate([

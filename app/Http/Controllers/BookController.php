@@ -354,7 +354,7 @@ class BookController extends Controller
             ->where('chapters.book_id', $book->id)
             ->count();
 
-            $totalViews = optional($book->view)->sum('count') ?? 0;
+        $totalViews = $book->view;
 
         $purchaseStats = null;
         if ($isAuthor) {

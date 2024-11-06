@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\AuthorCreated;
+use App\Events\UserCreated;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
@@ -146,7 +147,7 @@ class AuthorController extends Controller
 
             $admin->notifications()->where('data->user_id', $user->id)->delete();
 
-
+            event(new UserCreated($user));
             return back()->with('success', 'Yêu cầu đã được chấp nhận và email đã được gửi.');
         }
 

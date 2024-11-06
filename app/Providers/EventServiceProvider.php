@@ -22,8 +22,17 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendPendingBookNotification',
         ],
         'App\Events\AuthorCreated' => [
-        'App\Listeners\AuthorRoleNotification',
-    ],
+            'App\Listeners\AuthorRoleNotification',
+        ],
+        'App\Events\StoryCreated' => [
+            'App\Listeners\SendStoryApprovedNotification',
+        ],
+        'App\Events\UserCreated' => [
+            'App\Listeners\AuthorApprovedNotification',
+        ],
+        'App\Events\StoryFollowed' => [
+            'App\Listeners\SendNewFollowerNotification',
+        ],
     ];
 
     /**

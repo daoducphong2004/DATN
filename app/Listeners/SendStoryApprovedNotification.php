@@ -29,13 +29,12 @@ class SendStoryApprovedNotification
         $author = User::find($authorId);
 
         if ($author) {
-            $author->notifications()->updateOrCreate(
-                ['type' => 'App\Notifications\StoryApprovedNotification'],
-                [
-                    'data' => [
-                        'message' => $event->book->title . ' truyện đã được duyệt.',
-                        'slug' => $event->book->slug,
-                    ],
+            $author->notifications()->create([
+                'type' => 'App\Notifications\StoryApprovedNotification',
+                'data' => [
+                    'message' => '<strong>' .$event->book->title . '</strong> truyện đã được duyệt.',
+                    'slug' => $event->book->slug,
+                ],
                 ]
             );
             // $author->notify(new StoryApprovedNotification($event->book->title));

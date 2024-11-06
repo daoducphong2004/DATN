@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StoryFollowed;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
@@ -422,6 +423,7 @@ class BookController extends Controller
 
     public function bookLike(Book $id)
     {
+        $book = Book::find($id);
         $user = Auth::user();
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!$user) {
@@ -437,6 +439,8 @@ class BookController extends Controller
             $id->like += 1;
         }
         $id->save();
+
+        event(new StoryFollowed($id, $user));
 
         return redirect()->back();
     }

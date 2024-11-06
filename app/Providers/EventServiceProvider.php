@@ -30,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserCreated' => [
             'App\Listeners\AuthorApprovedNotification',
         ],
+        'App\Events\StoryFollowed' => [
+            'App\Listeners\SendNewFollowerNotification',
+        ],
     ];
 
     /**

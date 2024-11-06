@@ -157,7 +157,7 @@
                                     @if ($notifications->count() > 0)
                                         @foreach($notifications as $notification)
                                             <div>
-                                                - {{ $notification->data['message'] }}
+                                                - {!! $notification->data['message'] !!}
 
                                                 @if ($notification->type == 'App\Notifications\BookPendingNotification')
                                                     <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">

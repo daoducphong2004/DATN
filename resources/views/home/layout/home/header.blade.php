@@ -147,45 +147,39 @@
                                 </li>
                             </ul>
                         </div>
+                          {{-- Icon thông báo --}}
+                    <div id="noti-icon" class="user-sublink">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-bell"></i>
+                        </div>
                         <div id="noti-sidebar" class="noti-sidebar hidden-block none">
                             <div class="noti-wrapper">
                                 <div id="noti-content" class="noti-content" style="padding: 15px">
                                     @php
+                                        // Lấy thông báo mới nhất từ người dùng hiện tại
                                         $notifications = auth()->user()->notifications()->latest()->take(5)->get();
                                     @endphp
-
+                                
                                     @if ($notifications->count() > 0)
                                         @foreach($notifications as $notification)
                                             <div>
                                                 - {{ $notification->data['message'] }}
-
-                                                @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                    <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
-                                                        xem ngay
-                                                    </a>
-                                                @endif
+                                                <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
+                                                    xem ngay
+                                                </a>
                                             </div>
-
-                                            <div>
-                                                @if(isset($notification->data['user_id']))
-                                                    <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
-                                                        xem ngay
-                                                    </a>
-                                                @endif
-                                            </div>
-                                    @endforeach
-
+                                        @endforeach
                                     @else
                                         <a class="dropdown-item" href="#">Không có thông báo nào.</a>
                                     @endif
-                                </div>
-
-                                <div class="noti-more">
-                                    <a class="noti-url" href="/thong-bao">Xem tất cả</a>
+                                
+                                    <div class="noti-more">
+                                        <a class="noti-url" href="/thong-bao">Xem tất cả</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                         {{-- Icon kệ sách --}}
                         <div id="series-unread-icon" class="user-sublink appearing">
                             <a class="link-item" href="{{ route('ke-sach') }}">

@@ -2,11 +2,35 @@
 
 @section('title')
     @parent
-     Danh sách bình luận
+    Danh sách bình luận
 @endsection
 
 @push('styles')
-    
+    <style>
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        .table th {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            font-size: 1.2rem;
+        }
+
+        .table img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            margin: 2px;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -17,7 +41,7 @@
             </div>
         @endif
         <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
-        <table border="1" id="list-comment" class="table">
+        <table id="list-comment" class="table">
             <thead>
                 <tr>
                     <th>Người Bình Luận</th>
@@ -28,15 +52,15 @@
             </thead>
             <tbody>
                 {{-- @foreach ($comments as $comment) --}}
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a class="btn btn-warning" href="">Sửa</a>
-                            <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a class="btn btn-info" href="">Chi tiết</a>
+                        <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
+                    </td>
+                </tr>
                 {{-- @endforeach --}}
             </tbody>
         </table>
@@ -51,4 +75,3 @@
         });
     </script>
 @endpush
-

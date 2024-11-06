@@ -155,26 +155,27 @@
                                     @endphp
 
                                     @if ($notifications->count() > 0)
-                                        @foreach($notifications as $notification)
+                                        @foreach ($notifications as $notification)
                                             <div>
                                                 - {{ $notification->data['message'] }}
 
                                                 @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                    <a class="dropdown-item" style="color: red" href="{{ route('books.approval') }}">
+                                                    <a class="dropdown-item" style="color: red"
+                                                        href="{{ route('books.approval') }}">
                                                         xem ngay
                                                     </a>
                                                 @endif
                                             </div>
 
                                             <div>
-                                                @if(isset($notification->data['user_id']))
-                                                    <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
+                                                @if (isset($notification->data['user_id']))
+                                                    <a class="dropdown-item" style="color: red"
+                                                        href="{{ route('author.index') }}">
                                                         xem ngay
                                                     </a>
                                                 @endif
                                             </div>
-                                    @endforeach
-
+                                        @endforeach
                                     @else
                                         <a class="dropdown-item" href="#">Không có thông báo nào.</a>
                                     @endif
@@ -252,7 +253,8 @@
                 </li>
                 <li>
                     @can('access-admin')
-                        <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
+                        <a class="nav-menu_item" href="{{ url('/admin') }}" target="_blank"><span class="">Thống
+                                kê</span></a>
                     @endcan
                     {{-- <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a> --}}
                 </li>

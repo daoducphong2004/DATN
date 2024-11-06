@@ -1,12 +1,43 @@
 <!-- resources/views/contracts/index.blade.php -->
 @extends('admin.layouts.default')
 
+@section('title')
+    @parent
+    Danh sách hợp đồng
+@endsection
+
+@push('styles')
+    <style>
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        .table th {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            font-size: 1.2rem;
+        }
+
+        .table img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            margin: 2px;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
-        <h1>Danh sách Hợp đồng</h1>
-        <a href="{{ route('contracts-manage.create') }}" class="btn btn-primary mb-3">Tạo Hợp đồng Mới</a>
-
-        <table class="table table-bordered">
+        <h2 class="text-primary mb-4">Danh Sách Hợp Đồng</h2>
+        <a href="{{ route('contracts-manage.create') }}" class="btn btn-primary mb-3">Tạo Hợp Đồng Mới</a>
+        <table id="list-contract" class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -40,3 +71,12 @@
         </table>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    jQuery(document).ready(function() {
+        console.log("jQuery version:", jQuery.fn.jquery);
+        jQuery('#list-contract').DataTable();
+    });
+</script>
+@endpush

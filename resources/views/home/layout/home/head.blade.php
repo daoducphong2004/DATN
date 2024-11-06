@@ -1,4 +1,3 @@
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,8 +16,10 @@
 
     <link rel="canonical" href="https://datn.test">
     <meta property="og:image" content="https://datn.test/img/nocover.jpg">
-    <link rel="preload" href="{{ asset('fonts/OpenSans-Regular.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
-    <link rel="preload" href="{{ asset('/fonts/OpenSans-SemiBold.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('fonts/OpenSans-Regular.ttf') }}" as="font" type="font/ttf"
+        crossorigin="anonymous">
+    <link rel="preload" href="{{ asset('/fonts/OpenSans-SemiBold.ttf') }}" as="font" type="font/ttf"
+        crossorigin="anonymous">
 
     <link rel="shortcut icon" href="{{ asset('img/favicon.png?v=3') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/apple-touch-icon.png?v=3') }}">
@@ -31,36 +32,29 @@
         integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
 
 
-    <script src="{{ asset('js/plugins.js')}}"></script>
-   
+    <script src="{{ asset('js/plugins.js') }}"></script>
+
 
 </head>
 <style>
-.user-sublink {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 15px;
-}
+    .user-sublink {
+        display: grid;
+        align-items: center;
+    }
 
-.icon-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.cart-count {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 0.2em 0.5em;
-    font-size: 0.8em;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-}
-
+    .cart-count {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 0.2em 0.5em;
+        font-size: 0.8em;
+        position: absolute;
+        top: -10px;
+        right: -7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+    }
 </style>

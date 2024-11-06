@@ -1,7 +1,8 @@
 <nav class="navbar navbar-default" style="z-index: 999">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle Navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -11,11 +12,12 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
-                <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
-                @if(Auth::check())
+                <li><a href="{{ route('home') }}" target="_blank"><i class="fas fa-home"></i><span
+                            class="hidden-md hidden-lg"> Cổng Light Novel</span></a></li>
+                @if (Auth::check())
                     <li>
                         @can('view-story', Auth::user())
-                            <a href="{{ route('books.approval') }}" target="_blank">Duyệt Truyện</a>
+                            <a href="{{ route('books.approval') }}" style="color: #fe998a">Duyệt Truyện</a>
                         @endcan
                     </li>
                     <li>
@@ -40,65 +42,75 @@
                     </li>
                     <li>
                         @can('view-categories', Auth::user())
-                            <a href="{{ route('category_index') }}" style="color: #e3953e">Thể Loại</a>
+                            <a href="{{ route('genres_index') }}" style="color: #e3953e">Thể Loại</a>
                         @endcan
                     </li>
                     <li>
                         {{-- @can('view-contract', Auth::user()) --}}
-                            <a href="{{ route('contracts-manage.index') }}" style="color: #12a724">Hợp Đồng</a>
+                        <a href="{{ route('contracts-manage.index') }}" style="color: #12a724">Hợp Đồng</a>
                         {{-- @endcan --}}
                     </li>
                     <li>
-                            <a href="{{ route('reports.index') }}" style="color: #e74369">Báo cáo</a>
+                        <a href="{{ route('reports.index') }}" style="color: #e74369">Báo cáo</a>
                     </li>
                     {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown"
+                            role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('bookComment.index') }}">Bình luận chuyện</a></li>
+                            <li><a href="{{ route('bookComment.index') }}">Bình luận truyện</a></li>
                             <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
                         </ul>
                     </li>
+                    <li>
+                            <a href="{{ route('banners.index') }}" style="color: #e3953e">Banner</a>
+                    </li>
                 @else
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" target="_blank">Duyệt Truyện</a>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')">Duyệt Truyện</a>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #3107dc">Duyệt Author</a>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #3107dc">Duyệt
+                            Author</a>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #19fe00">Quản lý Mua</a>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #19fe00">Quản lý
+                            Mua</a>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: red">Danh Sách Truyện</a>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: red">Danh Sách
+                            Truyện</a>
                     </li>
                     <li>
-                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown" role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown"
+                            role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href=""  onclick="alert('Bạn cần đăng nhập để xem')">Bình luận chuyện</a></li>
-                            <li><a href=""  onclick="alert('Bạn cần đăng nhập để xem')">Bình luận chap</a></li>
+                            <li><a href="" onclick="alert('Bạn cần đăng nhập để xem')">Bình luận truyện</a></li>
+                            <li><a href="" onclick="alert('Bạn cần đăng nhập để xem')">Bình luận chap</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Thể Loại</a>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Thể
+                            Loại</a>
                         {{-- <a href="" onclick="return('Bạn cần đăng nhập để xem')"></a> --}}
                     </li>
-
                 @endif
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Tiện ích <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/theLoai">Thể loại</a></li>
-                            <li><a href="/thuVien">Thư viện</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false">Tiện ích <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/theLoai">Thể loại</a></li>
+                        <li><a href="/thuVien">Thư viện</a></li>
 
-                        </ul>
-                    </li>
+                    </ul>
+                </li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="{{ Auth::check() ? '#' : route('login') }}">
@@ -117,9 +129,11 @@
                         <li><a href="https://docln.net/action/username">Đổi Username</a></li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
-                                class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();"
+                                class="link-underline link-underline-opacity-0"><i
+                                    class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
 
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

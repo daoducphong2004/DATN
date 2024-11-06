@@ -37,7 +37,7 @@ class FilterController extends Controller
                 break;
             case 'topthang':
                 // Lọc theo số lượt xem trong tháng
-                $query->where('created_at', '>=', now()->subMonth())->orderBy('view', 'desc');
+                $query->orderBy('views_month', 'desc');
                 break;
             case 'sotu':
                 $query->orderBy('word_count', 'desc');
@@ -60,34 +60,31 @@ class FilterController extends Controller
             }
         }
 
-        // Lọc theo phân loại
-        if ($request->has('truyendich')) {
-            $query->where('type', '1');
-        }
+        // Nếu không có bộ lọc nào được chọn, mặc định chọn tất cả
+        if (!$request->hasAny(['truyendich', 'convert', 'sangtac', 'dangtienhanh', 'tamngung', 'hoanthanh'])) {
+            $query->whereIn('type', ['1', '2', '3'])->whereIn('status', ['1', '2', '3']);
+        } else {
+            // Lọc theo phân loại
+            if ($request->hasAny(['truyendich', 'convert', 'sangtac'])) {
+                $query->whereIn('type', array_filter([
+                    $request->has('truyendich') ? '1' : null,
+                    $request->has('convert') ? '2' : null,
+                    $request->has('sangtac') ? '3' : null,
+                ]));
+            }
 
-        if ($request->has('convert')) {
-            $query->where('type', '2');
-        }
-
-        if ($request->has('sangtac')) {
-            $query->where('type', '3');
-        }
-
-        // Lọc theo tình trạng
-        if ($request->has('dangtienhanh')) {
-            $query->where('status', '1');
-        }
-
-        if ($request->has('tamngung')) {
-            $query->where('status', '2');
-        }
-
-        if ($request->has('hoanthanh')) {
-            $query->where('status', '3');
+            // Lọc theo tình trạng
+            if ($request->hasAny(['dangtienhanh', 'tamngung', 'hoanthanh'])) {
+                $query->whereIn('status', array_filter([
+                    $request->has('dangtienhanh') ? '1' : null,
+                    $request->has('tamngung') ? '2' : null,
+                    $request->has('hoanthanh') ? '3' : null,
+                ]));
+            }
         }
 
         // Lấy danh sách truyện sau khi lọc
-        $data = $query->get();      
+        $data = $query->get();
 
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
@@ -131,7 +128,7 @@ class FilterController extends Controller
                 break;
             case 'topthang':
                 // Lọc theo số lượt xem trong tháng
-                $query->where('created_at', '>=', now()->subMonth())->orderBy('view', 'desc');
+                $query->orderBy('views_month', 'desc');
                 break;
             case 'sotu':
                 $query->orderBy('word_count', 'desc');
@@ -150,30 +147,27 @@ class FilterController extends Controller
             }
         }
 
-        // Lọc theo phân loại
-        if ($request->has('truyendich')) {
-            $query->where('type', '1');
-        }
+        // Nếu không có bộ lọc nào được chọn, mặc định chọn tất cả
+        if (!$request->hasAny(['truyendich', 'convert', 'sangtac', 'dangtienhanh', 'tamngung', 'hoanthanh'])) {
+            $query->whereIn('type', ['1', '2', '3'])->whereIn('status', ['1', '2', '3']);
+        } else {
+            // Lọc theo phân loại
+            if ($request->hasAny(['truyendich', 'convert', 'sangtac'])) {
+                $query->whereIn('type', array_filter([
+                    $request->has('truyendich') ? '1' : null,
+                    $request->has('convert') ? '2' : null,
+                    $request->has('sangtac') ? '3' : null,
+                ]));
+            }
 
-        if ($request->has('convert')) {
-            $query->where('type', '2');
-        }
-
-        if ($request->has('sangtac')) {
-            $query->where('type', '3');
-        }
-
-        // Lọc theo tình trạng
-        if ($request->has('dangtienhanh')) {
-            $query->where('status', '1');
-        }
-
-        if ($request->has('tamngung')) {
-            $query->where('status', '2');
-        }
-
-        if ($request->has('hoanthanh')) {
-            $query->where('status', '3');
+            // Lọc theo tình trạng
+            if ($request->hasAny(['dangtienhanh', 'tamngung', 'hoanthanh'])) {
+                $query->whereIn('status', array_filter([
+                    $request->has('dangtienhanh') ? '1' : null,
+                    $request->has('tamngung') ? '2' : null,
+                    $request->has('hoanthanh') ? '3' : null,
+                ]));
+            }
         }
 
         // Lấy danh sách truyện sau khi lọc

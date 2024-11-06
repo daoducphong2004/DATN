@@ -27,6 +27,8 @@ class book extends Model
         'user_id',
         'Is_Inspect',
         'price',
+        'views_week',
+        'views_month',
     ];
     public function episodes()
     {

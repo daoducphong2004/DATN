@@ -142,4 +142,15 @@ class PaymentController extends Controller
         $userInfo = Auth::user();
         return view('pay.payment-status', compact('dataInput', 'userInfo'));
     }
+
+    public function paymentHistory($userId){
+        $dataHistory = Payment::where('user_id', Auth::id())->get();
+        $totalPayment = 0;
+        $totalCoin = 0;
+        foreach($dataHistory as $item){
+            $totalPayment += $item->amount;
+            $totalCoin += $item->coin_earned;
+        }
+        return view('pay.payment-history', compact('dataHistory', 'totalPayment','totalCoin'));
+    }
 }

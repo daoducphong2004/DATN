@@ -39,7 +39,7 @@ use App\Models\genre;
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
 Route::prefix('admin')->group(function () {
-    Route::middleware('can:access-admin')->group(function () {
+    // Route::middleware('can:access-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         // Giao diện admin
         Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
@@ -141,11 +141,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
         Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
         Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
-    });
+    // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
     Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');
     Route::patch('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    Route::patch('/reports/{report}/review', [ReportController::class, 'review'])->name('reports.review');
     // end báo cáo
 
 });

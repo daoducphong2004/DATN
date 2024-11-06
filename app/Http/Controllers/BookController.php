@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
+use App\Models\Like_books;
 use Str;
 
 class BookController extends Controller
@@ -346,7 +347,25 @@ class BookController extends Controller
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments','totalPrice'));
+        $isAuthor = auth()->check() && auth()->user()->id == $book->user_id;
+
+        $totalPurchases = DB::table('purchased_stories')
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+            ->where('chapters.book_id', $book->id)
+            ->count();
+
+            $totalViews = optional($book->view)->sum('count') ?? 0;
+
+        $purchaseStats = null;
+        if ($isAuthor) {
+            $purchaseStats = [
+                'total_purchases' => $totalPurchases,
+                'total_likes' => Like_books::where('book_id', $book->id)->count(),
+                'total_comments' => bookcomment::where('book_id', $book->id)->count(),
+                'total_views' => $totalViews,
+            ];
+        }
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
 
 

@@ -219,7 +219,8 @@
                                                         <h3>Mô tả chi tiết:</h3>
                                                         <textarea id="user-note" rows="4" placeholder="Mô tả chi tiết..."></textarea><br>
 
-                                                        <input type="hidden" id="book_id" value="{{ $book->id }}">
+                                                        <input type="hidden" id="book_id"
+                                                            value="{{ $book->id }}">
                                                         <button onclick="submitReport()">Gửi</button>
                                                     </div>
                                                 </div>
@@ -310,22 +311,22 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="{{  asset($book->user->avatar_url ?? 'img/noava.png') }}"
+                                            src="{{ asset($book->user->avatar_url ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
-                                                    href="{{ route('user.books',$book->user_id) }}">{{ $book->user->username }}</a></span>
+                                                    href="{{ route('user.books', $book->user_id) }}">{{ $book->user->username }}</a></span>
                                         </div>
                                     </div>
                                     <div class="fantrans-section">
                                         <div class="fantrans-name">Nhóm dịch</div>
                                         <div class="fantrans-value"><a
-                                                href="{{ route('group.showU',$book->group->slug) }}">{{ $book->group->name }}</a>
+                                                href="{{ route('group.showU', $book->group->slug) }}">{{ $book->group->name }}</a>
                                         </div>
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -440,6 +441,76 @@
                             </ul>
                         </div>
                     </section>
+
+
+                    @if ($isAuthor)
+                        <h3>Thống kê mua truyện</h3>
+
+                        <!-- Biểu đồ thống kê -->
+                        <canvas id="purchaseStatisticsChart"></canvas>
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            const ctx = document.getElementById('purchaseStatisticsChart').getContext('2d');
+                            const purchaseStatisticsChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: ['Số lượt mua', 'Yêu thích', 'Bình luận', 'Lượt xem'],
+                                    datasets: [{
+                                        label: 'Thống kê',
+                                        data: [
+                                            {{ $purchaseStats['total_purchases'] }},
+                                            {{ $purchaseStats['total_likes'] }},
+                                            {{ $purchaseStats['total_comments'] }},
+                                            {{ $purchaseStats['total_views'] ?? 0 }}
+                                        ],
+                                        borderColor: '#00c0ef',
+                                        backgroundColor: 'rgba(0, 192, 239, 0.5)',
+                                        pointBackgroundColor: 'red',
+                                        borderWidth: 2,
+                                        pointRadius: 5
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: true
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+
+                        <!-- Bảng thống kê chi tiết -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Loại thống kê</th>
+                                    <th>Tổng cộng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Số lượt mua</td>
+                                    <td>{{ $purchaseStats['total_purchases'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số yêu thích</td>
+                                    <td>{{ $purchaseStats['total_likes'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số bình luận</td>
+                                    <td>{{ $purchaseStats['total_comments'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lượt xem</td>
+                                    <td>{{ $purchaseStats['total_views'] ?? 0 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endif
+
                     @php
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
@@ -674,7 +745,7 @@
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>
@@ -688,7 +759,7 @@
                                                                             <a class="font-bold leading-6 md:leading-7 ln-username "
                                                                                 href="">{{ $comment->user->username }}</a>
                                                                         </div>
-                                                                        <div class="self-center">
+                                                                        {{-- <div class="self-center">
                                                                             <div
                                                                                 class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
                                                                                 <img class="my-auto h-[14px]"
@@ -703,7 +774,7 @@
                                                                                     src="/img/badge/trans5.png" />
                                                                                 <div class="leading-4">TRANS</div>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
                                                                     @if (Auth::check())
                                                                         <div
@@ -741,12 +812,7 @@
                                                                                 lời</span>
                                                                         </a>
                                                                     @endif
-                                                                    {{-- <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
-                                                                        class="self-center visible-toolkit-item cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="likecount font-semibold">Trả
-                                                                            lời</span>
-                                                                    </a> --}}
+
                                                                     <a href="">
                                                                         <span>{{ $comment->replies->count() }} đã trả
                                                                             lời</span>
@@ -757,9 +823,7 @@
                                                     </div>
 
                                                     <div x-show="showReplyForm"
-                                                        class="ln-comment-reply ln-comment-form mt-3"
-                                                        id="reply-form-{{ $comment->id }}" x-cloak>
-                                                        {{-- @if (request('reply_to') == $comment->id) --}}
+                                                        class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}" x-cloak>
                                                         <div class="ln-comment-reply ln-comment-form mt-3"
                                                             id="reply-form-{{ $comment->id }}">
                                                             @if (Auth::check())
@@ -775,13 +839,10 @@
                                                                     </div>
                                                                 </form>
                                                             @else
-                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
-                                                                            style="color: red">đăng nhập</a> để trả lời
-                                                                        bình
-                                                                        luận.</strong></p>
+                                                                <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời
+                                                                        bình luận.</strong></p>
                                                             @endif
                                                         </div>
-                                                        {{-- @endif --}}
                                                     </div>
                                                     <div x-show="showReplies" class="mt-3" x-cloak>
                                                         <!-- Lặp qua các replies -->
@@ -888,27 +949,31 @@
 
             // Gửi AJAX đến backend
             fetch('/report', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ reasons, description, book_id: bookId })
-            })
-            .then(response => response.text())
-            .then(text => {
-                try {
-                    const data = JSON.parse(text);
-                    alert('Báo cáo của bạn đã được gửi.');
-                    toggleReportBox(); // Đóng hộp thoại báo cáo
-                } catch (e) {
-                    alert('Có lỗi xảy ra: ' + text);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra.');
-            });
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        reasons,
+                        description,
+                        book_id: bookId
+                    })
+                })
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        alert('Báo cáo của bạn đã được gửi.');
+                        toggleReportBox(); // Đóng hộp thoại báo cáo
+                    } catch (e) {
+                        alert('Có lỗi xảy ra: ' + text);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra.');
+                });
         }
     </script>
 @endsection

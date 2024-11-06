@@ -6,6 +6,31 @@
         width: 10px;
         background-color: black;
     }
+
+    .pagination {
+        display: flex;
+        width: auto;
+        justify-content: space-between;
+        font-size: 16px;
+    }
+
+    .pagination .page-item {
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        color: #097059;
+        margin-left:5px ;
+        margin-right: 5px;
+    }
+
+    .pagination .active {
+        background-color: #097059;
+        color: white;
+    }
 </style>
 <div class="page-top-group  at-index ">
     @include('partials.banner')
@@ -63,8 +88,12 @@
                     @foreach ($data_forums as $item_forums)
                     <tr class="d-flex">
                         <td class="col-8 col-md-4 col-lg-5 col-xl-5">
-                            <a class="topic-title" href="{{ route('chi-tiet-thao-luan', $item_forums->id) }}"><i
-                                    class="fas fa-star"></i> {{ $item_forums->title }}</a>
+                            <a class="topic-title" href="{{ route('chi-tiet-thao-luan', $item_forums->id) }}">
+                                @if ($item_forums->featured)
+                                <i
+                                    class="fas fa-star"></i>
+                                @endif
+                                {{ $item_forums->title }}</a>
                             <div class="subtitle-category none-m">
                                 <span class="category-circle"><i class="fas fa-circle" aria-hidden="true"
                                         style="color:
@@ -115,16 +144,12 @@
             <div class="pagination-footer">
                 <div class="pagination_wrap">
                     <!--<a href="" class="paging_item paging_prevnext prev  disabled ">Trước</a>-->
-                    <a href="https://docln.net/thao-luan?page=1" class="paging_item paging_prevnext prev  disabled ">Đầu</a>
 
-                    <a href="https://docln.net/thao-luan?page=1" class="paging_item page_num  current ">1</a>
-                    <a href="https://docln.net/thao-luan?page=2" class="paging_item page_num ">2</a>
-                    <a href="https://docln.net/thao-luan?page=3" class="paging_item page_num ">3</a>
-                    <a href="https://docln.net/thao-luan?page=4" class="paging_item page_num ">4</a>
-                    <a href="https://docln.net/thao-luan?page=5" class="paging_item page_num ">5</a>
+
+                    {{$data_forums->links()}}
 
                     <!--<a href=" https://docln.net/thao-luan?page=2 " class="paging_item paging_prevnext next ">Tiếp</a>-->
-                    <a href="https://docln.net/thao-luan?page=69" class="paging_item paging_prevnext next ">Cuối</a>
+
                 </div>
             </div>
         </section>

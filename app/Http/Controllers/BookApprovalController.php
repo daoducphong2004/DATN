@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StoryCreated;
 use App\Models\Book;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\StoryApprovedNotification;
 use Illuminate\Http\Request;
 
 class BookApprovalController extends Controller
@@ -39,6 +41,11 @@ class BookApprovalController extends Controller
                 ],
             ]);
         }
+
+        // $author = User::find($book->user_id);
+        // $author->notify(new StoryApprovedNotification($book->title));
+
+        event(new StoryCreated($book));
 
         return redirect()->back()->with('success', 'Trạng thái truyện đã được cập nhật.');
     }

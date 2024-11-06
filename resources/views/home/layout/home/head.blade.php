@@ -32,7 +32,9 @@
         integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=" crossorigin="anonymous" />
 
 
-    <script src="{{ asset('js/plugins.js') }}"></script>
+    <script src="{{ asset('js/plugins.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
 
 
 </head>

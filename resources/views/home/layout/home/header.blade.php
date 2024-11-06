@@ -147,6 +147,11 @@
                                 </li>
                             </ul>
                         </div>
+                         {{-- Icon thông báo --}}
+                    <div id="noti-icon" class="user-sublink">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-bell"></i>
+                        </div>
                         <div id="noti-sidebar" class="noti-sidebar hidden-block none">
                             <div class="noti-wrapper">
                                 <div id="noti-content" class="noti-content" style="padding: 15px">
@@ -157,7 +162,7 @@
                                     @if ($notifications->count() > 0)
                                         @foreach ($notifications as $notification)
                                             <div>
-                                                - {{ $notification->data['message'] }}
+                                                - {!! $notification->data['message'] !!}
 
                                                 @if ($notification->type == 'App\Notifications\BookPendingNotification')
                                                     <a class="dropdown-item" style="color: red"
@@ -165,14 +170,24 @@
                                                         xem ngay
                                                     </a>
                                                 @endif
-                                            </div>
 
-                                            <div>
-                                                @if (isset($notification->data['user_id']))
-                                                    <a class="dropdown-item" style="color: red"
-                                                        href="{{ route('author.index') }}">
+                                                @if(isset($notification->data['user_id']))
+                                                    <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
                                                         xem ngay
                                                     </a>
+                                                @endif
+
+                                                @if ($notification->type == 'App\Notifications\StoryApprovedNotification')
+                                                    @if (isset($notification->data['slug']))
+                                                        <a class="dropdown-item" style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">
+                                                            Xem ngay
+                                                        </a>
+
+                                                    @endif
+                                                @endif
+
+                                                @if ($notification->type == 'App\Notifications\AuthorApprovedNotification')
+                                                        <span>Từ giờ bạn có thể đăng truyện. <a style="color: red" href="{{ route('story.create') }}">Thêm truyện</a></span>
                                                 @endif
                                             </div>
                                         @endforeach
@@ -186,6 +201,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                         {{-- Icon kệ sách --}}
                         <div id="series-unread-icon" class="user-sublink appearing">

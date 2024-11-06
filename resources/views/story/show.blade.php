@@ -326,7 +326,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -514,24 +514,26 @@
                     @php
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
-
-                    @if (!$allChaptersPurchased)
-                        <form style="width: 100%; text-align: center"
-                            action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
-                            onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả chương trong truyện với giá {{ $totalPrice }}?');">
-                            @csrf
-                            <button
-                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
-                                type="submit" class="btn btn-primary">
-                                Mua tất cả chương trong truyện với giá
-                            </button>
-                            <a
-                                style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                {{ $totalPrice }}
-                            </a>
-                            <br><br>
-                        </form>
+                    @if (Auth::id() != $book->user_id)
+                        @if (!$allChaptersPurchased)
+                            <form style="width: 100%; text-align: center"
+                                action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả chương trong truyện với giá {{ $totalPrice }}?');">
+                                @csrf
+                                <button
+                                    style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
+                                    type="submit" class="btn btn-primary">
+                                    Mua tất cả chương trong truyện với giá
+                                </button>
+                                <a
+                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                    {{ $totalPrice }}
+                                </a>
+                                <br><br>
+                            </form>
+                        @endif
                     @endif
+
 
                     @include('story.partials.noti')
 
@@ -545,17 +547,19 @@
                                 <span class="sect-title" style="flex-grow: 1; margin-right: 10px;">
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
-                                <span class="buy-all-button">
-                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
-                                        style="display: inline;"
-                                        onsubmit="return confirm('Bạn có chắc chắn muốn mua chương này?');">
-                                        @csrf
-                                        <button type="submit"
-                                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                            Mua tất cả chương
-                                        </button>
-                                    </form>
-                                </span>
+                                @if (!$allChaptersPurchased && Auth::id() !== $item->user_id)
+                                    <span class="buy-all-button">
+                                        <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                            style="display: inline;"
+                                            onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả các chương không?');">
+                                            @csrf
+                                            <button type="submit"
+                                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                Mua tất cả chương
+                                            </button>
+                                        </form>
+                                    </span>
+                                @endif
                             </header>
 
                             <main class="d-lg-block">
@@ -655,12 +659,13 @@
                                                 });
                                             @endphp
 
-                                            @if (!$allChaptersFreeOrPurchased)
+                                            @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
                                                 <button type="submit" class="btn btn-secondary mt-3"
                                                     style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                                     Thêm các chương đã chọn vào giỏ hàng
                                                 </button>
                                             @endif
+
                                         </form>
 
 
@@ -823,7 +828,8 @@
                                                     </div>
 
                                                     <div x-show="showReplyForm"
-                                                        class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}" x-cloak>
+                                                        class="ln-comment-reply ln-comment-form mt-3"
+                                                        id="reply-form-{{ $comment->id }}" x-cloak>
                                                         <div class="ln-comment-reply ln-comment-form mt-3"
                                                             id="reply-form-{{ $comment->id }}">
                                                             @if (Auth::check())
@@ -839,7 +845,8 @@
                                                                     </div>
                                                                 </form>
                                                             @else
-                                                                <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời
+                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                            style="color: red">đăng nhập</a> để trả lời
                                                                         bình luận.</strong></p>
                                                             @endif
                                                         </div>

@@ -33,13 +33,13 @@ class BookController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
+    public function __construct()
+    {
 
-         // $this->middleware('auth');
+        // $this->middleware('auth');
 
-         $this->middleware('can:create')->only(['create', 'store']);
-     }
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
 
 
     public function listStories()
@@ -243,15 +243,13 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if($user->contract()->exists()){
+        if ($user->contract()->exists()) {
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));
-        }else{
-            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
-
+        } else {
+            return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
-
     }
 
     /**
@@ -354,16 +352,56 @@ class BookController extends Controller
             ->where('chapters.book_id', $book->id)
             ->count();
 
-        $totalViews = $book->view;
-
         $purchaseStats = null;
+
         if ($isAuthor) {
+            $startDate = Carbon::now()->subDays(10);
+            $endDate = Carbon::now();
+
             $purchaseStats = [
-                'total_purchases' => $totalPurchases,
-                'total_likes' => Like_books::where('book_id', $book->id)->count(),
-                'total_comments' => bookcomment::where('book_id', $book->id)->count(),
-                'total_views' => $totalViews,
+                'dates' => [],
+                'purchases' => [],
+                'likes' => [],
+                'comments' => [],
+                'views' => [],
+                'total_purchases' => 0,
+                'total_likes' => 0,
+                'total_comments' => 0,
+                'total_views' => 0
             ];
+
+            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+                $currentDate = $date->format('Y-m-d');
+                $purchaseStats['dates'][] = $currentDate;
+
+                $purchases = DB::table('purchased_stories')
+                    ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+                    ->where('chapters.book_id', $book->id)
+                    ->whereDate('purchased_stories.created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['purchases'][] = $purchases;
+                $purchaseStats['total_purchases'] += $purchases;
+
+                $likes = Like_books::where('book_id', $book->id)
+                    ->whereDate('created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['likes'][] = $likes;
+                $purchaseStats['total_likes'] += $likes;
+
+                $cmt = bookcomment::where('book_id', $book->id)
+                    ->whereDate('created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['comments'][] = $cmt;
+                $purchaseStats['total_comments'] += $cmt;
+
+                $views = $book->whereDate('updated_at', $currentDate)->sum('view');
+
+                $purchaseStats['views'][] = $views;
+                $purchaseStats['total_views'] += $views;
+            }
         }
         return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }

@@ -505,10 +505,10 @@ class BookController extends Controller
         } else {
             $user->likedBooks()->attach($id->id);
             $id->like += 1;
+
+            event(new StoryFollowed($id, $user));
         }
         $id->save();
-
-        event(new StoryFollowed($id, $user));
 
         return redirect()->back();
     }

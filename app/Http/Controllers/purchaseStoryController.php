@@ -28,7 +28,7 @@ class purchaseStoryController extends Controller
     public function createOrder()
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để đặt hàng.');
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua các chương này.');
         }
 
         $user = Auth::user();

@@ -1,13 +1,7 @@
 @extends('story.layout.master')
 @section('content')
     <div class="page-top-group  at-index ">
-        <a href="">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+        @include('partials.banner')
     </div>
 
 
@@ -36,37 +30,6 @@
                             <div class="title-wrapper">
                                 <div class="section-title">Chữ cái</div>
                             </div>
-                            {{-- <div class="browse-alphabet">
-                                <a class="alphabet_item  current " href="danh-sach">Tất cả</a>
-                                <a class="alphabet_item " href="danh-sach/khac">#</a>
-                                <a class="alphabet_item " href="danh-sach/a">A</a>
-                                <a class="alphabet_item " href="danh-sach/b">B</a>
-                                <a class="alphabet_item " href="danh-sach/c">C</a>
-                                <a class="alphabet_item " href="danh-sach/d">D</a>
-                                <a class="alphabet_item " href="danh-sach/e">E</a>
-                                <a class="alphabet_item " href="danh-sach/f">F</a>
-                                <a class="alphabet_item " href="danh-sach/g">G</a>
-                                <a class="alphabet_item " href="danh-sach/h">H</a>
-                                <a class="alphabet_item " href="danh-sach/i">I</a>
-                                <a class="alphabet_item " href="danh-sach/j">J</a>
-                                <a class="alphabet_item " href="danh-sach/k">K</a>
-                                <a class="alphabet_item " href="danh-sach/l">L</a>
-                                <a class="alphabet_item " href="danh-sach/m">M</a>
-                                <a class="alphabet_item " href="danh-sach/n">N</a>
-                                <a class="alphabet_item " href="danh-sach/o">O</a>
-                                <a class="alphabet_item " href="danh-sach/p">P</a>
-                                <a class="alphabet_item " href="danh-sach/q">Q</a>
-                                <a class="alphabet_item " href="danh-sach/r">R</a>
-                                <a class="alphabet_item " href="danh-sach/s">S</a>
-                                <a class="alphabet_item " href="danh-sach/t">T</a>
-                                <a class="alphabet_item " href="danh-sach/u">U</a>
-                                <a class="alphabet_item " href="danh-sach/v">V</a>
-                                <a class="alphabet_item " href="danh-sach/w">W</a>
-                                <a class="alphabet_item " href="danh-sach/x">X</a>
-                                <a class="alphabet_item " href="danh-sach/y">Y</a>
-                                <a class="alphabet_item " href="danh-sach/z">Z</a>
-
-                            </div> --}}
                             <div class="browse-alphabet">
                                 <a class="alphabet_item {{ $alphabet === null ? 'current' : '' }}" href="{{ url('danh-sach') }}">Tất cả</a>
                                 <a class="alphabet_item {{ $alphabet === '#' ? 'current' : '' }}" href="{{ url('danh-sach/khac') }}">#</a>

@@ -19,9 +19,11 @@ return new class extends Migration
             $table->string('back_id_image', 255)->nullable();  // Ảnh CMND/CCCD mặt sau
             $table->string('portrait_image', 255)->nullable(); // Ảnh chân dung
             $table->text('reason')->nullable();
-            $table->enum('is_approved', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->string('requested_role')->nullable();
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
+
     }
 
     /**

@@ -22,11 +22,26 @@
                                     <input type="text" class="form-control" name="title" value="{{ $episode->title }}">
                                 </div>
                             </div>
+                            @include('stories.iframe.partials.css_script')
                             <div class="form-group clearfix">
-                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa </label>
-                                <img width="200px"  src="{{ asset(Storage::url($episode->episode_path)) }}" alt="">
+                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa</label>
                                 <div class="col-md-8">
-                                    <input type="file" class="form-control" name="episode_path" value="">
+                                    <div id="upload" class="series_cover">
+                                        <div id="drop">
+                                            <a id="selectImageBtn">Chọn ảnh</a>
+                                            <input type="file" name="episode_path" id="fileInput" style="display: none" />
+                                        </div>
+                                        <img style="max-height: 300px; max-width: 300px" src="{{ asset(Storage::url($episode->episode_path)) }}">
+                                        <div class="alert alert-danger alert-dismissible" role="alert" style="display: none">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div id="progress" class="progress" style="display: none">
+                                            <div class="progress-bar progress-bar-success"></div>
+                                        </div>
+                                    </div>
+                                    <img style="max-height: 300px; max-width: 300px" id="SeriesCoverPreview" src="">
                                 </div>
                             </div>
 
@@ -38,60 +53,8 @@
                             </div>
 
 
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
-                            <script>
-                                tinymce.init({
-                                    selector: '#LN_Chapter_Content',
-                                    inline: false,
-                                    height: 400,
-                                    skin: 'oxide',
-                                    content_css: 'default',
-                                    branding: false,
-                                    menubar: false,
-                                    contextmenu: false,
-                                    entities: '160,nbsp,38,amp,60,lt,62,gt',
-                                    paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
-                                    element_format: 'html',
-                                    formats: {
-                                        strikethrough: {
-                                            inline: 's',
-                                            remove: 'all'
-                                        },
-                                        underline: {
-                                            inline: 'u',
-                                            remove: 'all'
-                                        },
-                                    },
-                                    plugins: 'wordcount link code fullscreen paste emoticons',
-                                    toolbar: 'undo redo | bold italic underline strikethrough fore | alignleft aligncenter alignright alignjustify | removeformat | fullscreen',
-                                    setup: function (editor) {
-                                        editor.ui.registry.addButton('alignleft', {
-                                            text: 'Align Left',
-                                            onAction: function () {
-                                                editor.execCommand('JustifyLeft');
-                                            }
-                                        });
-                                        editor.ui.registry.addButton('aligncenter', {
-                                            text: 'Align Center',
-                                            onAction: function () {
-                                                editor.execCommand('JustifyCenter');
-                                            }
-                                        });
-                                        editor.ui.registry.addButton('alignright', {
-                                            text: 'Align Right',
-                                            onAction: function () {
-                                                editor.execCommand('JustifyRight');
-                                            }
-                                        });
-                                        editor.ui.registry.addButton('alignjustify', {
-                                            text: 'Justify',
-                                            onAction: function () {
-                                                editor.execCommand('JustifyFull');
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
+                            @include('layouts.TinyMCEscript')
+
                             <div class="form-group">
                                 <div class="col-md-10 col-md-offset-2">
                                     <button type="submit" class="btn btn-primary">

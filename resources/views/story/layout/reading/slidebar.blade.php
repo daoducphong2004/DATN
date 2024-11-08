@@ -14,24 +14,40 @@
     <main id="mainpart" class="reading-page style-4">
         <section id="rd-side_icon" class="none force-block-l">
 
-            <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previous()->slug ?? '#']) }}"
-                class="rd_sd-button_item rd_top-left {{ $chapter->previous() ? '' : 'disabled' }}">
+            <!-- Previous Chapter Link -->
+            <a href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
+                class="rd_sd-button_item rd_top-left {{ $chapter->previousChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-backward"></i>
             </a>
 
-            <a class="rd_sd-button_item" href="{{ route('truyen.truyen', $book->slug) }}"><i class="fas fa-home"></i></a>
-            <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item"><i class="fas fa-font"></i></a>
-            <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item"><i
-                    class="fas fa-info"></i></a>
-            <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item"><i
-                    class="fas fa-bookmark"></i></a>
+            <!-- Home Link -->
+            <a class="rd_sd-button_item" href="{{ route('truyen.truyen', $book->slug) }}">
+                <i class="fas fa-home"></i>
+            </a>
 
+            <!-- Settings Icon -->
+            <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item">
+                <i class="fas fa-font"></i>
+            </a>
 
-            <a href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->next()->slug ?? '#']) }}"
-                class="rd_sd-button_item rd_top-right {{ $chapter->next() ? '' : 'disabled' }}">
+            <!-- Info Icon -->
+            <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item">
+                <i class="fas fa-info"></i>
+            </a>
+
+            <!-- Bookmark Icon -->
+            <a id="rd-bookmark_icon" data-affect="#rd_sidebar.bookmarks" class="rd_sd-button_item">
+                <i class="fas fa-bookmark"></i>
+            </a>
+
+            <!-- Next Chapter Link -->
+            <a href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
+                class="rd_sd-button_item rd_top-right {{ $chapter->nextChapter() ? '' : 'disabled' }}">
                 <i class="fas fa-forward"></i>
             </a>
+
         </section>
+
 
         <section id="chapters" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">
@@ -47,14 +63,14 @@
                 </header>
 
                 <ul id="chap_list" class="unstyled">
-                    @foreach ($book->episodes as $item)
+                    @foreach ($book->episodes->sortBy('order') as $item)
                         <li class="@if ($episode->id == $item->id) current @endif">
-                            <a href="{{ route('episode.show', $item->slug) }}">{{ $item->title }}</a>
+                            <a href="{{ route('truyen.tap', [$book->slug,$item->slug]) }}">{{ $item->title }}</a>
                         </li>
                         <!-- Hiển thị các chapter nếu đây là tập truyện hiện tại -->
                         @if ($episode->id == $item->id)
                             <ul class="sub-chap_list unstyled">
-                                @foreach ($chapters as $chap)
+                                @foreach ($chapters->sortBy('order') as $chap)
                                     <li class="@if ($chapter->id === $chap->id) current @endif">
                                         <a href="{{ route('truyen.chuong', [$book->slug, $chap->slug]) }}">
                                             {{ $chap->title }} chapter:{{ $chapter->id }} và {{ $chap->id }}
@@ -74,11 +90,14 @@
         <section id="bookmarks" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">
                 <div class="rd_sidebar-header">
-                    <h2 class="rd_s-name"><i class="fas fa-bookmark"></i><a href="/bookmark" style="color: white;">
-                            Bookmarks</a></h2>
+                    <h2 class="rd_s-name">
+                        <i class="fas fa-bookmark"></i>
+                        <a href="/bookmark" style="color: white;">Bookmarks</a>
+                    </h2>
                 </div>
                 <ul id="bookmarks_list" class="unstyled">
-                    <li>Bạn chưa lưu lại bookmark</li>
+                    <!-- Nội dung bookmark sẽ được thêm ở đây bởi JavaScript -->
+                    <li id="empty_message">Bạn chưa lưu lại bookmark</li>
                 </ul>
             </main>
             <div class="black-click"></div>

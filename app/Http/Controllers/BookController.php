@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StoryFollowed;
 use App\Models\book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
@@ -14,12 +15,16 @@ use App\Models\PurchasedStory;
 use App\Models\Rating;
 use App\Models\ReadingHistory;
 use App\Models\SharedBook;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Events\BookCreated;
+use App\Models\Like_books;
 use Str;
 
 class BookController extends Controller
@@ -27,6 +32,15 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+     {
+
+         // $this->middleware('auth');
+
+         $this->middleware('can:create')->only(['create', 'store']);
+     }
+
 
     public function listStories()
     {
@@ -55,6 +69,16 @@ class BookController extends Controller
 
         // Tăng giá trị của trường `view`
         $book->increment('view');
+
+        // Tăng lượt xem cho tuần và tháng
+        $book->increment('views_week');
+        $book->increment('views_month');
+
+        // Reset lượt xem theo tuần
+        $this->resetWeeklyViews();
+
+        // Reset lượt xem theo tháng
+        $this->resetMonthlyViews();
 
         // Tìm kiếm chapter dựa trên chapter_slug
         $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
@@ -202,10 +226,7 @@ class BookController extends Controller
         return view('reading-history', compact('readingHistories'));
     }
 
-    public function __construct()
-    {
-        $this->middleware('can:create')->only(['create', 'store']);
-    }
+
 
     public function index()
     {
@@ -221,9 +242,16 @@ class BookController extends Controller
      */
     public function create()
     {
-        $genres = genre::pluck('id', 'name');
-        $groups = group::pluck('id', 'name');
-        return view('stories.create', compact('genres', 'groups'));
+        $user = User::findOrFail(Auth::id());
+        if($user->contract()->exists()){
+            $genres = genre::pluck('id', 'name');
+            $groups = group::pluck('id', 'name');
+            return view('stories.create', compact('genres', 'groups'));
+        }else{
+            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
+
+        }
+
     }
 
     /**
@@ -233,6 +261,7 @@ class BookController extends Controller
     {
 
         $adult = $request->has('adult') ? 1 : 0;
+
         $book = Book::create([
             'type' => $request->type,
             'status' => $request->status,
@@ -249,6 +278,7 @@ class BookController extends Controller
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
+            'price' => $request->price,
         ]);
 
         $slug = Str::slug($book->id . '-' . $request->title);
@@ -267,6 +297,8 @@ class BookController extends Controller
         if ($request->input('genres')) {
             $book->genres()->attach($request->input('genres'));
         }
+
+        event(new BookCreated($book));
         return redirect()->route('story.show', $book->id);
     }
 
@@ -290,28 +322,52 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        $book = Book::with('genres', 'episodes', 'group')->where(
-            'slug',
-            $slug
-        )->firstOrFail();
+        // dd(10);
+        // Lấy thông tin sách với các quan hệ
+        $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
+
+        // Kiểm tra trường Is_Inspect
+        if ($book->Is_Inspect == 0) {
+            abort(403, 'Truyện này chưa được kiểm duyệt');
+        }
+        $totalPrice = $book->totalChapterPrice();
+
         $episodes = $book->episodes;
-        // dd($book,$episodes);
 
         $comments = bookcomment::with(['user', 'replies' => function ($query) {
             $query->orderBy('created_at', 'DESC');
         }])
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
-            ->with('replies.replies')->get();
+            ->with('replies.replies')
+            ->get();
 
-            $totalComments = bookcomment::where('book_id', $book->id)->count();
-        // dd($comments);
-        if (Auth::guest() && $book->is_paid) {
-            return redirect()->route('home')->with('error', 'Bạn không có quyền đọc truyện này. Hãy đăng nhập tài khoản');
-        }
+        $totalComments = bookcomment::where('book_id', $book->id)->count();
+
+
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings','totalComments'));
+
+        $isAuthor = auth()->check() && auth()->user()->id == $book->user_id;
+
+        $totalPurchases = DB::table('purchased_stories')
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+            ->where('chapters.book_id', $book->id)
+            ->count();
+
+        $totalViews = $book->view;
+
+        $purchaseStats = null;
+        if ($isAuthor) {
+            $purchaseStats = [
+                'total_purchases' => $totalPurchases,
+                'total_likes' => Like_books::where('book_id', $book->id)->count(),
+                'total_comments' => bookcomment::where('book_id', $book->id)->count(),
+                'total_views' => $totalViews,
+            ];
+        }
+        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -357,6 +413,7 @@ class BookController extends Controller
                 'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
                 'group_id' => $request->group_id,
                 'user_id' => Auth::id(),
+                'price' => $request->price
             ]);
 
             // Attach genres
@@ -396,7 +453,12 @@ class BookController extends Controller
 
     public function bookLike(Book $id)
     {
+        $book = Book::find($id);
         $user = Auth::user();
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!$user) {
+            return redirect()->route('login')->with('mesage', 'You must be logged in to like a book.');
+        }
         $like = $user->likedBooks()->where('book_id', $id->id)->first();
 
         if ($like) {
@@ -407,6 +469,7 @@ class BookController extends Controller
             $id->like += 1;
         }
         $id->save();
+        event(new StoryFollowed($id, $user));
         return redirect()->back();
     }
 
@@ -414,7 +477,7 @@ class BookController extends Controller
     public function showUserHistory($bookId)
     {
         $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])
-                    ->findOrFail($bookId);
+            ->findOrFail($bookId);
 
         $currentUser = Auth::user();
 
@@ -428,5 +491,23 @@ class BookController extends Controller
         return view('user.user_history', compact('book'));
     }
 
+    // Reset lượt xem theo tuần
+    private function resetWeeklyViews()
+    {
+        // Kiểm tra nếu là thứ Hai
+        if (Carbon::now()->isMonday()) {
+            // Reset lượt xem theo tuần
+            DB::table('books')->update(['views_week' => 0]);
+        }
+    }
 
+    // Reset lượt xem theo tháng
+    private function resetMonthlyViews()
+    {
+        // Kiểm tra nếu là ngày đầu tháng
+        if (Carbon::now()->day == 1) {
+            // Reset lượt xem theo tháng
+            DB::table('books')->update(['views_month' => 0]);
+        }
+    }
 }

@@ -128,12 +128,12 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
         $user = new User();
-        
+
         $user->username = $request->username;
         $user->email = $request->email;
         // $user->role_id = 1;
         $user->password = Hash::make($request->password);
-        
+
         $userRole = Role::where('name', 'user')->first();
         if ($userRole) {
             $user->role_id = $userRole->id;
@@ -163,7 +163,6 @@ class AccountController extends Controller
             $request->session()->regenerate();
             return redirect()->route('home')->with("success", "Login account success.");
         }
-
         return redirect()->back()->with("error", "Authentication failed.");
     }
     public function email()

@@ -154,4 +154,10 @@
 .rating-input:checked + .rating-label ~ .rating-label {
     color: #f39c12;
 }
+.pos_bookmark small {
+    white-space: nowrap;          /* Giới hạn hiển thị chỉ trong một dòng */
+    overflow: hidden;             /* Ẩn phần văn bản tràn ra ngoài */
+    text-overflow: ellipsis;      /* Thêm dấu ba chấm vào phần bị cắt */
+    display: block;
+}
 </style>

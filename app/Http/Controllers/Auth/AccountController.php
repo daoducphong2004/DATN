@@ -128,11 +128,11 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
         $user = new User();
+
         $user->username = $request->username;
         $user->email = $request->email;
         // $user->role_id = 1;
         $user->password = Hash::make($request->password);
-
 
         $userRole = Role::where('name', 'user')->first();
         if ($userRole) {
@@ -143,6 +143,8 @@ class AccountController extends Controller
         $user->save();
         return redirect()->route('login')->with("success", "Register account success.");
     }
+
+
 
     public function dialogLogin()
     {

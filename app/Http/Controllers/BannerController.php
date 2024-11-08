@@ -51,12 +51,6 @@ class BannerController extends Controller
             ->with('success', 'Banner created successfully.');
     }
 
-
-    public function show(Banner $banner)
-    {
-        return view('admin.banners.show', compact('banner'));
-    }
-
     public function edit(Banner $banner)
     {
         return view('admin.banners.edit', compact('banner'));

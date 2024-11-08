@@ -21,19 +21,21 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\CopyrightController;
 use App\Http\Controllers\FilterController;
-use App\Http\Controllers\CommentBookController;
-use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PosController;
+use App\Http\Controllers\PublishingCompanyController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentBookController;
+use App\Http\Controllers\CommentChapterController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\purchaseStoryController;
@@ -45,15 +47,13 @@ use App\Http\Controllers\StoryManageController;
 use App\Models\book;
 use App\Models\episode;
 use App\Models\genre;
-use App\Models\SharedBook;
 use Illuminate\Support\Facades\Auth;
-
 
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index']);
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index1`']);
+Route::get('/', [HomeController::class, 'index1'])->name('home');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('login', [AccountController::class, 'dialogLogin'])->name('dialogLogin');
@@ -63,11 +63,24 @@ Route::post('register', [AccountController::class, 'createAccount'])->name('crea
 Route::get('email', [AccountController::class, 'email']);
 Route::get('reset', [AccountController::class, 'reset']);
 
-// Route::get('gioithieu', [UserController::class, 'gioithieu']);
-// Route::get('chuong', [UserController::class, 'chuong']);
+Route::get('convert', [HomeController::class, 'convert']);
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
+
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
+
+Route::get('search', [HomeController::class, 'search']);
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+Route::get('bookmark', [HomeController::class, 'bookmark']);
+Route::get('lich-su', [HomeController::class, 'lichsu']);
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
+Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
-// Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
 Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
 
@@ -77,16 +90,12 @@ Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])->name('huongdan_gioithieu');
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
-// Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
 Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
-// Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
-
-
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
@@ -109,7 +118,71 @@ Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 
+Route::prefix('admin')->group(function () {
 
+    // Giao diện admin
+    Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
+    Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
+    Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
+    Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
+    Route::resource('bookComment', AdminBookCommentController::class);
+
+    Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
+    Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
+    Route::post('/letter/store', [LetterController::class, 'store'])->name('letter_store');
+    Route::get('/letter/edit/{id}', [LetterController::class, 'edit'])->name('letter_edit');
+    Route::put('/letter/update/{id}', [LetterController::class, 'update'])->name('letter_update');
+    Route::delete('/letter/delete/{id}', [LetterController::class, 'destroy'])->name('letter_delete');
+
+    Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
+    Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
+    Route::post('/bookmarks/store', [BookmarksController::class, 'store'])->name('bookmarks_store');
+    Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
+    Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
+    Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
+
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
+    Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
+    Route::get('/groups/edit/{id}', [GroupController::class, 'edit'])->name('groups_edit');
+    Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
+    Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
+
+    Route::get('/user', [ControllersUserController::class, 'index'])->name('user_index');
+    Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
+    Route::post('/user/store', [ControllersUserController::class, 'store'])->name('user_store');
+    Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
+    Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
+    Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
+
+    Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
+    Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
+    Route::post('/genres/store', [GenreController::class, 'store'])->name('genres_store');
+    Route::get('/genres/edit/{id}', [GenreController::class, 'edit'])->name('genres_edit');
+    Route::put('/genres/update/{id}', [GenreController::class, 'update'])->name('genres_update');
+    Route::delete('/genres/delete/{id}', [GenreController::class, 'destroy'])->name('genres_delete');
+
+    Route::get('/publishing_company', [PublishingCompanyController::class, 'index'])->name('publishing_company_index');
+    Route::get('/publishing_company/create', [PublishingCompanyController::class, 'create'])->name('publishing_company_create');
+    Route::post('/publishing_company/store', [PublishingCompanyController::class, 'store'])->name('publishing_company_store');
+    Route::get('/publishing_company/edit/{id}', [PublishingCompanyController::class, 'edit'])->name('publishing_company_edit');
+    Route::put('/publishing_company/update/{id}', [PublishingCompanyController::class, 'update'])->name('publishing_company_update');
+    Route::delete('/publishing_company/delete/{id}', [PublishingCompanyController::class, 'destroy'])->name('publishing_company_delete');
+
+    Route::get('/copyright', [CopyrightController::class, 'index'])->name('copyright_index');
+    Route::get('/copyright/create', [CopyrightController::class, 'create'])->name('copyright_create');
+    Route::post('/copyright/store', [CopyrightController::class, 'store'])->name('copyright_store');
+    Route::get('/copyright/edit/{id}', [CopyrightController::class, 'edit'])->name('copyright_edit');
+    Route::put('/copyright/update/{id}', [CopyrightController::class, 'update'])->name('copyright_update');
+    Route::delete('/copyright/delete/{id}', [CopyrightController::class, 'destroy'])->name('copyright_delete');
+
+    Route::get('/pos', [PosController::class, 'index'])->name('pos_index');
+    Route::get('/pos/create', [PosController::class, 'create'])->name('pos_create');
+    Route::post('/pos/store', [PosController::class, 'store'])->name('pos_store');
+    Route::get('/pos/edit/{id}', [PosController::class, 'edit'])->name('pos_edit');
+    Route::put('/pos/update/{id}', [PosController::class, 'update'])->name('pos_update');
+    Route::delete('/pos/delete/{id}', [PosController::class, 'destroy'])->name('pos_delete');
+});
 
 Route::prefix('chapter-comments')->group(function () {
     Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
@@ -163,12 +236,7 @@ Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class
 
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');
-
-
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
-
-
-
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
 
@@ -177,16 +245,11 @@ Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
 
-
-
 Route::middleware(['auth'])->group(function () {
-
     //Hợp đồng
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-
-
 
     Route::get('stories/information/{book}', function (book $book) {
         $genres = genre::pluck('id', 'name');

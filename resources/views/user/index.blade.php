@@ -1,8 +1,12 @@
 @extends('user.layout.master')
-
 @section('content')
     <div class="container" style="margin-top: 60px">
         <div class="row">
+
+
+            <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">Home</div>
@@ -17,5 +21,9 @@
             </div>
         </div>
     </div>
+
+
+
+    <html>
 
 @endsection

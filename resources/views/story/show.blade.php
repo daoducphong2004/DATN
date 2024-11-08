@@ -455,27 +455,72 @@
                             const purchaseStatisticsChart = new Chart(ctx, {
                                 type: 'line',
                                 data: {
-                                    labels: ['Số lượt mua', 'Yêu thích', 'Bình luận', 'Lượt xem'],
-                                    datasets: [{
-                                        label: 'Thống kê',
-                                        data: [
-                                            {{ $purchaseStats['total_purchases'] }},
-                                            {{ $purchaseStats['total_likes'] }},
-                                            {{ $purchaseStats['total_comments'] }},
-                                            {{ $purchaseStats['total_views'] ?? 0 }}
-                                        ],
-                                        borderColor: '#00c0ef',
-                                        backgroundColor: 'rgba(0, 192, 239, 0.5)',
-                                        pointBackgroundColor: 'red',
-                                        borderWidth: 2,
-                                        pointRadius: 5
-                                    }]
+                                    labels: @json($purchaseStats['dates']), // Mảng các ngày
+                                    datasets: [
+                                        {
+                                            label: 'Số lượt mua',
+                                            data: @json($purchaseStats['purchases']), // Dữ liệu số lượt mua theo ngày
+                                            borderColor: '#FF6384',
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            pointBackgroundColor: '#FF6384',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Yêu thích',
+                                            data: @json($purchaseStats['likes']), // Dữ liệu yêu thích theo ngày
+                                            borderColor: '#36A2EB',
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            pointBackgroundColor: '#36A2EB',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Bình luận',
+                                            data: @json($purchaseStats['comments']), // Dữ liệu bình luận theo ngày
+                                            borderColor: '#FFCE56',
+                                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                            pointBackgroundColor: '#FFCE56',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Lượt xem',
+                                            data: @json($purchaseStats['views']), // Dữ liệu lượt xem theo ngày
+                                            borderColor: '#4BC0C0',
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            pointBackgroundColor: '#4BC0C0',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        }
+                                    ]
                                 },
                                 options: {
                                     responsive: true,
                                     plugins: {
                                         legend: {
                                             display: true
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Ngày'
+                                            },
+                                            grid: {
+                                                display: true
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Số lượng'
+                                            },
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true
+                                            }
                                         }
                                     }
                                 }

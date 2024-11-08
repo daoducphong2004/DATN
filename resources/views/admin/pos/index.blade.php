@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách thể loại sách
+    Danh sách nơi mua
 @endsection
 
 @push('styles')
@@ -14,30 +14,24 @@
         <thead>
             <tr>
                 <th scope="col">name</th>
-                <th scope="col">description</th>
-                <th scope="col">location</th>
-                <th scope="col">status</th>
-                <th scope="col">book_id</th>
-                <th scope="col">user_id</th>
+                <th scope="col">link</th>
+                <th scope="col">copyrights</th>
 
                 <th scope="col">
-                    <a class="btn btn-primary" href="{{ route('bookshelves_create') }}">Create</a>
+                    <a class="btn btn-primary" href="{{ route('pos_create') }}">Create</a>
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($bookshelves as $bookshelve)
+            @foreach ($pos as $po)
                 <tr>
-                    <td>{{ $bookshelve->name }}</td>
-                    <td>{{ $bookshelve->description }}</td>
-                    <td>{{ $bookshelve->location }}</td>
-                    <td>{{ $bookshelve->status }}</td>
-                    <td>{{ $bookshelve->book_id }}</td>
-                    <td>{{ $bookshelve->user_id }}</td>
+                    <td>{{ $po->name }}</td>
+                    <td>{{ $po->link }}</td>
+                    <td>{{ $po->copyright_id }}</td>
                     <td>
                         <div class="btn-action" style="display: flex; gap:5px;">
-                        <a class="btn btn-success" href="{{ route('bookshelves_edit', $bookshelve->id) }}">Edit</a>
-                        <form action="{{ route('bookshelves_delete', $bookshelve->id) }}" method="post">
+                        <a class="btn btn-success" href="{{ route('pos_edit', $po->id) }}">Edit</a>
+                        <form action="{{ route('pos_delete', $po->id) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button class=" btn btn-danger" type="submit"
@@ -50,7 +44,7 @@
         </tbody>
     </table>
     </div>
-    {{ $bookshelves->links() }}
+    {{ $pos->links() }}
     @endsection
 
     @push('scripts')

@@ -60,12 +60,12 @@ Route::prefix('admin')->group(function () {
         Route::delete('/letter/delete/{id}', [LetterController::class, 'destroy'])->name('letter_delete');
 
 
-        Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
-        Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
-        Route::post('/bookmarks/store', [BookmarksController::class, 'store'])->name('bookmarks_store');
-        Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
-        Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
-        Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
+        // Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
+        // Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
+        // Route::post('/bookmarks/store', [BookmarksController::class, 'store'])->name('bookmarks_store');
+        // Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
+        // Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
+        // Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
 
 
         Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');

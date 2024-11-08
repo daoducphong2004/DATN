@@ -40,3 +40,75 @@
             });
     });
 </script>
+
+<script>
+    document.getElementById('extractForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var formData = new FormData();
+        var fileInput = document.getElementById('docxFile');
+        formData.append('file', fileInput.files[0]);
+
+        // Send AJAX request to the readWordFile method in the controller
+        fetch('{{ route('chapter.readWordFile') }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (Array.isArray(data)) {
+                // Initialize extracted content
+                let extractedContent = '';
+
+                data.forEach(item => {
+                    // Handle text content with styles
+                    if (item.text && !item.type) {
+                        let textStyle = '';
+
+                        if (item.style) {
+                            const style = JSON.parse(item.style); // Parse style from string to object
+                            if (style.bold) textStyle += 'font-weight: bold;';
+                            if (style.italic) textStyle += 'font-style: italic;';
+                            if (style.font_size) textStyle += `font-size: ${style.font_size}px;`;
+                            if (style.font_color) textStyle += `color: #${style.font_color};`;
+                            if (style.font_family) textStyle += `font-family: ${style.font_family};`;
+                        }
+
+                        extractedContent += `<span style="${textStyle}">${item.text}</span>`;
+                    } 
+                    // Handle image content
+                    else if (item.text && item.type === 'image') {
+                        extractedContent += `<img src="${item.text}" style="max-width: 100%; height: auto;" />`;
+                    } 
+                    // Handle table content
+                    else if (item.type === 'table' && item.content) {
+                        extractedContent += item.content; // Assuming item.content is a valid HTML table
+                    }
+
+                    // Add line break after each element
+                    extractedContent += '<br>';
+                });
+
+                // Update the TinyMCE editor content with the extracted content
+                tinymce.get('LN_Chapter_Content').setContent(extractedContent);
+            } else {
+                alert('Unable to extract content from the DOCX file.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if there's a response from the API (in case there is old content in the session)
+        const content = @json(old('content', '')); // Retrieve content from session if available
+        if (content) {
+            tinymce.get('LN_Chapter_Content').setContent(content); // Set content into TinyMCE
+        }
+    });
+</script>

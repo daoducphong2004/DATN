@@ -174,7 +174,6 @@ Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send'
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
-Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
 
 
 
@@ -205,6 +204,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stories/addchapter/{episode}', function (episode $episode) {
         return view('stories.iframe.chapters.formAddChapter', compact('episode'));
     })->name('storychapter');
+    
 
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');

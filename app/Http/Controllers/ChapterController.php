@@ -9,6 +9,7 @@ use App\Models\episode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -42,7 +43,7 @@ class ChapterController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'content' => 'required|string',
             'price' => 'required|numeric|min:0|max:999999', // Thêm quy tắc xác thực cho price với kiểu decimal(8,2)
-            ]);
+        ]);
 
         // Add IDs to <p> tags
         $dom = new \DOMDocument();
@@ -114,6 +115,8 @@ class ChapterController extends Controller
 
         return response()->json(['error' => 'Upload failed'], 400);
     }
+   
+    
     /**
      * Display the specified resource.
      */

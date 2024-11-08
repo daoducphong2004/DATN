@@ -73,6 +73,10 @@
                 <input type="text" class="form-control" name="summary" aria-describedby="emailHelp"
                     value="{{ $id->summary }}">
             </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">publishing_companys_id</label>
+                <input type="text" class="form-control" name="publishing_companys_id" aria-describedby="emailHelp" value="{{ $id->publishing_companys_id }}">
+            </div>
             <button type="submit" class="mt-3 btn btn-success">Save</button>
         </form>
     </div>

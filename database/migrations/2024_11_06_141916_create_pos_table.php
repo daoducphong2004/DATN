@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("link");
-            $table->foreignId('copyright_id');
+            $table->unsignedBigInteger('copyright_id')->nullable();
+            $table->foreign('copyright_id')->references('id')->on('copyrights')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });

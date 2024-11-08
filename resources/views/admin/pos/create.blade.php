@@ -30,6 +30,10 @@
                 <label for="exampleInputEmail1">link</label>
                 <input type="text" class="form-control" name="link" aria-describedby="emailHelp">
             </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">copyright_id</label>
+                <input type="text" class="form-control" name="copyright_id" aria-describedby="emailHelp">
+            </div>
             <button type="submit" class="mt-3 btn btn-success">Create</button>
         </form>
     </div>

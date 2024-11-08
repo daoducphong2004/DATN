@@ -1,5 +1,6 @@
 @extends('admin.layouts.default')
 
+
 @section('title')
     @parent
     Danh sách bản quyền
@@ -61,6 +62,10 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">summary</label>
                 <input type="text" class="form-control" name="summary" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">publishing_companys_id</label>
+                <input type="number" class="form-control" name="publishing_companys_id" aria-describedby="emailHelp">
             </div>
             <button type="submit" class="mt-3 btn btn-success">Create</button>
         </form>

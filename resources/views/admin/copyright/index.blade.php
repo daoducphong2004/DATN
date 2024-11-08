@@ -23,6 +23,7 @@
                 <th scope="col">try_reading</th>
                 <th scope="col">price</th>
                 <th scope="col">summary</th>
+                <th scope="col">publishing_companys_id</th>
                 <th scope="col">
                     <a class="btn btn-primary" href="{{ route('copyright_create') }}">Create</a>
                 </th>
@@ -41,6 +42,7 @@
                     <td>{{ $copyright->try_reading }}</td>
                     <td>{{ $copyright->price }}</td>
                     <td>{{ $copyright->summary }}</td>
+                    <td>{{ $copyright->publishing_companys_id }}</td>
                     <td>
                         <div class="btn-action" style="display: flex; gap:5px;">
                         <a class="btn btn-success" href="{{ route('copyright_edit', $copyright->id) }}">Edit</a>

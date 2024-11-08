@@ -15,6 +15,7 @@
             <tr>
                 <th scope="col">name</th>
                 <th scope="col">link</th>
+                <th scope="col">copyrights</th>
 
                 <th scope="col">
                     <a class="btn btn-primary" href="{{ route('pos_create') }}">Create</a>
@@ -26,6 +27,7 @@
                 <tr>
                     <td>{{ $po->name }}</td>
                     <td>{{ $po->link }}</td>
+                    <td>{{ $po->copyright_id }}</td>
                     <td>
                         <div class="btn-action" style="display: flex; gap:5px;">
                         <a class="btn btn-success" href="{{ route('pos_edit', $po->id) }}">Edit</a>

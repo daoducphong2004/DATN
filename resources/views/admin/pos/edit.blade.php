@@ -33,6 +33,11 @@
                 <input type="text" class="form-control" name="link" aria-describedby="emailHelp"
                     value="{{ $id->link }}">
             </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">copyright_id</label>
+                <input type="text" class="form-control" name="copyright_id" aria-describedby="emailHelp"
+                value="{{ $id->copyright_id }}">
+            </div>
             <button type="submit" class="mt-3 btn btn-success">Save</button>
         </form>
     </div>

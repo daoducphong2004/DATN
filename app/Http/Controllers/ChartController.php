@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class ChartController extends Controller
 {
     function index(){
-        // return  view("admin.dashboard");
+        return  view("admin.dashboard");
     }
 }

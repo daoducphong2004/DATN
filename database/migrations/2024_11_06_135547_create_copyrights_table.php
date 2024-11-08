@@ -23,12 +23,12 @@ return new class extends Migration
             $table->string('try_reading');
             $table->double('price')->default(0);
             $table->string('summary');
-            $table->foreignId('pos_id');
+            $table->unsignedBigInteger('publishing_companys_id')->nullable();
+            $table->foreign('publishing_companys_id')->references('id')->on('publishing_companys')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

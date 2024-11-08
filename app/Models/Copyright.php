@@ -22,5 +22,6 @@ class Copyright extends Model
         'try_reading',
         'price',
         'summary',
+        'publishing_companys_id'
     ];
 }

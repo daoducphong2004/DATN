@@ -403,13 +403,14 @@ class BookController extends Controller
             $user->likedBooks()->detach($id->id);
             $id->like -= 1;
         } else {
-            $user->likedBooks()->attach($id->id);
+            $user->likedBooks()->attach($id->id, ['created_at' => now(), 'updated_at' => now()]);
             $id->like += 1;
         }
         $id->save();
-
         return redirect()->back();
     }
+
+
     public function showUserHistory($bookId)
     {
         $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])

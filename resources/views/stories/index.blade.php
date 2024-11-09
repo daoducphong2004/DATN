@@ -411,12 +411,7 @@
     </script>
 
 
-    <script src="scripts/appe638.js?id=e6bfa8f47769659b2c4d6e4752cc0d59"></script>
-    <script src="livewire/livewireb27e.js?id=f121a5df" data-csrf="RoVR3vbYqJwRLPo31OeRWpuk5IYzEa1XubKSx458"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
 
-
-    <script async type='text/javascript' src='d56b4bd6c3d2c1e161c4ab3c78c27670.js'></script>
 
 
     <footer id="footer">

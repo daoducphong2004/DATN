@@ -1,6 +1,5 @@
-@extends('stories.partials.master')
+@extends('user.layout.master')
 @section('content')
-    @include('stories.partials.header')
     @include('stories.iframe.partials.css_script')
 
     <form role="form" method="POST" action="{{ route('story.store') }}" enctype="multipart/form-data">
@@ -93,6 +92,7 @@
                 </select>
             </div>
         </div>
+    
 
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label text-right">Tóm tắt</label>
@@ -139,4 +139,9 @@
             </div>
         </div>
     </form>
+    <script>
+        $(document).ready(function() {
+            $('#select-genre').select2();
+        });
+    </script>
 @endsection

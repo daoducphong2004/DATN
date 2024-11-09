@@ -1,5 +1,4 @@
-<script src="/livewire/livewire.js?id=f121a5df" data-csrf="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK"
-    data-update-uri="/livewire/update" data-navigate-once="true"></script>
+
 <div id="yt_article_summary_widget_wrapper" class="yt_article_summary_widget_wrapper" style="display: none;">
     <div id="yt_article_summary_widget" class="yt_article_summary_widget"><svg style="filter: brightness(0.8);"
             width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

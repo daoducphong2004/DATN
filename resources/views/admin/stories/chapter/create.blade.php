@@ -31,7 +31,7 @@
             </div>
         </div>
         @include('layouts.TinyMCEscript')
-
+        <input type="hidden" name="book_id" value="{{ $episode->book_id }}">
         <!-- Hidden input để chứa episode_id -->
         <input type="hidden" name="episode_id" value="{{ $episode->id }}">
         <div class="form-group clearfix">

@@ -2,7 +2,7 @@
 @section('content')
 <body data-theme="light">
 
-    <div class="container">
+    <div class="container-fuild">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">

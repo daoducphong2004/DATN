@@ -35,13 +35,10 @@ class chapter extends Model
         return $this->belongsTo(User::class);
     }
     // lấy oder lớn nhất
-    public static function getMaxOrderByBook($episodeId)
+    public static function getChapterCountByBook($episodeId)
     {
-        return self::where('episode_id', $episodeId)
-            ->max('order');
-    }
-
-
+        return self::where('episode_id', $episodeId)->count('id');
+        }
     public function purchasedStories()
     {
         return $this->hasMany(PurchasedStory::class, 'chapter_id');

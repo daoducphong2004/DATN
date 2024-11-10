@@ -3,7 +3,7 @@
     <div id="page-top"></div>
     <div data-scrollto="#page-top" class="backtoTop"><i class="fas fa-angle-double-up"></i></div>
     <div id="navbar" class="headroom">
-        <div class="container">
+        <div class="container-fuild">
             <div id="sidenav-icon" class="none-xl">
                 <div class="sidenav-icon-content">
                     <span class="sidenav-icon_white"></span>

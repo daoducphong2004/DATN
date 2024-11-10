@@ -89,8 +89,8 @@ class ChapterController extends Controller
         // Create slug from chapter_id and title
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
-        $lastOder = $chapter->getMaxOrderByBook($chapter->episode);
-        $chapter->order = $lastOder + 1;
+        $lastOder = $chapter->getChapterCountByBook($chapter->episode->id);
+        $chapter->order = $lastOder;
         // Save the chapter again with the updated slug
         $chapter->save();
 

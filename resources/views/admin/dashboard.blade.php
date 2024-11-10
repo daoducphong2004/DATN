@@ -137,7 +137,6 @@
                     pointRadius: 10, // Kích thước các điểm trên biểu đồ
                     pointHoverRadius: 12,
                     pointBorderWidth: 2 // Độ dày của viền điểm
-                    
                 }],
             },
             options: {

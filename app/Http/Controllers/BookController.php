@@ -65,51 +65,51 @@ class BookController extends Controller
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         // Tìm kiếm book dựa trên slug
-        $book = book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
-
+        $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
+    
         // Tăng giá trị của trường `view`
         $book->increment('view');
-
+    
         // Tăng lượt xem cho tuần và tháng
         $book->increment('views_week');
         $book->increment('views_month');
-
+    
         // Reset lượt xem theo tuần
         $this->resetWeeklyViews();
-
+    
         // Reset lượt xem theo tháng
         $this->resetMonthlyViews();
-
+    
         // Tìm kiếm chapter dựa trên chapter_slug
-        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
-
+        $chapter = Chapter::where('slug', $chapter_slug)->firstOrFail();
+    
         // Lấy episode liên quan đến chapter
         $episode = $chapter->episode()->with('chapters')->firstOrFail();
-
+    
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
-
+    
         // Lấy danh sách comments cho chapter này
-        $comments = chaptercomment::with('user')
+        $comments = ChapterComment::with('user')
             ->where('chapter_id', $chapter->id)
             ->whereNull('parent_id')->get();
-
+    
         $parentId = $request->input('parent_id');
-
+    
         // Kiểm tra xem người dùng có đăng nhập hay không
         $user = auth()->user();
         $fullContent = $chapter->content; // Nội dung đầy đủ của chương
         $partialContent = null; // Nội dung hiển thị một phần
         $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
-
+    
         // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
         if ($chapter->price > 0) {
             // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
-            if (!$user || !$user->hasPurchased($chapter->id)) {
+            if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
                 // Chỉ hiển thị 2/10 nội dung chương nếu chưa mua
                 $partialContent = $this->getPartialContent($fullContent);
             } else {
-                // Người dùng đã mua, có thể xem toàn bộ nội dung
+                // Người dùng đã mua hoặc là người đăng, có thể xem toàn bộ nội dung
                 $canViewFullContent = true;
                 $partialContent = $fullContent;
             }
@@ -118,12 +118,13 @@ class BookController extends Controller
             $canViewFullContent = true;
             $partialContent = $fullContent;
         }
-
+    
         // Lưu lịch sử đọc chương
         $this->storeReadingHistory($book->id, $chapter->id);
-
+    
         return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId', 'partialContent', 'fullContent', 'canViewFullContent'));
     }
+    
 
     /**
      * Cắt nội dung để hiển thị 2/10 nội dung.
@@ -352,16 +353,56 @@ class BookController extends Controller
             ->where('chapters.book_id', $book->id)
             ->count();
 
-        $totalViews = $book->view;
-
         $purchaseStats = null;
+
         if ($isAuthor) {
+            $startDate = Carbon::now()->subDays(10);
+            $endDate = Carbon::now();
+
             $purchaseStats = [
-                'total_purchases' => $totalPurchases,
-                'total_likes' => Like_books::where('book_id', $book->id)->count(),
-                'total_comments' => bookcomment::where('book_id', $book->id)->count(),
-                'total_views' => $totalViews,
+                'dates' => [],
+                'purchases' => [],
+                'likes' => [],
+                'comments' => [],
+                'views' => [],
+                'total_purchases' => 0,
+                'total_likes' => 0,
+                'total_comments' => 0,
+                'total_views' => 0
             ];
+
+            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
+                $currentDate = $date->format('Y-m-d');
+                $purchaseStats['dates'][] = $currentDate;
+
+                $purchases = DB::table('purchased_stories')
+                    ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+                    ->where('chapters.book_id', $book->id)
+                    ->whereDate('purchased_stories.created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['purchases'][] = $purchases;
+                $purchaseStats['total_purchases'] += $purchases;
+
+                $likes = Like_books::where('book_id', $book->id)
+                    ->whereDate('created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['likes'][] = $likes;
+                $purchaseStats['total_likes'] += $likes;
+
+                $cmt = bookcomment::where('book_id', $book->id)
+                    ->whereDate('created_at', $currentDate)
+                    ->count();
+
+                $purchaseStats['comments'][] = $cmt;
+                $purchaseStats['total_comments'] += $cmt;
+
+                $views = $book->whereDate('updated_at', $currentDate)->sum('view');
+
+                $purchaseStats['views'][] = $views;
+                $purchaseStats['total_views'] += $views;
+            }
         }
         return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
@@ -463,15 +504,18 @@ class BookController extends Controller
             $user->likedBooks()->detach($id->id);
             $id->like -= 1;
         } else {
-            $user->likedBooks()->attach($id->id);
+            $user->likedBooks()->attach($id->id, ['created_at' => now(), 'updated_at' => now()]);
             $id->like += 1;
+
+            event(new StoryFollowed($id, $user));
         }
         $id->save();
 
-        event(new StoryFollowed($id, $user));
-
+        // event(new StoryFollowed($id, $user));
         return redirect()->back();
     }
+
+
     public function showUserHistory($bookId)
     {
         $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])

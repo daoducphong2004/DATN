@@ -61,7 +61,8 @@
                     <div class="daily-recent_views">
                         <header class="title">
                             <span class="top-tab_title title-active"><i class="fas fa-trophy"></i> Nổi bật</span>
-                            <span class="top-tab_title"><a href="/danh-sach?truyendich=1&sapxep=topthang">Top tháng</a></span>
+                            <span class="top-tab_title"><a href="/danh-sach?truyendich=1&sapxep=topthang">Top
+                                    tháng</a></span>
                             <span class="top-tab_title"><a href="/danh-sach?truyendich=1&sapxep=top">Toàn t/gian</a></span>
                         </header>
                         <script>
@@ -101,23 +102,26 @@
                         </header>
                         <main>
                             {{-- bắt đầu bài thảo luận đơn --}}
-                            <div class="topic-item">
-                                <div class="row">
-                                    <div class="col-9 line-ellipsis">
-                                        <i class="fas fa-circle" style="color: #1ee865; margin-right: 4px;"></i>
-                                        <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2572581&amp;reply_id=2573000#ln-comment-2573000"
-                                            title="Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0">
-                                            Hỏi Truyện từ A&gt;Z. Góc chat nhảm cho con dân Hako 3.0
-                                        </a>
-                                    </div>
-                                    <div class="col-3 topic-data text-right">
-                                        <time class="timeago" title="31-08-2024 07:18:30"
-                                            datetime="2024-08-31T07:18:30+07:00"></time>
+                            @foreach ($data_forum_home as $item_forum_home)
+                                <div class="topic-item">
+                                    <div class="row">
+                                        <div class="col-9 line-ellipsis">
+                                            <i class="fas fa-circle"
+                                                style="color: {{ $item_forum_home->color }}; margin-right: 4px;"></i>
+                                            <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2572581&amp;reply_id=2573000#ln-comment-2573000"
+                                                title="{{ $item_forum_home->title }}">
+                                                {{ $item_forum_home->title }}
+                                            </a>
+                                        </div>
+                                        <div class="col-3 topic-data text-right">
+                                            <time class="timeago" title="{{ $item_forum_home->created_at }}"
+                                                datetime="{{ $item_forum_home->created_at }}"></time>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                             {{-- kết thúc thảo luận đơn --}}
-                            
+
                         </main>
                     </section>
                     {{-- Lịch sử truyện vừa đọc --}}
@@ -132,39 +136,39 @@
                                 {{-- Phần hiển thị cho màn hình mobile --}}
                                 <div class="d-lg-none">
                                     @if (empty($readingHistories))
-                                    <p>Chưa có lịch sử đọc!</p>
-                                @else
-                                    @foreach ($readingHistories as $chapter)
-                                        {{-- {{ dd($chapter) }} --}}
-                                        @if (auth()->check())
-                                            @php
-                                                // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
-                                                $book = $chapter->book; // Lấy book tương ứng
-                                            @endphp
-                                        @else
-                                            @php
-                                                // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
-                                                $episode = $chapter->episode; // Lấy episode tương ứng
-                                                $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
-                                            @endphp
-                                        @endif
+                                        <p>Chưa có lịch sử đọc!</p>
+                                    @else
+                                        @foreach ($readingHistories as $chapter)
+                                            {{-- {{ dd($chapter) }} --}}
+                                            @if (auth()->check())
+                                                @php
+                                                    // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
+                                                    $book = $chapter->book; // Lấy book tương ứng
+                                                @endphp
+                                            @else
+                                                @php
+                                                    // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
+                                                    $episode = $chapter->episode; // Lấy episode tương ứng
+                                                    $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                                @endphp
+                                            @endif
 
-                                        <div class="row ml-1 mb-3">
-                                            <div class="col-2 col-md-1 col-lg-2 a6-ratio">
-                                                <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
+                                            <div class="row ml-1 mb-3">
+                                                <div class="col-2 col-md-1 col-lg-2 a6-ratio">
+                                                    <div class="img-contain-ratio content"
+                                                        style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
+                                                    </div>
+                                                </div>
+                                                <div class="col-8 col-md-9 col-lg-8">
+                                                    <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
+                                                        class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
+                                                    <div class="small mb-3 text-truncate">Web Novel</div>
+                                                    <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
+                                                        class="text-truncate block">{{ $chapter->title }}</a>
                                                 </div>
                                             </div>
-                                            <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
-                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
-                                                <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
-                                                    class="text-truncate block">{{ $chapter->title }}</a>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
+                                        @endforeach
+                                    @endif
                                 </div>
 
                             </main>
@@ -191,7 +195,8 @@
                                 {{-- Bắt đầu truyện đơn --}}
                                 <div class="thumb-item-flow col-4 col-md-3 col-lg-2 type-original ">
                                     <div class="thumb-wrapper ln-tooltip">
-                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
+                                        <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                            title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
                                                     data-bg="{{ asset(Storage::url($item->book->book_path)) }}">
@@ -200,7 +205,8 @@
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="{{ $item->title }}">
-                                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                                    title="{{ $item->title }}">
                                                     {{ $item->title }}
                                                 </a>
                                             </div>
@@ -254,12 +260,14 @@
                                             title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio lazyload"
-                                                    data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}"></div>
+                                                    data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}">
+                                                </div>
                                             </div>
                                         </a>
                                         <div class="thumb-detail">
                                             <div class="thumb_attr chapter-title" title="Chap 54: Em ấy đã quên"><a
-                                                    href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">{{ $item->title }}</a></div>
+                                                    href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                                    title="{{ $item->title }}">{{ $item->title }}</a></div>
                                             <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                         </div>
                                     </div>
@@ -311,18 +319,21 @@
                                         {{-- {{ dd($history) }} --}}
                                         @if (auth()->check())
                                             @php
-                                               $episode = $history->episode; // Lấy episode tương ứng
-                                               $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
-                                               $chapter = $history->chapter;
-
-                                           @endphp
+                                                $episode = $history->episode; // Lấy episode tương ứng
+                                                $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                                $chapter = $history->chapter;
+                                            @endphp
                                         @else
                                             @php
                                                 // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
                                                 $episode = $history->episode; // Lấy episode tương ứng
                                                 $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
+                                            @endphp
+                                        @endif
 
-                                          @endphp
+                                        {{-- Kiểm tra nếu book hoặc chapter có title trống thì bỏ qua mục này --}}
+                                        @if (empty($book->title) || empty($chapter->title))
+                                            @continue
                                         @endif
 
                                         <div class="row ml-1 mb-3">
@@ -341,6 +352,7 @@
                                         </div>
                                     @endforeach
                                 @endif
+
                             </main>
                         </section>
                     </div>
@@ -350,11 +362,11 @@
                             <span class="sts-bold">Bình luận</span><span class="sts-empty">gần đây</span>
                         </header>
                         <main class="sect-body pr-5">
-                            @foreach($bookComments as $comment)
+                            @foreach ($bookComments as $comment)
                                 <div class="comment-item-at-index">
                                     <div class="comment-info">
                                         <span class="series-name"><a
-                                            href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
+                                                href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
                                         </span>
                                         <div class="comment-content">
                                             {{ $comment->content }}
@@ -362,13 +374,14 @@
 
                                         <div class="comment-top">
                                             <div class="comment-user_ava">
-                                                <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
+                                                <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
                                                     <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
                                                         alt="Commenter's avatar">
                                                 </a>
                                             </div>
-                                            <a href="{{ route('user.books',['userId' => $comment->user->id]) }}"
-                                                rel="nofollow" class="comment-user_name strong">{{ $comment->user->username }}</a>
+                                            <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}"
+                                                rel="nofollow"
+                                                class="comment-user_name strong">{{ $comment->user->username }}</a>
                                             <small class="comment-location">
                                                 <a href="#">
                                                     <time class="timeago" datetime="{{ $comment->created_at }}">
@@ -419,10 +432,10 @@
                                                         <h4 class="series-title text-xl font-bold"><a
                                                                 href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
                                                         </h4>
-                                                        <div class="series-summary">{{ $item->description }}</div>
+                                                        <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                                                                                    <small>cánh cửa thứ nhất</small>-->
+                                                                                                        <small>cánh cửa thứ nhất</small>-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -446,21 +459,24 @@
                             </header>
                             <main>
                                 {{-- truyện top bắt đầu( chỉ có 3 truyện top mới có ảnh) --}}
-                                
-                                @foreach($theodoi_nhieu as $index => $item)
+
+                                @foreach ($theodoi_nhieu as $index => $item)
                                     <div class="rank-circle-item">
                                         <span class="rank-number">{{ $index + 1 }}</span>
                                         <div class="series-detail clear">
-                                            @if($index < 3 && $item->book_path) <!-- Chỉ hiển thị ảnh cho 3 truyện đầu tiên -->
+                                            @if ($index < 3 && $item->book_path)
+                                                <!-- Chỉ hiển thị ảnh cho 3 truyện đầu tiên -->
                                                 <div class="series-cover">
                                                     <div class="a6-ratio">
-                                                        <div class="content img-in-ratio" style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
+                                                        <div class="content img-in-ratio"
+                                                            style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             @endif
                                             <h5 class="series-title">
-                                                <a href="{{ route('truyen.truyen', $item->slug) }}" title="{{ $item->title }}">
+                                                <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                                    title="{{ $item->title }}">
                                                     {{ $item->title }}
                                                 </a>
                                             </h5>
@@ -547,7 +563,8 @@
                         {{-- truyện bắt đầu ( ở đây sẽ lấy chapter cuối) --}}
                         <div class="thumb-item-flow thumb-slider">
                             <div class="thumb-wrapper">
-                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}" title="{{ $item->title }}">
+                                <a href="{{ route('truyen.chuong', ['slug' => $item->book->slug, 'chapter_slug' => $item->slug]) }}"
+                                    title="{{ $item->title }}">
                                     <div class="a6-ratio">
                                         <div class="content img-in-ratio lazyload"
                                             data-bg="{{ asset(Storage::url($item->book->book_path ?? 'img/nocover.jpg')) }}">
@@ -561,8 +578,9 @@
                                     <div class="thumb_attr volume-title">{{ $item->book->title }}</div>
                                 </div>
                             </div>
-                            <div class="thumb_attr series-title"><a href="{{route('truyen.truyen', $item->slug)}}"
-                                    title="{{ $item->title}}">{{ $item->title}}</a></div>
+                            <div class="thumb_attr series-title"><a
+                                    href="{{ route('truyen.truyen', $item->book->slug) }}"
+                                    title="{{ $item->book->title }}">{{ $item->book->title }}</a></div>
                         </div>
                         {{-- truyện kết thúc --}}
                     @endforeach
@@ -570,8 +588,8 @@
 
                     <div class="thumb-item-flow see-more">
                         <div class="thumb-wrapper">
-                            <div class="a6-ratio">									
-                                <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');"></div>																		
+                            <div class="a6-ratio">
+                                <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');"></div>
                             </div>
                             <a href="/danh-sach?truyendich=1&amp;hoanthanh=1&amp;sapxep=capnhat">
                                 <div class="thumb-see-more">

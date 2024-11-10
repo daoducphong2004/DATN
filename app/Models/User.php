@@ -7,10 +7,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory;
+    use SoftDeletes;
+    use Notifiable;
 
     protected $fillable = [
         'username',
@@ -26,8 +29,6 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
-
-    // Quan hệ với các mô hình khác
     public function books()
     {
         return $this->hasMany(Book::class);
@@ -45,24 +46,22 @@ class User extends Authenticatable
 
     public function likedBooks()
     {
-        return $this->belongsToMany(Book::class, 'like_books');
+        return $this->belongsToMany(book::class, 'like_books');
     }
 
     public function group()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class, 'group');
     }
-
     public function comments()
     {
-        return $this->hasMany(BookComment::class);
+        return $this->hasMany(bookcomment::class);
     }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
-
     public function readingHistories()
     {
         return $this->hasMany(ReadingHistory::class);
@@ -72,37 +71,33 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
-
     public function countPurchasedChapters()
     {
         return $this->purchasedStories()->count();
     }
-
     public function author()
     {
         return $this->hasOne(Author::class);
     }
-
     public function hasPurchased($chapterId)
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
-
+    // Quan hệ để lấy các truyện mà user được chia sẻ quyền
     public function sharedBooks()
     {
         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
     }
-
     public function contract()
     {
         return $this->hasOne(Contract::class);
     }
-
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
     }
-
-    // Thêm kiểm tra tồn tại của thông báo trong database
-
+    public function bookmarks()
+    {
+        return $this->HasMany(Bookmarks::class);
+    }
 }

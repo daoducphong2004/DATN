@@ -167,14 +167,28 @@
             expires: 365
         });
     });
+    $(document).ready(function() {
+        // Iterate over each bookmark in the list
+        $("#bookmarks_list li").each(function() {
+            var linepr = $(this).data("line"); // Get data-line value from the li
+            console.log(linepr);
 
-    $("#bookmarks_list li").each(function() {
-        var linepr = $(this).data("line");
-        var preview = $(".reading-content p#" + linepr).text();
+            // Find the corresponding paragraph based on the linepr
+            var element = $(".reading-content #" + linepr); // Select the element with the given ID
 
-        var shortText = preview.trim().substring(0, 30) + "...";
-        $(this).find(".pos_bookmark small").text(shortText);
+            if (element.length > 0) {
+                var preview = element.text(); // Get the text content of the element
+                var shortText = preview.trim().substring(0, 30) +
+                "..."; // Trim and shorten text if too long
+                $(this).find(".pos_bookmark small").text(
+                shortText); // Update the small element with the short text
+            } else {
+                console.log("Không tìm thấy phần tử với id " + linepr);
+            }
+        });
     });
+
+
 
     $('div#chapter-content').html(
         $('div#chapter-content').html().replace(
@@ -291,7 +305,7 @@
 
             // Xác nhận mua chương
             if (confirm('Bạn có chắc chắn muốn mua chương "' + title + '" với giá ' + price +
-                ' coin?')) {
+                    ' coin?')) {
                 $.ajax({
                     url: url,
                     type: 'POST',

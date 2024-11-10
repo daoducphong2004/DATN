@@ -5,10 +5,38 @@
     Danh sách yêu cầu quyền tác giả
 @endsection
 
+@push('styles')
+    <style>
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        .table th {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            font-size: 1.2rem;
+        }
+
+        .table img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            margin: 2px;
+        }
+    </style>
+@endpush
+
 @section('content')
     @auth
         <div class="p-4" style="min-height: 800px;">
-            <h2 class="text-primary mb-4">Danh sách yêu cầu quyền tác giả</h2>
+            <h2 class="text-primary mb-4">Danh Sách Yêu Cầu Quyền Tác Giả</h2>
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -19,7 +47,7 @@
                 </div>
             @endif
 
-            <table class="table table-bordered">
+            <table id="author-request" class="table">
                 <thead>
                     <tr>
                         <th>Họ tên</th>
@@ -67,12 +95,13 @@
                             </td>
                             <td>
                                 @if ($request->is_approve == 'pending')
-                                        <span class="badge badge-warning">Đang chờ duyệt</span>
-                                    @elseif($request->is_approve == 'accepted')
-                                        <span class="badge badge-success" style="background-color: rgb(127, 253, 65)">Đã chấp nhận</span>
-                                    @elseif($request->is_approve == 'rejected')
-                                        <span class="badge badge-danger" style="background-color: red">Đã từ chối</span>
-                                    @endif
+                                    <span class="badge badge-warning">Đang chờ duyệt</span>
+                                @elseif($request->is_approve == 'accepted')
+                                    <span class="badge badge-success" style="background-color: rgb(127, 253, 65)">Đã chấp
+                                        nhận</span>
+                                @elseif($request->is_approve == 'rejected')
+                                    <span class="badge badge-danger" style="background-color: red">Đã từ chối</span>
+                                @endif
                                 {{-- @if ($request->is_approve == 'pending')
                                     <span class="badge badge-warning">Đang chờ duyệt</span>
                                 @elseif($request->is_approve == 'accepted')
@@ -87,12 +116,14 @@
                                     <form action="{{ route('accept_request', $request->id) }}" method="POST"
                                         class="d-inline-block">
                                         @csrf
-                                        <button type="submit" class="btn btn-success" onclick="return confirm('Bạn có chắc muốn xác nhận?')">Chấp nhận</button>
+                                        <button type="submit" class="btn btn-success"
+                                            onclick="return confirm('Bạn có chắc muốn xác nhận?')">Chấp nhận</button>
                                     </form>
                                     <form action="{{ route('reject_request', $request->id) }}" method="POST"
                                         class="d-inline-block mt-1">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn từ chối?')">Từ chối</button>
+                                        <button type="submit" class="btn btn-danger"
+                                            onclick="return confirm('Bạn có chắc muốn từ chối?')">Từ chối</button>
                                     </form>
                                 @else
                                     <span class="text-muted">Đã hoàn thành</span>

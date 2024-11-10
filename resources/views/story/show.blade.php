@@ -326,7 +326,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -455,27 +455,72 @@
                             const purchaseStatisticsChart = new Chart(ctx, {
                                 type: 'line',
                                 data: {
-                                    labels: ['Số lượt mua', 'Yêu thích', 'Bình luận', 'Lượt xem'],
-                                    datasets: [{
-                                        label: 'Thống kê',
-                                        data: [
-                                            {{ $purchaseStats['total_purchases'] }},
-                                            {{ $purchaseStats['total_likes'] }},
-                                            {{ $purchaseStats['total_comments'] }},
-                                            {{ $purchaseStats['total_views'] ?? 0 }}
-                                        ],
-                                        borderColor: '#00c0ef',
-                                        backgroundColor: 'rgba(0, 192, 239, 0.5)',
-                                        pointBackgroundColor: 'red',
-                                        borderWidth: 2,
-                                        pointRadius: 5
-                                    }]
+                                    labels: @json($purchaseStats['dates']), // Mảng các ngày
+                                    datasets: [
+                                        {
+                                            label: 'Số lượt mua',
+                                            data: @json($purchaseStats['purchases']), // Dữ liệu số lượt mua theo ngày
+                                            borderColor: '#FF6384',
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            pointBackgroundColor: '#FF6384',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Yêu thích',
+                                            data: @json($purchaseStats['likes']), // Dữ liệu yêu thích theo ngày
+                                            borderColor: '#36A2EB',
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            pointBackgroundColor: '#36A2EB',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Bình luận',
+                                            data: @json($purchaseStats['comments']), // Dữ liệu bình luận theo ngày
+                                            borderColor: '#FFCE56',
+                                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                            pointBackgroundColor: '#FFCE56',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Lượt xem',
+                                            data: @json($purchaseStats['views']), // Dữ liệu lượt xem theo ngày
+                                            borderColor: '#4BC0C0',
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            pointBackgroundColor: '#4BC0C0',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        }
+                                    ]
                                 },
                                 options: {
                                     responsive: true,
                                     plugins: {
                                         legend: {
                                             display: true
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Ngày'
+                                            },
+                                            grid: {
+                                                display: true
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Số lượng'
+                                            },
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true
+                                            }
                                         }
                                     }
                                 }
@@ -514,24 +559,26 @@
                     @php
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
-
-                    @if (!$allChaptersPurchased)
-                        <form style="width: 100%; text-align: center"
-                            action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
-                            onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả chương trong truyện với giá {{ $totalPrice }}?');">
-                            @csrf
-                            <button
-                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
-                                type="submit" class="btn btn-primary">
-                                Mua tất cả chương trong truyện với giá
-                            </button>
-                            <a
-                                style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                {{ $totalPrice }}
-                            </a>
-                            <br><br>
-                        </form>
+                    @if (Auth::id() != $book->user_id)
+                        @if (!$allChaptersPurchased)
+                            <form style="width: 100%; text-align: center"
+                                action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả chương trong truyện với giá {{ $totalPrice }}?');">
+                                @csrf
+                                <button
+                                    style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
+                                    type="submit" class="btn btn-primary">
+                                    Mua tất cả chương trong truyện với giá
+                                </button>
+                                <a
+                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                    {{ $totalPrice }}
+                                </a>
+                                <br><br>
+                            </form>
+                        @endif
                     @endif
+
 
                     @include('story.partials.noti')
 
@@ -545,17 +592,19 @@
                                 <span class="sect-title" style="flex-grow: 1; margin-right: 10px;">
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
-                                <span class="buy-all-button">
-                                    <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
-                                        style="display: inline;"
-                                        onsubmit="return confirm('Bạn có chắc chắn muốn mua chương này?');">
-                                        @csrf
-                                        <button type="submit"
-                                            style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                            Mua tất cả chương
-                                        </button>
-                                    </form>
-                                </span>
+                                @if (!$allChaptersPurchased && Auth::id() !== $item->user_id)
+                                    <span class="buy-all-button">
+                                        <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                            style="display: inline;"
+                                            onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả các chương không?');">
+                                            @csrf
+                                            <button type="submit"
+                                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                Mua tất cả chương
+                                            </button>
+                                        </form>
+                                    </span>
+                                @endif
                             </header>
 
                             <main class="d-lg-block">
@@ -655,12 +704,13 @@
                                                 });
                                             @endphp
 
-                                            @if (!$allChaptersFreeOrPurchased)
+                                            @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
                                                 <button type="submit" class="btn btn-secondary mt-3"
                                                     style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                                     Thêm các chương đã chọn vào giỏ hàng
                                                 </button>
                                             @endif
+
                                         </form>
 
 
@@ -823,7 +873,8 @@
                                                     </div>
 
                                                     <div x-show="showReplyForm"
-                                                        class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}" x-cloak>
+                                                        class="ln-comment-reply ln-comment-form mt-3"
+                                                        id="reply-form-{{ $comment->id }}" x-cloak>
                                                         <div class="ln-comment-reply ln-comment-form mt-3"
                                                             id="reply-form-{{ $comment->id }}">
                                                             @if (Auth::check())
@@ -839,7 +890,8 @@
                                                                     </div>
                                                                 </form>
                                                             @else
-                                                                <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời
+                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                            style="color: red">đăng nhập</a> để trả lời
                                                                         bình luận.</strong></p>
                                                             @endif
                                                         </div>

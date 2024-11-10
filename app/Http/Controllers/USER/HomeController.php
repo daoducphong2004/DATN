@@ -9,14 +9,18 @@ use App\Models\bookcomment;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
+use App\Models\Copyright;
 use App\Models\Forum;
 use App\Models\genre;
 use App\Models\group;
 use App\Models\Letter;
+use App\Models\Pos;
+use App\Models\PublishingCompany;
 use App\Models\ReadingHistory;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +29,8 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index1()
     {
-
         $readingHistories = [];
         $user = User::with('contract')->find(Auth::id());
 
@@ -78,7 +81,14 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
             ->take(5) // Giới hạn 5 chương mới nhất
             ->get();
-
+        $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
+            })
+            ->select('id', 'title', 'slug', 'book_id')
+            ->orderBy('created_at', 'desc')
+            ->take(17)
+            ->get();
         $chuong_moinhat = chapter::with('book')
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1);
@@ -259,7 +269,14 @@ class HomeController extends Controller
 
     public function xuatban()
     {
-        return view('home.xuatban');
+        try {
+            $publishingCompanys = PublishingCompany::paginate(10);
+            $poss = Pos::paginate(10);
+            $copyrights = Copyright::paginate(10);
+            return view('home.xuatban', compact('copyrights', 'poss', 'publishingCompanys'));
+        } catch (Exception $e) {
+            return back()->withErrors(['error' => 'Failed to load groups: ' . $e->getMessage()]);
+        }
     }
 
     // public function the_loai()

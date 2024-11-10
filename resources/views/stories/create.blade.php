@@ -29,6 +29,7 @@
                                 </div>
                             </div>
 
+
                             {{-- <div class="form-group clearfix">
                                 <label class="col-md-2 control-label pt-7 text-right">Tên khác</label>
                                 <div class="col-md-8">
@@ -161,4 +162,12 @@
                     </div>
                 </div>
             </div>
-        @endsection
+
+        </div>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $('#select-genre').select2();
+        });
+    </script>
+@endsection

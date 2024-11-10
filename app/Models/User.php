@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
-    use HasFactory;
-    use SoftDeletes;
-    use Notifiable;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
         'username',
@@ -28,6 +26,8 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
+
+    // Quan hệ với các mô hình khác
     public function books()
     {
         return $this->hasMany(Book::class);
@@ -45,22 +45,24 @@ class User extends Authenticatable
 
     public function likedBooks()
     {
-        return $this->belongsToMany(book::class, 'like_books');
+        return $this->belongsToMany(Book::class, 'like_books');
     }
 
     public function group()
     {
-        return $this->belongsTo(Group::class, 'group');
+        return $this->belongsTo(Group::class);
     }
+
     public function comments()
     {
-        return $this->hasMany(bookcomment::class);
+        return $this->hasMany(BookComment::class);
     }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
     public function readingHistories()
     {
         return $this->hasMany(ReadingHistory::class);
@@ -70,29 +72,37 @@ class User extends Authenticatable
     {
         return $this->hasMany(PurchasedStory::class);
     }
+
     public function countPurchasedChapters()
     {
         return $this->purchasedStories()->count();
     }
+
     public function author()
     {
         return $this->hasOne(Author::class);
     }
+
     public function hasPurchased($chapterId)
     {
         return $this->purchasedStories()->where('chapter_id', $chapterId)->exists();
     }
-    // Quan hệ để lấy các truyện mà user được chia sẻ quyền
+
     public function sharedBooks()
     {
         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
     }
+
     public function contract()
     {
         return $this->hasOne(Contract::class);
     }
+
     public function wallet()
     {
         return $this->hasOne(Wallet::class);
     }
+
+    // Thêm kiểm tra tồn tại của thông báo trong database
+
 }

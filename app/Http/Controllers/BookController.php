@@ -33,13 +33,13 @@ class BookController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
+    public function __construct()
+    {
 
-         // $this->middleware('auth');
+        // $this->middleware('auth');
 
-         $this->middleware('can:create')->only(['create', 'store']);
-     }
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
 
 
     public function listStories()
@@ -243,15 +243,13 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if($user->contract()->exists()){
+        if ($user->contract()->exists()) {
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));
-        }else{
-            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
-
+        } else {
+            return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
-
     }
 
     /**

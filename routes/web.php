@@ -205,6 +205,7 @@ Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+Route::post('/save-base64-image', [ChapterController::class, 'saveBase64Image']);
 
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');

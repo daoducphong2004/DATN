@@ -6,7 +6,7 @@
             document.querySelectorAll(
                 '.reading-content p, .reading-content h1, .reading-content h2, .reading-content h3, .reading-content h4, .reading-content ul li'
             )
-        ).slice(3) // Bỏ qua 3 phần tử đầu tiên
+        ).slice(2) // Bỏ qua 3 phần tử đầu tiên
         .forEach((element, index) => {
             const uniqueId = `bookmark-${index + 1 }`; // Cộng thêm 3 vào index để giữ đúng số thứ tự
             element.id = uniqueId; // Thêm thuộc tính id cho phần tử
@@ -46,7 +46,7 @@
             document.querySelectorAll(
                 '.reading-content p, .reading-content h1, .reading-content h2, .reading-content h3, .reading-content h4, .reading-content ul li'
             )
-        ).slice(3)
+        ).slice(2)
         .forEach((paragraph, index) => {
             paragraph.addEventListener('click', function() {
                 if (window.innerWidth > 979) {

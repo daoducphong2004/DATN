@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('story.layout.home.head')
+@include('home.layout.home.head')
 @include('story.partials.css')
 
 <body>
@@ -15,11 +15,11 @@
             {{ session('message') }}
         </div>
     @endif
-    @include('story.layout.home.header')
+    @include('home.layout.home.header')
 
     @yield('content')
 
-    @include('story.layout.home.footer')
+    @include('home.layout.home.footer')
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

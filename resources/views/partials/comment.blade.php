@@ -5,7 +5,7 @@
             <div class="flex gap-1 max-w-full">
                 <div class="w-[50px]">
                     <div class="mx-1 my-1">
-                        <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}" class="w-full rounded-full" />
+                        <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" class="w-full rounded-full" />
                     </div>
                 </div>
                 <div
@@ -17,7 +17,7 @@
                                     <a class="font-bold leading-6 md:leading-7 ln-username "
                                         href="">{{ $comment->user->username }}</a>
                                 </div>
-                                <div class="self-center">
+                                {{-- <div class="self-center">
                                     <div
                                         class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
                                         <img class="my-auto h-[14px]" src="/img/badge/owner.png" />
@@ -30,7 +30,7 @@
                                         <img class="my-auto h-[14px]" src="/img/badge/trans5.png" />
                                         <div class="leading-4">TRANS</div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
                                 <div @click="showReplies = !showReplies">
@@ -41,7 +41,6 @@
                         <div class="ln-comment-content long-text">
                             {{ $comment->content }}
                         </div>
-                        {{-- <div class="comment_see_more expand none">Xem thêm</div> --}}
                         <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                             <a href="#">
                                 <time class="timeago" title="22-08-2024 09:59:00" datetime="{{ $comment->created_at }}">
@@ -57,12 +56,7 @@
                                 <i class="fas fa-comment me-1"></i>
                                 <span class="likecount font-semibold">Trả lời</span>
                             </a>
-                            {{-- <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
-                                class="self-center visible-toolkit-item cursor-pointer">
-                                <i class="fas fa-comment me-1"></i>
-                                <span class="likecount font-semibold">Trả
-                                    lời</span>
-                            </a> --}}
+
                             <a href="">
                                 <span>{{ $comment->replies->count() }} đã trả lời</span>
                             </a>
@@ -73,7 +67,6 @@
 
             <div x-show="showReplyForm" class="ln-comment-reply ln-comment-form mt-3"
                 id="reply-form-{{ $comment->id }}" x-cloak>
-                {{-- @if (request('reply_to') == $comment->id) --}}
                 <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
                     @if (Auth::check())
                         <form action="{{ route('addComment', $book->id) }}" method="POST" class="reply_form">
@@ -90,7 +83,6 @@
                                 luận.</strong></p>
                     @endif
                 </div>
-                {{-- @endif --}}
             </div>
             <div x-show="showReplies" class="mt-3" x-cloak>
                 <!-- Lặp qua các replies -->

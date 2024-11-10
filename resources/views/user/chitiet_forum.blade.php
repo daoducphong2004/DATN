@@ -24,7 +24,9 @@
         </div>
         <section class="page-content basic-section">
             <header class="sect-header">
-                <span class="sect-title"><a href="/thao-luan/368-huong-dan-dang-truyen">{{$data->title}}</a></span>
+                <span class="sect-title"><a href="/thao-luan/368-huong-dan-dang-truyen">@if ($lockforum ===1)
+                                <i class="fas fa-lock"></i>
+                                @endif{{$data->title}}</a></span>
             </header>
             <main class="sect-body">
                 <div class="row">
@@ -34,7 +36,9 @@
                                 <img src="https://i.docln.net/lightnovel/users/ua1-58948009-0e87-4096-8f67-11766a67792c.jpg">
                             </div>
                             <div class="author-info">
-                                <div class="author_name"><a href="/thanh-vien/1">{{$data_user->username}}</a></div>
+                                <div class="author_name"><a href="/thanh-vien/1">
+                                
+                                {{$data_user->username}}</a></div>
                                 <div class="author_role"><span>{{$data_user->role_id}}</span></div>
                             </div>
                         </div>
@@ -58,6 +62,9 @@
                         <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                     </header>
 
+                    @if ($lockforum === 1)
+                    <p>Khóa bình luận</p>
+                    @else
                     <main class="ln-comment-body">
                         @include('user.form_comment_forum',['id' => $data->id])
                         @foreach ($data_list_forum as $comment)
@@ -110,7 +117,7 @@
                                 </div>
                             </div>
 
-                            
+
 
 
                             @foreach ($data_child_list_forum[$comment->id] as $comment_child)
@@ -180,33 +187,34 @@
 
                             @endforeach
                             @if (request('reply_to') == $comment->id)
-                        <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
-                            @if (Auth::check())
-                            <form action="{{route("cmt-child-forum",$data->id)}}" method="post">
-                                @csrf
-                                @method('POST')
-                                <div class="ln-comment-reply reply-form">
-                                    <div class="ln-comment-form"><input type="hidden" name="forum_parent_id" value="{{$comment->id}}"><textarea name="content" class="comment_reply">{{ '@' . $comment->user->username . ': ' }}</textarea>
-                                        <div class="comment_toolkit clear"><input type="submit" class="button" value="Trả lời"></div>
+                            <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
+                                @if (Auth::check())
+                                <form action="{{route("cmt-child-forum",$data->id)}}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="ln-comment-reply reply-form">
+                                        <div class="ln-comment-form"><input type="hidden" name="forum_parent_id" value="{{$comment->id}}"><textarea name="content" class="comment_reply">{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                            <div class="comment_toolkit clear"><input type="submit" class="button" value="Trả lời"></div>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            @else
-                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình
-                                    luận.</strong></p>
+                                </form>
+                                @else
+                                <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình
+                                        luận.</strong></p>
+                                @endif
+                            </div>
                             @endif
-                        </div>
-                        @endif
                             <!-- <div class="fetch_reply" data-parent="2571363">
                 Xem thêm 1 trả lời <i class="fas fa-chevron-down" style="margin-left: 4px;"></i>
             </div>
             <img class="loading" src="/img/loading.svg" style="width: auto; height: 15px; margin-left: 10px; display: none"> -->
                         </div>
                         @endforeach
-                        
+
 
     </div>
 </main>
+@endif
 
 <script>
     var token = 'jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK';

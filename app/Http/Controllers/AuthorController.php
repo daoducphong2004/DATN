@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AuthorCreated;
+use App\Events\UserCreated;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,7 +19,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $requests = Author::all();
+        $requests = Author::query()->latest('id')->paginate(10);
         return view('admin.authors.author_requests', compact('requests'));
     }
 
@@ -64,6 +67,8 @@ class AuthorController extends Controller
             'reason' => $request->reason,
         ]);
 
+        $user = Auth::user();
+        event(new AuthorCreated($user));
         return back()->with('success', 'Yêu cầu đã được gửi!');
     }
 
@@ -109,7 +114,7 @@ class AuthorController extends Controller
         $accept = Author::find($id);
 
         if ($accept) {
-            $accept->is_approved = 'accepted';
+            $accept->is_approve = 'accepted';
             $accept->save();
 
             $user = $accept->user;
@@ -127,6 +132,22 @@ class AuthorController extends Controller
                 $message->to($email, $name);
             });
 
+            $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
+
+            $admin->notifications()->where('type', 'App\Notifications\AuthorRoleNotification')->delete();
+
+
+            $admin->notifications()->create([
+                'type' => 'App\Notifications\AuthorRoleNotification',
+                'data' => [
+                    'message' => $user->username . ' đã yêu cầu được làm tác giả.',
+                    'user_id' => $user->id,
+                ],
+            ]);
+
+            $admin->notifications()->where('data->user_id', $user->id)->delete();
+
+            event(new UserCreated($user));
             return back()->with('success', 'Yêu cầu đã được chấp nhận và email đã được gửi.');
         }
 
@@ -139,8 +160,10 @@ class AuthorController extends Controller
         $rejected = Author::find($id);
 
         if ($rejected) {
-            $rejected->is_approved = 'rejected';
+            $rejected->is_approve = 'rejected';
             $rejected->save();
+
+            $user = $rejected->user;
 
             $name = $rejected->user->username;
             $email = $rejected->user->email;
@@ -149,6 +172,10 @@ class AuthorController extends Controller
                 $message->subject('Yêu cầu tác giả được chấp nhận');
                 $message->to($email, $name);
             });
+
+            $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
+
+            $admin->notifications()->where('data->user_id', $user->id)->delete();
 
             return back()->with('success', 'Yêu cầu được từ chối.');
         }

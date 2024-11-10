@@ -120,6 +120,11 @@
                     @endif
                 </li>
                 <li>
+                    {{-- @can('view-contract', Auth::user()) --}}
+                        <a href="{{ route('contracts.index') }}" style="color: #12a724">Hợp Đồng</a>
+                    {{-- @endcan --}}
+                </li>
+                <li>
                     @if(!Auth::check())
                         <a href="{{ route('login') }}" class="" style="color: rgb(242, 0, 255)"
                             onclick="alert('Bạn cần phải đăng nhập trước')">Nâng cấp</a>

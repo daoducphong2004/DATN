@@ -1,13 +1,7 @@
 @extends('home.layout.master')
 @section('content')
     <div class="page-top-group  at-index ">
-        <a href="">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('/images/banners/fbg_d.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('/images/banners/fbg_m.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+        @include('partials.banner')
     </div>
 
     <main id="mainpart" class="new-pm-page" style="min-height: 181px;">
@@ -37,7 +31,7 @@
                 @endif
 
                 <form method="post" action="{{ route('mail.send') }}">
-                    @csrf
+                    {{ csrf_field() }}
                     <div class="mail-attribute">
                         <div class="mail-attribute-name">Người nhận</div>
                         <input class="form-control mail-attribute-input" name="receive_user" size="40"

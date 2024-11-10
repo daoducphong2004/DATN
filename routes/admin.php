@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\adminContractController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
@@ -8,43 +9,25 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\PurchaseManageController;
-use App\Http\Controllers\Admin\UserGroupController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookmarksController;
-use App\Http\Controllers\BookshelvesController;
-use App\Http\Controllers\ChaptercommentController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ChapterController;
-use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\USER\HomeController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\CommentChapterController;
-use App\Models\book;
-use App\Models\chapter;
-use App\Models\episode;
-use App\Models\Forum;
-use App\Models\genre;
 
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
 Route::prefix('admin')->group(function () {
-    Route::middleware('can:access-admin')->group(function () {
+    // Route::middleware('can:access-admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         // Giao diện admin
         Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
         Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
 
 
-        Route::get('/story', [StoryController::class, 'index'])->name('story_index');
-        Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
+        // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
+        // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
         Route::get('/list-comment', [CommentController::class, 'index'])->middleware('role:super_admin,admin,mod')->name('comment_index');
         Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
@@ -63,14 +46,6 @@ Route::prefix('admin')->group(function () {
         // Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
         // Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
         // Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
-
-
-        Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');
-        Route::get('/bookshelves/create', [BookshelvesController::class, 'create'])->name('bookshelves_create');
-        Route::post('/bookshelves/store', [BookshelvesController::class, 'store'])->name('bookshelves_store');
-        Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
-        Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
-        Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 
         Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
         Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -113,28 +88,34 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/banners', BannerController::class);
 
-        Route::get('/purchase_history',[PurchaseManageController::class,'index'])->name('ListPurchaseUser');
+        Route::get('/purchase_history', [PurchaseManageController::class, 'index'])->name('ListPurchaseUser');
         Route::get('/purchase_history/{user}', [PurchaseManageController::class, 'showUserPurchasedChapters'])->name('detailPurchaseUser');
 
-        Route::get('/history/{bookId}',[StoryController::class,'showPublicationHistory'])->name('showPublicationHistory');
+        Route::get('/history/{bookId}', [StoryController::class, 'showPublicationHistory'])->name('showPublicationHistory');
+
+        //Contract (Hợp đồng)
+        Route::resource('/contracts-manage',adminContractController::class);
         // end phong
 
-    //forum
-    Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
-    Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
-    Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
-    Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
+        //forum
+        Route::get('/thao-luan', [ForumController::class, 'indexadmin'])->name('thao_luan');
+        Route::get('/updateforum/{id}/edit', [ForumController::class, 'editforum'])->name('editforum');
+        Route::put('/updateforum/{id}/update', [ForumController::class, 'updateadmin'])->name('updateadmin');
+        Route::delete('/deleteForum/{id}', [ForumController::class, 'destroy'])->name('deleteforum');
 
-    //Hòa thêm router
-    Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
-    Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
-    Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
-    Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
-    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
-    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+        //Hòa thêm router
+        Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
+        Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
+        Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
+        Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
+        Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
+        Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+    // });
+    // Báo cáo
+    Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
+    Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');
+    Route::patch('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    Route::patch('/reports/{report}/review', [ReportController::class, 'review'])->name('reports.review');
+    // end báo cáo
 
 });
-});
-
-
-

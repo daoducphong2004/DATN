@@ -58,6 +58,10 @@ Route::post('register', [AccountController::class, 'createAccount'])->name('crea
 Route::get('email', [AccountController::class, 'email']);
 Route::get('reset', [AccountController::class, 'reset']);
 
+Route::get('convert', [HomeController::class, 'convert']);
+Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sangtac', [HomeController::class, 'sangtac']);
+Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
 // Route::get('chuong', [UserController::class, 'chuong']);
@@ -92,6 +96,22 @@ Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
 // Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
+Route::get('convert', [HomeController::class, 'convert'])->name('convert');
+Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
+Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
+
+
+
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen'])->name('huongdan_dangtruyen');
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])->name('huongdan_gioithieu');
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
+
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
+Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
+Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
@@ -180,7 +200,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('/pos/delete/{id}', [PosController::class, 'destroy'])->name('pos_delete');
 });
 
-
 Route::prefix('chapter-comments')->group(function () {
     Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
     Route::get('/', [ChaptercommentController::class, 'index'])->name('chapter_comments_index');
@@ -233,7 +252,6 @@ Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class
 
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');
-
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
@@ -243,16 +261,11 @@ Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
 
-
-
 Route::middleware(['auth'])->group(function () {
-
     //Hợp đồng
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-
-
 
     Route::get('stories/information/{book}', function (book $book) {
         $genres = genre::pluck('id', 'name');

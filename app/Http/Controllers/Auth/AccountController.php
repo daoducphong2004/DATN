@@ -115,6 +115,7 @@ class AccountController extends Controller
 
         return redirect()->route('login')->with('message', 'Đổi mật khẩu thành công!');
     }
+    
     public function register()
     {
         return view('auth.register');

@@ -32,12 +32,12 @@ class BookController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
-         // $this->middleware('auth');
+    public function __construct()
+    {
+        // $this->middleware('auth');
 
-         $this->middleware('can:create')->only(['create', 'store']);
-     }
+        $this->middleware('can:create')->only(['create', 'store']);
+    }
 
 
     public function listStories()
@@ -241,15 +241,13 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if($user->contract()->exists()){
+        if ($user->contract()->exists()) {
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));
-        }else{
-            return redirect()->route('contracts.create')->withErrors('errors','Bạn phải có hợp đồng trước khi đăng truyện');
-
+        } else {
+            return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
-
     }
 
     /**
@@ -454,7 +452,7 @@ class BookController extends Controller
         $user = Auth::user();
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!$user) {
-            return redirect()->route('login')->with('mesage', 'You must be logged in to like a book.');
+            return redirect()->route('login')->with('mesage', 'Bạn phải đăng nhập để yêu thích.');
         }
         $like = $user->likedBooks()->where('book_id', $id->id)->first();
         if ($like) {
@@ -465,7 +463,7 @@ class BookController extends Controller
             $id->like += 1;
         }
         $id->save();
-                event(new StoryFollowed($id, $user));
+        event(new StoryFollowed($id, $user));
         return redirect()->back();
     }
 

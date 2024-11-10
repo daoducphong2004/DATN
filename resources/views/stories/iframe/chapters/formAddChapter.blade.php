@@ -60,22 +60,6 @@
                                 </div>
                             </form>
 
-                            <!-- Form tải file DOCX để trích xuất nội dung -->
-                            <form id="extractForm" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="docxFile" class="col-md-2 control-label">Chọn file DOCX</label>
-                                    <div class="col-md-8">
-                                        <input type="file" name="file" id="docxFile" class="form-control-file">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-2">
-                                        <button type="submit" id="extractBtn" class="btn btn-primary">Trích xuất nội
-                                            dung</button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>

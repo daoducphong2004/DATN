@@ -41,22 +41,70 @@
     var textAlign = Cookies.get('textAlign') || 'text-justify';
 
     function setcolor(alter = true) {
-        var switcher = $(".set-color .set-input span").eq(bgcolor);
-        switcher.addClass("current");
+    // Lấy màu nền hiện tại được chọn (màu tại vị trí `bgcolor`)
+    var switcher = $(".set-color .set-input span").eq(bgcolor);
+    switcher.addClass("current");
 
-        if (alter) {
-            for (var i = 0; i < $(".set-color .set-input span").length; i++) {
-                $("#mainpart").removeClass('style-' + i);
-                $("#mainpart").removeClass('dark');
-            }
-            $("#mainpart").addClass('style-' + bgcolor);
+    if (alter) {
+        // Xóa các lớp màu nền cũ
+        for (var i = 0; i < $(".set-color .set-input span").length; i++) {
+            $("#mainpart").removeClass('style-' + i);
+            $("#mainpart").removeClass('dark');
+        }
 
-            // Manually hardcoded to dark
-            if (bgcolor >= 6) {
-                $("#mainpart").addClass('dark');
+        // Thêm lớp màu nền mới cho #mainpart
+        $("#mainpart").addClass('style-' + bgcolor);
+
+        // Lấy màu từ data-color
+        var selectedColor = $(".set-color .set-input span").eq(bgcolor).data("color"); // Lấy màu từ data-color
+        if (selectedColor) {
+            // Thay đổi màu nền cho #mainpart
+            $("#mainpart").css("background-color", selectedColor);
+
+            // Tính độ sáng của màu nền (sử dụng hàm luminance)
+            const rgb = hexToRgb(selectedColor);
+            const brightness = luminance(rgb.r, rgb.g, rgb.b);
+
+            // Dựa vào độ sáng để thay đổi màu chữ sao cho có độ tương phản tốt
+            if (brightness > 0.5) {
+                // Nền sáng -> chữ tối
+                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#000000");
+            } else {
+                // Nền tối -> chữ sáng
+                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#ffffff");
             }
         }
     }
+}
+
+// Hàm chuyển màu hex thành RGB
+function hexToRgb(hex) {
+    var r = 0, g = 0, b = 0;
+    // 3 chữ số
+    if (hex.length === 4) {
+        r = parseInt(hex[1] + hex[1], 16);
+        g = parseInt(hex[2] + hex[2], 16);
+        b = parseInt(hex[3] + hex[3], 16);
+    }
+    // 6 chữ số
+    else if (hex.length === 7) {
+        r = parseInt(hex[1] + hex[2], 16);
+        g = parseInt(hex[3] + hex[4], 16);
+        b = parseInt(hex[5] + hex[6], 16);
+    }
+    return { r: r, g: g, b: b };
+}
+
+// Hàm tính luminance (độ sáng)
+function luminance(r, g, b) {
+    const a = [r, g, b].map(function (v) {
+        v /= 255;
+        return (v <= 0.03928) ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+
 
     // This creates unsmooth experience so we only use it for select box
     function setfontfamily() {

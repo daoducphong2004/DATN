@@ -3,7 +3,7 @@
 @section('content')
 
     <body data-theme="light">
-        <div class="container">
+        <div class="container-fuild">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
@@ -51,6 +51,15 @@
 
                                 @include('layouts.TinyMCEscript')
 
+                                <!-- Nút tải ảnh -->
+                                <div class="form-group clearfix">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <label for="fileInput">Chọn ảnh</label>
+                                        <input type="file" id="fileInput" class="form-control" />
+                                        <button type="button" class="btn btn-info mt-2" id="uploadImageButton">Tải ảnh lên</button>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="col-md-10">
                                         <button type="submit" class="btn btn-primary">
@@ -65,10 +74,8 @@
                 </div>
             </div>
         </div>
+
         @include('stories.iframe.partials.scriptAjaxforChapter')
     </body>
 
-    
-    
-    
 @endsection

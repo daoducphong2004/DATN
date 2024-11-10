@@ -191,36 +191,18 @@ class StoryController extends Controller
             'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
         ]);
 
+        // Lấy thông tin về book từ episode_id
         $book = Episode::find($request->episode_id)->book()->first();
 
-        // Tính word count cho content
-        // Add IDs to <p> tags
-        $dom = new \DOMDocument();
-
-        // Thiết lập mã hóa cho DOMDocument để xử lý UTF-8
-        $dom->encoding = 'UTF-8';
-
-        // Load HTML với encoding UTF-8
-        @$dom->loadHTML(mb_convert_encoding($validatedData['content'], 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
-
-        $paragraphs = $dom->getElementsByTagName('p');
-
-        // Thêm ID cho từng <p>
-        foreach ($paragraphs as $index => $p) {
-            $p->setAttribute('id', $index + 1);
-        }
-
-        // Lưu lại nội dung HTML với các ID đã thêm
-        $contentWithIDs = $dom->saveHTML();
-
-        // Calculate word count
-        $wordCount = str_word_count(strip_tags($contentWithIDs));
+        // Tính số từ cho content (loại bỏ các thẻ HTML)
+        $contentText = strip_tags($validatedData['content']);
+        $wordCount = str_word_count($contentText);
 
         // Tạo mới chapter
         $chapter = Chapter::create([
             'title' => $validatedData['title'],
-            'content' => $contentWithIDs,
-            'slug' => '',  // Temporary slug
+            'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
+            'slug' => '',  // Temporary slug, sẽ tạo lại sau khi lưu
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
             'price' => $validatedData['price'],
@@ -230,18 +212,23 @@ class StoryController extends Controller
         // Tạo slug từ chapter_id và tiêu đề
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
-        $lastOder = $chapter->getMaxOrderByBook($chapter->episode);
-        $chapter->order = $lastOder + 1;
-        // Save the chapter again with the updated slug and order
-        // Lưu lại chapter với slug mới
+
+        // Lấy số thứ tự (order) mới cho chapter
+        $lastOrder = $chapter->getMaxOrderByBook($chapter->episode);
+        $chapter->order = $lastOrder + 1;
+
+        // Lưu lại chapter với slug và order mới
         $chapter->save();
-        // Update the word count for the book (sum of all chapters)
+
+        // Cập nhật lại số từ tổng cộng cho book
         $book->word_count += $wordCount;
         $book->save();
+
         // Điều hướng về trang chi tiết truyện
         return redirect()->route('admin_storyshow', ['id' => $book->id])
             ->with('success', 'Chương đã được thêm thành công.');
     }
+
 
 
 
@@ -372,63 +359,51 @@ class StoryController extends Controller
     }
 
     public function updateChapter(Request $request, $id)
-    {
-        // Validate dữ liệu
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'episode_id' => 'required|exists:episodes,id',
-            'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
-        ]);
+{
+    // Validate dữ liệu
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'episode_id' => 'required|exists:episodes,id',
+        'user_id' => 'required|exists:users,id',
+        'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
+    ]);
 
-        $chapter = Chapter::findOrFail($id);
-        $book = $chapter->episode->book;
+    // Tìm chapter cần cập nhật
+    $chapter = Chapter::findOrFail($id);
+    $book = $chapter->episode->book;
 
-        // Tính word count cho content
-        // Add IDs to <p> tags
-        $dom = new \DOMDocument();
-        // Thiết lập mã hóa cho DOMDocument để xử lý UTF-8
-        $dom->encoding = 'UTF-8';
-        // Load HTML với encoding UTF-8
-        @$dom->loadHTML(mb_convert_encoding($validatedData['content'], 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
-        $paragraphs = $dom->getElementsByTagName('p');
-        // Thêm ID cho từng <p>
-        foreach ($paragraphs as $index => $p) {
-            $p->setAttribute('id', $index + 1);
-        }
-        // Lưu lại nội dung HTML với các ID đã thêm
-        $contentWithIDs = $dom->saveHTML();
+    // Tính word count cho content (loại bỏ thẻ HTML)
+    $contentText = strip_tags($validatedData['content']);
+    $newWordCount = str_word_count($contentText);
+    $oldWordCount = $chapter->word_count;
 
-        // Calculate word count
-        $newWordCount = str_word_count(strip_tags($contentWithIDs));
-        $oldWordCount = $chapter->word_count;
+    // Cập nhật thông tin chapter
+    $chapter->update([
+        'title' => $validatedData['title'],
+        'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
+        'episode_id' => $validatedData['episode_id'],
+        'user_id' => $validatedData['user_id'],
+        'price' => $validatedData['price'],
+        'word_count' => $newWordCount,
+    ]);
 
-        // Cập nhật thông tin chapter
-        $chapter->update([
-            'title' => $validatedData['title'],
-            'content' => $contentWithIDs,
-            'episode_id' => $validatedData['episode_id'],
-            'user_id' => $validatedData['user_id'],
-            'price' => $validatedData['price'],
-            'word_count' => $newWordCount,
-        ]);
-
-        // Update slug nếu tiêu đề thay đổi
-        if ($chapter->isDirty('title')) {
-            $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-            $chapter->slug = $slug;
-            $chapter->save();
-        }
-
-        // Update the word count for the book (sum of all chapters)
-        $book->word_count = $book->word_count - $oldWordCount + $newWordCount;
-        $book->save();
-
-        // Điều hướng về trang chi tiết truyện
-        return redirect()->route('admin_storyshow', ['id' => $book->id])
-            ->with('success', 'Chương đã được cập nhật thành công.');
+    // Cập nhật slug nếu tiêu đề thay đổi
+    if ($chapter->isDirty('title')) {
+        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+        $chapter->slug = $slug;
+        $chapter->save();
     }
+
+    // Cập nhật lại số từ cho sách (book)
+    $book->word_count = $book->word_count - $oldWordCount + $newWordCount;
+    $book->save();
+
+    // Điều hướng về trang chi tiết truyện
+    return redirect()->route('admin_storyshow', ['id' => $book->id])
+        ->with('success', 'Chương đã được cập nhật thành công.');
+}
+
 
 
     //Destroy

@@ -38,6 +38,46 @@
 <br>
 <br>
 <script>
+    // Đảm bảo rằng TinyMCE đã được khởi tạo
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lắng nghe sự kiện khi nút tải ảnh được nhấn
+        document.getElementById("uploadImageButton").addEventListener("click", function () {
+            var fileInput = document.getElementById("fileInput");
+
+            // Kiểm tra nếu không có file nào được chọn
+            if (fileInput.files.length === 0) {
+                alert("Vui lòng chọn một file để tải lên.");
+                return;
+            }
+
+            // Tạo FormData để gửi file
+            var formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            // Gửi file lên server thông qua AJAX
+            fetch("{{ route('chapter.uploadImage') }}", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}", // Thêm CSRF token
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.location) {
+                    // Nếu upload thành công, chèn ảnh vào TinyMCE
+                    var imageUrl = data.location;
+                    var editor = tinymce.get('LN_Chapter_Content');
+                    editor.insertContent('<img src="' + imageUrl + '" alt="Uploaded Image" />');
+                } else {
+                    alert("Tải ảnh thất bại.");
+                }
+            })
+            .catch(error => {
+                alert("Có lỗi xảy ra khi tải ảnh lên.");
+            });
+        });
+    });
     function isValidImageUrl(url) {
         return new Promise((resolve) => {
             const img = new Image();
@@ -68,8 +108,8 @@
                 remove: 'all'
             }
         },
-        plugins: 'wordcount link  code fullscreen paste emoticons',
-        toolbar: 'undo redo | bold italic underline strikethrough forecolor | link | removeformat | fullscreen',
+        plugins: 'wordcount link code fullscreen paste emoticons',
+        toolbar: 'emoticons|undo redo | bold italic underline strikethrough forecolor | link | removeformat | fullscreen ',
     });
 
     document.getElementById('wordFileInput').addEventListener('change', function(event) {

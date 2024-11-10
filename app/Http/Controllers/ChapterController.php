@@ -45,8 +45,11 @@ class ChapterController extends Controller
             'price' => 'required|numeric|min:0|max:999999', // Thêm quy tắc xác thực cho price với kiểu decimal(8,2)
         ]);
 
-        // Calculate word count
-        $wordCount = str_word_count(strip_tags($contentWithIDs));
+        // Loại bỏ tất cả các thẻ HTML để chỉ lấy văn bản
+        $contentText = strip_tags($validatedData['content']);
+
+        // Tính số từ từ nội dung đã loại bỏ thẻ HTML
+        $wordCount = str_word_count($contentText);
 
         // Get the book associated with the episode
         $book = Episode::find($validatedData['episode_id'])->book()->first();
@@ -63,7 +66,7 @@ class ChapterController extends Controller
         $chapter->slug = '';
         $chapter->book_id = $book->id;
         $chapter->user_id = Auth::id();
-        $chapter->content = $contentWithIDs;
+        $chapter->content = $validatedData['content']; // Lưu nguyên nội dung gốc
         $chapter->price = $validatedData['price']; // Gán giá
         $chapter->word_count = $wordCount; // Lưu số từ
         $chapter->save();
@@ -71,10 +74,8 @@ class ChapterController extends Controller
         // Create slug from chapter_id and title
         $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->slug = $slug;
-        // Create slug from chapter_id and title
-        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        $chapter->slug = $slug;
-
+        $lastOder = $chapter->getMaxOrderByBook($chapter->episode);
+        $chapter->order = $lastOder + 1;
         // Save the chapter again with the updated slug
         $chapter->save();
 
@@ -93,16 +94,20 @@ class ChapterController extends Controller
 
     public function uploadImage(Request $request)
     {
-
+        // Kiểm tra xem có file nào được gửi lên không
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('uploads', 'public'); // lưu ảnh vào thư mục public/uploads
-            $url = Storage::url($path); // lấy đường dẫn công khai của ảnh
+            // Lưu file vào thư mục public/uploads
+            $path = $request->file('file')->store('uploads', 'public');
+            // Lấy URL công khai của file vừa lưu
+            $url = Storage::url($path);
 
-            return response()->json(['location' => $url]); // trả về JSON chứa link ảnh cho tinymce
+            // Trả về URL của ảnh dưới dạng JSON để chèn vào TinyMCE
+            return response()->json(['location' => $url]);
         }
 
         return response()->json(['error' => 'Upload failed'], 400);
     }
+
 
     // Hàm để lưu ảnh từ base64
     public function storeImageFromBase64($base64Image)
@@ -171,39 +176,17 @@ class ChapterController extends Controller
 
         // Tìm chapter cần cập nhật
         $chapter = Chapter::findOrFail($id);
-        $book = Episode::findOrFail($validatedData['episode_id']);
+        $book = Episode::findOrFail($validatedData['episode_id'])->book;
+
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
-
-
-        // Add IDs to <p> tags
-        $dom = new \DOMDocument();
-
-        // Thiết lập mã hóa cho DOMDocument để xử lý UTF-8
-        $dom->encoding = 'UTF-8';
-
-        // Load HTML với encoding UTF-8
-        @$dom->loadHTML(mb_convert_encoding($validatedData['content'], 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD | LIBXML_HTML_NOIMPLIED);
-
-        $paragraphs = $dom->getElementsByTagName('p');
-
-        // Thêm ID cho từng <p>
-        foreach ($paragraphs as $index => $p) {
-            $p->setAttribute('id', $index + 1);
-        }
-
-        // Lưu lại nội dung HTML với các ID đã thêm
-        $contentWithIDs = $dom->saveHTML();
-
-        // Lấy thông tin về episode và book liên quan
-        $book = $chapter->episode->book;
 
         // Cập nhật các thông tin của chapter
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
         $chapter->book_id = $book->id;
-        $chapter->content = $contentWithIDs;
+        $chapter->content = $validatedData['content']; // Không cần xử lý DOM
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
 
@@ -214,6 +197,7 @@ class ChapterController extends Controller
             $chapter->image = $imagePath;
         }
 
+        // Lưu chapter
         $chapter->save();
 
         // Cập nhật lại số từ tổng cộng cho sách (book)
@@ -221,9 +205,9 @@ class ChapterController extends Controller
         $book->word_count = $book->word_count - $chapter->getOriginal('word_count') + $newWordCount;
         $book->save();
 
-
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter updated successfully.');
     }
+
 
 
     /**

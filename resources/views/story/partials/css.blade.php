@@ -12,7 +12,9 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
-
+#mainpart, h1, h2, h3, h4,h5, p, span, li, div, label {
+    transition: color 0.3s ease, background-color 1s ease;
+}
 .toast-message.success {
     background-color: #4CAF50; /* Màu xanh cho thông báo thành công */
 }

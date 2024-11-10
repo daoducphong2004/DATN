@@ -31,6 +31,7 @@
             </div>
         </div>
         @include('layouts.TinyMCEscript')
+        @include('partials.importword')
 
         <!-- Hidden input để chứa episode_id -->
         <input type="hidden" name="episode_id" value="{{ $episode->id }}">

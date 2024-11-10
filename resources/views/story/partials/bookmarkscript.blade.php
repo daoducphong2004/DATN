@@ -2,8 +2,35 @@
     var chapterId = {{ $chapter->id }}
     var bookId = {{ $book->id }}
     var episodeId = {{ $episode->id }}
+    Array.from(
+            document.querySelectorAll(
+                '.reading-content p, .reading-content h1, .reading-content h2, .reading-content h3, .reading-content h4, .reading-content ul li'
+            )
+        ).slice(3) // Bỏ qua 3 phần tử đầu tiên
+        .forEach((element, index) => {
+            const uniqueId = `bookmark-${index + 1 }`; // Cộng thêm 3 vào index để giữ đúng số thứ tự
+            element.id = uniqueId; // Thêm thuộc tính id cho phần tử
+        });
+
+
 
     document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.del_bookmark').forEach(item => {
+            item.addEventListener('click', function() {
+                const bookmarkId = this.parentNode.dataset.item; // Lấy ID duy nhất của bookmark
+                const element = document.getElementById(bookmarkId); // Tìm phần tử tương ứng
+
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+
+        // Logic toast thông báo
         var toast = document.getElementById('toast-message');
         if (toast) {
             toast.classList.add('show');
@@ -15,7 +42,12 @@
         const saveBookmark = document.querySelector('.save_bookmark');
         const bookmarkData = {};
 
-        document.querySelectorAll('.reading-content p').forEach((paragraph, index) => {
+        Array.from(
+            document.querySelectorAll(
+                '.reading-content p, .reading-content h1, .reading-content h2, .reading-content h3, .reading-content h4, .reading-content ul li'
+            )
+        ).slice(3)
+        .forEach((paragraph, index) => {
             paragraph.addEventListener('click', function() {
                 if (window.innerWidth > 979) {
                     const paragraphOffsetTop = paragraph.getBoundingClientRect().top + window
@@ -23,24 +55,40 @@
                     const paragraphOffsetLeft = paragraph.getBoundingClientRect().left;
                     const containerOffsetLeft = document.querySelector('.reading-content')
                         .getBoundingClientRect().left;
+                    const bookmarkWidth = saveBookmark.offsetWidth;
 
+                    // Tính toán vị trí của saveBookmark
+                    let bookmarkRight = containerOffsetLeft - paragraphOffsetLeft;
+
+                    // Kiểm tra nếu bookmark tràn ra ngoài màn hình thì điều chỉnh lại
+                    if (bookmarkRight + bookmarkWidth > window.innerWidth) {
+                        bookmarkRight = window.innerWidth - bookmarkWidth -
+                            10; // Dịch vào 10px nếu bị tràn
+                    }
+
+                    // Cập nhật vị trí của saveBookmark
                     saveBookmark.style.height = `${paragraph.offsetHeight + 28}px`;
                     saveBookmark.style.top = `${paragraphOffsetTop}px`;
-                    saveBookmark.style.right = `${containerOffsetLeft - paragraphOffsetLeft}px`;
+                    saveBookmark.style.right = `-15px`;
+                    //Sau sẽ làm lại tính logic vị trí bookmark right
                     saveBookmark.style.display = 'block';
                 } else {
                     document.getElementById('bookmark_top').classList.toggle('on');
                     document.getElementById('rd-side_icon').classList.toggle('show');
                 }
+
                 bookmarkData.line_id = index + 1;
                 bookmarkData.book_id = {{ $book->id }};
                 bookmarkData.chapter_id = {{ $chapter->id }};
-
+                bookmarkData.bookmark_id =
+                    `bookmark-${index + 1}`; // Lưu ID duy nhất cho bookmark
             });
         });
+
+
         var isLoggedIn = @json(Auth::check());
 
-        // Save bookmark
+        // Lưu bookmark
         document.querySelector('.save_bookmark').addEventListener('click', function() {
             if (!isLoggedIn) {
                 alert("Bạn phải đăng nhập để sử dụng bookmark");
@@ -48,7 +96,7 @@
             }
 
             if (window.innerWidth > 979 && bookmarkData.line_id > 0) {
-                console.log('Data being sent:', bookmarkData); // Hiển thị dữ liệu bookmarkData
+                console.log('Dữ liệu được gửi:', bookmarkData); // Hiển thị dữ liệu bookmarkData
 
                 fetch('/chapter/bookmark', {
                         method: 'POST',
@@ -79,9 +127,10 @@
                             alert(data.message);
                         }
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => console.error('Lỗi:', error));
             }
         });
+
 
         // Delete bookmark
         document.querySelector('ul#bookmarks_list').addEventListener('click', function(event) {

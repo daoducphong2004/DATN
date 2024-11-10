@@ -115,8 +115,40 @@ class ChapterController extends Controller
 
         return response()->json(['error' => 'Upload failed'], 400);
     }
-   
-    
+
+    // Hàm để lưu ảnh từ base64
+    public function storeImageFromBase64($base64Image)
+    {
+        // Tách phần base64 và loại bỏ dữ liệu prefix
+        list($type, $data) = explode(';', $base64Image);
+        list(, $data) = explode(',', $data);
+
+        // Giải mã base64
+        $imageData = base64_decode($data);
+
+        // Tạo tên file ngẫu nhiên
+        $imageName = uniqid() . '.png'; // Bạn có thể thay đổi định dạng nếu cần
+
+        // Lưu file vào storage (public)
+        $path = 'images/' . $imageName;
+        Storage::disk('public')->put($path, $imageData);
+
+        // Trả về URL ảnh
+        return Storage::url($path);
+    }
+
+    // API xử lý yêu cầu từ frontend để lưu ảnh
+    public function saveBase64Image(Request $request)
+    {
+        // Nhận dữ liệu base64 từ frontend
+        $base64Image = $request->input('image');
+
+        // Gọi hàm lưu ảnh và nhận URL ảnh đã lưu
+        $imageUrl = $this->storeImageFromBase64($base64Image);
+
+        // Trả về URL ảnh dưới dạng JSON
+        return response()->json(['imageUrl' => $imageUrl]);
+    }
     /**
      * Display the specified resource.
      */

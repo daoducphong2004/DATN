@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
 
-                                @include('layouts.CKEditor')
+                                @include('layouts.TinyMCEscript')
 
                                 <div class="form-group">
                                     <div class="col-md-10">

@@ -158,7 +158,7 @@
                                         <input type="text" class="form-control" name="price" id='input-price' value="{{ $book->price }}">
                                     </div>
                                 </div> --}}
-                                @include('layouts.TinyMCEscript')
+                                @include('layouts.TinyMCEscriptNoImport')
 
 
 

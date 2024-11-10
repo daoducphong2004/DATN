@@ -51,9 +51,7 @@
                                     <textarea id="LN_Book_Summary" name="description">{!! $episode->description !!}</textarea>
                                 </div>
                             </div>
-
-
-                            @include('layouts.TinyMCEscript')
+                            @include('layouts.TinyMCEscriptNoImport')
 
                             <div class="form-group">
                                 <div class="col-md-10 col-md-offset-2">

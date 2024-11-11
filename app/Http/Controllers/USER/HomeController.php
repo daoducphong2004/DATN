@@ -69,19 +69,19 @@ class HomeController extends Controller
             ->get();
 
         $sangtac_moinhat = chapter::with('book')
-                            ->whereHas('book', function ($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
-                            })
-                            ->whereIn('id', function($query) {
-                                $query->select(DB::raw('MAX(id)'))
-                                      ->from('chapters')
-                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-                            })
-                            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
-                            ->take(5) // Giới hạn 5 chương mới nhất
-                            ->get();
-            $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
+            ->take(5) // Giới hạn 5 chương mới nhất
+            ->get();
+        $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
             })
@@ -90,42 +90,42 @@ class HomeController extends Controller
             ->take(17)
             ->get();
         $chuong_moinhat = chapter::with('book')
-                            ->whereHas('book', function($query) {
-                                $query->where('Is_Inspect', 1);
-                            })
-                            ->whereIn('id', function($query) {
-                                $query->select(DB::raw('MAX(id)'))
-                                      ->from('chapters')
-                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-                            })
-                            ->orderBy('created_at', 'desc')
-                            ->take(17)
-                            ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(17)
+            ->get();
 
 
         $truyen_vuadang = book::where('Is_Inspect', 1)
-                            ->orderBy('created_at', 'desc')
-                            ->take(6)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(6)
+            ->get();
 
         $theodoi_nhieu = book::where('Is_Inspect', 1)
-                            ->orderBy('like', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('like', 'desc')
+            ->take(10)
+            ->get();
 
         $truyen_dahoanthanh = chapter::with('book')
-                            ->whereHas('book', function($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('status', 3); // Thêm điều kiện lấy truyện đã hoàn thành
-                            })
-                            ->whereIn('id', function($query) {
-                                $query->select(DB::raw('MAX(id)'))
-                                      ->from('chapters')
-                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-                            })
-                            ->orderBy('created_at', 'desc')
-                            ->take(17)
-                            ->get();
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('status', 3); // Thêm điều kiện lấy truyện đã hoàn thành
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('created_at', 'desc')
+            ->take(17)
+            ->get();
 
         // dd($readingHistories);
         $data_forum_home = Forum::query()->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
@@ -162,29 +162,29 @@ class HomeController extends Controller
             ->get();
 
         $moi_cap_nhat = chapter::with('book', 'episode')
-                            ->whereHas('book', function($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('type', 2);
-                            })
-                            ->whereIn('id', function($query) {
-                                $query->select(DB::raw('MAX(id)'))
-                                      ->from('chapters')
-                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-                            })
-                            ->orderBy('updated_at', 'asc')
-                            ->paginate(10); // Lấy 10 truyện mỗi trang
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 2);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('updated_at', 'asc')
+            ->paginate(10); // Lấy 10 truyện mỗi trang
 
         $xem_nhieu = book::where('Is_Inspect', 1)
-                            ->where('type', 2)
-                            ->orderBy('view', 'desc')
-                            ->take(5)
-                            ->get();
+            ->where('type', 2)
+            ->orderBy('view', 'desc')
+            ->take(5)
+            ->get();
 
         $convert_moi = book::where('Is_Inspect', 1)
-                            ->where('type', 2)
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
-                            ->get();
+            ->where('type', 2)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
         return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat', 'xem_nhieu', 'convert_moi'));
     }
@@ -240,29 +240,29 @@ class HomeController extends Controller
             ->get();
 
         $moi_cap_nhat = chapter::with('book', 'episode')
-                            ->whereHas('book', function($query) {
-                                $query->where('Is_Inspect', 1)
-                                      ->where('type', 3);
-                            })
-                            ->whereIn('id', function($query) {
-                                $query->select(DB::raw('MAX(id)'))
-                                      ->from('chapters')
-                                      ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-                            })
-                            ->orderBy('updated_at', 'asc')
-                            ->paginate(10); // Lấy 10 truyện mỗi trang
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3);
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('updated_at', 'asc')
+            ->paginate(10); // Lấy 10 truyện mỗi trang
 
         $xem_nhieu = book::where('Is_Inspect', 1)
-                            ->where('type', 3)
-                            ->orderBy('view', 'desc')
-                            ->take(5)
-                            ->get();
+            ->where('type', 3)
+            ->orderBy('view', 'desc')
+            ->take(5)
+            ->get();
 
         $sangtac_moi = book::where('Is_Inspect', 1)
-                            ->where('type', 3)
-                            ->orderBy('created_at', 'desc')
-                            ->take(5)
-                            ->get();
+            ->where('type', 3)
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
 
         return view('home.sangtac', compact('bookComments', 'sangtac_noibat', 'moi_cap_nhat', 'xem_nhieu', 'sangtac_moi'));
     }
@@ -273,7 +273,7 @@ class HomeController extends Controller
             $publishingCompanys = PublishingCompany::paginate(10);
             $poss = Pos::paginate(10);
             $copyrights = Copyright::paginate(10);
-            return view('home.xuatban', compact('copyrights','poss','publishingCompanys'));
+            return view('home.xuatban', compact('copyrights', 'poss', 'publishingCompanys'));
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to load groups: ' . $e->getMessage()]);
         }
@@ -315,7 +315,39 @@ class HomeController extends Controller
     }
     public function lichsu()
     {
-        return view('home.lichsu');
+        $readingHistories = [];
+        $user = User::with('contract')->find(Auth::id());
+
+        if ($user) {
+            // Get reading history from the database for logged-in users
+            $readingHistories = ReadingHistory::where('user_id', $user->id)
+                ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
+                ->orderBy('last_read_at', 'desc')
+                ->take(4) // Giới hạn 4 mục gần nhất
+                ->get();
+        } else {
+            // Lấy lịch sử đọc từ cookie cho người dùng khách
+            $cookieName = 'reading_history';
+            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+
+            if (!empty($readingHistoriesFromCookie)) {
+                // Lấy ID chương từ cookie
+                $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
+
+                // Lấy các chương và bao gồm episode và book
+                $readingHistories = chapter::whereIn('id', $chapterIds)
+                    ->with(['episode.book']) // eager load episode và book
+                    ->get();
+
+                // Kiểm tra và hiển thị thông tin
+                foreach ($readingHistories as $chapter) {
+                    $episode = $chapter->episode; // Lấy episode tương ứng
+                    $book = $episode->book; // Lấy book tương ứng
+                }
+            }
+        }
+        // dd(readingHistories)
+        return view('home.lichsu', compact('readingHistories'));
     }
     public function tinnhanmoi()
     {
@@ -381,8 +413,8 @@ class HomeController extends Controller
         $role = Role::where('name', 'author')->first();
         $user = User::with('contract')->find(Auth::id());
         // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
-        if ($user->role_id == $role->id ) {
-            if ($user->contract==null) {
+        if ($user->role_id == $role->id) {
+            if ($user->contract == null) {
                 // Nếu không có hợp đồng, chuyển đến trang tạo hợp đồng
                 return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
             }

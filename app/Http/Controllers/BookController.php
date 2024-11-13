@@ -511,7 +511,7 @@ class BookController extends Controller
         }
         $id->save();
 
-        event(new StoryFollowed($id, $user));
+        // event(new StoryFollowed($id, $user));
         return redirect()->back();
     }
 

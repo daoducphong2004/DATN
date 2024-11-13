@@ -204,7 +204,8 @@ Route::prefix('action')->group(function () {
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
-Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('upload.image');
+Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('chapter.uploadImage');
+Route::post('/save-base64-image', [ChapterController::class, 'saveBase64Image']);
 
 Route::get('stories/information/{book}', function (book $book) {
     $genres = genre::pluck('id', 'name');
@@ -248,7 +249,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-    
+
 
 
     Route::get('stories/information/{book}', function (book $book) {
@@ -267,7 +268,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stories/addchapter/{episode}', function (episode $episode) {
         return view('stories.iframe.chapters.formAddChapter', compact('episode'));
     })->name('storychapter');
-    
+
 
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -295,7 +296,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Crud bookmark cho truyện
-        
+
     Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmark');
     Route::post('/chapter/bookmark', [BookmarkController::class, 'store']);
     Route::patch('/chapter/bookmark/{id}', [BookmarkController::class, 'update']);

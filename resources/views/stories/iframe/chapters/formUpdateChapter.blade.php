@@ -2,7 +2,7 @@
 @section('content')
 
     <body data-theme="light">
-        <div class="container">
+        <div class="container-fuild">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
@@ -27,6 +27,7 @@
                                     </div>
                                 </div>
                                 @include('layouts.TinyMCEscript')
+
                                 <div class="form-group clearfix">
                                     <label class="col-md-2 control-label pt-7 text-right">Giá</label>
                                     <div class="col-md-8">

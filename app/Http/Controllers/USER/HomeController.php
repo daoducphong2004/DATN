@@ -315,7 +315,39 @@ class HomeController extends Controller
     }
     public function lichsu()
     {
-        return view('home.lichsu');
+        $readingHistories = [];
+        $user = User::with('contract')->find(Auth::id());
+
+        if ($user) {
+            // Get reading history from the database for logged-in users
+            $readingHistories = ReadingHistory::where('user_id', $user->id)
+                ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
+                ->orderBy('last_read_at', 'desc')
+                ->take(4) // Giới hạn 4 mục gần nhất
+                ->get();
+        } else {
+            // Lấy lịch sử đọc từ cookie cho người dùng khách
+            $cookieName = 'reading_history';
+            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+
+            if (!empty($readingHistoriesFromCookie)) {
+                // Lấy ID chương từ cookie
+                $chapterIds = array_unique(array_column($readingHistoriesFromCookie, 'chapter_id'));
+
+                // Lấy các chương và bao gồm episode và book
+                $readingHistories = chapter::whereIn('id', $chapterIds)
+                    ->with(['episode.book']) // eager load episode và book
+                    ->get();
+
+                // Kiểm tra và hiển thị thông tin
+                foreach ($readingHistories as $chapter) {
+                    $episode = $chapter->episode; // Lấy episode tương ứng
+                    $book = $episode->book; // Lấy book tương ứng
+                }
+            }
+        }
+        // dd(readingHistories)
+        return view('home.lichsu', compact('readingHistories'));
     }
     public function tinnhanmoi()
     {

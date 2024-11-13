@@ -164,6 +164,12 @@
                                             <div>
                                                 - {!! $notification->data['message'] !!}
 
+                                                @if ($notification->type == 'App\Notifications\MonthlyRevenueNotification')
+                                                    <a class="dropdown-item" style="color: red"
+                                                        href="{{ url('/admin') }}">
+                                                        xem ngay
+                                                    </a>
+                                                @endif
                                                 @if ($notification->type == 'App\Notifications\BookPendingNotification')
                                                     <a class="dropdown-item" style="color: red"
                                                         href="{{ route('books.approval') }}">

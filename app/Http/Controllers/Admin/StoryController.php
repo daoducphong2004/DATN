@@ -188,6 +188,7 @@ class StoryController extends Controller
             'content' => 'required|string',
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
+            'book_id'=> 'required',
             'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
         ]);
 
@@ -206,6 +207,7 @@ class StoryController extends Controller
             'episode_id' => $validatedData['episode_id'],
             'user_id' => $validatedData['user_id'],
             'price' => $validatedData['price'],
+            'book_id' => $validatedData['book_id'],
             'word_count' => $wordCount,
         ]);
 

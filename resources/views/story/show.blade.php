@@ -81,7 +81,6 @@
                                 href="{{ $book->type == 1 ? '/danh-sach?truyendich=1&dangtienhanh=1&tamngung=1&hoanthanh=1&sapxep=tentruyen' : ($book->type == 2 ? '/convert' : ($book->type == 3 ? '/sang-tac' : '/loai-khong-xac-dinh')) }}">
                                 {{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
                     </div>
-
                 </div>
             </div>
         </div>

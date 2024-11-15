@@ -34,9 +34,7 @@
                         {!! $partialContent !!}
                         <div class="buy-chapter mt-4">
                             <p class="text-red-500">Bạn cần mua chương này để đọc tiếp phần còn lại.</p>
-                            <a href="javascript:void(0);"
-                                class="purchase-chapter"
-                                data-title="{{ $chapter->title }}"
+                            <a href="javascript:void(0);" class="purchase-chapter" data-title="{{ $chapter->title }}"
                                 data-price="{{ $chapter->price }}"
                                 data-url="{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}">
                                 Mua chương với giá {{ $chapter->price }} coin

@@ -232,6 +232,7 @@ Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');

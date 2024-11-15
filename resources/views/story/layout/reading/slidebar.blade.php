@@ -29,6 +29,10 @@
             <a id="rd-setting_icon" data-affect="#" class="rd_sd-button_item">
                 <i class="fas fa-font"></i>
             </a>
+            <!-- Phát Nhạc Nền Icon -->
+            <a id="rd-speak_icon" data-affect="#rd_sidebar.music-player" class="rd_sd-button_item">
+                <i class="fas fa-volume-up"></i>
+            </a>
 
             <!-- Info Icon -->
             <a id="rd-info_icon" data-affect="#rd_sidebar.chapters" class="rd_sd-button_item">
@@ -49,11 +53,12 @@
         </section>
 
 
+
         <section id="chapters" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">
                 <header class="rd_sidebar-header clear">
                     <a class="img"
-                        href="/sang-tac/19112-sau-khi-bi-the-gioi-bo-roi-toi-nhat-duoc-mot-co-gai/c142162-chuong-01"
+                        href="{{ route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->slug]) }}"
                         style="background: url('{{ asset(Storage::url($book->book_path)) }}') no-repeat"></a>
                     <div class="rd_sidebar-name">
                         <h5><a href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a></h5>
@@ -65,7 +70,7 @@
                 <ul id="chap_list" class="unstyled">
                     @foreach ($book->episodes->sortBy('order') as $item)
                         <li class="@if ($episode->id == $item->id) current @endif">
-                            <a href="{{ route('truyen.tap', [$book->slug,$item->slug]) }}">{{ $item->title }}</a>
+                            <a href="{{ route('truyen.tap', [$book->slug, $item->slug]) }}">{{ $item->title }}</a>
                         </li>
                         <!-- Hiển thị các chapter nếu đây là tập truyện hiện tại -->
                         @if ($episode->id == $item->id)
@@ -86,7 +91,37 @@
             </main>
             <div class="black-click"></div>
         </section>
+        <!-- Music Player Section -->
+        <section id="music-player" class="rd_sidebar rdtoggle">
+            <main class="rdtoggle_body">
+                <header class="rd_sidebar-header clear">
+                    <h2 class="rd_s-name">
+                        <i class="fas fa-music"></i> Phát Nhạc Nền
+                    </h2>
+                </header>
+                <div class="rd_sidebar-content">
+                    <!-- Nút để chọn file nhạc có sẵn -->
+                    <button id="play-default-music" class="btn btn-primary w-full">Phát nhạc mặc định</button>
 
+                    <!-- Input để tải lên file -->
+                    <div class="mt-4">
+                        <label for="upload-music" class="font-bold block">Tải lên nhạc:</label>
+                        <input type="file" id="upload-music" accept="audio/*" class="form-control">
+                        <button id="play-uploaded-music" disabled class="btn btn-secondary w-full mt-2">Phát nhạc đã tải
+                            lên</button>
+                    </div>
+
+                    <!-- Bộ điều khiển -->
+                    <div class="mt-4">
+                        <audio id="background-music" controls class="w-full">
+                            <source id="music-source" src="" type="audio/mp3">
+                            Trình duyệt của bạn không hỗ trợ phát âm thanh.
+                        </audio>
+                    </div>
+                </div>
+            </main>
+            <div class="black-click"></div>
+        </section>
         <section id="bookmarks" class="rd_sidebar rdtoggle">
             <main class="rdtoggle_body">
                 <div class="rd_sidebar-header">

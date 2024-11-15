@@ -137,27 +137,31 @@
 
                         <div class="col-12 col-md-6 col-lg-12">
                             {{-- Bắt đầu giới thiệu truyện --}}
-                            @foreach ($sangtac_noibat->random(1) as $item)
-                                <section class="sub-index-style sub-index-introduce">
-                                    <div class="title-wrapper">
-                                        <div class="section-title">Giới thiệu truyện</div>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                            @if ($sangtac_noibat->isNotEmpty())
+                                @foreach ($sangtac_noibat->random(1) as $item)
+                                    <section class="sub-index-style sub-index-introduce">
+                                        <div class="title-wrapper">
+                                            <div class="section-title">Giới thiệu truyện</div>
+                                        </div>
+                                        <div class="section-content">
+                                            <div class="series-cover">
+                                                <div class="a6-ratio">
+                                                    <div class="content img-in-ratio"
+                                                        style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="series-information">
+                                                <h3 class="series-title"><a
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h3>
+                                                <div class="series-summary">{!! Str::words($item->description, 33, '...') !!}</div>
+                                            </div>
                                         </div>
-                                        <div class="series-information">
-                                            <h3 class="series-title"><a
-                                                    href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h3>
-                                            <div class="series-summary">{!! Str::words($item->description, 33, '...') !!}</div>
-                                        </div>
-                                    </div>
-                                </section>
-                            @endforeach
+                                    </section>
+                                @endforeach
+                            @else
+                                
+                            @endif
                             {{-- kết thúc giới thiệu truyện --}}
 
                             <section id="recent-comments" class="index-section">

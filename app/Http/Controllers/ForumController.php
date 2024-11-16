@@ -249,7 +249,7 @@ class ForumController extends Controller
         foreach ($data_list_forum as $parentComment) {
             $childComments = ForumComment::with('user')
                 ->where('parent_id', $parentComment->id)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'asc')
                 ->get();
             $data_child_list_forum[$parentComment->id] = $childComments; // Lưu bình luận con vào mảng
         }

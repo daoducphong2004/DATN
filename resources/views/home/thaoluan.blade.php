@@ -23,7 +23,7 @@
         align-items: center;
         font-weight: 800;
         color: #097059;
-        margin-left:5px ;
+        margin-left: 5px;
         margin-right: 5px;
     }
 
@@ -61,8 +61,12 @@
                 </select>
             </form>
 
+            @if (Auth::check())
             <a class="button button-newpost button-green" href="{{ route('themthaoluan') }}"><i class="fas fa-plus"></i>
                 Thêm</a>
+            @else
+            <p style="margin-top:10px"><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để tạo thảo luận</strong></p>
+            @endif
             <!-- <ul class="board-toolkit-list">
                             <li class="b-t-l_item choosed"><a href="">Gần đây</a></li>
                             <li class="b-t-l_item"><a href="">Bài viết mới</a></li>

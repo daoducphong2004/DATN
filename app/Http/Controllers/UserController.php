@@ -108,7 +108,9 @@ class UserController extends Controller
         $countChapters = chapter::where('user_id',$userInfor->id)->count();
         $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+
         return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
+
     }
         public function purchaseHistory() {
             $user = Auth::user();

@@ -29,7 +29,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type',1) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ
@@ -56,7 +56,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type',3) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ
@@ -83,7 +83,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type',2) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ

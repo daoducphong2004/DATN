@@ -28,7 +28,8 @@
 @include('story.partials.bookmarkscript')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const defaultMusicPath = '/path/to/default-music.mp3'; // Đường dẫn tới file nhạc mặc định
+        const defaultMusicPath =
+            '{{ asset('music/30 phút nhạc Lofi Chill không lời thư giãn nhẹ nhàng .mp3') }}'; // Đường dẫn tới file nhạc mặc định
         const audioElement = document.getElementById('background-music');
         const musicSource = document.getElementById('music-source');
         const playDefaultButton = document.getElementById('play-default-music');
@@ -46,61 +47,29 @@
         uploadMusicInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                const fileURL = URL.createObjectURL(file);
-                musicSource.src = fileURL;
+                const fileURL = URL.createObjectURL(file); // Tạo URL tạm thời cho tệp
+                musicSource.src = fileURL; // Sử dụng URL tạm thời để phát nhạc
+                audioElement.load();
+                audioElement.play();
                 playUploadedButton.disabled = false;
 
-                // Phát nhạc khi nhấn nút
-                playUploadedButton.addEventListener('click', function() {
-                    audioElement.load();
-                    audioElement.play();
-                });
-            }
-        });
-    });
-    uploadMusicInput.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append('music', file);
+                // Xử lý tải tệp lên máy chủ
+                const formData = new FormData();
+                formData.append('music', file);
 
-            fetch('/upload-music', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                            'content')
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    musicSource.src = data.url;
-                    playUploadedButton.disabled = false;
-
-                    playUploadedButton.addEventListener('click', function() {
-                        audioElement.load();
-                        audioElement.play();
-                    });
-                })
-                .catch(error => console.error('Error uploading music:', error));
-        }
-    });
-    document.querySelectorAll('.rd_sd-button_item').forEach(button => {
-        button.addEventListener('click', function() {
-            // Lấy ID của sidebar mà nút ảnh hưởng
-            const targetId = this.getAttribute('data-affect');
-            const targetElement = document.querySelector(targetId);
-
-            // Đóng tất cả các sidebar khác
-            document.querySelectorAll('.rd_sidebar').forEach(el => {
-                if (el !== targetElement) {
-                    el.classList.remove('active');
-                }
-            });
-
-            // Hiển thị hoặc ẩn sidebar tương ứng
-            if (targetElement) {
-                targetElement.classList.toggle('active');
+                fetch('/upload-music', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Tệp nhạc đã được tải lên:', data.url);
+                    })
+                    .catch(error => console.error('Lỗi khi tải nhạc lên:', error));
             }
         });
     });

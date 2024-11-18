@@ -559,6 +559,8 @@
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
                     @if (Auth::id() != $book->user_id)
+                    {{-- {{ dd(!$allChaptersPurchased) }} --}}
+
                         @if (!$allChaptersPurchased)
                             <form style="width: 100%; text-align: center"
                                 action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"

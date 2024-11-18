@@ -1,8 +1,9 @@
 @extends('stories.iframe.layouts.master')
+
 @section('content')
 
     <body data-theme="light">
-        <div class="container">
+        <div class="container-fuild">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
@@ -12,12 +13,13 @@
                                 <input type="hidden" name="episode_id" value="{{ $episode->id }}">
                                 @csrf
                                 @error('error')
-                                <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                                 <div class="form-group clearfix required">
                                     <label class="col-md-2 control-label pt-7">Tiêu đề</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="title" value="{{ old('title', 'Chương  ') }}">
+                                        <input type="text" class="form-control" name="title"
+                                            value="{{ old('title', 'Chương  ') }}">
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -39,7 +41,8 @@
                                 <div class="form-group clearfix">
                                     <label class="col-md-2 control-label pt-7 text-right">Giá</label>
                                     <div class="col-md-8">
-                                        <input type="number" class="form-control" name="price" max='999999' value="{{ old('price', 0) }}">
+                                        <input type="number" class="form-control" name="price" max='999999'
+                                            value="{{ old('price', 0) }}">
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -47,6 +50,15 @@
                                 </div>
 
                                 @include('layouts.TinyMCEscript')
+
+                                <!-- Nút tải ảnh -->
+                                <div class="form-group clearfix">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <label for="fileInput">Chọn ảnh</label>
+                                        <input type="file" id="fileInput" class="form-control" />
+                                        <button type="button" class="btn btn-info mt-2" id="uploadImageButton">Tải ảnh lên</button>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <div class="col-md-10">
@@ -62,5 +74,8 @@
                 </div>
             </div>
         </div>
+
         @include('stories.iframe.partials.scriptAjaxforChapter')
-    @endsection
+    </body>
+
+@endsection

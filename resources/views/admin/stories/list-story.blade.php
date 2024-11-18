@@ -98,7 +98,7 @@
 @push('styles')
     <style>
         .table th, .table td {
-            vertical-align: middle;
+            vertical-align: middle !important;
             text-align: center;
         }
 

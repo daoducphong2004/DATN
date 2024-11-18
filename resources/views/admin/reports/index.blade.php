@@ -8,18 +8,45 @@
 @push('styles')
     <style>
         .text-success {
-            color: #28a745; /* Màu xanh lá */
+            color: #28a745;
+            /* Màu xanh lá */
             font-weight: bold;
         }
 
         .text-warning {
-            color: #ffc107; /* Màu vàng */
+            color: #ffc107;
+            /* Màu vàng */
             font-weight: bold;
         }
 
         .text-danger {
-            color: #dc3545; /* Màu đỏ */
+            color: #dc3545;
+            /* Màu đỏ */
             font-weight: bold;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+
+        .table th {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .table td {
+            font-size: 1.2rem;
+        }
+
+        .table img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btn {
+            margin: 2px;
         }
     </style>
 @endpush
@@ -57,26 +84,30 @@
                         <td>{{ implode(', ', json_decode($report->reason, true) ?? []) }}</td>
                         <td>{{ $report->description }}</td>
                         {{-- <td>{{ $report->status }}</td> --}}
-                        <td class="{{ $report->status === 'Đã duyệt' ? 'text-success' : ($report->status === 'Chờ duyệt' ? 'text-warning' : 'text-danger') }}">
+                        <td
+                            class="{{ $report->status === 'Đã duyệt' ? 'text-success' : ($report->status === 'Chờ duyệt' ? 'text-warning' : 'text-danger') }}">
                             {{ $report->status }}
                         </td>
                         <td>
                             <!-- Nút Đồng ý -->
-                            <form action="{{ route('reports.approve', $report->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('reports.approve', $report->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button class="btn btn-info" type="submit">Đồng ý</button>
                             </form>
 
                             <!-- Nút Từ chối -->
-                            <form action="{{ route('reports.reject', $report->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('reports.reject', $report->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button class="btn btn-danger" type="submit">Từ chối</button>
                             </form>
 
                             <!-- Nút Xem xét lại -->
-                            <form action="{{ route('reports.review', $report->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('reports.review', $report->id) }}" method="POST"
+                                style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button class="btn btn-warning" type="submit">Chờ duyệt</button>
@@ -96,31 +127,4 @@
             jQuery('#list-report').DataTable();
         });
     </script>
-@endpush
-@push('styles')
-    <style>
-        .table th,
-        .table td {
-            vertical-align: middle !important;
-            text-align: center;
-        }
-
-        .table th {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .table td {
-            font-size: 1.2rem;
-        }
-
-        .table img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .btn {
-            margin: 2px;
-        }
-    </style>
 @endpush

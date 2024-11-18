@@ -655,7 +655,7 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a style="margin-left: 25px;" href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>

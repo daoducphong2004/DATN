@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('forum_comments', function (Blueprint $table) {
-            if (Schema::hasColumn('forum_comments', 'title')) {
-                $table->dropColumn('title');
-            }
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('background')->nullable()->unique();
         });
     }
 
@@ -23,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('forum_comments', function (Blueprint $table) {
-            $table->string('title');
+        Schema::table('users', function (Blueprint $table) {
+
         });
     }
 };

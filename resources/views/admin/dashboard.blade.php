@@ -86,6 +86,13 @@
                             <td>{{ $bookComment }}</td>
                         </tr>
                         <tr>
+                            <td>Tổng doanh thu tác giả</td>
+                            <td>{{ $dailyRevenue }}</td>
+                            <td>{{ $monthlyRevenue }}</td>
+                            <td>{{ $yearlyRevenue }}</td>
+                            <td>{{ $totalRevenue }}</td>
+                        </tr>
+                        <tr>
                             <td>Tổng Lượt xem tuyện</td>
                             <td colspan="3">-</td>
                             <td>{{ $bookView }}</td>

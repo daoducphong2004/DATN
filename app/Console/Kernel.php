@@ -12,7 +12,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            if (now()->isLastOfMonth()) {
+                dispatch(new \App\Jobs\SendMonthlyRevenueNotification());
+            }
+        })->everyMinute();
     }
 
     /**

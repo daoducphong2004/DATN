@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ContactEmail;
 use App\Models\book;
 use App\Models\bookcomment;
 use App\Models\Bookmarks;
@@ -11,8 +10,6 @@ use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\Copyright;
 use App\Models\Forum;
-use App\Models\genre;
-use App\Models\group;
 use App\Models\Letter;
 use App\Models\Pos;
 use App\Models\PublishingCompany;
@@ -21,11 +18,11 @@ use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+
+
 
 class HomeController extends Controller
 {
@@ -69,6 +66,23 @@ class HomeController extends Controller
             ->get();
 
         $sangtac_moinhat = chapter::with('book')
+
+
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1)
+                    ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
+            })
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
+            ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
+            ->take(5) // Giới hạn 5 chương mới nhất
+            ->get();
+
+        $chuong_moinhat = chapter::with('book')
+
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1)
                     ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
@@ -83,12 +97,17 @@ class HomeController extends Controller
             ->get();
         $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
             ->whereHas('book', function ($query) {
-                $query->where('Is_Inspect', 1); // Điều kiện kiểm duyệt
+                $query->where('Is_Inspect', 1);
             })
-            ->select('id', 'title', 'slug', 'book_id')
+            ->whereIn('id', function ($query) {
+                $query->select(DB::raw('MAX(id)'))
+                    ->from('chapters')
+                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
+            })
             ->orderBy('created_at', 'desc')
             ->take(17)
             ->get();
+
         $chuong_moinhat = chapter::with('book')
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1);
@@ -101,7 +120,6 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(17)
             ->get();
-
 
         $truyen_vuadang = book::where('Is_Inspect', 1)
             ->orderBy('created_at', 'desc')
@@ -189,34 +207,7 @@ class HomeController extends Controller
         return view('home.convert', compact('bookComments', 'convert', 'moi_cap_nhat', 'xem_nhieu', 'convert_moi'));
     }
 
-    // public function danhsach(){
-    //     $genres = genre::pluck('slug', 'name');
-    //     $groups = group::pluck('id', 'name');
-    //     $data = book::query()->paginate(30);
-    //     // dd($data);
-    //     return view('home.show', compact('data', 'genres', 'groups'));
 
-    // }
-
-    // public function show(String $slug)
-    // {
-    //     $book = Book::with('genres', 'episodes', 'group')
-    //         ->where('slug', $slug)
-    //         ->firstOrFail();
-    //     $episodes = $book->episodes;
-    //     // dd($book,$episodes);
-    //     return view('home.stories', compact('book', 'episodes'));
-    // }http://datn.test/
-
-    // public function vuadang()
-    // {
-    //     return view('home.vuadang');
-    // }
-
-    // public function thaoluan()
-    // {
-    //     return view('home.thaoluan');
-    // }
     public function CDthaoluan()
     {
         return view('home.chudeThaoluan');
@@ -279,11 +270,6 @@ class HomeController extends Controller
         }
     }
 
-    // public function the_loai()
-    // {
-    //     return view('home.the_loai');
-    // }
-
     public function huongdan_dangtruyen()
     {
         return view('home.hd_dangtruyen');
@@ -298,10 +284,6 @@ class HomeController extends Controller
         return view('home.gopy');
     }
 
-    // public function search()
-    // {
-    //     return view('home.search');
-    // }
 
     public function kesach()
     {
@@ -358,7 +340,6 @@ class HomeController extends Controller
         return view('home.hopthu');
     }
 
-
     public function guitinnhan()
     {
         $userId = auth()->user()->id;
@@ -366,14 +347,9 @@ class HomeController extends Controller
         return view('home.guitinnhan', compact('sentLetters'));
     }
 
-
-
-
     public function thanhvien(string $userId)
     {
-
         $userInfor = User::findOrFail($userId);
-
         // Trả về view với dữ liệu
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         $userBooks = $userInfor->books->where('Is_Inspect', 1); // Truyện do user đăng

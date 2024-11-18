@@ -7,34 +7,14 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
-use App\Http\Controllers\Admin\ContractController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\UserGroupController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookmarksController;
-use App\Http\Controllers\BookshelvesController;
-use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\ForumController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ChapterController;
-use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\USER\HomeController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\GenreController;
-use App\Http\Controllers\BookcommentController;
-use App\Http\Controllers\CommentChapterController;
-use App\Models\book;
-use App\Models\chapter;
-use App\Models\episode;
-use App\Models\Forum;
-use App\Models\genre;
 
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
@@ -66,14 +46,6 @@ Route::prefix('admin')->group(function () {
         // Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
         // Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
         // Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
-
-
-        Route::get('/bookshelves', [BookshelvesController::class, 'index'])->name('bookshelves_index');
-        Route::get('/bookshelves/create', [BookshelvesController::class, 'create'])->name('bookshelves_create');
-        Route::post('/bookshelves/store', [BookshelvesController::class, 'store'])->name('bookshelves_store');
-        Route::get('/bookshelves/edit/{id}', [BookshelvesController::class, 'edit'])->name('bookshelves_edit');
-        Route::put('/bookshelves/update/{id}', [BookshelvesController::class, 'update'])->name('bookshelves_update');
-        Route::delete('/bookshelves/delete/{id}', [BookshelvesController::class, 'destroy'])->name('bookshelves_delete');
 
         Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
         Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -123,9 +95,6 @@ Route::prefix('admin')->group(function () {
 
         //Contract (Hợp đồng)
         Route::resource('/contracts-manage',adminContractController::class);
-
-
-
         // end phong
 
         //forum

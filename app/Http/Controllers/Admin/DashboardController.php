@@ -9,6 +9,7 @@ use App\Models\chapter;
 use App\Models\episode;
 use App\Models\Like_books;
 use App\Models\PurchasedStory;
+use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -26,7 +27,7 @@ class DashboardController extends Controller
         $like_books = Like_books::count();
         $bookView = book::sum('view');
         $bookComment = bookcomment::count();
-
+        $totalRevenue = Transaction::sum('amount');
 
 
         // Thống kê theo ngày hiện tại
@@ -37,6 +38,7 @@ class DashboardController extends Controller
         $dailyUsers = User::whereDate('created_at', Carbon::today())->count();
         $dailyStories = PurchasedStory::whereDate('created_at', Carbon::today())->count();
         $dailyBookComment = bookcomment::whereDate('created_at', Carbon::today())->count();
+        $dailyRevenue = Transaction::whereDate('created_at', Carbon::today())->sum('amount');
 
 
         // Thống kê theo tháng hiện tại
@@ -47,6 +49,7 @@ class DashboardController extends Controller
         $monthlyUsers = User::whereMonth('created_at', Carbon::now()->month)->count();
         $purchasedStories = PurchasedStory::whereMonth('created_at', Carbon::now()->month)->count();
         $purchasedBookComment = bookcomment::whereMonth('created_at', Carbon::now()->month)->count();
+        $monthlyRevenue = Transaction::whereMonth('created_at', Carbon::now()->month)->sum('amount');
 
 
         // Thống kê theo năm hiện tại
@@ -55,11 +58,9 @@ class DashboardController extends Controller
         $yearlyChapters = Chapter::whereYear('created_at', Carbon::now()->year)->count();
         $yearlyLike = Like_books::whereDate('created_at', Carbon::now())->count();
         $yearlyUsers = User::whereYear('created_at', Carbon::now()->year)->count();
-
         $yearlyStories = PurchasedStory::whereYear('created_at', Carbon::now()->year)->count();
         $yearlyBookComment = bookcomment::whereYear('created_at', Carbon::now()->year)->count();
-
-
+        $yearlyRevenue = Transaction::whereYear('created_at', Carbon::now()->year)->sum('amount');
 
 
 
@@ -95,6 +96,11 @@ class DashboardController extends Controller
             'dailyBookComment' => $dailyBookComment ?? 0,
             'purchasedBookComment' => $purchasedBookComment ?? 0,
             'yearlyBookComment' => $yearlyBookComment ?? 0,
+
+            'dailyRevenue' => $dailyRevenue ?? 0,
+            'monthlyRevenue' => $monthlyRevenue ?? 0,
+            'yearlyRevenue' => $yearlyRevenue ?? 0,
+            'totalRevenue' => $totalRevenue ?? 0,
         ]);
     }
 }

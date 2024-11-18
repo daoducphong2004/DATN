@@ -170,6 +170,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
+    Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
+    Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -215,7 +217,7 @@ Route::prefix('chapter-comments')->group(function () {
 
 //Phong
 Route::prefix('action')->group(function () {
-// Trong đây sẽ là những route có trong UserHome
+    // Trong đây sẽ là những route có trong UserHome
 
 });
 Route::resource('story', BookController::class);
@@ -251,7 +253,7 @@ Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'pu
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 
 //hiển thị nhóm
-Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');
+Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');

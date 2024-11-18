@@ -108,7 +108,7 @@
                                         <div class="col-9 line-ellipsis">
                                             <i class="fas fa-circle"
                                                 style="color: {{ $item_forum_home->color }}; margin-right: 4px;"></i>
-                                            <a href="/thao-luan/2849-hoi-truyen-tu-az-goc-chat-nham-cho-con-dan-hako-30?comment_id=2572581&amp;reply_id=2573000#ln-comment-2573000"
+                                            <a href="{{ route('chi-tiet-thao-luan', $item_forum_home->id) }}"
                                                 title="{{ $item_forum_home->title }}">
                                                 {{ $item_forum_home->title }}
                                             </a>

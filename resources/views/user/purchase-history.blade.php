@@ -21,8 +21,8 @@
                     <tr>
 
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $purchasedStory->book->title ?? 'Truyện không tồn tại' }}</td>
-                        <td>{{ $purchasedStory->chapter_id }}</td>
+                        <td><a href="{{ route('truyen.truyen',$purchasedStory->book->slug) }}">{{ $purchasedStory->book->title ?? 'Truyện không tồn tại' }}</a></td>
+                        <td><a href="{{ route('truyen.chuong',[$purchasedStory->book->slug,$purchasedStory->chapter->slug]) }}">{{ $purchasedStory->chapter->title }}</a></td>
                         <td>{{ number_format($purchasedStory->price, 0, ',', '.') }} Coin</td>
                         <td>{{ \Carbon\Carbon::parse($purchasedStory->purchase_date)->format('d/m/Y H:i') }}</td>
                     </tr>

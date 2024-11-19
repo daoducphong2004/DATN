@@ -33,6 +33,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\MusicController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\purchaseStoryController;
 use App\Http\Controllers\ReadingHistoryController;
@@ -248,7 +249,7 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 Route::get('truyen/{slug}/tap/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
-Route::get('lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
+Route::get('/lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
@@ -270,6 +271,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
     // tự động mua
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
+    //Danh sách truyệN tự động mua
+    Route::get('/auto-purchase', [AutoPurchaseController::class, 'getAutoPurchasedBooks'])->name('auto-purchased-books');
 
 
     Route::get('stories/information/{book}', function (book $book) {

@@ -20,8 +20,8 @@ class AutoPurchaseController extends Controller
 
         // Check if the user already purchased the book
         $existingPurchase = AutoPurchase::where('user_id', $userId)
-                                        ->where('book_id', $bookId)
-                                        ->first();
+            ->where('book_id', $bookId)
+            ->first();
 
         if ($existingPurchase) {
             return response()->json(['success' => false, 'message' => 'Bạn đã mua chương này rồi.']);
@@ -36,4 +36,22 @@ class AutoPurchaseController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Mua chương thành công!']);
     }
+    // Method to get books that have been auto-purchased
+    public function getAutoPurchasedBooks(Request $request)
+    {
+        $userId = Auth::id(); // Get the authenticated user's ID
+        // Retrieve auto-purchases and load related book details with pagination
+        $autoPurchases = AutoPurchase::with('book') // eager load 'book' relationship
+            ->where('user_id', $userId)
+            ->paginate(10);  // Pagination of 10 items per page
+
+        // Return the paginated list of auto-purchased books
+        return response()->json([
+            'autoPurchases' => $autoPurchases->items(),
+            'currentPage' => $autoPurchases->currentPage(),
+            'lastPage' => $autoPurchases->lastPage(),
+            'message' => 'Mua chương thành công!'
+        ]);
+    }
+
 }

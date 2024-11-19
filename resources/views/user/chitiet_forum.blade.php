@@ -25,8 +25,8 @@
         <section class="page-content basic-section">
             <header class="sect-header">
                 <span class="sect-title"><a href="/thao-luan/368-huong-dan-dang-truyen">@if ($lockforum ===1)
-                                <i class="fas fa-lock"></i>
-                                @endif{{$data->title}}</a></span>
+                        <i class="fas fa-lock"></i>
+                        @endif{{$data->title}}</a></span>
             </header>
             <main class="sect-body">
                 <div class="row">
@@ -37,8 +37,8 @@
                             </div>
                             <div class="author-info">
                                 <div class="author_name"><a href="/thanh-vien/1">
-                                
-                                {{$data_user->username}}</a></div>
+
+                                        {{$data_user->username}}</a></div>
                                 <div class="author_role"><span>{{$data_user->role_id}}</span></div>
                             </div>
                         </div>
@@ -66,7 +66,11 @@
                     <p>Khóa bình luận</p>
                     @else
                     <main class="ln-comment-body">
+                        @if (Auth::check())
                         @include('user.form_comment_forum',['id' => $data->id])
+                        @else
+                        <p style="margin-top:10px"><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để bình luận</strong></p>
+                        @endif
                         @foreach ($data_list_forum as $comment)
                         <div class="ln-comment-group">
                             <div id="ln-comment-{{$comment->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment->id}}" data-parent="{{$comment->id}}">

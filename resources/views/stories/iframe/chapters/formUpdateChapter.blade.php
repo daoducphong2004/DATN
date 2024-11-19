@@ -35,6 +35,29 @@
                                             value="{{ $chapter->price }}">
                                     </div>
                                 </div>
+                                <!-- Nút tải ảnh -->
+                                <div class="form-group clearfix" id="form-add-image">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <label for="fileInput">Chọn ảnh</label>
+                                        <input type="file" id="fileInput" class="form-control" />
+
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="imageWidth">Chiều rộng (px)</label>
+                                                <input type="number" id="imageWidth" class="form-control"
+                                                    placeholder="Nhập chiều rộng" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="imageHeight">Chiều cao (px)</label>
+                                                <input type="number" id="imageHeight" class="form-control"
+                                                    placeholder="Nhập chiều cao" />
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-info mt-3" id="uploadImageButton">Tải ảnh
+                                            lên</button>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="col-md-10">
                                         <button type="submit" class="btn btn-primary">
@@ -43,22 +66,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- Form tải file DOCX để trích xuất nội dung -->
-                            <form id="extractForm" method="POST" enctype="multipart/form-data" class="form-horizontal">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="docxFile" class="col-md-2 control-label">Chọn file DOCX</label>
-                                    <div class="col-md-8">
-                                        <input type="file" name="file" id="docxFile" class="form-control-file">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10 col-md-offset-2">
-                                        <button type="submit" id="extractBtn" class="btn btn-primary">Trích xuất nội
-                                            dung</button>
-                                    </div>
-                                </div>
-                            </form>
+
                         </div>
                     </div>
 

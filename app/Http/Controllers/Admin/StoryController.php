@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
+use App\Models\AutoPurchase;
+use App\Models\PurchasedStory;
+use App\Models\Transaction;
+use App\Models\Wallet;
+use Illuminate\Support\Facades\DB;
 use Str;
 
 class StoryController extends Controller
@@ -180,52 +185,138 @@ class StoryController extends Controller
 
         return redirect()->route('admin_storylist')->with('success', 'Episode đã được thêm thành công.');
     }
+    public function autoPurchaseForChapter($chapterId)
+    {
+        $chapter = Chapter::findOrFail($chapterId);
+
+        // Nếu chương không có phí, không cần xử lý
+        if ($chapter->price <= 0) {
+            return;
+        }
+
+        // Lấy danh sách người dùng đã bật AutoPurchase cho sách này
+        $autoPurchasers = AutoPurchase::where('book_id', $chapter->book_id)
+            ->where('status', true)
+            ->get();
+
+        foreach ($autoPurchasers as $autoPurchase) {
+            $user = $autoPurchase->user;
+
+            // Kiểm tra nếu người dùng đã mua chương này
+            $alreadyPurchased = PurchasedStory::where('user_id', $user->id)
+                ->where('chapter_id', $chapter->id)
+                ->exists();
+
+            if ($alreadyPurchased) {
+                continue;
+            }
+
+            // Kiểm tra nếu người dùng có đủ coin để mua
+            if ($user->coin_earned < $chapter->price) {
+                // Gửi thông báo nếu không đủ coin (nếu có hệ thống thông báo)
+                continue;
+            }
+
+            // Trừ coin của người dùng
+            $user->decrement('coin_earned', $chapter->price);
+
+            // Lưu thông tin mua chương vào bảng PurchasedStory
+            $purchasedStory = PurchasedStory::create([
+                'user_id' => $user->id,
+                'chapter_id' => $chapter->id,
+                'price' => $chapter->price,
+                'purchase_date' => now(),
+            ]);
+
+            // Lấy thông tin tác giả của chương
+            $author = $chapter->user;
+
+            // Kiểm tra hợp đồng của tác giả
+            $contract = $author->contract;
+            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
+
+            // Tính toán doanh thu của tác giả và nền tảng
+            $authorEarnings = $chapter->price * ($revenueShare / 100);
+
+            // Kiểm tra ví của tác giả
+            $wallet = $author->wallet;
+            if (!$wallet) {
+                $wallet = Wallet::create([
+                    'user_id' => $author->id,
+                    'balance' => 0,
+                    'currency' => 'coin'
+                ]);
+            }
+
+            // Cộng số dư vào ví của tác giả
+            $wallet->increment('balance', $authorEarnings);
+
+            // Tạo giao dịch cho tác giả
+            Transaction::create([
+                'wallet_id' => $wallet->id,
+                'purchased_story_id' => $purchasedStory->id,
+                'amount' => $authorEarnings,
+                'type' => 'credit',
+                'description' => 'Earnings from auto-purchased chapter',
+                'status' => 'completed'
+            ]);
+        }
+    }
+
     public function storeChapter(Request $request)
     {
-        // Validate dữ liệu
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'episode_id' => 'required|exists:episodes,id',
-            'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
-        ]);
+        // Bắt đầu một transaction
+        DB::transaction(function () use ($request) {
+            // Validate dữ liệu
+            $validatedData = $request->validate([
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'episode_id' => 'required|exists:episodes,id',
+                'user_id' => 'required|exists:users,id',
+                'book_id' => 'required',
+                'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
+            ]);
 
-        // Lấy thông tin về book từ episode_id
-        $book = Episode::find($request->episode_id)->book()->first();
+            // Lấy thông tin về book từ episode_id
+            $book = Episode::find($request->episode_id)->book()->first();
 
-        // Tính số từ cho content (loại bỏ các thẻ HTML)
-        $contentText = strip_tags($validatedData['content']);
-        $wordCount = str_word_count($contentText);
+            // Tính số từ cho content (loại bỏ các thẻ HTML)
+            $contentText = strip_tags($validatedData['content']);
+            $wordCount = str_word_count($contentText);
 
-        // Tạo mới chapter
-        $chapter = Chapter::create([
-            'title' => $validatedData['title'],
-            'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
-            'slug' => '',  // Temporary slug, sẽ tạo lại sau khi lưu
-            'episode_id' => $validatedData['episode_id'],
-            'user_id' => $validatedData['user_id'],
-            'price' => $validatedData['price'],
-            'word_count' => $wordCount,
-        ]);
+            // Tạo mới chapter
+            $chapter = Chapter::create([
+                'title' => $validatedData['title'],
+                'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
+                'slug' => '',  // Temporary slug, sẽ tạo lại sau khi lưu
+                'episode_id' => $validatedData['episode_id'],
+                'user_id' => $validatedData['user_id'],
+                'price' => $validatedData['price'],
+                'book_id' => $validatedData['book_id'],
+                'word_count' => $wordCount,
+            ]);
 
-        // Tạo slug từ chapter_id và tiêu đề
-        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        $chapter->slug = $slug;
+            // Tạo slug từ chapter_id và tiêu đề
+            $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+            $chapter->slug = $slug;
 
-        // Lấy số thứ tự (order) mới cho chapter
-        $lastOrder = $chapter->getMaxOrderByBook($chapter->episode);
-        $chapter->order = $lastOrder + 1;
+            // Lấy số thứ tự (order) mới cho chapter
+            $lastOrder = $chapter->getChapterCountByBook($chapter->episode->id);
+            $chapter->order = $lastOrder + 1;
 
-        // Lưu lại chapter với slug và order mới
-        $chapter->save();
+            // Lưu lại chapter với slug và order mới
+            $chapter->save();
 
-        // Cập nhật lại số từ tổng cộng cho book
-        $book->word_count += $wordCount;
-        $book->save();
+            // Cập nhật lại số từ tổng cộng cho book
+            $book->word_count += $wordCount;
+            $book->save();
+
+            // Thực hiện thanh toán tự động cho chapter (giả sử có một phương thức autoPurchaseForChapter)
+            $this->autoPurchaseForChapter($chapter->id);
+        });
 
         // Điều hướng về trang chi tiết truyện
-        return redirect()->route('admin_storyshow', ['id' => $book->id])
+        return redirect()->route('admin_storyshow', ['id' => $request->book_id])
             ->with('success', 'Chương đã được thêm thành công.');
     }
 
@@ -286,7 +377,6 @@ class StoryController extends Controller
             'user_id' => 'required|integer|exists:users,id',
             'group_id' => 'nullable|integer',
             'book_path' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Giới hạn file ảnh
-            'Is_Inspect' => 'required',
 
         ]);
 
@@ -359,50 +449,50 @@ class StoryController extends Controller
     }
 
     public function updateChapter(Request $request, $id)
-{
-    // Validate dữ liệu
-    $validatedData = $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'required|string',
-        'episode_id' => 'required|exists:episodes,id',
-        'user_id' => 'required|exists:users,id',
-        'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
-    ]);
+    {
+        // Validate dữ liệu
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'episode_id' => 'required|exists:episodes,id',
+            'user_id' => 'required|exists:users,id',
+            'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
+        ]);
 
-    // Tìm chapter cần cập nhật
-    $chapter = Chapter::findOrFail($id);
-    $book = $chapter->episode->book;
+        // Tìm chapter cần cập nhật
+        $chapter = Chapter::findOrFail($id);
+        $book = $chapter->episode->book;
 
-    // Tính word count cho content (loại bỏ thẻ HTML)
-    $contentText = strip_tags($validatedData['content']);
-    $newWordCount = str_word_count($contentText);
-    $oldWordCount = $chapter->word_count;
+        // Tính word count cho content (loại bỏ thẻ HTML)
+        $contentText = strip_tags($validatedData['content']);
+        $newWordCount = str_word_count($contentText);
+        $oldWordCount = $chapter->word_count;
 
-    // Cập nhật thông tin chapter
-    $chapter->update([
-        'title' => $validatedData['title'],
-        'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
-        'episode_id' => $validatedData['episode_id'],
-        'user_id' => $validatedData['user_id'],
-        'price' => $validatedData['price'],
-        'word_count' => $newWordCount,
-    ]);
+        // Cập nhật thông tin chapter
+        $chapter->update([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
+            'episode_id' => $validatedData['episode_id'],
+            'user_id' => $validatedData['user_id'],
+            'price' => $validatedData['price'],
+            'word_count' => $newWordCount,
+        ]);
 
-    // Cập nhật slug nếu tiêu đề thay đổi
-    if ($chapter->isDirty('title')) {
-        $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        $chapter->slug = $slug;
-        $chapter->save();
+        // Cập nhật slug nếu tiêu đề thay đổi
+        if ($chapter->isDirty('title')) {
+            $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+            $chapter->slug = $slug;
+            $chapter->save();
+        }
+
+        // Cập nhật lại số từ cho sách (book)
+        $book->word_count = $book->word_count - $oldWordCount + $newWordCount;
+        $book->save();
+
+        // Điều hướng về trang chi tiết truyện
+        return redirect()->route('admin_storyshow', ['id' => $book->id])
+            ->with('success', 'Chương đã được cập nhật thành công.');
     }
-
-    // Cập nhật lại số từ cho sách (book)
-    $book->word_count = $book->word_count - $oldWordCount + $newWordCount;
-    $book->save();
-
-    // Điều hướng về trang chi tiết truyện
-    return redirect()->route('admin_storyshow', ['id' => $book->id])
-        ->with('success', 'Chương đã được cập nhật thành công.');
-}
 
 
 

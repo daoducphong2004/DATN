@@ -38,6 +38,10 @@ class book extends Model
     {
         return $this->hasMany(chapter::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function likedBooks()
     {
         return $this->belongsToMany(Book::class, 'likes');
@@ -63,10 +67,7 @@ class book extends Model
     }
 
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
     public function groups()
     {
         return $this->belongsTo(group::class);

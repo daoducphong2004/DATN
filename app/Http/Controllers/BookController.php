@@ -11,10 +11,8 @@ use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\genre;
 use App\Models\group;
-use App\Models\PurchasedStory;
 use App\Models\Rating;
 use App\Models\ReadingHistory;
-use App\Models\SharedBook;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -27,6 +25,7 @@ use App\Events\BookCreated;
 use App\Models\Like_books;
 use Str;
 
+
 class BookController extends Controller
 {
     /**
@@ -35,7 +34,6 @@ class BookController extends Controller
 
     public function __construct()
     {
-
         // $this->middleware('auth');
 
         $this->middleware('can:create')->only(['create', 'store']);
@@ -463,14 +461,12 @@ class BookController extends Controller
 
     public function bookLike(Book $id)
     {
-        $book = Book::find($id);
         $user = Auth::user();
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!$user) {
-            return redirect()->route('login')->with('mesage', 'You must be logged in to like a book.');
+            return redirect()->route('login')->with('mesage', 'Bạn phải đăng nhập để yêu thích.');
         }
         $like = $user->likedBooks()->where('book_id', $id->id)->first();
-
         if ($like) {
             $user->likedBooks()->detach($id->id);
             $id->like -= 1;

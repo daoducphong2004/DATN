@@ -11,6 +11,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -23,6 +24,44 @@ class UserController extends Controller
             return back()->withErrors(['error' => 'Failed to load User: ' . $e->getMessage()]);
         }
     }
+
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $user = User::findOrFail($id);
+        // Xử lý lưu ảnh
+        $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        // Xóa ảnh cũ nếu có
+        if ($user->avatar_url) {
+            Storage::disk('public')->delete($user->avatar_url);
+        }
+        $user->avatar_url = $avatarPath;
+        $user->save();
+        return response()->json(['message' => 'Avatar updated successfully']);
+    }
+
+
+    public function updateBackground(Request $request, $id)
+    {
+        $request->validate([
+            'background' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $user = User::findOrFail($id);
+        // Xử lý lưu ảnh nền
+        $backgroundPath = $request->file('background')->store('backgrounds', 'public');
+        // Xóa ảnh nền cũ nếu có
+        if ($user->background) {
+            Storage::disk('public')->delete($user->background);
+        }
+        $user->background = $backgroundPath;
+        $user->save();
+        return response()->json(['message' => 'Background updated successfully']);
+    }
+
+
 
     public function create()
     {
@@ -117,4 +156,8 @@ class UserController extends Controller
             $purchasedStories = $user->purchasedStories()->with('chapter')->get();
             return view('user.purchaseHistory', compact('purchasedStories'));
         }
+
+
+
+
 }

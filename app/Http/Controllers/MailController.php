@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMailRequest;
 use App\Models\Letter;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 
-use function Laravel\Prompts\alert;
 
 class MailController extends Controller
 {
@@ -40,12 +39,12 @@ class MailController extends Controller
             Letter::create([
                 'title' => $title,
                 'content' => $content,
-                'receiver_id' => $receiverId, 
+                'receiver_id' => $receiverId,
                 'sender_id' => $userCurrentId,
             ]);
 
             return back()->with('success', 'Gửi mail thành công!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return back()->withErrors('Lỗi khi gửi mail: ' . $e->getMessage());
         }
     }

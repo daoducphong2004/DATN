@@ -165,13 +165,22 @@
                                                                 <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
-
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="catalog-icon side-feature-button">
                                                         <span class="block feature-value"><i class="fas fa-list"></i></span>
                                                         <span class="block feature-name">Mục lục</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <div class="catalog-icon side-feature-button">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-cart-plus"></i></span>
+                                                        <span class="block feature-name">
+                                                            <button onclick="autoPurchase({{ $book->id }})"
+                                                                class="btn btn-primary">Mua tự động</button>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -188,7 +197,8 @@
                                                     </label>
                                                 </div>
                                                 <!-- Hộp thoại báo cáo -->
-                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
+                                                <div id="reportModal" class="report-modal"
+                                                    onclick="closeOutsideBox(event)">
                                                     <div class="report-modal-content">
                                                         <span class="report-close"
                                                             onclick="toggleReportBox()">&times;</span>
@@ -319,7 +329,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -449,8 +459,7 @@
                                 type: 'line',
                                 data: {
                                     labels: @json($purchaseStats['dates']), // Mảng các ngày
-                                    datasets: [
-                                        {
+                                    datasets: [{
                                             label: 'Số lượt mua',
                                             data: @json($purchaseStats['purchases']), // Dữ liệu số lượt mua theo ngày
                                             borderColor: '#FF6384',
@@ -553,7 +562,7 @@
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
                     @if (Auth::id() != $book->user_id)
-                    {{-- {{ dd(!$allChaptersPurchased) }} --}}
+                        {{-- {{ dd(!$allChaptersPurchased) }} --}}
 
                         @if (!$allChaptersPurchased)
                             <form style="width: 100%; text-align: center"
@@ -633,7 +642,8 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a style="margin-left: 25px;"
+                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
@@ -1015,6 +1025,30 @@
                     console.error('Error:', error);
                     alert('Có lỗi xảy ra.');
                 });
+        }
+    </script>
+    <script>
+        function autoPurchase(bookId) {
+            // Make an AJAX call to the backend to handle auto purchase
+            fetch('/auto-purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        book_id: bookId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đăng ký tự động mua thành công!');
+                    } else {
+                        alert('Đã đăng ký tự động mua truyện này rồi');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 @endsection

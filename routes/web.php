@@ -9,9 +9,9 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AutoPurchaseController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
-use App\Http\Controllers\BookshelvesController;
 use App\Http\Controllers\ChaptercommentController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\GroupController;
@@ -21,22 +21,18 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
-use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UserController as ControllersUserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\CopyrightController;
-use App\Http\Controllers\FilterController;
-use App\Http\Controllers\ForumCommentController;
-use App\Http\Controllers\ForumController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\PublishingCompanyController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CommentBookController;
-use App\Http\Controllers\CommentChapterController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\FilterController;
+use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\purchaseStoryController;
 use App\Http\Controllers\ReadingHistoryController;
@@ -68,6 +64,14 @@ Route::get('vuadang', [HomeController::class, 'vuadang']);
 Route::get('sangtac', [HomeController::class, 'sangtac']);
 Route::get('xuatban', [HomeController::class, 'xuatban']);
 
+// Route::get('gioithieu', [UserController::class, 'gioithieu']);
+// Route::get('chuong', [UserController::class, 'chuong']);
+
+Route::get('convert', [HomeController::class, 'convert'])->name('convert');
+// Route::get('vuadang', [HomeController::class, 'vuadang']);
+Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
+Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
+
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
@@ -78,6 +82,19 @@ Route::get('bookmark', [HomeController::class, 'bookmark']);
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
 Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+
+Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen'])->name('huongdan_dangtruyen');
+Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])->name('huongdan_gioithieu');
+Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
+
+// Route::get('search', [HomeController::class, 'search']);
+Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
+Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
+Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
+Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
+Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
+// Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
 Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
@@ -152,6 +169,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
+    Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
+    Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -197,7 +216,7 @@ Route::prefix('chapter-comments')->group(function () {
 
 //Phong
 Route::prefix('action')->group(function () {
-// Trong đây sẽ là những route có trong UserHome
+    // Trong đây sẽ là những route có trong UserHome
 
 });
 Route::resource('story', BookController::class);
@@ -235,7 +254,7 @@ Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 
 //hiển thị nhóm
-Route::get('/nhom-dich/{slug}',[GroupController::class,'showU'])->name('group.showU');
+Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
 Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
@@ -249,7 +268,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-
+    // tự động mua
+    Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
 
 
     Route::get('stories/information/{book}', function (book $book) {

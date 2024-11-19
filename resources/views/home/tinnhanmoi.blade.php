@@ -31,7 +31,7 @@
                 @endif
 
                 <form method="post" action="{{ route('mail.send') }}">
-                    @csrf
+                    {{ csrf_field() }}
                     <div class="mail-attribute">
                         <div class="mail-attribute-name">Người nhận</div>
                         <input class="form-control mail-attribute-input" name="receive_user" size="40"

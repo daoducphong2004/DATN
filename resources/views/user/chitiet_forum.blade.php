@@ -115,6 +115,14 @@
                                                     <i class="fas fa-comment me-1"></i>
                                                     <span class="likecount font-semibold">Trả lời</span>
                                                 </a>
+                                                @if (Auth::id() == $comment->user->id)
+                                                <form method="post" action="{{route('delete_forum_user',$comment->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+
+                                                </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -182,6 +190,15 @@
                                                         <i class="fas fa-comment me-1"></i>
                                                         <span class="likecount font-semibold">Trả lời</span>
                                                     </a>
+
+                                                    @if (Auth::id() == $comment_child->user->id)
+                                                    <form method="post" action="{{route('delete_forum_user',$comment_child->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+
+                                                    </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

@@ -164,12 +164,18 @@
                                         <div>
                                             - {!! $notification->data['message'] !!}
 
-                                            {{-- @if ($notification->type == 'App\Notifications\BookPendingNotification')
+                                            @if ($notification->type == 'App\Notifications\MonthlyRevenueNotification')
+                                                <a class="dropdown-item" style="color: red"
+                                                    href="{{ url('/admin') }}">
+                                                    xem ngay
+                                                </a>
+                                            @endif
+                                            @if ($notification->type == 'App\Notifications\BookPendingNotification')
                                                 <a class="dropdown-item" style="color: red"
                                                     href="{{ route('books.approval') }}">
                                                     xem ngay
                                                 </a>
-                                            @endif --}}
+                                            @endif
 
                                             @if(isset($notification->data['user_id']))
                                                 <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
@@ -280,4 +286,3 @@
     <!--<section id="nav-search"></section>-->
 </div>
 </body>
- 

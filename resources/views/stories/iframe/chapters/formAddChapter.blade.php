@@ -52,13 +52,29 @@
                                 @include('layouts.TinyMCEscript')
 
                                 <!-- Nút tải ảnh -->
-                                <div class="form-group clearfix">
+                                <div class="form-group clearfix" id="form-add-image">
                                     <div class="col-md-8 col-md-offset-2">
                                         <label for="fileInput">Chọn ảnh</label>
                                         <input type="file" id="fileInput" class="form-control" />
-                                        <button type="button" class="btn btn-info mt-2" id="uploadImageButton">Tải ảnh lên</button>
+
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                <label for="imageWidth">Chiều rộng (px)</label>
+                                                <input type="number" id="imageWidth" class="form-control"
+                                                    placeholder="Nhập chiều rộng" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="imageHeight">Chiều cao (px)</label>
+                                                <input type="number" id="imageHeight" class="form-control"
+                                                    placeholder="Nhập chiều cao" />
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-info mt-3" id="uploadImageButton">Tải ảnh
+                                            lên</button>
                                     </div>
                                 </div>
+
 
                                 <div class="form-group">
                                     <div class="col-md-10">
@@ -77,5 +93,4 @@
 
         @include('stories.iframe.partials.scriptAjaxforChapter')
     </body>
-
 @endsection

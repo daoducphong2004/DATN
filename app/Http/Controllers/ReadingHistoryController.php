@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\book;
+use App\Models\chapter;
 use Illuminate\Http\Request;
 use App\Models\ReadingHistory;
 use Illuminate\Support\Facades\Auth;
@@ -50,4 +52,39 @@ class ReadingHistoryController extends Controller
         // Option 2: Save to cache (if preferred)
         // Cache::put($cookieName, $existingHistory, now()->addDays(30));
     }
+    public function index()
+    {
+        // Check if the user is logged in
+    if (auth()->check()) {
+        // Logged-in user: Retrieve reading history from the database
+        $user = auth()->user();
+        $readingHistories = ReadingHistory::where('user_id', $user->id)
+            ->whereHas('book', function ($query) {
+                $query->where('Is_Inspect', 1);
+            })
+            ->with('book', 'chapter')
+            ->orderBy('last_read_at', 'desc')
+            ->take(4) // Limit to the latest 4 items
+            ->get();
+    } else {
+        // Guest user: Retrieve reading history from session or cookie
+        $cookieName = 'reading_history';
+        $guestReadingHistory =json_decode(Cookie::get($cookieName), true) ?? [];
+        $readingHistories = collect($guestReadingHistory)->map(function ($history) {
+            // Fetch the book and chapter details using the saved IDs
+            $book = book::where('id', $history['book_id'])->where('Is_Inspect', 1)->first();
+            $chapter = chapter::find($history['chapter_id']);
+            return [
+                'book' => $book,
+                'chapter' => $chapter,
+                'last_read_at' => $history['last_read_at'],
+            ];
+        })->filter(function ($item) {
+            return $item['book'] !== null; // Only include items where the book is found
+        })->take(4); // Limit to the latest 4 items
+    }
+    // dd( $readingHistories);
+
+    return view('home.lichsu', compact('readingHistories'));
+}
 }

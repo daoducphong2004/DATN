@@ -3,10 +3,11 @@
 <style>
     .body-btn-upload {
         display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
     }
+
     .file-upload-container {
         display: inline-block;
         padding: 10px;
@@ -39,45 +40,60 @@
 <br>
 <script>
     // Đảm bảo rằng TinyMCE đã được khởi tạo
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lắng nghe sự kiện khi nút tải ảnh được nhấn
-        document.getElementById("uploadImageButton").addEventListener("click", function () {
-            var fileInput = document.getElementById("fileInput");
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy kích thước của div chứa textarea
+        var contentDiv = document.querySelector(".form-group.clearfix.required .col-md-12");
+        var imageWidthInput = document.getElementById("imageWidth");
+        var imageHeightInput = document.getElementById("imageHeight");
 
-            // Kiểm tra nếu không có file nào được chọn
+        document.getElementById("uploadImageButton").addEventListener("click", function() {
+            var fileInput = document.getElementById("fileInput");
+            var imageWidth = document.getElementById("imageWidth").value;
+            var imageHeight = document.getElementById("imageHeight").value;
+
+            // Kiểm tra nếu không có file hoặc chiều rộng/chiều cao không hợp lệ
             if (fileInput.files.length === 0) {
                 alert("Vui lòng chọn một file để tải lên.");
                 return;
             }
+            if (!imageWidth || !imageHeight || imageWidth <= 0 || imageHeight <= 0) {
+                alert("Vui lòng nhập chiều rộng và chiều cao hợp lệ.");
+                return;
+            }
 
-            // Tạo FormData để gửi file
+            // Tạo FormData để gửi file và thông số kích thước
             var formData = new FormData();
             formData.append("file", fileInput.files[0]);
+            formData.append("width", imageWidth);
+            formData.append("height", imageHeight);
 
             // Gửi file lên server thông qua AJAX
             fetch("{{ route('chapter.uploadImage') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}", // Thêm CSRF token
-                },
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.location) {
-                    // Nếu upload thành công, chèn ảnh vào TinyMCE
-                    var imageUrl = data.location;
-                    var editor = tinymce.get('LN_Chapter_Content');
-                    editor.insertContent('<img src="' + imageUrl + '" alt="Uploaded Image" />');
-                } else {
-                    alert("Tải ảnh thất bại.");
-                }
-            })
-            .catch(error => {
-                alert("Có lỗi xảy ra khi tải ảnh lên.");
-            });
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.location) {
+                        // Chèn ảnh vào TinyMCE với kích thước được chỉ định
+                        var imageUrl = data.location;
+                        var editor = tinymce.get('LN_Chapter_Content');
+                        editor.insertContent('<img src="' + imageUrl +
+                            '" alt="Uploaded Image" style="width:' + imageWidth +
+                            'px; height:' + imageHeight + 'px;" />');
+                    } else {
+                        alert("Tải ảnh thất bại.");
+                    }
+                })
+                .catch(error => {
+                    alert("Có lỗi xảy ra khi tải ảnh lên.");
+                });
         });
     });
+
     function isValidImageUrl(url) {
         return new Promise((resolve) => {
             const img = new Image();
@@ -90,7 +106,7 @@
     tinymce.init({
         selector: 'textarea',
         inline: false,
-        height: 300,
+        height: 500,
         skin: 'oxide',
         content_css: 'default',
         branding: false,
@@ -138,16 +154,21 @@
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': csrfToken,
                                     },
                                     body: JSON.stringify({
-                                        image: base64String
-                                    })
+                                        image: base64String,
+                                    }),
                                 })
                                 .then(response => response.json())
                                 .then(data => {
                                     // Thay thế base64 bằng URL ảnh đã lưu
                                     var newImgTag = imgTag.replace(base64String, data
                                         .imageUrl);
+
+                                    // Cập nhật kích thước ảnh để phù hợp với `div` hiện tại
+                                    newImgTag = newImgTag.replace('<img',
+                                        '<img style="max-width:100%; height:auto;"');
                                     content = content.replace(imgTag, newImgTag);
                                 })
                                 .catch(error => console.error('Error uploading image:', error));

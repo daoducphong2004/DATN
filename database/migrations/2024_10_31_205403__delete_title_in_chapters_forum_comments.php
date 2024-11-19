@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('forum_comments', function (Blueprint $table) {
-            $table->dropColumn('title');
+            if (Schema::hasColumn('forum_comments', 'title')) {
+                $table->dropColumn('title');
+            }
         });
     }
 

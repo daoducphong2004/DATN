@@ -7,7 +7,6 @@ use App\Models\bookcomment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\StoryApprovalNotification;
 
 class StoryManageController extends Controller
 {
@@ -30,7 +29,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type', 1) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ
@@ -57,7 +56,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type', 3) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ
@@ -84,7 +83,7 @@ class StoryManageController extends Controller
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
             ->where('type', 2) // Điều kiện lấy truyện dịch
-            ->get();
+            ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
     // Hàm dùng để hiển thị ra danh sách truyện được chia sẻ
@@ -93,21 +92,5 @@ class StoryManageController extends Controller
         $user = Auth::user();
         $books = $user->sharedBooks->where('type', 2); // Truyện user được chia sẻ quyền
         return view('user.ListTruyenUser', compact('user', 'books'));
-    }
-    public function approveStoryNotification($genreId, $username)
-    {
-        // Tìm truyện theo genre_id
-        $story = Book::where('genre_id', $genreId)->first();
-
-        // Tìm người dùng theo username
-        $user = User::where('username', $username)->first();
-
-        // Kiểm tra nếu tồn tại cả truyện và người dùng, sau đó gửi thông báo
-        if ($story && $user) {
-            $user->notify(new StoryApprovalNotification($story));
-            return redirect()->back()->with('success', 'Thông báo duyệt truyện đã được gửi.');
-        }
-
-        return redirect()->back()->with('error', 'Không tìm thấy truyện hoặc người dùng.');
     }
 }

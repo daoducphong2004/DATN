@@ -39,6 +39,10 @@ class book extends Model
     {
         return $this->hasMany(chapter::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function likedBooks()
     {
         return $this->belongsToMany(Book::class, 'likes');
@@ -46,7 +50,7 @@ class book extends Model
 
     public function totalChapterPrice()
     {
-        
+
         return $this->chapters->sum('price');
     }
     public function group()
@@ -64,10 +68,7 @@ class book extends Model
     }
 
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
     public function groups()
     {
         return $this->belongsTo(group::class);
@@ -100,17 +101,17 @@ class book extends Model
     {
         // Tổng số chương có giá trị trong tập truyện
         $totalChapters = $this->chapters()->where('price', '>', 0)->where('episode_id', $episodeId)->count();
-    
+
         // Số chương đã mua
         $purchasedChapters = $this->chapters()->where('price', '>', 0)->where('episode_id', $episodeId)
             ->whereHas('purchasedStories', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })->count();
-    
+
         // Kiểm tra xem tất cả các chương có giá trị đã được mua chưa
         return $totalChapters === $purchasedChapters;
     }
-    
+
     public function contract()
     {
         return $this->hasOne(Contract::class);

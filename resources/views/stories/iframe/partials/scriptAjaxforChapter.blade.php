@@ -27,7 +27,8 @@
                     window.parent.postMessage('form-submitted', '*');
 
                     // Xử lý sau khi thành công (ví dụ: thông báo thành công)
-                    // alert('Truyện đã được gửi thành công!');
+                    alert('Thêm chapter thành công!');
+
                 } else {
                     // Xử lý khi gửi form thất bại
                     alert('Đã xảy ra lỗi trong quá trình gửi form.');

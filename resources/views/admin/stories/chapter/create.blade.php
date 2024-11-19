@@ -6,6 +6,16 @@
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form role="form" method="POST" action="{{ route('admin_chapterstore') }}">
         @csrf
 
@@ -13,7 +23,8 @@
         <div class="form-group clearfix required">
             <label class="col-md-2 control-label pt-7 text-right">Tiêu đề Chương</label>
             <div class="col-md-8">
-                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" placeholder="Nhập tiêu đề chương">
+                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                    value="{{ old('title') }}" placeholder="Nhập tiêu đề chương">
                 @error('title')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -31,10 +42,10 @@
             </div>
         </div>
         @include('layouts.TinyMCEscript')
-        @include('partials.importword')
 
         <!-- Hidden input để chứa episode_id -->
         <input type="hidden" name="episode_id" value="{{ $episode->id }}">
+        <input type="hidden" name="book_id" value="{{ $episode->book_id }}">
         <div class="form-group clearfix">
             <label class="col-md-2 control-label pt-7 text-right">Giá</label>
             <div class="col-md-8">

@@ -12,14 +12,13 @@
     <div class="p-4" style="min-height: 800px;">
         <table class="table table-bordered">
             <thead>
-                
+
                 <tr>
                     <th>Tên người dùng</th>
                     <th>Email</th>
-                    <th>Mật khẩu</th>
-                    <th>Tên đầy đủ</th>
+                    {{-- <th>Tên đầy đủ</th>
                     <th>Giới tính</th>
-                    <th>Ngày sinh</th>
+                    <th>Ngày sinh</th> --}}
                     <th>Ảnh Đại Diện</th>
                     <th>Trạng thái</th>
                     <th>Số xu</th>
@@ -34,10 +33,9 @@
                     <tr>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->password }}</td>
-                        <td>{{ $user->full_name }}</td>
-                        <td>{{ $user->gender }}</td>
-                        <td>{{ $user->date_of_birth }}</td>
+                        {{-- <td>{{ $user->full_name }}</td> --}}
+                        {{-- <td>{{ $user->gender }}</td> --}}
+                        {{-- <td>{{ $user->date_of_birth }}</td> --}}
                         <td>
                             <img width="50px" src="{{ asset('/storage/' . $user->avatar_url) }}" alt="Không có ảnh đại diện">
                         </td>

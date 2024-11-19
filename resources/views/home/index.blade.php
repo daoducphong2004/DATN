@@ -128,7 +128,7 @@
                     <div class="d-lg-none" style="margin-top: 20px">
                         <section id="reading-history" class="index-section" x-data="{ storage: (JSON.parse(localStorage.getItem('reading_series')) || []).slice(0, 4) }">
                             <header class="section-title">
-                                <a href="https://ln.hako.vn/lich-su-doc">
+                                <a href="{{ route('lich-su') }}">
                                     <span class="sts-bold">Truyện</span><span class="sts-empty">vừa đọc</span>
                                 </a>
                             </header>

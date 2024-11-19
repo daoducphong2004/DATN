@@ -63,13 +63,7 @@
 </style>
 
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('/images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('/images/banners/fbg_m.jpg'); background-size: cover"></div>
-        </a>
-    </div>
+    @include('partials.banner')
     <main id="mainpart" class="project-page">
         <div class="container">
             <div class="row">
@@ -81,7 +75,6 @@
                                 href="{{ $book->type == 1 ? '/danh-sach?truyendich=1&dangtienhanh=1&tamngung=1&hoanthanh=1&sapxep=tentruyen' : ($book->type == 2 ? '/convert' : ($book->type == 3 ? '/sang-tac' : '/loai-khong-xac-dinh')) }}">
                                 {{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -640,23 +633,6 @@
                                                     <li>
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
-                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
-                                                            @if (
-                                                                $chapter->price > 0 &&
-                                                                    (!auth()->check() ||
-                                                                        !auth()->user()->hasPurchased($chapter->id)))
-                                                                <input type="checkbox" name="chapters[]"
-                                                                    value="{{ $chapter->id }}"
-                                                                    style="margin-right: 10px;">
-                                                            @endif
-
-                                                            {{-- Hiển thị badge "Mới" nếu chương là mới --}}
-                                                            @if ($chapter->is_new)
-                                                                <div class="new-status badge">
-                                                                    <div class="badge-item new">Mới</div>
-                                                                </div>
-                                                            @endif
-
                                                             {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
                                                             @if ($chapter->contains_image)
                                                                 <i class="fas fa-image" aria-hidden="true"
@@ -696,8 +672,19 @@
                                                                 @endif
                                                             @endif
                                                         </div>
+
+
                                                         {{-- Hiển thị thời gian tạo chương --}}
                                                         <div class="chapter-time">
+                                                             {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                         @if (
+                                                            $chapter->price > 0 &&
+                                                                (!auth()->check() ||
+                                                                    !auth()->user()->hasPurchased($chapter->id)))
+                                                            <input type="checkbox" name="chapters[]"
+                                                                value="{{ $chapter->id }}"
+                                                                style="margin-right: 10px;">
+                                                        @endif
                                                             {{ $chapter->created_at->format('d/m/Y') }}
                                                         </div>
                                                     </li>

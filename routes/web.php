@@ -79,7 +79,6 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lich-su', [HomeController::class, 'lichsu']);
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
 Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
@@ -249,9 +248,10 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 Route::get('truyen/{slug}/tap/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
-Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
+Route::get('lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');

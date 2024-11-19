@@ -21,7 +21,6 @@ class book extends Model
         'book_path',
         'description',
         'note',
-        'is_VIP',
         'adult',
         'group_id',
         'user_id',

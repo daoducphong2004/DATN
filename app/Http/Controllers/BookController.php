@@ -64,42 +64,42 @@ class BookController extends Controller
     {
         // Tìm kiếm book dựa trên slug
         $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
-    
+
         // Tăng giá trị của trường `view`
         $book->increment('view');
-    
+
         // Tăng lượt xem cho tuần và tháng
         $book->increment('views_week');
         $book->increment('views_month');
-    
+
         // Reset lượt xem theo tuần
         $this->resetWeeklyViews();
-    
+
         // Reset lượt xem theo tháng
         $this->resetMonthlyViews();
-    
+
         // Tìm kiếm chapter dựa trên chapter_slug
         $chapter = Chapter::where('slug', $chapter_slug)->firstOrFail();
-    
+
         // Lấy episode liên quan đến chapter
         $episode = $chapter->episode()->with('chapters')->firstOrFail();
-    
+
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
-    
+
         // Lấy danh sách comments cho chapter này
         $comments = ChapterComment::with('user')
             ->where('chapter_id', $chapter->id)
             ->whereNull('parent_id')->get();
-    
+
         $parentId = $request->input('parent_id');
-    
+
         // Kiểm tra xem người dùng có đăng nhập hay không
         $user = auth()->user();
         $fullContent = $chapter->content; // Nội dung đầy đủ của chương
         $partialContent = null; // Nội dung hiển thị một phần
         $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
-    
+
         // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
         if ($chapter->price > 0) {
             // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
@@ -116,13 +116,13 @@ class BookController extends Controller
             $canViewFullContent = true;
             $partialContent = $fullContent;
         }
-    
+
         // Lưu lịch sử đọc chương
         $this->storeReadingHistory($book->id, $chapter->id);
-    
+
         return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId', 'partialContent', 'fullContent', 'canViewFullContent'));
     }
-    
+
 
     /**
      * Cắt nội dung để hiển thị 2/10 nội dung.
@@ -195,35 +195,7 @@ class BookController extends Controller
     }
 
 
-    public function showReadingHistory()
-    {
-        $readingHistories = [];
-        $user = Auth::user();
 
-        if ($user) {
-            // Get reading history from the database for logged-in users
-            $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with('book', 'chapter')
-                ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
-        } else {
-            // Get reading history from cookies for guest users
-            $cookieName = 'reading_history';
-            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
-            dd($readingHistoriesFromCookie);
-            // Retrieve books/chapters from DB based on the IDs stored in the cookie
-            if (!empty($readingHistoriesFromCookie)) {
-                $readingHistories = \App\Models\Book::whereIn('id', $readingHistoriesFromCookie)
-                    ->with('chapters')
-                    ->take(4) // Limit to the latest 4 items
-                    ->get();
-            }
-        }
-
-        // Pass the reading history to the view
-        return view('reading-history', compact('readingHistories'));
-    }
 
 
 
@@ -271,7 +243,6 @@ class BookController extends Controller
             'book_path' => '',
             'description' => $request->description,
             'note' => $request->note,
-            'is_VIP' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),

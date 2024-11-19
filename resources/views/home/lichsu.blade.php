@@ -18,58 +18,85 @@
 
         <div style="text-align: center; margin: 0 auto 10px auto;">
         </div>
+
         <div class="container">
             <section class="browse-section">
                 <main class="sect-body row">
-                    @if ($readingHistories->isEmpty())
-                        <p>Chưa có lịch sử đọc!</p>
-                    @else
-                        @foreach ($readingHistories as $readingHistory)
+                    @if(Auth::check())
+                        {{-- Display reading history for logged-in users --}}
+                        @foreach($readingHistories as $history)
                             @php
-                                // Lấy episode và book từ chapter
-                                $episode = $readingHistory->episode; // Lấy episode liên quan đến chapter
-                                $book = $episode->book ?? null; // Lấy book từ episode (nếu có)
+                                $book = $history->book;
+                                $chapter = $history->chapter;
                             @endphp
-
-                            {{-- Kiểm tra nếu book hoặc chapter có title trống thì bỏ qua mục này --}}
-                            @if (empty($book) || empty($book->title) || empty($episode->title))
-                                @continue
-                            @endif
-
-                            <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                                <div class="thumb-wrapper ln-tooltip">
-                                    <a href="/truyen/{{ $book->slug ?? '' }}/{{ $episode->slug ?? '' }}" title="{{ $episode->title }}">
+                            <div class="thumb-item-flow col-4 col-lg-2">
+                                <div class="thumb-wrapper">
+                                    <a class="link at-cover" href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}" title="{{ $book->title ?? '' }}">
                                         <div class="a6-ratio">
-                                            <div class="content img-in-ratio lazyloaded"
-                                                 style="background-image: url('{{ asset(Storage::url($book->book_path ?? '')) }}');">
+                                            <div class="content img-in-ratio"
+                                                 style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
                                             </div>
                                         </div>
                                     </a>
                                     <div class="thumb-detail">
-                                        <div class="thumb_attr chapter-title" title="{{ $episode->title }}">
-                                            <a href="/truyen/{{ $book->slug ?? '' }}/{{ $episode->slug ?? '' }}"
-                                               title="{{ $episode->title }}">
-                                               {{ $episode->title }}
+                                        <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                            <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}" title="{{ $chapter->title ?? '' }}">
+                                                {{ $chapter->title ?? '' }}
                                             </a>
                                         </div>
-                                        <div class="thumb_attr volume-title">Web Novel</div>
-                                        <div class="thumb_title text-center pad-top-10" wire:click="delete({{ $readingHistory->id }})"
-                                             style="cursor: pointer">
+                                        <div class="thumb_attr volume-title"><a href="#">{{ $book->title ?? '' }}</a></div>
+                                        <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
                                             <i class="fas fa-times"></i> Xóa
                                         </div>
                                     </div>
                                 </div>
-                                <div class="thumb_attr series-title">
-                                    <a href="/truyen/{{ $book->slug ?? '' }}" title="{{ $book->title ?? '' }}">
-                                        {{ $book->title ?? '' }}
-                                    </a>
-                                </div>
+                                <div class="thumb_attr series-title"><a href="#" title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                             </div>
                         @endforeach
+                    @else
+                        {{-- Display reading history for guest users --}}
+                        @foreach($readingHistories as $history)
+                        @php
+                            $book = $history['book'];
+                            $chapter = $history['chapter'];
+                        @endphp
+                        <div class="thumb-item-flow col-4 col-lg-2">
+                            <div class="thumb-wrapper">
+                                <a class="link at-cover" href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}" title="{{ $book->title ?? '' }}">
+                                    <div class="a6-ratio">
+                                        <div class="content img-in-ratio"
+                                             style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="thumb-detail">
+                                    <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                        <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}" title="{{ $chapter->title ?? '' }}">
+                                            {{ $chapter->title ?? '' }}
+                                        </a>
+                                    </div>
+                                    <div class="thumb_attr volume-title">
+                                        <a href="{{ route('truyen.tap', ['slug' => $book->slug ?? '','episode_slug'=> $chapter->episode->slug ??'']) }}">{{ $chapter->episode->title ?? '' }}</a>
+                                    </div>
+                                    <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
+                                        <i class="fas fa-times"></i> Xóa
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thumb_attr series-title">
+                                <a href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}" title="{{ $book->title ?? '' }}">
+                                    {{ $book->title ?? '' }}
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+
                     @endif
                 </main>
             </section>
         </div>
+
+
 
 
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AutoPurchaseController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\ChaptercommentController;
@@ -267,7 +268,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-
+    // tự động mua
+    Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
 
 
     Route::get('stories/information/{book}', function (book $book) {

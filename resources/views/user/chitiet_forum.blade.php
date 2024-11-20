@@ -72,6 +72,7 @@
                         <p style="margin-top:10px"><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để bình luận</strong></p>
                         @endif
                         @foreach ($data_list_forum as $comment)
+                        @if ($comment->unview != 1)
                         <div class="ln-comment-group">
                             <div id="ln-comment-{{$comment->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment->id}}" data-parent="{{$comment->id}}">
                                 <div class="flex gap-1 max-w-full">
@@ -115,11 +116,12 @@
                                                     <i class="fas fa-comment me-1"></i>
                                                     <span class="likecount font-semibold">Trả lời</span>
                                                 </a>
-                                                @if (Auth::id() == $comment->user->id)
+
+                                                @if (Auth::id() == $comment->user->id || Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
                                                 <form method="post" action="{{route('delete_forum_user',$comment->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" style="color:red; font-family:Arial, Helvetica, sans-serif">Xóa</button>
 
                                                 </form>
                                                 @endif
@@ -134,6 +136,7 @@
 
                             @foreach ($data_child_list_forum[$comment->id] as $comment_child)
 
+                            @if ($comment_child->unview != 1)
                             <div class="ln-comment-reply">
 
                                 <div id="ln-comment-{{$comment_child->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment_child->id}}" data-parent="{{$comment->id}}">
@@ -206,6 +209,7 @@
                                 </div>
                             </div>
 
+                            @endif
                             @endforeach
                             @if (request('reply_to') == $comment->id)
                             <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
@@ -230,6 +234,7 @@
             </div>
             <img class="loading" src="/img/loading.svg" style="width: auto; height: 15px; margin-left: 10px; display: none"> -->
                         </div>
+                        @endif
                         @endforeach
 
 

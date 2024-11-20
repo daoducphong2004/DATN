@@ -307,7 +307,7 @@ class ForumController extends Controller
     public function updateadmin(UpdateForumRequest $request, string $id)
     {
         $forum = Forum::findOrFail($id);
-        $bruh = [
+        $data_update_forum = [
             'title' => $request->title,
             'content' => $request->content,
             'user_id' => $request->user_id,
@@ -317,7 +317,7 @@ class ForumController extends Controller
             'slug' => '',
             'updated_at' => Carbon::now()
         ];
-        $forum->update($bruh);
+        $forum->update($data_update_forum);
         return redirect()->route('thao_luan');
     }
     /**
@@ -326,7 +326,8 @@ class ForumController extends Controller
 
     public function delete(string $id){
         $data = ForumComment::findOrFail($id);
-        $data->delete();
+        $data->unview = 1;
+        $data->save();
         return back();
     }
     

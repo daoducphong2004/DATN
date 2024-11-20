@@ -232,6 +232,7 @@ class ForumController extends Controller
             'categories.slug as slug_categories',
             'users.username as username',
             'users.avatar_url as avt_user',
+            'users.role_id as role_id',
             'forums.id as id',
             'forums.title as title',
             'forums.content as content',

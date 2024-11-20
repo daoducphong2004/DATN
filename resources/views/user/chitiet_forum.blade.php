@@ -88,13 +88,27 @@
                                                     <div class="self-center">
                                                         <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/171126">{{$comment->user->username}}</a>
                                                     </div>
+                                                    @if ($comment->user->role_id === 1)
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
+                                                                <div class="leading-4">TRANS</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
+                                                                <div class="leading-4">MASTER</div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
                                                 </div>
                                                 <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
                                                     <div class="" @click="show = !show">
                                                         <i class="fas fa-angle-down"></i>
                                                     </div>
                                                     <div class="ln-comment-toolkit" x-show="show" @click.outside="show = false" style="display: none">
-
+                                                        
 
                                                     </div>
                                                 </div>
@@ -153,7 +167,7 @@
                                                         <div class="self-center">
                                                             <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/59827">{{$comment_child->user->username}}</a>
                                                         </div>
-                                                        @if ($comment_child->user->role_id == 1)
+                                                        @if ($comment_child->user->role_id === 1)
                                                         <div class="self-center">
                                                             <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
                                                                 <img class="my-auto h-[14px]" src="/img/badge/trans5.png">

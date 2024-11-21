@@ -174,12 +174,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <div onclick="autoPurchase({{ $book->id }})" class="catalog-icon side-feature-button">
+                                                    <div onclick="autoPurchase({{ $book->id }})"
+                                                        class="catalog-icon side-feature-button">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-cart-plus"></i></span>
                                                         <span class="block feature-name">
-                                                            <button
-                                                                class="btn btn-primary">Mua tự động</button>
+                                                            <button class="btn btn-primary">Mua tự động</button>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -197,8 +197,7 @@
                                                     </label>
                                                 </div>
                                                 <!-- Hộp thoại báo cáo -->
-                                                <div id="reportModal" class="report-modal"
-                                                    onclick="closeOutsideBox(event)">
+                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
                                                     <div class="report-modal-content">
                                                         <span class="report-close"
                                                             onclick="toggleReportBox()">&times;</span>
@@ -329,7 +328,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -610,7 +609,6 @@
                                     </span>
                                 @endif
                             </header>
-
                             <main class="d-lg-block">
                                 <div class="row">
                                     <div class="col-12 col-md-2">
@@ -629,8 +627,8 @@
                                             action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
-                                                @foreach ($item->chapters->sortBy('order') as $chapter)
-                                                    <li>
+                                                @foreach ($item->chapters->sortBy('order') as $index =>$chapter)
+                                                    <li class="{{ $index >= 6 ? 'none' : '' }}">
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
                                                             {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
@@ -638,7 +636,6 @@
                                                                 <i class="fas fa-image" aria-hidden="true"
                                                                     title="Có chứa ảnh"></i>
                                                             @endif
-
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
@@ -672,24 +669,28 @@
                                                                 @endif
                                                             @endif
                                                         </div>
-
-
                                                         {{-- Hiển thị thời gian tạo chương --}}
                                                         <div class="chapter-time">
-                                                             {{-- Hiển thị checkbox nếu chương chưa mua --}}
-                                                         @if (
-                                                            $chapter->price > 0 &&
-                                                                (!auth()->check() ||
-                                                                    !auth()->user()->hasPurchased($chapter->id)))
-                                                            <input type="checkbox" name="chapters[]"
-                                                                value="{{ $chapter->id }}"
-                                                                style="margin-right: 10px;">
-                                                        @endif
+                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                            @if (
+                                                                $chapter->price > 0 &&
+                                                                    (!auth()->check() ||
+                                                                        !auth()->user()->hasPurchased($chapter->id)))
+                                                                <input type="checkbox" name="chapters[]"
+                                                                    value="{{ $chapter->id }}"
+                                                                    style="margin-right: 10px;">
+                                                            @endif
                                                             {{ $chapter->created_at->format('d/m/Y') }}
                                                         </div>
                                                     </li>
                                                 @endforeach
                                             </ul>
+
+                                            <div class="mobile-more" >
+                                                <div class="see_more">
+                                                    <span style="padding-left: 30px">Xem tiếp</span>
+                                                </div>
+                                            </div>
 
                                             @php
                                                 $allChaptersFreeOrPurchased = $item->chapters->every(function (
@@ -702,18 +703,13 @@
                                                                 ->hasPurchased($chapter->id));
                                                 });
                                             @endphp
-
                                             @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
                                                 <button type="submit" class="btn btn-secondary mt-3"
                                                     style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
                                                     Thêm các chương đã chọn vào giỏ hàng
                                                 </button>
                                             @endif
-
                                         </form>
-
-
-
                                     </div>
                                 </div>
                             </main>

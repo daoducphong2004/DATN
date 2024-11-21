@@ -14,7 +14,7 @@ class BookApprovalController extends Controller
     // Hiển thị danh sách các truyện chưa duyệt
     public function index()
     {
-        $books = Book::where('Is_Inspect', 0)->get(); // Chỉ lấy các truyện chưa duyệt
+        $books = Book::where('Is_Inspect', 0)->withCount('chapters')->get(); // Chỉ lấy các truyện chưa duyệt
         return view('admin.books.approval', compact('books'));
     }
 

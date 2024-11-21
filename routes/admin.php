@@ -110,7 +110,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
         Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
         Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
-    // });
+        Route::get('/stories/lich-su-duyet',[StoryController::class,'ApprovalHistory'])->name('admin_story_approvalhistory');
+        // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');
     Route::patch('/reports/{report}/approve', [ReportController::class, 'approve'])->name('reports.approve');

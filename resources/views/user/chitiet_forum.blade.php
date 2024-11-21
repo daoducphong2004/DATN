@@ -72,6 +72,7 @@
                         <p style="margin-top:10px"><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để bình luận</strong></p>
                         @endif
                         @foreach ($data_list_forum as $comment)
+                        @if ($comment->unview != 1)
                         <div class="ln-comment-group">
                             <div id="ln-comment-{{$comment->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment->id}}" data-parent="{{$comment->id}}">
                                 <div class="flex gap-1 max-w-full">
@@ -87,13 +88,27 @@
                                                     <div class="self-center">
                                                         <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/171126">{{$comment->user->username}}</a>
                                                     </div>
+                                                    @if ($comment->user->role_id === 1)
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
+                                                                <div class="leading-4">TRANS</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
+                                                                <div class="leading-4">MASTER</div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
                                                 </div>
                                                 <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
                                                     <div class="" @click="show = !show">
                                                         <i class="fas fa-angle-down"></i>
                                                     </div>
                                                     <div class="ln-comment-toolkit" x-show="show" @click.outside="show = false" style="display: none">
-
+                                                        
 
                                                     </div>
                                                 </div>
@@ -115,6 +130,15 @@
                                                     <i class="fas fa-comment me-1"></i>
                                                     <span class="likecount font-semibold">Trả lời</span>
                                                 </a>
+
+                                                @if (Auth::id() == $comment->user->id || Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
+                                                <form method="post" action="{{route('delete_forum_user',$comment->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" style="color:red; font-weight: 800;">Xóa</button>
+
+                                                </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -126,6 +150,7 @@
 
                             @foreach ($data_child_list_forum[$comment->id] as $comment_child)
 
+                            @if ($comment_child->unview != 1)
                             <div class="ln-comment-reply">
 
                                 <div id="ln-comment-{{$comment_child->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment_child->id}}" data-parent="{{$comment->id}}">
@@ -142,6 +167,7 @@
                                                         <div class="self-center">
                                                             <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/59827">{{$comment_child->user->username}}</a>
                                                         </div>
+                                                        @if ($comment_child->user->role_id === 1)
                                                         <div class="self-center">
                                                             <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
                                                                 <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
@@ -151,9 +177,10 @@
                                                         <div class="self-center">
                                                             <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
                                                                 <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
-                                                                <div class="leading-4">AI MASTER</div>
+                                                                <div class="leading-4">MASTER</div>
                                                             </div>
                                                         </div>
+                                                        @endif
                                                     </div>
                                                     <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
                                                         <div class="" @click="show = !show">
@@ -182,6 +209,15 @@
                                                         <i class="fas fa-comment me-1"></i>
                                                         <span class="likecount font-semibold">Trả lời</span>
                                                     </a>
+
+                                                    @if (Auth::id() == $comment_child->user->id || Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
+                                                    <form method="post" action="{{route('delete_forum_user',$comment_child->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" style="color:red; font-weight: 800;" class="btn btn-danger btn-sm">Xóa</button>
+
+                                                    </form>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -189,6 +225,7 @@
                                 </div>
                             </div>
 
+                            @endif
                             @endforeach
                             @if (request('reply_to') == $comment->id)
                             <div class="ln-comment-reply ln-comment-form mt-3" id="reply-form-{{ $comment->id }}">
@@ -213,6 +250,7 @@
             </div>
             <img class="loading" src="/img/loading.svg" style="width: auto; height: 15px; margin-left: 10px; display: none"> -->
                         </div>
+                        @endif
                         @endforeach
 
 

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
+use App\Models\ApprovalHistory;
 use App\Models\AutoPurchase;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
@@ -576,8 +577,11 @@ class StoryController extends Controller
 
     public function approvalList()
     {
-        // Lấy danh sách các truyện chưa được duyệt (ví dụ: is_inspect là 'pending')
-        $pendingStories = book::where('Is_Inspect', '0')->paginate(10);
+        // Lấy danh sách các truyện chưa được duyệt và có ít nhất một chương
+        $pendingStories = Book::where('Is_Inspect', '0')
+            ->has('chapters')
+            ->withCount('chapters') // Chỉ lấy các truyện có chương
+            ->paginate(10);
 
         return view('admin.stories.approval-list', compact('pendingStories'));
     }
@@ -590,18 +594,35 @@ class StoryController extends Controller
         $story->update([
             'Is_Inspect' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
         ]);
-
+        // Thêm vào bảng approval_histories
+        ApprovalHistory::create([
+            'book_id' => $story->id,
+            'user_id' => auth()->id(),
+            'reason'  => null, // Không có lý do khi duyệt
+            'status' => 'approved',
+        ]);
         return redirect()->route('admin_stories_approval')->with('success', 'Truyện đã được duyệt.');
     }
 
-    public function rejectStory($id)
+    public function rejectStory(Request $request,$id)
     {
         $story = book::findOrFail($id);
         // Cập nhật trạng thái duyệt của truyện
+          // Xác thực lý do từ chối
+          $request->validate([
+            'reason' => 'required|string|max:255',
+        ]);
+
         $story->update([
             'Is_Inspect' => '2',  // Gán trạng thái là "Từ chối"
         ]);
-
+         // Thêm vào bảng approval_histories
+         ApprovalHistory::create([
+            'book_id' => $story->id,
+            'user_id' => auth()->id(),
+            'reason'  => $request->reason, // Lý do từ chối
+            'status' => 'rejected',
+        ]);
         return redirect()->route('admin_stories_approval')->with('error', 'Truyện đã bị từ chối.');
     }
     public function showPublicationHistory($bookId)
@@ -610,5 +631,9 @@ class StoryController extends Controller
         $book = Book::with(['episodes.chapters', 'episodes.user', 'episodes.chapters.user', 'sharedUsers.user'])->findOrFail($bookId);
 
         return view('admin.books.history', compact('book'));
+    }
+    public function ApprovalHistory(){
+        $Histories = ApprovalHistory::paginate(10);
+        return view('admin.stories.approval-history', compact('Histories'));
     }
 }

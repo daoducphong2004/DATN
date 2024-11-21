@@ -6,37 +6,13 @@
 @endsection
 
 @push('styles')
-    <style>
-        .table th,
-        .table td {
-            vertical-align: middle !important;
-            text-align: center;
-        }
 
-        .table th {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .table td {
-            font-size: 1.2rem;
-        }
-
-        .table img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .btn {
-            margin: 2px;
-        }
-    </style>
 @endpush
 
 @section('content')
     <div class="p-4" style="min-height: 800px;">
         <h2 class="text-primary mb-4">Danh Sách Thể Loại</h2>
-        <table id="list-genre" class="table">
+        <table id="" class="table">
             <thead>
                 <tr>
                     <th scope="col">Đường dẫn</th>

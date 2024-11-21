@@ -96,7 +96,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wallet::class);
     }
-    public function bookmarks(){
+    public function bookmarks()
+    {
         return $this->HasMany(Bookmarks::class);
+    }
+    public function approvalHistories()
+    {
+        return $this->hasMany(ApprovalHistory::class);
     }
 }

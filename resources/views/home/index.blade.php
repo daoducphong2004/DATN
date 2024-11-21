@@ -6,7 +6,7 @@
 
     <main id="mainpart" class="at-index">
         <div class="container" style="margin-bottom: 40px;">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="no-push col-12 push-2-l col-8-l">
                     <div id="announcements" class="index-top_notification">
 
@@ -55,7 +55,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="daily-recent_views">
@@ -484,68 +484,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-
-                                {{-- <div class="rank-circle-item">
-                                    <span class="rank-number">1</span>
-                                    <div class="series-detail clear">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('https://i.docln.net/lightnovel/covers/s8115-eedb5d53-c2ec-465c-b352-875cead20179-m.jpg') ">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="series-title"><a
-                                                href="/truyen/8115-ryoushin-no-shakkin-wo-katagawari-shite-morau-jouken-wa-nihon-ichi"
-                                                title="Ryoushin no Shakkin wo Katagawari shite Morau Jouken wa Nihon Ichi">Ryoushin
-                                                no Shakkin wo Katagawari shite Morau Jouken wa Nihon Ichi</a></h5>
-                                        <small class="rank-count">12,406 theo dõi</small>
-                                    </div>
-                                </div>
-
-                                <div class="rank-circle-item">
-                                    <span class="rank-number">2</span>
-                                    <div class="series-detail clear">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('https://i.docln.net/lightnovel/covers/s3569-4f9d3270-6d42-4301-8ad7-761e917fc3b6-m.jpg') ">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="series-title"><a
-                                                href="/truyen/3569-in-no-jitsury-okusha-ni-naritakute-new"
-                                                title="In no jitsury okusha ni naritakute!">In no jitsury okusha ni
-                                                naritakute!</a></h5>
-                                        <small class="rank-count">11,946 theo dõi</small>
-                                    </div>
-                                </div>
-                                <div class="rank-circle-item">
-                                    <span class="rank-number">3</span>
-                                    <div class="series-detail clear">
-                                        <div class="series-cover">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('https://i2.docln.net/ln/series/covers/s11586-a810d8f0-3973-41fb-ae79-63c968a7a12e.jpg') ">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h5 class="series-title"><a href="/truyen/11586-shimotsuki-wa-mob-ga-suki"
-                                                title="Shimotsuki wa Mob ga Suki">Shimotsuki wa Mob ga Suki</a></h5>
-                                        <small class="rank-count">10,586 theo dõi</small>
-                                    </div>
-                                </div>
-                                <div class="rank-circle-item">
-                                    <span class="rank-number">4</span>
-                                    <div class="series-detail clear">
-                                        <h5 class="series-title"><a
-                                                href="/truyen/8252-ket-hon-voi-dua-con-gai-ma-toi-cuc-ghet-trong-lop"
-                                                title="Kết hôn với đứa con gái mà tôi cực ghét trong lớp.">Kết hôn với
-                                                đứa con gái mà tôi cực ghét trong lớp.</a></h5>
-                                        <small class="rank-count">10,491 theo dõi</small>
-                                    </div>
-                                </div> --}}
-                                {{-- truyện top kết thúc --}}
                             </main>
                         </section>
                     </div>

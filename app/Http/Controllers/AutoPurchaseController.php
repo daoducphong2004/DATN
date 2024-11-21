@@ -53,5 +53,34 @@ class AutoPurchaseController extends Controller
             'message' => 'Mua chương thành công!'
         ]);
     }
+    public function destroy(Request $request)
+    {
+        $book_id = $request->book_id;
 
+        try {
+            $autoPurchase = AutoPurchase::query()
+            ->where('book_id', $book_id)
+            ->where('user_id',Auth::id())
+            ->first();
+
+            if ($autoPurchase) {
+                $autoPurchase->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Xóa tự động mua thành công.'
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không tìm thấy bản ghi tự động mua.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Đã xảy ra lỗi: ' . $e->getMessage()
+            ]);
+        }
+    }
 }

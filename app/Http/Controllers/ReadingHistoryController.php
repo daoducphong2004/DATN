@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AutoPurchase;
 use App\Models\book;
 use App\Models\chapter;
 use App\Models\Payment;
@@ -57,15 +58,11 @@ class ReadingHistoryController extends Controller
     {
         $user = Auth::user();
         // Lịch sử mua truyện
-        $purchasedStories = $user->purchasedStories()->with('chapter')->get();
-        // Lịch sử nạp tiền
-        $dataHistory = Payment::where('user_id', Auth::id())->get();
-        $totalPayment = 0;
-        $totalCoin = 0;
-        foreach($dataHistory as $item){
-            $totalPayment += $item->amount;
-            $totalCoin += $item->coin_earned;
-        }
+        $purchasedStories = "";
+        $dataHistory = "";
+        $totalPayment = "";
+        $totalCoin  = "";
+        $AutoPurchase ="";
         // Check if the user is logged in
         if (auth()->check()) {
             // Logged-in user: Retrieve reading history from the database
@@ -78,6 +75,20 @@ class ReadingHistoryController extends Controller
                 ->orderBy('last_read_at', 'desc')
                 ->take(4) // Limit to the latest 4 items
                 ->get();
+            // Danh sách truyện đăng ký tự động
+            $AutoPurchase = AutoPurchase::where('user_id', $user->id)
+            ->where('status', 1)
+            ->paginate(5);
+
+            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+            // Lịch sử nạp tiền
+            $dataHistory = Payment::where('user_id', Auth::id())->get();
+            $totalPayment = 0;
+            $totalCoin = 0;
+            foreach ($dataHistory as $item) {
+                $totalPayment += $item->amount;
+                $totalCoin += $item->coin_earned;
+            }
         } else {
             // Guest user: Retrieve reading history from session or cookie
             $cookieName = 'reading_history';
@@ -97,6 +108,6 @@ class ReadingHistoryController extends Controller
         }
         // dd( $readingHistories);
 
-        return view('home.lichsu', compact('readingHistories','purchasedStories','dataHistory', 'totalPayment','totalCoin'));
+        return view('home.lichsu', compact('readingHistories', 'purchasedStories', 'dataHistory', 'totalPayment', 'totalCoin','AutoPurchase'));
     }
 }

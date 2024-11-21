@@ -273,7 +273,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
     //Danh sách truyệN tự động mua
     Route::get('/auto-purchase', [AutoPurchaseController::class, 'getAutoPurchasedBooks'])->name('auto-purchased-books');
-
+    Route::post('/delete-auto-purchase',[AutoPurchaseController::class, 'destroy'])->name('destroy-auto-purchase');
 
     Route::get('stories/information/{book}', function (book $book) {
         $genres = genre::pluck('id', 'name');

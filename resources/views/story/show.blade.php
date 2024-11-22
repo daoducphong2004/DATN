@@ -909,19 +909,7 @@
                                                 </div>
                                             </div>
                                         @endforeach
-
-
-                                        <div class="ln-comment-page">
-                                            <div class="pagination-footer">
-                                                <div class="pagination_wrap">
-                                                    <a href=""
-                                                        class="paging_item paging_prevnext prev  disabled ">Trước</a>
-
-                                                    <a href="https://docln.net/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?page=2"
-                                                        class="paging_item paging_prevnext next">Sau</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    {{ $comments->links() }}
                                     </main>
                                     {{-- @include('layouts.TinyMCEscript') --}}
                                 </section>

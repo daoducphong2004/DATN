@@ -94,7 +94,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="example" class="table table-bordered dt-responsive table-striped align-middle" style="width:100%">
+                    <table id="example" class="table table-bordered dt-responsive table-striped align-middle"
+                        style="width:100%">
                         <thead>
                             <tr>
                                 <th>Tên truyện</th>
@@ -141,7 +142,8 @@
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li><a href="{{ route('admin_storyshow', $story->id) }}"
                                                         class="dropdown-item"><i
-                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i>Chi tiết</a>
+                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i>Chi
+                                                        tiết</a>
                                                 </li>
                                                 <li><a href="{{ route('admin_storyedit', $story->id) }}"
                                                         class="dropdown-item edit-item-btn"><i
@@ -167,6 +169,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $stories->links() }}
                 </div>
             </div>
         </div><!--end col-->

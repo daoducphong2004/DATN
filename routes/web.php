@@ -358,7 +358,7 @@ Route::prefix('groups')->group(function () {
 });
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-
+Route::delete('truyen/{slug}/comment', [BookcommentController::class, 'destroy'])->name('deleteComment');
 
 // Rating hoalt
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');

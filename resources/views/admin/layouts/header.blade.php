@@ -46,24 +46,27 @@
                         @endcan
                     </li>
                     <li>
-                        {{-- @can('view-contract', Auth::user()) --}}
-                        <a href="{{ route('contracts-manage.index') }}" style="color: #12a724">Hợp Đồng</a>
-                        {{-- @endcan --}}
+                        @can('view-contract', Auth::user())
+                            <a href="{{ route('contracts-manage.index') }}" style="color: #12a724">Hợp Đồng</a>
+                        @endcan
                     </li>
                     <li>
-                        <a href="{{ route('reports.index') }}" style="color: #e74369">Báo cáo</a>
+                        @can('view-categories', Auth::user())
+                            <a href="{{ route('reports.index') }}" style="color: #e74369">Báo cáo</a>
+                        @endcan
                     </li>
-                    {{-- <li><a href="{{ route('comment_index') }}" style="color: #d54cac">Bình luận</a></li> --}}
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown"
-                            role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('bookComment.index') }}">Bình luận truyện</a></li>
-                            <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
-                        </ul>
+                        @can('view-comment', Auth::user())
+                            <a href="" class="dropdown-toggle" style="color: #d54cac" data-toggle="dropdown"
+                                role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ route('bookComment.index') }}">Bình luận truyện</a></li>
+                                <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
+                            </ul>
+                         @endcan
                     </li>
                     <li>
-                            <a href="{{ route('banners.index') }}" style="color: #e3953e">Banner</a>
+                        <a href="{{ route('banners.index') }}" style="color: #e3953e">Banner</a>
                     </li>
                 @else
                     <li>
@@ -90,9 +93,16 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Thể
-                            Loại</a>
-                        {{-- <a href="" onclick="return('Bạn cần đăng nhập để xem')"></a> --}}
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Thể Loại</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Hợp đồng</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Báo cáo</a>
+                    </li>
+                    <li>
+                        <a href="" onclick="alert('Bạn cần đăng nhập để xem')" style="color: #e3953e">Banner</a>
                     </li>
                 @endif
                 <li class="dropdown">

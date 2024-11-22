@@ -1,16 +1,11 @@
 @extends('home.layout.master')
 
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('/images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('/images/banners/fbg_m.jpg'); background-size: cover"></div>
-        </a>
-    </div>
+@include('partials.banner')
+
     <main id="mainpart" class="project-page py-8">
         <div class="container mx-auto mt-5">
-            <h1 class="text-3xl font-bold text-center mb-6">Giỏ Hàng</h1>
+            <h1 class="text-2xl font-bold text-center mb-6">Giỏ Hàng</h1>
 
             @if (session('message'))
                 <div

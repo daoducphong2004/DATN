@@ -195,35 +195,7 @@ class BookController extends Controller
     }
 
 
-    public function showReadingHistory()
-    {
-        $readingHistories = [];
-        $user = Auth::user();
 
-        if ($user) {
-            // Get reading history from the database for logged-in users
-            $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with('book', 'chapter')
-                ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
-        } else {
-            // Get reading history from cookies for guest users
-            $cookieName = 'reading_history';
-            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
-            dd($readingHistoriesFromCookie);
-            // Retrieve books/chapters from DB based on the IDs stored in the cookie
-            if (!empty($readingHistoriesFromCookie)) {
-                $readingHistories = \App\Models\Book::whereIn('id', $readingHistoriesFromCookie)
-                    ->with('chapters')
-                    ->take(4) // Limit to the latest 4 items
-                    ->get();
-            }
-        }
-
-        // Pass the reading history to the view
-        return view('reading-history', compact('readingHistories'));
-    }
 
 
 
@@ -271,7 +243,6 @@ class BookController extends Controller
             'book_path' => '',
             'description' => $request->description,
             'note' => $request->note,
-            'is_VIP' => 0,
             'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),

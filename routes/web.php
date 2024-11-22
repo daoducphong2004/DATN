@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AutoPurchaseController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookmarksController;
 use App\Http\Controllers\ChaptercommentController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\MusicController;
 use App\Http\Controllers\PurchaseHistoryController;
 use App\Http\Controllers\purchaseStoryController;
 use App\Http\Controllers\ReadingHistoryController;
@@ -78,7 +80,6 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('lich-su', [HomeController::class, 'lichsu']);
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
 Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
@@ -132,7 +133,7 @@ Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::clas
 Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
-
+Route::delete('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
 Route::prefix('admin')->group(function () {
 
     // Giao diện admin
@@ -248,9 +249,10 @@ Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->
 Route::get('truyen/{slug}/tap/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
 
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
-Route::get('/lich-su-doc', [BookController::class, 'showReadingHistory'])->name('lich-su-doc');
+Route::get('/lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
+Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
@@ -267,8 +269,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
-
-
+    // tự động mua
+    Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
+    //Danh sách truyệN tự động mua
+    Route::get('/auto-purchase', [AutoPurchaseController::class, 'getAutoPurchasedBooks'])->name('auto-purchased-books');
+    Route::post('/delete-auto-purchase',[AutoPurchaseController::class, 'destroy'])->name('destroy-auto-purchase');
 
     Route::get('stories/information/{book}', function (book $book) {
         $genres = genre::pluck('id', 'name');

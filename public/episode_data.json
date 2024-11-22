@@ -1,0 +1,1532 @@
+[
+    {
+        "id": "5785",
+        "book_id": "3079",
+        "slug": "t5785-tap-01",
+        "episode_path": "episode_path/t5785-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21139",
+        "book_id": "15269",
+        "slug": "t21139-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21140",
+        "book_id": "15269",
+        "slug": "t21140-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21141",
+        "book_id": "15269",
+        "slug": "t21141-tap-03",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21142",
+        "book_id": "15269",
+        "slug": "t21142-tap-04",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 04",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13659",
+        "book_id": "8870",
+        "slug": "t13659-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22518",
+        "book_id": "16401",
+        "slug": "t22518-tap-01-co-hoc-sinh-chuyen-truong-xinh-dep-lan-dau-gap-lai-tu-nhan-la-vo-tuong-lai-cua-toi",
+        "episode_path": "episode_path/t22518-tap-01-co-hoc-sinh-chuyen-truong-xinh-dep-lan-dau-gap-lai-tu-nhan-la-vo-tuong-lai-cua-toi.jpg",
+        "title": "Tập 01: Cô học sinh chuyển trường xinh đẹp lần đầu gặp lại tự nhận là vợ tương lai của tôi",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22572",
+        "book_id": "16401",
+        "slug": "t22572-tap-02-ca-hai-hanh-xu-nhu-mot-doi-nhung-tham-chi-con-chua-hen-ho",
+        "episode_path": "episode_path/t22572-tap-02-ca-hai-hanh-xu-nhu-mot-doi-nhung-tham-chi-con-chua-hen-ho.jpg",
+        "title": "Tập 02: Cả hai hành xử như một đôi, nhưng thậm chí còn chưa hẹn hò",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20616",
+        "book_id": "14805",
+        "slug": "t20616-guong-da-vo-co-the-se-lanh-lai",
+        "episode_path": "episode_path/t20616-guong-da-vo-co-the-se-lanh-lai.jpg",
+        "title": "Gương đã vỡ... có thể sẽ lành lại",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21108",
+        "book_id": "15242",
+        "slug": "t21108-wn",
+        "episode_path": "episode_path/t21108-wn.jpg",
+        "title": "WN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25320",
+        "book_id": "18631",
+        "slug": "t25320-chuong-01",
+        "episode_path": "episode_path/t25320-chuong-01.jpg",
+        "title": "Vol 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25321",
+        "book_id": "18631",
+        "slug": "t25321-tap-02",
+        "episode_path": "episode_path/t25321-tap-02.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25365",
+        "book_id": "18631",
+        "slug": "t25365-tap-03",
+        "episode_path": "episode_path/t25365-tap-03.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "26519",
+        "book_id": "19600",
+        "slug": "t26519-co-ay-chang-de-thuong-chut-nao-khi-o-gan-toi",
+        "episode_path": "episode_path/t26519-co-ay-chang-de-thuong-chut-nao-khi-o-gan-toi.jpg",
+        "title": "Cô ấy chẳng dễ thương chút nào khi ở gần tôi",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "14109",
+        "book_id": "9241",
+        "slug": "t14109-one-shot",
+        "episode_path": "episode_path/t14109-one-shot.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "14125",
+        "book_id": "9258",
+        "slug": "t14125-vol-1",
+        "episode_path": "episode_path/t14125-vol-1.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24926",
+        "book_id": "18299",
+        "slug": "t24926-illust",
+        "episode_path": "episode_path/t24926-illust.jpg",
+        "title": "Illust",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24927",
+        "book_id": "18299",
+        "slug": "t24927-arc-1-ngoai-khoa",
+        "episode_path": "episode_path/t24927-arc-1-ngoai-khoa.jpg",
+        "title": "Arc 1: Ngoại khóa",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "26721",
+        "book_id": "18299",
+        "slug": "t26721-arc-2-le-hoi-truong",
+        "episode_path": "episode_path/t26721-arc-2-le-hoi-truong.jpg",
+        "title": "Arc 2: Lễ hội trường",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21619",
+        "book_id": "15690",
+        "slug": "t21619-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24854",
+        "book_id": "18240",
+        "slug": "t24854-tap-01",
+        "episode_path": "episode_path/t24854-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24291",
+        "book_id": "17774",
+        "slug": "t24291-wn",
+        "episode_path": "episode_path/t24291-wn.jpg",
+        "title": "WN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24292",
+        "book_id": "17774",
+        "slug": "t24292-vol-1",
+        "episode_path": "episode_path/t24292-vol-1.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24293",
+        "book_id": "17774",
+        "slug": "t24293-vol-2",
+        "episode_path": "episode_path/t24293-vol-2.jpg",
+        "title": "Vol 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25922",
+        "book_id": "17774",
+        "slug": "t25922-vol-3",
+        "episode_path": "episode_path/t25922-vol-3.jpg",
+        "title": "Vol 3",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22689",
+        "book_id": "16534",
+        "slug": "t22689-vol-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7303",
+        "book_id": "4147",
+        "slug": "t7303-tap-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 1 (Progress: 100%)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7304",
+        "book_id": "4147",
+        "slug": "t7304-tap-2",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 2 (Progress: 100%)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7305",
+        "book_id": "4147",
+        "slug": "t7305-tap-3",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 3",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7306",
+        "book_id": "4147",
+        "slug": "t7306-tap-4",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 4",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "9380",
+        "book_id": "4147",
+        "slug": "t9380-tap-5",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 5 [HẾT]",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25630",
+        "book_id": "18873",
+        "slug": "t25630-tap-01",
+        "episode_path": "episode_path/t25630-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24107",
+        "book_id": "17633",
+        "slug": "t24107-web-novel",
+        "episode_path": "episode_path/t24107-web-novel.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24665",
+        "book_id": "17633",
+        "slug": "t24665-manhwa",
+        "episode_path": "episode_path/t24665-manhwa.jpg",
+        "title": "Manhwa",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13304",
+        "book_id": "8575",
+        "slug": "t13304-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "23146",
+        "book_id": "16896",
+        "slug": "t23146-vol-01",
+        "episode_path": "episode_path/t23146-vol-01.jpg",
+        "title": "Vol 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "23774",
+        "book_id": "16896",
+        "slug": "t23774-vol-2",
+        "episode_path": "episode_path/t23774-vol-2.jpg",
+        "title": "Vol 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25948",
+        "book_id": "19130",
+        "slug": "t25948-oneshot",
+        "episode_path": "episode_path/t25948-oneshot.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20673",
+        "book_id": "14861",
+        "slug": "t20673-one-shot",
+        "episode_path": "episode_path/t20673-one-shot.jpg",
+        "title": "One shot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "17916",
+        "book_id": "12397",
+        "slug": "t17916-chuong-29-mon-qua-sinh-nhat-cho-nu-than",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18024",
+        "book_id": "12397",
+        "slug": "t18024-vol-2",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18754",
+        "book_id": "12397",
+        "slug": "t18754-vol-3",
+        "episode_path": "episode_path/t18754-vol-3.jpg",
+        "title": "Vol 3",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "14348",
+        "book_id": "9455",
+        "slug": "t14348-web-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "14353",
+        "book_id": "9455",
+        "slug": "t14353-minh-hoa-ln",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Minh hoạ LN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21425",
+        "book_id": "15533",
+        "slug": "t21425-tap-01",
+        "episode_path": "episode_path/t21425-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "11976",
+        "book_id": "7493",
+        "slug": "t11976-tap-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "11977",
+        "book_id": "7493",
+        "slug": "t11977-tap-2",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "23075",
+        "book_id": "16842",
+        "slug": "t23075-tap-01",
+        "episode_path": "episode_path/t23075-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19008",
+        "book_id": "13408",
+        "slug": "t19008-tap-01",
+        "episode_path": "episode_path/t19008-tap-01.jpg",
+        "title": "Arc 2: Quả Táo Độc Của Phù Thủy",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19135",
+        "book_id": "13408",
+        "slug": "t19135-arc-3-la-mot-phu-thuy",
+        "episode_path": "episode_path/t19135-arc-3-la-mot-phu-thuy.jpg",
+        "title": "Arc 3: Là Một Phù Thủy",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19271",
+        "book_id": "13408",
+        "slug": "t19271-arc-4-phu-thuy-va-lo-tinh-duoc",
+        "episode_path": "episode_path/t19271-arc-4-phu-thuy-va-lo-tinh-duoc.jpg",
+        "title": "Arc 4: Phù Thủy Và Lọ Tình Dược",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19309",
+        "book_id": "13408",
+        "slug": "t19309-arc-5-cong-chua-phu-thuy-va-phep-thuat",
+        "episode_path": "episode_path/t19309-arc-5-cong-chua-phu-thuy-va-phep-thuat.jpg",
+        "title": "Arc 5: Công Chúa, Phù Thủy Và Phép Thuật",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19562",
+        "book_id": "13408",
+        "slug": "t19562-arc-6-dem-xa-hoa-va-phu-thuy",
+        "episode_path": "episode_path/t19562-arc-6-dem-xa-hoa-va-phu-thuy.jpg",
+        "title": "Arc 6: Đêm Xa Hoa Và Phù Thủy",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5519",
+        "book_id": "2818",
+        "slug": "t5519-special",
+        "episode_path": "episode_path/t5519-special.jpg",
+        "title": "SPECIAL",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5438",
+        "book_id": "2818",
+        "slug": "t5438-vol-2",
+        "episode_path": "episode_path/t5438-vol-2.jpg",
+        "title": "VOL 2 (27-62)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5483",
+        "book_id": "2818",
+        "slug": "t5483-vol-3-63-168",
+        "episode_path": "episode_path/t5483-vol-3-63-168.jpg",
+        "title": "VOL 3 (63-101)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7236",
+        "book_id": "2818",
+        "slug": "t7236-vol-4-102",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "VOL 4 (102-??)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "2890",
+        "book_id": "986",
+        "slug": "t2890-tap-01",
+        "episode_path": "episode_path/t2890-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "3616",
+        "book_id": "986",
+        "slug": "t3616-tap-02",
+        "episode_path": "episode_path/t3616-tap-02.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12060",
+        "book_id": "7569",
+        "slug": "t12060-tap-144",
+        "episode_path": "episode_path/t12060-tap-144.jpg",
+        "title": "Tập 144-??",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5572",
+        "book_id": "2922",
+        "slug": "t5572-gap-go",
+        "episode_path": "episode_path/t5572-gap-go.jpg",
+        "title": "Gặp Gỡ",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13450",
+        "book_id": "8712",
+        "slug": "t13450-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25098",
+        "book_id": "18430",
+        "slug": "t25098-prologue",
+        "episode_path": "episode_path/t25098-prologue.jpg",
+        "title": "WN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5814",
+        "book_id": "3096",
+        "slug": "t5814-vol-1",
+        "episode_path": "episode_path/t5814-vol-1.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "8629",
+        "book_id": "5077",
+        "slug": "t8629-toan-tap",
+        "episode_path": "episode_path/t8629-toan-tap.jpg",
+        "title": "Web novel.",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7583",
+        "book_id": "4364",
+        "slug": "t7583-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5634",
+        "book_id": "2976",
+        "slug": "t5634-web-novel",
+        "episode_path": "episode_path/t5634-web-novel.jpg",
+        "title": "Arc 1 : Mèo đen Misha của tôi trở thành một Thú Nhân",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "2124",
+        "book_id": "495",
+        "slug": "t2124-arc-1",
+        "episode_path": "episode_path/t2124-arc-1.jpg",
+        "title": "Arc 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "2128",
+        "book_id": "495",
+        "slug": "t2128-arc-2",
+        "episode_path": "episode_path/t2128-arc-2.jpg",
+        "title": "Arc 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12121",
+        "book_id": "7615",
+        "slug": "t12121-web-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12269",
+        "book_id": "7733",
+        "slug": "t12269-only-one",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "ONLY ONE.",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "26431",
+        "book_id": "19518",
+        "slug": "t26431-tap-01",
+        "episode_path": "episode_path/t26431-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20177",
+        "book_id": "14417",
+        "slug": "t20177-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19905",
+        "book_id": "14170",
+        "slug": "t19905-toan-tap",
+        "episode_path": "episode_path/t19905-toan-tap.jpg",
+        "title": "Toàn tập",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13664",
+        "book_id": "8876",
+        "slug": "t13664-tap-01",
+        "episode_path": "episode_path/t13664-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15222",
+        "book_id": "10184",
+        "slug": "t15222-vol-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24644",
+        "book_id": "18087",
+        "slug": "t24644-tap-1",
+        "episode_path": "episode_path/t24644-tap-1.jpg",
+        "title": "Tập 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15200",
+        "book_id": "4711",
+        "slug": "t15200-toan-tap",
+        "episode_path": "episode_path/t15200-toan-tap.jpg",
+        "title": "Toàn Tập",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20610",
+        "book_id": "14801",
+        "slug": "t20610-web-novel",
+        "episode_path": "episode_path/t20610-web-novel.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15597",
+        "book_id": "10446",
+        "slug": "t15597-tap-01",
+        "episode_path": "episode_path/t15597-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18900",
+        "book_id": "13277",
+        "slug": "t18900-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18901",
+        "book_id": "13277",
+        "slug": "t18901-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18902",
+        "book_id": "13277",
+        "slug": "t18902-tap-03",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18903",
+        "book_id": "13277",
+        "slug": "t18903-tap-04",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 04",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18904",
+        "book_id": "13277",
+        "slug": "t18904-tap-05",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 05",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18905",
+        "book_id": "13277",
+        "slug": "t18905-tap-06",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 06",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22192",
+        "book_id": "16120",
+        "slug": "t22192-arc-i-bi-trieu-hoi-toi-the-gioi-khac",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "ARC I: BỊ TRIỆU HỒI TỐI THẾ GIỚI KHÁC",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22194",
+        "book_id": "16120",
+        "slug": "t22194-arc-ii-noi-chien-vuong-quoc-rozeria",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "ARC II: NỘI CHIẾN VƯƠNG QUỐC ROZERIA",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22207",
+        "book_id": "16120",
+        "slug": "t22207-arc-iii-ban-dao-wortenia",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "ARC III: BÁN ĐẢO WORTENIA",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "22208",
+        "book_id": "16120",
+        "slug": "t22208-arc-iv",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "ARC IV",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20837",
+        "book_id": "14988",
+        "slug": "t20837-mo-dau",
+        "episode_path": "episode_path/t20837-mo-dau.jpg",
+        "title": "Mở đầu",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20838",
+        "book_id": "14988",
+        "slug": "t20838-arc-1-chien-luoc-sinh-ton",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Arc 1: Chiến lược sinh tồn",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20839",
+        "book_id": "14988",
+        "slug": "t20839-arc-2-cung-co-noi-chinh",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Arc 2: Củng cố nội chính",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20840",
+        "book_id": "14988",
+        "slug": "t20840-arc-3-tang-cuong-quan-su",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Arc 3: Tăng cường quân sự",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15520",
+        "book_id": "10392",
+        "slug": "t15520-tap-01-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01 Light Novel: Kỹ Năng Cheat Hết Sạch Rồi *",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16025",
+        "book_id": "10392",
+        "slug": "t16025-tap-02-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02 Light Novel: Hoàng Đế Mạnh Nhất Mê Cung Cũng Cô Đơn",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16026",
+        "book_id": "10392",
+        "slug": "t16026-tap-03-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 03 Light Novel: Ma Pháp Di Chuyển Vì Thiếu Nữ Đang Khóc",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16027",
+        "book_id": "10392",
+        "slug": "t16027-tap-04-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 04 Light Novel: Công Chúa À, Rơi Vào Mê Cung Giả Đi",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16028",
+        "book_id": "10392",
+        "slug": "t16028-tap-05-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 05 Light Novel: Kẻ Siêu Việt, Tử Thần Và Tên Tự Xưng Là Yếu Nhất",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16029",
+        "book_id": "10392",
+        "slug": "t16029-tap-06-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 06 Light Novel: Chi Nhánh Cô Nhi Viện Của Cửa Hàng Đồ Lưu Niệm Đoạt Lại Vương Đô",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16030",
+        "book_id": "10392",
+        "slug": "t16030-tap-07-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 07 Light Novel: Và Rồi, Nàng Vũ Công Trở Lại Từ Hoàng Tuyền",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16031",
+        "book_id": "10392",
+        "slug": "t16031-tap-08-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 08 Light Novel: Kì Nghỉ Bão Tố Nơi Biên Cương",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18217",
+        "book_id": "10392",
+        "slug": "t18217-tap-09-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 09 Light Novel: Một Chém Là Nằm Của Nữ Tu Ngây Thơ",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19740",
+        "book_id": "10392",
+        "slug": "t19740-tap-10-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 10 Light Novel: Chủ Nghĩa Level Là Tất Cả Của Muông Thú",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20040",
+        "book_id": "10392",
+        "slug": "t20040-tap-11-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 11 Light Novel: Vị Mục Sư Ấy Là Kẻ Thù Của Thần Linh",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21333",
+        "book_id": "10392",
+        "slug": "t21333-tap-12-light-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 12 Light Novel: Babel Nghịch Đảo Của Nàng Thánh Nữ Ngủ Say",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "23084",
+        "book_id": "10392",
+        "slug": "t23084-tap-13-light-novel-ten-tu-xung-la-yeu-nhat-bat-dau-lai-o-muc-yeu-nhat",
+        "episode_path": "episode_path/t23084-tap-13-light-novel-ten-tu-xung-la-yeu-nhat-bat-dau-lai-o-muc-yeu-nhat.jpg",
+        "title": "Tập 13 Light Novel: Tên Tự Xưng Là Yếu Nhất Bắt Đầu Lại Ở Mức Yếu Nhất",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "24394",
+        "book_id": "10392",
+        "slug": "t24394-tap-14",
+        "episode_path": "episode_path/t24394-tap-14.jpg",
+        "title": "Tập 14 Light Novel: Khúc Cầu Siêu Hướng Tới Những Vì Sao Vô Tận",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "26781",
+        "book_id": "10392",
+        "slug": "t26781-tap-15-light-novel-wake-up-di-be-tieu-ac-ma",
+        "episode_path": "episode_path/t26781-tap-15-light-novel-wake-up-di-be-tieu-ac-ma.jpg",
+        "title": "Tập 15 Light Novel: Wake Up Tiểu Ác Ma",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18198",
+        "book_id": "12651",
+        "slug": "t18198-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18824",
+        "book_id": "13202",
+        "slug": "t18824-one-shot",
+        "episode_path": "episode_path/t18824-one-shot.jpg",
+        "title": "One shot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "9345",
+        "book_id": "5601",
+        "slug": "t9345-tap-01",
+        "episode_path": "episode_path/t9345-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "20564",
+        "book_id": "14762",
+        "slug": "t20564-tap-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "17411",
+        "book_id": "11989",
+        "slug": "t17411-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "17519",
+        "book_id": "11989",
+        "slug": "t17519-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02 End.",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25767",
+        "book_id": "18973",
+        "slug": "t25767-minh-hoa",
+        "episode_path": "episode_path/t25767-minh-hoa.jpg",
+        "title": "Minh họa",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25766",
+        "book_id": "18973",
+        "slug": "t25766-web-novel",
+        "episode_path": "episode_path/t25766-web-novel.jpg",
+        "title": "Web Novel *",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16661",
+        "book_id": "11317",
+        "slug": "t16661-oneshot",
+        "episode_path": "episode_path/t16661-oneshot.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "26836",
+        "book_id": "19824",
+        "slug": "t26836-oneshot",
+        "episode_path": "episode_path/t26836-oneshot.jpg",
+        "title": "OneShot *",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "10767",
+        "book_id": "6640",
+        "slug": "t10767-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Quyển Một",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19114",
+        "book_id": "13503",
+        "slug": "t19114-tap-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 1 (Hoàn thành)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19163",
+        "book_id": "13503",
+        "slug": "t19163-tap-2-phat-hanh-vao-02-01-2023",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 2 (Phát hành vào 02-01-2023)",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19164",
+        "book_id": "13503",
+        "slug": "t19164-tap-3",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 3",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19165",
+        "book_id": "13503",
+        "slug": "t19165-tap-4",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 4",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19166",
+        "book_id": "13503",
+        "slug": "t19166-tap-5",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 5",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19167",
+        "book_id": "13503",
+        "slug": "t19167-tap-6",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 6",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19168",
+        "book_id": "13503",
+        "slug": "t19168-tap-7",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 7",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19169",
+        "book_id": "13503",
+        "slug": "t19169-tap-8",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 8",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19170",
+        "book_id": "13503",
+        "slug": "t19170-tap-9",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 9",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19171",
+        "book_id": "13503",
+        "slug": "t19171-tap-10",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 10",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19172",
+        "book_id": "13503",
+        "slug": "t19172-tap-11",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 11",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19173",
+        "book_id": "13503",
+        "slug": "t19173-tap-12",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 12",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19174",
+        "book_id": "13503",
+        "slug": "t19174-tap-13",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 13",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19175",
+        "book_id": "13503",
+        "slug": "t19175-tap-14",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 14",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19176",
+        "book_id": "13503",
+        "slug": "t19176-tap-15",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 15",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19177",
+        "book_id": "13503",
+        "slug": "t19177-tap-16",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 16",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12801",
+        "book_id": "8164",
+        "slug": "t12801-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12803",
+        "book_id": "8164",
+        "slug": "t12803-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "12804",
+        "book_id": "8164",
+        "slug": "t12804-tap-03",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13202",
+        "book_id": "8164",
+        "slug": "t13202-tap-04",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 04",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13614",
+        "book_id": "8164",
+        "slug": "t13614-tap-05",
+        "episode_path": "episode_path/t13614-tap-05.jpg",
+        "title": "Tập 05",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15421",
+        "book_id": "8164",
+        "slug": "t15421-tap-06",
+        "episode_path": "episode_path/t15421-tap-06.jpg",
+        "title": "Tập 06",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "17427",
+        "book_id": "8164",
+        "slug": "t17427-tap-65",
+        "episode_path": "episode_path/t17427-tap-65.jpg",
+        "title": "Tập 6.5",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18710",
+        "book_id": "8164",
+        "slug": "t18710-tap-07",
+        "episode_path": "episode_path/t18710-tap-07.jpg",
+        "title": "Tập 07",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "3670",
+        "book_id": "1582",
+        "slug": "t3670-web-novel",
+        "episode_path": "episode_path/t3670-web-novel.jpg",
+        "title": "Web novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7488",
+        "book_id": "4294",
+        "slug": "t7488-tap-01",
+        "episode_path": "episode_path/t7488-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "5726",
+        "book_id": "3032",
+        "slug": "t5726-chap-5",
+        "episode_path": "episode_path/t5726-chap-5.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "7167",
+        "book_id": "4032",
+        "slug": "t7167-oneshot",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25137",
+        "book_id": "18454",
+        "slug": "t25137-wn",
+        "episode_path": "episode_path/t25137-wn.jpg",
+        "title": "WN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25146",
+        "book_id": "18454",
+        "slug": "t25146-ln",
+        "episode_path": "episode_path/t25146-ln.jpg",
+        "title": "LN",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18498",
+        "book_id": "12948",
+        "slug": "t18498-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18499",
+        "book_id": "12948",
+        "slug": "t18499-tap-02",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "18500",
+        "book_id": "12948",
+        "slug": "t18500-tap-03",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "23040",
+        "book_id": "16808",
+        "slug": "t23040-tap-01",
+        "episode_path": "episode_path/t23040-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "25224",
+        "book_id": "18533",
+        "slug": "t25224-doc-o-day",
+        "episode_path": "episode_path/t25224-doc-o-day.jpg",
+        "title": "Đọc ở đây",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16157",
+        "book_id": "10880",
+        "slug": "t16157-web-novel",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Web Novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "10455",
+        "book_id": "6421",
+        "slug": "t10455-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13922",
+        "book_id": "6421",
+        "slug": "t13922-tap-02",
+        "episode_path": "episode_path/t13922-tap-02.jpg",
+        "title": "Tập 02",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13923",
+        "book_id": "6421",
+        "slug": "t13923-tap-03",
+        "episode_path": "episode_path/t13923-tap-03.jpg",
+        "title": "Tập 03",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "2534",
+        "book_id": "795",
+        "slug": "t2534-tap-01",
+        "episode_path": "episode_path/t2534-tap-01.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "21902",
+        "book_id": "15928",
+        "slug": "t21902-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "14225",
+        "book_id": "9363",
+        "slug": "t14225-vol1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19712",
+        "book_id": "14009",
+        "slug": "t19712-tap-01-hay-yeu-ta-di-nhan-vat-chinh-xuat-hien",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01: Hãy yêu ta đi! Nhân vật chính xuất hiện",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "15512",
+        "book_id": "10387",
+        "slug": "t15512-web-novel",
+        "episode_path": "episode_path/t15512-web-novel.jpg",
+        "title": "Web novel",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13568",
+        "book_id": "8824",
+        "slug": "t13568-vol-1",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 1",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "13776",
+        "book_id": "8824",
+        "slug": "t13776-vol-2",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 2",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "16280",
+        "book_id": "8824",
+        "slug": "t16280-vol-3",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Vol 3",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "8553",
+        "book_id": "5028",
+        "slug": "t8553-tap-01",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Tập 01",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "19406",
+        "book_id": "13755",
+        "slug": "t19406-oneshot",
+        "episode_path": "episode_path/no-cover.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    },
+    {
+        "id": "8158",
+        "book_id": "4730",
+        "slug": "t8158-oneshot",
+        "episode_path": "episode_path/t8158-oneshot.jpg",
+        "title": "Oneshot",
+        "user_id": 1,
+        "order": 1
+    }
+]

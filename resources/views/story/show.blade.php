@@ -63,13 +63,7 @@
 </style>
 
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('/images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('/images/banners/fbg_m.jpg'); background-size: cover"></div>
-        </a>
-    </div>
+    @include('partials.banner')
     <main id="mainpart" class="project-page">
         <div class="container">
             <div class="row">
@@ -81,7 +75,6 @@
                                 href="{{ $book->type == 1 ? '/danh-sach?truyendich=1&dangtienhanh=1&tamngung=1&hoanthanh=1&sapxep=tentruyen' : ($book->type == 2 ? '/convert' : ($book->type == 3 ? '/sang-tac' : '/loai-khong-xac-dinh')) }}">
                                 {{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -172,13 +165,22 @@
                                                                 <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
-
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="catalog-icon side-feature-button">
                                                         <span class="block feature-value"><i class="fas fa-list"></i></span>
                                                         <span class="block feature-name">Mục lục</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <div onclick="autoPurchase({{ $book->id }})" class="catalog-icon side-feature-button">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-cart-plus"></i></span>
+                                                        <span class="block feature-name">
+                                                            <button
+                                                                class="btn btn-primary">Mua tự động</button>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -195,7 +197,8 @@
                                                     </label>
                                                 </div>
                                                 <!-- Hộp thoại báo cáo -->
-                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
+                                                <div id="reportModal" class="report-modal"
+                                                    onclick="closeOutsideBox(event)">
                                                     <div class="report-modal-content">
                                                         <span class="report-close"
                                                             onclick="toggleReportBox()">&times;</span>
@@ -630,23 +633,6 @@
                                                     <li>
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
-                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
-                                                            @if (
-                                                                $chapter->price > 0 &&
-                                                                    (!auth()->check() ||
-                                                                        !auth()->user()->hasPurchased($chapter->id)))
-                                                                <input type="checkbox" name="chapters[]"
-                                                                    value="{{ $chapter->id }}"
-                                                                    style="margin-right: 10px;">
-                                                            @endif
-
-                                                            {{-- Hiển thị badge "Mới" nếu chương là mới --}}
-                                                            @if ($chapter->is_new)
-                                                                <div class="new-status badge">
-                                                                    <div class="badge-item new">Mới</div>
-                                                                </div>
-                                                            @endif
-
                                                             {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
                                                             @if ($chapter->contains_image)
                                                                 <i class="fas fa-image" aria-hidden="true"
@@ -656,7 +642,8 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a style="margin-left: 25px;"
+                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
@@ -685,8 +672,19 @@
                                                                 @endif
                                                             @endif
                                                         </div>
+
+
                                                         {{-- Hiển thị thời gian tạo chương --}}
                                                         <div class="chapter-time">
+                                                             {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                         @if (
+                                                            $chapter->price > 0 &&
+                                                                (!auth()->check() ||
+                                                                    !auth()->user()->hasPurchased($chapter->id)))
+                                                            <input type="checkbox" name="chapters[]"
+                                                                value="{{ $chapter->id }}"
+                                                                style="margin-right: 10px;">
+                                                        @endif
                                                             {{ $chapter->created_at->format('d/m/Y') }}
                                                         </div>
                                                     </li>
@@ -1060,6 +1058,30 @@
                     console.error('Error:', error);
                     alert('Có lỗi xảy ra.');
                 });
+        }
+    </script>
+    <script>
+        function autoPurchase(bookId) {
+            // Make an AJAX call to the backend to handle auto purchase
+            fetch('/auto-purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        book_id: bookId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đăng ký tự động mua thành công!');
+                    } else {
+                        alert('Đã đăng ký tự động mua truyện này rồi');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
     </script>
 @endsection

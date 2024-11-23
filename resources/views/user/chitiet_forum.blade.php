@@ -39,7 +39,15 @@
                                 <div class="author_name"><a href="/thanh-vien/1">
 
                                         {{$data_user->username}}</a></div>
-                                <div class="author_role"><span>{{$data_user->role_id}}</span></div>
+                                <div class="author_role"><span>@if ($data_user->role_id === 1)
+                                <strong>Super Admin</strong>
+                                @elseif($data_user->role_id === 2)
+                                <strong>Admin</strong>
+                                @elseif($data_user->role_id === 3)
+                                <strong>Mod</strong>
+                                @elseif($data_user->role_id === 4)
+                                <strong>User</strong>
+                                @endif</span></div>
                             </div>
                         </div>
                     </div>
@@ -89,26 +97,26 @@
                                                         <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/171126">{{$comment->user->username}}</a>
                                                     </div>
                                                     @if ($comment->user->role_id === 1)
-                                                        <div class="self-center">
-                                                            <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
-                                                                <div class="leading-4">TRANS</div>
-                                                            </div>
+                                                    <div class="self-center">
+                                                        <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                            <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
+                                                            <div class="leading-4">TRANS</div>
                                                         </div>
-                                                        <div class="self-center">
-                                                            <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
-                                                                <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
-                                                                <div class="leading-4">MASTER</div>
-                                                            </div>
+                                                    </div>
+                                                    <div class="self-center">
+                                                        <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
+                                                            <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
+                                                            <div class="leading-4">MASTER</div>
                                                         </div>
-                                                        @endif
+                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
                                                     <div class="" @click="show = !show">
                                                         <i class="fas fa-angle-down"></i>
                                                     </div>
                                                     <div class="ln-comment-toolkit" x-show="show" @click.outside="show = false" style="display: none">
-                                                        
+
 
                                                     </div>
                                                 </div>
@@ -131,13 +139,15 @@
                                                     <span class="likecount font-semibold">Trả lời</span>
                                                 </a>
 
-                                                @if (Auth::id() == $comment->user->id || Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
+                                                @if (Auth::check())
+                                                @if (Auth::id() === $comment->user->id || Auth::user()->role_id === 1 || Auth::user()->role_id === 3)
                                                 <form method="post" action="{{route('delete_forum_user',$comment->id)}}" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" style="color:red; font-weight: 800;">Xóa</button>
 
                                                 </form>
+                                                @endif
                                                 @endif
                                             </div>
                                         </div>

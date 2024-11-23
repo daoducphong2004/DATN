@@ -41,6 +41,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
+use App\Http\Controllers\wallets;
 use App\Models\book;
 use App\Models\episode;
 use App\Models\genre;
@@ -134,8 +135,8 @@ Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 Route::delete('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
+Route::get('wallet',[wallets::class,'index'])->name('wallet');
 Route::prefix('admin')->group(function () {
-
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');

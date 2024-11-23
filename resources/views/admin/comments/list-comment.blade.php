@@ -2,44 +2,20 @@
 
 @section('title')
     @parent
-    Danh sách bình luận
+    Danh sách bình luận chap
 @endsection
 
 @push('styles')
-    <style>
-        .table th,
-        .table td {
-            vertical-align: middle !important;
-            text-align: center;
-        }
-
-        .table th {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .table td {
-            font-size: 1.2rem;
-        }
-
-        .table img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .btn {
-            margin: 2px;
-        }
-    </style>
 @endpush
 
 @section('content')
-    <div class="p-4" style="min-height: 800px;">
-        @if (session('message'))
-            <div class="alert alert-primary" role="alert">
-                {{ session('message') }}
-            </div>
-        @endif
+    @if (session('message'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
+
+    {{-- <div class="p-4" style="min-height: 800px;">
         <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
         <table id="list-comment" class="table">
             <thead>
@@ -51,7 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($comments as $comment) --}}
                 <tr>
                     <td></td>
                     <td></td>
@@ -61,17 +36,46 @@
                         <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
                     </td>
                 </tr>
-                {{-- @endforeach --}}
             </tbody>
         </table>
-    </div>
+    </div> --}}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh Sách Bình Luận Chap</h5>
+                </div>
+                <div class="card-body">
+                    <table id="example" class="table table-bordered dt-responsive table-striped align-middle"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Người Bình Luận</th>
+                                <th>Nội Dung</th>
+                                <th>Ngày Bình Luận</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- @foreach ($comments as $comment) --}}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a class="btn btn-info" href="">Chi tiết</a>
+                                    <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
+                                </td>
+                            </tr>
+                            {{-- @endforeach --}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
 @endsection
 
 @push('scripts')
-    <script>
-        jQuery(document).ready(function() {
-            console.log("jQuery version:", jQuery.fn.jquery);
-            jQuery('#list-comment').DataTable();
-        });
-    </script>
 @endpush

@@ -416,7 +416,6 @@ class BookController extends Controller
                 'painter' => $request->painter,
                 'description' => $request->description,
                 'note' => $request->note,
-                'is_VIP' => 0,
                 'book_path' => $book_path,
                 'slug' => $slug,
                 'adult' => $adult, // Chỉ nhận giá trị 0 hoặc 1

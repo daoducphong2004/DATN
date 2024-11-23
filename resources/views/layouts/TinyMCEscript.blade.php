@@ -29,15 +29,13 @@
         display: none;
     }
 </style>
-<div class="body-btn-upload">
+<div class="body-btn-upload mt-3">
     <div class="file-upload-container">
         <label for="wordFileInput">Nhập nội dung từ Word</label>
         <input type="file" id="wordFileInput" accept=".doc, .docx">
     </div>
 </div>
 
-<br>
-<br>
 <script>
     // Đảm bảo rằng TinyMCE đã được khởi tạo
     document.addEventListener("DOMContentLoaded", function() {

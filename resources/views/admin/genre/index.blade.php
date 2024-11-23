@@ -6,37 +6,12 @@
 @endsection
 
 @push('styles')
-    <style>
-        .table th,
-        .table td {
-            vertical-align: middle !important;
-            text-align: center;
-        }
-
-        .table th {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .table td {
-            font-size: 1.2rem;
-        }
-
-        .table img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .btn {
-            margin: 2px;
-        }
-    </style>
 @endpush
 
 @section('content')
-    <div class="p-4" style="min-height: 800px;">
+    {{-- <div class="p-4" style="min-height: 800px;">
         <h2 class="text-primary mb-4">Danh Sách Thể Loại</h2>
-        <table id="list-genre" class="table">
+        <table id="" class="table">
             <thead>
                 <tr>
                     <th scope="col">Đường dẫn</th>
@@ -72,13 +47,58 @@
         </table>
 
         {{ $genres->links() }}
-    @endsection
+    </div> --}}
 
-    @push('scripts')
-        <script>
-            jQuery(document).ready(function() {
-                console.log("jQuery version:", jQuery.fn.jquery);
-                jQuery('#list-genre').DataTable();
-            });
-        </script>
-    @endpush
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex align-items-center">
+                    <h5 class="card-title mb-0 flex-grow-1">Danh Sách Thể Loại</h5>
+                    <div>
+                        <a href="{{ route('genres_create') }}" class="btn btn-secondary">
+                            <i class="ri-add-circle-fill"></i> Thêm thể loại mới
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example" class="table table-bordered dt-responsive table-striped align-middle"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Đường dẫn</th>
+                                <th>Tên thể loại</th>
+                                <th>Mô tả</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($genres as $genre)
+                                <tr>
+                                    <td>{{ $genre->slug }}</td>
+                                    <td>{{ $genre->name }}</td>
+                                    <td>{{ $genre->description }}</td>
+
+                                    <td>
+                                        <div class="hstack gap-2 flex-wrap">
+                                            <a class="btn btn-success"
+                                            href="{{ route('genres_edit', $genre->id) }}">Sửa</a>
+                                        <form action="{{ route('genres_delete', $genre->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger" type="submit"
+                                                onclick="return confirm('Xác nhận xóa')">Xóa</button>
+                                        </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+@endsection
+
+@push('scripts')
+@endpush

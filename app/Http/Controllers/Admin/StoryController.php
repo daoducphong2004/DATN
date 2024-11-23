@@ -26,7 +26,7 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->paginate(10);
+        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->paginate(6);
 
         // Tính trung bình số sao cho mỗi truyện
         foreach ($stories as $story) {

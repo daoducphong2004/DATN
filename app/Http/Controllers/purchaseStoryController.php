@@ -211,7 +211,7 @@ class purchaseStoryController extends Controller
             return redirect()->back()->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
         }
     }
-
+    
     public function purchaseChapter(Request $request, $chapterId)
     {
         if (!Auth::check()) {

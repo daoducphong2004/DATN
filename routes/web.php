@@ -379,7 +379,8 @@ Route::resource('author', AuthorController::class);
 Route::post('/accept-request/{id}', [AuthorController::class, 'acceptRequest'])->name('accept_request');
 Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])->name('reject_request');
 
-Route::post('comment')->name('addChapterComment'); //sau làm phần comment chapter thì xóa dòng này đi
+Route::post('/comments/add', [ChapterCommentController::class, 'store'])->name('addChapterComment');
+Route::get('/comments-chapter', [BookController::class, 'fetchComments'])->name('comments.fetch');
 
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');

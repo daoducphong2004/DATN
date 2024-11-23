@@ -290,7 +290,6 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        // dd(10);
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
 
@@ -298,6 +297,7 @@ class BookController extends Controller
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
         }
+
         $totalPrice = $book->totalChapterPrice();
 
         $episodes = $book->episodes;
@@ -311,7 +311,6 @@ class BookController extends Controller
             ->get();
 
         $totalComments = bookcomment::where('book_id', $book->id)->count();
-
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
@@ -373,8 +372,10 @@ class BookController extends Controller
                 $purchaseStats['total_views'] += $views;
             }
         }
+
         return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
+
 
 
     /**

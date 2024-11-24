@@ -14,13 +14,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav ">
                 <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
-                            Cổng Light Novel</span></a></li>
+                    Cổng Light Novel</span></a>
+                </li>
                 <li>
-                    @can('create', App\Models\Story::class)
+                    @can('create')
                         <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
                     @endcan
                 </li>
-                <li class="dropdown">
+
+                  {{--<li class="dropdown">
 
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                         aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
@@ -38,17 +40,8 @@
                         <li><a href="{{ route('manage.bookConvertshared') }}">Convert tham
                                 gia</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('manage.mybookOLN') }}">OLN đã đăng</a>
-                        </li>
-                        <li><a href="{{ route('manage.bookOLNshared') }}">OLN tham gia</a>
-                        </li>
-                    </ul>
-                    
                     @if(!Auth::check())
                         <a href="{{ route('login') }}" class="" style="color: #10b591"
                             onclick="alert(' Bạn cần phải đăng nhập trước')">Truyện dịch</a>
@@ -125,6 +118,11 @@
                             <li><a href="nhomThamGia">Nhóm tham gia</a></li>
                         </ul>
                     @endif
+                </li>
+                <li>
+                    {{-- @can('view-contract', Auth::user()) --}}
+                        <a href="{{ route('contracts.index') }}" style="color: #12a724">Hợp Đồng</a>
+                    {{-- @endcan --}}
                 </li>
                 <li>
                     @if(!Auth::check())

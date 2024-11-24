@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('story.layout.home.head')
+@include('home.layout.home.head')
 @include('story.partials.css')
 
 <body>
@@ -10,12 +10,16 @@
             {{ session('error') }}
         </div>
     @endif
-
-    @include('story.layout.home.header')
+    @if (session('message'))
+        <div id="toast-message" class="toast-message">
+            {{ session('message') }}
+        </div>
+    @endif
+    @include('home.layout.home.header')
 
     @yield('content')
 
-    @include('story.layout.home.footer')
+    @include('home.layout.home.footer')
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -99,6 +103,7 @@
             }
         });
     });
+
 </script>
 
 </html>

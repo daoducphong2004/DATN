@@ -1,25 +1,80 @@
-@extends('story.layout.master')
+@extends('home.layout.master')
 
+<style>
+    /* Phong cách cho hộp thoại report (report-modal) */
+    .report-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        /* Điều chỉnh độ tối nhẹ */
+    }
+
+    /* Nội dung của hộp thoại report */
+    .report-modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .report-modal-content button {
+        background-color: #4CAF50;
+        color: white;
+        margin-top: 10px;
+        padding: 5px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .report-modal-content button:hover {
+        background-color: #45a049;
+        /* Màu nền khi hover */
+    }
+
+    /* Nút đóng (X) */
+    .report-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Căn chỉnh các phần tử bên trong hộp thoại */
+    .report-modal-content h3 {
+        margin-top: 0;
+    }
+
+    .report-modal-content textarea {
+        width: 100%;
+    }
+</style>
 
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block" style="background-image: url('/images/banners/fbg_d.jpg')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('/images/banners/fbg_m.jpg'); background-size: cover"></div>
-        </a>
-    </div>
+    @include('partials.banner')
     <main id="mainpart" class="project-page">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="page-breadcrumb">
-                        <span class="breadcrum-level"><a href="https://docln.net"><i class="fas fa-home"></i></a></span>
+                        <span class="breadcrum-level"><a href="/"><i class="fas fa-home"></i></a></span>
                         <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
                         <span class="breadcrum-level"><a
-                                href="https://docln.net">{{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
+                                href="{{ $book->type == 1 ? '/danh-sach?truyendich=1&dangtienhanh=1&tamngung=1&hoanthanh=1&sapxep=tentruyen' : ($book->type == 2 ? '/convert' : ($book->type == 3 ? '/sang-tac' : '/loai-khong-xac-dinh')) }}">
+                                {{ $book->type == 1 ? 'Truyện dịch' : ($book->type == 2 ? 'Truyện Convert' : ($book->type == 3 ? 'Truyện sáng tác' : 'Loại truyện không xác định')) }}</a></span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -80,16 +135,29 @@
                                         <div class="side-features flex-none">
                                             <div class="row">
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <a id="collect" class="side-feature-button button-follow follow">
-                                                        <span class="block feature-value"><i
-                                                                class="far fa-heart"></i></span>
-                                                        <span class="block feature-name"> {{ $book->like }} </span>
-                                                    </a>
+
+                                                    <form action="{{ route('book.like', $book->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="side-feature-button button-follow follow">
+                                                            @if (auth()->user() &&
+                                                                    auth()->user()->likedBooks()->where('book_id', $book->id)->exists())
+                                                                <span class="block feature-value" id="favorite-icon">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </span>
+                                                            @else
+                                                                <span class="block feature-value" id="favorite-icon">
+                                                                    <i class="far fa-heart"></i>
+                                                                </span>
+                                                            @endif
+                                                            <span class="block feature-name">{{ $book->like }}</span>
+                                                        </button>
+                                                    </form>
                                                 </div>
 
                                                 <div class="col-4 col-md feature-item width-auto-xl">
                                                     <div class="series-rating rated">
-                                                        <a href="/rating/{{$book->slug}}">
+                                                        <a href="/rating/{{ $book->slug }}">
                                                             <label for="open-rating"
                                                                 class="side-feature-button button-rate">
                                                                 <span class="block feature-value"><i
@@ -97,7 +165,6 @@
                                                                 <span class="block feature-name">Đánh giá</span>
                                                             </label>
                                                         </a>
-
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
@@ -107,11 +174,57 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <div onclick="autoPurchase({{ $book->id }})"
+                                                        class="catalog-icon side-feature-button">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-cart-plus"></i></span>
+                                                        <span class="block feature-name">
+                                                            <button class="btn btn-primary">Mua tự động</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
                                                     <a href="#series-comments" class="side-feature-button">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-comments"></i></span>
                                                         <span class="block feature-name">Bàn luận</span>
                                                     </a>
+                                                </div>
+                                                <div class="col-4 col-md feature-item width-auto-xl">
+                                                    <label for="open-report" class="side-feature-button" id="reportButton">
+                                                        <span class="block feature-value"><i class="fas fa-flag"></i></span>
+                                                        <span class="block feature-name">Report</span>
+                                                    </label>
+                                                </div>
+                                                <!-- Hộp thoại báo cáo -->
+                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
+                                                    <div class="report-modal-content">
+                                                        <span class="report-close"
+                                                            onclick="toggleReportBox()">&times;</span>
+                                                        <h3>Vui lòng chọn lý do (bắt buộc):</h3>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Nội dung gây sốc, phản cảm"> Nội dung gây sốc, phản
+                                                            cảm</label><br>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Thù ghét và quấy rối"> Thù ghét và quấy
+                                                            rối</label><br>
+                                                        <label><input type="checkbox" name="error"
+                                                                value="Chính trị, tôn giáo"> Chính trị, tôn
+                                                            giáo</label><br>
+                                                        <label><input type="checkbox" name="error" value="Đạo văn"> Đạo
+                                                            văn</label><br>
+                                                        <label><input type="checkbox" name="error" value="Bản quyền">
+                                                            Bản quyền</label><br>
+                                                        <label><input type="checkbox" name="error" value="Khác">
+                                                            Khác</label><br>
+
+                                                        <h3>Mô tả chi tiết:</h3>
+                                                        <textarea id="user-note" rows="4" placeholder="Mô tả chi tiết..."></textarea><br>
+
+                                                        <input type="hidden" id="book_id"
+                                                            value="{{ $book->id }}">
+                                                        <button onclick="submitReport()">Gửi</button>
+                                                    </div>
                                                 </div>
                                                 {{-- <div class="col-4 col-md feature-item width-auto-xl">
                                                     <label for="open-sharing" class="side-feature-button">
@@ -168,7 +281,7 @@
                                             </div>
 
                                             <div class="col-4 col-md-3 statistic-item">
-                                                <div class="statistic-name">Đánh giá( phần này sẽ làm sau)</div>
+                                                <div class="statistic-name">Đánh giá</div>
                                                 <div class="statistic-value">5,00 / <small>2</small></div>
                                             </div>
                                             <div class="col-4 col-md-3 statistic-item">
@@ -200,22 +313,22 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="https://i2.docln.net/ln/users/avatars/u199104-3ced19eb-d041-4ebb-bf96-845de5cd2f9b.jpg"
+                                            src="{{ asset($book->user->avatar_url ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
-                                                    href="/thanh-vien/199104">KadminNodi</a></span>
+                                                    href="{{ route('user.books', $book->user_id) }}">{{ $book->user->username }}</a></span>
                                         </div>
                                     </div>
                                     <div class="fantrans-section">
                                         <div class="fantrans-name">Nhóm dịch</div>
                                         <div class="fantrans-value"><a
-                                                href="https://docln.net/nhom-dich/3122-dark-matter">♪ Dark Matter ⁂</a>
+                                                href="{{ route('group.showU', $book->group->slug) }}">{{ $book->group->name }}</a>
                                         </div>
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -278,129 +391,223 @@
                         </header>
                         <div class="overflow-hidden shadow">
                             <ul role="list" class="">
-                                <li>
-                                    <a href="https://docln.net/truyen/18997/danh-gia"
-                                        class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
-                                        <div class="px-4 py-4 sm:px-6">
-                                            <div class="flex items-center justify-between">
-                                                <p class="truncate text-sm font-bold text-indigo-600 dark:text-white">
-                                                    KadminNodi</p>
-                                                <div class="ml-2 flex flex-shrink-0">
-                                                    <div class="d-flex justify-content-around">
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
+                                @foreach ($ratings as $item)
+                                    <li>
+                                        <a href="https://docln.net/truyen/18997/danh-gia"
+                                            class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
+                                            <div class="px-4 py-4 sm:px-6">
+                                                <div class="flex items-center justify-between">
+                                                    <p class="truncate text-sm font-bold text-indigo-600 dark:text-white">
+                                                        {{ !empty($item->user->full_name) ? $item->user->full_name : $item->user->username }}
+                                                    </p>
+                                                    <div class="ml-2 flex flex-shrink-0">
+                                                        <div class="d-flex justify-content-around">
+                                                            @for ($i = 0; $i < $item->rating; $i++)
+                                                                <div class="text-base text-yellow-400">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            @endfor
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="mt-2 sm:flex sm:justify-between">
-                                                <div class="sm:flex">
-                                                    <p class="flex items-center text-sm text-gray-500 dark:text-white">
-                                                        <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"
-                                                            aria-hidden="true">
+                                                <div class="mt-2 sm:flex sm:justify-between">
+                                                    <div class="sm:flex">
+                                                        <p class="flex items-center text-sm text-gray-500 dark:text-white">
+                                                            <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                                                fill="currentColor" aria-hidden="true">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            {{ !empty($item->comment) ? $item->comment : 'Không có nội dung' }}
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 dark:text-white">
+                                                        <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+                                                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                             <path fill-rule="evenodd"
-                                                                d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z"
+                                                                d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
                                                                 clip-rule="evenodd" />
                                                         </svg>
-                                                        tự đánh giá keke
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 dark:text-white">
-                                                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fill-rule="evenodd"
-                                                            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    <p>
-                                                        <time class="topic-time timeago" title="27-08-2024 12:22:58"
-                                                            datetime="2024-08-27T12:22:58+07:00"></time>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://docln.net/truyen/18997/danh-gia"
-                                        class="block hover:bg-gray-50 dark:hover:!bg-zinc-700">
-                                        <div class="px-4 py-4 sm:px-6">
-                                            <div class="flex items-center justify-between">
-                                                <p class="truncate text-sm font-bold text-indigo-600 dark:text-white">
-                                                    Quanvndzai</p>
-                                                <div class="ml-2 flex flex-shrink-0">
-                                                    <div class="d-flex justify-content-around">
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="text-base text-yellow-400">
-                                                            <i class="fas fa-star"></i>
-                                                        </div>
+                                                        <p>
+                                                            <time class="topic-time timeago" title="27-08-2024 12:22:58"
+                                                                datetime="{{ $item->created_at }}"></time>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mt-2 sm:flex sm:justify-between">
-                                                <div class="sm:flex">
-                                                    <p class="flex items-center text-sm text-gray-500 dark:text-white">
-                                                        <svg class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"
-                                                            aria-hidden="true">
-                                                            <path fill-rule="evenodd"
-                                                                d="M10 2c-2.236 0-4.43.18-6.57.524C1.993 2.755 1 4.014 1 5.426v5.148c0 1.413.993 2.67 2.43 2.902.848.137 1.705.248 2.57.331v3.443a.75.75 0 001.28.53l3.58-3.579a.78.78 0 01.527-.224 41.202 41.202 0 005.183-.5c1.437-.232 2.43-1.49 2.43-2.903V5.426c0-1.413-.993-2.67-2.43-2.902A41.289 41.289 0 0010 2zm0 7a1 1 0 100-2 1 1 0 000 2zM8 8a1 1 0 11-2 0 1 1 0 012 0zm5 1a1 1 0 100-2 1 1 0 000 2z"
-                                                                clip-rule="evenodd" />
-                                                        </svg>
-                                                        Trans mới dịch lần đâu mà dịch hay ó....
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 dark:text-white">
-                                                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fill-rule="evenodd"
-                                                            d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    <p>
-                                                        <time class="topic-time timeago" title="23-08-2024 01:03:50"
-                                                            datetime="2024-08-23T01:03:50+07:00"></time>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </section>
 
-                    @foreach ($book->episodes as $item)
+
+                    @if ($isAuthor)
+                        <h3>Thống kê mua truyện</h3>
+
+                        <!-- Biểu đồ thống kê -->
+                        <canvas id="purchaseStatisticsChart"></canvas>
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            const ctx = document.getElementById('purchaseStatisticsChart').getContext('2d');
+                            const purchaseStatisticsChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: @json($purchaseStats['dates']), // Mảng các ngày
+                                    datasets: [{
+                                            label: 'Số lượt mua',
+                                            data: @json($purchaseStats['purchases']), // Dữ liệu số lượt mua theo ngày
+                                            borderColor: '#FF6384',
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            pointBackgroundColor: '#FF6384',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Yêu thích',
+                                            data: @json($purchaseStats['likes']), // Dữ liệu yêu thích theo ngày
+                                            borderColor: '#36A2EB',
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            pointBackgroundColor: '#36A2EB',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Bình luận',
+                                            data: @json($purchaseStats['comments']), // Dữ liệu bình luận theo ngày
+                                            borderColor: '#FFCE56',
+                                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                            pointBackgroundColor: '#FFCE56',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        },
+                                        {
+                                            label: 'Lượt xem',
+                                            data: @json($purchaseStats['views']), // Dữ liệu lượt xem theo ngày
+                                            borderColor: '#4BC0C0',
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            pointBackgroundColor: '#4BC0C0',
+                                            borderWidth: 2,
+                                            pointRadius: 5
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            display: true
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Ngày'
+                                            },
+                                            grid: {
+                                                display: true
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Số lượng'
+                                            },
+                                            beginAtZero: true,
+                                            grid: {
+                                                display: true
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+
+                        <!-- Bảng thống kê chi tiết -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Loại thống kê</th>
+                                    <th>Tổng cộng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Số lượt mua</td>
+                                    <td>{{ $purchaseStats['total_purchases'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số yêu thích</td>
+                                    <td>{{ $purchaseStats['total_likes'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Số bình luận</td>
+                                    <td>{{ $purchaseStats['total_comments'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lượt xem</td>
+                                    <td>{{ $purchaseStats['total_views'] ?? 0 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endif
+
+                    @php
+                        $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
+                    @endphp
+                    @if (Auth::id() != $book->user_id)
+                        {{-- {{ dd(!$allChaptersPurchased) }} --}}
+
+                        @if (!$allChaptersPurchased)
+                            <form style="width: 100%; text-align: center"
+                                action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
+                                onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả chương trong truyện với giá {{ $totalPrice }}?');">
+                                @csrf
+                                <button
+                                    style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;"
+                                    type="submit" class="btn btn-primary">
+                                    Mua tất cả chương trong truyện với giá
+                                </button>
+                                <a
+                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                    {{ $totalPrice }}
+                                </a>
+                                <br><br>
+                            </form>
+                        @endif
+                    @endif
+
+
+                    @include('story.partials.noti')
+
+
+                    @foreach ($book->episodes->sortBy('order') as $item)
+                        {{-- Sắp xếp theo order --}}
                         <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
-                            <header id="volume_{{ $item->id }}" class="sect-header">
+                            <header id="volume_{{ $item->id }}" class="sect-header"
+                                style="display: flex; align-items: center;">
                                 <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
-                                <span class="sect-title">
+                                <span class="sect-title" style="flex-grow: 1; margin-right: 10px;">
                                     {{ $item->title }} <span style="color: red">*</span>
                                 </span>
+                                @if (!$allChaptersPurchased && Auth::id() !== $item->user_id)
+                                    <span class="buy-all-button">
+                                        <form action="{{ route('episode.purchase', $item->id) }}" method="POST"
+                                            style="display: inline;"
+                                            onsubmit="return confirm('Bạn có chắc chắn muốn mua tất cả các chương không?');">
+                                            @csrf
+                                            <button type="submit"
+                                                style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                Mua tất cả chương
+                                            </button>
+                                        </form>
+                                    </span>
+                                @endif
                             </header>
                             <main class="d-lg-block">
                                 <div class="row">
@@ -416,71 +623,99 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-10">
-                                        <ul class="list-chapters at-series">
-                                            @foreach ($item->chapters as $chapter)
-                                                <li>
-                                                    <div class="chapter-name">
-                                                        {{-- Hiển thị badge "Mới" nếu chương là mới --}}
-                                                        @if ($chapter->is_new)
-                                                            <div class="new-status badge">
-                                                                <div class="badge-item new">Mới</div>
-                                                            </div>
-                                                        @endif
-
-                                                        {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
-                                                        @if ($chapter->contains_image)
-                                                            <i class="fas fa-image" aria-hidden="true"
-                                                                title="Có chứa ảnh"></i>
-                                                        @endif
-
-                                                        {{-- Kiểm tra giá của chương --}}
-                                                        @if ($chapter->price == 0)
-                                                            {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                            <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
-                                                                title="{{ $chapter->title }}">
-                                                                {{ $chapter->title }} (Miễn phí)
-                                                            </a>
-                                                        @else
-                                                            {{-- Kiểm tra người dùng đã mua chương chưa --}}
-                                                            @if (auth()->check() &&
-                                                                    auth()->user()->hasPurchased($chapter->id))
-                                                                {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
-                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                        <form id="addChaptersForm" method="POST"
+                                            action="{{ route('cart.addMultiple') }}">
+                                            @csrf
+                                            <ul class="list-chapters at-series">
+                                                @foreach ($item->chapters->sortBy('order') as $index =>$chapter)
+                                                    <li class="{{ $index >= 6 ? 'none' : '' }}">
+                                                        <div class="chapter-name"
+                                                            style="display: flex; align-items: center;">
+                                                            {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
+                                                            @if ($chapter->contains_image)
+                                                                <i class="fas fa-image" aria-hidden="true"
+                                                                    title="Có chứa ảnh"></i>
+                                                            @endif
+                                                            {{-- Kiểm tra giá của chương --}}
+                                                            @if ($chapter->price == 0)
+                                                                {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
+                                                                <a 
+                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
-                                                                    {{ $chapter->title }}
+                                                                    {{ $chapter->title }} (Miễn phí)
                                                                 </a>
                                                             @else
-                                                                {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                                <span class="chapter-locked" title="Bạn cần mua chương để đọc">
+                                                                {{-- Kiểm tra người dùng đã mua chương chưa --}}
+                                                                @if (auth()->check() &&
+                                                                        auth()->user()->hasPurchased($chapter->id))
+                                                                    {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
                                                                         {{ $chapter->title }}
                                                                     </a>
-
-                                                                    <a style="background-color: #f56565; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem;"
-                                                                       href="javascript:void(0);"
-                                                                       onclick="confirmPurchase('{{ $chapter->title }}', '{{ $chapter->price }}', '{{ route('chapter.purchase', [$book->slug, $chapter->id]) }}')">
-                                                                        {{ $chapter->price }} coin
-                                                                    </a>
-                                                                </span>
-
-
-
+                                                                @else
+                                                                    {{-- Nếu chưa mua, hiển thị nút mua chương --}}
+                                                                    <span class="chapter-locked"
+                                                                        title="Bạn cần mua chương để đọc"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                            title="{{ $chapter->title }}">
+                                                                            {{ $chapter->title }}
+                                                                        </a>
+                                                                        <span
+                                                                            style="margin-left: 10px;">{{ $chapter->price }}
+                                                                            coins</span>
+                                                                    </span>
+                                                                @endif
                                                             @endif
-                                                        @endif
-                                                    </div>
+                                                        </div>
+                                                        {{-- Hiển thị thời gian tạo chương --}}
+                                                        <div class="chapter-time">
+                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
+                                                            @if (
+                                                                $chapter->price > 0 &&
+                                                                    (!auth()->check() ||
+                                                                        !auth()->user()->hasPurchased($chapter->id)))
+                                                                <input type="checkbox" name="chapters[]"
+                                                                    value="{{ $chapter->id }}"
+                                                                    style="margin-right: 10px;">
+                                                            @endif
+                                                            {{ $chapter->created_at->format('d/m/Y') }}
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
 
-                                                    {{-- Hiển thị thời gian tạo chương --}}
-                                                    <div class="chapter-time">{{ $chapter->created_at->format('d/m/Y') }}
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
+                                            <div class="mobile-more" >
+                                                <div class="see_more">
+                                                    <span style="padding-left: 30px">Xem tiếp</span>
+                                                </div>
+                                            </div>
+
+                                            @php
+                                                $allChaptersFreeOrPurchased = $item->chapters->every(function (
+                                                    $chapter,
+                                                ) {
+                                                    return $chapter->price == 0 ||
+                                                        (auth()->check() &&
+                                                            auth()
+                                                                ->user()
+                                                                ->hasPurchased($chapter->id));
+                                                });
+                                            @endphp
+                                            @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
+                                                <button type="submit" class="btn btn-secondary mt-3"
+                                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                    Thêm các chương đã chọn vào giỏ hàng
+                                                </button>
+                                            @endif
+                                        </form>
                                     </div>
                                 </div>
                             </main>
                         </section>
                     @endforeach
+
                     <div id="purchaseModal" class="purchase-modal" style="display:none;">
                         <div class="purchase-modal-content">
                             <span class="close" onclick="closeModal()">&times;</span>
@@ -551,11 +786,11 @@
                                         @foreach ($comments as $comment)
                                             <div class="ln-comment-group">
                                                 <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2559913" data-parent="2559913">
+                                                    data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="{{ asset(Storage::url($comment->user->avatar_url)) }}"
+                                                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>
@@ -569,7 +804,7 @@
                                                                             <a class="font-bold leading-6 md:leading-7 ln-username "
                                                                                 href="">{{ $comment->user->username }}</a>
                                                                         </div>
-                                                                        <div class="self-center">
+                                                                        {{-- <div class="self-center">
                                                                             <div
                                                                                 class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
                                                                                 <img class="my-auto h-[14px]"
@@ -584,25 +819,23 @@
                                                                                     src="/img/badge/trans5.png" />
                                                                                 <div class="leading-4">TRANS</div>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
-                                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                        x-data="{ show: false }">
-                                                                        <div class="" @click="show = !show">
-                                                                            <i class="fas fa-angle-down"></i>
+                                                                    @if (Auth::check())
+                                                                        <div
+                                                                            class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                            <div @click="showReplies = !showReplies">
+                                                                                <i
+                                                                                    :class="showReplies ? 'fas fa-angle-up' :
+                                                                                        'fas fa-angle-down'"></i>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="ln-comment-toolkit" x-show="show"
-                                                                            @click.outside="show = false"
-                                                                            style="display: none">
-
-
-                                                                        </div>
-                                                                    </div>
+                                                                    @endif
                                                                 </div>
                                                                 <div class="ln-comment-content long-text">
                                                                     {{ $comment->content }}
                                                                 </div>
-                                                                <div class="comment_see_more expand none">Xem thêm</div>
+                                                                {{-- <div class="comment_see_more expand none">Xem thêm</div> --}}
                                                                 <div
                                                                     class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                                     <a href="#">
@@ -616,132 +849,57 @@
                                                                         <i class="fas fa-thumbs-up me-1"></i>
                                                                         <span class="likecount font-semibold">4</span>
                                                                     </a>
-                                                                    <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{ $comment->id }}#reply-form-{{ $comment->id }}"
-                                                                        class="self-center visible-toolkit-item cursor-pointer">
-                                                                        <i class="fas fa-comment me-1"></i>
-                                                                        <span class="likecount font-semibold">Trả
+                                                                    @if (Auth::check())
+                                                                        <a @click.prevent="showReplyForm = !showReplyForm"
+                                                                            class="self-center visible-toolkit-item cursor-pointer">
+                                                                            <i class="fas fa-comment me-1"></i>
+                                                                            <span class="likecount font-semibold">Trả
+                                                                                lời</span>
+                                                                        </a>
+                                                                    @endif
+
+                                                                    <a href="">
+                                                                        <span>{{ $comment->replies->count() }} đã trả
                                                                             lời</span>
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                @if (request('reply_to') == $comment->id)
-                                                    <div class="ln-comment-reply ln-comment-form mt-3"
-                                                        id="reply-form-{{ $comment->id }}">
-                                                        @if (Auth::check())
-                                                            <form action="{{ route('addComment', $book->id) }}"
-                                                                method="POST" class="reply_form">
-                                                                @csrf
-                                                                <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
-                                                                <input type="hidden" name="parent_id"
-                                                                    value="{{ $comment->id }}">
-                                                                <div class="comment_toolkit clear">
-                                                                    <input class="button" type="submit" value="Trả lời">
-                                                                </div>
-                                                            </form>
-                                                        @else
-                                                            <p><strong>Bạn phải <a href="{{ route('login') }}"
-                                                                        style="color: red">đăng nhập</a> để trả lời bình
-                                                                    luận.</strong></p>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                                <!-- Lặp qua các replies -->
-                                                @if ($comment->replies->isNotEmpty())
-                                                    @include('partials.comment', [
-                                                        'comments' => $comment->replies,
-                                                    ])
-                                                @endif
-                                                {{-- @foreach ($comment->replies as $reply)
-                                                    <div class="ln-comment-reply">
-                                                        <div id="ln-comment-2560870" class="ln-comment-item mt-3 clear"
-                                                            data-comment="2560870" data-parent="2559913">
-                                                            <div class="flex gap-1 max-w-full">
-                                                                <div class="w-[50px]">
-                                                                    <div class="mx-1 my-1">
-                                                                        <img src="https://i.docln.net/lightnovel/users/ua140203-46c6955e-3d8b-4511-b60d-0606be323f2f.jpg"
-                                                                            class="w-full rounded-full" />
+
+                                                    <div x-show="showReplyForm"
+                                                        class="ln-comment-reply ln-comment-form mt-3"
+                                                        id="reply-form-{{ $comment->id }}" x-cloak>
+                                                        <div class="ln-comment-reply ln-comment-form mt-3"
+                                                            id="reply-form-{{ $comment->id }}">
+                                                            @if (Auth::check())
+                                                                <form action="{{ route('addComment', $book->id) }}"
+                                                                    method="POST" class="reply_form">
+                                                                    @csrf
+                                                                    <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                                                    <input type="hidden" name="parent_id"
+                                                                        value="{{ $comment->id }}">
+                                                                    <div class="comment_toolkit clear">
+                                                                        <input class="button" type="submit"
+                                                                            value="Trả lời">
                                                                     </div>
-                                                                </div>
-                                                                <div
-                                                                    class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
-                                                                    <div class="flex min-w-0 flex-col px-2">
-                                                                        <div class="flex align-top justify-between">
-                                                                            <div
-                                                                                class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                                <div class="self-center">
-                                                                                    <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                        href="{{ $reply->user->id }}">{{ $reply->user->username }}</a>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer"
-                                                                                x-data="{ show: false }">
-                                                                                <div class="" @click="show = !show">
-                                                                                    <i class="fas fa-angle-down"></i>
-                                                                                </div>
-                                                                                <div class="ln-comment-toolkit"
-                                                                                    x-show="show"
-                                                                                    @click.outside="show = false"
-                                                                                    style="display: none">
-
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="ln-comment-content long-text">
-                                                                            {{ $reply->content }}
-                                                                        </div>
-                                                                        <div class="comment_see_more expand none">Xem thêm
-                                                                        </div>
-                                                                        <div
-                                                                            class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                            <a href="/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?comment_id=2559913&amp;reply_id=2560870#ln-comment-2560870"
-                                                                                class="text-slate-500">
-                                                                                <time class="timeago"
-                                                                                    title="22-08-2024 23:44:19" datetime="{{ $comment->created_at }}">
-                                                                                    {{ $comment->created_at->diffForHumans() }}
-                                                                                </time>
-                                                                            </a>
-                                                                            <a
-                                                                                class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                                <i class="fas fa-thumbs-up me-1"></i>
-                                                                                <span
-                                                                                    class="likecount font-semibold"></span>
-                                                                            </a>
-                                                                            <a
-                                                                                class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                                                <i class="fas fa-comment me-1"></i>
-                                                                                <a href="{{ route('truyen.truyen', [$book->slug]) }}?reply_to={{$reply->id }}"
-                                                                                    class="likecount font-semibold">Trả lời</a>
-                                                                            </a>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                </form>
+                                                            @else
+                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                            style="color: red">đăng nhập</a> để trả lời
+                                                                        bình luận.</strong></p>
+                                                            @endif
                                                         </div>
                                                     </div>
-                                                @endforeach
-
-                                                @if (request('reply_to') == $reply->id)
-                                                    <div class="ln-comment-reply ln-comment-form mt-3">
-                                                        @if (Auth::check())
-                                                            <form action="{{ route('addComment', $book->id) }}"
-                                                                method="POST" class="reply_form">
-                                                                @csrf
-                                                                <textarea name="content" class="comment_reply form-control" required></textarea>
-                                                                <input type="hidden" name="parent_id" value="{{  $reply->id }}">
-                                                                <div class="comment_toolkit clear">
-                                                                    <input class="button" type="submit" value="Trả lời">
-                                                                </div>
-                                                            </form>
-                                                        @else
-                                                            <p><strong>Bạn phải <a href="{{ route('login') }}" style="color: red">đăng nhập</a> để trả lời bình luận.</strong></p>
+                                                    <div x-show="showReplies" class="mt-3" x-cloak>
+                                                        <!-- Lặp qua các replies -->
+                                                        @if ($comment->replies->isNotEmpty())
+                                                            @include('partials.comment', [
+                                                                'comments' => $comment->replies,
+                                                            ])
                                                         @endif
                                                     </div>
-                                                @endif --}}
+                                                </div>
                                             </div>
                                         @endforeach
 
@@ -767,4 +925,126 @@
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function confirmPurchaseEpisode(episodeTitle, episodeId) {
+                document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' +
+                    episodeTitle;
+                document.getElementById('modalContent').innerText =
+                    'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
+                document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
+                document.getElementById('purchaseModal').style.display = 'block';
+            }
+
+            function closeModal() {
+                document.getElementById('purchaseModal').style.display = 'none';
+            }
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const chapterId = this.dataset.chapterId;
+
+                    fetch('/cart/add', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                chapter_id: chapterId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                alert(data.message);
+                                updateCartCount(); // Update cart count after adding item
+                            } else {
+                                alert(data.message);
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+
+        // Bật tắt hộp thoại Report Truyện
+        document.getElementById("reportButton").addEventListener("click", toggleReportBox);
+
+        function toggleReportBox() {
+            var reportBox = document.getElementById("reportModal");
+            reportBox.style.display = reportBox.style.display === "block" ? "none" : "block";
+        }
+
+        function closeOutsideBox(event) {
+            if (event.target === document.getElementById("reportModal")) {
+                toggleReportBox();
+            }
+        }
+
+        // Lấy dữ liệu báo cáo
+        function submitReport() {
+            // Lấy lý do đã chọn, mô tả và book_id
+            const reasons = Array.from(document.querySelectorAll('input[name="error"]:checked')).map(el => el.value);
+            const description = document.getElementById('user-note').value;
+            const bookId = document.getElementById('book_id').value;
+
+            // Kiểm tra nếu lý do trống
+            if (reasons.length === 0) {
+                return alert('Vui lòng chọn ít nhất một lý do.');
+            }
+
+            // Gửi AJAX đến backend
+            fetch('/report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        reasons,
+                        description,
+                        book_id: bookId
+                    })
+                })
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        alert('Báo cáo của bạn đã được gửi.');
+                        toggleReportBox(); // Đóng hộp thoại báo cáo
+                    } catch (e) {
+                        alert('Có lỗi xảy ra: ' + text);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra.');
+                });
+        }
+    </script>
+    <script>
+        function autoPurchase(bookId) {
+            // Make an AJAX call to the backend to handle auto purchase
+            fetch('/auto-purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        book_id: bookId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đăng ký tự động mua thành công!');
+                    } else {
+                        alert('Đã đăng ký tự động mua truyện này rồi');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 @endsection

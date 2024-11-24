@@ -23,7 +23,7 @@
         <div class="form-group clearfix">
             <label class="col-md-2 control-label text-right">Email</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="email" id="email" value="{{ $user->email }}" readonly>
+                <input type="text" class="form-control" name="email" id="email" value="{{ Auth::check() ? Auth::user()->email : old('email') }}" readonly>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
         <div class="form-group clearfix">
             <label class="col-md-2 control-label text-right">Vai trò hiện tại</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="role" id="role" value="{{ $user->role->name }}" readonly>
+                <input type="text" class="form-control" name="role" id="role" value="{{ Auth::check() ? Auth::user()->role->name : 'Bạn cần đăng nhập để xem vai trò' }}" readonly>
             </div>
         </div>
 
@@ -68,19 +68,6 @@
                 <textarea  name="reason" id="reason"></textarea>
             </div>
         </div>
-
-        <div class="form-group clearfix required">
-            <label class="col-md-2 control-label text-right">Vai Trò Yêu Cầu:</label>
-            <div class="col-md-8">
-                <select class="form-control" name="requested_role" id="requested_role" required>
-                    <option value="">----</option>
-                    <option value="author">Tác Giả</option>
-                    <option value="mod">Mod</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-        </div>
-
 
         @include('layouts.TinyMCEscript')
         <div class="form-group">

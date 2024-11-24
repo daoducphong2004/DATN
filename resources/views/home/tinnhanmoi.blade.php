@@ -1,13 +1,7 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+    <div class="page-top-group  at-index ">
+        @include('partials.banner')
     </div>
 
     <main id="mainpart" class="new-pm-page" style="min-height: 181px;">
@@ -20,7 +14,24 @@
         </header>
         <div class="container">
             <section class="new-private-messages">
-                <form method="post" action="/tin-nhan/moi">
+                @if (session('success'))
+                    <div class="alert alert-success" style="background-color: rgb(90, 205, 90)">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form method="post" action="{{ route('mail.send') }}">
+                    {{ csrf_field() }}
                     <div class="mail-attribute">
                         <div class="mail-attribute-name">Người nhận</div>
                         <input class="form-control mail-attribute-input" name="receive_user" size="40"
@@ -33,8 +44,23 @@
                             placeholder="Bắt buộc" value="" type="text">
 
                     </div>
+                    <div class="mail-attribute">
+                        <div class="mail-attribute-name">Nội dung</div>
+                        <textarea class="comment_content" name="content" style="width: 100%; height: 100px" aria-hidden="true"
+                            placeholder="Bắt buộc"></textarea>
+                    </div>
 
-                    <main class="ln-comment-body">
+                    <div id="ln-comment-submit" class="ln-comment-form clear">
+                        <div class="comment_toolkit clear">
+                            <input type="submit" class="button" value="Gửi đi">
+                        </div>
+                    </div>
+                </form>
+
+            </section>
+
+
+            {{-- <main class="ln-comment-body">
                         <div id="ln-comment-submit" class="ln-comment-form clear">
 
                             <div class="mail-attribute-name">Nội dung</div>
@@ -204,8 +230,8 @@
 
 
                         </div>
-                    </main>
-                </form>
+                    </main> --}}
+
 
             </section>
         </div>

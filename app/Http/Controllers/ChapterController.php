@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\chapter;
 use App\Http\Requests\StorechapterRequest;
 use App\Http\Requests\UpdatechapterRequest;
+use App\Models\AutoPurchase;
 use App\Models\episode;
 use App\Models\PurchasedStory;
+use App\Models\Transaction;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
@@ -33,70 +38,191 @@ class ChapterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function autoPurchaseForChapter($chapterId)
     {
-           // Validation
-    $validatedData = $request->validate([
-        'episode_id' => 'required|integer|exists:episodes,id',
-        'title' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'content' => 'required|string',
-        'price' => 'required|numeric', // Thêm quy tắc xác thực cho price
-    ]);
+        $chapter = Chapter::findOrFail($chapterId);
 
-    // Calculate word count
-    $wordCount = str_word_count(strip_tags($validatedData['content']));
+        // Nếu chương không có phí, không cần xử lý
+        if ($chapter->price <= 0) {
+            return;
+        }
 
-    $book = Episode::find($validatedData['episode_id'])->book()->first();
+        // Lấy danh sách người dùng đã bật AutoPurchase cho sách này
+        $autoPurchasers = AutoPurchase::where('book_id', $chapter->book_id)
+            ->where('status', true)
+            ->get();
 
-    // Create new chapter
-    $chapter = new Chapter();
-    $chapter->episode_id = $validatedData['episode_id'];
-    $chapter->title = $validatedData['title'];
-    $chapter->slug = '';
-    $chapter->user_id = Auth::id();
-    $chapter->content = $validatedData['content'];
-    $chapter->price = $validatedData['price']; // Gán giá
-    $chapter->word_count = $wordCount; // Lưu số từ
-    $chapter->save();
+        foreach ($autoPurchasers as $autoPurchase) {
+            $user = $autoPurchase->user;
 
-    // Create slug from chapter_id and title
-    $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-    $chapter->slug = $slug;
+            // Kiểm tra nếu người dùng đã mua chương này
+            $alreadyPurchased = PurchasedStory::where('user_id', $user->id)
+                ->where('chapter_id', $chapter->id)
+                ->exists();
 
-    // Save the chapter again with the updated slug
-    $chapter->save();
+            if ($alreadyPurchased) {
+                continue;
+            }
 
-    // Update the word count for the book (sum of all chapters)
-    $book->word_count += $wordCount;
-    $book->save();
+            // Kiểm tra nếu người dùng có đủ coin để mua
+            if ($user->coin_earned < $chapter->price) {
+                // Gửi thông báo nếu không đủ coin (nếu có hệ thống thông báo)
+                continue;
+            }
 
-    return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter added successfully.');
-    }
+            // Trừ coin của người dùng
+            $user->decrement('coin_earned', $chapter->price);
 
-    public function uploadImage(Request $request)
-    {
-        try {
-            $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // Lưu thông tin mua chương vào bảng PurchasedStory
+            $purchasedStory = PurchasedStory::create([
+                'user_id' => $user->id,
+                'chapter_id' => $chapter->id,
+                'price' => $chapter->price,
+                'purchase_date' => now(),
             ]);
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $imagePath = $image->storeAs('public/uploads', $imageName);
+            // Lấy thông tin tác giả của chương
+            $author = $chapter->user;
 
-                // Return the URL of the uploaded image
-                return response()->json([
-                    'success' => true,
-                    'url' => asset('storage/uploads/' . $imageName)
+            // Kiểm tra hợp đồng của tác giả
+            $contract = $author->contract;
+            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
+
+            // Tính toán doanh thu của tác giả và nền tảng
+            $authorEarnings = $chapter->price * ($revenueShare / 100);
+
+            // Kiểm tra ví của tác giả
+            $wallet = $author->wallet;
+            if (!$wallet) {
+                $wallet = Wallet::create([
+                    'user_id' => $author->id,
+                    'balance' => 0,
+                    'currency' => 'coin'
                 ]);
             }
 
-            return response()->json(['success' => false, 'message' => 'No file uploaded']);
-        } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+            // Cộng số dư vào ví của tác giả
+            $wallet->increment('balance', $authorEarnings);
+
+            // Tạo giao dịch cho tác giả
+            Transaction::create([
+                'wallet_id' => $wallet->id,
+                'purchased_story_id' => $purchasedStory->id,
+                'amount' => $authorEarnings,
+                'type' => 'credit',
+                'description' => 'Earnings from auto-purchased chapter',
+                'status' => 'completed'
+            ]);
         }
+    }
+    public function store(Request $request)
+    {
+        // Bắt đầu một transaction
+        DB::transaction(function () use ($request) {
+            // Validation
+            $validatedData = $request->validate([
+                'episode_id' => 'required|integer|exists:episodes,id',
+                'title' => 'required|string|max:255',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'content' => 'required|string',
+                'price' => 'required|numeric|min:0|max:999999', // Thêm quy tắc xác thực cho price với kiểu decimal(8,2)
+            ]);
+
+            // Loại bỏ tất cả các thẻ HTML để chỉ lấy văn bản
+            $contentText = strip_tags($validatedData['content']);
+
+            // Tính số từ từ nội dung đã loại bỏ thẻ HTML
+            $wordCount = str_word_count($contentText);
+
+            // Get the book associated with the episode
+            $book = Episode::find($validatedData['episode_id'])->book()->first();
+
+            // Check if the user has permission to edit the book
+            if (!$this->canEditBook(Auth::user(), $book)) {
+                return redirect()->back()->with('error', 'You do not have permission to edit this book.');
+            }
+
+            // Create new chapter
+            $chapter = new Chapter();
+            $chapter->episode_id = $validatedData['episode_id'];
+            $chapter->title = $validatedData['title'];
+            $chapter->slug = '';
+            $chapter->book_id = $book->id;
+            $chapter->user_id = Auth::id();
+            $chapter->content = $validatedData['content']; // Lưu nguyên nội dung gốc
+            $chapter->price = $validatedData['price']; // Gán giá
+            $chapter->word_count = $wordCount; // Lưu số từ
+            $chapter->save();
+
+            // Create slug from chapter_id and title
+            $slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
+            $chapter->slug = $slug;
+
+            // Get last order for chapter
+            $lastOrder = $chapter->getChapterCountByBook($chapter->episode->id);
+            $chapter->order = $lastOrder;
+
+            // Save the chapter again with the updated slug
+            $chapter->save();
+
+            // Update the word count for the book (sum of all chapters)
+            $book->word_count += $wordCount;
+            $book->save();
+            $this->autoPurchaseForChapter($chapter->id);
+        });
+    }
+
+
+
+    public function uploadImage(Request $request)
+    {
+        // Kiểm tra xem có file nào được gửi lên không
+        if ($request->hasFile('file')) {
+            // Lưu file vào thư mục public/uploads
+            $path = $request->file('file')->store('uploads', 'public');
+            // Lấy URL công khai của file vừa lưu
+            $url = Storage::url($path);
+
+            // Trả về URL của ảnh dưới dạng JSON để chèn vào TinyMCE
+            return response()->json(['location' => $url]);
+        }
+
+        return response()->json(['error' => 'Upload failed'], 400);
+    }
+
+
+    // Hàm để lưu ảnh từ base64
+    public function storeImageFromBase64($base64Image)
+    {
+        // Tách phần base64 và loại bỏ dữ liệu prefix
+        list($type, $data) = explode(';', $base64Image);
+        list(, $data) = explode(',', $data);
+
+        // Giải mã base64
+        $imageData = base64_decode($data);
+
+        // Tạo tên file ngẫu nhiên
+        $imageName = uniqid() . '.png'; // Bạn có thể thay đổi định dạng nếu cần
+
+        // Lưu file vào storage (public)
+        $path = 'images/' . $imageName;
+        Storage::disk('public')->put($path, $imageData);
+
+        // Trả về URL ảnh
+        return Storage::url($path);
+    }
+
+    // API xử lý yêu cầu từ frontend để lưu ảnh
+    public function saveBase64Image(Request $request)
+    {
+        // Nhận dữ liệu base64 từ frontend
+        $base64Image = $request->input('image');
+
+        // Gọi hàm lưu ảnh và nhận URL ảnh đã lưu
+        $imageUrl = $this->storeImageFromBase64($base64Image);
+
+        // Trả về URL ảnh dưới dạng JSON
+        return response()->json(['imageUrl' => $imageUrl]);
     }
     /**
      * Display the specified resource.
@@ -132,18 +258,17 @@ class ChapterController extends Controller
 
         // Tìm chapter cần cập nhật
         $chapter = Chapter::findOrFail($id);
+        $book = Episode::findOrFail($validatedData['episode_id'])->book;
 
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
-
-        // Lấy thông tin về episode và book liên quan
-        $book = $chapter->episode->book;
 
         // Cập nhật các thông tin của chapter
         $chapter->episode_id = $validatedData['episode_id'];
         $chapter->title = $validatedData['title'];
         $chapter->slug = 'c' . $chapter->id . '-' . Str::slug($validatedData['title']);
-        $chapter->content = $validatedData['content'];
+        $chapter->book_id = $book->id;
+        $chapter->content = $validatedData['content']; // Không cần xử lý DOM
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
 
@@ -154,6 +279,7 @@ class ChapterController extends Controller
             $chapter->image = $imagePath;
         }
 
+        // Lưu chapter
         $chapter->save();
 
         // Cập nhật lại số từ tổng cộng cho sách (book)
@@ -163,6 +289,7 @@ class ChapterController extends Controller
 
         return redirect()->route('chapter.edit', $chapter->id)->with('success', 'Chapter updated successfully.');
     }
+
 
 
     /**
@@ -193,83 +320,24 @@ class ChapterController extends Controller
             return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa chapter. Vui lòng thử lại.']);
         }
     }
-    public function purchaseChapter(Request $request, $chapterId)
+
+    //sắp xếp thứ tự chapter
+    public function showChapters($episodeId)
     {
-        $user = auth()->user(); // Lấy thông tin người dùng hiện tại
-
-        // Kiểm tra xem người dùng đã mua chapter này chưa
-        $alreadyPurchased = PurchasedStory::where('user_id', $user->id)
-            ->where('chapter_id', $chapterId)
-            ->exists();
-
-        if ($alreadyPurchased) {
-            return response()->json(['message' => 'Bạn đã mua chapter này rồi.'], 400);
-        }
-
-        // Lấy thông tin chapter cần mua
-        $chapter = Chapter::findOrFail($chapterId);
-
-        // Kiểm tra nếu người dùng có đủ coin để mua
-        $price = $chapter->price; // Giả sử mỗi chapter có giá trị 'price'
-
-        if ($user->coin_earned < $price) {
-            return response()->json(['message' => 'Bạn không đủ coin để mua chapter này.'], 400);
-        }
-
-        // Trừ coin của người dùng
-        $user->coin_earned -= $price;
-        $user->save();
-
-        // Lưu thông tin mua chapter vào bảng purchased_chapters
-        PurchasedStory::create([
-            'user_id' => $user->id,
-            'chapter_id' => $chapter->id,
-            'purchase_date' => now(),
-        ]);
-
-        return response()->json(['message' => 'Mua chapter thành công!'], 200);
+        // Lấy tất cả các chương của tập truyện cụ thể và sắp xếp theo 'order'
+        $chapters = Chapter::where('episode_id', $episodeId)->orderBy('order')->get();
+        return view('stories.iframe.chapters.sort', compact('chapters', 'episodeId'));
     }
-    public function purchase($bookSlug, $chapterId)
+    public function updateChapterOrder(Request $request, $episodeId)
     {
-        // Kiểm tra xem người dùng có đăng nhập không
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua chương này.');
+        $order = $request->input('order'); // Nhận thứ tự từ request
+
+        foreach ($order as $position => $id) {
+            Chapter::where('id', $id)
+                ->where('episode_id', $episodeId) // Đảm bảo chỉ cập nhật các chương của tập truyện cụ thể
+                ->update(['order' => $position + 1]);
         }
 
-        $user = auth()->user(); // Lấy thông tin người dùng hiện tại
-
-        // Tìm chương cần mua
-        $chapter = Chapter::findOrFail($chapterId);
-
-        // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
-        if ($chapter->price == 0) {
-            return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Chương này miễn phí, bạn không cần mua.');
-        }
-
-        // Kiểm tra nếu người dùng đã mua chương này
-        if ($user->hasPurchased($chapter->id)) {
-            return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                             ->with('message', 'Bạn đã mua chương này rồi.');
-        }
-
-        // Kiểm tra số dư coin của người dùng
-        if ($user->coin_earned < $chapter->price) {
-            return redirect()->back()->with('error', 'Bạn không đủ coin để mua chương này.');
-        }
-
-        // Trừ coin và lưu thông tin mua chương
-        $user->coin_earned -= $chapter->price;
-        $user->save();
-
-        PurchasedStory::create([
-            'user_id' => $user->id,
-            'chapter_id' => $chapter->id,
-            'purchase_date' => now(),
-        ]);
-
-        return redirect()->route('truyen.chuong', [$bookSlug, $chapter->slug])
-                         ->with('message', 'Mua chương thành công!');
+        return response()->json(['status' => 'success']);
     }
-
 }

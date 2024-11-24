@@ -29,6 +29,7 @@
                                     <th class="col-xs-7 col-sm-6 col-md-5 col-lg-6">Tên truyện</th>
                                     <th class="hidden-xs col-sm-3 col-md-2 col-lg-2">Người đăng</th>
                                     <th class="hidden-xs hidden-sm col-md-2 col-lg-2">Nhóm dịch</th>
+                                    <th class="hidden-xs hidden-sm col-md-2 col-lg-2">Lịch sử đăng</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,6 +47,7 @@
 
                                     <!-- Nhóm dịch (lấy từ quan hệ group) -->
                                     <td>{{ $book->group->name ?? 'Không có nhóm' }}</td>
+                                    <td><a href="{{ route('user.books.history',$book->id) }}">Xem</a></td>
                                 </tr>
                                 @empty
                                 <tr>
@@ -54,6 +56,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <div>{{ $books->links() }}</div>
 
                     </div>
                 </div>

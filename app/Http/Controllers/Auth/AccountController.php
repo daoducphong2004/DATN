@@ -12,27 +12,22 @@ use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
-
     public function update(Request $request, User $user)
     {
-        //        dd($request->all());
+        //dd($request->all());
         $data = $request->except('avatar');
         // xử lí hình ảnh
-
         //update data
         $user->update($data);
         $old_image = $user->avatar;
-
         if ($request->avatar) {
             $data["avatar"] = Storage::put('users', $request->avatar);
         }
-
         $user->update($data);
 
         if ($request->avatar && $old_image && Storage::exists($old_image)) {
             Storage::delete($old_image);
         }
-
         return redirect()->back()->with('message', 'Cập nhật dữ liệu thành công');
     }
 
@@ -59,10 +54,14 @@ class AccountController extends Controller
 
         return redirect()->route('login')->with('message', 'Đổi mật khẩu thành công!');
     }
+
+
     public function register()
     {
         return view('auth.register');
     }
+
+
 
     public function createAccount(Request $request)
     {
@@ -72,12 +71,10 @@ class AccountController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
         $user = new User();
-
         $user->username = $request->username;
         $user->email = $request->email;
         // $user->role_id = 1;
         $user->password = Hash::make($request->password);
-
         $userRole = Role::where('name', 'user')->first();
         if ($userRole) {
             $user->role_id = $userRole->id;
@@ -88,6 +85,8 @@ class AccountController extends Controller
         return redirect()->route('login')->with("success", "Register account success.");
     }
 
+
+
     public function dialogLogin()
     {
         return view('auth/login');
@@ -95,18 +94,17 @@ class AccountController extends Controller
 
     public function login(Request $request)
     {
+        // dd($request->all());
         $remember = $request->remember;
         $requestInfo = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-
         if (Auth::attempt($requestInfo, $remember)) {
             $request->session()->regenerate();
             return redirect()->route('home')->with("success", "Login account success.");
         }
-
         return redirect()->back()->with("error", "Authentication failed.");
     }
     public function email()
@@ -118,6 +116,4 @@ class AccountController extends Controller
     {
         return view('auth.password.reset');
     }
-
-
 }

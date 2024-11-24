@@ -7,11 +7,27 @@
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
-                @if (session('error'))
+                {{-- @if (session('error'))
                     <div class="alert alert-danger">
                         {{ session('error') }}
                     </div>
-                @endif
+                @endif --}}
+
+                @if (session('success'))
+                <div class="alert alert-success" style="background-color: rgb(90, 205, 90)">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -35,7 +51,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password_hash" class="form-control @error('password_hash') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password_hash') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -72,10 +88,10 @@
                         </div>
                     </form>
 
-                    <form action="{{ url('/vnpay_payment') }}" method="POST">
+                    {{-- <form action="{{ url('/vnpay_payment') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-success">Thanh toán vnpay</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

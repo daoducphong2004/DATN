@@ -1,23 +1,26 @@
 @extends('home.layout.master')
 @section('content')
-    <div class="page-top-group ">
-        <a href="/thao-luan/2591">
-            <div class="index-background d-none d-lg-block"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
-            <div class="index-background d-lg-none"
-                style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}'); background-size: cover">
-            </div>
-        </a>
+    <div class="page-top-group  at-index ">
+        @include('partials.banner')
     </div>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .tab-custom {
 
-    <main
-        wire:snapshot="{&quot;data&quot;:{&quot;paginators&quot;:[{&quot;page&quot;:1},{&quot;s&quot;:&quot;arr&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;Wp05RFHWcU5EW5cFuwE8&quot;,&quot;name&quot;:&quot;pub.user.read-history&quot;,&quot;path&quot;:&quot;lich-su-doc&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;vi&quot;},&quot;checksum&quot;:&quot;8849d6a7aec80c7dc5f011de50c0311fce2a8aa27fdefbec083161a005bd08ad&quot;}"
-        wire:effects="{&quot;url&quot;:{&quot;paginators.page&quot;:{&quot;as&quot;:&quot;page&quot;,&quot;use&quot;:&quot;push&quot;,&quot;alwaysShow&quot;:false,&quot;except&quot;:null}}}"
-        wire:id="Wp05RFHWcU5EW5cFuwE8" id="mainpart" class="browserpage" style="min-height: 212px;">
+            line-height: 2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            max-width: 300px;
+            height: fit-content !important;
+            padding: 5px 20px !important;
+
+        }
+    </style>
+    <main id="mainpart" class="browserpage" style="min-height: 212px;">
         <header class="page-title">
             <div class="page-name_wrapper">
                 <div class="container">
-                    <span class="page-name"><i class="fas fa-circle"></i>Truyện đã đọc</span>
+                    <span style="font-size: 2rem" class="page-name"><i class="fas fa-circle"></i>Tổng quát</span>
                 </div>
             </div>
         </header>
@@ -26,41 +29,251 @@
         </div>
 
         <div class="container">
-            <section class="browse-section">
-                <main class="sect-body row">
-                    <!--[if BLOCK]><![endif]--> <!--[if BLOCK]><![endif]--> <!--[if BLOCK]><![endif]-->
-                    <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
-                        <div class="thumb-wrapper ln-tooltip">
-                            <a href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita/c58018-chuong-20-di-nhan-nhiem-vu-nao"
-                                title="Chương 20: Đi nhận nhiệm vụ nào">
-                                <div class="a6-ratio">
-                                    <div class="content img-in-ratio lazyloaded"
-                                        data-bg="https://i.docln.net/lightnovel/covers/s5184-5c9063be-fe93-45af-b80a-a8c416d91788-m.jpg"
-                                        style="background-image: url(&quot;https://i.docln.net/lightnovel/covers/s5184-5c9063be-fe93-45af-b80a-a8c416d91788-m.jpg&quot;);">
+            <div role="tablist" class="tabs tabs-lifted">
+                <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom " aria-label="Lịch sử đọc"
+                    checked="checked" />
+                <div role="tabpanel" class="tab-content rounded-box p-6">
+                    <main class="sect-body row">
+                        @if (Auth::check())
+                            {{-- Display reading history for logged-in users --}}
+                            @foreach ($readingHistories as $history)
+                                @php
+                                    $book = $history->book;
+                                    $chapter = $history->chapter;
+                                @endphp
+                                <div class="thumb-item-flow col-4 col-lg-2">
+                                    <div class="thumb-wrapper">
+                                        <a class="link at-cover"
+                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                            title="{{ $book->title ?? '' }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                                <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}"
+                                                    title="{{ $chapter->title ?? '' }}">
+                                                    {{ $chapter->title ?? '' }}
+                                                </a>
+                                            </div>
+                                            <div class="thumb_attr volume-title"><a
+                                                    href="#">{{ $book->title ?? '' }}</a>
+                                            </div>
+                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
+                                                <i class="fas fa-times"></i> Xóa
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thumb_attr series-title"><a href="#"
+                                            title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
+                                </div>
+                            @endforeach
+                        @else
+                            {{-- Display reading history for guest users --}}
+                            @foreach ($readingHistories as $history)
+                                @php
+                                    $book = $history['book'];
+                                    $chapter = $history['chapter'];
+                                @endphp
+                                <div class="thumb-item-flow col-4 col-lg-2">
+                                    <div class="thumb-wrapper">
+                                        <a class="link at-cover"
+                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                            title="{{ $book->title ?? '' }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                                <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}"
+                                                    title="{{ $chapter->title ?? '' }}">
+                                                    {{ $chapter->title ?? '' }}
+                                                </a>
+                                            </div>
+                                            <div class="thumb_attr volume-title">
+                                                <a
+                                                    href="{{ route('truyen.tap', ['slug' => $book->slug ?? '', 'episode_slug' => $chapter->episode->slug ?? '']) }}">{{ $chapter->episode->title ?? '' }}</a>
+                                            </div>
+                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
+                                                <i class="fas fa-times"></i> Xóa
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thumb_attr series-title">
+                                        <a href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                            title="{{ $book->title ?? '' }}">
+                                            {{ $book->title ?? '' }}
+                                        </a>
                                     </div>
                                 </div>
-                            </a>
-                            <div class="thumb-detail">
-                                <div class="thumb_attr chapter-title" title="Chương 20: Đi nhận nhiệm vụ nào"><a
-                                        href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita/c58018-chuong-20-di-nhan-nhiem-vu-nao"
-                                        title="Chương 20: Đi nhận nhiệm vụ nào">Chương 20: Đi nhận nhiệm vụ nào</a></div>
-                                <div class="thumb_attr volume-title">Web Novel</div>
-                                <div class="thumb_title text-center pad-top-10" wire:click="delete(3880277)"
-                                    style="cursor: pointer"><i class="fas fa-times"></i> Xóa</div>
-                            </div>
-                        </div>
-                        <div class="thumb_attr series-title"><a
-                                href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita"
-                                title="10 năm sau khi nói câu “Cứ đi đi, ở đây để tôi lo”, tôi đã trở thành một huyền thoại">10
-                                năm sau khi nói câu “Cứ đi đi, ở đây để tôi lo”, tôi đã trở thành một huyền thoại</a></div>
-                    </div>
-                    <!--[if ENDBLOCK]><![endif]-->
-                    <!--[if ENDBLOCK]><![endif]-->
-                    <!--[if ENDBLOCK]><![endif]-->
-                </main>
-            </section>
+                            @endforeach
+                        @endif
+                    </main>
+                </div>
+                @auth
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử mua" />
+                    <div role="tabpanel" class="tab-content rounded-box p-6">
+                        @if ($purchasedStories->isEmpty())
+                            <p>Bạn chưa mua truyện nào.</p>
+                        @else
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên truyện</th>
+                                        <th>Chương</th>
+                                        <th>Giá</th>
+                                        <th>Ngày mua</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($purchasedStories as $index => $purchasedStory)
+                                        <tr>
 
-            <!--[if BLOCK]><![endif]--> <!--[if ENDBLOCK]><![endif]-->
+                                            <td>{{ $index + 1 }}</td>
+                                            <td><a
+                                                    href="{{ route('truyen.truyen', $purchasedStory->book->slug) }}">{{ $purchasedStory->book->title ?? 'Truyện không tồn tại' }}</a>
+                                            </td>
+                                            <td><a
+                                                    href="{{ route('truyen.chuong', [$purchasedStory->book->slug, $purchasedStory->chapter->slug]) }}">{{ $purchasedStory->chapter->title }}</a>
+                                            </td>
+                                            <td>{{ number_format($purchasedStory->price, 0, ',', '.') }} Coin</td>
+                                            <td>{{ \Carbon\Carbon::parse($purchasedStory->purchase_date)->format('d/m/Y H:i') }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
+
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử nạp" />
+                    <div role="tabpanel" class="tab-content rounded-box p-6">
+                        <div class="col-12">
+                            <div class="pt-5 mt-5" style="margin-top: 3.25rem !important"></div>
+                            <hr>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Mã giao dịch</th>
+                                        <th>Số tiền nạp</th>
+                                        <th>Số coin nhận</th>
+                                        <th>Hình thức nạp coin</th>
+                                        <th>Thời gian nạp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (!empty($dataHistory))
+                                        @foreach ($dataHistory as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->transaction_id }}</td>
+                                                <td>{{ number_format($item->amount, 0, ',', '.') }} VNĐ</td>
+                                                <td>{{ number_format($item->coin_earned, 0, ',', '.') }} coin</td>
+                                                <td>{{ $item->description }}</td>
+                                                <td>{{ $item->created_at }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="6">Bạn chưa từng nạp tiền vào hệ thống <a
+                                                    href="{{ route('choose_paymen') }}">nạp ngay</a></td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <td colspan="6">
+                                            <p class="py-2">Tổng số tiền bạn đã nạp: <b>{{ number_format($totalPayment) }}
+                                                    VNĐ</b></p>
+                                            <p class="py-2">Tổng số coin bạn đã nhận được: <b>{{ number_format($totalCoin) }}
+                                                    COIN</b></p>
+                                            <a href="{{ route('indexPayment') }}" class="btn btn-success">Nạp tiền</a>
+                                            <a href="{{ route('home') }}" class="btn btn-primary">Trang chủ</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Tự động mua" />
+                    <div role="tabpanel" class="tab-content rounded-box p-6">
+                        @foreach ($AutoPurchase as $auto)
+                            @php
+                                $book = $auto->book;
+                            @endphp
+                            <div class="thumb-item-flow col-4 col-lg-2">
+                                <div class="thumb-wrapper">
+                                    <a class="link at-cover"
+                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                        title="{{ $book->title ?? '' }}">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr volume-title">
+                                            <a
+                                                href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
+                                        </div>
+                                        <div id="deleteAuto" class="thumb_title text-center pad-top-10"
+                                            style="cursor: pointer" data-book_id="{{ $book->id }}">
+                                            <i class="fas fa-times"></i> Xóa
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thumb_attr series-title"><a
+                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                        title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
+                            </div>
+                        @endforeach
+                        <div>
+                            {{ $AutoPurchase->links() }}
+                        </div>
+                    </div>
+                @endauth
+            </div>
+
         </div>
     </main>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#deleteAuto', function() {
+                var book_id = $(this).data('book_id');
+                var url = "{{ route('destroy-auto-purchase') }}";
+
+
+                // Hiển thị hộp thoại xác nhận
+                if (confirm("Bạn có chắc chắn muốn xóa tự động mua này không?")) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            book_id: book_id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                alert(data.message);
+                                location.reload();
+                            } else {
+                                alert(data.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                            alert("Đã xảy ra lỗi, vui lòng thử lại.");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

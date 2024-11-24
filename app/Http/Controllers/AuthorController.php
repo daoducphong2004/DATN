@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AuthorCreated;
+use App\Events\UserCreated;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthorController extends Controller
 {
@@ -14,7 +19,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $requests = Author::query()->latest('id')->paginate(10);
+        return view('admin.authors.author_requests', compact('requests'));
     }
 
     /**
@@ -37,7 +43,6 @@ class AuthorController extends Controller
             'back_id_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'portrait_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'reason' => 'required|string',
-            'requested_role' => 'required|string|in:author,mod,admin',
         ]);
 
         $front_id_image = null;
@@ -60,9 +65,10 @@ class AuthorController extends Controller
             'back_id_image' => $back_id_image,
             'portrait_image' => $portrait_image,
             'reason' => $request->reason,
-            'requested_role' => $request->requested_role,
         ]);
 
+        $user = Auth::user();
+        event(new AuthorCreated($user));
         return back()->with('success', 'Yêu cầu đã được gửi!');
     }
 
@@ -87,8 +93,13 @@ class AuthorController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $author)
     {
-        //
+        // $author->update(['is_approved' => true]);
+
+        // $author->user->roles()->sync([Role::where('name', 'author')->first()->id]);
+
+        // return back()->with('success', 'Người dùng đã được phê duyệt thành tác giả.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -97,4 +108,79 @@ class AuthorController extends Controller
     {
         //
     }
+
+    public function acceptRequest($id)
+    {
+        $accept = Author::find($id);
+
+        if ($accept) {
+            $accept->is_approve = 'accepted';
+            $accept->save();
+
+            $user = $accept->user;
+
+            if ($user->role->name == 'user') {
+                $user->role_id = Role::where('name', 'author')->first()->id;
+                $user->save();
+            }
+
+            $name = $accept->user->username;
+            $email = $accept->user->email;
+
+            Mail::send('emails.test', compact('name'), function ($message) use ($name, $email) {
+                $message->subject('Yêu cầu tác giả được chấp nhận');
+                $message->to($email, $name);
+            });
+
+            $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
+
+            $admin->notifications()->where('type', 'App\Notifications\AuthorRoleNotification')->delete();
+
+
+            $admin->notifications()->create([
+                'type' => 'App\Notifications\AuthorRoleNotification',
+                'data' => [
+                    'message' => $user->username . ' đã yêu cầu được làm tác giả.',
+                    'user_id' => $user->id,
+                ],
+            ]);
+
+            $admin->notifications()->where('data->user_id', $user->id)->delete();
+
+            event(new UserCreated($user));
+            return back()->with('success', 'Yêu cầu đã được chấp nhận và email đã được gửi.');
+        }
+
+        return back()->with('error', 'Không tìm thấy yêu cầu.');
+
+    }
+
+    public function rejectRequest($id)
+    {
+        $rejected = Author::find($id);
+
+        if ($rejected) {
+            $rejected->is_approve = 'rejected';
+            $rejected->save();
+
+            $user = $rejected->user;
+
+            $name = $rejected->user->username;
+            $email = $rejected->user->email;
+
+            Mail::send('emails.test', compact('name'), function ($message) use ($name, $email) {
+                $message->subject('Yêu cầu tác giả được chấp nhận');
+                $message->to($email, $name);
+            });
+
+            $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
+
+            $admin->notifications()->where('data->user_id', $user->id)->delete();
+
+            return back()->with('success', 'Yêu cầu được từ chối.');
+        }
+
+        return back()->with('error', 'Không tìm thấy yêu cầu.');
+    }
+
 }

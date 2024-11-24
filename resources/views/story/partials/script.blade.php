@@ -1,6 +1,4 @@
-
 <script>
-
     function turnoffall() {
         $(".rdtoggle").removeClass("on");
         $(".rdtoggle_body").removeClass("animation fade-in-left-big fade-in-down");
@@ -43,22 +41,70 @@
     var textAlign = Cookies.get('textAlign') || 'text-justify';
 
     function setcolor(alter = true) {
-        var switcher = $(".set-color .set-input span").eq(bgcolor);
-        switcher.addClass("current");
+    // Lấy màu nền hiện tại được chọn (màu tại vị trí `bgcolor`)
+    var switcher = $(".set-color .set-input span").eq(bgcolor);
+    switcher.addClass("current");
 
-        if (alter) {
-            for (var i = 0; i < $(".set-color .set-input span").length; i++) {
-                $("#mainpart").removeClass('style-' + i);
-                $("#mainpart").removeClass('dark');
-            }
-            $("#mainpart").addClass('style-' + bgcolor);
+    if (alter) {
+        // Xóa các lớp màu nền cũ
+        for (var i = 0; i < $(".set-color .set-input span").length; i++) {
+            $("#mainpart").removeClass('style-' + i);
+            $("#mainpart").removeClass('dark');
+        }
 
-            // Manually hardcoded to dark
-            if (bgcolor >= 6) {
-                $("#mainpart").addClass('dark');
+        // Thêm lớp màu nền mới cho #mainpart
+        $("#mainpart").addClass('style-' + bgcolor);
+
+        // Lấy màu từ data-color
+        var selectedColor = $(".set-color .set-input span").eq(bgcolor).data("color"); // Lấy màu từ data-color
+        if (selectedColor) {
+            // Thay đổi màu nền cho #mainpart
+            $("#mainpart").css("background-color", selectedColor);
+
+            // Tính độ sáng của màu nền (sử dụng hàm luminance)
+            const rgb = hexToRgb(selectedColor);
+            const brightness = luminance(rgb.r, rgb.g, rgb.b);
+
+            // Dựa vào độ sáng để thay đổi màu chữ sao cho có độ tương phản tốt
+            if (brightness > 0.5) {
+                // Nền sáng -> chữ tối
+                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#000000");
+            } else {
+                // Nền tối -> chữ sáng
+                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#ffffff");
             }
         }
     }
+}
+
+// Hàm chuyển màu hex thành RGB
+function hexToRgb(hex) {
+    var r = 0, g = 0, b = 0;
+    // 3 chữ số
+    if (hex.length === 4) {
+        r = parseInt(hex[1] + hex[1], 16);
+        g = parseInt(hex[2] + hex[2], 16);
+        b = parseInt(hex[3] + hex[3], 16);
+    }
+    // 6 chữ số
+    else if (hex.length === 7) {
+        r = parseInt(hex[1] + hex[2], 16);
+        g = parseInt(hex[3] + hex[4], 16);
+        b = parseInt(hex[5] + hex[6], 16);
+    }
+    return { r: r, g: g, b: b };
+}
+
+// Hàm tính luminance (độ sáng)
+function luminance(r, g, b) {
+    const a = [r, g, b].map(function (v) {
+        v /= 255;
+        return (v <= 0.03928) ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+
 
     // This creates unsmooth experience so we only use it for select box
     function setfontfamily() {
@@ -169,14 +215,28 @@
             expires: 365
         });
     });
+    $(document).ready(function() {
+        // Iterate over each bookmark in the list
+        $("#bookmarks_list li").each(function() {
+            var linepr = $(this).data("line"); // Get data-line value from the li
+            console.log(linepr);
 
-    $("#bookmarks_list li").each(function() {
-        var linepr = $(this).data("line");
-        var preview = $(".reading-content p#" + linepr).text();
+            // Find the corresponding paragraph based on the linepr
+            var element = $(".reading-content #" + linepr); // Select the element with the given ID
 
-        var shortText = preview.trim().substring(0, 30) + "...";
-        $(this).find(".pos_bookmark small").text(shortText);
+            if (element.length > 0) {
+                var preview = element.text(); // Get the text content of the element
+                var shortText = preview.trim().substring(0, 30) +
+                "..."; // Trim and shorten text if too long
+                $(this).find(".pos_bookmark small").text(
+                shortText); // Update the small element with the short text
+            } else {
+                console.log("Không tìm thấy phần tử với id " + linepr);
+            }
+        });
     });
+
+
 
     $('div#chapter-content').html(
         $('div#chapter-content').html().replace(
@@ -195,25 +255,9 @@
             return template ? template.innerHTML : 'Đặt sai ID của note';
         }
     });
-
-    // isLoggedIn = 1;
-    // series_id = parseInt('19112');
-    // chapter_id = parseInt('142162');
-
-    // readingObject = {
-    //     series_id: series_id,
-    //     series_title: 'Sau khi bị thế giới bỏ rơi tôi nhặt được một cô gái',
-    //     series_url: $('i.fa-home').first().parent().attr('href'),
-    //     series_cover: $('.rd_sidebar-header a.img').css('background-image'),
-    //     chapter_title: $('ul.sub-chap_list li.current a').text().trim(),
-    //     chapter_url: $('ul.sub-chap_list li.current a').attr('href'),
-    //     book_title: $('ul#chap_list > li.current a').text(),
-    //     book_url: $('ul#chap_list > li.current a').attr('href'),
-    //     read_time: +new Date() / 1000 | 0,
-    // };
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var toast = document.getElementById('toast-message');
 
         if (toast) {
@@ -221,11 +265,12 @@
             toast.classList.add('show');
 
             // Tự động ẩn sau 3 giây (3000 milliseconds)
-            setTimeout(function () {
+            setTimeout(function() {
                 toast.classList.remove('show');
             }, 3000); // 3000 ms = 3s
         }
     });
+
     function confirmPurchase(title, price, url) {
         // Hiển thị modal
         var modal = document.getElementById("purchaseModal");
@@ -251,13 +296,85 @@
             modal.style.display = "none";
         }
     }
+
+    function addToCart(chapterId, chapterTitle, chapterPrice) {
+
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (!document.querySelector('meta[name="user-id"]')) {
+            window.location.href = '/login';
+            return;
+        }
+        // Gửi yêu cầu AJAX để thêm chương vào giỏ hàng
+        fetch('/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    chapter_id: chapterId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showNotification(
+                        `Chương "${chapterTitle}" với giá ${chapterPrice} coin đã được thêm vào giỏ hàng.`,
+                        'success');
+                } else {
+                    showNotification(data.message, 'danger');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        const notificationMessage = document.getElementById('notificationMessage');
+
+        notification.className = 'alert alert-' + type; // Thay đổi lớp CSS dựa trên loại thông báo
+        notificationMessage.innerText = message; // Đặt thông báo
+        notification.style.display = 'block'; // Hiển thị thông báo
+
+        // Tự động đóng thông báo sau 5 giây
+        setTimeout(closeNotification, 5000);
+    }
+
+    function closeNotification() {
+        const notification = document.getElementById('notification');
+        notification.style.display = 'none';
+    }
+
+    $(document).ready(function() {
+        $('.purchase-chapter').on('click', function() {
+            var title = $(this).data('title');
+            var price = $(this).data('price');
+            var url = $(this).data('url');
+
+            // Xác nhận mua chương
+            if (confirm('Bạn có chắc chắn muốn mua chương "' + title + '" với giá ' + price +
+                    ' coin?')) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}' // Thêm CSRF token
+                    },
+                    success: function(response) {
+                        alert(response.message); // Hiển thị thông báo thành công
+                        location.reload(); // Tải lại trang
+                        // Cập nhật giao diện nếu cần thiết (vd: số dư coin, danh sách đã mua, ...)
+                    },
+                    error: function(xhr) {
+                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
+                            'Đã xảy ra lỗi, vui lòng thử lại.';
+                        alert(errorMessage); // Hiển thị thông báo lỗi
+                    }
+                });
+            }
+        });
+    });
 </script>
 
 
-<script src="{{ asset('scripts/app.js?id=e6bfa8f47769659b2c4d6e4752cc0d59') }}"></script>
-<script src="{{ asset('livewire/livewire.js?id=f121a5df') }}" data-csrf="0AhfzgjuQekEYfJgQs9N0g0ExyxQ0JT9uzRvH1Vk"
-    data-update-uri="/livewire/update" data-navigate-once="true"></script>
-
-
-<script async type='text/javascript' src='//pl16314303.highcpmgate.com/d5/6b/4b/d56b4bd6c3d2c1e161c4ab3c78c27670.js'>
-</script>
+<script src="{{ asset('scripts/app.js') }}"></script>

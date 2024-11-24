@@ -10,6 +10,8 @@ use App\Models\chaptercomment;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -18,13 +20,48 @@ class UserController extends Controller
         try {
             $users = User::paginate(10);
             return view('admin.users.index', compact('users'));
-            // dd($users);
-            // $groups = group::paginate(10);
-            // return view('admin.group.index', compact('groups'));
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to load User: ' . $e->getMessage()]);
         }
     }
+
+
+    public function updateAvatar(Request $request, $id)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $user = User::findOrFail($id);
+        // Xử lý lưu ảnh
+        $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        // Xóa ảnh cũ nếu có
+        if ($user->avatar_url) {
+            Storage::disk('public')->delete($user->avatar_url);
+        }
+        $user->avatar_url = $avatarPath;
+        $user->save();
+        return response()->json(['message' => 'Avatar updated successfully']);
+    }
+
+
+    public function updateBackground(Request $request, $id)
+    {
+        $request->validate([
+            'background' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        $user = User::findOrFail($id);
+        // Xử lý lưu ảnh nền
+        $backgroundPath = $request->file('background')->store('backgrounds', 'public');
+        // Xóa ảnh nền cũ nếu có
+        if ($user->background) {
+            Storage::disk('public')->delete($user->background);
+        }
+        $user->background = $backgroundPath;
+        $user->save();
+        return response()->json(['message' => 'Background updated successfully']);
+    }
+
+
 
     public function create()
     {
@@ -102,18 +139,25 @@ class UserController extends Controller
     }
     public function showBooks($userId)
     {
-        // Lấy thông tin user
-        // dd($userId);
         $userInfor = User::findOrFail($userId);
 
-        // Trả về view với dữ liệu
-        // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         $userBooks = $userInfor->books; // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
         $countBook = book::where('user_id',$userInfor->id)->count();
         $countChapters = chapter::where('user_id',$userInfor->id)->count();
         $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+
         return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
+
     }
+        public function purchaseHistory() {
+            $user = Auth::user();
+            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+            return view('user.purchaseHistory', compact('purchasedStories'));
+        }
+
+
+
+
 }

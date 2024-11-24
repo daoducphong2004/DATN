@@ -21,17 +21,37 @@ class book extends Model
         'book_path',
         'description',
         'note',
-        'is_VIP',
         'adult',
         'group_id',
-        'price',
         'user_id',
         'Is_Inspect',
-        'user_id',
-        'is_paid'
-
+        'price',
+        'views_week',
+        'views_month',
     ];
+    public function episodes()
+    {
+        return $this->hasMany(episode::class);
+    }
 
+    public function chapters()
+    {
+        return $this->hasMany(chapter::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function likedBooks()
+    {
+        return $this->belongsToMany(Book::class, 'likes');
+    }
+
+    public function totalChapterPrice()
+    {
+
+        return $this->chapters->sum('price');
+    }
     public function group()
     {
         return $this->belongsTo(group::class, 'group_id');
@@ -46,19 +66,8 @@ class book extends Model
         return $this->hasMany(bookcomment::class);
     }
 
-    public function episodes()
-    {
-        return $this->hasMany(episode::class);
-    }
 
-    public function chapters()
-    {
-        return $this->hasMany(chapter::class);
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
     public function groups()
     {
         return $this->belongsTo(group::class);
@@ -74,6 +83,44 @@ class book extends Model
     }
     public function sharedUsers()
     {
-        return $this->belongsToMany(User::class, 'shared_books', 'book_id', 'user_id');
+        return $this->hasMany(SharedBook::class);
+    }
+
+
+    public function allChaptersPurchased($userId)
+    {
+        $totalChapters = $this->chapters()->where('price', '>', 0)->count();
+        $purchasedChapters = $this->chapters()->whereHas('purchasedStories', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+
+        return $totalChapters === $purchasedChapters;
+    }
+    public function allChaptersinEpisodePurchased($userId, $episodeId)
+    {
+        // Tổng số chương có giá trị trong tập truyện
+        $totalChapters = $this->chapters()->where('price', '>', 0)->where('episode_id', $episodeId)->count();
+
+        // Số chương đã mua
+        $purchasedChapters = $this->chapters()->where('price', '>', 0)->where('episode_id', $episodeId)
+            ->whereHas('purchasedStories', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->count();
+
+        // Kiểm tra xem tất cả các chương có giá trị đã được mua chưa
+        return $totalChapters === $purchasedChapters;
+    }
+    public function hasChapter($id)
+    {
+        $book = book::find($id);
+        return $book->chapters()->exists();
+    }
+    public function contract()
+    {
+        return $this->hasOne(Contract::class);
+    }
+    public function approvalHistories()
+    {
+        return $this->hasMany(ApprovalHistory::class);
     }
 }

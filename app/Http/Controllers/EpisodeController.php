@@ -9,6 +9,7 @@ use App\Models\book;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
+use Illuminate\Http\Request;
 
 class EpisodeController extends Controller
 {
@@ -61,6 +62,8 @@ class EpisodeController extends Controller
                 // Generate and save slug
                 $slug = Str::slug('t' . $episode->id . '-' . $validatedData['title']);
                 $episode->slug = $slug;
+                $lastOder = $episode->getMaxOrderByBook($episode->book_id);
+                $episode->order = $lastOder+1;
                 $episode->save();
             }
 
@@ -101,7 +104,7 @@ class EpisodeController extends Controller
 
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         // dd($book->episodes);
-        return view('stories.iframe.episodes.formUpdateEpisode', compact( 'episode'));
+        return view('stories.iframe.episodes.formUpdateEpisode', compact('episode'));
     }
 
     /**
@@ -170,4 +173,23 @@ class EpisodeController extends Controller
             return response()->json(['success' => false, 'message' => 'Có lỗi xảy ra khi xóa tập. Vui lòng thử lại.']);
         }
     }
+    //Sắp xếp tập truyện
+    public function sortView($bookId)
+    {
+        // Get episodes for the specific book and sort them by 'order'
+        $episodes = Episode::where('book_id', $bookId)->orderBy('order')->get();
+        return view('stories.iframe.episodes.sort', compact('episodes'));
+    }
+
+    public function updateOrder(Request $request)
+    {
+        $order = $request->input('order');
+
+        foreach ($order as $position => $id) {
+            Episode::where('id', $id)->update(['order' => $position + 1]);
+        }
+
+        return response()->json(['status' => 'success']);
+    }
+    //End sắp xếp tập truyện
 }

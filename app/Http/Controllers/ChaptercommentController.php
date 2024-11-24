@@ -65,44 +65,56 @@ class ChaptercommentController extends Controller
                 'message' => 'ID không hợp lệ.',
                 'data' => null
             ], Response::HTTP_BAD_REQUEST); // Trả về mã lỗi 400 nếu ID không hợp lệ
-        } else {
-            // Lấy tất cả bình luận của chapter, phân trang
-            $chapterComments = ChapterComment::where('chapter_id', $id)
-                ->with('user')  // Lấy thông tin người dùng của bình luận
-                ->with('replies.user')  // Lấy các phản hồi và thông tin người dùng của phản hồi
-                ->with('deletedBy')
-                ->orderByDesc('created_at')  // Lấy thông tin người đã xóa nếu có
-                ->paginate(5);  // Giới hạn 10 bình luận mỗi trang
-
-            // Duyệt qua tất cả các bình luận và thay thế nội dung nếu bình luận bị xóa
-            foreach ($chapterComments as $comment) {
-                if ($comment->is_delete) {
-                    // Nếu bình luận bị xóa, thay thế nội dung bằng thông báo
-                    $comment->content = 'Bình luận bị xóa bởi: ' . $comment->deletedBy->username;
-                }
-
-                // Duyệt qua các phản hồi của bình luận và thay thế nội dung nếu phản hồi bị xóa
-                foreach ($comment->replies as $reply) {
-                    if ($reply->is_delete) {
-                        // Nếu phản hồi bị xóa, thay thế nội dung bằng thông báo
-                        $reply->content = 'Phản hồi bị xóa bởi: ' . $reply->deletedBy->username;
-                    }
-                }
-            }
-            if ($chapterComments->isEmpty()) {
-                return response()->json([
-                    'message' => 'Không tìm thấy bình luận.',
-                    'data' => null
-                ], Response::HTTP_OK); // Trả về mã lỗi 404 nếu không tìm thấy bình luận
-            }
-
-            // Trả về dữ liệu bình luận dưới dạng JSON
-            return response()->json([
-                'message' => 'Bình luận đã được tìm thấy.',
-                'data' => $chapterComments,
-            ], Response::HTTP_OK); // Trả về mã thành công 200
         }
+
+        // Lấy tất cả bình luận của chapter (top-level comments)
+        $chapterComments = ChapterComment::where('chapter_id', $id)
+            ->whereNull('parent_id') // Chỉ lấy bình luận gốc
+            ->with(['user', 'replies.user', 'deletedBy', 'replies.deletedBy']) // Lấy thông tin người dùng và thông tin xóa
+            ->orderByDesc('created_at') // Sắp xếp giảm dần theo thời gian
+            ->paginate(5); // Phân trang, mỗi trang 5 bình luận
+
+        if ($chapterComments->isEmpty()) {
+            return response()->json([
+                'message' => 'Không tìm thấy bình luận.',
+                'data' => null
+            ], Response::HTTP_OK); // Trả về mã thành công 200 nếu không có bình luận
+        }
+
+        // Xử lý nội dung của bình luận
+        $chapterComments->getCollection()->transform(function ($comment) {
+            return $this->processComment($comment);
+        });
+
+        // Trả về dữ liệu bình luận dưới dạng JSON
+        return response()->json([
+            'message' => 'Bình luận đã được tìm thấy.',
+            'data' => $chapterComments,
+        ], Response::HTTP_OK); // Trả về mã thành công 200
     }
+
+    /**
+     * Xử lý nội dung của một bình luận, bao gồm cả các phản hồi.
+     */
+    private function processComment($comment)
+    {
+        if ($comment->is_delete) {
+            // Thay thế nội dung nếu bình luận bị xóa
+            $comment->content = 'Bình luận bị xóa bởi: ' . optional($comment->deletedBy)->username;
+        }
+
+        // Xử lý các phản hồi
+        $comment->replies = $comment->replies->map(function ($reply) {
+            if ($reply->is_delete) {
+                // Thay thế nội dung nếu phản hồi bị xóa
+                $reply->content = 'Phản hồi bị xóa bởi: ' . optional($reply->deletedBy)->username;
+            }
+            return $reply;
+        });
+
+        return $comment;
+    }
+
 
 
     public function hasPermission(int $userId)

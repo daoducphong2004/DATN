@@ -525,7 +525,7 @@ function loadComments(chapterId, page = 1) {
                                 <div class="flex gap-1 max-w-full">
                                     <div class="w-[50px]">
                                         <div class="mx-1 my-1">
-                                            <img src="${comment.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                                        <img src="/storage/${comment.user.avatar_url ?? '/img/noava.png'}" class="w-full rounded-full" />
                                         </div>
                                     </div>
                                     <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
@@ -592,7 +592,7 @@ function loadComments(chapterId, page = 1) {
                                         <div class="flex gap-1 max-w-full">
                                             <div class="w-[50px]">
                                                 <div class="mx-1 my-1">
-                                                    <img src="${reply.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                                        <img src="/storage/${comment.user.avatar_url ?? '/img/noava.png'}" class="w-full rounded-full" />
                                                 </div>
                                             </div>
                                             <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">

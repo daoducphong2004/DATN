@@ -481,154 +481,181 @@ function loadComments(chapterId, page = 1) {
     // Lấy user-id từ thẻ meta
     const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
 
-    // Gửi yêu cầu GET bằng Fetch API
-    fetch(`/comments-chapter?chapter_id=${chapterId}&page=${page}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            const commentsContainer = document.getElementById("comments-container");
-            commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
-            // Lặp qua các bình luận
-            data.data.forEach((comment) => {
-                let repliesHtml = "";
-                let deleteButton = '';
-                if (comment.user.id == userId) {
-                    deleteButton = `
-                 <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${userId}' >
-                    <i class="fas fa-times"></i>
-                    <span class="font-semibold">Xoá</span>
-                </a>`;
+    function loadComments(chapterId, page = 1) {
+        // Lấy user-id từ thẻ meta
+        const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
+
+        // Gửi yêu cầu GET bằng Fetch API
+        fetch(`/comments-chapter/${chapterId}?page=${page}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
                 }
-                // Lặp qua các reply của comment
-                if (comment.replies && comment.replies.length > 0) {
-                    comment.replies.forEach(reply => {
-                        // Kiểm tra nếu user_id của reply trùng với user_id trong meta
-                        let deleteButtonRL = '';
-                        if (reply.user.id == userId) {
-                            deleteButtonRL = `
-                <a class="self-center visible-toolkit-item span-delete cursor-pointer"  data-id-delete='${userId}>
-                    <i class="fas fa-times"></i>
-                    <span class="font-semibold">Xoá</span>
-                </a>`;
+                return response.json();
+            })
+            .then((data) => {
+                const commentsContainer = document.getElementById("comments-container");
+                commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
+                console.log(data.data);
+
+                // Kiểm tra xem data.data có phải là mảng hay không
+                if (Array.isArray(data.data.data)) {
+                    // Lặp qua các bình luận nếu data.data là mảng
+                    data.data.data.forEach((comment) => {
+                        let repliesHtml = "";
+                        let deleteButton = '';
+                        let commentClass = '';
+
+                        // Kiểm tra nếu comment đã bị xóa
+                        if (comment.is_delete) {
+                            // Thay đổi nội dung bình luận nếu bị xóa
+                            commentClass = 'deleted disabled';
+                            comment.content = `Bình luận đã bị xóa bởi ${comment.user.username}`;
+                            deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
+                        } else {
+                            // Nếu comment không bị xóa, cho phép thêm nút xoá
+                            if (comment.user.id == userId) {
+                                deleteButton = `
+                                    <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
+                                        <i class="fas fa-times"></i>
+                                        <span class="font-semibold">Xoá</span>
+                                    </a>`;
+                            }
                         }
 
-                        repliesHtml += `
-                        <div class="ln-comment-reply">
-                        <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
-                            <div class="flex gap-1 max-w-full">
-                                <div class="w-[50px]">
-                                    <div class="mx-1 my-1">
-                                        <img src="${reply.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
-                                    </div>
-                                </div>
-                                <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
-                                    <div class="flex min-w-0 flex-col px-2">
-                                        <div class="flex align-top justify-between">
-                                            <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                <div class="self-center">
-                                                    <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
-                                                        ${reply.user.username}
+                        // Lặp qua các reply của comment
+                        if (comment.replies && comment.replies.length > 0) {
+                            comment.replies.forEach(reply => {
+                                let deleteButtonRL = '';
+                                let replyClass = reply.is_delete ? 'deleted disabled' : '';
+                                if (reply.user.id == userId) {
+                                    deleteButtonRL = `
+                                        <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${reply.id}'>
+                                            <i class="fas fa-times"></i>
+                                            <span class="font-semibold">Xoá</span>
+                                        </a>`;
+                                }
+
+                                repliesHtml += `
+                            <div class="ln-comment-reply ${replyClass}">
+                                <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
+                                    <div class="flex gap-1 max-w-full">
+                                        <div class="w-[50px]">
+                                            <div class="mx-1 my-1">
+                                                <img src="${reply.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                                            </div>
+                                        </div>
+                                        <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
+                                            <div class="flex min-w-0 flex-col px-2">
+                                                <div class="flex align-top justify-between">
+                                                    <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                        <div class="self-center">
+                                                            <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
+                                                                ${reply.user.username}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
+                                                        <div @click="show = !show">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ln-comment-content long-text">
+                                                    ${reply.content}
+                                                </div>
+                                                <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                    <a href="#" class="text-slate-500">
+                                                        <time class="timeago" title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
+                                                            ${moment(reply.created_at).fromNow()}
+                                                        </time>
+                                                    </a>
+                                                    ${deleteButtonRL}
+                                                    <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                                        data-chapter-id="${chapterId}"
+                                                        data-comment-id="${comment.id}"
+                                                        data-parent-id="${comment.parent_id ?? 0}">
+                                                        <i class="fas fa-comment me-1"></i>
+                                                        <span class="font-semibold">Trả lời</span>
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
-                                                <div @click="show = !show">
-                                                    <i class="fas fa-angle-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
+                            });
+                        }
+
+                        // Tạo HTML cho comment chính và thêm replies
+                        commentsContainer.innerHTML += `
+                        <div class="ln-comment-group">
+                            <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear ${commentClass}" data-comment="${comment.id}">
+                                <div class="flex gap-1 max-w-full">
+                                    <div class="w-[50px]">
+                                        <div class="mx-1 my-1">
+                                            <img src="${comment.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                                        </div>
+                                    </div>
+                                    <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
+                                        <div class="flex min-w-0 flex-col px-2">
+                                            <div class="flex align-top justify-between">
+                                                <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                    <div class="self-center">
+                                                        <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
+                                                            ${comment.user.username}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
+                                                    <div @click="show = !show">
+                                                        <i class="fas fa-angle-down"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="ln-comment-content long-text">
-                                            ${reply.content}
-                                        </div>
-                                        <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                            <a href="#" class="text-slate-500">
-                                                <time class="timeago" title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
-                                                    ${moment(reply.created_at).fromNow()}
-                                                </time>
-                                            </a>
-                                            ${deleteButton}
-                                            <a class="self-center visible-toolkit-item do-reply cursor-pointer"
-                                            data-chapter-id="${chapterId}"
-                                            data-comment-id="${comment.id}"
-                                            data-parent-id="${comment.parent_id ?? 0}">
-                                                <i class="fas fa-comment me-1"></i>
-                                                <span class="font-semibold">Trả lời</span>
-                                            </a>
+                                            <div class="ln-comment-content long-text">
+                                                ${comment.content}
+                                            </div>
+                                            <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                <a href="#" class="text-slate-500">
+                                                    <time class="timeago" title="${new Date(comment.created_at).toLocaleString()}" datetime="${comment.created_at}">
+                                                        ${moment(comment.created_at).fromNow()}
+                                                    </time>
+                                                </a>
+                                                ${deleteButton}
+                                                <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                                    data-chapter-id="${chapterId}"
+                                                    data-comment-id="${comment.id}"
+                                                    data-parent-id="${comment.parent_id ?? 0}">
+                                                    <i class="fas fa-comment me-1"></i>
+                                                    <span class="font-semibold">Trả lời</span>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>`;
+                            ${repliesHtml}
+                        </div>`;
                     });
+                } else {
+                    console.error("Data format is incorrect. Expected 'data' to be an array.");
+                    alert("Đã xảy ra lỗi khi tải bình luận.");
                 }
 
-                // Tạo HTML cho comment chính và thêm replies
-                $('#comments-container').append(`
-                <div class="ln-comment-group">
-                <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear" data-comment="${comment.id}">
-                    <div class="flex gap-1 max-w-full">
-                        <div class="w-[50px]">
-                            <div class="mx-1 my-1">
-                                <img src="${comment.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
-                            </div>
-                        </div>
-                        <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
-                            <div class="flex min-w-0 flex-col px-2">
-                                <div class="flex align-top justify-between">
-                                    <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                        <div class="self-center">
-                                            <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
-                                                ${comment.user.username}
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
-                                        <div @click="show = !show">
-                                            <i class="fas fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ln-comment-content long-text">
-                                    ${comment.content}
-                                </div>
-                                <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                    <a href="#" class="text-slate-500">
-                                        <time class="timeago" title="${new Date(comment.created_at).toLocaleString()}" datetime="${comment.created_at}">
-                                            ${moment(comment.created_at).fromNow()}
-                                        </time>
-                                    </a>
-                                    ${deleteButton}
-                                    <a class="self-center visible-toolkit-item do-reply cursor-pointer"
-                                    data-chapter-id="${chapterId}"
-                                    data-comment-id="${comment.id}"
-                                    data-parent-id="${comment.parent_id ?? 0}">
-                                        <i class="fas fa-comment me-1"></i>
-                                        <span class="font-semibold">Trả lời</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ${repliesHtml}
-            </div>`);
-            });
-            // Cập nhật số trang hiện tại và số trang cuối
-            currentPage = data.current_page;
-            lastPage = data.last_page;
+                // Cập nhật số trang hiện tại và số trang cuối
+                currentPage = data.current_page;
+                lastPage = data.last_page;
 
-            updatePagination(); // Cập nhật phân trang
-        })
-        .catch((error) => {
-            console.error("Error loading comments:", error);
-            alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
-        });
+                updatePagination(); // Cập nhật phân trang
+            })
+            .catch((error) => {
+                console.error("Error loading comments:", error);
+                alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
+            });
+    }
 }
+
 
 function updatePagination() {
     const paginationContainer = document.getElementById("pagination-container");
@@ -827,6 +854,7 @@ if (
                 success: function (response) {
                     if (response.success) {
                         alert(response.message);
+                        loadComments(chapterId,page = 1);
                     } else {
                         alert(response.message);
                     }

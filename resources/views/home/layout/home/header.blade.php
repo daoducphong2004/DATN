@@ -66,7 +66,7 @@
                     <div id="navbar-user">
                         <div class="nav-user_icon">
                             <div class="nav-user_avatar">
-                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
+                                <img src="{{ asset(Storage::url(Auth::user()->avatar_url) ?? 'img/noava.png') }}" alt="Your avatar">
                             </div>
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">

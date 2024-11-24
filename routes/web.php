@@ -345,6 +345,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
 
     Route::get('/tu-sach-da-mua', [purchaseStoryController::class, 'index'])->name('bookshelf.index');
+    Route::get('/action/profile',[ControllersUserController::class,'profile'])->name('action.profile');
+    Route::post('/user/update', [ControllersUserController::class, 'updateUser'])->name('user.update');
+
 });
 
 //End Phong

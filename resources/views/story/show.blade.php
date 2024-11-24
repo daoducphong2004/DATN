@@ -313,7 +313,7 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="{{ asset($book->user->avatar_url ?? 'img/noava.png') }}"
+                                            src="{{ asset(Storage::url($book->user->avatar_url) ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
@@ -790,7 +790,7 @@
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
+                                                                <img src="{{ asset(Storage::url(Auth::user()->avatar_url) ?? 'img/noava.png') }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>

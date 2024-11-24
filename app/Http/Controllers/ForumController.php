@@ -107,8 +107,9 @@ class ForumController extends Controller
                 'forums.title as title',
                 'forums.content as content',
                 'forums.created_at as created_at',
-                'forums.viewer as viewer'
-            ])->orderBy('created_at', 'desc')->get();
+                'forums.viewer as viewer',
+                'forums.is_featured as featured'
+            ])->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         } else {
             $data_forums = Forum::where('category_id', $fillter)->join('categories', 'categories.id', '=', 'forums.category_id')->join('users', 'users.id', '=', 'forums.user_id')->select([
                 'categories.color as color',
@@ -120,8 +121,9 @@ class ForumController extends Controller
                 'forums.title as title',
                 'forums.content as content',
                 'forums.created_at as created_at',
-                'forums.viewer as viewer'
-            ])->orderBy('created_at', 'desc')->get();
+                'forums.viewer as viewer',
+                'forums.is_featured as featured'
+            ])->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc')->paginate(10);
         }
         $categories = Category::all();
         $totalforumcomment = [];
@@ -230,6 +232,7 @@ class ForumController extends Controller
             'categories.slug as slug_categories',
             'users.username as username',
             'users.avatar_url as avt_user',
+            'users.role_id as role_id',
             'forums.id as id',
             'forums.title as title',
             'forums.content as content',
@@ -250,7 +253,9 @@ class ForumController extends Controller
                 ->get();
             $data_child_list_forum[$parentComment->id] = $childComments; // Lưu bình luận con vào mảng
         }
-        return view('user.chitiet_forum', compact('data', 'data_forums', 'data_user', 'data_list_forum', 'data_child_list_forum'));
+        $lockforum = Forum::where('id', $id)->value('lock');
+        Forum::where('id', $id)->increment('viewer');
+        return view('user.chitiet_forum', compact('data', 'data_forums', 'data_user', 'data_list_forum', 'data_child_list_forum', 'lockforum'));
     }
 
     /**
@@ -303,7 +308,7 @@ class ForumController extends Controller
     public function updateadmin(UpdateForumRequest $request, string $id)
     {
         $forum = Forum::findOrFail($id);
-        $bruh = [
+        $data_update_forum = [
             'title' => $request->title,
             'content' => $request->content,
             'user_id' => $request->user_id,
@@ -313,12 +318,21 @@ class ForumController extends Controller
             'slug' => '',
             'updated_at' => Carbon::now()
         ];
-        $forum->update($bruh);
+        $forum->update($data_update_forum);
         return redirect()->route('thao_luan');
     }
     /**
      * Remove the specified resource from storage.
      */
+
+    public function delete(string $id)
+    {
+        $data = ForumComment::findOrFail($id);
+        $data->unview = 1;
+        $data->save();
+        return back();
+    }
+
     public function destroy(string $id)
     {
         $data = Forum::findOrFail($id);

@@ -174,11 +174,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <div class="catalog-icon side-feature-button">
+                                                    <div onclick="autoPurchase({{ $book->id }})" class="catalog-icon side-feature-button">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-cart-plus"></i></span>
                                                         <span class="block feature-name">
-                                                            <button onclick="autoPurchase({{ $book->id }})"
+                                                            <button
                                                                 class="btn btn-primary">Mua tự động</button>
                                                         </span>
                                                     </div>

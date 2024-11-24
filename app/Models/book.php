@@ -110,9 +110,17 @@ class book extends Model
         // Kiểm tra xem tất cả các chương có giá trị đã được mua chưa
         return $totalChapters === $purchasedChapters;
     }
-
+    public function hasChapter($id)
+    {
+        $book = book::find($id);
+        return $book->chapters()->exists();
+    }
     public function contract()
     {
         return $this->hasOne(Contract::class);
+    }
+    public function approvalHistories()
+    {
+        return $this->hasMany(ApprovalHistory::class);
     }
 }

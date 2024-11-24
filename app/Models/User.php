@@ -100,4 +100,8 @@ class User extends Authenticatable
     {
         return $this->HasMany(Bookmarks::class);
     }
+    public function approvalHistories()
+    {
+        return $this->hasMany(ApprovalHistory::class);
+    }
 }

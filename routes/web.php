@@ -383,7 +383,7 @@ Route::post('/accept-request/{id}', [AuthorController::class, 'acceptRequest'])-
 Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])->name('reject_request');
 
 Route::post('/comments/add', [ChapterCommentController::class, 'store'])->name('addChapterComment');
-Route::get('/comments-chapter', [BookController::class, 'fetchComments'])->name('comments.fetch');
+Route::get('/comments-chapter/{id}', [ChapterCommentController::class, 'getChapterCommentById'])->name('comments.fetch');
 Route::delete('/chapter-comment/{id}', [ChapterCommentController::class, 'deleteComment'])->name('chapter-comment.delete');
 
 // Bộ lọc

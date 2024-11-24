@@ -88,7 +88,7 @@ class BookController extends Controller
         $fullContent = $chapter->content;
         $partialContent = null;
         $canViewFullContent = false;
-
+        $CountComment = $chapter->countComments();
         if ($chapter->price > 0) {
             if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
                 $partialContent = $this->getPartialContent($fullContent);
@@ -104,7 +104,7 @@ class BookController extends Controller
         // Lưu lịch sử đọc chương
         $this->storeReadingHistory($book->id, $chapter->id);
 
-        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'partialContent', 'fullContent', 'canViewFullContent'));
+        return view('story.reading', compact('book','CountComment', 'episode', 'chapters', 'chapter', 'partialContent', 'fullContent', 'canViewFullContent'));
     }
     public function fetchComments(Request $request)
     {

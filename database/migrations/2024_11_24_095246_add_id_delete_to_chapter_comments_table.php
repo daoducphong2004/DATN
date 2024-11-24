@@ -14,7 +14,7 @@ class AddIdDeleteToChapterCommentsTable extends Migration
     public function up()
     {
         Schema::table('chapter_comments', function (Blueprint $table) {
-    $table->unsignedBigInteger('is_delete')->nullable()->after('id'); // Thêm cột is_delete, có thể null
+            $table->unsignedBigInteger('is_delete')->nullable()->after('id'); // Thêm cột is_delete, có thể null
             $table->foreign('is_delete')->references('id')->on('users')->onDelete('set null'); // Khóa ngoại tham chiếu đến bảng users        });
         });
     }

@@ -12,7 +12,7 @@
                     <h2 class="title-item text-xl font-bold" align="center">{{ $episode->title }}</h2>
                     <h4 class="title-item text-base font-bold" align="center">{{ $chapter->title }}</h4>
                     <h6 class="title-item font-bold" align="center">
-                        <a href="#chapter-comments" style="text-decoration: underline">Sau sẽ làm Bình luận</a> -
+                        <a href="#chapter-comments" style="text-decoration: underline">{{ $CountComment }} Bình luận</a> -
                         Độ dài: {{ str_word_count($chapter->content) }} từ - Cập nhật:
                         <time class="topic-time timeago" title="{{ $chapter->updated_at->format('d-m-Y H:i:s') }}"
                             datetime="{{ $chapter->updated_at->toIso8601String() }}"></time>

@@ -14,9 +14,7 @@
 
                 <main class="ln-comment-body">
                     <div id="ln-comment-submit" class="ln-comment-form clear">
-                        <form
-                            action="{{ route('addChapterComment', ['slug' => $book->slug, 'chapter_slug' => $chapter->slug]) }}"
-                            method="POST" class="comment_form">
+                        <form action="{{ route('addChapterComment') }}" method="POST" class="comment_form">
                             @csrf
 
                             <textarea name="content" class="comment_content"></textarea>
@@ -36,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
         </div>
     </main>
 </section>
@@ -46,27 +44,47 @@
         const chapterId = {{ $chapter->id }};
         let currentPage = 1; // Trang hiện tại
         let lastPage = 1; // Tổng số trang
+        function loadComments(chapterId, page = 1) {
+            // Lấy user-id từ thẻ meta
+            const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
 
-        function loadComments(page = 1) {
-            $.ajax({
-                url: '{{ route('comments.fetch') }}',
-                type: 'GET',
-                data: {
-                    chapter_id: chapterId,
-                    page: page // Thêm tham số page vào yêu cầu AJAX
-                },
-                success: function(response) {
-                    $('#comments-container').html(''); // Xóa danh sách comment hiện tại
-
-                    // Lặp qua các comment và hiển thị chúng
-                    response.data.forEach(comment => {
-                        let repliesHtml = '';
-
+            // Gửi yêu cầu GET bằng Fetch API
+            fetch(`/comments-chapter?chapter_id=${chapterId}&page=${page}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    const commentsContainer = document.getElementById("comments-container");
+                    commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
+                    // Lặp qua các bình luận
+                    data.data.forEach((comment) => {
+                        let repliesHtml = "";
+                        let deleteButton = '';
+                        if (comment.user.id == userId) {
+                            deleteButton = `
+                         <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${userId}' >
+                            <i class="fas fa-times"></i>
+                            <span class="font-semibold">Xoá</span>
+                        </a>`;
+                        }
                         // Lặp qua các reply của comment
                         if (comment.replies && comment.replies.length > 0) {
                             comment.replies.forEach(reply => {
+                                // Kiểm tra nếu user_id của reply trùng với user_id trong meta
+                                let deleteButtonRL = '';
+                                if (reply.user.id == userId) {
+                                    deleteButtonRL = `
+                        <a class="self-center visible-toolkit-item span-delete cursor-pointer"  data-id-delete='${userId}>
+                            <i class="fas fa-times"></i>
+                            <span class="font-semibold">Xoá</span>
+                        </a>`;
+                                }
+
                                 repliesHtml += `
-                            <div class="ln-comment-reply">
+                                <div class="ln-comment-reply">
                                 <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
                                     <div class="flex gap-1 max-w-full">
                                         <div class="w-[50px]">
@@ -99,9 +117,13 @@
                                                             ${moment(reply.created_at).fromNow()}
                                                         </time>
                                                     </a>
-                                                    <a class="self-center do-like cursor-pointer">
-                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                        <span class="likecount font-semibold">${reply.likes_count ?? 0}</span>
+                                                    ${deleteButton}
+                                                    <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                                    data-chapter-id="${chapterId}"
+                                                    data-comment-id="${comment.id}"
+                                                    data-parent-id="${comment.parent_id ?? 0}">
+                                                        <i class="fas fa-comment me-1"></i>
+                                                        <span class="font-semibold">Trả lời</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -112,9 +134,9 @@
                             });
                         }
 
-                        // Thêm comment chính
+                        // Tạo HTML cho comment chính và thêm replies
                         $('#comments-container').append(`
-                    <div class="ln-comment-group">
+                        <div class="ln-comment-group">
                         <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear" data-comment="${comment.id}">
                             <div class="flex gap-1 max-w-full">
                                 <div class="w-[50px]">
@@ -147,9 +169,13 @@
                                                     ${moment(comment.created_at).fromNow()}
                                                 </time>
                                             </a>
-                                            <a class="self-center do-like cursor-pointer">
-                                                <i class="fas fa-thumbs-up me-1"></i>
-                                                <span class="likecount font-semibold">${comment.likes_count ?? 0}</span>
+                                            ${deleteButton}
+                                            <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                            data-chapter-id="${chapterId}"
+                                            data-comment-id="${comment.id}"
+                                            data-parent-id="${comment.parent_id ?? 0}">
+                                                <i class="fas fa-comment me-1"></i>
+                                                <span class="font-semibold">Trả lời</span>
                                             </a>
                                         </div>
                                     </div>
@@ -159,50 +185,48 @@
                         ${repliesHtml}
                     </div>`);
                     });
+                    // Cập nhật số trang hiện tại và số trang cuối
+                    currentPage = data.current_page;
+                    lastPage = data.last_page;
 
-                    // Cập nhật tổng số trang
-                    currentPage = response.current_page;
-                    lastPage = response.last_page;
-
-                    // Hiển thị phân trang
-                    updatePagination();
-                },
-                error: function(xhr) {
-                    alert('Có lỗi xảy ra khi tải bình luận.');
-                }
-            });
+                    updatePagination(); // Cập nhật phân trang
+                })
+                .catch((error) => {
+                    console.error("Error loading comments:", error);
+                    alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
+                });
         }
 
 
         function updatePagination() {
-    const paginationContainer = document.getElementById("pagination-container");
-    paginationContainer.innerHTML = ""; // Xóa các nút phân trang hiện tại
+            const paginationContainer = document.getElementById("pagination-container");
+            paginationContainer.innerHTML = ""; // Xóa các nút phân trang hiện tại
 
-    // Nút Previous
-    if (currentPage > 1) {
-        paginationContainer.insertAdjacentHTML("beforeend", 
-            `<a href="#pagination-container" class="paging_item paging_prevnext prev" onclick="loadComments(${chapterId}, ${currentPage - 1})">Trước</a>`
-        );
-    } else {
-        paginationContainer.insertAdjacentHTML("beforeend", 
-            `<a href="#pagination-container" class="paging_item paging_prevnext prev disabled">Trước</a>`
-        );
-    }
+            // Nút Previous
+            if (currentPage > 1) {
+                paginationContainer.insertAdjacentHTML("beforeend",
+                    `<a href="#pagination-container" class="paging_item paging_prevnext prev" onclick="loadComments(${chapterId}, ${currentPage - 1})">Trước</a>`
+                );
+            } else {
+                paginationContainer.insertAdjacentHTML("beforeend",
+                    `<a href="#pagination-container" class="paging_item paging_prevnext prev disabled">Trước</a>`
+                );
+            }
 
-    // Nút Next
-    if (currentPage < lastPage) {
-        paginationContainer.insertAdjacentHTML("beforeend", 
-            `<a href="#pagination-container" class="paging_item paging_prevnext next" onclick="loadComments(${chapterId}, ${currentPage + 1})">Sau</a>`
-        );
-    } else {
-        paginationContainer.insertAdjacentHTML("beforeend", 
-            `<a href="#pagination-container" class="paging_item paging_prevnext next disabled">Sau</a>`
-        );
-    }
-}
+            // Nút Next
+            if (currentPage < lastPage) {
+                paginationContainer.insertAdjacentHTML("beforeend",
+                    `<a href="#pagination-container" class="paging_item paging_prevnext next" onclick="loadComments(${chapterId}, ${currentPage + 1})">Sau</a>`
+                );
+            } else {
+                paginationContainer.insertAdjacentHTML("beforeend",
+                    `<a href="#pagination-container" class="paging_item paging_prevnext next disabled">Sau</a>`
+                );
+            }
+        }
 
         // Tải bình luận khi trang được tải
-        loadComments();
+        loadComments(chapterId, page = 1);
 
     });
 </script>

@@ -124,7 +124,7 @@ class BookController extends Controller
         return response()->json($comments);
     }
 
-  
+
 
     /**
      * Cắt nội dung để hiển thị 2/10 nội dung.

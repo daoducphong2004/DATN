@@ -121,7 +121,46 @@ class ChaptercommentController extends Controller
 
         return null;
     }
+    /**
+     * Xóa bình luận bằng cách cập nhật trường is_delete với user_id.
+     *
+     * @param  int  $commentId
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteComment($commentId)
+    {
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (Auth::check()) {
+            // Lấy user_id từ Auth
+            $userId = Auth::id();
 
+            // Tìm bình luận theo ID
+            $comment = ChapterComment::find($commentId);
+
+            // Kiểm tra nếu bình luận tồn tại
+            if ($comment) {
+                // Cập nhật trường is_delete với user_id của người dùng
+                $comment->update([
+                    'is_delete' =>$userId,
+                ]);
+                $comment->save();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Bình luận đã được xóa thành công.',
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Không tìm thấy bình luận.'
+                ], 404);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bạn cần đăng nhập để xóa bình luận.'
+            ], 401);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */

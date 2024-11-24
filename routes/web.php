@@ -381,6 +381,7 @@ Route::post('/reject-request/{id}', [AuthorController::class, 'rejectRequest'])-
 
 Route::post('/comments/add', [ChapterCommentController::class, 'store'])->name('addChapterComment');
 Route::get('/comments-chapter', [BookController::class, 'fetchComments'])->name('comments.fetch');
+Route::delete('/chapter-comment/{id}', [ChapterCommentController::class, 'deleteComment'])->name('chapter-comment.delete');
 
 // Bộ lọc
 Route::get('danh-sach/{alphabet?}', [FilterController::class, 'filterDanhSach'])->name('filterDanhSach');

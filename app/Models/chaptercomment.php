@@ -13,7 +13,8 @@ class chaptercomment extends Model
         'chapter_id',
         'user_id',
         'content',
-        'parent_id'
+        'parent_id',
+        'is_delete',
     ];
 
     public function chapter()
@@ -34,5 +35,34 @@ class chaptercomment extends Model
     public function replies()
     {
         return $this->hasMany(chaptercomment::class, 'parent_id');
+    }
+    public function deletedComments()
+    {
+        // Lấy tất cả các bình luận có trường 'is_delete' không null,
+        // không phân biệt giữa comment cha và comment trả lời
+        return $this->whereNotNull('is_delete')->get();
+    }
+    public function getComments($chapterId)
+    {
+        // Lấy các bình luận cha (parent comments)
+        $parentComments = ChapterComment::where('chapter_id', $chapterId)
+                                        ->whereNull('parent_id')
+                                        ->get();
+
+        // Lấy các bình luận con (reply comments)
+        $replyComments = ChapterComment::where('chapter_id', $chapterId)
+                                       ->whereNotNull('parent_id')
+                                       ->get();
+
+        // Lấy các bình luận đã bị xóa
+        $deletedComments = ChapterComment::where('chapter_id', $chapterId)
+                                         ->whereNotNull('is_delete')
+                                         ->get();
+
+        return [
+            'parent_comments' => $parentComments,
+            'reply_comments' => $replyComments,
+            'deleted_comments' => $deletedComments,
+        ];
     }
 }

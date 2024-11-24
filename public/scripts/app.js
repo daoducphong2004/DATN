@@ -478,6 +478,9 @@ let currentPage = 1; // Trang hiện tại
 let lastPage = 1; // Tổng số trang
 
 function loadComments(chapterId, page = 1) {
+    // Lấy user-id từ thẻ meta
+    const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
+
     // Gửi yêu cầu GET bằng Fetch API
     fetch(`/comments-chapter?chapter_id=${chapterId}&page=${page}`)
         .then((response) => {
@@ -489,115 +492,132 @@ function loadComments(chapterId, page = 1) {
         .then((data) => {
             const commentsContainer = document.getElementById("comments-container");
             commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
-
             // Lặp qua các bình luận
             data.data.forEach((comment) => {
                 let repliesHtml = "";
-
-                // Xử lý các replies của comment
+                let deleteButton = '';
+                if (comment.user.id == userId) {
+                    deleteButton = `
+                 <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${userId}' >
+                    <i class="fas fa-times"></i>
+                    <span class="font-semibold">Xoá</span>
+                </a>`;
+                }
+                // Lặp qua các reply của comment
                 if (comment.replies && comment.replies.length > 0) {
-                    comment.replies.forEach((reply) => {
+                    comment.replies.forEach(reply => {
+                        // Kiểm tra nếu user_id của reply trùng với user_id trong meta
+                        let deleteButtonRL = '';
+                        if (reply.user.id == userId) {
+                            deleteButtonRL = `
+                <a class="self-center visible-toolkit-item span-delete cursor-pointer"  data-id-delete='${userId}>
+                    <i class="fas fa-times"></i>
+                    <span class="font-semibold">Xoá</span>
+                </a>`;
+                        }
+
                         repliesHtml += `
                         <div class="ln-comment-reply">
-                            <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
-                                <div class="flex gap-1 max-w-full">
-                                    <div class="w-[50px]">
-                                        <div class="mx-1 my-1">
-                                            <img src="${reply.user.avatar_url || "/default-avatar.png"}" class="w-full rounded-full" />
-                                        </div>
+                        <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
+                            <div class="flex gap-1 max-w-full">
+                                <div class="w-[50px]">
+                                    <div class="mx-1 my-1">
+                                        <img src="${reply.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
                                     </div>
-                                    <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
-                                        <div class="flex min-w-0 flex-col px-2">
-                                            <div class="flex align-top justify-between">
-                                                <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                    <div class="self-center">
-                                                        <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
-                                                            ${reply.user.username}
-                                                        </a>
-                                                    </div>
+                                </div>
+                                <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
+                                    <div class="flex min-w-0 flex-col px-2">
+                                        <div class="flex align-top justify-between">
+                                            <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                <div class="self-center">
+                                                    <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
+                                                        ${reply.user.username}
+                                                    </a>
                                                 </div>
-                                                <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                            </div>
+                                            <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
+                                                <div @click="show = !show">
                                                     <i class="fas fa-angle-down"></i>
                                                 </div>
                                             </div>
-                                            <div class="ln-comment-content long-text">
-                                                ${reply.content}
-                                            </div>
-                                            <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                <a href="#" class="text-slate-500">
-                                                    <time title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
-                                                        ${moment(reply.created_at).fromNow()}
-                                                    </time>
-                                                </a>
-                                                <a class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                    <i class="fas fa-thumbs-up me-1"></i>
-                                                    <span class="likecount font-semibold">${reply.likes_count || 0}</span>
-                                                </a>
-                                                <a class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                                    <i class="fas fa-comment me-1"></i>
-                                                    <span class="font-semibold">Trả lời</span>
-                                                </a>
-                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-                    });
-                }
-
-                // Tạo HTML cho comment chính và thêm replies
-                const commentHtml = `
-                <div class="ln-comment-group">
-                    <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear" data-comment="${comment.id}">
-                        <div class="flex gap-1 max-w-full">
-                            <div class="w-[50px]">
-                                <div class="mx-1 my-1">
-                                    <img src="${comment.user.avatar_url || "/default-avatar.png"}" class="w-full rounded-full" />
-                                </div>
-                            </div>
-                            <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
-                                <div class="flex min-w-0 flex-col px-2">
-                                    <div class="flex align-top justify-between">
-                                        <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                            <div class="self-center">
-                                                <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
-                                                    ${comment.user.username}
-                                                </a>
-                                            </div>
+                                        <div class="ln-comment-content long-text">
+                                            ${reply.content}
                                         </div>
-                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
-                                            <i class="fas fa-angle-down"></i>
+                                        <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                            <a href="#" class="text-slate-500">
+                                                <time class="timeago" title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
+                                                    ${moment(reply.created_at).fromNow()}
+                                                </time>
+                                            </a>
+                                            ${deleteButton}
+                                            <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                            data-chapter-id="${chapterId}"
+                                            data-comment-id="${comment.id}"
+                                            data-parent-id="${comment.parent_id ?? 0}">
+                                                <i class="fas fa-comment me-1"></i>
+                                                <span class="font-semibold">Trả lời</span>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="ln-comment-content long-text">
-                                        ${comment.content}
-                                    </div>
-                                    <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                        <a href="#" class="text-slate-500">
-                                            <time title="${new Date(comment.created_at).toLocaleString()}" datetime="${comment.created_at}">
-                                                ${moment(comment.created_at).fromNow()}
-                                            </time>
-                                        </a>
-                                        <a class="self-center visible-toolkit-item do-like cursor-pointer">
-                                            <i class="fas fa-thumbs-up me-1"></i>
-                                            <span class="likecount font-semibold">${comment.likes_count || 0}</span>
-                                        </a>
-                                        <a class="self-center visible-toolkit-item do-reply cursor-pointer">
-                                            <i class="fas fa-comment me-1"></i>
-                                            <span class="font-semibold">Trả lời</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>`;
+                    });
+                }
+
+                // Tạo HTML cho comment chính và thêm replies
+                $('#comments-container').append(`
+                <div class="ln-comment-group">
+                <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear" data-comment="${comment.id}">
+                    <div class="flex gap-1 max-w-full">
+                        <div class="w-[50px]">
+                            <div class="mx-1 my-1">
+                                <img src="${comment.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                            </div>
+                        </div>
+                        <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
+                            <div class="flex min-w-0 flex-col px-2">
+                                <div class="flex align-top justify-between">
+                                    <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                        <div class="self-center">
+                                            <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
+                                                ${comment.user.username}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
+                                        <div @click="show = !show">
+                                            <i class="fas fa-angle-down"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ln-comment-content long-text">
+                                    ${comment.content}
+                                </div>
+                                <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                    <a href="#" class="text-slate-500">
+                                        <time class="timeago" title="${new Date(comment.created_at).toLocaleString()}" datetime="${comment.created_at}">
+                                            ${moment(comment.created_at).fromNow()}
+                                        </time>
+                                    </a>
+                                    ${deleteButton}
+                                    <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                    data-chapter-id="${chapterId}"
+                                    data-comment-id="${comment.id}"
+                                    data-parent-id="${comment.parent_id ?? 0}">
+                                        <i class="fas fa-comment me-1"></i>
+                                        <span class="font-semibold">Trả lời</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    ${repliesHtml}
-                </div>`;
-
-                commentsContainer.insertAdjacentHTML("beforeend", commentHtml);
+                </div>
+                ${repliesHtml}
+            </div>`);
             });
-
             // Cập nhật số trang hiện tại và số trang cuối
             currentPage = data.current_page;
             lastPage = data.last_page;
@@ -616,27 +636,26 @@ function updatePagination() {
 
     // Nút Previous
     if (currentPage > 1) {
-        paginationContainer.insertAdjacentHTML("beforeend", 
+        paginationContainer.insertAdjacentHTML("beforeend",
             `<a href="#pagination-container" class="paging_item paging_prevnext prev" onclick="loadComments(${chapterId}, ${currentPage - 1})">Trước</a>`
         );
     } else {
-        paginationContainer.insertAdjacentHTML("beforeend", 
+        paginationContainer.insertAdjacentHTML("beforeend",
             `<a href="#pagination-container" class="paging_item paging_prevnext prev disabled">Trước</a>`
         );
     }
 
     // Nút Next
     if (currentPage < lastPage) {
-        paginationContainer.insertAdjacentHTML("beforeend", 
+        paginationContainer.insertAdjacentHTML("beforeend",
             `<a href="#pagination-container" class="paging_item paging_prevnext next" onclick="loadComments(${chapterId}, ${currentPage + 1})">Sau</a>`
         );
     } else {
-        paginationContainer.insertAdjacentHTML("beforeend", 
+        paginationContainer.insertAdjacentHTML("beforeend",
             `<a href="#pagination-container" class="paging_item paging_prevnext next disabled">Sau</a>`
         );
     }
 }
-
 
 
 if (
@@ -710,141 +729,112 @@ if (
         }),
 
         $(".ln-comment-body").on("click", ".do-reply", function () {
-            var e = $(this),
-                t = e.closest(".ln-comment-item").data("comment"),
-                n = e.closest(".ln-comment-item").data("parent");
-            if (
-                $("#ln-comment-" + t)
-                    .next()
-                    .find("textarea.comment_reply").length
-            )
-                $(".reply-form").remove();
-            else {
-                $(".reply-form").remove();
-                var o =
-                    t != n
-                        ? "@" +
-                        $("#ln-comment-" + t + " a.ln-username")
-                            .text()
-                            .trim() +
-                        ":&nbsp;"
-                        : "";
-                $("#ln-comment-" + t).after(
-                    $(
-                        '<div class="ln-comment-reply reply-form"><div class="ln-comment-form"><textarea class="comment_reply"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_reply" value="Trả lời" data-parent="' +
-                        n +
-                        '"></div></div></div>'
-                    )
-                ),
-                    tinymce.init(tinymce.activeEditor.settings),
-                    tinymce.activeEditor.setContent(o);
+            $(".reply-form").remove(); // Xóa bất kỳ form reply nào trước đó
+
+            // Lấy giá trị từ data attributes
+            const commentId = $(this).data("comment-id");
+            const chapterId = $(this).data("chapter-id");
+            const parentId = $(this).data("parent-id");
+
+            // Tạo nội dung mặc định cho form reply
+            var replyContent = "";
+            if (commentId !== parentId) {
+                replyContent = "@" +
+                    $("#ln-comment-" + commentId + " a.ln-username").text().trim() +
+                    ":&nbsp;";
             }
+
+            // Tạo form reply
+            const formHtml = `
+            <form class="reply-form ln-comment-reply mt-3" action='/comments/add' method="POST">
+                <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                <input type="hidden" name="chapter_id" value="${chapterId}">
+                <input type="hidden" name="parent_id" value="${commentId}">
+                <div class="ln-comment-form">
+                    <textarea name="content" class="comment_reply">${replyContent}</textarea>
+                    <div class="comment_toolkit clear">
+                        <input type="submit" class="button submit_reply" value="Trả lời">
+                    </div>
+                </div>
+            </form>
+            `;
+
+            // Thêm form reply ngay dưới comment
+            $("#ln-comment-" + commentId).after(formHtml);
+
+            // Khởi tạo TinyMCE sau khi form được thêm vào DOM
+            tinymce.init({
+                selector: "textarea.comment_reply", // Chỉ khởi tạo trên textarea có class comment_reply
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                }
+            });
         }),
-        $(".ln-comment-body").on("click", "input.submit_reply", function () {
-            var e = tinymce.activeEditor.getContent(),
-                t = parseInt($(this).data("parent")) || 0;
-            $.post(
-                "/action/comment/new",
-                {
-                    _token: token,
-                    type: comment_type,
-                    type_id: comment_typeid,
-                    content: e,
-                    parent_id: t,
+        // Gửi form reply bằng AJAX
+        $(document).on('submit', '.reply-form', function (e) {
+            e.preventDefault(); // Ngừng việc gửi form mặc định
+
+            // Lấy dữ liệu từ các input và textarea
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+            const chapterId = $(this).find('input[name="chapter_id"]').val();
+            const parentId = $(this).find('input[name="parent_id"]').val();
+
+            // Kiểm tra xem TinyMCE đã khởi tạo chưa và lấy nội dung từ TinyMCE
+            const content = tinymce.get($(this).find('textarea.comment_reply')[0].id).getContent();
+
+            // Gửi dữ liệu qua AJAX
+            $.ajax({
+                url: '/comments/add', // Đường dẫn gửi đến
+                method: 'POST',
+                data: {
+                    _token: csrfToken,
+                    chapter_id: chapterId,
+                    parent_id: parentId,
+                    content: content
                 },
-                function (e) {
-                    if ("success" == e.status && "" != e.html) {
-                        $("#ln-comment-" + t)
-                            .parent()
-                            .append(
-                                $(
-                                    '<div class="ln-comment-reply">' +
-                                        e.html +
-                                        "</div>"
-                                )
-                            );
-                        var n = $("#ln-comment-" + e.comment_id);
-                        $("html,body").animate({
-                            scrollTop:
-                                n.offset().top -
-                                $("body").offset().top +
-                                n.scrollTop() -
-                                270,
-                        }),
-                            seeMoreButton(n.find(".ln-comment-content"));
-                    } else alert(e.message);
-                    $(".reply-form").remove();
+                success: function (response) {
+                    // Xử lý sau khi gửi thành công
+                    if (response.status === "success") {
+                        $(this).remove(); // Xóa form reply sau khi gửi thành công
+                        loadComments(chapterId);
+
+                    } else {
+                        alert("Có lỗi xảy ra. Vui lòng thử lại.");
+                    }
                 },
-                "json"
-            );
-        }),
-        $(".ln-comment-body").on("click", ".span-edit", function () {
-            var e = $(this).closest(".ln-comment-item").data("comment"),
-                t = $("#ln-comment-" + e),
-                n = t.find(".ln-comment-content");
-            if (
-                (t.find(".ln-comment-content .comment_hidden").length &&
-                    n.html(t.find(".ln-comment-content .comment_hidden").html()),
-                    t.find(".ln-comment-form").length)
-            )
-                return t.find(".ln-comment-form").remove(), void n.show();
-            $(".edit-form").remove(),
-                n.css("max-height", "initial"),
-                n.next(".comment_see_more").remove(),
-                n.after(
-                    '<div class="ln-comment-form edit-form" style="padding-left: 10px"><textarea class="comment_edit"></textarea><div class="comment_toolkit clear"><input type="button" class="button submit_edit" value="Sửa" data-comment="' +
-                    e +
-                    '"></div></div>'
-                ),
-                n.hide(),
-                tinymce.init(tinymce.activeEditor.settings),
-                tinymce.activeEditor.setContent(n.html());
-        }),
-        $(".ln-comment-body").on("click", "input.submit_edit", function () {
-            var e = parseInt($(this).data("comment")) || 0,
-                t = tinymce.activeEditor.getContent();
-            $.post(
-                "/action/comment/update",
-                {
-                    _token: token,
-                    comment_id: e,
-                    content: t,
-                },
-                function (t) {
-                    var n = $("#ln-comment-" + e);
-                    "success" == t.status && "" != t.html
-                        ? ($("html,body").animate({
-                            scrollTop:
-                                n.offset().top -
-                                $("body").offset().top +
-                                n.scrollTop(),
-                        }),
-                            n.find(".ln-comment-content").html(t.html).show())
-                        : (n.find(".ln-comment-content").show(), alert(t.message)),
-                        $(".edit-form").remove();
-                },
-                "json"
-            );
+                error: function () {
+                    alert("Có lỗi xảy ra khi gửi bình luận.");
+                }
+            });
         }),
         $(".ln-comment-body").on("click", ".span-delete", function () {
-            var e = $(this),
-                t = parseInt(e.closest(".ln-comment-item").data("comment"));
+            var e = $(this);
+            commentId = parseInt(e.closest(".ln-comment-item").data("comment"));
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
             if (!confirm("Bạn có muốn xóa bình luận?")) return !1;
-            $.post(
-                "/action/comment/delete",
-                {
-                    _token: token,
-                    comment_id: t,
-                },
-                function (e) {
-                    if ("success" == e.status) {
-                        var n = $("#ln-comment-" + t);
-                        n.find(".ln-comment-content").html("(Bình luận đã bị xóa)"),
-                            n.find("hr.ln-comment").remove(),
-                            n.find(".ln-comment-toolkit").remove();
-                    } else alert(e.message);
+            // Cấu hình jQuery để gửi CSRF token trong header của tất cả các yêu cầu Ajax
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
                 }
-            );
+            });
+            $.ajax({
+                url: '/chapter-comment/' + commentId, // commentId là ID của bình luận cần xóa
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Có lỗi xảy ra!');
+                }
+            });
         }),
 
         $(".ln-comment-body").on("click", ".fetch_reply", function (e) {

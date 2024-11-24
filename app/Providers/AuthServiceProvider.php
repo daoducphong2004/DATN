@@ -62,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('create', function (User $user) {
-            return in_array($user->role->name, ['author', 'super_admin', 'admin', 'mod']);
+            return in_array($user->role->name, ['author', 'super_admin', 'admin', 'mod', 'reviewer']);
         });
         Gate::define('view-contract', function ($user) {
             return in_array($user->role->name, ['super_admin', 'admin']);

@@ -114,12 +114,6 @@
                                 </li>
                                 <hr class="none block-l">
                                 <li>
-                                    <div class="nightmode-toggle">
-                                        <i class="fas fa-moon"></i><span>Nền tối</span>
-                                        <div class="toggle-icon"><i class="fas fa-toggle-off"></i></div>
-                                    </div>
-                                </li>
-                                <li>
                                     <a href="/UserHome">
                                         <i class="fas fa-cog"></i><span>Hệ thống</span>
                                     </a>
@@ -138,66 +132,76 @@
                             </ul>
                         </div>
                          {{-- Icon thông báo --}}
-                    <div id="noti-icon" class="user-sublink">
-                        <div class="icon-wrapper">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <div id="noti-sidebar" class="noti-sidebar hidden-block none">
-                            <div class="noti-wrapper">
-                                <div id="noti-content" class="noti-content" style="padding: 15px">
-                                    @php
-                                        $notifications = auth()->user()->notifications()->latest()->take(5)->get();
-                                    @endphp
+                        <div id="noti-icon" class="user-sublink">
+                            @php
+                                $notifications = auth()->user()->notifications()->get();
+                            @endphp
 
-                                    @if ($notifications->count() > 0)
-                                        @foreach ($notifications as $notification)
-                                            <div>
-                                                - {!! $notification->data['message'] !!}
+                            <div class="icon-wrapper">
+                                <i class="fas fa-bell"></i>
+                                <span class="cart-count">{{ $notifications->count() }}</span>
+                            </div>
 
-                                                @if ($notification->type == 'App\Notifications\MonthlyRevenueNotification')
-                                                    <a class="dropdown-item" style="color: red"
-                                                        href="{{ url('/admin') }}">
-                                                        xem ngay
-                                                    </a>
-                                                @endif
-                                                @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                    <a class="dropdown-item" style="color: red"
-                                                        href="{{ route('books.approval') }}">
-                                                        xem ngay
-                                                    </a>
-                                                @endif
-
-                                                @if(isset($notification->data['user_id']))
-                                                    <a class="dropdown-item" style="color: red" href="{{ route('author.index') }}">
-                                                        xem ngay
-                                                    </a>
-                                                @endif
-
-                                                @if ($notification->type == 'App\Notifications\StoryApprovedNotification')
-                                                    @if (isset($notification->data['slug']))
-                                                        <a class="dropdown-item" style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">
-                                                            Xem ngay
-                                                        </a>
-
-                                                    @endif
-                                                @endif
-
-                                                @if ($notification->type == 'App\Notifications\AuthorApprovedNotification')
-                                                        <span>Từ giờ bạn có thể đăng truyện. <a style="color: red" href="{{ route('story.create') }}">Thêm truyện</a></span>
-                                                @endif
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <a class="dropdown-item" href="#">Không có thông báo nào.</a>
-                                    @endif
+                            <div id="noti-sidebar" class="noti-sidebar hidden-block none">
+                                <div class="dropdown-head bg-primary bg-pattern rounded-top">
+                                    <div class="p-3">
+                                        <div class="flex items-center justify-between">
+                                            <h6 class="m-0 text-lg font-semibold text-white">Notifications</h6>
+                                            <span class="badge bg-blue-200 text-gray-800 text-sm px-2 py-0.5 rounded">
+                                                ({{ $notifications->count() }})
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="noti-more">
-                                    <a class="noti-url" href="/thong-bao">Xem tất cả</a>
+                                <div class="noti-wrapper" id="all-noti-tab">
+                                    <div class="noti-content" style="padding: 15px">
+                                        @php
+                                            $notifications = auth()->user()->notifications()->latest()->take(5)->get();
+                                        @endphp
+
+                                        @if ($notifications->count() > 0)
+                                            @foreach ($notifications as $notification)
+                                                <div class="d-flex mb-4">
+                                                    <div class="flex-grow">
+                                                        <h6 class="text-gray-800 font-medium">{!! $notification->data['message'] !!}</h6>
+                                                        <p class="text-xs text-gray-500">
+                                                            <i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="px-2 text-sm">
+                                                        @if ($notification->type == 'App\Notifications\MonthlyRevenueNotification')
+                                                            <a class="text-red-500" href="{{ url('/admin') }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\BookPendingNotification')
+                                                            <a class="text-red-500" href="{{ route('books.approval') }}">view</a>
+                                                        @endif
+                                                        @if (isset($notification->data['user_id']))
+                                                            <a class="text-red-500" href="{{ route('author.index') }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\StoryApprovedNotification' && isset($notification->data['slug']))
+                                                            <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\AuthorApprovedNotification')
+                                                            <span>
+                                                                Từ giờ bạn có thể đăng truyện.
+                                                                <a class="text-red-500" href="{{ route('story.create') }}">Thêm truyện</a>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <p class="text-gray-600">Không có thông báo nào.</p>
+                                        @endif
+                                    </div>
+                                    <hr class="border-t" style="height: 1px; border-width: 1px;">
+                                    <div class="noti-more">
+                                        <a class="noti-url" href="/thong-bao">Xem tất cả</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                         {{-- Icon kệ sách --}}
                         <div id="series-unread-icon" class="user-sublink appearing">

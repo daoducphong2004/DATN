@@ -38,7 +38,7 @@ class chapter extends Model
     public static function getChapterCountByBook($episodeId)
     {
         return self::where('episode_id', $episodeId)->count('id');
-        }
+    }
     public function purchasedStories()
     {
         return $this->hasMany(PurchasedStory::class, 'chapter_id');
@@ -47,7 +47,15 @@ class chapter extends Model
     {
         return $this->hasMany(ChapterComment::class);
     }
-
+    /**
+     * Đếm số lượng comment trong chapter.
+     *
+     * @return int
+     */
+    public function countComments()
+    {
+        return $this->chaptercomments()->count();
+    }
 
     // Get the previous chapter, considering episodes in the same book
     public function previousChapter()

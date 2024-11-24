@@ -8,7 +8,6 @@ use App\Http\Requests\UpdatechaptercommentRequest;
 use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class ChaptercommentController extends Controller
 {
@@ -58,51 +57,20 @@ class ChaptercommentController extends Controller
 
 
 
-    public function getChapterCommentById($id, $page = 1)
+    public function getChapterCommentById($id)
     {
         if (is_null($id)) {
-            return response()->json([
-                'message' => 'ID không hợp lệ.',
-                'data' => null
-            ], Response::HTTP_BAD_REQUEST); // Trả về mã lỗi 400 nếu ID không hợp lệ
+            return new chaptercomment();
         } else {
-            // Lấy tất cả bình luận của chapter, phân trang
-            $chapterComments = ChapterComment::where('chapter_id', $id)
-                ->with('user')  // Lấy thông tin người dùng của bình luận
-                ->with('replies.user')  // Lấy các phản hồi và thông tin người dùng của phản hồi
-                ->with('deletedBy')  // Lấy thông tin người đã xóa nếu có
-                ->paginate(10);  // Giới hạn 10 bình luận mỗi trang
+            $chaptercomment = chaptercomment::find($id);
 
-            // Duyệt qua tất cả các bình luận và thay thế nội dung nếu bình luận bị xóa
-            foreach ($chapterComments as $comment) {
-                if ($comment->is_delete) {
-                    // Nếu bình luận bị xóa, thay thế nội dung bằng thông báo
-                    $comment->content = 'Bình luận bị xóa bởi: ' . $comment->deletedBy->username;
-                }
-
-                // Duyệt qua các phản hồi của bình luận và thay thế nội dung nếu phản hồi bị xóa
-                foreach ($comment->replies as $reply) {
-                    if ($reply->is_delete) {
-                        // Nếu phản hồi bị xóa, thay thế nội dung bằng thông báo
-                        $reply->content = 'Phản hồi bị xóa bởi: ' . $reply->deletedBy->username;
-                    }
-                }
-            }
-            if ($chapterComments->isEmpty()) {
-                return response()->json([
-                    'message' => 'Không tìm thấy bình luận.',
-                    'data' => null
-                ], Response::HTTP_NOT_FOUND); // Trả về mã lỗi 404 nếu không tìm thấy bình luận
+            if (is_null($chaptercomment)) {
+                dd("Could not find chapter comment");
             }
 
-            // Trả về dữ liệu bình luận dưới dạng JSON
-            return response()->json([
-                'message' => 'Bình luận đã được tìm thấy.',
-                'data' => $chapterComments,
-            ], Response::HTTP_OK); // Trả về mã thành công 200
+            return $chaptercomment;
         }
     }
-
 
     public function hasPermission(int $userId)
     {
@@ -173,7 +141,7 @@ class ChaptercommentController extends Controller
             if ($comment) {
                 // Cập nhật trường is_delete với user_id của người dùng
                 $comment->update([
-                    'is_delete' => $userId,
+                    'is_delete' =>$userId,
                 ]);
                 $comment->save();
                 return response()->json([

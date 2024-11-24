@@ -36,8 +36,11 @@ class chaptercomment extends Model
     {
         return $this->hasMany(chaptercomment::class, 'parent_id');
     }
-    public function deletedBy(){
-        return $this->belongsTo(User::class, 'is_delete');
+    public function deletedComments()
+    {
+        // Lấy tất cả các bình luận có trường 'is_delete' không null,
+        // không phân biệt giữa comment cha và comment trả lời
+        return $this->whereNotNull('is_delete')->get();
     }
     public function getComments($chapterId)
     {

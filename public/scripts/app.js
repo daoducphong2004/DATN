@@ -481,62 +481,58 @@ function loadComments(chapterId, page = 1) {
     // Lấy user-id từ thẻ meta
     const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
 
-    function loadComments(chapterId, page = 1) {
-        // Lấy user-id từ thẻ meta
-        const userId = document.querySelector('meta[name="user-id"]').getAttribute('content');
+    // Gửi yêu cầu GET bằng Fetch API
+    fetch(`/comments-chapter/${chapterId}?page=${page}`)
+        .then((response) => {
+            if (!response.ok) {
+                // throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const commentsContainer = document.getElementById("comments-container");
+            commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
+            console.log(data.data);
 
-        // Gửi yêu cầu GET bằng Fetch API
-        fetch(`/comments-chapter/${chapterId}?page=${page}`)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                const commentsContainer = document.getElementById("comments-container");
-                commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
-                console.log(data.data);
+            // Kiểm tra xem data.data có phải là mảng hay không
+            if (Array.isArray(data.data.data)) {
+                // Lặp qua các bình luận nếu data.data là mảng
+                data.data.data.forEach((comment) => {
+                    let repliesHtml = "";
+                    let deleteButton = '';
+                    let commentClass = '';
 
-                // Kiểm tra xem data.data có phải là mảng hay không
-                if (Array.isArray(data.data.data)) {
-                    // Lặp qua các bình luận nếu data.data là mảng
-                    data.data.data.forEach((comment) => {
-                        let repliesHtml = "";
-                        let deleteButton = '';
-                        let commentClass = '';
-
-                        // Kiểm tra nếu comment đã bị xóa
-                        if (comment.is_delete) {
-                            // Thay đổi nội dung bình luận nếu bị xóa
-                            commentClass = 'deleted disabled';
-                            comment.content = `Bình luận đã bị xóa bởi ${comment.user.username}`;
-                            deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
-                        } else {
-                            // Nếu comment không bị xóa, cho phép thêm nút xoá
-                            if (comment.user.id == userId) {
-                                deleteButton = `
+                    // Kiểm tra nếu comment đã bị xóa
+                    if (comment.is_delete) {
+                        // Thay đổi nội dung bình luận nếu bị xóa
+                        commentClass = 'deleted disabled';
+                        comment.content = `Bình luận đã bị xóa bởi ${comment.user.username}`;
+                        deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
+                    } else {
+                        // Nếu comment không bị xóa, cho phép thêm nút xoá
+                        if (comment.user.id == userId) {
+                            deleteButton = `
                                     <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
                                         <i class="fas fa-times"></i>
                                         <span class="font-semibold">Xoá</span>
                                     </a>`;
-                            }
                         }
+                    }
 
-                        // Lặp qua các reply của comment
-                        if (comment.replies && comment.replies.length > 0) {
-                            comment.replies.forEach(reply => {
-                                let deleteButtonRL = '';
-                                let replyClass = reply.is_delete ? 'deleted disabled' : '';
-                                if (reply.user.id == userId) {
-                                    deleteButtonRL = `
+                    // Lặp qua các reply của comment
+                    if (comment.replies && comment.replies.length > 0) {
+                        comment.replies.forEach(reply => {
+                            let deleteButtonRL = '';
+                            let replyClass = reply.is_delete ? 'deleted disabled' : '';
+                            if (reply.user.id == userId) {
+                                deleteButtonRL = `
                                         <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${reply.id}'>
                                             <i class="fas fa-times"></i>
                                             <span class="font-semibold">Xoá</span>
                                         </a>`;
-                                }
+                            }
 
-                                repliesHtml += `
+                            repliesHtml += `
                             <div class="ln-comment-reply ${replyClass}">
                                 <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
                                     <div class="flex gap-1 max-w-full">
@@ -584,11 +580,11 @@ function loadComments(chapterId, page = 1) {
                                     </div>
                                 </div>
                             </div>`;
-                            });
-                        }
+                        });
+                    }
 
-                        // Tạo HTML cho comment chính và thêm replies
-                        commentsContainer.innerHTML += `
+                    // Tạo HTML cho comment chính và thêm replies
+                    commentsContainer.innerHTML += `
                         <div class="ln-comment-group">
                             <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear ${commentClass}" data-comment="${comment.id}">
                                 <div class="flex gap-1 max-w-full">
@@ -637,23 +633,22 @@ function loadComments(chapterId, page = 1) {
                             </div>
                             ${repliesHtml}
                         </div>`;
-                    });
-                } else {
-                    console.error("Data format is incorrect. Expected 'data' to be an array.");
-                    alert("Đã xảy ra lỗi khi tải bình luận.");
-                }
+                });
+            } else {
+                console.error("Data format is incorrect. Expected 'data' to be an array.");
+                alert("Đã xảy ra lỗi khi tải bình luận.");
+            }
 
-                // Cập nhật số trang hiện tại và số trang cuối
-                currentPage = data.current_page;
-                lastPage = data.last_page;
+            // Cập nhật số trang hiện tại và số trang cuối
+            currentPage = data.data.current_page;
+            lastPage = data.data.last_page;
 
-                updatePagination(); // Cập nhật phân trang
-            })
-            .catch((error) => {
-                console.error("Error loading comments:", error);
-                alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
-            });
-    }
+            updatePagination(); // Cập nhật phân trang
+        })
+        .catch((error) => {
+            console.error("Error loading comments:", error);
+            alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
+        });
 }
 
 
@@ -825,7 +820,8 @@ if (
                     // Xử lý sau khi gửi thành công
                     if (response.status === "success") {
                         $(this).remove(); // Xóa form reply sau khi gửi thành công
-                        loadComments(chapterId);
+                        alert('comment thành công');
+                        loadComments(chapterId, 1);
 
                     } else {
                         alert("Có lỗi xảy ra. Vui lòng thử lại.");
@@ -854,7 +850,7 @@ if (
                 success: function (response) {
                     if (response.success) {
                         alert(response.message);
-                        loadComments(chapterId,page = 1);
+                        loadComments(chapterId, 1);
                     } else {
                         alert(response.message);
                     }
@@ -863,33 +859,6 @@ if (
                     alert('Có lỗi xảy ra!');
                 }
             });
-        }),
-
-        $(".ln-comment-body").on("click", ".fetch_reply", function (e) {
-            var t = $(this);
-            t.next().show(),
-                $.post(
-                    "/comment/fetch_reply",
-                    {
-                        _token: token,
-                        parent_id: t.data("parent"),
-                        offset: t.parent().find(".ln-comment-item").length,
-                        after: t
-                            .parent()
-                            .find(".ln-comment-item")
-                            .last()
-                            .data("comment"),
-                    },
-                    function (e) {
-                        "success" == e.status && "" != e.html
-                            ? (t.next().hide(),
-                                e.remaining > 0 ? t.text(e.fetchReplyText) : t.hide(),
-                                t.before(e.html),
-                                seeMoreButtons())
-                            : "error" == e.status && alert(e.message);
-                    },
-                    "json"
-                );
         }),
         "undefined" != typeof series_id &&
         series_id > 0 &&

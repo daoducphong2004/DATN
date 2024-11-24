@@ -70,8 +70,9 @@ class ChaptercommentController extends Controller
             $chapterComments = ChapterComment::where('chapter_id', $id)
                 ->with('user')  // Lấy thông tin người dùng của bình luận
                 ->with('replies.user')  // Lấy các phản hồi và thông tin người dùng của phản hồi
-                ->with('deletedBy')  // Lấy thông tin người đã xóa nếu có
-                ->paginate(10);  // Giới hạn 10 bình luận mỗi trang
+                ->with('deletedBy')
+                ->orderByDesc('created_at')  // Lấy thông tin người đã xóa nếu có
+                ->paginate(5);  // Giới hạn 10 bình luận mỗi trang
 
             // Duyệt qua tất cả các bình luận và thay thế nội dung nếu bình luận bị xóa
             foreach ($chapterComments as $comment) {
@@ -92,7 +93,7 @@ class ChaptercommentController extends Controller
                 return response()->json([
                     'message' => 'Không tìm thấy bình luận.',
                     'data' => null
-                ], Response::HTTP_NOT_FOUND); // Trả về mã lỗi 404 nếu không tìm thấy bình luận
+                ], Response::HTTP_OK); // Trả về mã lỗi 404 nếu không tìm thấy bình luận
             }
 
             // Trả về dữ liệu bình luận dưới dạng JSON

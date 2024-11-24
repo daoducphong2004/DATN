@@ -1,6 +1,7 @@
 <section id="chapter-comments" class="basic-section dark:bg-[#1f1f1f] dark:text-white dark:border dark:border-[#1f1f1f]">
     <header class="sect-header tab-list dark:bg-[#2a2a2a] dark:border-[#2a2a2a]">
-        <span class="sect-title tab-title" data-tab-index="1">Bình luận <span class="comments-count">(2)</span></span>
+        <span class="sect-title tab-title" data-tab-index="1">Bình luận <span
+                class="comments-count">({{ $CountComment }})</span></span>
     </header>
     <main id="fbcmt_root" class="sect-body">
         <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
@@ -8,7 +9,7 @@
         <div id="tab-content-1" class="tab-content clear">
             <section class="ln-comment">
                 <header>
-                    <h3 class="text-lg font-bold dark:text-white">2 Bình luận </h3>
+                    <h3 class="text-lg font-bold dark:text-white">{{ $CountComment }} Bình luận </h3>
                     <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                 </header>
 
@@ -59,8 +60,6 @@
                 .then((data) => {
                     const commentsContainer = document.getElementById("comments-container");
                     commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
-                    console.log(data.data);
-
                     // Kiểm tra xem data.data có phải là mảng hay không
                     if (Array.isArray(data.data.data)) {
                         // Lặp qua các bình luận nếu data.data là mảng
@@ -95,7 +94,7 @@
                                         '';
                                     if (reply.user.id == userId) {
                                         deleteButtonRL = `
-                                    <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${reply.id}'>
+                                    <a class="self-center visible-toolkit-item span-delete cursor-pointer"  data-id-delete='${reply.id}'>
                                         <i class="fas fa-times"></i>
                                         <span class="font-semibold">Xoá</span>
                                     </a>`;
@@ -204,19 +203,20 @@
                     </div>`;
                         });
                     } else {
-                        console.error("Data format is incorrect. Expected 'data' to be an array.");
-                        alert("Đã xảy ra lỗi khi tải bình luận.");
+                        // console.error("Data format is incorrect. Expected 'data' to be an array.");
+                        // alert("Đã xảy ra lỗi khi tải bình luận.");
                     }
 
                     // Cập nhật số trang hiện tại và số trang cuối
-                    currentPage = data.current_page;
-                    lastPage = data.last_page;
+                    currentPage = data.data.current_page;
+                    lastPage = data.data.last_page;
+                    console.log(currentPage,lastPage)
 
                     updatePagination(); // Cập nhật phân trang
                 })
                 .catch((error) => {
-                    console.error("Error loading comments:", error);
-                    alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
+                    // console.error("Error loading comments:", error);
+                    // alert("Đã xảy ra lỗi khi tải danh sách bình luận. Vui lòng thử lại.");
                 });
         }
 
@@ -225,7 +225,6 @@
         function updatePagination() {
             const paginationContainer = document.getElementById("pagination-container");
             paginationContainer.innerHTML = ""; // Xóa các nút phân trang hiện tại
-
             // Nút Previous
             if (currentPage > 1) {
                 paginationContainer.insertAdjacentHTML("beforeend",
@@ -248,6 +247,7 @@
                 );
             }
         }
+
 
         // Tải bình luận khi trang được tải
         loadComments(chapterId, page = 1);

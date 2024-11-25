@@ -3,3 +3,4 @@ Type trong truyện:
 2: là convert.
 3: là truyện sáng tác.
 composer require phpoffice/phpword
+comment nằm ở file reading dòng 82

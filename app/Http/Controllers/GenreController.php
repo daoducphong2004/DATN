@@ -12,7 +12,7 @@ class GenreController extends Controller
     public function index()
     {
         try {
-            $genres = genre::paginate(10);
+            $genres = genre::get();
             return view('admin.genre.index', compact('genres'));
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to load genre: ' . $e->getMessage()]);

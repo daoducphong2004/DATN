@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('forum_comments', function (Blueprint $table) {
-            //
+            $table->dropColumn('unview')->nullable();
         });
     }
 };

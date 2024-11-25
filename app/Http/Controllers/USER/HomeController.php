@@ -15,7 +15,9 @@ use App\Models\Pos;
 use App\Models\PublishingCompany;
 use App\Models\ReadingHistory;
 use App\Models\Role;
+use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -395,7 +397,10 @@ class HomeController extends Controller
                 return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
             }
         }
-        return view('user.index');
+        $total_wallet = Wallet::where('user_id',Auth::id())->get();
+        $id = Wallet::where('user_id',Auth::id())->pluck('id');
+        $single_wallet_chapter = Transaction::where('wallet_id',$id)->get();
+        return view('user.index',compact('total_wallet','single_wallet_chapter'));
     }
 
     public function createTruyen()

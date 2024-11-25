@@ -13,10 +13,9 @@
                         {{$item->balance}} coin
                         @endforeach
                     </p>
-                    <table>
-                        
-                    </table>
-                    <p>Số chương: 96.842</p>
+                    <p>Số tập: {{$total_book_chapter}} tập</p>
+                    <p>Số chương: {{$total_chapter_transation}} chương</p>
+                    <p>Tổng số chương đã được người dùng mua: {{$total_transation}} chương</p>
                 </div>
             </div>
         </div>

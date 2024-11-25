@@ -397,10 +397,26 @@ class HomeController extends Controller
                 return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
             }
         }
+        $book = book::all();
+        $total_book_chapter = 1;
+        for ($i=1; $i < count($book); $i++) { 
+            $total_book_chapter = $total_book_chapter + 1;
+           
+        }
+        $data_single_transation = chapter::all();
+        $total_chapter_transation = 1;
+        for($i = 1;$i < count($data_single_transation); $i++){
+            $total_chapter_transation = $total_chapter_transation +1;
+        }
+        $data_single_transation = Transaction::all();
+        $total_transation = 1;
+        for($i = 1;$i < count($data_single_transation); $i++){
+            $total_transation = $total_transation +1;
+        }
         $total_wallet = Wallet::where('user_id',Auth::id())->get();
         $id = Wallet::where('user_id',Auth::id())->pluck('id');
         $single_wallet_chapter = Transaction::where('wallet_id',$id)->get();
-        return view('user.index',compact('total_wallet','single_wallet_chapter'));
+        return view('user.index',compact('total_wallet','single_wallet_chapter','total_book_chapter','total_chapter_transation','total_transation'));
     }
 
     public function createTruyen()

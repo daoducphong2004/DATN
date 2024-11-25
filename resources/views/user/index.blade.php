@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Home</div>
 
+                @if (Auth::user()->role_id === 2 || Auth::user()->role_id === 1)
                 <div class="panel-body">
                     <h4>Thống kê</h4>
                     <p>Tổng lợi nhuận: @foreach ($total_wallet as $item)
@@ -17,6 +18,7 @@
                     <p>Số chương: {{$total_chapter_transation}} chương</p>
                     <p>Tổng số chương đã được người dùng mua: {{$total_transation}} chương</p>
                 </div>
+                @endif
             </div>
         </div>
     </div>

@@ -388,6 +388,8 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
+        $total_wallet = [];
+        $single_wallet_chapter = [];
         $role = Role::where('name', 'author')->first();
         $user = User::with('contract')->find(Auth::id());
         // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
@@ -399,24 +401,27 @@ class HomeController extends Controller
         }
         $book = book::all();
         $total_book_chapter = 1;
-        for ($i=1; $i < count($book); $i++) { 
+        for ($i = 1; $i < count($book); $i++) {
             $total_book_chapter = $total_book_chapter + 1;
-           
         }
         $data_single_transation = chapter::all();
         $total_chapter_transation = 1;
-        for($i = 1;$i < count($data_single_transation); $i++){
-            $total_chapter_transation = $total_chapter_transation +1;
+        for ($i = 1; $i < count($data_single_transation); $i++) {
+            $total_chapter_transation = $total_chapter_transation + 1;
         }
         $data_single_transation = Transaction::all();
         $total_transation = 1;
-        for($i = 1;$i < count($data_single_transation); $i++){
-            $total_transation = $total_transation +1;
+        for ($i = 1; $i < count($data_single_transation); $i++) {
+            $total_transation = $total_transation + 1;
         }
-        $total_wallet = Wallet::where('user_id',Auth::id())->get();
-        $id = Wallet::where('user_id',Auth::id())->pluck('id');
-        $single_wallet_chapter = Transaction::where('wallet_id',$id)->get();
-        return view('user.index',compact('total_wallet','single_wallet_chapter','total_book_chapter','total_chapter_transation','total_transation'));
+        if (Auth::user()->role_id === 1) {
+            $total_wallet = Wallet::where('user_id', Auth::id())->get();
+            $id = Wallet::where('user_id', Auth::id())->pluck('id');
+            $single_wallet_chapter = Transaction::where('wallet_id', $id)->get();
+        }
+
+
+        return view('user.index', compact('total_wallet', 'single_wallet_chapter', 'total_book_chapter', 'total_chapter_transation', 'total_transation'));
     }
 
     public function createTruyen()

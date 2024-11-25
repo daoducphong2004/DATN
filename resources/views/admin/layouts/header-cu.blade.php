@@ -59,7 +59,7 @@
                             role="button" aria-expanded="false">Bình luận <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ route('bookComment.index') }}">Bình luận truyện</a></li>
-                            <li><a href="{{ route('comment_index') }}">Bình luận chap</a></li>
+                            <li><a href="{{ route('chaptercomments') }}">Bình luận chap</a></li>
                         </ul>
                     </li>
                     <li>

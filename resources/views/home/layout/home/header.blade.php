@@ -116,7 +116,7 @@
                                 <li>
                                     <div class="nightmode-toggle">
                                         <i class="fas fa-moon"></i><span>Nền tối</span>
-                                        <div class="toggle-icon"><i class="fas fa-toggle-off"></i></div>
+                                        <div class="toggle-icon"><i class="fas fa-toggle-on"></i></div>
                                     </div>
                                 </li>
                                 <li>

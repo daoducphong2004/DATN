@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\adminContractController;
+use App\Http\Controllers\Admin\ChapterCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
@@ -29,7 +30,6 @@ Route::prefix('admin')->group(function () {
         // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
         // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
 
-        Route::get('/list-comment', [CommentController::class, 'index'])->middleware('role:super_admin,admin,mod')->name('comment_index');
         Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
 
         Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
@@ -119,4 +119,10 @@ Route::prefix('admin')->group(function () {
     Route::patch('/reports/{report}/review', [ReportController::class, 'review'])->name('reports.review');
     // end báo cáo
 
+});
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::resource('chaptercomments', ChapterCommentController::class)->except(['create', 'store']);
+    Route::get('chaptercomments/{id}/delete', [ChapterCommentController::class, 'delete'])->name('chaptercomments.delete');
+    Route::get('chaptercomments/{id}/restore', [ChapterCommentController::class, 'restore'])->name('chaptercomments.restore');
+    Route::get('chaptercomments/{id}/destroy', [ChapterCommentController::class, 'destroy'])->name('chaptercomments.destroy');
 });

@@ -477,51 +477,51 @@ function getEditor(e) {
 let currentPage = 1; // Trang hiện tại
 let lastPage = 1; // Tổng số trang
 
- function loadComments(chapterId, page = 1) {
-            // Lấy user-id từ thẻ meta
-            const userIdMeta = document.querySelector('meta[name="user-id"]');
-            const userId = userIdMeta ? userIdMeta.getAttribute('content') : null;
+function loadComments(chapterId, page = 1) {
+    // Lấy user-id từ thẻ meta
+    const userIdMeta = document.querySelector('meta[name="user-id"]');
+    const userId = userIdMeta ? userIdMeta.getAttribute('content') : null;
 
-            // Gửi yêu cầu GET bằng Fetch API
-            fetch(`/comments-chapter/${chapterId}?page=${page}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    const commentsContainer = document.getElementById("comments-container");
-                    commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
+    // Gửi yêu cầu GET bằng Fetch API
+    fetch(`/comments-chapter/${chapterId}?page=${page}`)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            const commentsContainer = document.getElementById("comments-container");
+            commentsContainer.innerHTML = ""; // Xóa nội dung hiện tại
 
-                    // Kiểm tra xem data.data có phải là mảng hay không
-                    if (Array.isArray(data.data.data)) {
-                        // Lặp qua các bình luận nếu data.data là mảng
-                        data.data.data.forEach((comment) => {
-                            let deleteButton = '';
-                            let replyButton = '';
-                            let commentClass = '';
+            // Kiểm tra xem data.data có phải là mảng hay không
+            if (Array.isArray(data.data.data)) {
+                // Lặp qua các bình luận nếu data.data là mảng
+                data.data.data.forEach((comment) => {
+                    let deleteButton = '';
+                    let replyButton = '';
+                    let commentClass = '';
 
-                            // Kiểm tra nếu comment đã bị xóa
-                            if (comment.is_delete) {
-                                // Thay đổi nội dung bình luận nếu bị xóa
-                                commentClass = 'deleted disabled';
-                                comment.content =
-                                    `Bình luận đã bị xóa bởi ${comment.deleted_by.username}`;
-                                deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
-                                replyButton = ''; // Ẩn nút trả lời nếu bình luận đã bị xóa
-                            } else {
-                                // Nếu comment không bị xóa, cho phép thêm nút xoá
-                                if (comment.user.id == userId) {
-                                    deleteButton = `
+                    // Kiểm tra nếu comment đã bị xóa
+                    if (comment.is_delete) {
+                        // Thay đổi nội dung bình luận nếu bị xóa
+                        commentClass = 'deleted disabled';
+                        comment.content =
+                            `Bình luận đã bị xóa bởi ${comment.deleted_by.username}`;
+                        deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
+                        replyButton = ''; // Ẩn nút trả lời nếu bình luận đã bị xóa
+                    } else {
+                        // Nếu comment không bị xóa, cho phép thêm nút xoá
+                        if (comment.user.id == userId) {
+                            deleteButton = `
             <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
                 <i class="fas fa-times"></i>
                 <span class="font-semibold">Xoá</span>
             </a>`;
-                                }
-                                // Chỉ thêm nút trả lời nếu userId không rỗng
-                                if (userId) {
-                                    replyButton = `
+                        }
+                        // Chỉ thêm nút trả lời nếu userId không rỗng
+                        if (userId) {
+                            replyButton = `
             <a class="self-center visible-toolkit-item do-reply cursor-pointer"
                 data-chapter-id="${chapterId}"
                 data-comment-id="${comment.id}"
@@ -529,11 +529,11 @@ let lastPage = 1; // Tổng số trang
                 <i class="fas fa-comment me-1"></i>
                 <span class="font-semibold">Trả lời</span>
             </a>`;
-                                }
-                            }
+                        }
+                    }
 
-                            // Tạo HTML cho comment chính
-                            const commentHtml = `
+                    // Tạo HTML cho comment chính
+                    const commentHtml = `
                         <div class="ln-comment-group">
                             <div id="ln-comment-${comment.id}" class="ln-comment-item mt-3 clear ${commentClass}" data-comment="${comment.id}">
                                 <div class="flex gap-1 max-w-full">
@@ -577,21 +577,21 @@ let lastPage = 1; // Tổng số trang
                             <div id="ln-comment-replies-${comment.id}" class="ln-comment-replies"></div>
                         </div>`;
 
-                            commentsContainer.innerHTML += commentHtml;
+                    commentsContainer.innerHTML += commentHtml;
 
-                            if (comment.replies && comment.replies.length > 0) {
-                                const repliesContainer = document.getElementById(
-                                    `ln-comment-replies-${comment.id}`);
-                                comment.replies.forEach(reply => {
-                                    let deleteButtonRL = '';
-                                    let replyButtonRL = '';
-                                    // Kiểm tra nếu reply đã bị xóa
-                                    let replyClass = reply.is_delete ? 'deleted disabled' :
-                                        '';
+                    if (comment.replies && comment.replies.length > 0) {
+                        const repliesContainer = document.getElementById(
+                            `ln-comment-replies-${comment.id}`);
+                        comment.replies.forEach(reply => {
+                            let deleteButtonRL = '';
+                            let replyButtonRL = '';
+                            // Kiểm tra nếu reply đã bị xóa
+                            let replyClass = reply.is_delete ? 'deleted disabled' :
+                                '';
 
-                                    // Thêm nút "Trả lời" cho comment con nếu có userId
-                                    if (userId && !reply.is_delete) {
-                                        replyButtonRL = `
+                            // Thêm nút "Trả lời" cho comment con nếu có userId
+                            if (userId && !reply.is_delete) {
+                                replyButtonRL = `
                                         <a class="self-center visible-toolkit-item do-reply cursor-pointer"
                                             data-chapter-id="${chapterId}"
                                             data-comment-id="${reply.id}"
@@ -599,19 +599,19 @@ let lastPage = 1; // Tổng số trang
                                             <i class="fas fa-comment me-1"></i>
                                             <span class="font-semibold">Trả lời</span>
                                         </a>`;
-                                    }
+                            }
 
-                                    // Thêm nút xoá nếu reply không bị xóa và thuộc về người dùng
-                                    if (reply.user.id == userId && !reply.is_delete) {
-                                        deleteButtonRL = `
+                            // Thêm nút xoá nếu reply không bị xóa và thuộc về người dùng
+                            if (reply.user.id == userId && !reply.is_delete) {
+                                deleteButtonRL = `
                                         <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${reply.id}'>
                                             <i class="fas fa-times"></i>
                                             <span class="font-semibold">Xoá</span>
                                         </a>`;
-                                    }
+                            }
 
-                                    // Tạo HTML cho comment con (reply)
-                                    const replyHtml = `
+                            // Tạo HTML cho comment con (reply)
+                            const replyHtml = `
             <div class="ln-comment-reply ${replyClass}">
                 <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
                     <div class="flex gap-1 max-w-full">
@@ -648,21 +648,21 @@ let lastPage = 1; // Tổng số trang
                     </div>
                 </div>
             </div>`;
-                                    repliesContainer.innerHTML += replyHtml;
-                                });
-                            }
+                            repliesContainer.innerHTML += replyHtml;
                         });
                     }
-
-                    // Cập nhật số trang hiện tại và số trang cuối
-                    currentPage = data.data.current_page;
-                    lastPage = data.data.last_page;
-                    updatePagination(); // Cập nhật phân trang
-                })
-                .catch((error) => {
-                    console.error("Error loading comments:", error);
                 });
-        }
+            }
+
+            // Cập nhật số trang hiện tại và số trang cuối
+            currentPage = data.data.current_page;
+            lastPage = data.data.last_page;
+            updatePagination(); // Cập nhật phân trang
+        })
+        .catch((error) => {
+            console.error("Error loading comments:", error);
+        });
+}
 
 
 
@@ -766,26 +766,31 @@ if (
 
         $(".ln-comment-body").on("click", ".do-reply", function () {
             $(".reply-form").remove(); // Xóa bất kỳ form reply nào trước đó
-
-            // Lấy giá trị từ data attributes
+        
+            // Lấy giá trị từ data attributes của comment hiện tại
             const commentId = $(this).data("comment-id");
             const chapterId = $(this).data("chapter-id");
-            const parentId = $(this).data("parent-id");
-            console.log(commentId,chapterId,parentId);
+            let parentId = $(this).data("parent-id");
+        
+            // Kiểm tra xem comment có phải là comment con không
+            if (parentId === 0) {
+                parentId = commentId; // Nếu là comment gốc, gán parent_id = commentId
+            }
+        
+            console.log("Comment ID: " + commentId, "Chapter ID: " + chapterId, "Parent ID: " + parentId);
+        
             // Tạo nội dung mặc định cho form reply
             var replyContent = "";
             if (commentId !== parentId) {
-                replyContent = "@" +
-                    $("#ln-comment-" + commentId + " a.ln-username").text().trim() +
-                    ":&nbsp;";
+                replyContent = "@" + $("#ln-comment-" + commentId + " a.ln-username").text().trim() + ":&nbsp;";
             }
-
+        
             // Tạo form reply
             const formHtml = `
             <form class="reply-form ln-comment-reply mt-3" action='/comments/add' method="POST">
                 <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
                 <input type="hidden" name="chapter_id" value="${chapterId}">
-                <input type="hidden" name="parent_id" value="${parentId}">
+                <input type="hidden" name="parent_id" value="${parentId}"> <!-- Đảm bảo parent_id là ID của comment cha -->
                 <div class="ln-comment-form">
                     <textarea name="content" class="comment_reply">${replyContent}</textarea>
                     <div class="comment_toolkit clear">
@@ -794,10 +799,10 @@ if (
                 </div>
             </form>
             `;
-
+        
             // Thêm form reply ngay dưới comment
             $("#ln-comment-" + commentId).after(formHtml);
-
+        
             // Khởi tạo TinyMCE sau khi form được thêm vào DOM
             tinymce.init({
                 selector: "textarea.comment_reply", // Chỉ khởi tạo trên textarea có class comment_reply
@@ -811,15 +816,14 @@ if (
         // Gửi form reply bằng AJAX
         $(document).on('submit', '.reply-form', function (e) {
             e.preventDefault(); // Ngừng việc gửi form mặc định
-
+        
             // Lấy dữ liệu từ các input và textarea
             const csrfToken = $('meta[name="csrf-token"]').attr('content');
             const chapterId = $(this).find('input[name="chapter_id"]').val();
             const parentId = $(this).find('input[name="parent_id"]').val();
-
             // Kiểm tra xem TinyMCE đã khởi tạo chưa và lấy nội dung từ TinyMCE
             const content = tinymce.get($(this).find('textarea.comment_reply')[0].id).getContent();
-
+        
             // Gửi dữ liệu qua AJAX
             $.ajax({
                 url: '/comments/add', // Đường dẫn gửi đến
@@ -834,9 +838,8 @@ if (
                     // Xử lý sau khi gửi thành công
                     if (response.status === "success") {
                         $(this).remove(); // Xóa form reply sau khi gửi thành công
-                        alert('comment thành công');
+                        alert('Comment thành công');
                         loadComments(chapterId, 1);
-
                     } else {
                         alert("Có lỗi xảy ra. Vui lòng thử lại.");
                     }
@@ -849,6 +852,7 @@ if (
         $(".ln-comment-body").on("click", ".span-delete", function () {
             var e = $(this);
             commentId = parseInt(e.closest(".ln-comment-item").data("comment"));
+
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
             if (!confirm("Bạn có muốn xóa bình luận?")) return !1;

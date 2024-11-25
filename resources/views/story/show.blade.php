@@ -328,7 +328,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                        <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -627,7 +627,7 @@
                                             action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
-                                                @foreach ($item->chapters->sortBy('order') as $index =>$chapter)
+                                                @foreach ($item->chapters->sortBy('order') as $index => $chapter)
                                                     <li class="{{ $index >= 6 ? 'none' : '' }}">
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
@@ -639,8 +639,7 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a 
-                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
@@ -686,7 +685,7 @@
                                                 @endforeach
                                             </ul>
 
-                                            <div class="mobile-more" >
+                                            <div class="mobile-more">
                                                 <div class="see_more">
                                                     <span style="padding-left: 30px">Xem tiếp</span>
                                                 </div>
@@ -785,12 +784,13 @@
 
                                         @foreach ($comments as $comment)
                                             <div class="ln-comment-group">
-                                                <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
+                                                <div id="ln-comment-{{ $comment->id }}"
+                                                    class="ln-comment-item mt-3 clear" data-comment="{{ $comment->id }}"
+                                                    data-parent="{{ $comment->id }}" x-data="{ showReplies: false, showReplyForm: false }">
                                                     <div class="flex gap-1 max-w-full">
                                                         <div class="w-[50px]">
                                                             <div class="mx-1 my-1">
-                                                                <img src="{{ asset(Storage::url(Auth::user()->avatar_url) ?? 'img/noava.png') }}"
+                                                                <img src="{{ asset(Storage::url($comment->user->avatar_url) ?? 'img/noava.png') }}"
                                                                     class="w-full rounded-full" />
                                                             </div>
                                                         </div>
@@ -804,15 +804,17 @@
                                                                             <a class="font-bold leading-6 md:leading-7 ln-username "
                                                                                 href="">{{ $comment->user->username }}</a>
                                                                         </div>
-                                                                        {{-- <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/owner.png" />
-                                                                                <div class="leading-4">CHỦ THỚT</div>
+                                                                        @if ($book->user_id == $comment->user_id)
+                                                                            <div class="self-center">
+                                                                                <div
+                                                                                    class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
+                                                                                    <img class="my-auto h-[14px]"
+                                                                                        src="/img/badge/owner.png" />
+                                                                                    <div class="leading-4">CHỦ THỚT</div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="self-center">
+                                                                        @endif
+                                                                        {{-- <div class="self-center">
                                                                             <div
                                                                                 class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
                                                                                 <img class="my-auto h-[14px]"

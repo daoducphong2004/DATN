@@ -228,10 +228,14 @@
         border-radius: 8px;
         overflow-y: auto;
     }
-
+    #setting{
+            left: 40%;
+        }
     /* Media query for responsiveness */
     @media screen and (max-width: 768px) {
-
+        #setting{
+            left: -6%;
+        }
         .popup-window,
         .popup {
             padding: 10px;

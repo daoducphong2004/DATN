@@ -59,6 +59,10 @@
                                     Duyệt truyện </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('admin_story_approvalhistory') }}" class="nav-link" data-key="t-starter">
+                                   Lịch sử duyệt truyện </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('admin_storylist') }}" class="nav-link" data-key="t-starter">
                                     Danh sách truyện </a>
                             </li>
@@ -134,7 +138,7 @@
                                     Bình luận truyện </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('comment_index') }}" class="nav-link" data-key="t-starter">
+                                <a href="{{ route('admin.chaptercomments.index') }}" class="nav-link" data-key="t-starter">
                                     Bình luận chap </a>
                             </li>
                         </ul>

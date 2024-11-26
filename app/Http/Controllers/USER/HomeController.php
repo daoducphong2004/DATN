@@ -318,8 +318,8 @@ class HomeController extends Controller
 
     public function guitinnhan()
     {
-        $userId = auth()->user()->id;
-        $sentLetters = Letter::where('sender_id', $userId)->get();
+        $user_id = auth()->user()->id;
+        $sentLetters = Letter::where( 'sender_id', $user_id)->get();
         return view('home.guitinnhan', compact('sentLetters'));
     }
 

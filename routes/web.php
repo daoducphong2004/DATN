@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Auth\AccountController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\AutoPurchaseController;
@@ -41,6 +40,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
+use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\wallets;
 use App\Models\book;
 use App\Models\episode;
@@ -80,10 +80,16 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('bookmark', [HomeController::class, 'bookmark']);
-Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi']);
-Route::get('tin-nhan', [HomeController::class, 'tinnhan']);
-Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan']);
+
+// Tin nhắn
+Route::get('tin-nhan/{$id}',[LetterController::class,'show'])->name('Letter.show');
+Route::get('tin-nhan/add', [LetterController::class, 'create'])->name('Letter.create');
+Route::get('tin-nhan/da-gui', [LetterController::class, 'lettersended'])->name('Letter.sender');
+Route::post('/sendEmail', [LetterController::class, 'store'])->name('Letter.send');
+Route::get('tin-nhan', [LetterController::class, 'index'])->name('Letter.index');
+Route::post('/tin-nhan/xoa',[LetterController::class,'delete'])->name('Letter.delete');
+// End tin nhắn
+
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen'])->name('huongdan_dangtruyen');
 Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])->name('huongdan_gioithieu');
@@ -91,11 +97,7 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huo
 
 // Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('bookmark', [HomeController::class, 'bookmark'])->name('bookmark');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
-Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
-Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
-Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
 // Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
@@ -110,9 +112,7 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huo
 
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
-Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
-Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
-Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
+
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
@@ -143,13 +143,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/list-story', [StoryController::class, 'index'])->name('story_index');
     Route::get('/list-comment', [CommentController::class, 'index'])->name('comment_index');
     Route::resource('bookComment', AdminBookCommentController::class);
-
-    Route::get('/letter', [LetterController::class, 'index'])->name('letter_index');
-    Route::get('/letter/create', [LetterController::class, 'create'])->name('letter_create');
-    Route::post('/letter/store', [LetterController::class, 'store'])->name('letter_store');
-    Route::get('/letter/edit/{id}', [LetterController::class, 'edit'])->name('letter_edit');
-    Route::put('/letter/update/{id}', [LetterController::class, 'update'])->name('letter_update');
-    Route::delete('/letter/delete/{id}', [LetterController::class, 'destroy'])->name('letter_delete');
 
     Route::get('/bookmarks', [BookmarksController::class, 'index'])->name('bookmarks_index');
     Route::get('/bookmarks/create', [BookmarksController::class, 'create'])->name('bookmarks_create');
@@ -203,22 +196,12 @@ Route::prefix('admin')->group(function () {
     Route::delete('/pos/delete/{id}', [PosController::class, 'destroy'])->name('pos_delete');
 });
 
-Route::prefix('chapter-comments')->group(function () {
-    Route::get('/{chapterId}', [ChaptercommentController::class, 'getByChapterId'])->name('get_by_chapter_id');
-    Route::get('/', [ChaptercommentController::class, 'index'])->name('chapter_comments_index');
-    Route::get('/show/{id}', [ChaptercommentController::class, 'show'])->name('chapter_comments_show');
-    Route::get('/create', [ChaptercommentController::class, 'create'])->name('chapter_comments_create');
-    Route::post('/store', [ChaptercommentController::class, 'store'])->name('chapter_comments_store');
-    Route::get('/edit/{id}', [ChaptercommentController::class, 'edit'])->name('chapter_comments_edit');
-    Route::put('/update/{id}', [ChaptercommentController::class, 'update'])->name('chapter_comments_update');
-    Route::delete('/delete/{id}', [ChaptercommentController::class, 'delete'])->name('chapter_comments_delete');
-});
-
-
 
 //Phong
-Route::prefix('action')->group(function () {
+Route::prefix('action')->name('action.')->group(function () {
     // Trong đây sẽ là những route có trong UserHome
+    Route::get('group',[UserGroupController::class,'index'])->name('group.index');
+    Route::get('profile',[ControllersUserController::class,'profile'])->name('profile');
 
 });
 Route::resource('story', BookController::class);
@@ -259,7 +242,7 @@ Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.m
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
 Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.like');
-Route::post('/sendEmail', [MailController::class, 'sendMail'])->name('mail.send');
+
 
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
@@ -345,7 +328,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/book/{book}/revoke', [SharedBookController::class, 'revokeEditAccess'])->name('book.sharerevoke');
 
     Route::get('/tu-sach-da-mua', [purchaseStoryController::class, 'index'])->name('bookshelf.index');
-    Route::get('/action/profile',[ControllersUserController::class,'profile'])->name('action.profile');
     Route::post('/user/update', [ControllersUserController::class, 'updateUser'])->name('user.update');
 
 });
@@ -360,11 +342,7 @@ Route::get('/vnpay-return', [PaymentController::class, 'paymentReturn']);
 Route::get('/payment-success/{paymentData}', [PaymentController::class, 'paymentSuccess'])->name('paymentSuccess');
 Route::get('/payment-history/{userId}', [PaymentController::class, 'paymentHistory'])->name('paymentHistory');
 
-// User trong Group
-Route::prefix('groups')->group(function () {
-    Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
-    Route::delete('users/{id}', [UserGroupController::class, 'delete'])->name('groups.users.delete');
-});
+
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
 

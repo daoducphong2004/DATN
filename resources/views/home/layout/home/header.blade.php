@@ -107,7 +107,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('tin-nhan') }}">
+                                    <a href="{{ route('Letter.index') }}">
                                         <i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                         <div class="at-user_list"></div>
                                     </a>

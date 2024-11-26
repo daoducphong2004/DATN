@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Đọc dữ liệu từ file JSON
-$filename = 'book_data2.json'; // File JSON chứa dữ liệu cần chèn
+$filename = 'book_data3.json'; // File JSON chứa dữ liệu cần chèn
 $books_data = json_decode(file_get_contents($filename), true);
 
 

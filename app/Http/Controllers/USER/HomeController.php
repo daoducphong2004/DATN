@@ -340,6 +340,11 @@ class HomeController extends Controller
         return view('home.hopthu');
     }
 
+    public function thongbao()
+    {
+        return view('home.thongbao');
+    }
+
     public function guitinnhan()
     {
         $userId = auth()->user()->id;

@@ -33,12 +33,13 @@ class BookcommentController extends Controller
         bookcomment::create([
             'book_id' => $book_id,
             'user_id' => auth()->id(),
-            //  'user_id' => 1,
             'content' => $request->input('content'),
             'parent_id' => $request->input('parent_id')
         ]);
 
-        return back()->with('success', 'Comment added successfully!');
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
     /**

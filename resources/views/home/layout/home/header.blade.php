@@ -183,10 +183,13 @@
                                                             <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                         @endif
                                                         @if ($notification->type == 'App\Notifications\AuthorApprovedNotification')
-                                                            <span>
-                                                                Từ giờ bạn có thể đăng truyện.
-                                                                <a class="text-red-500" href="{{ route('story.create') }}">Thêm truyện</a>
-                                                            </span>
+                                                            <a class="text-red-500" href="{{ route('story.create') }}">Thêm truyện</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\NewChapterNotification' && isset($notification->data['slug']))
+                                                            <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
+                                                            <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                         @endif
                                                     </div>
                                                 </div>

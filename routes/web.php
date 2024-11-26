@@ -113,6 +113,8 @@ Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('tin-nhan-moi', [HomeController::class, 'tinnhanmoi'])->name('tin-nhan-moi');
 Route::get('tin-nhan', [HomeController::class, 'tinnhan'])->name('tin-nhan');
 Route::get('gui-tin-nhan', [HomeController::class, 'guitinnhan'])->name('gui-tin-nhan');
+Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
+
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);

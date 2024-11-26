@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewChapterAdded;
 use App\Models\chapter;
 use App\Http\Requests\StorechapterRequest;
 use App\Http\Requests\UpdatechapterRequest;
@@ -10,6 +11,7 @@ use App\Models\episode;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\Wallet;
+use App\Notifications\NewChapterNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -113,6 +115,24 @@ class ChapterController extends Controller
                 'description' => 'Earnings from auto-purchased chapter',
                 'status' => 'completed'
             ]);
+
+            $auto = DB::table('auto_purchases')
+            ->where('book_id', $chapter->book->id)
+            ->pluck('user_id');
+
+            foreach ($auto as $userId) {
+                DB::table('notifications')->insert([
+                    'type' => 'App\Notifications\AutoPurchasesNotification',
+                    'notifiable_id' => $userId,
+                    'notifiable_type' => 'App\Models\User',
+                    'data' => json_encode([
+                        'message' => 'Chương <strong>' . $chapter->title . '</strong> của truyện <strong>' . $chapter->book->title . '</strong> đã tự động được mua!',
+                        'slug' => $chapter->book->slug,
+                    ]),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
     }
     public function store(Request $request)
@@ -169,6 +189,26 @@ class ChapterController extends Controller
             $book->word_count += $wordCount;
             $book->save();
             $this->autoPurchaseForChapter($chapter->id);
+
+            // event(new NewChapterAdded($chapter));
+
+            $followers = DB::table('like_books')
+                ->where('book_id', $book->id)
+                ->pluck('user_id');
+
+            foreach ($followers as $follower) {
+                DB::table('notifications')->insert([
+                    'type' => 'App\Notifications\NewChapterNotification',
+                    'notifiable_id' =>$follower,
+                    'notifiable_type' => 'App\Models\User',
+                    'data' => json_encode([
+                        'message' => 'Truyện <strong>' . $book->title . '</strong> đã có chương mới!',
+                        'slug' => $book->slug,
+                    ]),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         });
     }
 

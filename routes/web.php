@@ -112,7 +112,7 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huo
 
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
-
+Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
@@ -345,7 +345,7 @@ Route::get('/payment-history/{userId}', [PaymentController::class, 'paymentHisto
 
 
 Route::post('truyen/{slug}/comment', [BookcommentController::class, 'create'])->name('addComment');
-
+Route::delete('truyen/{slug}/comment', [BookcommentController::class, 'destroy'])->name('deleteComment');
 
 // Rating hoalt
 // Route::get('truyen/rating/{slug}', [RatingController::class, 'handleRating'])->name('rating');

@@ -77,7 +77,7 @@ class BookCommentController extends Controller
      */
     public function destroy($id)
     {
-        if (!Auth::check() || Auth::user()->role->name !== 'mod' && Auth::user()->role->name !== 'admin') {
+        if (!Auth::check() || Auth::user()->role->name !== 'mod' && Auth::user()->role->name !== 'admin' && Auth::user()->role->name !== 'super_admin') {
             return redirect()->route('bookComment.index')->with('error', 'Bạn không có quyền xóa bình luận!');
         }
 

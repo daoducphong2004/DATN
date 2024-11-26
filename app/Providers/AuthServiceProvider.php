@@ -29,10 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('access-admin', function ($user) {
-            return in_array($user->role->name, ['super_admin', 'admin', 'mod']);
+            return in_array($user->role->name, ['super_admin', 'admin', 'mod', 'reviewer']);
         });
         Gate::define('view-story', function ($user) {
-            return in_array($user->role->name, ['super_admin', 'admin']);
+            return in_array($user->role->name, ['super_admin', 'admin', 'reviewer']);
         });
         Gate::define('view-author', function ($user) {
             return in_array($user->role->name, ['super_admin', 'admin']);
@@ -62,7 +62,13 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('create', function (User $user) {
-            return in_array($user->role->name, ['author', 'super_admin', 'admin', 'mod']);
+            return in_array($user->role->name, ['author', 'super_admin', 'admin', 'mod', 'reviewer']);
+        });
+        Gate::define('view-contract', function ($user) {
+            return in_array($user->role->name, ['super_admin', 'admin']);
+        });
+        Gate::define('view-comment', function ($user) {
+            return in_array($user->role->name, ['super_admin', 'admin', 'mod']);
         });
     }
 }

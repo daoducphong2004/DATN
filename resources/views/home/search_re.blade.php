@@ -32,11 +32,12 @@
 <div class="search-dropdown">
     <a href="{{ route('truyen.truyen', $item->slug) }}">
         <div class="search-dropdown-left">
-            <img width="80px" height="80px" src="{{Storage::url($item->book_path)}}" alt="">
+            <img width="80px" height="80px" style="width: 80px !important;height:80px !important" src="{{Storage::url($item->book_path)}}" alt="">
         </div>
         <div class="search-dropdown-right">
             {{ $item->title }}
         </div>
+        
     </a>
 </div>
 @endforeach

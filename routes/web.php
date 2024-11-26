@@ -82,12 +82,16 @@ Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 
 // Tin nhắn
-Route::get('tin-nhan/{$id}',[LetterController::class,'show'])->name('Letter.show');
-Route::get('tin-nhan/add', [LetterController::class, 'create'])->name('Letter.create');
-Route::get('tin-nhan/da-gui', [LetterController::class, 'lettersended'])->name('Letter.sender');
+Route::prefix('tin-nhan')->group(function () {
+    Route::get('/', [LetterController::class, 'index'])->name('Letter.index');
+    Route::get('add', action: [LetterController::class, 'create'])->name('Letter.create');
+    Route::get('da-gui', [LetterController::class, 'lettersended'])->name('Letter.sender');
+    Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
+    Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
+});
+
 Route::post('/sendEmail', [LetterController::class, 'store'])->name('Letter.send');
-Route::get('tin-nhan', [LetterController::class, 'index'])->name('Letter.index');
-Route::post('/tin-nhan/xoa',[LetterController::class,'delete'])->name('Letter.delete');
+
 // End tin nhắn
 
 

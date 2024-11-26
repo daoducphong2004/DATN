@@ -4,3 +4,42 @@ Type trong truyện:
 3: là truyện sáng tác.
 composer require phpoffice/phpword
 comment nằm ở file reading dòng 82
+
+
+Câu lệnh để thêm thể loại cho truyện (Chạy trong phpmyadmin)
+-- Bước 2: Lặp qua tất cả các book và thêm từ 3 đến 6 genre
+DELIMITER //
+
+CREATE PROCEDURE AddRandomGenres()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE bookId INT;
+    DECLARE genreCount INT;
+    DECLARE genreId INT;
+    DECLARE genreCursor CURSOR FOR SELECT id FROM books;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    OPEN genreCursor;
+
+    read_loop: LOOP
+        FETCH genreCursor INTO bookId;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Chọn ngẫu nhiên từ 3 đến 6 genre
+        SET genreCount = FLOOR(3 + (RAND() * 4)); -- Từ 3 đến 6
+        WHILE genreCount > 0 DO
+            SELECT id INTO genreId FROM genres ORDER BY RAND() LIMIT 1;
+            INSERT IGNORE INTO book_genre (book_id, genre_id) VALUES (bookId, genreId);
+            SET genreCount = genreCount - 1;
+        END WHILE;
+    END LOOP;
+
+    CLOSE genreCursor;
+END//
+
+DELIMITER ;
+
+-- Gọi thủ tục để thực hiện thêm dữ liệu
+CALL AddRandomGenres();

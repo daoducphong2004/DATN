@@ -7,30 +7,7 @@
     <main id="mainpart" class="page_user-pm">
         <div class="container">
             <div class="row d-block clearfix">
-                <div class="col-12 col-lg-3 float-right">
-                    <section class="private-tabs">
-                        <header>
-                            <h4 class="section-name">Tài khoản</h4>
-                            <span class="user-name">{{ Auth::user()->username }}</span>
-                        </header>
-                        <ul class="user-private-tabs">
-                            <li class=""><a href="/ke-sach"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Kệ sách</a></li>
-                            <li class=""><a href="/bookmark"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Bookmark</a></li>
-
-                            <li class=""><a href="/tin-nhan"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
-                            <li class="current"><a href="/thong-bao"><span class="none inline-l"><i
-                                class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                class="fas fa-chevron-down"></i></span>Thông báo</a></li>
-
-                        </ul>
-                    </section>
-                </div>
+                   @include('home.layout.box')
                 <div class="col-12 col-lg-9 float-left">
                     <section class="user-pm">
                         <table class="table table-borderless listext-table has-covers">

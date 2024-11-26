@@ -14,6 +14,9 @@
             <li class=""><a href="{{ route('Letter.index') }}"><span class="none inline-l"><i
                             class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
                             class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
+            <li class=""><a href="/thong-bao"><span class="none inline-l"><i
+                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
+                            class="fas fa-chevron-down"></i></span>Thông báo</a></li>
             </ul>
     </section>
 </div>

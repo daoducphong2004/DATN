@@ -66,7 +66,7 @@
                     <div id="navbar-user">
                         <div class="nav-user_icon">
                             <div class="nav-user_avatar">
-                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}" alt="Your avatar">
+                                <img src="{{ asset(Storage::url(Auth::user()->avatar_url) ?? 'img/noava.png') }}" alt="Your avatar">
                             </div>
                             <div class="at-user_avatar"></div>
                             <ul class="account-sidebar hidden-block unstyled none">
@@ -107,12 +107,18 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('tin-nhan') }}">
+                                    <a href="{{ route('Letter.index') }}">
                                         <i class="fas fa-envelope"></i><span>Tin nhắn</span>
                                         <div class="at-user_list"></div>
                                     </a>
                                 </li>
                                 <hr class="none block-l">
+                                <li>
+                                    <div class="nightmode-toggle">
+                                        <i class="fas fa-moon"></i><span>Nền tối</span>
+                                        <div class="toggle-icon"><i class="fas fa-toggle-on"></i></div>
+                                    </div>
+                                </li>
                                 <li>
                                     <a href="/UserHome">
                                         <i class="fas fa-cog"></i><span>Hệ thống</span>

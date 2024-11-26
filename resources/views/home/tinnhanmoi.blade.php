@@ -30,7 +30,7 @@
                     </div>
                 @endif
 
-                <form method="post" action="{{ route('mail.send') }}">
+                <form method="post" action="{{ route('Letter.send') }}">
                     {{ csrf_field() }}
                     <div class="mail-attribute">
                         <div class="mail-attribute-name">Người nhận</div>

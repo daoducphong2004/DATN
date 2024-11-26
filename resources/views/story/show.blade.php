@@ -313,7 +313,7 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="{{ asset($book->user->avatar_url ?? 'img/noava.png') }}"
+                                            src="{{ asset(Storage::url($book->user->avatar_url) ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
@@ -328,7 +328,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -627,7 +627,7 @@
                                             action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
-                                                @foreach ($item->chapters->sortBy('order') as $index =>$chapter)
+                                                @foreach ($item->chapters->sortBy('order') as $index => $chapter)
                                                     <li class="{{ $index >= 6 ? 'none' : '' }}">
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
@@ -639,8 +639,7 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a 
-                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
@@ -686,7 +685,7 @@
                                                 @endforeach
                                             </ul>
 
-                                            <div class="mobile-more" >
+                                            <div class="mobile-more">
                                                 <div class="see_more">
                                                     <span style="padding-left: 30px">Xem tiếp</span>
                                                 </div>

@@ -68,8 +68,6 @@ class HomeController extends Controller
             ->get();
 
         $sangtac_moinhat = chapter::with('book')
-
-
             ->whereHas('book', function ($query) {
                 $query->where('Is_Inspect', 1)
                     ->where('type', 3); // Điều kiện lấy loại truyện sáng tác (type = 3)
@@ -97,29 +95,12 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc') // Sắp xếp theo thời gian tạo chương mới nhất
             ->take(5) // Giới hạn 5 chương mới nhất
             ->get();
-        $chuong_moinhat = Chapter::with('book')  // Eager loading mối quan hệ với Book
-            ->whereHas('book', function ($query) {
-                $query->where('Is_Inspect', 1);
-            })
-            ->whereIn('id', function ($query) {
-                $query->select(DB::raw('MAX(id)'))
-                    ->from('chapters')
-                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-            })
-            ->orderBy('created_at', 'desc')
-            ->take(17)
-            ->get();
 
-        $chuong_moinhat = chapter::with('book')
-            ->whereHas('book', function ($query) {
-                $query->where('Is_Inspect', 1);
-            })
-            ->whereIn('id', function ($query) {
-                $query->select(DB::raw('MAX(id)'))
-                    ->from('chapters')
-                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-            })
-            ->orderBy('created_at', 'desc')
+        $chuong_moinhat = chapter::select('chapters.*')
+            ->join(DB::raw('(SELECT MAX(id) as max_id FROM chapters GROUP BY book_id) as latest_chapters'), 'chapters.id', '=', 'latest_chapters.max_id')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            ->where('books.Is_Inspect', 1)
+            ->orderBy('chapters.created_at', 'desc')
             ->take(17)
             ->get();
 
@@ -133,17 +114,12 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $truyen_dahoanthanh = chapter::with('book')
-            ->whereHas('book', function ($query) {
-                $query->where('Is_Inspect', 1)
-                    ->where('status', 3); // Thêm điều kiện lấy truyện đã hoàn thành
-            })
-            ->whereIn('id', function ($query) {
-                $query->select(DB::raw('MAX(id)'))
-                    ->from('chapters')
-                    ->groupBy('book_id'); // Lấy chương mới nhất (id lớn nhất) theo mỗi book_id
-            })
-            ->orderBy('created_at', 'desc')
+        $truyen_dahoanthanh = chapter::select('chapters.*')
+            ->join(DB::raw('(SELECT MAX(id) as max_id FROM chapters GROUP BY book_id) as latest_chapters'), 'chapters.id', '=', 'latest_chapters.max_id')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            ->where('books.Is_Inspect', 1)
+            ->where('books.status', 3) // Thêm điều kiện lấy truyện đã hoàn thành
+            ->orderBy('chapters.created_at', 'desc')
             ->take(17)
             ->get();
 
@@ -349,8 +325,8 @@ class HomeController extends Controller
 
     public function guitinnhan()
     {
-        $userId = auth()->user()->id;
-        $sentLetters = Letter::where('sender_id', $userId)->get();
+        $user_id = auth()->user()->id;
+        $sentLetters = Letter::where( 'sender_id', $user_id)->get();
         return view('home.guitinnhan', compact('sentLetters'));
     }
 

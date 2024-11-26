@@ -14,32 +14,9 @@
             {{ session('message') }}
         </div>
     @endif
-
-    {{-- <div class="p-4" style="min-height: 800px;">
-        <h2 class="text-primary mb-4">Danh Sách Bình Luận</h2>
-        <table id="list-comment" class="table">
-            <thead>
-                <tr>
-                    <th>Người Bình Luận</th>
-                    <th>Nội Dung</th>
-                    <th>Ngày Bình Luận</th>
-                    <th>Hành Động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a class="btn btn-info" href="">Chi tiết</a>
-                        <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div> --}}
-
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -51,26 +28,38 @@
                         style="width:100%">
                         <thead>
                             <tr>
-                                <th>Người Bình Luận</th>
-                                <th>Nội Dung</th>
-                                <th>Ngày Bình Luận</th>
-                                <th>Thao tác</th>
+                                <th>ID</th>
+                                <th>Chapter</th>
+                                <th>User</th>
+                                <th>Content</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($comments as $comment) --}}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a class="btn btn-info" href="">Chi tiết</a>
-                                    <a class="btn btn-danger" href="" onclick="return confirmDelete()">Xoá</a>
-                                </td>
-                            </tr>
-                            {{-- @endforeach --}}
+                            @foreach ($comments as $comment)
+                                <tr>
+                                    <td>{{ $comment->id }}</td>
+                                    <td><a href="{{ route('truyen.chuong',['slug'=>$comment->chapter->book->slug ,'chapter_slug'=> $comment->chapter->slug]) }}">{{ $comment->chapter->title }}</a></td>
+                                    <td><a href="{{ route('user.books',$comment->user->id) }}">{{ $comment->user->username }}</a></td>
+                                    <td>{!! Str::limit($comment->content, 50) !!}</td>
+                                    <td>
+                                        @if ($comment->is_delete)
+                                            <a href="{{ route('admin.chaptercomments.restore', $comment->id) }}"
+                                                class="btn btn-warning">Khôi phục</a>
+                                            <a href="{{ route('admin.chaptercomments.destroy', $comment->id) }}"
+                                                class="btn btn-danger">Xóa vĩnh viễn</a>
+                                        @else
+                                            <a href="{{ route('admin.chaptercomments.delete', $comment->id) }}"
+                                                class="btn btn-danger">Xóa</a>
+                                        @endif
+                                        {{-- <a href="{{ route('admin.chaptercomments.show', $comment->id) }}"
+                                            class="btn btn-primary">Chi Tiết</a> --}}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    {{ $comments->links() }}
                 </div>
             </div>
         </div><!--end col-->

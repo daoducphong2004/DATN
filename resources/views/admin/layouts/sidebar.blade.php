@@ -150,7 +150,7 @@
                                         Bình luận truyện </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('comment_index') }}" class="nav-link" data-key="t-starter">
+                                    <a href="{{ route('admin.chaptercomments.index') }}" class="nav-link" data-key="t-starter">
                                         Bình luận chap </a>
                                 </li>
                             </ul>

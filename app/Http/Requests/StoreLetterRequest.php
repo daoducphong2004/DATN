@@ -22,13 +22,9 @@ class StoreLetterRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'title' => 'required|string',
-            'content' => 'required|string',
-            'receiver_id' => 'required|integer|exists:users,id',
-            'sender_id' => 'required|integer|exists:users,id',
-            'status' => 'nullable|string',
+            'receive_user' => 'required|exists:users,username',
+            'title' => 'required|max:255',
+            'content' => 'required',
         ];
     }
 }
-
-

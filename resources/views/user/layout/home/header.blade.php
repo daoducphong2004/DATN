@@ -22,25 +22,6 @@
                     @endcan
                 </li>
 
-                  {{--<li class="dropdown">
-
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('manage.mytranslatebook') }}">Truyện đã đăng</a></li>
-                        <li><a href="{{ route('manage.booktranslateshared') }}">Truyện tham gia</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('manage.myConvertbook') }}">Convert đã đăng</a>
-                        </li>
-                        <li><a href="{{ route('manage.bookConvertshared') }}">Convert tham
-                                gia</a></li>
-                    </ul>
-                </li> --}}
                 <li class="dropdown">
                     @if(!Auth::check())
                         <a href="{{ route('login') }}" class="" style="color: #10b591"
@@ -111,12 +92,9 @@
                         <a href="{{ route('login') }}" class=""
                             onclick="alert(' Bạn cần phải đăng nhập trước')">Nhóm dịch <span class="caret"></span></a>
                     @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Nhóm dịch <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="nhomSoHuu">Nhóm sở hữu</a></li>
-                            <li><a href="nhomThamGia">Nhóm tham gia</a></li>
-                        </ul>
+                        <a href="{{ route('action.group.index') }}"  role="button"
+                            aria-expanded="false">Nhóm dịch </span></a>
+                        
                     @endif
                 </li>
                 <li>

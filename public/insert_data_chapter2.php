@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Read data from JSON file
-$filename = 'chapter_data2.json'; // JSON file with chapter data
+$filename = 'chapter_data3.json'; // JSON file with chapter data
 $chapters_data = json_decode(file_get_contents($filename), true);
 
 

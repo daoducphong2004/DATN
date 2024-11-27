@@ -13,7 +13,8 @@ class bookcomment extends Model
         'book_id',
         'user_id',
         'content',
-        'parent_id'
+        'parent_id',
+        'is_deleted'
     ];
 
     public function book()

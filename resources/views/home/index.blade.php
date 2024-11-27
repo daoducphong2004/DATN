@@ -375,7 +375,7 @@
                                         <div class="comment-top">
                                             <div class="comment-user_ava">
                                                 <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
-                                                    <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
+                                                    <img src="{{ !empty($comment->user->avatar_url) ?Storage::url( $comment->user->avatar_url) : asset('img/noava.png') }}"
                                                         alt="Commenter's avatar">
                                                 </a>
                                             </div>

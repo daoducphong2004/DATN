@@ -12,22 +12,7 @@ use Illuminate\Http\Response;
 
 class ChaptercommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $chapterComments = chaptercomment::with('children')->get();
-        return null;
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -116,56 +101,6 @@ class ChaptercommentController extends Controller
     }
 
 
-
-    public function hasPermission(int $userId)
-    {
-        $hasPermission = $userId == Auth::user()->id;
-        if ($hasPermission) {
-            dd(403, "you not has permission");
-        }
-    }
-
-    public function setValueChapterComment(chaptercomment $chapterComment, StorechaptercommentRequest $request)
-    {
-
-        $chapterComment->content = $request->content;
-        $chapterComment->user_id = Auth::user()->id;
-        $chapterComment->chapter_id = $request->chapter_id;
-        $chapterComment->parent_id = $request->parent_id;
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $chapterComment = $this->getChapterCommentById($id);
-        return null;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $chapterComment = $this->getChapterCommentById($id);
-        $this->hasPermission($chapterComment->user_id);
-        return null;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(int $id, StorechaptercommentRequest $request)
-    {
-        $chapterComment = $this->getChapterCommentById($id);
-        $this->hasPermission($chapterComment->user_id);
-        $this->setValueChapterComment($chapterComment, $request);
-
-        $chapterComment->save();
-
-        return null;
-    }
     /**
      * Xóa bình luận bằng cách cập nhật trường is_delete với user_id.
      *
@@ -209,9 +144,4 @@ class ChaptercommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        $chapterComment = $this->getChapterCommentById($id);
-        $chapterComment->delete();
-    }
 }

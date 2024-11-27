@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Read data from JSON file
-$filename = 'episode_data2.json'; // JSON file with episode data
+$filename = 'episode_data3.json'; // JSON file with episode data
 $episodes_data = json_decode(file_get_contents($filename), true);
 
 function randomDate($startDate, $endDate) {

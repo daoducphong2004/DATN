@@ -83,27 +83,27 @@
                                 comment.content =
                                     `Bình luận đã bị xóa bởi ${comment.deleted_by.username}`;
                                 deleteButton = ''; // Ẩn nút xoá nếu bình luận đã bị xóa
+                                replyButton = ''; // Ẩn nút trả lời nếu bình luận đã bị xóa
                             } else {
                                 // Nếu comment không bị xóa, cho phép thêm nút xoá
                                 if (comment.user.id == userId) {
                                     deleteButton = `
-                                <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
-                                    <i class="fas fa-times"></i>
-                                    <span class="font-semibold">Xoá</span>
-                                </a>`;
+            <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
+                <i class="fas fa-times"></i>
+                <span class="font-semibold">Xoá</span>
+            </a>`;
                                 }
-                            }
-
-                            // Chỉ thêm nút trả lời nếu userId không rỗng
-                            if (userId) {
-                                replyButton = `
-                            <a class="self-center visible-toolkit-item do-reply cursor-pointer"
-                                data-chapter-id="${chapterId}"
-                                data-comment-id="${comment.id}"
-                                data-parent-id="${comment.parent_id ?? 0}">
-                                <i class="fas fa-comment me-1"></i>
-                                <span class="font-semibold">Trả lời</span>
-                            </a>`;
+                                // Chỉ thêm nút trả lời nếu userId không rỗng
+                                if (userId) {
+                                    replyButton = `
+            <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                data-chapter-id="${chapterId}"
+                data-comment-id="${comment.id}"
+                data-parent-id="${comment.parent_id ?? 0}">
+                <i class="fas fa-comment me-1"></i>
+                <span class="font-semibold">Trả lời</span>
+            </a>`;
+                                }
                             }
 
                             // Tạo HTML cho comment chính
@@ -113,7 +113,7 @@
                                 <div class="flex gap-1 max-w-full">
                                     <div class="w-[50px]">
                                         <div class="mx-1 my-1">
-                                            <img src="${comment.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
+                                        <img src="/storage/${comment.user.avatar_url ?? '/img/noava.png'}" class="w-full rounded-full" />
                                         </div>
                                     </div>
                                     <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
@@ -153,59 +153,75 @@
 
                             commentsContainer.innerHTML += commentHtml;
 
-                            // Chèn các reply của comment cha
                             if (comment.replies && comment.replies.length > 0) {
                                 const repliesContainer = document.getElementById(
                                     `ln-comment-replies-${comment.id}`);
                                 comment.replies.forEach(reply => {
                                     let deleteButtonRL = '';
+                                    let replyButtonRL = '';
+                                    // Kiểm tra nếu reply đã bị xóa
                                     let replyClass = reply.is_delete ? 'deleted disabled' :
                                         '';
 
-                                    if (reply.user.id == userId) {
-                                        deleteButtonRL = `
-                                    <a class="self-center visible-toolkit-item span-delete cursor-pointer"  data-id-delete='${reply.id}'>
-                                        <i class="fas fa-times"></i>
-                                        <span class="font-semibold">Xoá</span>
-                                    </a>`;
+                                    // Thêm nút "Trả lời" cho comment con nếu có userId
+                                    if (userId && !reply.is_delete) {
+                                        replyButtonRL = `
+                                        <a class="self-center visible-toolkit-item do-reply cursor-pointer"
+                                            data-chapter-id="${chapterId}"
+                                            data-comment-id="${reply.id}"
+                                            data-parent-id="${reply.parent_id ?? 0}">
+                                            <i class="fas fa-comment me-1"></i>
+                                            <span class="font-semibold">Trả lời</span>
+                                        </a>`;
                                     }
 
+                                    // Thêm nút xoá nếu reply không bị xóa và thuộc về người dùng
+                                    if (reply.user.id == userId && !reply.is_delete) {
+                                        deleteButtonRL = `
+                                        <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${reply.id}'>
+                                            <i class="fas fa-times"></i>
+                                            <span class="font-semibold">Xoá</span>
+                                        </a>`;
+                                    }
+
+                                    // Tạo HTML cho comment con (reply)
                                     const replyHtml = `
-                                <div class="ln-comment-reply ${replyClass}">
-                                    <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
-                                        <div class="flex gap-1 max-w-full">
-                                            <div class="w-[50px]">
-                                                <div class="mx-1 my-1">
-                                                    <img src="${reply.user.avatar_url ?? '/default-avatar.png'}" class="w-full rounded-full" />
-                                                </div>
-                                            </div>
-                                            <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
-                                                <div class="flex min-w-0 flex-col px-2">
-                                                    <div class="flex align-top justify-between">
-                                                        <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                            <div class="self-center">
-                                                                <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
-                                                                    ${reply.user.username}
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ln-comment-content long-text">
-                                                        ${reply.content}
-                                                    </div>
-                                                    <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                        <a href="#" class="text-slate-500">
-                                                            <time class="timeago" title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
-                                                                ${moment(reply.created_at).fromNow()}
-                                                            </time>
-                                                        </a>
-                                                        ${deleteButtonRL}
-                                                    </div>
-                                                </div>
-                                            </div>
+            <div class="ln-comment-reply ${replyClass}">
+                <div id="ln-comment-${reply.id}" class="ln-comment-item mt-3 clear" data-comment="${reply.id}">
+                    <div class="flex gap-1 max-w-full">
+                        <div class="w-[50px]">
+                            <div class="mx-1 my-1">
+                                <img src="/storage/${reply.user.avatar_url ?? '/img/noava.png'}" class="w-full rounded-full" />
+                            </div>
+                        </div>
+                        <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">
+                            <div class="flex min-w-0 flex-col px-2">
+                                <div class="flex align-top justify-between">
+                                    <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                        <div class="self-center">
+                                            <a class="font-bold leading-6 md:leading-7 ln-username" href="#">
+                                                ${reply.user.username}
+                                            </a>
                                         </div>
                                     </div>
-                                </div>`;
+                                </div>
+                                <div class="ln-comment-content long-text">
+                                    ${reply.content}
+                                </div>
+                                <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                    <a href="#" class="text-slate-500">
+                                        <time class="timeago" title="${new Date(reply.created_at).toLocaleString()}" datetime="${reply.created_at}">
+                                            ${moment(reply.created_at).fromNow()}
+                                        </time>
+                                    </a>
+                                    ${deleteButtonRL}
+                                    ${replyButtonRL} <!-- Thêm nút trả lời cho comment con -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
                                     repliesContainer.innerHTML += replyHtml;
                                 });
                             }

@@ -313,7 +313,7 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="{{ asset($book->user->avatar_url ?? 'img/noava.png') }}"
+                                            src="{{ asset(Storage::url($book->user->avatar_url) ?? 'img/noava.png') }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
@@ -328,7 +328,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                                                                                                                                                                            <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -627,7 +627,7 @@
                                             action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
-                                                @foreach ($item->chapters->sortBy('order') as $index =>$chapter)
+                                                @foreach ($item->chapters->sortBy('order') as $index => $chapter)
                                                     <li class="{{ $index >= 6 ? 'none' : '' }}">
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
@@ -639,8 +639,7 @@
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
                                                                 {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
-                                                                <a 
-                                                                    href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
                                                                 </a>
@@ -686,7 +685,7 @@
                                                 @endforeach
                                             </ul>
 
-                                            <div class="mobile-more" >
+                                            <div class="mobile-more">
                                                 <div class="see_more">
                                                     <span style="padding-left: 30px">Xem tiếp</span>
                                                 </div>
@@ -784,137 +783,170 @@
                                         </div>
 
                                         @foreach ($comments as $comment)
-                                            <div class="ln-comment-group">
-                                                <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                    data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
-                                                    <div class="flex gap-1 max-w-full">
-                                                        <div class="w-[50px]">
-                                                            <div class="mx-1 my-1">
-                                                                <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
-                                                                    class="w-full rounded-full" />
+                                            @if (!$comment->is_deleted)
+                                                <div class="ln-comment-group">
+                                                    <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
+                                                        data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
+                                                        <div class="flex gap-1 max-w-full">
+                                                            <div class="w-[50px]">
+                                                                <div class="mx-1 my-1">
+                                                                    <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
+                                                                        class="w-full rounded-full" />
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div
-                                                            class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
-                                                            <div class="flex min-w-0 flex-col px-2">
-                                                                <div class="flex align-top justify-between">
-                                                                    <div
-                                                                        class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
-                                                                        <div class="self-center">
-                                                                            <a class="font-bold leading-6 md:leading-7 ln-username "
-                                                                                href="">{{ $comment->user->username }}</a>
-                                                                        </div>
-                                                                        {{-- <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/owner.png" />
-                                                                                <div class="leading-4">CHỦ THỚT</div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="self-center">
-                                                                            <div
-                                                                                class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
-                                                                                <img class="my-auto h-[14px]"
-                                                                                    src="/img/badge/trans5.png" />
-                                                                                <div class="leading-4">TRANS</div>
-                                                                            </div>
-                                                                        </div> --}}
-                                                                    </div>
-                                                                    @if (Auth::check())
+                                                            <div
+                                                                class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
+                                                                <div class="flex min-w-0 flex-col px-2">
+                                                                    <div class="flex align-top justify-between">
                                                                         <div
-                                                                            class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
-                                                                            <div @click="showReplies = !showReplies">
-                                                                                <i
-                                                                                    :class="showReplies ? 'fas fa-angle-up' :
-                                                                                        'fas fa-angle-down'"></i>
+                                                                            class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                                            <div class="self-center">
+                                                                                <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                                    href="">{{ $comment->user->username }}</a>
                                                                             </div>
+                                                                            {{-- <div class="self-center">
+                                                                                <div
+                                                                                    class="flex gap-1 rounded-sm shadow-[inset_0px_0px_0px_2px_#E63950] dark:bg-[#E63950]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#E63950] dark:text-[#FDCB02]">
+                                                                                    <img class="my-auto h-[14px]"
+                                                                                        src="/img/badge/owner.png" />
+                                                                                    <div class="leading-4">CHỦ THỚT</div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="self-center">
+                                                                                <div
+                                                                                    class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                                                    <img class="my-auto h-[14px]"
+                                                                                        src="/img/badge/trans5.png" />
+                                                                                    <div class="leading-4">TRANS</div>
+                                                                                </div>
+                                                                            </div> --}}
                                                                         </div>
-                                                                    @endif
-                                                                </div>
-                                                                <div class="ln-comment-content long-text">
-                                                                    {{ $comment->content }}
-                                                                </div>
-                                                                {{-- <div class="comment_see_more expand none">Xem thêm</div> --}}
-                                                                <div
-                                                                    class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                                    <a href="#">
-                                                                        <time class="timeago" title="22-08-2024 09:59:00"
-                                                                            datetime="{{ $comment->created_at }}">
-                                                                            {{ $comment->created_at->diffForHumans() }}
-                                                                        </time>
-                                                                    </a>
-                                                                    <a
-                                                                        class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                        <i class="fas fa-thumbs-up me-1"></i>
-                                                                        <span class="likecount font-semibold">4</span>
-                                                                    </a>
-                                                                    @if (Auth::check())
-                                                                        <a @click.prevent="showReplyForm = !showReplyForm"
-                                                                            class="self-center visible-toolkit-item cursor-pointer">
-                                                                            <i class="fas fa-comment me-1"></i>
-                                                                            <span class="likecount font-semibold">Trả
+                                                                        @if (Auth::check())
+                                                                            <div
+                                                                                class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                                <div @click="showReplies = !showReplies">
+                                                                                    <i
+                                                                                        :class="showReplies ? 'fas fa-angle-up' :
+                                                                                            'fas fa-angle-down'"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="ln-comment-content long-text">
+                                                                        {{ $comment->content }}
+                                                                    </div>
+                                                                    <div
+                                                                        class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                                        <a href="#">
+                                                                            <time class="timeago" title="22-08-2024 09:59:00"
+                                                                                datetime="{{ $comment->created_at }}">
+                                                                                {{ $comment->created_at->diffForHumans() }}
+                                                                            </time>
+                                                                        </a>
+
+                                                                        @if (Auth::check())
+                                                                            <a @click.prevent="showReplyForm = !showReplyForm"
+                                                                                class="self-center visible-toolkit-item cursor-pointer">
+                                                                                <i class="fas fa-comment me-1"></i>
+                                                                                <span class="likecount font-semibold">Trả
+                                                                                    lời</span>
+                                                                            </a>
+                                                                        @endif
+
+                                                                        <a class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                                            @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                                                                <form action="{{ route('deleteComment', $comment->id) }}" method="POST" class="inline">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit" class="likecount font-semibold">
+                                                                                        <i class="fas fa-trash"></i> Xóa
+                                                                                    </button>
+                                                                                </form>
+                                                                            @endif
+                                                                        </a>
+
+                                                                        <a href="">
+                                                                            <span class="likecount font-semibold">{{ $comment->replies->count() }} đã trả
                                                                                 lời</span>
                                                                         </a>
-                                                                    @endif
-
-                                                                    <a href="">
-                                                                        <span>{{ $comment->replies->count() }} đã trả
-                                                                            lời</span>
-                                                                    </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div x-show="showReplyForm"
-                                                        class="ln-comment-reply ln-comment-form mt-3"
-                                                        id="reply-form-{{ $comment->id }}" x-cloak>
-                                                        <div class="ln-comment-reply ln-comment-form mt-3"
-                                                            id="reply-form-{{ $comment->id }}">
-                                                            @if (Auth::check())
-                                                                <form action="{{ route('addComment', $book->id) }}"
-                                                                    method="POST" class="reply_form">
-                                                                    @csrf
-                                                                    <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
-                                                                    <input type="hidden" name="parent_id"
-                                                                        value="{{ $comment->id }}">
-                                                                    <div class="comment_toolkit clear">
-                                                                        <input class="button" type="submit"
-                                                                            value="Trả lời">
-                                                                    </div>
-                                                                </form>
-                                                            @else
-                                                                <p><strong>Bạn phải <a href="{{ route('login') }}"
-                                                                            style="color: red">đăng nhập</a> để trả lời
-                                                                        bình luận.</strong></p>
+                                                        <div x-show="showReplyForm"
+                                                            class="ln-comment-reply ln-comment-form mt-3"
+                                                            id="reply-form-{{ $comment->id }}" x-cloak>
+                                                            <div class="ln-comment-reply ln-comment-form mt-3"
+                                                                id="reply-form-{{ $comment->id }}">
+                                                                @if (Auth::check())
+                                                                    <form action="{{ route('addComment', $book->id) }}"
+                                                                        method="POST" class="reply_form">
+                                                                        @csrf
+                                                                        <textarea name="content" class="comment_reply form-control" required>{{ '@' . $comment->user->username . ': ' }}</textarea>
+                                                                        <input type="hidden" name="parent_id"
+                                                                            value="{{ $comment->id }}">
+                                                                        <div class="comment_toolkit clear">
+                                                                            <input class="button" type="submit"
+                                                                                value="Trả lời">
+                                                                        </div>
+                                                                    </form>
+                                                                @else
+                                                                    <p><strong>Bạn phải <a href="{{ route('login') }}"
+                                                                                style="color: red">đăng nhập</a> để trả lời
+                                                                            bình luận.</strong></p>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        <div x-show="showReplies" class="mt-3" x-cloak>
+                                                            <!-- Lặp qua các replies -->
+                                                            @if ($comment->replies->isNotEmpty())
+                                                                @include('partials.comment', [
+                                                                    'comments' => $comment->replies,
+                                                                ])
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div x-show="showReplies" class="mt-3" x-cloak>
-                                                        <!-- Lặp qua các replies -->
-                                                        @if ($comment->replies->isNotEmpty())
-                                                            @include('partials.comment', [
-                                                                'comments' => $comment->replies,
-                                                            ])
-                                                        @endif
+                                                </div>
+                                            @else
+                                                <div class="ln-comment-group">
+                                                    <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
+                                                        data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
+                                                        <div class="flex gap-1 max-w-full">
+                                                            <div class="w-[50px]">
+                                                                <div class="mx-1 my-1">
+                                                                    <img src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
+                                                                        class="w-full rounded-full" />
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ring-2 ring-cyan-500 dark:ring-cyan-900">
+                                                                <div class="flex min-w-0 flex-col px-2">
+                                                                    <div class="flex align-top justify-between">
+                                                                        <div
+                                                                            class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                                            <div class="self-center">
+                                                                                <a class="font-bold leading-6 md:leading-7 ln-username "
+                                                                                    href="">{{ $comment->user->username }}</a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                            <div @click="showReplies = !showReplies">
+                                                                                <i :class="showReplies ? 'fas fa-angle-up' : 'fas fa-angle-down'"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comment">
+                                                                        <p><i>Bình luận này đã bị xoá bởi {{ $comment->user->username}}.</i></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         @endforeach
-
-
-                                        <div class="ln-comment-page">
-                                            <div class="pagination-footer">
-                                                <div class="pagination_wrap">
-                                                    <a href=""
-                                                        class="paging_item paging_prevnext prev  disabled ">Trước</a>
-
-                                                    <a href="https://docln.net/truyen/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay?page=2"
-                                                        class="paging_item paging_prevnext next">Sau</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    {{ $comments->links() }}
                                     </main>
                                     {{-- @include('layouts.TinyMCEscript') --}}
                                 </section>

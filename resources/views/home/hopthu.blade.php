@@ -7,44 +7,46 @@
     <main id="mainpart" class="page_user-pm">
         <div class="container">
             <div class="row d-block clearfix">
-                <div class="col-12 col-lg-3 float-right">
-                    <section class="private-tabs">
-                        <header>
-                            <h4 class="section-name">Tài khoản</h4>
-                            <span class="user-name">{{ Auth::user()->username}}</span>
-                        </header>
-                        <ul class="user-private-tabs">
-                            <li class=""><a href="/ke-sach"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Kệ sách</a></li>
-                            <li class=""><a href="/bookmark"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Bookmark</a></li>
-
-                            <li class="current"><a href="/tin-nhan"><span class="none inline-l"><i
-                                            class="fas fa-chevron-left"></i></span><span class="float-right none-l"><i
-                                            class="fas fa-chevron-down"></i></span>Hộp thư</a></li>
-
-                        </ul>
-                    </section>
-                </div>
+                @include('home.layout.box')
                 <div class="col-12 col-lg-9 float-left">
                     <section class="user-pm">
-                        <form method="post" action="/tin-nhan/xoa">
+                        <form method="POST" action="{{ route('Letter.delete') }}">
+                            @csrf
+                            <input type="hidden" name="type" value="{{ $type }}">
                             <div class="mail-function">
-                                <a href="/tin-nhan-moi" class="button button-green">Gửi thư mới</a>
-                                <a href="/tin-nhan" class="button button-blue">Hộp thư</a>
-                                <a href="/gui-tin-nhan" class="button button-blue">Thư đã gửi</a>
-                                <input type="submit" class="button button-red" value="Xóa chọn">
-                                <input type="hidden" name="_token" value="jwWx2XZgKdafViWEIuBZwpYwXT8I1GyckmudwpxK">
+                                <a href="{{ route('Letter.create') }}" class="button button-green">Gửi thư mới</a>
+                                <a href="{{ route('Letter.index') }}" class="button button-blue">Hộp thư</a>
+                                <a href="{{ route('Letter.sender') }}" class="button button-blue">Thư đã gửi</a>
+                                <input type="submit" style="color: black" class="button button-red" value="Xóa chọn">
                             </div>
                             <ul class="mail-list">
-                                <li style="padding: 10px 20px; text-align: center">
-                                    Chưa có thư
-                                </li>
+                                @foreach ($letters as $letter)
+                                    <li class="mail">
+                                        <div class="mail-name">
+                                            <input type="checkbox" name="messages[]" value="{{ $letter->id }}" class="mail-checkbox">
+                                            <a href="{{ route('Letter.show', $letter->id) }}">
+                                                {{ $letter->title }}
+                                                <small>{{ $letter->content }}</small>
+                                            </a>
+                                        </div>
+                                        <div class="mail-time">
+                                            <time class="topic-time timeago"
+                                                  title="{{ $letter->created_at->format('d-m-Y H:i:s') }}"
+                                                  datetime="{{ $letter->created_at->toIso8601String() }}">
+                                            </time>
+                                        </div>
+                                        <div class="sender">
+                                            <div class="sender-avatar">
+                                                <img src="{{ !empty($letter->sender->avatar_url) ? Storage::url($letter->sender->avatar_url) : asset('img/noava.png') }}">
+                                            </div>
+                                            <a class="sender-name" href="/thanh-vien/{{ $letter->sender_id }}">
+                                                {{ $letter->sender->username ?? 'Unknown' }}
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endforeach   
                             </ul>
                         </form>
-
                     </section>
                 </div>
             </div>

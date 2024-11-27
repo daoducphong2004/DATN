@@ -38,7 +38,7 @@ class ForumCommentController extends Controller
         } else {
             $userID = 1;
         }
-        $bruh = [
+        $add_forum_comment = [
             
             'content' => $request->content,
             'user_id' => $userID,
@@ -46,7 +46,7 @@ class ForumCommentController extends Controller
             'parent_id'=>$request->forum_parent_id,
             'created_at' => Carbon::now()
         ];
-        ForumComment::query()->create($bruh);
+        ForumComment::query()->create($add_forum_comment);
         return back();
     }
 

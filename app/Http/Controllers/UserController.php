@@ -143,21 +143,65 @@ class UserController extends Controller
 
         $userBooks = $userInfor->books; // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id',$userInfor->id)->count();
-        $countChapters = chapter::where('user_id',$userInfor->id)->count();
-        $countComment = chaptercomment::where('user_id',$userInfor->id)->count();
-        $countBookmark = Bookmarks::where('user_id',$userInfor->id)->count();
+        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countChapters = chapter::where('user_id', $userInfor->id)->count();
+        $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
+        $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
 
-        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment','countBookmark'));
-
+        return view('home.taikhoan', compact('userInfor', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
     }
-        public function purchaseHistory() {
-            $user = Auth::user();
-            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
-            return view('user.purchaseHistory', compact('purchasedStories'));
+    public function purchaseHistory()
+    {
+        $user = Auth::user();
+        $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+        return view('user.purchaseHistory', compact('purchasedStories'));
+    }
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('user.profile', compact('user'));
+    }
+    public function updateUser(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|exists:users,id',
+            'full_name' => 'nullable|string|max:255',
+            'gender' => 'nullable|in:male,female,other',
+            'date_of_birth' => 'nullable|date',
+            'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'background' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = User::find($request->id);
+
+        // Cập nhật các trường text
+        $user->fill([
+            'full_name' => $validated['full_name'],
+            'gender' => $validated['gender'],
+            'date_of_birth' => $validated['date_of_birth'],
+        ]);
+
+        // Cập nhật avatar
+        if ($request->hasFile('avatar_url')) {
+            if ($user->avatar_url && Storage::exists($user->avatar_url)) {
+                Storage::delete($user->avatar_url); // Xóa ảnh cũ
+            }
+            $path = $request->file('avatar_url')->store('avatars', 'public');
+            $user->avatar_url = $path;
         }
 
+        // Cập nhật nền
+        if ($request->hasFile('background')) {
+            if ($user->background && Storage::exists($user->background)) {
+                Storage::delete($user->background); // Xóa nền cũ
+            }
+            $backgroundPath = $request->file('background')->store('backgrounds', 'public');
+            $user->background = $backgroundPath;
+        }
 
+        // Lưu thay đổi
+        $user->save();
 
-
+        return redirect()->back()->with('success', 'Cập nhật thành công!');
+    }
 }

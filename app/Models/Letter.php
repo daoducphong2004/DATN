@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Letter extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    // use SoftDeletes;
     
     protected $fillable = [
         'id',
@@ -25,4 +25,8 @@ class Letter extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+    public function sender(){
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+    // public function 
 }

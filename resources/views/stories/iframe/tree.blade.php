@@ -23,7 +23,7 @@
             <p class="root">
                 <span class="block small" style="color: orange">Lưu ý: Click chuột trái (hoặc chạm trên di động) vào mục muốn
                     chỉnh sửa để bật Menu</span>
-                <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank"><i
+                <a class="li-link" href="{{ route('truyen.truyen', $book->slug) }}" target="_blank"><i
                         class="fas fa-external-link-alt"></i></a>
                 <span class="series_name" data-item="{{ $book->id }}">{{ $book->title }}</span>
             </p>
@@ -32,7 +32,7 @@
                     <li>
 
                         <span class="book-status"><i class="fas fa-plus-square"></i></span>
-                        <a class="li-link" href="{{ route('story.show', $book->id) }}" target="_blank"><i
+                        <a class="li-link" href="{{ route('truyen.tap', [$book->slug,$item->slug]) }}" target="_blank"><i
                                 class="fas fa-external-link-alt"></i></a>
                         <span class="book-name level1" id="book_{{ $item->id }}"
                             data-item="{{ $item->id }}">{{ $item->title }}</span>
@@ -41,7 +41,7 @@
                             <ul class="hide">
                                 @foreach ($item->chapters->sortBy('order') as $chapter)
                                     <li>
-                                        <a class="li-link" href="{{ route('chapter.show', $chapter->id) }}"
+                                        <a class="li-link" href="{{ route('truyen.chuong',[$book->slug,$chapter->slug]) }}"
                                             target="_blank"><i class="fas fa-external-link-alt"></i></a>
                                         <span class="chapter-name level2" id="chapter_{{ $chapter->id }}"
                                             data-item="{{ $chapter->id }}">{{ $chapter->title }}</span>

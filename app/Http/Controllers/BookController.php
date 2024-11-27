@@ -67,15 +67,11 @@ class BookController extends Controller
 
         // Tăng giá trị của trường `view`
         $book->increment('view');
-
-        // Tăng lượt xem cho tuần và tháng
         $book->increment('views_week');
         $book->increment('views_month');
 
-        // Reset lượt xem theo tuần
+        // Reset lượt xem tuần và tháng
         $this->resetWeeklyViews();
-
-        // Reset lượt xem theo tháng
         $this->resetMonthlyViews();
 
         // Tìm kiếm chapter dựa trên chapter_slug
@@ -87,32 +83,20 @@ class BookController extends Controller
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         $chapters = $episode->chapters;
 
-        // Lấy danh sách comments cho chapter này
-        $comments = ChapterComment::with('user')
-            ->where('chapter_id', $chapter->id)
-            ->whereNull('parent_id')->get();
-
-        $parentId = $request->input('parent_id');
-
         // Kiểm tra xem người dùng có đăng nhập hay không
         $user = auth()->user();
-        $fullContent = $chapter->content; // Nội dung đầy đủ của chương
-        $partialContent = null; // Nội dung hiển thị một phần
-        $canViewFullContent = false; // Mặc định là không thể xem toàn bộ nội dung nếu chưa mua
-
-        // Nếu chương có giá > 0 và người dùng chưa mua, chỉ hiển thị 2/10 nội dung
+        $fullContent = $chapter->content;
+        $partialContent = null;
+        $canViewFullContent = false;
+        $CountComment = $chapter->countComments();
         if ($chapter->price > 0) {
-            // Nếu người dùng chưa đăng nhập hoặc chưa mua chương
             if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
-                // Chỉ hiển thị 2/10 nội dung chương nếu chưa mua
                 $partialContent = $this->getPartialContent($fullContent);
             } else {
-                // Người dùng đã mua hoặc là người đăng, có thể xem toàn bộ nội dung
                 $canViewFullContent = true;
                 $partialContent = $fullContent;
             }
         } else {
-            // Nếu chương miễn phí, người dùng có thể xem toàn bộ
             $canViewFullContent = true;
             $partialContent = $fullContent;
         }
@@ -120,8 +104,26 @@ class BookController extends Controller
         // Lưu lịch sử đọc chương
         $this->storeReadingHistory($book->id, $chapter->id);
 
-        return view('story.reading', compact('book', 'episode', 'chapters', 'chapter', 'comments', 'parentId', 'partialContent', 'fullContent', 'canViewFullContent'));
+        return view('story.reading', compact('book','CountComment', 'episode', 'chapters', 'chapter', 'partialContent', 'fullContent', 'canViewFullContent'));
     }
+    public function fetchComments(Request $request)
+    {
+        $chapterId = $request->input('chapter_id');
+
+        if (!$chapterId) {
+            return response()->json(['error' => 'Chapter ID is required'], 400);
+        }
+
+        // Lấy comment chính kèm theo các reply và user
+        $comments = ChapterComment::with(['user', 'replies.user'])
+            ->where('chapter_id', $chapterId)
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        return response()->json($comments);
+    }
+
 
 
     /**
@@ -290,7 +292,6 @@ class BookController extends Controller
     //show User
     public function showU(String $slug)
     {
-        // dd(10);
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
 
@@ -298,6 +299,7 @@ class BookController extends Controller
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
         }
+
         $totalPrice = $book->totalChapterPrice();
 
         $episodes = $book->episodes;
@@ -309,9 +311,7 @@ class BookController extends Controller
             ->whereNull('parent_id')
             ->with('replies.replies')
             ->get();
-
         $totalComments = bookcomment::where('book_id', $book->id)->count();
-
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();
 
@@ -373,8 +373,10 @@ class BookController extends Controller
                 $purchaseStats['total_views'] += $views;
             }
         }
+
         return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
+
 
 
     /**

@@ -37,7 +37,7 @@ class ChapterController extends Controller
      */
     public function autoPurchaseForChapter($chapterId)
     {
-        $chapter = Chapter::findOrFail($chapterId);
+        $chapter = chapter::findOrFail($chapterId);
 
         // Nếu chương không có phí, không cần xử lý
         if ($chapter->price <= 0) {
@@ -150,7 +150,7 @@ class ChapterController extends Controller
             $wordCount = str_word_count($contentText);
 
             // Get the book associated with the episode
-            $book = Episode::find($validatedData['episode_id'])->book()->first();
+            $book = episode::find($validatedData['episode_id'])->book()->first();
 
             // Check if the user has permission to edit the book
             if (!$this->canEditBook(Auth::user(), $book)) {
@@ -292,8 +292,8 @@ class ChapterController extends Controller
         ]);
 
         // Tìm chapter cần cập nhật
-        $chapter = Chapter::findOrFail($id);
-        $book = Episode::findOrFail($validatedData['episode_id'])->book;
+        $chapter = chapter::findOrFail($id);
+        $book = episode::findOrFail($validatedData['episode_id'])->book;
 
         // Tính lại số từ mới
         $newWordCount = str_word_count(strip_tags($validatedData['content']));
@@ -334,7 +334,7 @@ class ChapterController extends Controller
     {
         try {
             // Find the chapter or fail if it doesn't exist
-            $chapter = Chapter::findOrFail($id);
+            $chapter = chapter::findOrFail($id);
 
             // Detach the associated genres
             // $chapter->genres()->detach();
@@ -360,7 +360,7 @@ class ChapterController extends Controller
     public function showChapters($episodeId)
     {
         // Lấy tất cả các chương của tập truyện cụ thể và sắp xếp theo 'order'
-        $chapters = Chapter::where('episode_id', $episodeId)->orderBy('order')->get();
+        $chapters = chapter::where('episode_id', $episodeId)->orderBy('order')->get();
         return view('stories.iframe.chapters.sort', compact('chapters', 'episodeId'));
     }
     public function updateChapterOrder(Request $request, $episodeId)
@@ -368,7 +368,7 @@ class ChapterController extends Controller
         $order = $request->input('order'); // Nhận thứ tự từ request
 
         foreach ($order as $position => $id) {
-            Chapter::where('id', $id)
+            chapter::where('id', $id)
                 ->where('episode_id', $episodeId) // Đảm bảo chỉ cập nhật các chương của tập truyện cụ thể
                 ->update(['order' => $position + 1]);
         }

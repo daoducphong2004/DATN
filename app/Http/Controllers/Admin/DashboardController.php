@@ -32,8 +32,8 @@ class DashboardController extends Controller
 
         // Thống kê theo ngày hiện tại
         $dailyStories = Book::whereDate('created_at', Carbon::today())->count();
-        $dailyEpisodes = Episode::whereDate('created_at', Carbon::today())->count();
-        $dailyChapters = Chapter::whereDate('created_at', Carbon::today())->count();
+        $dailyEpisodes = episode::whereDate('created_at', Carbon::today())->count();
+        $dailyChapters = chapter::whereDate('created_at', Carbon::today())->count();
         $dailyLike = Like_books::whereDate('created_at', Carbon::today())->count();
         $dailyUsers = User::whereDate('created_at', Carbon::today())->count();
         $dailyStories = PurchasedStory::whereDate('created_at', Carbon::today())->count();
@@ -43,8 +43,8 @@ class DashboardController extends Controller
 
         // Thống kê theo tháng hiện tại
         $monthlyStories = Book::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyEpisodes = Episode::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyChapters = Chapter::whereMonth('created_at', Carbon::now()->month)->count();
+        $monthlyEpisodes = episode::whereMonth('created_at', Carbon::now()->month)->count();
+        $monthlyChapters = chapter::whereMonth('created_at', Carbon::now()->month)->count();
         $monthlyLike = Like_books::whereDate('created_at', Carbon::now())->count();
         $monthlyUsers = User::whereMonth('created_at', Carbon::now()->month)->count();
         $purchasedStories = PurchasedStory::whereMonth('created_at', Carbon::now()->month)->count();
@@ -54,8 +54,8 @@ class DashboardController extends Controller
 
         // Thống kê theo năm hiện tại
         $yearlyStories = Book::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyEpisodes = Episode::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyChapters = Chapter::whereYear('created_at', Carbon::now()->year)->count();
+        $yearlyEpisodes = episode::whereYear('created_at', Carbon::now()->year)->count();
+        $yearlyChapters = chapter::whereYear('created_at', Carbon::now()->year)->count();
         $yearlyLike = Like_books::whereDate('created_at', Carbon::now())->count();
         $yearlyUsers = User::whereYear('created_at', Carbon::now()->year)->count();
         $yearlyStories = PurchasedStory::whereYear('created_at', Carbon::now()->year)->count();

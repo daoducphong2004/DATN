@@ -58,7 +58,7 @@ class Book extends Model
     }
     public function genres()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(genre::class);
     }
 
     public function comments()

@@ -115,7 +115,7 @@ class BookcommentController extends Controller
             $allComments[] = $currentId;
 
             // Lấy tất cả bình luận con của bình luận hiện tại
-            $childComments = BookComment::where('parent_id', $currentId)->pluck('id')->toArray();
+            $childComments = bookcomment::where('parent_id', $currentId)->pluck('id')->toArray();
             $parent = array_merge($parent, $childComments);
         }
 
@@ -131,7 +131,7 @@ class BookcommentController extends Controller
 
         $allComments = $this->getAllComments($bookComment->id);
 
-        BookComment::whereIn('id', $allComments)->update(['is_deleted' => true]);
+        bookcomment::whereIn('id', $allComments)->update(['is_deleted' => true]);
 
 
         return redirect()->back()->with('success', 'Bình luận đã được xóa.');

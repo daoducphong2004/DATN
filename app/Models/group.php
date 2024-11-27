@@ -12,6 +12,7 @@ class group extends Model
     use SoftDeletes;
     protected $fillable = [
         'name',
+        'slug',
         'description',
     ];
     public function books()
@@ -20,6 +21,6 @@ class group extends Model
     }
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class,'group');
     }
 }

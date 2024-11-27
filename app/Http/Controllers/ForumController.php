@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Http\Requests\StoreForumRequest;
 use App\Http\Requests\UpdateForumRequest;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Category;
-use App\Models\CommentForum;
 use App\Models\ForumComment;
-use App\Models\forums_comment;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -189,7 +187,7 @@ class ForumController extends Controller
             'books.adult as view_adult',
             'books.id as id_book'
         ]);
-        $books = book::all();
+        $books = Book::all();
         $categories = Category::all();
         $user = Auth::user();
         if (!empty($user)) {
@@ -284,7 +282,7 @@ class ForumController extends Controller
             'books.adult as view_adult',
             'books.id as id_book'
         ]);
-        $books = book::all();
+        $books = Book::all();
         $categories = Category::all();
         $user = Auth::user();
         if (!empty($user)) {

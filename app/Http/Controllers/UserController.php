@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
@@ -143,7 +143,7 @@ class UserController extends Controller
 
         $userBooks = $userInfor->books; // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countBook = Book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
         $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();

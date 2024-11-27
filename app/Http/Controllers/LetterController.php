@@ -13,11 +13,43 @@ class LetterController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
+        
+        // Lấy tất cả thư mà người dùng là người nhận
         $letters = Letter::where('receiver_id', $user_id)->get();
+    
+        // Lọc thẻ <p> trong content của mỗi thư
+        foreach ($letters as $letter) {
+            $letter->content = $this->filterParagraphs($letter->content);
+        }
+    
         $type = "receiver_id";
+        
         return view('home.hopthu', compact('letters', 'type'));
     }
-    public function lettersended()
+    
+    private function filterParagraphs($content)
+    {
+        // Tạo một đối tượng DOMDocument để phân tích nội dung HTML
+        $dom = new \DOMDocument();
+        
+        // Đặt nội dung vào DOM, tắt lỗi để tránh các cảnh báo về HTML không hợp lệ
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
+    
+        // Lấy tất cả các thẻ <p>
+        $paragraphs = $dom->getElementsByTagName('p');
+        
+        // Tạo lại nội dung mà không có thẻ <p>
+        $filteredContent = '';
+        foreach ($paragraphs as $paragraph) {
+            // Lấy nội dung của thẻ <p> mà không có thẻ <p>
+            $filteredContent .= $paragraph->textContent;
+        }
+    
+        return $filteredContent;
+    }
+    
+    
+        public function lettersended()
     {
         $user_id = auth()->user()->id;
         $letters = Letter::where('sender_id', $user_id)->get();
@@ -72,7 +104,21 @@ class LetterController extends Controller
         }
     }
 
-    public function show(Letter $id) {}
+    public function show($id)
+    {
+        // Lấy thông tin bức thư
+        $letter = Letter::findOrFail($id);
+
+        // Kiểm tra nếu người dùng hiện tại không phải là người gửi hoặc người nhận
+        if (auth()->user()->id != $letter->sender_id && auth()->user()->id != $letter->receiver_id) {
+            // Nếu không phải, trả về lỗi 403 (Forbidden)
+            abort(403, 'Bạn không có quyền xem bức thư này.');
+        }
+
+        // Nếu người dùng là người gửi hoặc người nhận, tiếp tục hiển thị
+        return view('home.chitietthu', compact('letter'));
+    }
+
     public function edit(Letter $id) {}
 
     public function update(StoreLetterRequest $request, Letter $id) {}

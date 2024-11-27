@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Like;
 use App\Models\Like_rating;
 use App\Models\Rating;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class RatingController extends Controller
 {
     public function handleRating(Request $request){
-        $book = book::where('slug', $request->slug)->first();
+        $book = Book::where('slug', $request->slug)->first();
 
         if (!$book) {
             return redirect()->back()->with('error', 'Book not found.');

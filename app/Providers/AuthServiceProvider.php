@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\User;
 use App\Policies\BookPolicy;
 use App\Policies\UserPolicy;
@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        book::class => BookPolicy::class,
+        Book::class => BookPolicy::class,
         User::class => UserPolicy::class,
     ];
 

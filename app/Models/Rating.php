@@ -14,7 +14,7 @@ class Rating extends Model
     // Liên kết với bảng `Story`
     public function story()
     {
-        return $this->belongsTo(book::class);
+        return $this->belongsTo(Book::class);
     }
 
     // Liên kết với bảng `User`

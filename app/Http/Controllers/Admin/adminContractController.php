@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class adminContractController extends Controller
+class AdminContractController extends Controller
 {
     // Hiển thị danh sách hợp đồng
     public function index()

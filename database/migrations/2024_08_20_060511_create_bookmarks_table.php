@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('page_number');
             $table->text('note')->nullable();
-            $table->foreignIdFor(book::class)->constrained();
+            $table->foreignIdFor(Book::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->string('status')->default('active');
             $table->softDeletes();

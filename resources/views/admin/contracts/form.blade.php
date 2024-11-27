@@ -40,7 +40,7 @@
 <input type="hidden" name="contract_code" value="{{ $contract->contract_code ?? '' }}">
 
 <!-- Tải ảnh hợp đồng -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="contract_image">Ảnh Hợp Đồng</label>
     <input type="file" class="form-control @error('contract_image') is-invalid @enderror" name="contract_image" id="contract_image" accept="image/*">
     @if(isset($contract) && $contract->contract_image)
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Phần trăm chia sẻ doanh thu -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="revenue_share">Phần trăm chia sẻ doanh thu (%)</label>
     <input type="number" name="revenue_share" id="revenue_share" class="form-control @error('revenue_share') is-invalid @enderror" value="{{ old('revenue_share', $contract->revenue_share ?? '') }}" required>
     @error('revenue_share')
@@ -61,7 +61,7 @@
 </div>
 
 <!-- Ngày bắt đầu -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="start_date">Ngày bắt đầu</label>
     <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date', $contract->start_date ?? '') }}" required>
     @error('start_date')
@@ -70,7 +70,7 @@
 </div>
 
 <!-- Ngày kết thúc -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="end_date">Ngày kết thúc</label>
     <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date', $contract->end_date ?? '') }}">
     @error('end_date')
@@ -79,7 +79,7 @@
 </div>
 
 <!-- Trạng thái hợp đồng -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="status">Trạng thái hợp đồng</label>
     <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
         <option value="active" {{ old('status', $contract->status ?? '') == 'active' ? 'selected' : '' }}>Active</option>
@@ -93,7 +93,7 @@
 </div>
 {{-- @include('layouts.TinyMCEscript') --}}
 <!-- Textarea để sửa điều khoản -->
-<div class="form-group">
+<div class="form-group mt-3">
     <label for="terms">Điều Khoản Hợp Đồng</label>
     <textarea name="terms" id="terms" class="form-control @error('terms') is-invalid @enderror" rows="10" required>{{ old('terms', $contract->terms ?? '') }}</textarea>
     @error('terms')

@@ -19,12 +19,12 @@ class PurchasedStory extends Model
 
     public function chapter()
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(chapter::class);
     }
 
     public function book()
     {
-        return $this->hasOneThrough(Book::class, Chapter::class, 'id', 'id', 'chapter_id', 'book_id');
+        return $this->hasOneThrough(Book::class, chapter::class, 'id', 'id', 'chapter_id', 'book_id');
     }
      // Phương thức kiểm tra xem người dùng đã mua chương này chưa
      public static function hasPurchased($userId, $chapterId)

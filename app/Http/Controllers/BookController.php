@@ -75,7 +75,7 @@ class BookController extends Controller
         $this->resetMonthlyViews();
 
         // Tìm kiếm chapter dựa trên chapter_slug
-        $chapter = Chapter::where('slug', $chapter_slug)->firstOrFail();
+        $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
 
         // Lấy episode liên quan đến chapter
         $episode = $chapter->episode()->with('chapters')->firstOrFail();
@@ -115,7 +115,7 @@ class BookController extends Controller
         }
 
         // Lấy comment chính kèm theo các reply và user
-        $comments = ChapterComment::with(['user', 'replies.user'])
+        $comments = chaptercomment::with(['user', 'replies.user'])
             ->where('chapter_id', $chapterId)
             ->whereNull('parent_id')
             ->orderBy('created_at', 'desc')

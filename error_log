@@ -1,0 +1,29 @@
+[27-Nov-2024 13:37:31 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/lightno4/public_html/data/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/data/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/data/insert_data_book.php on line 9
+[27-Nov-2024 13:38:34 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/data/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/data/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/data/insert_data_book.php on line 9
+[27-Nov-2024 13:38:37 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/data/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/data/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/data/insert_data_book.php on line 9
+[27-Nov-2024 13:39:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/insert_data_book.php on line 9
+[27-Nov-2024 13:41:07 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:41:13 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:41:28 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:41:37 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:42:37 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:42:50 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:43:20 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:43:54 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0
+[27-Nov-2024 13:53:49 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'nd_mysqli.so' (tried: /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so: undefined symbol: mysqlnd_global_stats), /opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so (/opt/alt/php81/usr/lib64/php/modules/nd_mysqli.so.so: cannot open shared object file: No such file or directory)) in Unknown on line 0

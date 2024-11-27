@@ -22,7 +22,7 @@ class episode extends Model
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class, 'episode_id');
+        return $this->hasMany(chapter::class, 'episode_id');
     }
 
     public function book()

@@ -1,7 +1,7 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
+use App\Models\group;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +27,7 @@ class GroupController extends Controller
         $user = Auth::user();
     
         // Create a new group
-        $group = new Group();
+        $group = new group();
         $group->name = $request->input('name');
         
         // Generate slug from the 'name' field
@@ -40,7 +40,7 @@ class GroupController extends Controller
         $user->group = $group->id;  // Assuming 'group_id' is the foreign key in your users table
         $user->save();
     
-        return redirect()->route('action.group.index')->with('success', 'Group created successfully!');
+        return redirect()->route('action.group.index')->with('success', 'group created successfully!');
     }
 
     // Show a list of all groups
@@ -62,12 +62,12 @@ class GroupController extends Controller
       // Show the details of a specific group
       public function show($id)
       {
-          $group = Group::findOrFail($id);
+          $group = group::findOrFail($id);
           $users = $group->users;
           return view('action.group.show', compact('group', 'users'));
       }
       public function addUser(Request $request){
-        $group = Group::find($request->input('group_id'));
+        $group = group::find($request->input('group_id'));
         $user = User::find($request->input('user_id'));
         $user->group = $group->id;  // Assuming 'group_id' is the foreign key in your users table
       }

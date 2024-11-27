@@ -36,12 +36,12 @@ class User extends Authenticatable
 
     public function episodes()
     {
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(episode::class);
     }
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class);
+        return $this->hasMany(chapter::class);
     }
 
     // Tổng số truyện (sách) mà tác giả đã đăng
@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function groupInfor()
     {
-        return $this->belongsTo(Group::class, 'group');
+        return $this->belongsTo(group::class, 'group');
     }
     public function comments()
     {

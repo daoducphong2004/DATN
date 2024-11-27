@@ -27,7 +27,7 @@ class chapter extends Model
     }
     public function episode()
     {
-        return $this->belongsTo(Episode::class, 'episode_id');
+        return $this->belongsTo(episode::class, 'episode_id');
     }
 
     public function user()
@@ -45,7 +45,7 @@ class chapter extends Model
     }
     public function chaptercomments()
     {
-        return $this->hasMany(ChapterComment::class);
+        return $this->hasMany(chaptercomment::class);
     }
     /**
      * Đếm số lượng comment trong chapter.
@@ -72,14 +72,14 @@ class chapter extends Model
         }
 
         // Otherwise, find the previous episode within the same book by order
-        $previousEpisode = Episode::where('book_id', $this->book_id)
+        $previousEpisode = episode::where('book_id', $this->book_id)
             ->where('order', '<', $this->episode->order)
             ->orderBy('order', 'desc')
             ->first();
 
         // If a previous episode exists, return its last chapter
         if ($previousEpisode) {
-            return Chapter::where('episode_id', $previousEpisode->id)
+            return chapter::where('episode_id', $previousEpisode->id)
                 ->orderBy('order', 'desc')
                 ->first();
         }
@@ -102,14 +102,14 @@ class chapter extends Model
         }
 
         // Otherwise, find the next episode within the same book by order
-        $nextEpisode = Episode::where('book_id', $this->book_id)
+        $nextEpisode = episode::where('book_id', $this->book_id)
             ->where('order', '>', $this->episode->order)
             ->orderBy('order', 'asc')
             ->first();
 
         // If a next episode exists, return its first chapter
         if ($nextEpisode) {
-            return Chapter::where('episode_id', $nextEpisode->id)
+            return chapter::where('episode_id', $nextEpisode->id)
                 ->orderBy('order', 'asc')
                 ->first();
         }

@@ -129,7 +129,7 @@ class purchaseStoryController extends Controller
         $user = Auth::user();
 
         // Lấy tập truyện theo id
-        $episode = Episode::findOrFail($episodeId);
+        $episode = episode::findOrFail($episodeId);
 
         // Lấy tất cả các chương trong tập truyện
         $chapters = $episode->chapters;
@@ -230,7 +230,7 @@ class purchaseStoryController extends Controller
         }
 
         // Lấy thông tin chapter cần mua
-        $chapter = Chapter::findOrFail($chapterId);
+        $chapter = chapter::findOrFail($chapterId);
 
         // Kiểm tra nếu người dùng có đủ coin để mua
         $price = $chapter->price;
@@ -309,7 +309,7 @@ class purchaseStoryController extends Controller
         }
 
         // Tìm chương cần mua
-        $chapter = Chapter::findOrFail($chapterId);
+        $chapter = chapter::findOrFail($chapterId);
         $price = $chapter->price;
         // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
         if ($price == 0) {

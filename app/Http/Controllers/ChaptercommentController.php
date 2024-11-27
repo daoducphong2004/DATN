@@ -24,7 +24,7 @@ class ChaptercommentController extends Controller
         ]);
 
         // Tạo mới comment
-        $chapterComment = new ChapterComment();
+        $chapterComment = new chaptercomment();
         $chapterComment->content = $validatedData['content'];
         $chapterComment->chapter_id = $validatedData['chapter_id'];
         $chapterComment->parent_id = $validatedData['parent_id'];
@@ -50,7 +50,7 @@ class ChaptercommentController extends Controller
         }
 
         // Lấy tất cả bình luận của chapter (top-level comments)
-        $chapterComments = ChapterComment::where('chapter_id', $id)
+        $chapterComments = chaptercomment::where('chapter_id', $id)
             ->whereNull('parent_id') // Chỉ lấy bình luận gốc
             ->with(['user', 'replies.user', 'deletedBy', 'replies.deletedBy']) // Lấy thông tin người dùng và thông tin xóa
             ->orderByDesc('created_at') // Sắp xếp giảm dần theo thời gian
@@ -112,7 +112,7 @@ class ChaptercommentController extends Controller
             $userId = Auth::id();
 
             // Tìm bình luận theo ID
-            $comment = ChapterComment::find($commentId);
+            $comment = chaptercomment::find($commentId);
 
             // Kiểm tra nếu bình luận tồn tại
             if ($comment) {

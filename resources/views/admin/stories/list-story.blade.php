@@ -169,7 +169,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $stories->links() }}
                 </div>
             </div>
         </div><!--end col-->

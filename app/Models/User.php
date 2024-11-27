@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function groupInfor()
     {
-        return $this->belongsTo(Group::class, 'group');
+        return $this->belongsTo(group::class, 'group');
     }
     public function comments()
     {

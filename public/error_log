@@ -1,0 +1,75 @@
+[27-Nov-2024 14:01:36 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:04:17 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:04:19 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:05:35 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:07:04 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:07:39 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:12:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:12:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:12:56 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:12:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:12:57 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'Phongadmin123'@'s103d190-u2.interdata.vn' (using password: YES) in /home/lightno4/public_html/public/insert_data_book.php:9
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(9): mysqli->__construct()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 9
+[27-Nov-2024 14:15:27 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`DATN1`.`episodes`, CONSTRAINT `episodes_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)) in /home/lightno4/public_html/public/insert_data_episode.php:53
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_episode.php(53): mysqli->query()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_episode.php on line 53
+[27-Nov-2024 14:20:18 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`DATN1`.`episodes`, CONSTRAINT `episodes_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)) in /home/lightno4/public_html/public/insert_data_episode.php:53
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_episode.php(53): mysqli->query()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_episode.php on line 53
+[27-Nov-2024 14:20:54 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`DATN1`.`episodes`, CONSTRAINT `episodes_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`)) in /home/lightno4/public_html/public/insert_data_episode.php:53
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_episode.php(53): mysqli->query()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_episode.php on line 53
+[27-Nov-2024 14:31:28 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Column count doesn't match value count at row 1 in /home/lightno4/public_html/public/insert_data_book.php:64
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book.php(64): mysqli->prepare()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book.php on line 64

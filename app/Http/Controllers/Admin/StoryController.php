@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
@@ -26,7 +26,7 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->paginate(6);
+        $stories = Book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->paginate(6);
 
         // Tính trung bình số sao cho mỗi truyện
         foreach ($stories as $story) {
@@ -547,21 +547,21 @@ class StoryController extends Controller
     public function trashedStories()
     {
         // Lấy danh sách các truyện đã bị xóa mềm
-        $trashedStories = book::onlyTrashed()->with('user', 'group')->paginate(10);
+        $trashedStories = Book::onlyTrashed()->with('user', 'group')->paginate(10);
 
         return view('admin.stories.trashed-story', compact('trashedStories'));
     }
 
     public function restoreStory($id)
     {
-        $story = book::onlyTrashed()->findOrFail($id);
+        $story = Book::onlyTrashed()->findOrFail($id);
         $story->restore();
         return redirect()->route('admin_stories_trashed')->with('success', 'Truyện đã được khôi phục.');
     }
 
     public function forceDeleteStory($id)
     {
-        $story = book::onlyTrashed()->with('episodes')->findOrFail($id);
+        $story = Book::onlyTrashed()->with('episodes')->findOrFail($id);
 
         // Kiểm tra nếu truyện còn tập liên kết
         if ($story->episodes()->count() > 0) {
@@ -588,7 +588,7 @@ class StoryController extends Controller
 
     public function approveStory($id)
     {
-        $story = book::findOrFail($id);
+        $story = Book::findOrFail($id);
 
         // Cập nhật trạng thái duyệt của truyện
         $story->update([
@@ -606,7 +606,7 @@ class StoryController extends Controller
 
     public function rejectStory(Request $request,$id)
     {
-        $story = book::findOrFail($id);
+        $story = Book::findOrFail($id);
         // Cập nhật trạng thái duyệt của truyện
           // Xác thực lý do từ chối
           $request->validate([

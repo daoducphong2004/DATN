@@ -23,6 +23,6 @@ class ReadingHistory extends Model
     }
     public function book()
     {
-        return $this->belongsTo(book::class);
+        return $this->belongsTo(Book::class);
     }
 }

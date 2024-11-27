@@ -26,4 +26,12 @@ class PurchasedStory extends Model
     {
         return $this->hasOneThrough(Book::class, Chapter::class, 'id', 'id', 'chapter_id', 'book_id');
     }
+     // Phương thức kiểm tra xem người dùng đã mua chương này chưa
+     public static function hasPurchased($userId, $chapterId)
+     {
+         return self::where('user_id', $userId)
+                     ->where('chapter_id', $chapterId)
+                     ->exists();
+     }
+ 
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class book extends Model
+class Book extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
@@ -76,7 +76,10 @@ class book extends Model
     {
         return $this->episodes()->count();
     }
-
+    public function chapterCount()
+    {
+        return $this->chapters()->count();
+    }
     public function ratings()
     {
         return $this->hasMany(Rating::class);
@@ -96,6 +99,7 @@ class book extends Model
 
         return $totalChapters === $purchasedChapters;
     }
+        
     public function allChaptersinEpisodePurchased($userId, $episodeId)
     {
         // Tổng số chương có giá trị trong tập truyện
@@ -112,7 +116,7 @@ class book extends Model
     }
     public function hasChapter($id)
     {
-        $book = book::find($id);
+        $book = Book::find($id);
         return $book->chapters()->exists();
     }
     public function contract()

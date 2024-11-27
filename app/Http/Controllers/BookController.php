@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\StoryFollowed;
-use App\Models\book;
+use App\Models\Book;
 use App\Http\Requests\StorebookRequest;
 use App\Http\Requests\UpdatebookRequest;
 use App\Models\bookcomment;
@@ -44,7 +44,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
+        $data = Book::query()->where('Is_Inspect', 1)->paginate(30);
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
@@ -55,7 +55,7 @@ class BookController extends Controller
             ->whereNull('parent_id')
             ->with('replies.replies')->get();
 
-        $book = book::findOrFail($bookId);
+        $book = Book::findOrFail($bookId);
 
         return view('story.show', compact('comments', 'book'));
     }
@@ -205,7 +205,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = book::query()->where('Is_Inspect', 1)->paginate(30);
+        $data = Book::query()->where('Is_Inspect', 1)->paginate(30);
         // dd($data);u
         return view('stories.index', compact('data', 'genres', 'groups'));
     }
@@ -310,7 +310,7 @@ class BookController extends Controller
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
             ->with('replies.replies')
-            ->get();
+            ->paginate(10);
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 
         $ratings = Rating::with('user')->where('book_id', $book->id)->orderBy('created_at', 'desc')->limit(2)->get();

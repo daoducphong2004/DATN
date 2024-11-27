@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Cart;
 use App\Models\chapter;
 use App\Models\episode;

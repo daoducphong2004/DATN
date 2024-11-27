@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\bookcomment;
 use App\Http\Requests\StorebookcommentRequest;
 use App\Http\Requests\UpdatebookcommentRequest;
-use App\Models\book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

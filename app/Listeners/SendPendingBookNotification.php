@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\BookCreated;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;

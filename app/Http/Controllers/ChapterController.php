@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewChapterAdded;
 use App\Models\chapter;
-use App\Http\Requests\StorechapterRequest;
-use App\Http\Requests\UpdatechapterRequest;
 use App\Models\AutoPurchase;
 use App\Models\episode;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\Wallet;
-use App\Notifications\NewChapterNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Str;
 

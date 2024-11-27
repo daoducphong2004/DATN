@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\bookcomment;
 use App\Models\chapter;
 use App\Models\episode;
@@ -19,13 +19,13 @@ class DashboardController extends Controller
     public function index()
     {
         // Đếm số lượng các bản ghi từ các bảng
-        $totalStories = book::count();
+        $totalStories = Book::count();
         $totalEpisodes = episode::count();
         $totalChapters = chapter::count();
         $totalUsers = User::count();
         $purchasedStories = PurchasedStory::count();
         $like_books = Like_books::count();
-        $bookView = book::sum('view');
+        $bookView = Book::sum('view');
         $bookComment = bookcomment::count();
         $totalRevenue = Transaction::sum('amount');
 

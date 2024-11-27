@@ -81,14 +81,6 @@ Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 Route::get('search', [HomeController::class, 'search']);
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 
-// Tin nhắn
-Route::prefix('tin-nhan')->group(function () {
-    Route::get('/', [LetterController::class, 'index'])->name('Letter.index');
-    Route::get('add', action: [LetterController::class, 'create'])->name('Letter.create');
-    Route::get('da-gui', [LetterController::class, 'lettersended'])->name('Letter.sender');
-    Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
-    Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
-});
 
 Route::post('/sendEmail', [LetterController::class, 'store'])->name('Letter.send');
 
@@ -139,7 +131,7 @@ Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
 Route::delete('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
-Route::get('wallet',[wallets::class,'index'])->name('wallet');
+Route::get('wallet', [wallets::class, 'index'])->name('wallet');
 Route::prefix('admin')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
@@ -155,12 +147,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
     Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
 
-    Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
-    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
-    Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
-    Route::get('/groups/edit/{id}', [GroupController::class, 'edit'])->name('groups_edit');
-    Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
-    Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
 
     Route::get('/user', [ControllersUserController::class, 'index'])->name('user_index');
     Route::get('/user/create', [ControllersUserController::class, 'create'])->name('user_create');
@@ -202,34 +188,13 @@ Route::prefix('admin')->group(function () {
 
 
 //Phong
-Route::prefix('action')->name('action.')->group(function () {
-    // Trong đây sẽ là những route có trong UserHome
-    Route::get('group',[UserGroupController::class,'index'])->name('group.index');
-    Route::get('profile',[ControllersUserController::class,'profile'])->name('profile');
 
-});
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::post('/upload-image', [ChapterController::class, 'uploadImage'])->name('chapter.uploadImage');
 Route::post('/save-base64-image', [ChapterController::class, 'saveBase64Image']);
 
-Route::get('stories/information/{book}', function (book $book) {
-    $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres'));
-})->middleware('auth')->name('storyinformation');
-
-Route::get('stories/tree/{book}', function (book $book) {
-    return view('stories.iframe.tree', compact('book'));
-})->name('storytree');
-
-Route::get('stories/addepisode/{book}', function (book $book) {
-    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
-})->name('storyepisode');
-
-Route::get('stories/addchapter/{episode}', function (episode $episode) {
-    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
-})->name('storychapter');
 
 Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truyen');
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
@@ -253,6 +218,38 @@ Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 
 Route::middleware(['auth'])->group(function () {
+    Route::prefix('action')->name('action.')->group(function () {
+        // Trong đây sẽ là những route có trong UserHome
+        Route::post('group/adduser',[GroupController::class,'addUser'])->name('group.adduser');
+        Route::resource('group', GroupController::class);
+        Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
+        
+    });
+    // Tin nhắn
+    Route::prefix('tin-nhan')->group(function () {
+        Route::get('/', [LetterController::class, 'index'])->name('Letter.index');
+        Route::get('add', action: [LetterController::class, 'create'])->name('Letter.create');
+        Route::get('da-gui', [LetterController::class, 'lettersended'])->name('Letter.sender');
+        Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
+        Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
+    });
+    Route::get('stories/information/{book}', function (book $book) {
+        $genres = genre::pluck('id', 'name');
+        return view('stories.iframe.information', compact('book', 'genres'));
+    })->middleware('auth')->name('storyinformation');
+
+    Route::get('stories/tree/{book}', function (book $book) {
+        return view('stories.iframe.tree', compact('book'));
+    })->name('storytree');
+
+    Route::get('stories/addepisode/{book}', function (book $book) {
+        return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+    })->name('storyepisode');
+
+    Route::get('stories/addchapter/{episode}', function (episode $episode) {
+        return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+    })->name('storychapter');
+
     //Hợp đồng
     Route::resource('contracts', ContractController::class);
     // web.php
@@ -261,7 +258,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');
     //Danh sách truyệN tự động mua
     Route::get('/auto-purchase', [AutoPurchaseController::class, 'getAutoPurchasedBooks'])->name('auto-purchased-books');
-    Route::post('/delete-auto-purchase',[AutoPurchaseController::class, 'destroy'])->name('destroy-auto-purchase');
+    Route::post('/delete-auto-purchase', [AutoPurchaseController::class, 'destroy'])->name('destroy-auto-purchase');
 
     Route::get('stories/information/{book}', function (book $book) {
         $genres = genre::pluck('id', 'name');
@@ -333,7 +330,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/tu-sach-da-mua', [purchaseStoryController::class, 'index'])->name('bookshelf.index');
     Route::post('/user/update', [ControllersUserController::class, 'updateUser'])->name('user.update');
-
 });
 
 //End Phong

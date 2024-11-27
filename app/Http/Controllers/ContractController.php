@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contract;
-use App\Models\Book;
 use App\Models\User;
 use App\Http\Requests\ContractRequest;
 use App\Models\Role;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutoPurchase;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\chapter;
 use App\Models\Payment;
 use Illuminate\Http\Request;
@@ -95,7 +95,7 @@ class ReadingHistoryController extends Controller
             $guestReadingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
             $readingHistories = collect($guestReadingHistory)->map(function ($history) {
                 // Fetch the book and chapter details using the saved IDs
-                $book = book::where('id', $history['book_id'])->where('Is_Inspect', 1)->first();
+                $book = Book::where('id', $history['book_id'])->where('Is_Inspect', 1)->first();
                 $chapter = chapter::find($history['chapter_id']);
                 return [
                     'book' => $book,

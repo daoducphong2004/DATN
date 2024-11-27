@@ -19,7 +19,7 @@ class bookcomment extends Model
 
     public function book()
     {
-        return $this->belongsTo(book::class);
+        return $this->belongsTo(Book::class);
     }
 
     // Quan hệ giữa bình luận và người dùng (user)

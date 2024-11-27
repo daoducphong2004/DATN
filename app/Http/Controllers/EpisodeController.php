@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\episode;
 use App\Http\Requests\StoreepisodeRequest;
 use App\Http\Requests\UpdateepisodeRequest;
-use App\Models\book;
+use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -88,7 +88,7 @@ class EpisodeController extends Controller
     {
         $episode = episode::where('slug', $slug_episode)->with('chapters')->firstOrFail();
         // dd($episode);
-        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+        $book = Book::where('slug', $slug)->with('episodes')->firstOrFail();
 
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         // dd($book->episodes);

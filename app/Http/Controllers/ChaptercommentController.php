@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\chaptercomment;
-use App\Http\Requests\StorechaptercommentRequest;
-use App\Http\Requests\UpdatechaptercommentRequest;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 

@@ -21,7 +21,7 @@
     <link rel="preload" href="{{ asset('/fonts/OpenSans-SemiBold.ttf') }}" as="font" type="font/ttf"
         crossorigin="anonymous">
 
-    <link rel="shortcut icon" href="{{ asset('img/favicon.png?v=3') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('img/apple-touch-icon.png?v=3') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('img/apple-touch-icon-72x72.png?v=3') }}">
     <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('img/apple-touch-icon-114x114.png?v=3') }}">

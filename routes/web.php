@@ -224,12 +224,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('group/adduser',[GroupController::class,'addUser'])->name('group.adduser');
         Route::resource('group', GroupController::class);
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
-        // routes/web.php
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
-
-// routes/web.php
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-
+        //profile
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
         
     });

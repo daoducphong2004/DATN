@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="">Đổi Thông Tin</a></li>
+                            <li><a href="{{ route('action.profile') }}">Đổi Thông Tin</a></li>
                             <li><a href="">Đổi Mật Khẩu</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="">Đổi Email</a></li>

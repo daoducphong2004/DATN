@@ -50,8 +50,8 @@
         </div>
 
         <div class="navbar-logo-wrapper">
-            <a href="/" class="navbar-logo" style="background-image: url('{{ asset('img/logo-9.png') }}')"
-                title="Trang chủ"></a>
+            <a href="/" class="navbar-logo" 
+                title="Trang chủ" style="background-image: url('{{ asset('img/logo-9.png') }}');"></a>
         </div>
 
         @if (!Auth::check())

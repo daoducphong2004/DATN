@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\USER;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\bookcomment;
 use App\Models\Bookmarks;
 use App\Models\chapter;
@@ -62,7 +62,7 @@ class HomeController extends Controller
             }
         }
 
-        $truyen_noibat = book::where('Is_Inspect', 1)
+        $truyen_noibat = Book::where('Is_Inspect', 1)
             ->orderBy('views_week', 'desc') // Sắp xếp theo lượt xem tuần nhiều nhất
             ->take(8) // Giới hạn 8 truyện
             ->get();
@@ -104,12 +104,12 @@ class HomeController extends Controller
             ->take(17)
             ->get();
 
-        $truyen_vuadang = book::where('Is_Inspect', 1)
+        $truyen_vuadang = Book::where('Is_Inspect', 1)
             ->orderBy('created_at', 'desc')
             ->take(6)
             ->get();
 
-        $theodoi_nhieu = book::where('Is_Inspect', 1)
+        $theodoi_nhieu = Book::where('Is_Inspect', 1)
             ->orderBy('like', 'desc')
             ->take(10)
             ->get();
@@ -150,7 +150,7 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $convert = book::where('Is_Inspect', 1)
+        $convert = Book::where('Is_Inspect', 1)
             ->where('type', 2)
             ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
             ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
@@ -170,13 +170,13 @@ class HomeController extends Controller
             ->orderBy('updated_at', 'asc')
             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        $xem_nhieu = book::where('Is_Inspect', 1)
+        $xem_nhieu = Book::where('Is_Inspect', 1)
             ->where('type', 2)
             ->orderBy('view', 'desc')
             ->take(5)
             ->get();
 
-        $convert_moi = book::where('Is_Inspect', 1)
+        $convert_moi = Book::where('Is_Inspect', 1)
             ->where('type', 2)
             ->orderBy('created_at', 'desc')
             ->take(5)
@@ -201,7 +201,7 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $sangtac_noibat = book::where('Is_Inspect', 1)
+        $sangtac_noibat = Book::where('Is_Inspect', 1)
             ->where('type', 3)
             ->where('updated_at', '>=', Carbon::now()->subWeek()) // Lấy dữ liệu của tuần này
             ->orderBy('view', 'desc') // Sắp xếp theo lượt xem nhiều nhất
@@ -221,13 +221,13 @@ class HomeController extends Controller
             ->orderBy('updated_at', 'asc')
             ->paginate(10); // Lấy 10 truyện mỗi trang
 
-        $xem_nhieu = book::where('Is_Inspect', 1)
+        $xem_nhieu = Book::where('Is_Inspect', 1)
             ->where('type', 3)
             ->orderBy('view', 'desc')
             ->take(5)
             ->get();
 
-        $sangtac_moi = book::where('Is_Inspect', 1)
+        $sangtac_moi = Book::where('Is_Inspect', 1)
             ->where('type', 3)
             ->orderBy('created_at', 'desc')
             ->take(5)
@@ -326,7 +326,7 @@ class HomeController extends Controller
     public function guitinnhan()
     {
         $user_id = auth()->user()->id;
-        $sentLetters = Letter::where( 'sender_id', $user_id)->get();
+        $sentLetters = Letter::where('sender_id', $user_id)->get();
         return view('home.guitinnhan', compact('sentLetters'));
     }
 
@@ -337,12 +337,12 @@ class HomeController extends Controller
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         $userBooks = $userInfor->books->where('Is_Inspect', 1); // Truyện do user đăng
         $bookHasJoin = $userInfor->sharedBooks->where('Is_Inspect', 1); // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countBook = Book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
-        $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
+        $countComment = $userInfor->count_comments; // Access total comment count
         // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
-        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin','countComment', 'countChapters', 'countBookmark'));
     }
 
     public function login()
@@ -380,29 +380,28 @@ class HomeController extends Controller
                 return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
             }
         }
-        $book = book::all();
-        $total_book_chapter = 1;
-        for ($i = 1; $i < count($book); $i++) {
-            $total_book_chapter = $total_book_chapter + 1;
-        }
-        $data_single_transation = chapter::all();
-        $total_chapter_transation = 1;
-        for ($i = 1; $i < count($data_single_transation); $i++) {
-            $total_chapter_transation = $total_chapter_transation + 1;
-        }
-        $data_single_transation = Transaction::all();
-        $total_transation = 1;
-        for ($i = 1; $i < count($data_single_transation); $i++) {
-            $total_transation = $total_transation + 1;
-        }
-        if (Auth::user()->role_id === 1) {
-            $total_wallet = Wallet::where('user_id', Auth::id())->get();
-            $id = Wallet::where('user_id', Auth::id())->pluck('id');
-            $single_wallet_chapter = Transaction::where('wallet_id', $id)->get();
-        }
+        // Tính tổng tiền mà tác giả kiếm được từ tất cả các chương đã bán
+        $totalEarnings = $user->totalEarnings();
 
+        // Tính tổng số chương mà tác giả bán được
+        $totalChaptersSold = $user->totalChaptersSold();
 
-        return view('user.index', compact('total_wallet', 'single_wallet_chapter', 'total_book_chapter', 'total_chapter_transation', 'total_transation'));
+        // Tính tổng số truyện mà tác giả đã đăng
+        $totalBooks = $user->totalBooks();
+
+        // Tính tổng số tập mà tác giả đã đăng
+        $totalEpisodes = $user->totalEpisodes();
+
+        // Tính tổng số chương mà tác giả đã đăng
+        $totalChapters = $user->totalChapter();
+
+       return view('user.index', compact(
+        'totalEarnings',
+        'totalChaptersSold',
+        'totalBooks',
+        'totalEpisodes',
+        'totalChapters'
+    ));
     }
 
     public function createTruyen()

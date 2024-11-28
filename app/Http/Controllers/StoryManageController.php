@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\bookcomment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class StoryManageController extends Controller
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         // $userBooks = $userInfor->books; // Truyện do user đăng
         // $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countBook = Book::where('user_id', $userInfor->id)->count();
         // Lấy danh sách truyện của người dùng đang đăng nhập
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
@@ -78,7 +78,7 @@ class StoryManageController extends Controller
         // return view('user.books', compact('user', 'userBooks', 'sharedBooks'));
         // $userBooks = $userInfor->books; // Truyện do user đăng
         // $bookHasJoin = $userInfor->sharedBooks; // Truyện user được chia sẻ quyền
-        $countBook = book::where('user_id', $userInfor->id)->count();
+        $countBook = Book::where('user_id', $userInfor->id)->count();
         // Lấy danh sách truyện của người dùng đang đăng nhập
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại

@@ -19,10 +19,10 @@ class ReadingHistory extends Model
     }
     public function chapter()
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(chapter::class);
     }
     public function book()
     {
-        return $this->belongsTo(book::class);
+        return $this->belongsTo(Book::class);
     }
 }

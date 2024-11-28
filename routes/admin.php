@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserGroupController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
@@ -51,6 +52,15 @@ Route::prefix('admin')->group(function () {
     // Route::get('/bookmarks/edit/{id}', [BookmarksController::class, 'edit'])->name('bookmarks_edit');
     // Route::put('/bookmarks/update/{id}', [BookmarksController::class, 'update'])->name('bookmarks_update');
     // Route::delete('/bookmarks/delete/{id}', [BookmarksController::class, 'destroy'])->name('bookmarks_delete');
+
+    //Groups
+    Route::get('/groups', [GroupController::class, 'index'])->name('groups_index');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups_create');
+    Route::post('/groups/store', [GroupController::class, 'store'])->name('groups_store');
+    Route::get('/groups/edit/{id}', [GroupController::class, 'edit'])->name('groups_edit');
+    Route::put('/groups/update/{id}', [GroupController::class, 'update'])->name('groups_update');
+    Route::delete('/groups/delete/{id}', [GroupController::class, 'destroy'])->name('groups_delete');
+    // end group
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');

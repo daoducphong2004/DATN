@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\chapter;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;

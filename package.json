@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "ckeditor4": "^4.25.0",
-    "ckeditor5": "^43.3.1"
+    "ckeditor5": "^43.3.1",
+    "mdb-ui-kit": "^8.1.0"
   }
 }

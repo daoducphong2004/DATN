@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\chapter;
 use App\Models\episode;
 use App\Models\genre;
@@ -53,7 +53,7 @@ class StoryController extends Controller
     public function createChapter($episode_id)
     {
         // Lấy thông tin tập truyện (episode) theo episode_id
-        $episode = Episode::findOrFail($episode_id);
+        $episode = episode::findOrFail($episode_id);
 
         // Lấy danh sách người dùng (user) để chọn người đăng
         $users = User::all();
@@ -168,7 +168,7 @@ class StoryController extends Controller
         }
 
         // Tạo mới episode với dữ liệu đã validate
-        $episode = Episode::create([
+        $episode = episode::create([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
             'episode_path' => $validatedData['episode_path'],
@@ -188,7 +188,7 @@ class StoryController extends Controller
     }
     public function autoPurchaseForChapter($chapterId)
     {
-        $chapter = Chapter::findOrFail($chapterId);
+        $chapter = chapter::findOrFail($chapterId);
 
         // Nếu chương không có phí, không cần xử lý
         if ($chapter->price <= 0) {
@@ -279,14 +279,14 @@ class StoryController extends Controller
             ]);
 
             // Lấy thông tin về book từ episode_id
-            $book = Episode::find($request->episode_id)->book()->first();
+            $book = episode::find($request->episode_id)->book()->first();
 
             // Tính số từ cho content (loại bỏ các thẻ HTML)
             $contentText = strip_tags($validatedData['content']);
             $wordCount = str_word_count($contentText);
 
             // Tạo mới chapter
-            $chapter = Chapter::create([
+            $chapter = chapter::create([
                 'title' => $validatedData['title'],
                 'content' => $validatedData['content'], // Lưu nguyên nội dung gốc
                 'slug' => '',  // Temporary slug, sẽ tạo lại sau khi lưu
@@ -335,14 +335,14 @@ class StoryController extends Controller
 
     public function editEpisode($id)
     {
-        $episode = Episode::findOrFail($id); // Tìm tập theo id
+        $episode = episode::findOrFail($id); // Tìm tập theo id
         $users = User::all(); // Danh sách người dùng
 
         return view('admin.stories.episodes.edit', compact('episode', 'users'));
     }
     public function editChapter($id)
     {
-        $chapter = Chapter::findOrFail($id); // Lấy chương theo id
+        $chapter = chapter::findOrFail($id); // Lấy chương theo id
         $users = User::all(); // Lấy danh sách người dùng để chọn người đăng
 
         return view('admin.stories.chapter.edit', compact('chapter', 'users'));
@@ -414,7 +414,7 @@ class StoryController extends Controller
 
     public function updateEpisode(Request $request, $id)
     {
-        $episode = Episode::findOrFail($id);
+        $episode = episode::findOrFail($id);
 
         // Validate dữ liệu
         $validatedData = $request->validate([
@@ -461,7 +461,7 @@ class StoryController extends Controller
         ]);
 
         // Tìm chapter cần cập nhật
-        $chapter = Chapter::findOrFail($id);
+        $chapter = chapter::findOrFail($id);
         $book = $chapter->episode->book;
 
         // Tính word count cho content (loại bỏ thẻ HTML)
@@ -517,7 +517,7 @@ class StoryController extends Controller
     public function destroyEpisode($id)
     {
         // Tìm tập theo id
-        $episode = Episode::findOrFail($id);
+        $episode = episode::findOrFail($id);
 
         // Xóa file ảnh của tập nếu có
         if ($episode->episode_path) {
@@ -535,7 +535,7 @@ class StoryController extends Controller
     public function destroyChapter($id)
     {
         // Tìm chương theo id
-        $chapter = Chapter::findOrFail($id);
+        $chapter = chapter::findOrFail($id);
 
         // Xóa chương
         $chapter->delete();
@@ -547,21 +547,21 @@ class StoryController extends Controller
     public function trashedStories()
     {
         // Lấy danh sách các truyện đã bị xóa mềm
-        $trashedStories = book::onlyTrashed()->with('user', 'group')->paginate(10);
+        $trashedStories = Book::onlyTrashed()->with('user', 'group')->paginate(10);
 
         return view('admin.stories.trashed-story', compact('trashedStories'));
     }
 
     public function restoreStory($id)
     {
-        $story = book::onlyTrashed()->findOrFail($id);
+        $story = Book::onlyTrashed()->findOrFail($id);
         $story->restore();
         return redirect()->route('admin_stories_trashed')->with('success', 'Truyện đã được khôi phục.');
     }
 
     public function forceDeleteStory($id)
     {
-        $story = book::onlyTrashed()->with('episodes')->findOrFail($id);
+        $story = Book::onlyTrashed()->with('episodes')->findOrFail($id);
 
         // Kiểm tra nếu truyện còn tập liên kết
         if ($story->episodes()->count() > 0) {
@@ -588,7 +588,7 @@ class StoryController extends Controller
 
     public function approveStory($id)
     {
-        $story = book::findOrFail($id);
+        $story = Book::findOrFail($id);
 
         // Cập nhật trạng thái duyệt của truyện
         $story->update([
@@ -606,7 +606,7 @@ class StoryController extends Controller
 
     public function rejectStory(Request $request,$id)
     {
-        $story = book::findOrFail($id);
+        $story = Book::findOrFail($id);
         // Cập nhật trạng thái duyệt của truyện
           // Xác thực lý do từ chối
           $request->validate([

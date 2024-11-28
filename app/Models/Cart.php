@@ -18,6 +18,6 @@ class Cart extends Model
 
     public function chapter()
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(chapter::class);
     }
 }

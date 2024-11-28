@@ -17,7 +17,7 @@ class Bookmarks extends Model
         'chapter_id',
         ];
         public function book(){
-            return $this->belongsTo(book::class);
+            return $this->belongsTo(Book::class);
         }
         public function chapter(){
             return $this->belongsTo(chapter::class);

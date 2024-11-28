@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\book;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -14,7 +14,7 @@ class SearchController extends Controller
     {
         $title = $request->input('title');
 
-        $data_book = book::where('title','LIKE',"%{$title}%")->get();
+        $data_book = Book::where('title','LIKE',"%{$title}%")->get();
         return view('home.search',compact('data_book','title'));
     }
     public function indexRe(Request $request){
@@ -24,7 +24,7 @@ class SearchController extends Controller
     {
         $title = $request->get('title');
 
-        $data_book = book::where('title','LIKE',"%{$title}%")->get();
+        $data_book = Book::where('title','LIKE',"%{$title}%")->get();
         return view('home.search_re',compact('data_book','title'));
     }
 

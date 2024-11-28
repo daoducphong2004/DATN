@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\episode;
 use App\Http\Requests\StoreepisodeRequest;
 use App\Http\Requests\UpdateepisodeRequest;
-use App\Models\book;
+use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Str;
@@ -50,7 +50,7 @@ class EpisodeController extends Controller
                 $filePath = $file->storeAs('public/episodes', $filename);
 
                 // Store episode data in the database
-                $episode = new Episode();
+                $episode = new episode();
                 $episode->book_id = $validatedData['book_id'];
                 $episode->title = $validatedData['title'];
                 $episode->slug = ''; // Store the generated slug
@@ -88,7 +88,7 @@ class EpisodeController extends Controller
     {
         $episode = episode::where('slug', $slug_episode)->with('chapters')->firstOrFail();
         // dd($episode);
-        $book = book::where('slug', $slug)->with('episodes')->firstOrFail();
+        $book = Book::where('slug', $slug)->with('episodes')->firstOrFail();
 
         // Lấy danh sách các chapters trong episode của chapter hiện tại
         // dd($book->episodes);
@@ -120,7 +120,7 @@ class EpisodeController extends Controller
         ]);
 
         // Find the episode by ID
-        $episode = Episode::findOrFail($id);
+        $episode = episode::findOrFail($id);
 
         // Update the title and description
         $episode->title = $validatedData['title'];
@@ -157,7 +157,7 @@ class EpisodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Episode $episode)
+    public function destroy(episode $episode)
     {
         try {
             // Delete the episode and its related chapters
@@ -177,7 +177,7 @@ class EpisodeController extends Controller
     public function sortView($bookId)
     {
         // Get episodes for the specific book and sort them by 'order'
-        $episodes = Episode::where('book_id', $bookId)->orderBy('order')->get();
+        $episodes = episode::where('book_id', $bookId)->orderBy('order')->get();
         return view('stories.iframe.episodes.sort', compact('episodes'));
     }
 
@@ -186,7 +186,7 @@ class EpisodeController extends Controller
         $order = $request->input('order');
 
         foreach ($order as $position => $id) {
-            Episode::where('id', $id)->update(['order' => $position + 1]);
+            episode::where('id', $id)->update(['order' => $position + 1]);
         }
 
         return response()->json(['status' => 'success']);

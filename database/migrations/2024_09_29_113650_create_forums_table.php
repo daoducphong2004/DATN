@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Category::class)->constrained();
-            $table->foreignIdFor(book::class)->nullable()->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Book::class)->nullable()->constrained()->onDelete('cascade');
             $table->integer('viewer');
             $table->string('slug');
             $table->timestamps();

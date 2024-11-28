@@ -7,30 +7,48 @@
                     <div class="profile-cover">
                         <div class="fourone-ratio">
                             <div class="content img-in-ratio"
-                                style="background-image: url('{{!empty($userInfor->background) ? asset(Storage::url( $userInfor->background)) : asset('/img/user-cover.gif') }}');"></div>
-                        </div>
-                        <div id="profile-changer_cover" class="profile-changer none block-m">
-                            <div class="p-c_wrapper">
-                                <i class="fas fa-camera"></i>
-                                <span class="p-c_text">Yêu cầu 1200 x 300 px</span>
+                                style="background-image: url('{{ !empty($userInfor->background) ? asset(Storage::url($userInfor->background)) : asset('/img/user-cover.gif') }}');">
                             </div>
                         </div>
-
-                        <input type="file" id="user_cover_file" style="display: none">
-                        <input type="file" id="user_avatar_file" style="display: none">
+                        @if (Auth::id() == $userInfor->id)
+                            <div id="profile-changer_cover" class="profile-changer block-m">
+                                <label for="user_cover_file" class="p-c_wrapper" style="cursor: pointer;">
+                                    <i class="fas fa-camera"></i>
+                                    <span class="p-c_text">Yêu cầu 1200 x 300 px</span>
+                                </label>
+                            </div>
+                            <form id="backgroundForm{{ $userInfor->id }}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" id="user_cover_file" name="background" class="update-background"
+                                    data-user-id="{{ $userInfor->id }}" style="display: none;">
+                            </form>
+                        @endif
                     </div>
+
                     <div class="profile-nav">
                         <div class="profile-ava-wrapper">
                             <div class="profile-ava">
-                                <div id="profile-changer_ava" class="profile-changer">
-                                    <span class="p-c_text"><i class="fas fa-camera"></i></span>
-                                </div>
-                                <img src="{{ !empty($userInfor->avatar_url) ?asset(Storage::url( $userInfor->avatar_url)) : asset('img/noava.png') }}">
+                                @if (Auth::id() == $userInfor->id)
+                                    <div id="profile-changer_ava" class="profile-changer">
+                                        <label for="user_avatar_file" class="p-c_text" style="cursor: pointer;">
+                                            <i class="fas fa-camera"></i>
+                                        </label>
+                                    </div>
+                                @endif
+                                <img src="{{ !empty($userInfor->avatar_url) ? asset(Storage::url($userInfor->avatar_url)) : asset('img/noava.png') }}"
+                                    alt="Avatar">
                             </div>
                         </div>
+
+                        <form id="avatarForm{{ $userInfor->id }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" id="user_avatar_file" name="avatar" class="update-avatar"
+                                data-user-id="{{ $userInfor->id }}" style="display: none;">
+                        </form>
+
                         <div class="profile-function at-desktop none block-m">
-                            <a href=""
-                                class="button to-contact button-green"><i class="fas fa-paper-plane"></i> Liên hệ</a>
+                            <a href="" class="button to-contact button-green"><i class="fas fa-paper-plane"></i> Liên
+                                hệ</a>
                         </div>
                         <div class="profile-intro">
                             <!-- <span class="line-through decoration-4"></span>-->
@@ -56,8 +74,10 @@
                         <ul class="statistic-top row">
                             <div class="mb-5 flex flex-col flex-1 mx-5">
                                 <div class="flex justify-between mb-1">
-                                    <span class="text-sm capitalize font-medium text-blue-700 dark:text-white">mới isekai</span>
-                                    <span class="text-sm capitalize font-medium text-blue-700 dark:text-white">học nghề</span>
+                                    <span class="text-sm capitalize font-medium text-blue-700 dark:text-white">mới
+                                        isekai</span>
+                                    <span class="text-sm capitalize font-medium text-blue-700 dark:text-white">học
+                                        nghề</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 relative">
                                     <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center h-5 leading-none rounded-full"
@@ -99,7 +119,6 @@
                             </li>
                         </ul>
                         <main class="sect-body">
-
                             <div class="profile-info-item">
                                 <span class="info-name"><i class="fas fa-calendar"></i> Tham gia: </span><span
                                     class="info-value">{{ $userInfor->created_at->format('d/m/Y') }}</span>
@@ -110,7 +129,8 @@
                 <div class="col-12 col-md-12 col-lg-9 col-xl-9">
                     <!-- Section for "Truyện đã đăng" -->
                     <section class="profile-showcase">
-                        <header><span class="number">{{ $userBooks->count() }}</span><span class="showcase-title">Truyện đã
+                        <header><span class="number">{{ $userBooks->count() }}</span><span class="showcase-title">Truyện
+                                đã
                                 đăng</span></header>
                         <div class="row">
                             @foreach ($userBooks as $book)
@@ -216,4 +236,44 @@
             </div>
         </div>
     </main>
+    <script>
+        $(document).on('change', '.update-avatar', function() {
+            let userId = $(this).data('user-id'); // Lấy ID người dùng
+            let formData = new FormData($(`#avatarForm${userId}`)[0]); // Lấy dữ liệu từ form avatar
+            $.ajax({
+                url: `/admin/user/${userId}/update-avatar`, // API cập nhật avatar
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    alert('Avatar updated successfully!');
+                    location.reload(); // Reload để thấy thay đổi
+                },
+                error: function(error) {
+                    alert('Failed to update avatar');
+                }
+            });
+        });
+
+        $(document).on('change', '.update-background', function() {
+            let userId = $(this).data('user-id'); // Lấy ID người dùng
+            let formData = new FormData($(`#backgroundForm${userId}`)[0]); // Lấy dữ liệu từ form background
+
+            $.ajax({
+                url: `/admin/user/${userId}/update-background`, // API cập nhật ảnh nền
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    alert('Background updated successfully!');
+                    location.reload(); // Reload để thấy thay đổi
+                },
+                error: function(error) {
+                    alert('Failed to update background');
+                }
+            });
+        });
+    </script>
 @endsection

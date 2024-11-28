@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\AdminContractController;
+use App\Http\Controllers\admin\adminContractController;
 use App\Http\Controllers\Admin\ChapterCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
@@ -109,7 +109,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/history/{bookId}', [StoryController::class, 'showPublicationHistory'])->name('showPublicationHistory');
 
     //Contract (Hợp đồng)
-    Route::resource('/contracts-manage', AdminContractController::class);
+    Route::resource('/contracts-manage', adminContractController::class);
     // end phong
 
     //forum

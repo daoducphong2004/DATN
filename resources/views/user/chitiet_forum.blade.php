@@ -1,7 +1,7 @@
 @extends('home.layout.master')
 @section('content')
 <div class="page-top-group ">
-    <a href="/thao-luan/2591">
+    <a href="{{route('thao-luan')}}">
         <div class="index-background d-none d-lg-block"
             style="background-image: url('{{ asset('users/user/img/path/12890_d_l.jpg') }}')"></div>
         <div class="index-background d-lg-none"
@@ -15,16 +15,16 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-breadcrumb">
-                    <span class="breadcrum-level"><a href="https://docln.net"><i class="fas fa-home"></i></a></span>
+                    <span class="breadcrum-level"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></span>
                     <span class="next-icon"><i class="fas fa-chevron-right"></i></span>
-                    <span class="breadcrum-level"><a href="https://docln.net/thao-luan">Thảo luận</a></span>
+                    <span class="breadcrum-level"><a href="{{route('thao-luan')}}">Thảo luận</a></span>
                 </div>
 
             </div>
         </div>
         <section class="page-content basic-section">
             <header class="sect-header">
-                <span class="sect-title"><a href="/thao-luan/368-huong-dan-dang-truyen">@if ($lockforum ===1)
+                <span class="sect-title"><a href="{{route('chi-tiet-thao-luan',$data->id)}}">@if ($lockforum ===1)
                         <i class="fas fa-lock"></i>
                         @endif{{$data->title}}</a></span>
             </header>
@@ -33,7 +33,7 @@
                     <div class="col-8">
                         <div class="page-author group-admin">
                             <div class="author_ava">
-                                <img src="https://i.docln.net/lightnovel/users/ua1-58948009-0e87-4096-8f67-11766a67792c.jpg">
+                                <img src="{{Storage::url($data_user->avatar_url)}}">
                             </div>
                             <div class="author-info">
                                 <div class="author_name"><a href="/thanh-vien/1">
@@ -86,7 +86,7 @@
                                 <div class="flex gap-1 max-w-full">
                                     <div class="w-[50px]">
                                         <div class="mx-1 my-1">
-                                            <img src="https://i.docln.net/lightnovel/users/ua171126-9db75391-abd4-433c-8896-6d8b3fd09c20.jpg" class="w-full rounded-full">
+                                            <img src="{{Storage::url($comment->user->avatar_url)}}">
                                         </div>
                                     </div>
                                     <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
@@ -126,7 +126,7 @@
                                             </div>
                                             <div class="comment_see_more expand none">Xem thêm</div>
                                             <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
-                                                <a href="/thao-luan/368-huong-dan-dang-truyen?comment_id=2571363#ln-comment-2571363" class="text-slate-500">
+                                                <a href="{{route('chi-tiet-thao-luan',$data->id)}}" class="text-slate-500">
                                                     <time class="timeago" title="29-08-2024 22:07:42" datetime="{{$comment->created_at}}"></time>
                                                 </a>
                                                 <a class="self-center visible-toolkit-item do-like cursor-pointer">
@@ -167,7 +167,7 @@
                                     <div class="flex gap-1 max-w-full">
                                         <div class="w-[50px]">
                                             <div class="mx-1 my-1">
-                                                <img src="https://i.docln.net/lightnovel/users/ua59827-01692547-f48f-443a-b1ba-cf142484bc59.jpg" class="w-full rounded-full">
+                                                <img src="{{Storage::url($comment_child->user->avatar_url)}}">
                                             </div>
                                         </div>
                                         <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
@@ -268,7 +268,7 @@
                                 <div class="flex gap-1 max-w-full">
                                     <div class="w-[50px]">
                                         <div class="mx-1 my-1">
-                                            <img src="/storage/avatars/HFzjYqDDmyT8pID3pECkEvsFNW3gbdaMvwd7PxRO.jpg" class="w-full rounded-full">
+                                            <img src="{{Storage::url($comment->user->avatar_url)}}">
                                         </div>
                                     </div>
                                     <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800">

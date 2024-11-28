@@ -62,10 +62,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Book::class, 'like_books');
     }
 
-    public function groupInfor()
-    {
-        return $this->belongsTo(Group::class, 'group');
-    }
+   
     public function comments()
     {
         return $this->hasMany(bookcomment::class);
@@ -143,7 +140,9 @@ class User extends Authenticatable
                      ->first();  // Trả về số chương đã bán
      }
     
-
+     public function myGroup(){
+        return $this->belongsTo(group::class,'group');
+     }
     // Tính tổng doanh thu từ tất cả các giao dịch trong bảng Transaction của tác giả
     public function totalEarningsFromAllBooks()
     {

@@ -220,8 +220,16 @@ Route::resource('chapter', ChapterController::class);
 Route::middleware(['auth'])->group(function () {
     Route::prefix('action')->name('action.')->group(function () {
         // Trong đây sẽ là những route có trong UserHome
+        Route::post('/join-group', [GroupController::class, 'JoinGroup'])->name('group.join');
         Route::post('group/adduser',[GroupController::class,'addUser'])->name('group.adduser');
         Route::resource('group', GroupController::class);
+        Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
+        // routes/web.php
+        Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
+
+// routes/web.php
+        Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
+
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
         
     });

@@ -1,9 +1,9 @@
 <?php
 // Database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "datn"; // Update this to your actual database name
+$servername = '103.169.35.190';
+$username = 'Phongadmin123';
+$password = 'Ahihi232004@';
+$dbname = 'DATN1';
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

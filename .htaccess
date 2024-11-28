@@ -8,7 +8,9 @@
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+ # Chuyển hướng yêu cầu đến thư mục public cho các tài nguyên (ảnh, css, js,...)
 
+    RewriteRule ^(images|css|js|fonts|uploads|storage|assets|font-awesome|fonts|img|music|scripts|users)/(.+)$ public/$1/$2 [L]
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$

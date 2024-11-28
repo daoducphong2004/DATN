@@ -1,0 +1,10 @@
+[28-Nov-2024 00:12:40 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry '2' for key 'PRIMARY' in /home/lightno4/public_html/public/insert_data_book2.php:63
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_book2.php(63): mysqli->query()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_book2.php on line 63
+[28-Nov-2024 00:12:48 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Duplicate entry 't1-web-novel' for key 'episodes_slug_unique' in /home/lightno4/public_html/public/insert_data_episode2.php:52
+Stack trace:
+#0 /home/lightno4/public_html/public/insert_data_episode2.php(52): mysqli->query()
+#1 {main}
+  thrown in /home/lightno4/public_html/public/insert_data_episode2.php on line 52

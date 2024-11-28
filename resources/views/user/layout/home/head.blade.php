@@ -5,7 +5,7 @@
 	<meta name="robots" content="NoIndex, NoFollow">
 	<title>Bảng điều khiển</title>
 
-	<link rel="shortcut icon" href="https://docln.net/img/favicon.png">
+	<link rel="shortcut icon" href="{{ asset('/img/favicon.png') }}">
 	<link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app_dark.css')}}" rel="stylesheet">
 
@@ -19,6 +19,7 @@
   <script src="{{ asset('js/select2.min.js') }}"></script>
 
 	<link href="{{ asset('css/action.css?t=3')}}" rel="stylesheet">
+
 
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

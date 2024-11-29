@@ -196,11 +196,6 @@ class BookController extends Controller
         Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
     }
 
-
-
-
-
-
     public function index()
     {
         $genres = genre::pluck('slug', 'name');

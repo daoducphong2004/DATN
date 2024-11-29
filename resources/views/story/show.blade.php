@@ -1,5 +1,7 @@
 @extends('home.layout.master')
-
+@section('title')
+{{ $book->title }}
+@endsection
 <style>
     /* Phong cách cho hộp thoại report (report-modal) */
     .report-modal {

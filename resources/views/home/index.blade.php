@@ -100,7 +100,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                 <div class="col-12 col-lg-3">
                     <section class="last-topics index-section">
                         <header class="section-title">
-                            <a href="https://docln.net/thao-luan"><span class="sts-bold">Thảo</span><span
+                            <a href="{{route('thao-luan')}}"><span class="sts-bold">Thảo</span><span
                                     class="sts-empty">Luận</span></a>
                         </header>
                         <main>

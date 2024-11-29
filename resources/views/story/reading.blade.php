@@ -1,4 +1,4 @@
-@extends('story.layout.readingmaster')\
+@extends('story.layout.readingmaster')
 @section('title')
 Đọc "{{ $chapter->book->title }}"
 @endsection

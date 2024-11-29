@@ -289,6 +289,7 @@ class BookController extends Controller
     {
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
+        $books = Book::inRandomOrder()->limit(5)->get();
 
         // Kiểm tra trường Is_Inspect
         if ($book->Is_Inspect == 0) {
@@ -369,7 +370,7 @@ class BookController extends Controller
             }
         }
 
-        return view('story.show', compact('book', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
+        return view('story.show', compact('book','books', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
 
 

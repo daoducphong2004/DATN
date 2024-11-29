@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -93,7 +94,8 @@ class UserController extends Controller
     public function edit(User $id)
     {
         try {
-            return view('admin.users.edit', compact('id'));
+            $role = Role::pluck('id','name');
+            return view('admin.users.edit', compact('id','role'));
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to load edit form: ' . $e->getMessage()]);
         }

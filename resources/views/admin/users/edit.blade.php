@@ -135,6 +135,17 @@
                                 <option value="banned" {{ $id->status == 'banned' ? 'selected' : '' }}>banned</option>
                             </select>
                         </div>
+                        @if (Auth::id()==1)
+                        <div class="form-group mt-3">
+                            <label for="exampleInputEmail1">Role</label>
+                            <select name="status" class="form-control">
+                                @foreach ($role as $name => $ids)
+                                <option value="{{ $ids }}" {{ $ids == $id->role_id ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
+                            
+                            </select>
+                        </div>
+                        @endif
                         <div class="form-group mt-3">
                             <label for="exampleInputEmail1">Số xu</label>
                             <input type="number" class="form-control" name="coin_earned" aria-describedby="emailHelp"

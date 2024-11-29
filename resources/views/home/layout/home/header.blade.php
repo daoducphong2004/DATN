@@ -21,8 +21,8 @@
                     </li>
                     <li><a class="nav-menu_item" href="{{ route('convert') }}"><span class="">Máy dịch</span></a>
                     </li>
-                    <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a>
-                    </li>
+                    {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a>
+                    </li> --}}
                     <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><span class="">Thảo
                                 luận</span></a></li>
                     <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><span class="">Danh
@@ -50,8 +50,8 @@
             </div>
 
             <div class="navbar-logo-wrapper">
-                <a href="/" class="navbar-logo" style="background-image: url('{{ asset('img/logo-9.png') }}')"
-                    title="Trang chủ"></a>
+                <a href="/" class="navbar-logo" 
+                    title="Trang chủ" style="background-image: url('{{ asset('img/logo-9.png') }}');"></a>
             </div>
 
             @if (!Auth::check())
@@ -253,8 +253,8 @@
                 <li><a class="nav-menu_item" href="{{ route('convert') }}"><i
                             class="fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
 
-                <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><i
-                            class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
+                {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><i
+                            class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li> --}}
 
                 <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><i
                             class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>

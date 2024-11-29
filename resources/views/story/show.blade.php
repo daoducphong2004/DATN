@@ -1,5 +1,7 @@
 @extends('home.layout.master')
-
+@section('title')
+{{ $book->title }}
+@endsection
 <style>
     /* Phong cách cho hộp thoại report (report-modal) */
     .report-modal {
@@ -126,8 +128,7 @@
                                                 <div class="info-item">
                                                     <span class="info-name">Tình trạng:</span>
                                                     <span class="info-value">
-                                                        <a href="https://datn.test/truyen-dang-tien-hanh">Đang tiến hành(sẽ
-                                                            tạo trang riêng sau)</a>
+                                                        <a href="https://datn.test/truyen-dang-tien-hanh">Đang tiến hành</a>
                                                     </span>
                                                 </div>
                                             </div>
@@ -355,7 +356,7 @@
                         <main class="d-lg-block">
                             <div class="text-right pad-10">
                                 <a class="button button-green"
-                                    href="https://docln.net/action/page/create?series_id=18997">
+                                    href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
                                     <i class="fas fa-plus"></i> Tạo bài viết
                                 </a>
                             </div>
@@ -754,8 +755,8 @@
                                     class="comments-count">({{ $totalComments }})</span></span>
                         </header>
                         <main id="fbcmt_root" class="comment-wrapper d-lg-block clear">
-                            <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
-                                    href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
+                            {{-- <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
+                                    href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span> --}}
                             <div id="tab-content-1" class="tab-content clear">
                                 <section class="ln-comment">
                                     <header>

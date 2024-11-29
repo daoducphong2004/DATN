@@ -1,4 +1,7 @@
 @extends('home.layout.master')
+@section('title')
+Thảo luận
+@endsection
 @section('content')
 <style>
     .cricle_forum {

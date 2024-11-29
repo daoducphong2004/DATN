@@ -339,10 +339,10 @@ class HomeController extends Controller
         $bookHasJoin = $userInfor->sharedBooks->where('Is_Inspect', 1); // Truyện user được chia sẻ quyền
         $countBook = Book::where('user_id', $userInfor->id)->count();
         $countChapters = chapter::where('user_id', $userInfor->id)->count();
-        $countComment = chaptercomment::where('user_id', $userInfor->id)->count();
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
+        $countComment = $userInfor->count_comments; // Access total comment count
         // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
-        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countChapters', 'countComment', 'countBookmark'));
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin','countComment', 'countChapters', 'countBookmark'));
     }
 
     public function login()

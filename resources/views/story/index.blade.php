@@ -1,4 +1,7 @@
-@extends('story.layout.master')
+@extends('home.layout.master')
+@section('title')
+Danh sách truyện
+@endsection
 @section('content')
 <div class="page-top-group  at-index ">
     @include('partials.banner')

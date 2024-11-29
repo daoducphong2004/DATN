@@ -1,4 +1,7 @@
 @extends('home.layout.master')
+@section('title')
+Truyện xuất bản trong tháng
+@endsection
 @section('content')
     <div class="page-top-group  at-index ">
         @include('partials.banner')

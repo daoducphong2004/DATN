@@ -42,7 +42,7 @@ use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\wallets;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\episode;
 use App\Models\genre;
 use Illuminate\Support\Facades\Auth;

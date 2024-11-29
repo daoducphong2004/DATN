@@ -36,9 +36,11 @@ class BookcommentController extends Controller
             'parent_id' => $request->input('parent_id')
         ]);
 
-        return response()->json([
-            'status' => 'success',
-        ]);
+    //     return response()->json([
+    //         'status' => 'success',
+    //     ]);
+    // }
+        return back()->with('success', 'Comment added successfully!');
     }
 
     /**

@@ -9,56 +9,6 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
 
     <main id="mainpart" class="at-index">
         <div class="container" style="margin-bottom: 40px;">
-            {{-- <div class="row">
-                <div class="no-push col-12 push-2-l col-8-l">
-                    <div id="announcements" class="index-top_notification">
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2871-su-kien-chon-banner-trang-chu-ky-4-khao-sat" style=" color:  Violet">SỰ
-                                KIỆN CHỌN BANNER TRANG CHỦ KỲ 4 - GIAI ĐOẠN ĐĂNG KÝ</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2859-thay-doi-ve-nhom-dich" style=" color:  red">Thay đổi về nhóm
-                                dịch</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2789-bao-cao-truyen-vi-pham" style="">Báo cáo truyện vi phạm</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2766-khong-the-su-dung-facebook-login-nua" style=" color:  red">Không
-                                thể sử dụng Facebook đăng nhập nữa</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2336-donate-ho-tro-cong-ln" style=" color:  red">Donate hỗ trợ Cổng
-                                LN</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2267-khong-dang-manga" style=" color:  red">Không đăng Manga</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/2250-hako-faqs-nhung-cau-hoi-thuong-gap-tren-hako"
-                                style=" color:  blue">(HAKO FAQs) NHỮNG CÂU HỎI THƯỜNG GẶP TRÊN HAKO</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/1122-thu-nghiem-thong-bao-chuong-moi" style="">Thử nghiệm thông
-                                báo chương mới</a>
-                        </div>
-
-                        <div class="annoucement-item">
-                            <a href="/thao-luan/20-quy-dinh-chung-doi-voi-cac-du-an-dang-tai-cong-light-novel-bao-gom-truyen-dichconvert-va-oln"
-                                style=" color:  red">Quy định chung đối với các dự án đăng tại Cổng Light Novel</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div> --}}
             <div class="row">
                 <div class="col-12 col-lg-9">
                     <div class="daily-recent_views">

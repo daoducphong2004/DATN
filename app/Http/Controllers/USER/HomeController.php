@@ -134,7 +134,7 @@ class HomeController extends Controller
             'forums.title as title',
             'forums.content as content',
             'forums.created_at as created_at'
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('created_at', 'desc')->paginate(9);
 
         $bookComments = bookcomment::orderBy('created_at', 'desc')->take(10)->get();
         return view('home.index', compact('readingHistories', 'truyen_noibat', 'sangtac_moinhat', 'chuong_moinhat', 'truyen_vuadang', 'theodoi_nhieu', 'truyen_dahoanthanh', 'data_forum_home', 'bookComments'));

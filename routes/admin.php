@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\admin\PurchaseManageController;
+use App\Http\Controllers\Admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\Admin\LetterController;

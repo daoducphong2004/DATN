@@ -305,6 +305,7 @@ class BookController extends Controller
             ->where('book_id', $book->id)
             ->whereNull('parent_id')
             ->with('replies.replies')
+            ->orderBy('created_at', 'DESC')
             ->paginate(10);
         $totalComments = bookcomment::where('book_id', $book->id)->count();
 

@@ -947,8 +947,9 @@
                                                 </div>
                                             @endif
                                         @endforeach
-                                    {{ $comments->links() }}
+
                                     </main>
+                                    {{ $comments->links('pagination::tailwind') }}
                                     {{-- @include('layouts.TinyMCEscript') --}}
                                 </section>
                             </div>

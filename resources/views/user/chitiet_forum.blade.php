@@ -237,6 +237,67 @@
                                 </div>
                             </div>
 
+                            @else
+                            <div class="ln-comment-reply" style="opacity:0.5">
+
+                                <div id="ln-comment-{{$comment_child->id}}" class="ln-comment-item mt-3 clear" data-comment="{{$comment_child->id}}" data-parent="{{$comment->id}}">
+                                    <div class="flex gap-1 max-w-full">
+                                        <div class="w-[50px]">
+                                            <div class="mx-1 my-1">
+                                                <img src="{{Storage::url($comment_child->user->avatar_url)}}">
+                                            </div>
+                                        </div>
+                                        <div class="w-full min-w-0 rounded-md bg-gray-100 ps-1 pe-0 pb-1 pt-0 dark:!bg-zinc-800 ">
+                                            <div class="flex min-w-0 flex-col px-2">
+                                                <div class="flex align-top justify-between">
+                                                    <div class="flex flex-wrap gap-x-2 gap-y-1 align-middle pt-1">
+                                                        <div class="self-center">
+                                                            <a class="font-bold leading-6 md:leading-7 ln-username " href="/thanh-vien/59827">{{$comment_child->user->username}}</a>
+                                                        </div>
+                                                        @if ($comment_child->user->role_id === 1)
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#49d0b2]/50 dark:bg-[#36a189]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#36a189] dark:text-[#eaeaea]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/trans5.png">
+                                                                <div class="leading-4">TRANS</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="self-center">
+                                                            <div class="flex gap-1 rounded-sm bg-[#e3953e]/50 dark:bg-[#9c662a]/50 px-1.5 py-0.5 align-middle text-[10px] font-bold text-[#9c662a] dark:text-[#ecd8c2]">
+                                                                <img class="my-auto h-[14px]" src="/img/badge/cvter2.png">
+                                                                <div class="leading-4">MASTER</div>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer" x-data="{ show: false }">
+                                                        <div class="" @click="show = !show">
+                                                            <i class="fas fa-angle-down"></i>
+                                                        </div>
+                                                        <div class="ln-comment-toolkit" x-show="show" @click.outside="show = false" style="display: none">
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ln-comment-content long-text">
+                                                    Bình luận bị xóa bởi {{$comment_child->user->username}}
+                                                </div>
+                                                
+                                                <div class="flex gap-2 align-bottom text-[13px] visible-toolkit">
+                                                    <a href="/thao-luan/368-huong-dan-dang-truyen?comment_id=2571363&amp;reply_id=2571366#ln-comment-2571366" class="text-slate-500">
+                                                        <time class="timeago" title="29-08-2024 22:08:48" datetime="{{$comment_child->updated_at}}"></time>
+                                                    </a>
+                                                    
+                                                    
+
+                                               
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endif
                             @endforeach
                             @if (request('reply_to') == $comment->id)
@@ -298,7 +359,7 @@
                                                 </a>
 
 
-                                              
+
                                             </div>
                                         </div>
                                     </div>

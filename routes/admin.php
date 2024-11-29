@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\adminContractController;
+use App\Http\Controllers\Admin\adminContractController;
 use App\Http\Controllers\Admin\ChapterCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;

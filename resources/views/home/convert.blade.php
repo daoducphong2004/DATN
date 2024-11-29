@@ -1,5 +1,7 @@
 @extends('home.layout.master')
-
+@section('title')
+Tổng hợp Convert
+@endsection
 @section('content')
     <div class="page-top-group  at-index ">
         @include('partials.banner')

@@ -33,7 +33,9 @@ class bookcomment extends Model
     {
         return $this->hasMany(bookcomment::class, 'parent_id')->with('replies');
     }
-
+    public function deletedBy(){
+        return $this->belongsTo(User::class, 'is_deleted');
+    }
     // Quan hệ bình luận cha
     public function parent()
     {

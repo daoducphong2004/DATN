@@ -12,78 +12,44 @@ use Illuminate\Support\Facades\Auth;
 
 class BookCommentController extends Controller
 {
-    public function index()
+   public function index()
     {
-        $bookcomment = bookcomment::query()->orderBy('id', 'asc')->paginate(10);
-        return view('admin.comments.list-bookComment', compact('bookcomment'));
+        // Lấy tất cả bình luận
+        $comments = bookcomment::with(['book', 'user', 'deletedBy'])->paginate(10);
+        // dd($comments);
+        return view('admin.comments.list-bookComment', compact('comments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        // Hiển thị chi tiết bình luận
+        $comment = bookcomment::with(['chapter', 'user', 'parent', 'replies'])->findOrFail($id);
+        return view('admin.comments.showchaptercomment', compact('comment'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorebookcommentRequest $request)
+    public function delete($id)
     {
-        //
+        // Xóa bình luận (có thể là soft delete)
+        $comment = bookcomment::findOrFail($id);
+        $comment->is_deleted = auth()->id(); // Đánh dấu người xóa
+        $comment->save();
+        return redirect()->route('admin.bookcomments.index')->with('success', 'Bình luận đã bị xóa');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(bookcomment $bookcomment)
+    public function restore($id)
     {
-        //
+        // Khôi phục bình luận bị xóa
+        $comment = bookcomment::findOrFail($id);
+        $comment->is_deleted = 0; // Xóa đánh dấu xóa
+        $comment->save();
+        return redirect()->route('admin.bookcomments.index')->with('success', 'Bình luận đã được khôi phục');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(bookcomment $bookcomment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatebookcommentRequest $request, bookcomment $bookcomment)
-    {
-        //
-    }
-
-    public function getbookCommentById($id)
-    {
-        if (is_null($id)) {
-            return new bookcomment();
-        } else {
-            $bookcomment = bookcomment::find($id);
-
-            if (is_null($bookcomment)) {
-                dd("Could not find book comment");
-            }
-
-            return $bookcomment;
-        }
-    }
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        if (!Auth::check() || Auth::user()->role->name !== 'mod' && Auth::user()->role->name !== 'admin' && Auth::user()->role->name !== 'super_admin') {
-            return redirect()->route('bookComment.index')->with('error', 'Bạn không có quyền xóa bình luận!');
-        }
-
-        $bookComment = $this->getbookCommentById($id);
-        $bookComment->delete();
-
-        return back()->with('success, Bình luận đã được xoá ');
+        // Xóa vĩnh viễn bình luận
+        $comment = bookcomment::findOrFail($id);
+        $comment->delete();
+        return redirect()->route('admin.bookcomments.index')->with('success', 'Bình luận đã bị xóa vĩnh viễn');
     }
 }

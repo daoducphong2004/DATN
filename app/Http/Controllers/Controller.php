@@ -24,6 +24,6 @@ class Controller extends BaseController
             return view('auth.login');
         }
         // Kiểm tra nếu người dùng là chủ sở hữu hoặc có quyền chia sẻ
-        return $user->id === $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
+        return $user->id == $book->user_id || $book->sharedUsers()->where('user_id', $user->id)->exists();
     }
 }

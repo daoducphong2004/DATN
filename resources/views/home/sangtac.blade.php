@@ -1,4 +1,7 @@
 @extends('home.layout.master')
+@section('title')
+Truyện tự sáng tác
+@endsection
 @section('content')
     <div class="page-top-group  at-index ">
         @include('partials.banner')
@@ -102,7 +105,7 @@
                                     class="paging_item paging_prevnext next ">Cuối</a>
                             </div>
                         </div> --}}
-                        
+
                         <div class="pagination-footer">
                             <div class="pagination_wrap">
                                 {{-- Nút Đầu --}}
@@ -111,7 +114,7 @@
                                 @else
                                     <a href="{{ $moi_cap_nhat->url(1) }}" class="paging_item paging_prevnext prev">Đầu</a>
                                 @endif
-                        
+
                                 {{-- Các trang --}}
                                 @foreach ($moi_cap_nhat->getUrlRange(1, $moi_cap_nhat->lastPage()) as $page => $url)
                                     @if ($page == $moi_cap_nhat->currentPage())
@@ -120,7 +123,7 @@
                                         <a href="{{ $url }}" class="paging_item page_num">{{ $page }}</a>
                                     @endif
                                 @endforeach
-                        
+
                                 {{-- Nút Cuối --}}
                                 @if ($moi_cap_nhat->hasMorePages())
                                     <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
@@ -160,7 +163,7 @@
                                     </section>
                                 @endforeach
                             @else
-                                
+
                             @endif
                             {{-- kết thúc giới thiệu truyện --}}
 
@@ -182,7 +185,7 @@
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
                                                         <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
-                                                            <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>

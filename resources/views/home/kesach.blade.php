@@ -64,18 +64,18 @@
                                             <td>
                                                 <div class="a6-ratio series-cover">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('https://i.docln.net/lightnovel/covers/s5184-5c9063be-fe93-45af-b80a-a8c416d91788-m.jpg')">
+                                                        style="background-image: url('{{asset(Storage::url($book->book_path))}}')">
                                                     </div>
                                                 </div>
                                                 <div class="series-name">
                                                     <a
-                                                        href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita">{{ $book->title }}</a>
+                                                        href="{{ route('truyen.truyen',$book->slug) }}">{{$book->title}}</a>
                                                     <small class="type-translation">Truyện dịch</small>
                                                 </div>
                                             </td>
                                             <td class="none table-cell-m">
                                                 <a
-                                                    href="/truyen/5184-koko-wa-ore-ni-makasete-saki-ni-ike-to-itte-kara-10-nen-ga-tattara-densetsu-ni-natteita/c58018-chuong-20-di-nhan-nhiem-vu-nao">Chương
+                                                    href="">Chương
                                                     20: Đi nhận nhiệm vụ nào</a>
                                                 <small class="volume-name">Web Novel</small>
                                             </td>

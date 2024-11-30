@@ -17,9 +17,9 @@
                                     <span class="p-c_text">Yêu cầu 1200 x 300 px</span>
                                 </label>
                             </div>
-                            <form id="backgroundForm{{ $userInfor->id }}" enctype="multipart/form-data">
+                            <form id="backgroundForm{{ $userInfor->id }}" class="update-background" enctype="multipart/form-data">
                                 @csrf
-                                <input type="file" id="user_cover_file" name="background" class="update-background"
+                                <input type="file" id="user_cover_file" name="background" 
                                     data-user-id="{{ $userInfor->id }}" style="display: none;">
                             </form>
                         @endif
@@ -29,7 +29,7 @@
                         <div class="profile-ava-wrapper">
                             <div class="profile-ava">
                                 @if (Auth::id() == $userInfor->id)
-                                    <div id="profile-changer_ava" class="profile-changer">
+                                    <div id="profile-changer_ava"  class="profile-changer">
                                         <label for="user_avatar_file" class="p-c_text" style="cursor: pointer;">
                                             <i class="fas fa-camera"></i>
                                         </label>
@@ -40,9 +40,9 @@
                             </div>
                         </div>
 
-                        <form id="avatarForm{{ $userInfor->id }}" enctype="multipart/form-data">
+                        <form id="avatarForm{{ $userInfor->id }}" class="update-avatar" enctype="multipart/form-data">
                             @csrf
-                            <input type="file" id="user_avatar_file" name="avatar" class="update-avatar"
+                            <input type="file" id="user_avatar_file" name="avatar" 
                                 data-user-id="{{ $userInfor->id }}" style="display: none;">
                         </form>
 

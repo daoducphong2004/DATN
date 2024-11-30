@@ -2,8 +2,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
-
     <meta name="description"
         content="Đọc Light Novel online, bình luận Light Novel. Thư viện Light Novel Tiếng Việt lớn nhất, chất lượng cao, cập nhật liên tục, nhiều chức năng hỗ trợ việc đọc truyện dễ dàng.">
     <meta name="theme-color" content="#000">

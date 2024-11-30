@@ -1,5 +1,7 @@
 @extends('home.layout.master')
-
+@section('title')
+Tổng hợp Convert
+@endsection
 @section('content')
     <div class="page-top-group  at-index ">
         @include('partials.banner')
@@ -20,7 +22,7 @@
                     <section id="ln-newest" class="detail-list has-pagination">
                         <header class="section-title"><span>Mới cập nhật</span></header>
                         <main class="sect-body">
-
+                            {{-- {{dd($moi_cap_nhat)}} --}}
                             @foreach ($moi_cap_nhat as $item)
                                 <article class="detail-list-item">
                                     <div class="cover-wrapper">
@@ -29,7 +31,7 @@
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{ !empty($item->book->book_path) ? asset(Storage::url($item->book->book_path)) : asset('img/noava.png') }}')">
+                                                        style="background-image: url('{{ !empty($item->book->book_path) ? asset(Storage::url($item->book->book_path)) : asset('storage/img/noava.png') }}')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -83,7 +85,7 @@
                                 @else
                                     <a href="{{ $moi_cap_nhat->url(1) }}" class="paging_item paging_prevnext prev">Đầu</a>
                                 @endif
-                        
+
                                 {{-- Các trang --}}
                                 @foreach ($moi_cap_nhat->getUrlRange(1, $moi_cap_nhat->lastPage()) as $page => $url)
                                     @if ($page == $moi_cap_nhat->currentPage())
@@ -92,7 +94,7 @@
                                         <a href="{{ $url }}" class="paging_item page_num">{{ $page }}</a>
                                     @endif
                                 @endforeach
-                        
+
                                 {{-- Nút Cuối --}}
                                 @if ($moi_cap_nhat->hasMorePages())
                                     <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
@@ -130,7 +132,7 @@
                                     </section>
                                 @endforeach
                             @else
-                            
+
                             @endif
                             <section id="recent-comments" class="index-section">
                                 <div class="title-wrapper">
@@ -150,7 +152,7 @@
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
                                                         <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
-                                                            <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>
@@ -209,6 +211,7 @@
                                                         <div class="content img-in-ratio"
                                                             style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
                                                         </div>
+                                                        <img src="{{$item->book_path}}" alt="124124">
                                                     </div>
                                                 </div>
                                                 <div class="others-info">

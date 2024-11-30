@@ -21,8 +21,8 @@
                 </li>
                 <li><a class="nav-menu_item" href="{{ route('convert') }}"><span class="">Máy dịch</span></a>
                 </li>
-                <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a>
-                </li>
+                {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a>
+                </li> --}}
                 <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><span class="">Thảo
                             luận</span></a></li>
                 <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><span class="">Danh
@@ -66,7 +66,7 @@
                 <div id="navbar-user">
                     <div class="nav-user_icon">
                         <div class="nav-user_avatar">
-                            <img src="{{ asset(Storage::url(Auth::user()->avatar_url) ?? 'img/noava.png') }}" alt="Your avatar">
+                            <img src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}" alt="Your avatar">
                         </div>
                         <div class="at-user_avatar"></div>
                         <ul class="account-sidebar hidden-block unstyled none">
@@ -253,8 +253,8 @@
             <li><a class="nav-menu_item" href="{{ route('convert') }}"><i
                         class="fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
 
-            <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><i
-                        class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li>
+            {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><i
+                        class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li> --}}
 
             <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><i
                         class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>

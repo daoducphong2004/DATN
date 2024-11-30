@@ -42,7 +42,7 @@ use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\wallets;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\episode;
 use App\Models\genre;
 use Illuminate\Support\Facades\Auth;
@@ -216,7 +216,22 @@ Route::post('/like-book/{id}', [BookController::class, 'bookLike'])->name('book.
 Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
+Route::get('stories/information/{book}', function (book $book) {
+    $genres = genre::pluck('id', 'name');
+    return view('stories.iframe.information', compact('book', 'genres'));
+})->name('storyinformation');
 
+Route::get('stories/tree/{book}', function (book $book) {
+    return view('stories.iframe.tree', compact('book'));
+})->name('storytree');
+
+Route::get('stories/addepisode/{book}', function (book $book) {
+    return view('stories.iframe.episodes.formAddEpisode', compact('book'));
+})->name('storyepisode');
+
+Route::get('stories/addchapter/{episode}', function (episode $episode) {
+    return view('stories.iframe.chapters.formAddChapter', compact('episode'));
+})->name('storychapter');
 Route::middleware(['auth'])->group(function () {
     Route::prefix('action')->name('action.')->group(function () {
         // Trong đây sẽ là những route có trong UserHome
@@ -238,22 +253,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
         Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
     });
-    Route::get('stories/information/{book}', function (book $book) {
-        $genres = genre::pluck('id', 'name');
-        return view('stories.iframe.information', compact('book', 'genres'));
-    })->middleware('auth')->name('storyinformation');
-
-    Route::get('stories/tree/{book}', function (book $book) {
-        return view('stories.iframe.tree', compact('book'));
-    })->name('storytree');
-
-    Route::get('stories/addepisode/{book}', function (book $book) {
-        return view('stories.iframe.episodes.formAddEpisode', compact('book'));
-    })->name('storyepisode');
-
-    Route::get('stories/addchapter/{episode}', function (episode $episode) {
-        return view('stories.iframe.chapters.formAddChapter', compact('episode'));
-    })->name('storychapter');
+    
 
     //Hợp đồng
     Route::resource('contracts', ContractController::class);

@@ -4,21 +4,17 @@
                 class="comments-count">({{ $CountComment }})</span></span>
     </header>
     <main id="fbcmt_root" class="sect-body">
-        <span style="padding: 10px; display: inline-block;">Báo cáo bình luận không phù hợp ở <a
-                href="/thao-luan/619-bao-cao-binh-luan" style="color: blue">đây</a></span>
         <div id="tab-content-1" class="tab-content clear">
             <section class="ln-comment">
                 <header>
                     <h3 class="text-lg font-bold dark:text-white">{{ $CountComment }} Bình luận </h3>
                     <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                 </header>
-
                 <main class="ln-comment-body">
                     <div id="ln-comment-submit" class="ln-comment-form clear">
                         @if (Auth::check())
                             <form action="{{ route('addChapterComment') }}" method="POST" class="comment_form">
                                 @csrf
-
                                 <textarea name="content" class="comment_content"></textarea>
                                 <input type="hidden" name="chapter_id" value="{{ $chapter->id }}">
                                 <input type="hidden" name="parent_id" value="">
@@ -26,7 +22,9 @@
                                     <input class="button" type="submit" value="Đăng bình luận">
                                 </div>
                             </form>
-                        @else
+                    {{-- @include('layouts.TinyMCEscriptNoImport') --}}
+
+                            @else
                             <div class="ln-comment_sign-in long-text">
                                 Bạn phải <a href="/login">đăng nhập</a> hoặc <a href="/register">tạo tài khoản</a> để
                                 bình luận.
@@ -37,7 +35,6 @@
                     <div class="ln-comment-page">
                         <div class="pagination-footer">
                             <div id="pagination-container" class="pagination_wrap">
-
                             </div>
                         </div>
                     </div>

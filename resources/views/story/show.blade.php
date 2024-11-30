@@ -1,5 +1,7 @@
 @extends('home.layout.master')
-
+@section('title')
+    {{ $book->title }}
+@endsection
 <style>
     /* Phong cách cho hộp thoại report (report-modal) */
     .report-modal {
@@ -312,7 +314,7 @@
                                 <main>
                                     <div class="series-owner group-mem">
                                         <img width="50px" height="50px"
-                                            src="{{ asset(Storage::url($book->user->avatar_url) ?? 'img/noava.png') }}"
+                                            src="{{ asset(Storage::url($book->user->avatar_url ?: 'img/noava.png')) }}"
                                             alt="Poster's avatar">
                                         <div class="series-owner-title">
                                             <span class="series-owner_name"><a
@@ -327,7 +329,7 @@
                                     </div>
                                     <div class="owner-donate" style="padding: 0">
                                         <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
+                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
                                     </div>
                                 </main>
                             </section>
@@ -736,7 +738,26 @@
                             <main class="d-lg-block">
                                 <ul class="others-list">
                                     <div class="row">
-                                        <!--[if BLOCK]><![endif]--> <!--[if ENDBLOCK]><![endif]-->
+                                        @foreach ($books as $book)
+                                            <li class="col-12 col-6-m">
+                                                <div class="others-img no-padding">
+                                                    <div class="a6-ratio">
+                                                        <div class="content img-in-ratio"
+                                                            style="background-image: url('{{ asset('storage/' . $book->book_path) }}')">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="others-info">
+                                                    <h5 class="others-name">
+                                                        <a href="/truyen/{{ $book->slug }}">
+                                                            {{ $book->title }}
+                                                        </a>
+                                                    </h5>
+                                                    <small>Nhóm dịch: {{ $book->group->name }}</small>
+                                                    <small>{{ $book->latestChapter->title }}</small>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </div>
                                 </ul>
                                 <div class="mobile-more none">
@@ -785,7 +806,8 @@
                                             @if (!$comment->is_deleted)
                                                 <div class="ln-comment-group">
                                                     <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                        data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
+                                                        data-comment="2559913" data-parent="2559913"
+                                                        x-data="{ showReplies: false, showReplyForm: false }">
                                                         <div class="flex gap-1 max-w-full">
                                                             <div class="w-[50px]">
                                                                 <div class="mx-1 my-1">
@@ -825,7 +847,8 @@
                                                                                 class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
                                                                                 <div @click="showReplies = !showReplies">
                                                                                     <i
-                                                                                        :class="showReplies ? 'fas fa-angle-up' :
+                                                                                        :class="showReplies ?
+                                                                                            'fas fa-angle-up' :
                                                                                             'fas fa-angle-down'"></i>
                                                                                 </div>
                                                                             </div>
@@ -837,7 +860,8 @@
                                                                     <div
                                                                         class="flex gap-2 align-bottom text-[13px] visible-toolkit">
                                                                         <a href="#">
-                                                                            <time class="timeago" title="22-08-2024 09:59:00"
+                                                                            <time class="timeago"
+                                                                                title="22-08-2024 09:59:00"
                                                                                 datetime="{{ $comment->created_at }}">
                                                                                 {{ $comment->created_at->diffForHumans() }}
                                                                             </time>
@@ -852,12 +876,16 @@
                                                                             </a>
                                                                         @endif
 
-                                                                        <a class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                                        <a
+                                                                            class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                             @if (Auth::check() && Auth::user()->id === $comment->user_id)
-                                                                                <form action="{{ route('deleteComment', $comment->id) }}" method="POST" class="inline">
+                                                                                <form
+                                                                                    action="{{ route('deleteComment', $comment->id) }}"
+                                                                                    method="POST" class="inline">
                                                                                     @csrf
                                                                                     @method('DELETE')
-                                                                                    <button type="submit" class="likecount font-semibold">
+                                                                                    <button type="submit"
+                                                                                        class="likecount font-semibold">
                                                                                         <i class="fas fa-trash"></i> Xóa
                                                                                     </button>
                                                                                 </form>
@@ -865,7 +893,9 @@
                                                                         </a>
 
                                                                         <a href="">
-                                                                            <span class="likecount font-semibold">{{ $comment->replies->count() }} đã trả
+                                                                            <span
+                                                                                class="likecount font-semibold">{{ $comment->replies->count() }}
+                                                                                đã trả
                                                                                 lời</span>
                                                                         </a>
                                                                     </div>
@@ -910,7 +940,8 @@
                                             @else
                                                 <div class="ln-comment-group">
                                                     <div id="ln-comment-2559913" class="ln-comment-item mt-3 clear"
-                                                        data-comment="2559913" data-parent="2559913" x-data="{ showReplies: false, showReplyForm: false }">
+                                                        data-comment="2559913" data-parent="2559913"
+                                                        x-data="{ showReplies: false, showReplyForm: false }">
                                                         <div class="flex gap-1 max-w-full">
                                                             <div class="w-[50px]">
                                                                 <div class="mx-1 my-1">
@@ -929,14 +960,18 @@
                                                                                     href="">{{ $comment->user->username }}</a>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
+                                                                        <div
+                                                                            class="px-2 md:px-3 md:py-1 text-lg md:text-xl cursor-pointer">
                                                                             <div @click="showReplies = !showReplies">
-                                                                                <i :class="showReplies ? 'fas fa-angle-up' : 'fas fa-angle-down'"></i>
+                                                                                <i
+                                                                                    :class="showReplies ? 'fas fa-angle-up' :
+                                                                                        'fas fa-angle-down'"></i>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment">
-                                                                        <p><i>Bình luận này đã bị xoá bởi {{ $comment->user->username}}.</i></p>
+                                                                        <p><i>Bình luận này đã bị xoá bởi
+                                                                                {{ $comment->user->username }}.</i></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -945,8 +980,9 @@
                                                 </div>
                                             @endif
                                         @endforeach
-                                    {{ $comments->links() }}
+
                                     </main>
+                                    {{ $comments->links('pagination::tailwind') }}
                                     {{-- @include('layouts.TinyMCEscript') --}}
                                 </section>
                             </div>

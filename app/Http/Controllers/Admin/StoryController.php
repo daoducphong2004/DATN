@@ -582,7 +582,7 @@ class StoryController extends Controller
             ->has('chapters')
             ->withCount('chapters') // Chỉ lấy các truyện có chương
             ->paginate(10);
-
+            // dd($pendingStories);
         return view('admin.stories.approval-list', compact('pendingStories'));
     }
 

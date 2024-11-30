@@ -136,7 +136,13 @@
                         </a>
                     @endcan
                 </li>
-
+                <li class="nav-item">
+                    @can('view-categories', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('banners.index') }}">
+                            <i class="ri-flag-2-fill"></i> <span data-key="">Banner</span>
+                        </a>
+                    @endcan
+                </li>
                 <li class="nav-item">
                     @can('view-comment', Auth::user())
                         <a class="nav-link menu-link" href="#sidebarComment" data-bs-toggle="collapse" role="button"

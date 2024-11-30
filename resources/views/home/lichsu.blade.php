@@ -7,12 +7,13 @@
     <style>
         .tab-custom {
 
-            line-height: 2rem;
-            font-size: 1.5rem;
+            line-height: 25px;
+            font-size: 16px;
             font-weight: 600;
             max-width: 300px;
             height: fit-content !important;
-            padding: 5px 20px !important;
+            padding: 5px 15px !important;
+            margin: 0 5px 0 0;
 
         }
     </style>
@@ -20,7 +21,7 @@
         <header class="page-title">
             <div class="page-name_wrapper">
                 <div class="container">
-                    <span style="font-size: 2rem" class="page-name"><i class="fas fa-circle"></i>Tổng quát</span>
+                    <span style="font-size: 22px" class="page-name"><i class="fas fa-circle"></i>Tổng quát</span>
                 </div>
             </div>
         </header>

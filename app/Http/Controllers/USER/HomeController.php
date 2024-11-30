@@ -342,7 +342,7 @@ class HomeController extends Controller
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
         $countComment = $userInfor->count_comments; // Access total comment count
         // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
-        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin','countComment', 'countChapters', 'countBookmark'));
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countComment', 'countChapters', 'countBookmark'));
     }
 
     public function login()
@@ -369,41 +369,27 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
-        $total_wallet = [];
-        $single_wallet_chapter = [];
-        $role = Role::where('name', 'author')->first();
-        $user = User::with('contract')->find(Auth::id());
-        // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
-        if ($user->role_id == $role->id) {
-            if ($user->contract == null) {
-                // Nếu không có hợp đồng, chuyển đến trang tạo hợp đồng
-                return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
-            }
-        }
-        // Tính tổng tiền mà tác giả kiếm được từ tất cả các chương đã bán
-        $totalEarnings = $user->totalEarnings();
-
-        // Tính tổng số chương mà tác giả bán được
-        $totalChaptersSold = $user->totalChaptersSold();
-
-        // Tính tổng số truyện mà tác giả đã đăng
-        $totalBooks = $user->totalBooks();
-
-        // Tính tổng số tập mà tác giả đã đăng
-        $totalEpisodes = $user->totalEpisodes();
-
-        // Tính tổng số chương mà tác giả đã đăng
-        $totalChapters = $user->totalChapter();
-
-       return view('user.index', compact(
-        'totalEarnings',
-        'totalChaptersSold',
-        'totalBooks',
-        'totalEpisodes',
-        'totalChapters'
-    ));
+        return view('user.index');
     }
+    public function getAuthorRevenue($userId)
+    {
+        $user = User::findOrFail($userId);
+        $revenue = $user->revenue();
 
+        return response()->json([
+            'user_id' => $userId,
+            'revenue' => $revenue
+        ]);
+    }
+    public function getAuthorRevenueDetails($userId, $year)
+    {
+        $user = User::findOrFail($userId);
+        $revenueDetails = $user->revenueDetailsByMonth($year);
+    
+        return response()->json([
+            'revenue_details' => $revenueDetails
+        ]);
+    }
     public function createTruyen()
     {
         return view('user.createTruyen');

@@ -179,6 +179,26 @@ class User extends Authenticatable
             ->where('transactions.status', 'completed')  // Lọc các giao dịch đã hoàn tất
             ->sum('transactions.amount');  // Tính tổng số tiền giao dịch
     }
+    public function revenue()
+    {
+        // Lọc các giao dịch của tác giả có type là 'credit'
+        return $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->sum('transactions.amount');
+    }
+    // Trong model User.php
+
+    public function revenueDetailsByMonth($year)
+    {
+        return $this->hasOne(Wallet::class)
+                    ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+                    ->where('transactions.type', 'credit')
+                    ->whereYear('transactions.created_at', $year)
+                    ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
+                    ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue, COUNT(transactions.id) as transaction_count')
+                    ->get();
+    }
 
     // Tính tổng doanh thu từ một cuốn sách cụ thể
     public function totalEarningsFromBook($bookId)

@@ -111,6 +111,8 @@ Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
+Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'getAuthorRevenueDetails']);
+
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);

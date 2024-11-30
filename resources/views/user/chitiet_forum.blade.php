@@ -24,9 +24,11 @@
         </div>
         <section class="page-content basic-section">
             <header class="sect-header">
-                <span class="sect-title"><a href="{{route('chi-tiet-thao-luan',$data->id)}}">@if ($lockforum ===1)
+                <span class="sect-title"><a href="{{route('chi-tiet-thao-luan',$data->id)}}">
+                    @if ($lockforum === 1)
                         <i class="fas fa-lock"></i>
-                        @endif{{$data->title}}</a></span>
+                        @endif
+                        {{$data->title}}</a></span>
             </header>
             <main class="sect-body">
                 <div class="row">
@@ -39,7 +41,8 @@
                                 <div class="author_name"><a href="/thanh-vien/1">
 
                                         {{$data_user->username}}</a></div>
-                                <div class="author_role"><span>@if ($data_user->role_id === 1)
+                                <div class="author_role"><span>
+                                    @if ($data_user->role_id === 1)
                                         <strong>Super Admin</strong>
                                         @elseif($data_user->role_id === 2)
                                         <strong>Admin</strong>
@@ -47,7 +50,8 @@
                                         <strong>Mod</strong>
                                         @elseif($data_user->role_id === 4)
                                         <strong>User</strong>
-                                        @endif</span></div>
+                                        @endif
+                                        </span></div>
                             </div>
                         </div>
                     </div>

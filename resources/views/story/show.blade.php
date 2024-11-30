@@ -355,10 +355,12 @@
                                     class="fas fa-chevron-down"></i></span></header>
                         <main class="d-lg-block">
                             <div class="text-right pad-10">
+                                @auth
                                 <a class="button button-green"
-                                    href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
-                                    <i class="fas fa-plus"></i> Tạo bài viết
-                                </a>
+                                href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
+                                <i class="fas fa-plus"></i> Tạo bài viết
+                            </a>
+                                @endauth
                             </div>
                         </main>
                     </section>

@@ -21,7 +21,7 @@ class PaymentController extends Controller
         $vnp_TmnCode = "ME3DBPPL";
         $vnp_HashSecret = "I4DW6LYA3KPCUK7ZYC1GR7054X59P7L3";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/vnpay-return";
+        $vnp_Returnurl = "http://lightnovel.id.vn/vnpay-return";
 
         $vnp_TxnRef = 'MRD' . rand(00, 9999);
         $vnp_OrderInfo = "Thanh toán online";

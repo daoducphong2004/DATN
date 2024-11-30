@@ -56,7 +56,7 @@
             <div class="payment-method">
                 <img src="https://via.placeholder.com/150x50?text=PayPal" alt="PayPal">
                 <p>Thẻ Visa, MasterCard... (hỗ trợ thẻ tín dụng quốc tế, thanh toán toàn cầu, có Coin ngay)</p>
-                <p class="text-success">Tăng tỉ lệ quy đổi: 1 USD => 2200 Coin</p>
+                <p class="text-success">Tăng tỉ lệ quy đổi: 1 USD => 24150 Coin</p>
             </div>
         </div>
 

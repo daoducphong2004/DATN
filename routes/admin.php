@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\adminContractController;
+use App\Http\Controllers\Admin\adminContractController;
 use App\Http\Controllers\Admin\ChapterCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
@@ -11,12 +11,13 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\admin\PurchaseManageController;
+use App\Http\Controllers\Admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\Admin\LetterController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
+use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\GenreController;
 
 
@@ -140,4 +141,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('chaptercomments/{id}/delete', [ChapterCommentController::class, 'delete'])->name('chaptercomments.delete');
     Route::get('chaptercomments/{id}/restore', [ChapterCommentController::class, 'restore'])->name('chaptercomments.restore');
     Route::get('chaptercomments/{id}/destroy', [ChapterCommentController::class, 'destroy'])->name('chaptercomments.destroy');
+    Route::resource('bookcomments', AdminBookCommentController::class)->except(['create', 'store']);
+    Route::prefix('bookcomments')->group(function () {
+        Route::get('{id}/delete', [AdminBookCommentController::class, 'delete'])->name('bookcomments.delete');
+        Route::get('{id}/restore', [AdminBookCommentController::class, 'restore'])->name('bookcomments.restore');
+        Route::get('{id}/destroy', [AdminBookCommentController::class, 'destroy'])->name('bookcomments.destroy');
+    });
 });

@@ -46,7 +46,10 @@ class Book extends Model
     {
         return $this->belongsToMany(Book::class, 'likes');
     }
-
+    public function latestChapter()
+    {
+        return $this->hasOne(chapter::class)->latest('created_at');  // Hoặc sử dụng 'updated_at'
+    }
     public function totalChapterPrice()
     {
 

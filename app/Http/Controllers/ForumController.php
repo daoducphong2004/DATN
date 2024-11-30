@@ -326,6 +326,7 @@ class ForumController extends Controller
     public function delete(string $id){
         $data = ForumComment::findOrFail($id);
         $data->unview = 1;
+        $data->updated_at=Carbon::now();
         $data->save();
         return back();
     }

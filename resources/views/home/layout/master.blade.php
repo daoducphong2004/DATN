@@ -38,6 +38,8 @@
         border: none;
     }
 </style>
+<title>@yield('title')</title>
+
 @include('home.layout.home.head')
 
 <body>

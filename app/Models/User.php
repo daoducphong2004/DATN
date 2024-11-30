@@ -47,12 +47,12 @@ class User extends Authenticatable
     // Define relationships in your User model
     public function bookComments()
     {
-        return $this->hasMany(BookComment::class);
+        return $this->hasMany(bookcomment::class);
     }
 
     public function chapterComments()
     {
-        return $this->hasMany(ChapterComment::class);
+        return $this->hasMany(chaptercomment::class);
     }
 
     public function forumComments()

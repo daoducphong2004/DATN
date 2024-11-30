@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <title>@yield('title')</title>
 
 @include('story.layout.reading.head')
 @include('story.partials.css')

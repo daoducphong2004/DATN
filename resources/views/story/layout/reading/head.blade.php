@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Trang chủ - Cổng Light Novel - Đọc Light Novel</title>
 
     <meta name="description"
         content="Sau sẽ sửa">

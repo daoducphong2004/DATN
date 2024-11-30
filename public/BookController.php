@@ -44,7 +44,7 @@ class BookController extends Controller
     {
         $genres = genre::pluck('slug', 'name');
         $groups = group::pluck('id', 'name');
-        $data = Book::query()->where('Is_Inspect', 1)->paginate(30);
+        $data = Book::query()->where('Is_Inspect', 1)->paginate(30);        
         return view('story.index', compact('data', 'genres', 'groups'));
     }
 
@@ -216,7 +216,7 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if ($user->contract()->exists()) {
+        if ($user->contract()->exists()||$user->role == 1) {
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));

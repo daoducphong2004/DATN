@@ -105,7 +105,7 @@ Truyện tự sáng tác
                                     class="paging_item paging_prevnext next ">Cuối</a>
                             </div>
                         </div> --}}
-                        
+
                         <div class="pagination-footer">
                             <div class="pagination_wrap">
                                 {{-- Nút Đầu --}}
@@ -114,7 +114,7 @@ Truyện tự sáng tác
                                 @else
                                     <a href="{{ $moi_cap_nhat->url(1) }}" class="paging_item paging_prevnext prev">Đầu</a>
                                 @endif
-                        
+
                                 {{-- Các trang --}}
                                 @foreach ($moi_cap_nhat->getUrlRange(1, $moi_cap_nhat->lastPage()) as $page => $url)
                                     @if ($page == $moi_cap_nhat->currentPage())
@@ -123,7 +123,7 @@ Truyện tự sáng tác
                                         <a href="{{ $url }}" class="paging_item page_num">{{ $page }}</a>
                                     @endif
                                 @endforeach
-                        
+
                                 {{-- Nút Cuối --}}
                                 @if ($moi_cap_nhat->hasMorePages())
                                     <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
@@ -163,7 +163,7 @@ Truyện tự sáng tác
                                     </section>
                                 @endforeach
                             @else
-                                
+
                             @endif
                             {{-- kết thúc giới thiệu truyện --}}
 
@@ -185,7 +185,7 @@ Truyện tự sáng tác
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
                                                         <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
-                                                            <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('storage/img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>

@@ -22,7 +22,7 @@ Tổng hợp Convert
                     <section id="ln-newest" class="detail-list has-pagination">
                         <header class="section-title"><span>Mới cập nhật</span></header>
                         <main class="sect-body">
-
+                            {{-- {{dd($moi_cap_nhat)}} --}}
                             @foreach ($moi_cap_nhat as $item)
                                 <article class="detail-list-item">
                                     <div class="cover-wrapper">
@@ -31,7 +31,7 @@ Tổng hợp Convert
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('storage/img/noava.png') }}')">
+                                                        style="background-image: url('{{ !empty($item->book->book_path) ? asset(Storage::url($item->book->book_path)) : asset('storage/img/noava.png') }}')">
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,7 +152,7 @@ Tổng hợp Convert
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
                                                         <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
-                                                            <img src="{{ !empty($comment->user->avatar_url) ? $comment->user->avatar_url : asset('img/noava.png') }}"
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>
@@ -211,6 +211,7 @@ Tổng hợp Convert
                                                         <div class="content img-in-ratio"
                                                             style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
                                                         </div>
+                                                        <img src="{{$item->book_path}}" alt="124124">
                                                     </div>
                                                 </div>
                                                 <div class="others-info">

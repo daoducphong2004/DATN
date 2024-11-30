@@ -185,7 +185,7 @@ Truyện tự sáng tác
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
                                                         <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
-                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('storage/img/noava.png') }}"
+                                                            <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>

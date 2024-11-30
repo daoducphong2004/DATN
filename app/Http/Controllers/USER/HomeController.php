@@ -142,7 +142,7 @@ class HomeController extends Controller
 
     public function convert()
     {
-        $bookComments = bookcomment::with('book')
+        $bookComments = bookcomment::with('book','user')
             ->whereHas('book', function ($query) {
                 $query->where('type', 2);
             })

@@ -181,12 +181,12 @@
                                             @endif
                                         </div>
 
-                                        <div class="my-3 text-center view-all">
+                                        {{-- <div class="my-3 text-center view-all">
                                             <a href="{{ route('thong-bao') }}">
                                             <button type="button"
                                                 class="btn btn-soft-success waves-effect waves-light">View
                                                 All Notifications <i class="ri-arrow-right-line align-middle"></i></button></a>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                 </div>

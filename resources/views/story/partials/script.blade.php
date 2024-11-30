@@ -41,68 +41,74 @@
     var textAlign = Cookies.get('textAlign') || 'text-justify';
 
     function setcolor(alter = true) {
-    // Lấy màu nền hiện tại được chọn (màu tại vị trí `bgcolor`)
-    var switcher = $(".set-color .set-input span").eq(bgcolor);
-    switcher.addClass("current");
+        // Lấy màu nền hiện tại được chọn (màu tại vị trí `bgcolor`)
+        var switcher = $(".set-color .set-input span").eq(bgcolor);
+        switcher.addClass("current");
 
-    if (alter) {
-        // Xóa các lớp màu nền cũ
-        for (var i = 0; i < $(".set-color .set-input span").length; i++) {
-            $("#mainpart").removeClass('style-' + i);
-            $("#mainpart").removeClass('dark');
-        }
+        if (alter) {
+            // Xóa các lớp màu nền cũ
+            for (var i = 0; i < $(".set-color .set-input span").length; i++) {
+                $("#mainpart").removeClass('style-' + i);
+                $("#mainpart").removeClass('dark');
+            }
 
-        // Thêm lớp màu nền mới cho #mainpart
-        $("#mainpart").addClass('style-' + bgcolor);
+            // Thêm lớp màu nền mới cho #mainpart
+            $("#mainpart").addClass('style-' + bgcolor);
 
-        // Lấy màu từ data-color
-        var selectedColor = $(".set-color .set-input span").eq(bgcolor).data("color"); // Lấy màu từ data-color
-        if (selectedColor) {
-            // Thay đổi màu nền cho #mainpart
-            $("#mainpart").css("background-color", selectedColor);
+            // Lấy màu từ data-color
+            var selectedColor = $(".set-color .set-input span").eq(bgcolor).data("color"); // Lấy màu từ data-color
+            if (selectedColor) {
+                // Thay đổi màu nền cho #mainpart
+                $("#mainpart").css("background-color", selectedColor);
 
-            // Tính độ sáng của màu nền (sử dụng hàm luminance)
-            const rgb = hexToRgb(selectedColor);
-            const brightness = luminance(rgb.r, rgb.g, rgb.b);
+                // Tính độ sáng của màu nền (sử dụng hàm luminance)
+                const rgb = hexToRgb(selectedColor);
+                const brightness = luminance(rgb.r, rgb.g, rgb.b);
 
-            // Dựa vào độ sáng để thay đổi màu chữ sao cho có độ tương phản tốt
-            if (brightness > 0.5) {
-                // Nền sáng -> chữ tối
-                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#000000");
-            } else {
-                // Nền tối -> chữ sáng
-                $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#ffffff");
+                // Dựa vào độ sáng để thay đổi màu chữ sao cho có độ tương phản tốt
+                if (brightness > 0.5) {
+                    // Nền sáng -> chữ tối
+                    $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#000000");
+                } else {
+                    // Nền tối -> chữ sáng
+                    $("h1, h2, h3, h4,h5, p, span, li, div, label, .content-text").css("color", "#ffffff");
+                }
             }
         }
     }
-}
 
-// Hàm chuyển màu hex thành RGB
-function hexToRgb(hex) {
-    var r = 0, g = 0, b = 0;
-    // 3 chữ số
-    if (hex.length === 4) {
-        r = parseInt(hex[1] + hex[1], 16);
-        g = parseInt(hex[2] + hex[2], 16);
-        b = parseInt(hex[3] + hex[3], 16);
+    // Hàm chuyển màu hex thành RGB
+    function hexToRgb(hex) {
+        var r = 0,
+            g = 0,
+            b = 0;
+        // 3 chữ số
+        if (hex.length === 4) {
+            r = parseInt(hex[1] + hex[1], 16);
+            g = parseInt(hex[2] + hex[2], 16);
+            b = parseInt(hex[3] + hex[3], 16);
+        }
+        // 6 chữ số
+        else if (hex.length === 7) {
+            r = parseInt(hex[1] + hex[2], 16);
+            g = parseInt(hex[3] + hex[4], 16);
+            b = parseInt(hex[5] + hex[6], 16);
+        }
+        return {
+            r: r,
+            g: g,
+            b: b
+        };
     }
-    // 6 chữ số
-    else if (hex.length === 7) {
-        r = parseInt(hex[1] + hex[2], 16);
-        g = parseInt(hex[3] + hex[4], 16);
-        b = parseInt(hex[5] + hex[6], 16);
-    }
-    return { r: r, g: g, b: b };
-}
 
-// Hàm tính luminance (độ sáng)
-function luminance(r, g, b) {
-    const a = [r, g, b].map(function (v) {
-        v /= 255;
-        return (v <= 0.03928) ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-    });
-    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-}
+    // Hàm tính luminance (độ sáng)
+    function luminance(r, g, b) {
+        const a = [r, g, b].map(function(v) {
+            v /= 255;
+            return (v <= 0.03928) ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+        });
+        return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
 
 
 
@@ -215,26 +221,6 @@ function luminance(r, g, b) {
             expires: 365
         });
     });
-    $(document).ready(function() {
-        // Iterate over each bookmark in the list
-        $("#bookmarks_list li").each(function() {
-            var linepr = $(this).data("line"); // Get data-line value from the li
-            console.log(linepr);
-
-            // Find the corresponding paragraph based on the linepr
-            var element = $(".reading-content #" + linepr); // Select the element with the given ID
-
-            if (element.length > 0) {
-                var preview = element.text(); // Get the text content of the element
-                var shortText = preview.trim().substring(0, 30) +
-                "..."; // Trim and shorten text if too long
-                $(this).find(".pos_bookmark small").text(
-                shortText); // Update the small element with the short text
-            } else {
-                console.log("Không tìm thấy phần tử với id " + linepr);
-            }
-        });
-    });
 
 
 
@@ -259,37 +245,28 @@ function luminance(r, g, b) {
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var toast = document.getElementById('toast-message');
-
         if (toast) {
-            // Thêm class 'show' để hiển thị toast
             toast.classList.add('show');
-
-            // Tự động ẩn sau 3 giây (3000 milliseconds)
             setTimeout(function() {
                 toast.classList.remove('show');
-            }, 3000); // 3000 ms = 3s
+            }, 3000);
         }
     });
 
-    function confirmPurchase(title, price, url) {
-        // Hiển thị modal
-        var modal = document.getElementById("purchaseModal");
-        modal.style.display = "block";
-
-        // Thay đổi nội dung modal
-        document.getElementById("modalTitle").innerText = `Xác nhận mua chương: ${title}`;
-        document.getElementById("chapterPrice").innerText = price;
-
-        // Thay đổi href của nút xác nhận để chuyển đến URL mua chương
-        document.getElementById("confirmPurchaseButton").href = url;
+    function confirmPurchase(title, price, chapterId, url) {
+        var modal = $('#purchaseModal');
+        modal.find('#modalTitle').text('Xác nhận mua chương: ' + title);
+        modal.find('#chapterPrice').text(price + ' coin');
+        modal.find('#confirmPurchaseButton').data('chapter-id', chapterId);
+        modal.find('#confirmPurchaseButton').data('url', url);
+        modal.show(); // Show the modal
     }
 
+    // Function to close modal
     function closeModal() {
-        var modal = document.getElementById("purchaseModal");
-        modal.style.display = "none";
+        $('#purchaseModal').hide();
     }
 
-    // Đóng modal khi nhấn ra ngoài khung
     window.onclick = function(event) {
         var modal = document.getElementById("purchaseModal");
         if (event.target == modal) {
@@ -298,12 +275,12 @@ function luminance(r, g, b) {
     }
 
     function addToCart(chapterId, chapterTitle, chapterPrice) {
-
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!document.querySelector('meta[name="user-id"]')) {
             window.location.href = '/login';
             return;
         }
+
         // Gửi yêu cầu AJAX để thêm chương vào giỏ hàng
         fetch('/cart/add', {
                 method: 'POST',
@@ -320,7 +297,8 @@ function luminance(r, g, b) {
                 if (data.status === 'success') {
                     showNotification(
                         `Chương "${chapterTitle}" với giá ${chapterPrice} coin đã được thêm vào giỏ hàng.`,
-                        'success');
+                        'success'
+                    );
                 } else {
                     showNotification(data.message, 'danger');
                 }
@@ -332,11 +310,10 @@ function luminance(r, g, b) {
         const notification = document.getElementById('notification');
         const notificationMessage = document.getElementById('notificationMessage');
 
-        notification.className = 'alert alert-' + type; // Thay đổi lớp CSS dựa trên loại thông báo
-        notificationMessage.innerText = message; // Đặt thông báo
-        notification.style.display = 'block'; // Hiển thị thông báo
+        notification.className = 'alert alert-' + type;
+        notificationMessage.innerText = message;
+        notification.style.display = 'block';
 
-        // Tự động đóng thông báo sau 5 giây
         setTimeout(closeNotification, 5000);
     }
 
@@ -346,33 +323,51 @@ function luminance(r, g, b) {
     }
 
     $(document).ready(function() {
+        // Xử lý click vào nút Mua chương
         $('.purchase-chapter').on('click', function() {
             var title = $(this).data('title');
             var price = $(this).data('price');
             var url = $(this).data('url');
-
+            
             // Xác nhận mua chương
-            if (confirm('Bạn có chắc chắn muốn mua chương "' + title + '" với giá ' + price +
-                    ' coin?')) {
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}' // Thêm CSRF token
-                    },
-                    success: function(response) {
-                        alert(response.message); // Hiển thị thông báo thành công
-                        location.reload(); // Tải lại trang
-                        // Cập nhật giao diện nếu cần thiết (vd: số dư coin, danh sách đã mua, ...)
-                    },
-                    error: function(xhr) {
-                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
-                            'Đã xảy ra lỗi, vui lòng thử lại.';
-                        alert(errorMessage); // Hiển thị thông báo lỗi
-                    }
-                });
-            }
+            confirmPurchase(title, price, url);
         });
+        // Confirm purchase (when user clicks the confirm button in the modal)
+        $('#confirmPurchaseButton').on('click', function(e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            var chapterId = $(this).data('chapter-id');
+            var url = `{{ route('purchase.chapter',$chapter->id) }}`;
+
+            // Perform AJAX request to purchase the chapter
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr(
+                        'content'), // Add CSRF token for security
+                    chapter_id: chapterId,
+                },
+                success: function(response) {
+                    alert(response.message); // Show success message
+                    closeModal(); // Close the modal after success
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
+                        "Đã có lỗi xảy ra.";
+                    alert(errorMessage); // Show error message
+                }
+            });
+        });
+    });
+    // Xử lý click vào nút "Thêm vào giỏ hàng"
+    $('.btn-add-to-cart').on('click', function() {
+        var chapterId = $(this).data('chapter-id');
+        var chapterTitle = $(this).data('chapter-title');
+        var chapterPrice = $(this).data('chapter-price');
+
+        addToCart(chapterId, chapterTitle, chapterPrice);
     });
 </script>
 

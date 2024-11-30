@@ -19,7 +19,7 @@
                             </div>
                             <form id="backgroundForm{{ $userInfor->id }}" class="update-background" enctype="multipart/form-data">
                                 @csrf
-                                <input type="file" id="user_cover_file" name="background" 
+                                <input type="file" id="user_cover_file" name="background"
                                     data-user-id="{{ $userInfor->id }}" style="display: none;">
                             </form>
                         @endif
@@ -42,7 +42,7 @@
 
                         <form id="avatarForm{{ $userInfor->id }}" class="update-avatar" enctype="multipart/form-data">
                             @csrf
-                            <input type="file" id="user_avatar_file" name="avatar" 
+                            <input type="file" id="user_avatar_file" name="avatar"
                                 data-user-id="{{ $userInfor->id }}" style="display: none;">
                         </form>
 
@@ -72,7 +72,7 @@
                 <div class="col-12 col-lg-3">
                     <section class="basic-section clear">
                         <ul class="statistic-top row">
-                            <div class="mb-5 flex flex-col flex-1 mx-5">
+                            {{-- <div class="mb-5 flex flex-col flex-1 mx-5">
                                 <div class="flex justify-between mb-1">
                                     <span class="text-sm capitalize font-medium text-blue-700 dark:text-white">mới
                                         isekai</span>
@@ -99,7 +99,7 @@
                                         Tinh • Thiên Hà • Đại Vũ Trụ • Đa Vũ Trụ • Siêu Việt • Toàn Trí • Toàn Năng
                                     </span>
                                 </div>
-                            </div>
+                            </div> --}}
                         </ul>
                         <ul class="statistic-top row">
                             <li class="col-6">

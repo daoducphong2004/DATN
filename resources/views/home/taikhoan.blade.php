@@ -114,7 +114,7 @@
                             </li>
                             <li class="col-12 mt-2">
                                 <div class="statistic-value"><a
-                                        href="https://docln.net/lich-su-binh-luan">{{ $countComment }}</a></div>
+                                        href="#">{{ $countComment }}</a></div>
                                 <div class="statistic-name">Bình luận</div>
                             </li>
                         </ul>

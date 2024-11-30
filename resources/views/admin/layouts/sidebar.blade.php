@@ -59,7 +59,7 @@
                         <div class="collapse menu-dropdown" id="sidebarBook">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route('books.approval') }}" class="nav-link" data-key="t-starter">
+                                    <a href="{{ route('admin_story_approvalhistory') }}" class="nav-link" data-key="t-starter">
                                         Duyệt truyện </a>
                                 </li>
                                 <li class="nav-item">

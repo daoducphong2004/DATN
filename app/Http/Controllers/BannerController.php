@@ -24,7 +24,7 @@ class BannerController extends Controller
         // Validate input data
         $request->validate([
             'title' => 'required',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Ensure it's an image file
+            'image_path' => 'required', // Ensure it's an image file
             'device_type' => 'nullable',
         ]);
         // Check if a banner for the selected device type already exists

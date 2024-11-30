@@ -47,7 +47,7 @@
     $(document).ready(function() {
         const chapterId = {{ $chapter->id }};
         let currentPage = 1; // Trang hiện tại
-        let lastPage = 1; // Tổng số trang        
+        let lastPage = 1; // Tổng số trang
         function loadComments(chapterId, page = 1) {
             // Lấy user-id từ thẻ meta
             const userIdMeta = document.querySelector('meta[name="user-id"]');
@@ -83,7 +83,7 @@
                                 replyButton = ''; // Ẩn nút trả lời nếu bình luận đã bị xóa
                             } else {
                                 // Nếu comment không bị xóa, cho phép thêm nút xoá
-                                if (comment.user.id == userId) {
+                                if (comment.user.id == userId || ) {
                                     deleteButton = `
             <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
                 <i class="fas fa-times"></i>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
+use App\Models\group;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +34,7 @@ class GroupController extends Controller
         }
 
         // Create a new group
-        $group = Group::create([
+        $group = group::create([
             'name' => $validatedData['name'],
             'slug' => Str::slug($validatedData['name']),
             'description' => $validatedData['description'],
@@ -58,13 +58,13 @@ class GroupController extends Controller
         }
 
         // Nếu người dùng chưa có nhóm, hiển thị trang chọn hành động
-        $groups = Group::all();  // Lấy tất cả nhóm hiện có
+        $groups = group::all();  // Lấy tất cả nhóm hiện có
         return view('action.group.index', compact('groups'));
     }
     public function JoinGroup(Request $request)
     {
         $user = Auth::user();
-        $group = Group::findOrFail($request->group_id);
+        $group = group::findOrFail($request->group_id);
 
         // Kiểm tra nếu người dùng đã có nhóm, không cho tham gia thêm
         if ($user->group) {
@@ -83,7 +83,7 @@ class GroupController extends Controller
     public function show($id)
     {
         // Lấy thông tin nhóm cùng với thành viên
-        $group = Group::with('members')->findOrFail($id);
+        $group = group::with('members')->findOrFail($id);
 
         // Lấy thông tin người dùng hiện tại
         $currentUser = Auth::user();
@@ -139,7 +139,7 @@ class GroupController extends Controller
         $searchTerm = $request->input('name');
 
         // Tìm nhóm theo tên chứa từ khóa
-        $groups = Group::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
+        $groups = group::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
 
         return response()->json([
             'groups' => $groups

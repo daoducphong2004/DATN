@@ -578,11 +578,11 @@ class StoryController extends Controller
     public function approvalList()
     {
         // Lấy danh sách các truyện chưa được duyệt và có ít nhất một chương
-        $pendingStories = Book::where('Is_Inspect', '0')
+        $pendingStories = Book::where('Is_Inspect', 0)
             ->has('chapters')
             ->withCount('chapters') // Chỉ lấy các truyện có chương
             ->paginate(10);
-
+            // dd($pendingStories);
         return view('admin.stories.approval-list', compact('pendingStories'));
     }
 

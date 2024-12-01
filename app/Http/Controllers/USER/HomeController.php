@@ -142,7 +142,7 @@ class HomeController extends Controller
 
     public function convert()
     {
-        $bookComments = bookcomment::with('book','user')
+        $bookComments = bookcomment::with('book', 'user')
             ->whereHas('book', function ($query) {
                 $query->where('type', 2);
             })
@@ -369,27 +369,42 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
-        return view('user.index');
+        $user = Auth::user();
+        
+        // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
+        $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
+        $transactions = $wallet->transactions; //
+        // Kiểm tra thông tin ví
+        // dd($wallet);
+        
+        return view('user.index',compact('wallet','transactions'));
     }
-    public function getAuthorRevenue($userId)
+    
+    public function getAuthorRevenueDetails($userId, $year = null)
     {
+        // Lấy thông tin tác giả
         $user = User::findOrFail($userId);
-        $revenue = $user->revenue();
+
+        // Thống kê doanh thu tổng cộng
+        $totalRevenue = $user->totalRevenue($year);
+
+        // Thống kê doanh thu theo từng câu chuyện
+        $revenueByStory = $user->revenueByStory($year);
+
+        $Books = Book::where('user_id',Auth::id())->pluck('title','id');
+
+        // Thống kê doanh thu theo tháng
+        $revenueByMonth = $user->revenueByMonth($year);
 
         return response()->json([
-            'user_id' => $userId,
-            'revenue' => $revenue
+            'total_revenue' => $totalRevenue,
+            'revenue_by_story' => $revenueByStory,
+            'revenue_by_month' => $revenueByMonth,
+            'Books' => $Books,
+
         ]);
     }
-    public function getAuthorRevenueDetails($userId, $year)
-    {
-        $user = User::findOrFail($userId);
-        $revenueDetails = $user->revenueDetailsByMonth($year);
-    
-        return response()->json([
-            'revenue_details' => $revenueDetails
-        ]);
-    }
+
     public function createTruyen()
     {
         return view('user.createTruyen');

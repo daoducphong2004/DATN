@@ -112,6 +112,7 @@ Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
 Route::get('UserHome', [HomeController::class, 'Userhome']);
 Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'getAuthorRevenueDetails']);
+Route::get('user/transactions/{wallet_id}', [TransactionController::class, 'showTransactions'])->name('user.transactions');
 
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);

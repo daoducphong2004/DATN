@@ -188,16 +188,60 @@ class User extends Authenticatable
             ->sum('transactions.amount');
     }
     // Trong model User.php
+    // Trong model User.php
 
+    public function totalRevenue($year = null)
+    {
+        $query = $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->selectRaw('SUM(transactions.amount) as total_revenue');
+
+        // Nếu có năm, thì lọc theo năm
+        if ($year) {
+            $query->whereYear('transactions.created_at', $year);
+        }
+
+        return $query->first()->total_revenue ?? 0;
+    }
+    // Trong model User.php
+
+    public function revenueByStory($year = null)
+    {
+        $query = $this->hasMany(PurchasedStory::class)
+            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id')
+            ->where('transactions.type', 'credit')
+            ->selectRaw('purchased_stories.id, SUM(transactions.amount) as total_revenue')
+            ->groupBy('purchased_stories.id');
+
+        // Nếu có năm, thì lọc theo năm
+        if ($year) {
+            $query->whereYear('transactions.created_at', $year);
+        }
+
+        return $query->get();
+    }
+    // Trong model User.php
+
+    public function revenueByMonth($year)
+    {
+        return $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->whereYear('transactions.created_at', $year)
+            ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
+            ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue')
+            ->get();
+    }
     public function revenueDetailsByMonth($year)
     {
         return $this->hasOne(Wallet::class)
-                    ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
-                    ->where('transactions.type', 'credit')
-                    ->whereYear('transactions.created_at', $year)
-                    ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
-                    ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue, COUNT(transactions.id) as transaction_count')
-                    ->get();
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->whereYear('transactions.created_at', $year)
+            ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
+            ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue, COUNT(transactions.id) as transaction_count')
+            ->get();
     }
 
     // Tính tổng doanh thu từ một cuốn sách cụ thể

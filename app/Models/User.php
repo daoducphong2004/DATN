@@ -192,35 +192,39 @@ class User extends Authenticatable
 
     public function totalRevenue($year = null)
     {
-        $query = $this->hasOne(Wallet::class)
-            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
-            ->where('transactions.type', 'credit')
-            ->selectRaw('SUM(transactions.amount) as total_revenue');
-
-        // Nếu có năm, thì lọc theo năm
-        if ($year) {
-            $query->whereYear('transactions.created_at', $year);
-        }
-
-        return $query->first()->total_revenue ?? 0;
+        $query = Transaction::join('wallets', 'transactions.wallet_id', '=', 'wallets.id')  // Join với bảng wallets
+        ->join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id') // Kết nối với purchased_stories
+        ->where('wallets.user_id', $this->id);  // Sử dụng user_id của wallet để lọc
+    
+    if ($year) {
+        $query->whereYear('purchased_stories.purchase_date', $year);
     }
+    
+    return $query->sum('transactions.amount');
+    
+    }
+    
     // Trong model User.php
 
     public function revenueByStory($year = null)
-    {
-        $query = $this->hasMany(PurchasedStory::class)
-            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id')
-            ->where('transactions.type', 'credit')
-            ->selectRaw('purchased_stories.id, SUM(transactions.amount) as total_revenue')
-            ->groupBy('purchased_stories.id');
+{
+    // Tạo query để lấy doanh thu từ bảng Transaction và liên kết với bảng PurchasedStory và Chapter
+    $query = Transaction::join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
+    ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')  // Kết nối với bảng chapters để lấy book_id
+    ->join('books', 'chapters.book_id', '=', 'books.id')  // Kết nối với bảng books để lấy thông tin sách
+    ->where('books.user_id', $this->id)  // Thay vì purchased_stories.user_id, ta sử dụng books.id
+    ->groupBy('chapters.book_id');  // Nhóm theo book_id của chapter
 
-        // Nếu có năm, thì lọc theo năm
-        if ($year) {
-            $query->whereYear('transactions.created_at', $year);
-        }
-
-        return $query->get();
+    if ($year) {
+        $query->whereYear('purchased_stories.purchase_date', $year);  // Nếu có năm, lọc theo năm mua
     }
+
+    // Lấy tổng doanh thu theo book_id
+    return $query->select('chapters.book_id', \DB::raw('sum(transactions.amount) as total_revenue'))
+        ->get();
+}
+
+    
     // Trong model User.php
 
     public function revenueByMonth($year)

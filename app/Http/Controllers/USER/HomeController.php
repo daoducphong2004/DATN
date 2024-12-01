@@ -370,16 +370,16 @@ class HomeController extends Controller
     public function Userhome()
     {
         $user = Auth::user();
-        
+
         // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
         $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
         $transactions = $wallet->transactions; //
         // Kiểm tra thông tin ví
         // dd($wallet);
-        
-        return view('user.index',compact('wallet','transactions'));
+
+        return view('user.index', compact('wallet', 'transactions'));
     }
-    
+
     public function getAuthorRevenueDetails($userId, $year = null)
     {
         // Lấy thông tin tác giả
@@ -391,19 +391,18 @@ class HomeController extends Controller
         // Thống kê doanh thu theo từng câu chuyện
         $revenueByStory = $user->revenueByStory($year);
 
-        $Books = Book::where('user_id',Auth::id())->pluck('title','id');
+        // Lấy danh sách sách của tác giả
+        $books = Book::where('user_id', $userId)->pluck('title', 'id');
 
-        // Thống kê doanh thu theo tháng
-        $revenueByMonth = $user->revenueByMonth($year);
 
         return response()->json([
             'total_revenue' => $totalRevenue,
             'revenue_by_story' => $revenueByStory,
-            'revenue_by_month' => $revenueByMonth,
-            'Books' => $Books,
-
         ]);
     }
+
+
+
 
     public function createTruyen()
     {

@@ -9,6 +9,7 @@ use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\Copyright;
+use App\Models\episode;
 use App\Models\Forum;
 use App\Models\Letter;
 use App\Models\Pos;
@@ -142,7 +143,7 @@ class HomeController extends Controller
 
     public function convert()
     {
-        $bookComments = bookcomment::with('book','user')
+        $bookComments = bookcomment::with('book', 'user')
             ->whereHas('book', function ($query) {
                 $query->where('type', 2);
             })
@@ -342,7 +343,7 @@ class HomeController extends Controller
         $countBookmark = Bookmarks::where('user_id', $userInfor->id)->count();
         $countComment = $userInfor->count_comments; // Access total comment count
         // dd($userInfor,$userBooks,$bookHasJoin,$countChapters,$countComment,$countBookmark);
-        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin','countComment', 'countChapters', 'countBookmark'));
+        return view('home.taikhoan', compact('userInfor', 'userBooks', 'bookHasJoin', 'countComment', 'countChapters', 'countBookmark'));
     }
 
     public function login()
@@ -369,40 +370,65 @@ class HomeController extends Controller
     //bên thêm truyện
     public function Userhome()
     {
-        $total_wallet = [];
-        $single_wallet_chapter = [];
-        $role = Role::where('name', 'author')->first();
-        $user = User::with('contract')->find(Auth::id());
-        // So sánh trực tiếp role_id của người dùng với id của vai trò tác giả
-        if ($user->role_id == $role->id) {
-            if ($user->contract == null) {
-                // Nếu không có hợp đồng, chuyển đến trang tạo hợp đồng
-                return redirect()->route('contracts.create')->with('message', 'Bạn chưa có hợp đồng. Vui lòng tạo hợp đồng mới.');
+        $user = Auth::user();
+        if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
+            // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
+            $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
+            // Kiểm tra nếu tác giả có truyện nhưng chưa có ví
+            if ($user->books()->exists() && !$wallet) {
+                // Tạo một ví mới cho tác giả
+                $wallet = $user->wallet()->create([
+                    'balance' => 0, // Số dư ban đầu
+                    'currency' => 'Coin', // Loại tiền tệ
+                ]);
             }
+            // Lấy các giao dịch liên quan đến ví (nếu có)
+            $transactions = $wallet ? $wallet->transactions : [];
+            // Kiểm tra thông tin ví
+            // dd($wallet);
+            // Lấy Top 3 truyện có view cao nhất của tác giả
+            $topBooksByView = Book::where('user_id', $user->id)
+                ->orderByDesc('view') // Sắp xếp theo view giảm dần
+                ->take(3) // Lấy 3 truyện đầu tiên
+                ->get(['id', 'title', 'view']); // Chỉ lấy các trường cần thiết
+            $topBooksByLike = Book::where('user_id', $user->id)
+                ->orderByDesc('like') // Sắp xếp theo view giảm dần
+                ->take(3) // Lấy 3 truyện đầu tiên
+                ->get(['id', 'title', 'like']); // Chỉ lấy các trường cần thiết
+            $ajax = true;
+
+            return view('user.index', compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
+        } else {
+            $book = Book::count();
+            $chapter = Chapter::count();
+            $episode = Episode::count();
+            $ajax = false;
+            return view('user.index', compact('book', 'ajax', 'chapter', 'episode'));
         }
-        // Tính tổng tiền mà tác giả kiếm được từ tất cả các chương đã bán
-        $totalEarnings = $user->totalEarnings();
-
-        // Tính tổng số chương mà tác giả bán được
-        $totalChaptersSold = $user->totalChaptersSold();
-
-        // Tính tổng số truyện mà tác giả đã đăng
-        $totalBooks = $user->totalBooks();
-
-        // Tính tổng số tập mà tác giả đã đăng
-        $totalEpisodes = $user->totalEpisodes();
-
-        // Tính tổng số chương mà tác giả đã đăng
-        $totalChapters = $user->totalChapter();
-
-       return view('user.index', compact(
-        'totalEarnings',
-        'totalChaptersSold',
-        'totalBooks',
-        'totalEpisodes',
-        'totalChapters'
-    ));
     }
+
+    public function getAuthorRevenueDetails($userId, $year = null)
+    {
+        // Lấy thông tin tác giả
+        $user = User::findOrFail($userId);
+
+        // Thống kê doanh thu tổng cộng
+        $totalRevenue = $user->totalRevenue($year);
+
+        // Thống kê doanh thu theo từng câu chuyện
+        $revenueByStory = $user->revenueByStory($year);
+
+        // Lấy danh sách sách của tác giả
+
+
+        return response()->json([
+            'total_revenue' => $totalRevenue,
+            'revenue_by_story' => $revenueByStory,
+        ]);
+    }
+
+
+
 
     public function createTruyen()
     {

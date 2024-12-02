@@ -102,7 +102,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);
@@ -195,7 +195,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);
@@ -278,7 +278,7 @@ class purchaseStoryController extends Controller
             'wallet_id' => $wallet->id,
             'purchased_story_id' => $purchasedStory->id,
             'amount' => $authorEarnings,
-            'type' => 'credit',
+            'type' => 'coin',
             'description' => 'Earnings from chapter purchase',
             'status' => 'completed'
         ]);
@@ -361,7 +361,7 @@ class purchaseStoryController extends Controller
             'wallet_id' => $wallet->id,
             'purchased_story_id' => $purchasedStory->id,
             'amount' => $authorEarnings,
-            'type' => 'credit',
+            'type' => 'coin',
             'description' => 'Earnings from chapter purchase',
             'status' => 'completed'
         ]);
@@ -448,7 +448,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);

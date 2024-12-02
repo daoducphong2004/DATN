@@ -179,6 +179,76 @@ class User extends Authenticatable
             ->where('transactions.status', 'completed')  // Lọc các giao dịch đã hoàn tất
             ->sum('transactions.amount');  // Tính tổng số tiền giao dịch
     }
+    public function revenue()
+    {
+        // Lọc các giao dịch của tác giả có type là 'credit'
+        return $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->sum('transactions.amount');
+    }
+
+    public function totalRevenue($year = null)
+    {
+        $query = Transaction::join('wallets', 'transactions.wallet_id', '=', 'wallets.id')  // Join với bảng wallets
+            ->join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id') // Kết nối với purchased_stories
+            ->where('wallets.user_id', $this->id);  // Sử dụng user_id của wallet để lọc
+
+        if ($year) {
+            $query->whereYear('purchased_stories.purchase_date', $year);
+        }
+
+        return $query->sum('transactions.amount');
+    }
+
+    // Trong model User.php
+
+    public function revenueByStory($year = null)
+    {
+        $query = Transaction::join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id') // Kết nối với bảng chapters để lấy book_id
+            ->join('books', 'chapters.book_id', '=', 'books.id') // Kết nối với bảng books để lấy thông tin sách
+            ->where('books.user_id', $this->id) // Thay vì purchased_stories.user_id, ta sử dụng books.id
+            ->groupBy('chapters.book_id', 'books.title', 'books.slug') // Nhóm theo book_id, title và slug
+            ->orderByDesc(\DB::raw('sum(transactions.amount)')) // Sắp xếp giảm dần theo tổng doanh thu
+            ->limit(5); // Giới hạn số lượng kết quả trả về là 5
+
+        if ($year) {
+            $query->whereYear('purchased_stories.purchase_date', $year); // Nếu có năm, lọc theo năm mua
+        }
+
+        // Lấy top 5 truyện có doanh thu cao nhất
+        return $query->select(
+            'chapters.book_id',
+            'books.title',
+            'books.slug',
+            \DB::raw('sum(transactions.amount) as total_revenue')
+        )->get();
+    }
+
+
+    // Trong model User.php
+
+    public function revenueByMonth($year)
+    {
+        return $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->whereYear('transactions.created_at', $year)
+            ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
+            ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue')
+            ->get();
+    }
+    public function revenueDetailsByMonth($year)
+    {
+        return $this->hasOne(Wallet::class)
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->where('transactions.type', 'credit')
+            ->whereYear('transactions.created_at', $year)
+            ->groupBy(\DB::raw('MONTH(transactions.created_at)'))
+            ->selectRaw('MONTH(transactions.created_at) as month, SUM(transactions.amount) as total_revenue, COUNT(transactions.id) as transaction_count')
+            ->get();
+    }
 
     // Tính tổng doanh thu từ một cuốn sách cụ thể
     public function totalEarningsFromBook($bookId)

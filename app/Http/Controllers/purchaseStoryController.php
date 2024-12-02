@@ -215,7 +215,7 @@ class purchaseStoryController extends Controller
     public function purchaseChapter(Request $request, $chapterId)
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.');
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua chương này.');
         }
 
         $user = auth()->user(); // Người mua

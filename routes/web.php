@@ -200,10 +200,10 @@ Route::get('truyen/{slug}', [BookController::class, 'showU'])->name('truyen.truy
 // Route::get('danh-sach', [BookController::class, 'listStories'])->name('truyen.danhsach');
 Route::get('truyen/{slug}/{chapter_slug}', [BookController::class, 'reading'])->name('truyen.chuong');
 Route::get('truyen/{slug}/tap/{episode_slug}', [EpisodeController::class, 'showU'])->name('truyen.tap');
-
+Route::get('/api/reading/{slug}/{chapter_slug}', [BookController::class, 'readingApi']);
 Route::post('/reading-history', [ReadingHistoryController::class, 'store']);
 Route::get('/lich-su', [ReadingHistoryController::class, 'index'])->name('lich-su');
-Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->middleware('auth');
+Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->name('purchase.chapter')->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 

@@ -4,19 +4,19 @@
         <!-- Dark Logo-->
         <a href="index.html" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ asset('img/favicon.png')}}" alt="" height="22">
+                <img src="{{ asset('img/apple-touch-icon-114x114.png')}}" alt="" height="70">
             </span>
             <span class="logo-lg">
-                <img src="{{ asset('img/favicon.png')}}" alt="" height="17">
+                <img src="{{ asset('img/apple-touch-icon-114x114.png')}}" alt="" height="70">
             </span>
         </a>
         <!-- Light Logo-->
         <a href="index.html" class="logo logo-light">
             <span class="logo-sm">
-                <img src="assets/images/logo-sm.png" alt="" height="22">
+                <img src="{{ asset('img/apple-touch-icon-114x114.png')}}" alt="" height="70">
             </span>
             <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="17">
+                <img src="{{ asset('img/apple-touch-icon-114x114.png')}}" alt="" height="70">
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
@@ -59,7 +59,7 @@
                         <div class="collapse menu-dropdown" id="sidebarBook">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route('books.approval') }}" class="nav-link" data-key="t-starter">
+                                    <a href="{{ route('admin_stories_approval') }}" class="nav-link" data-key="t-starter">
                                         Duyệt truyện </a>
                                 </li>
                                 <li class="nav-item">
@@ -136,7 +136,13 @@
                         </a>
                     @endcan
                 </li>
-
+                <li class="nav-item">
+                    @can('view-categories', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('banners.index') }}">
+                            <i class="ri-flag-2-fill"></i> <span data-key="">Banner</span>
+                        </a>
+                    @endcan
+                </li>
                 <li class="nav-item">
                     @can('view-comment', Auth::user())
                         <a class="nav-link menu-link" href="#sidebarComment" data-bs-toggle="collapse" role="button"

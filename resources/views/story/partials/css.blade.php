@@ -1,4 +1,108 @@
 <style>
+    /* Modal Background */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black background with opacity */
+        padding-top: 60px;
+        /* Adjust top margin */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Close Button (X) */
+    .close {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        cursor: pointer;
+    }
+
+    /* Close Button on Hover */
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Modal Title */
+    #modalTitle {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    /* Modal Price */
+    #chapterPrice {
+        font-size: 18px;
+        color: #ff6347;
+        /* Tomato color for emphasis */
+        font-weight: bold;
+    }
+
+    /* Button Styling */
+    .btn-success {
+        background-color: #28a745;
+        /* Green */
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        /* Darker green on hover */
+    }
+
+    /* Responsive Design for Small Screens */
+    @media screen and (max-width: 600px) {
+        .modal-content {
+            width: 90%;
+            /* Make the modal a bit wider on small screens */
+            padding: 15px;
+        }
+
+        #modalTitle {
+            font-size: 20px;
+        }
+
+        .btn-success {
+            font-size: 14px;
+        }
+    }
+
     .toast-message {
         position: fixed;
         top: 50%;
@@ -228,14 +332,17 @@
         border-radius: 8px;
         overflow-y: auto;
     }
-    #setting{
-            left: 40%;
-        }
+
+    #setting {
+        left: 40%;
+    }
+
     /* Media query for responsiveness */
     @media screen and (max-width: 768px) {
-        #setting{
+        #setting {
             left: -6%;
         }
+
         .popup-window,
         .popup {
             padding: 10px;

@@ -16,6 +16,7 @@ class TransactionController extends Controller
         // Eager load relationships to prevent N+1 query issue
         $transactions = Transaction::with(['purchasedStory.user','purchasedStory.chapter','purchasedStory.chapter.book'])
             ->where('wallet_id', $wallet_id)
+            ->where('type','coin')
             ->latest()
             ->get();
 

@@ -9,6 +9,7 @@ use App\Models\Bookmarks;
 use App\Models\chapter;
 use App\Models\chaptercomment;
 use App\Models\Copyright;
+use App\Models\episode;
 use App\Models\Forum;
 use App\Models\Letter;
 use App\Models\Pos;
@@ -370,14 +371,40 @@ class HomeController extends Controller
     public function Userhome()
     {
         $user = Auth::user();
+        if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
+            // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
+            $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
+            // Kiểm tra nếu tác giả có truyện nhưng chưa có ví
+            if ($user->books()->exists() && !$wallet) {
+                // Tạo một ví mới cho tác giả
+                $wallet = $user->wallet()->create([
+                    'balance' => 0, // Số dư ban đầu
+                    'currency' => 'Coin', // Loại tiền tệ
+                ]);
+            }
+            // Lấy các giao dịch liên quan đến ví (nếu có)
+            $transactions = $wallet ? $wallet->transactions : [];
+            // Kiểm tra thông tin ví
+            // dd($wallet);
+            // Lấy Top 3 truyện có view cao nhất của tác giả
+            $topBooksByView = Book::where('user_id', $user->id)
+                ->orderByDesc('view') // Sắp xếp theo view giảm dần
+                ->take(3) // Lấy 3 truyện đầu tiên
+                ->get(['id', 'title', 'view']); // Chỉ lấy các trường cần thiết
+            $topBooksByLike = Book::where('user_id', $user->id)
+                ->orderByDesc('like') // Sắp xếp theo view giảm dần
+                ->take(3) // Lấy 3 truyện đầu tiên
+                ->get(['id', 'title', 'like']); // Chỉ lấy các trường cần thiết
+            $ajax = true;
 
-        // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
-        $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
-        $transactions = $wallet->transactions; //
-        // Kiểm tra thông tin ví
-        // dd($wallet);
-
-        return view('user.index', compact('wallet', 'transactions'));
+            return view('user.index', compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
+        } else {
+            $book = Book::count();
+            $chapter = Chapter::count();
+            $episode = Episode::count();
+            $ajax = false;
+            return view('user.index', compact('book', 'ajax', 'chapter', 'episode'));
+        }
     }
 
     public function getAuthorRevenueDetails($userId, $year = null)
@@ -392,7 +419,6 @@ class HomeController extends Controller
         $revenueByStory = $user->revenueByStory($year);
 
         // Lấy danh sách sách của tác giả
-        $books = Book::where('user_id', $userId)->pluck('title', 'id');
 
 
         return response()->json([

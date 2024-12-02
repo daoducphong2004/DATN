@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
-        <h1>Transactions for Wallet: {{ $wallet->id }}</h1>
+        <h1>Lịch sử giao dịch</h1>
         <!-- DataTables CSS -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
         <!-- DataTables JS -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

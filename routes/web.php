@@ -43,6 +43,7 @@ use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\wallets;
+use App\Http\Controllers\WithdrawRequestController;
 use App\Models\Book;
 use App\Models\episode;
 use App\Models\genre;
@@ -111,7 +112,6 @@ Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
 Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
-Route::get('UserHome', [HomeController::class, 'Userhome']);
 Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'getAuthorRevenueDetails']);
 Route::get('author/transactions/{wallet_id}', [TransactionController::class, 'showTransactions'])->name('user.transactions');
 
@@ -245,9 +245,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-        //profile
+
+        Route::get('',[HomeController::class, 'Userhome']);
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
-        
+        Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
+        Route::get('/withdraw/create', [WithdrawRequestController::class, 'create'])->name('withdraw.create');
+        Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {

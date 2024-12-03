@@ -91,15 +91,12 @@ Route::prefix('admin')->group(function () {
     //chapter
     Route::get('/chapter/create/{episode_id}', [StoryController::class, 'createChapter'])->name('admin_chaptercreate');
     Route::post('/chapter/store', [StoryController::class, 'storeChapter'])->name('admin_chapterstore');
+    Route::get('/api/chapters/{id}', [StoryController::class, 'getChapterContent'])->name('chapter.content');
     Route::get('/chapter/{id}/edit', [StoryController::class, 'editChapter'])->name('admin_chapteredit');
     Route::put('/chapter/{id}', [StoryController::class, 'updateChapter'])->name('admin_chapterupdate');
     Route::delete('/chapter/{id}/delete', [StoryController::class, 'destroyChapter'])->name('admin_chapterdestroy');
     //end chapter
 
-    //duyệt truyện
-    Route::get('/books/approval', [BookApprovalController::class, 'index'])->name('books.approval');
-    Route::post('/books/approve/{id}', [BookApprovalController::class, 'approve'])->name('books.approve');
-    // end duyệt truyện
 
 
     Route::resource('/banners', BannerController::class);
@@ -123,10 +120,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/stories/trashed', [StoryController::class, 'trashedStories'])->name('admin_stories_trashed');
     Route::post('/stories/restore/{id}', [StoryController::class, 'restoreStory'])->name('admin_story_restore');
     Route::delete('/stories/forceDelete/{id}', [StoryController::class, 'forceDeleteStory'])->name('admin_story_forceDelete');
+
     Route::get('/stories/approval', [StoryController::class, 'approvalList'])->name('admin_stories_approval');
-    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin_story_approve');
-    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin_story_reject');
+    Route::get('/stories/list-chapter/{bookID}', [StoryController::class, 'ChapterNeedApprovalList'])->name('admin_chapter_approval');
+    Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin.chapter.approve');
+    Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin.chapter.reject');
     Route::get('/stories/lich-su-duyet', [StoryController::class, 'ApprovalHistory'])->name('admin_story_approvalhistory');
+    
     // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');

@@ -25,7 +25,6 @@ class Book extends Model
         'group_id',
         'user_id',
         'Is_Inspect',
-        'price',
         'views_week',
         'views_month',
     ];
@@ -52,9 +51,9 @@ class Book extends Model
     }
     public function totalChapterPrice()
     {
-
-        return $this->chapters->sum('price');
+        return $this->chapters->where('approval', 1)->sum('price');
     }
+
     public function group()
     {
         return $this->belongsTo(group::class, 'group_id');
@@ -102,7 +101,7 @@ class Book extends Model
 
         return $totalChapters === $purchasedChapters;
     }
-        
+
     public function allChaptersinEpisodePurchased($userId, $episodeId)
     {
         // Tổng số chương có giá trị trong tập truyện

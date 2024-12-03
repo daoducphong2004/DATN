@@ -59,23 +59,6 @@ Tổng hợp Convert
                             @endforeach
 
                         </main>
-                        {{-- <div class="pagination-footer">
-                            <div class="pagination_wrap">
-                                <!--<a href="" class="paging_item paging_prevnext prev  disabled ">Trước</a>-->
-                                <a href="https://docln.net/convert?page=1"
-                                    class="paging_item paging_prevnext prev  disabled ">Đầu</a>
-
-                                <a href="https://docln.net/convert?page=1" class="paging_item page_num  current ">1</a>
-                                <a href="https://docln.net/convert?page=2" class="paging_item page_num ">2</a>
-                                <a href="https://docln.net/convert?page=3" class="paging_item page_num ">3</a>
-                                <a href="https://docln.net/convert?page=4" class="paging_item page_num ">4</a>
-                                <a href="https://docln.net/convert?page=5" class="paging_item page_num ">5</a>
-
-                                <!--<a href=" https://docln.net/convert?page=2 " class="paging_item paging_prevnext next ">Tiếp</a>-->
-                                <a href="https://docln.net/convert?page=24"
-                                    class="paging_item paging_prevnext next ">Cuối</a>
-                            </div>
-                        </div> --}}
 
                         <div class="pagination-footer">
                             <div class="pagination_wrap">

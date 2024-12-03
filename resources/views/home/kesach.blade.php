@@ -53,36 +53,35 @@
                                 </tr>
 
                                 @if ($likedBooks->isEmpty())
-                                <tr>
-                                    <td>
-                                    <p>Bạn chưa yêu thích cuốn sách nào.</p>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Bạn chưa yêu thích cuốn sách nào.</p>
+                                        </td>
+                                    </tr>
                                 @else
                                     @foreach ($likedBooks as $book)
                                         <tr>
                                             <td>
                                                 <div class="a6-ratio series-cover">
                                                     <div class="content img-in-ratio"
-                                                        style="background-image: url('{{asset(Storage::url($book->book_path))}}')">
+                                                        style="background-image: url('{{ asset(Storage::url($book->book_path)) }}')">
                                                     </div>
                                                 </div>
                                                 <div class="series-name">
                                                     <a
-                                                        href="{{ route('truyen.truyen',$book->slug) }}">{{$book->title}}</a>
+                                                        href="{{ route('truyen.truyen', $book->slug) }}">{{ $book->title }}</a>
                                                     <small class="type-translation">Truyện dịch</small>
                                                 </div>
                                             </td>
                                             <td class="none table-cell-m">
-                                                <a
-                                                    href="">Chương
+                                                <a href="">Chương
                                                     20: Đi nhận nhiệm vụ nào</a>
                                                 <small class="volume-name">Web Novel</small>
                                             </td>
                                             <!--<td class="none table-cell-l">
 
-                                                <small>26/11/2019 17:03:06</small>
-                                            </td>-->
+                                                    <small>26/11/2019 17:03:06</small>
+                                                </td>-->
                                             <td class="text-right update-action">
 
                                                 <span class="update-status no-chapters disabled">Không có</span><br>

@@ -95,7 +95,7 @@
                                 @foreach ($chapters->sortBy('order') as $chap)
                                     <li class="@if ($chapter->id === $chap->id) current @endif">
                                         <a href="{{ route('truyen.chuong', [$book->slug, $chap->slug]) }}">
-                                            {{ $chap->title }} chapter:{{ $chapter->id }} và {{ $chap->id }}
+                                            {{ $chap->title }}
                                         </a>
                                     </li>
                                 @endforeach

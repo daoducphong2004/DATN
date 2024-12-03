@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <style>
         .tab-custom {
-
             line-height: 25px;
             font-size: 16px;
             font-weight: 600;
@@ -14,7 +13,11 @@
             height: fit-content !important;
             padding: 5px 15px !important;
             margin: 0 5px 0 0;
-
+            color: black;
+            background: white !important;
+        }
+        body{
+            background: white;
         }
     </style>
     <main id="mainpart" class="browserpage" style="min-height: 212px;">
@@ -249,8 +252,6 @@
             $(document).on('click', '#deleteAuto', function() {
                 var book_id = $(this).data('book_id');
                 var url = "{{ route('destroy-auto-purchase') }}";
-
-
                 // Hiển thị hộp thoại xác nhận
                 if (confirm("Bạn có chắc chắn muốn xóa tự động mua này không?")) {
                     $.ajax({

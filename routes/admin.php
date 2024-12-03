@@ -19,7 +19,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\BookcommentController;
 use App\Http\Controllers\GenreController;
-
+use App\Http\Controllers\WithdrawRequestController;
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
 Route::prefix('admin')->group(function () {
@@ -147,4 +147,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         Route::get('{id}/restore', [AdminBookCommentController::class, 'restore'])->name('bookcomments.restore');
         Route::get('{id}/destroy', [AdminBookCommentController::class, 'destroy'])->name('bookcomments.destroy');
     });
+    Route::get('/withdraw', [WithdrawRequestController::class, 'index'])->name('withdraw.index');
+    Route::get('/withdraw/history', [WithdrawRequestController::class, 'HistoryAmin'])->name('withdraw.history');
+    Route::post('/withdraw/{id}/update', [WithdrawRequestController::class, 'update'])->name('withdraw.update');
 });

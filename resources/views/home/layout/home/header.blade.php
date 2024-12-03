@@ -120,7 +120,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="/UserHome">
+                                <a href="{{ route('action.') }}">
                                     <i class="fas fa-cog"></i><span>Hệ thống</span>
                                 </a>
                             </li>

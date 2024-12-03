@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class PurchasedStory extends Model
 {
@@ -27,9 +28,9 @@ class PurchasedStory extends Model
         return $this->hasOneThrough(Book::class, chapter::class, 'id', 'id', 'chapter_id', 'book_id');
     }
      // Phương thức kiểm tra xem người dùng đã mua chương này chưa
-     public static function hasPurchased($userId, $chapterId)
+     public static function hasPurchased( $chapterId)
      {
-         return self::where('user_id', $userId)
+         return self::where('user_id', Auth::id())
                      ->where('chapter_id', $chapterId)
                      ->exists();
      }

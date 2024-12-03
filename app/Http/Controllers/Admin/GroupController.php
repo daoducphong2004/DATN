@@ -68,8 +68,5 @@ class GroupController extends Controller
         }
     }
 
-    public function showU(string $slug){
-        $group = group::where('slug',$slug)->with('books')->first();
-        return view('home.group',compact('group'));
-    }
+    
 }

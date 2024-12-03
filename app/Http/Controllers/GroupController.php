@@ -145,4 +145,8 @@ class GroupController extends Controller
             'groups' => $groups
         ]);
     }
+    public function showU(string $slug){
+        $group = group::where('slug',$slug)->with('books')->first();
+        return view('home.group',compact('group'));
+    }
 }

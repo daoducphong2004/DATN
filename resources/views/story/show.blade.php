@@ -327,10 +327,6 @@
                                                 href="{{ route('group.showU', $book->group->slug) }}">{{ $book->group->name }}</a>
                                         </div>
                                     </div>
-                                    <div class="owner-donate" style="padding: 0">
-                                        <!-- <span class="donate-intro">Bạn muốn tiến độ đều hơn ?</span>
-                                                    <span class="button button-red" onclick="alert('Chức năng đang được hoàn thiện')">Hãy Ủng hộ !!</span> -->
-                                    </div>
                                 </main>
                             </section>
                         </div>
@@ -356,10 +352,10 @@
                         <main class="d-lg-block">
                             <div class="text-right pad-10">
                                 @auth
-                                <a class="button button-green"
-                                href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
-                                <i class="fas fa-plus"></i> Tạo bài viết
-                            </a>
+                                    <a class="button button-green"
+                                        href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
+                                        <i class="fas fa-plus"></i> Tạo bài viết
+                                    </a>
                                 @endauth
                             </div>
                         </main>
@@ -564,8 +560,6 @@
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());
                     @endphp
                     @if (Auth::id() != $book->user_id)
-                        {{-- {{ dd(!$allChaptersPurchased) }} --}}
-
                         @if (!$allChaptersPurchased)
                             <form style="width: 100%; text-align: center"
                                 action="{{ route('books.purchaseAllChapters', $book->id) }}" method="POST"
@@ -591,7 +585,7 @@
 
                     @foreach ($book->episodes->sortBy('order') as $item)
                         {{-- Sắp xếp theo order --}}
-                        <section class="volume-list at-series basic-section volume-mobile gradual-mobile ">
+                        <section class="volume-list at-series basic-section volume-mobile gradual-mobile">
                             <header id="volume_{{ $item->id }}" class="sect-header"
                                 style="display: flex; align-items: center;">
                                 <span class="mobile-icon"><i class="fas fa-chevron-down"></i></span>
@@ -630,7 +624,7 @@
                                             action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
-                                                @foreach ($item->chapters->sortBy('order') as $index => $chapter)
+                                                @foreach ($item->chapters->where('approval', 1)->sortBy('order') as $index => $chapter)
                                                     <li class="{{ $index >= 6 ? 'none' : '' }}">
                                                         <div class="chapter-name"
                                                             style="display: flex; align-items: center;">
@@ -695,15 +689,15 @@
                                             </div>
 
                                             @php
-                                                $allChaptersFreeOrPurchased = $item->chapters->every(function (
-                                                    $chapter,
-                                                ) {
-                                                    return $chapter->price == 0 ||
-                                                        (auth()->check() &&
-                                                            auth()
-                                                                ->user()
-                                                                ->hasPurchased($chapter->id));
-                                                });
+                                                $allChaptersFreeOrPurchased = $item->chapters
+                                                    ->where('approval', 1)
+                                                    ->every(function ($chapter) {
+                                                        return $chapter->price == 0 ||
+                                                            (auth()->check() &&
+                                                                auth()
+                                                                    ->user()
+                                                                    ->hasPurchased($chapter->id));
+                                                    });
                                             @endphp
                                             @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
                                                 <button type="submit" class="btn btn-secondary mt-3"
@@ -732,31 +726,30 @@
 
 
 
-                    <div wire:snapshot="{&quot;data&quot;:{&quot;readyToLoad&quot;:false,&quot;series&quot;:[null,{&quot;class&quot;:&quot;App\\Models\\Series&quot;,&quot;key&quot;:18997,&quot;s&quot;:&quot;mdl&quot;}]},&quot;memo&quot;:{&quot;id&quot;:&quot;FKmR9yuSjC3dnTcnNEsm&quot;,&quot;name&quot;:&quot;pub.series.view.components.relevance&quot;,&quot;path&quot;:&quot;truyen\/18997-co-nang-gyaru-dot-nhien-tiep-can-toi-sau-khi-toi-sua-xe-cho-co-ay&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;vi&quot;},&quot;checksum&quot;:&quot;16ba6b08dc04ac8d46368687a31fb2c02025c6e1d6060cdbd828db7e3347cd7d&quot;}"
-                        wire:effects="[]" wire:id="FKmR9yuSjC3dnTcnNEsm" wire:init="loadRelevantSeries">
+                    <div>
                         <section class="basic-section gradual-mobile">
                             <header class="sect-header"><span class="sect-title">Có thể bạn quan tâm</span><span
                                     class="mobile-icon"><i class="fas fa-chevron-down"></i></span></header>
                             <main class="d-lg-block">
                                 <ul class="others-list">
                                     <div class="row">
-                                        @foreach ($books as $book)
+                                        @foreach ($books as $book123)
                                             <li class="col-12 col-6-m">
                                                 <div class="others-img no-padding">
                                                     <div class="a6-ratio">
                                                         <div class="content img-in-ratio"
-                                                            style="background-image: url('{{ asset('storage/' . $book->book_path) }}')">
+                                                            style="background-image: url('{{ asset('storage/' . $book123->book_path) }}')">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="others-info">
                                                     <h5 class="others-name">
-                                                        <a href="/truyen/{{ $book->slug }}">
+                                                        <a href="/truyen/{{ $book123->slug }}">
                                                             {{ $book->title }}
                                                         </a>
                                                     </h5>
-                                                    <small>Nhóm dịch: {{ $book->group->name }}</small>
-                                                    <small>{{ $book->latestChapter->title }}</small>
+                                                    <small>Nhóm dịch: {{ $book123->group->name }}</small>
+                                                    <small>{{ $book123->latestChapter->title }}</small>
                                                 </div>
                                             </li>
                                         @endforeach
@@ -784,7 +777,6 @@
                                         <h3 class="text-lg font-bold dark:text-white">{{ $totalComments }} Bình luận </h3>
                                         <!-- <i id="refresh_comment" class="fas fa-refresh" aria-hidden="true" style="margin-left: 10px; font-size: 18px"></i></h3> -->
                                     </header>
-
                                     <main class="ln-comment-body">
                                         <div id="ln-comment-submit" class="ln-comment-form clear">
                                             @if (Auth::check())

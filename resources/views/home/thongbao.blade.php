@@ -40,7 +40,7 @@
                                                     <a href="{{ url('/admin') }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
                                                 @endif
                                                 @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                    <a href="{{ route('books.approval') }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
+                                                    <a href="{{ route('admin_stories_approval') }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
                                                 @endif
                                                 @if (isset($notification->data['user_id']))
                                                     <a href="{{ route('author.index') }}"><span class="update-status no-chapters disabled">xem ngay</span></a>

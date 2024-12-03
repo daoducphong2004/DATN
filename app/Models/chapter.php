@@ -19,6 +19,7 @@ class chapter extends Model
         'user_id',
         'book_id',
         'order',
+        'approval',
     ];
 
     public function book()
@@ -62,6 +63,7 @@ class chapter extends Model
     {
         // Find the previous chapter in the same episode
         $previousChapter = $this->where('episode_id', $this->episode_id)
+            ->where('approval', 1)
             ->where('order', '<', $this->order)
             ->orderBy('order', 'desc')
             ->first();
@@ -92,6 +94,7 @@ class chapter extends Model
     {
         // Find the next chapter in the same episode
         $nextChapter = $this->where('episode_id', $this->episode_id)
+            ->where('approval', 1)
             ->where('order', '>', $this->order)
             ->orderBy('order', 'asc')
             ->first();

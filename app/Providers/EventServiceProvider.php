@@ -36,6 +36,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewChapterAdded' => [
             'App\Listeners\NotifyFollowersOfNewChapter',
         ],
+        'App\Events\NewBookCommentCreated' => [
+            'App\Listeners\NewBookCommentNotification',
+        ],
+        'App\Events\NewForumCommentCreated' => [
+            'App\Listeners\NewForumCommentNotification',
+        ],
     ];
 
     /**

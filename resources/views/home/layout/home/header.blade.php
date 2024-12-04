@@ -50,7 +50,7 @@
             </div>
 
             <div class="navbar-logo-wrapper">
-                <a href="/" class="navbar-logo" 
+                <a href="/" class="navbar-logo"
                     title="Trang chủ" style="background-image: url('{{ asset('img/logo-9.png') }}');"></a>
             </div>
 
@@ -196,6 +196,15 @@
                                                         @endif
                                                         @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
                                                             <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\NewBookCommentNotification' && isset($notification->data['slug']))
+                                                            <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\NewChapCommentNotification' && isset($notification->data['chapter_slug']) && $notification->type == 'App\Notifications\NewChapCommentNotification')
+                                                            <a class="text-red-500" href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}">view</a>
+                                                        @endif
+                                                        @if ($notification->type == 'App\Notifications\NewForumCommentNotification' && isset($notification->data['id']))
+                                                            <a class="text-red-500" href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}">view</a>
                                                         @endif
                                                     </div>
                                                 </div>

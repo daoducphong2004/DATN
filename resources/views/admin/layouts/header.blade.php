@@ -173,6 +173,17 @@
                                                             @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
                                                                 <a style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                             @endif
+
+                                                            @if ($notification->type == 'App\Notifications\NewBookCommentNotification' && isset($notification->data['slug']))
+                                                                <a style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                            @endif
+
+                                                            @if ($notification->type == 'App\Notifications\NewChapCommentNotification' && isset($notification->data['chapter_slug']) && $notification->type == 'App\Notifications\NewChapCommentNotification')
+                                                                <a style="color: red" href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}">view</a>
+                                                            @endif
+                                                            @if ($notification->type == 'App\Notifications\NewForumCommentNotification' && isset($notification->data['id']))
+                                                                <a style="color: red" href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}">view</a>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 @endforeach

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewBookCommentCreated;
 use App\Models\bookcomment;
 use App\Http\Requests\StorebookcommentRequest;
 use App\Http\Requests\UpdatebookcommentRequest;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +31,7 @@ class BookcommentController extends Controller
             'parent_id' => 'nullable|exists:book_comments,id'
         ]);
 
-        bookcomment::create([
+        $comment = bookcomment::create([
             'book_id' => $book_id,
             'user_id' => auth()->id(),
             'content' => $request->input('content'),
@@ -40,6 +42,10 @@ class BookcommentController extends Controller
     //         'status' => 'success',
     //     ]);
     // }
+        $book = Book::findOrFail($book_id);
+
+        event(new NewBookCommentCreated($comment, $book));
+
         return back()->with('success', 'Comment added successfully!');
     }
 

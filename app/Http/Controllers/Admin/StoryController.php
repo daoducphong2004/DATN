@@ -26,7 +26,12 @@ class StoryController extends Controller
     public function index()
     {
         // lấy book
-        $stories = book::query()->with('user', 'groups', 'ratings')->where('Is_Inspect', '!=', 0)->get();
+        $stories = Book::query()
+            ->with('user', 'groups', 'ratings')
+            ->whereHas('chapters', function ($query) {
+                $query->where('approval', 1); // Kiểm tra xem ít nhất một chapter có trạng thái 'approved'
+            })
+            ->get();
 
         // Tính trung bình số sao cho mỗi truyện
         foreach ($stories as $story) {
@@ -76,10 +81,15 @@ class StoryController extends Controller
         // dd($episode);
         return view('admin.stories.showEpisode', compact('book', 'episode'));
     }
-    public function showChapter(String $id)
+    public function getChapterContent($id)
     {
-        $chapter = chapter::findOrFail($id);
-        return view('admin.stories.showChapter', compact('chapter'));
+        $chapter = chapter::select('id', 'title', 'content')
+            ->where('id', $id)
+            ->first();
+        if (!$chapter) {
+            return response()->json(['error' => 'Chapter not found'], 404);
+        }
+        return response()->json($chapter, 200);
     }
 
     //Store
@@ -99,7 +109,6 @@ class StoryController extends Controller
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
-            'Is_Inspect' => 'required',
         ]);
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
@@ -120,7 +129,6 @@ class StoryController extends Controller
             'adult' => $adult,  // 0 or 1
             'group_id' => $request->group_id,
             'user_id' => $request->user_id,
-            'is_inspect' => $request->is_inspect,
         ]);
 
         // Generate slug and update the book
@@ -276,6 +284,7 @@ class StoryController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'book_id' => 'required',
                 'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
+                'approval' => 'required'
             ]);
 
             // Lấy thông tin về book từ episode_id
@@ -295,6 +304,8 @@ class StoryController extends Controller
                 'price' => $validatedData['price'],
                 'book_id' => $validatedData['book_id'],
                 'word_count' => $wordCount,
+                'approval' => $validatedData['approval']
+
             ]);
 
             // Tạo slug từ chapter_id và tiêu đề
@@ -374,7 +385,6 @@ class StoryController extends Controller
             'status' => 'required|boolean',
             'is_VIP' => 'required|boolean',
             'adult' => 'required|boolean',
-            'Is_Inspect' => 'nullable|string|max:255',
             'user_id' => 'required|integer|exists:users,id',
             'group_id' => 'nullable|integer',
             'book_path' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Giới hạn file ảnh
@@ -403,7 +413,6 @@ class StoryController extends Controller
             'is_VIP' => $request->is_VIP,
             'adult' => $request->adult,
             'is_delete' => $request->is_delete,
-            'Is_Inspect' => $request->Is_Inspect,
             'user_id' => $request->user_id,
             'group_id' => $request->group_id,
         ]);
@@ -458,6 +467,8 @@ class StoryController extends Controller
             'episode_id' => 'required|exists:episodes,id',
             'user_id' => 'required|exists:users,id',
             'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
+            'approval' => 'required'
+
         ]);
 
         // Tìm chapter cần cập nhật
@@ -477,6 +488,7 @@ class StoryController extends Controller
             'user_id' => $validatedData['user_id'],
             'price' => $validatedData['price'],
             'word_count' => $newWordCount,
+            'approval' => $validatedData['approval']
         ]);
 
         // Cập nhật slug nếu tiêu đề thay đổi
@@ -577,54 +589,86 @@ class StoryController extends Controller
 
     public function approvalList()
     {
-        // Lấy danh sách các truyện chưa được duyệt và có ít nhất một chương
-        $pendingStories = Book::where('Is_Inspect', 0)
-            ->has('chapters')
-            ->withCount('chapters') // Chỉ lấy các truyện có chương
+        $pendingStories = Book::with(['user:id,username']) // Lấy thông tin user liên quan
+            ->withCount(['chapters as pending_chapters_count' => function ($query) {
+                $query->where('approval', 0); // Đếm chapters chưa duyệt
+            }])
+            ->whereHas('chapters', function ($query) {
+                $query->where('approval', 0); // Chỉ lấy sách có chapters chưa duyệt
+            })
             ->paginate(10);
-            // dd($pendingStories);
+
         return view('admin.stories.approval-list', compact('pendingStories'));
+    }
+    public function ChapterNeedApprovalList($book_id)
+    {
+        $chapters = chapter::where('book_id', $book_id)
+            ->where('approval', 0) // Giả sử '0' là trạng thái chưa được duyệt
+            ->paginate(10);
+        return view('admin.stories.chapter-need-approval', compact('chapters'));
     }
 
     public function approveStory($id)
     {
-        $story = Book::findOrFail($id);
+        $story = chapter::findOrFail($id);
+        $book = $story->book;
 
-        // Cập nhật trạng thái duyệt của truyện
+        // Cập nhật trạng thái duyệt của chương
         $story->update([
-            'Is_Inspect' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
+            'approval' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
         ]);
+
+        // Cập nhật trạng thái Is_Inspect của sách nếu ít nhất một chương đã duyệt
+        if ($book->chapters()->where('approval', 1)->exists()) {
+            $book->update([
+                'Is_Inspect' => 1,  // Đặt trạng thái là đã duyệt nếu ít nhất một chương đã duyệt
+            ]);
+        }
+
         // Thêm vào bảng approval_histories
         ApprovalHistory::create([
-            'book_id' => $story->id,
+            'chapter_id' => $id,
             'user_id' => auth()->id(),
             'reason'  => null, // Không có lý do khi duyệt
             'status' => 'approved',
         ]);
-        return redirect()->route('admin_stories_approval')->with('success', 'Truyện đã được duyệt.');
+
+        return redirect()->route('admin_chapter_approval', $book->id)->with('success', 'Truyện đã được duyệt.');
     }
 
-    public function rejectStory(Request $request,$id)
+    public function rejectStory(Request $request, $id)
     {
-        $story = Book::findOrFail($id);
-        // Cập nhật trạng thái duyệt của truyện
-          // Xác thực lý do từ chối
-          $request->validate([
+        $story = chapter::findOrFail($id);
+        $book = $story->book;
+
+        // Cập nhật trạng thái duyệt của chương
+        // Xác thực lý do từ chối
+        $request->validate([
             'reason' => 'required|string|max:255',
         ]);
 
         $story->update([
-            'Is_Inspect' => '2',  // Gán trạng thái là "Từ chối"
+            'approval' => '2',  // Gán trạng thái là "Từ chối"
         ]);
-         // Thêm vào bảng approval_histories
-         ApprovalHistory::create([
-            'book_id' => $story->id,
+
+        // Thêm vào bảng approval_histories
+        ApprovalHistory::create([
+            'chapter_id' => $id,
             'user_id' => auth()->id(),
             'reason'  => $request->reason, // Lý do từ chối
             'status' => 'rejected',
         ]);
-        return redirect()->route('admin_stories_approval')->with('error', 'Truyện đã bị từ chối.');
+
+        // Kiểm tra và cập nhật trạng thái Is_Inspect của sách
+        if (!$book->chapters()->where('approval', 1)->exists()) {
+            $book->update([
+                'Is_Inspect' => 0,  // Đặt trạng thái Is_Inspect thành 0 nếu không còn chương nào được duyệt
+            ]);
+        }
+
+        return redirect()->route('admin_chapter_approval', $book->id)->with('error', 'Truyện đã bị từ chối.');
     }
+
     public function showPublicationHistory($bookId)
     {
         // Lấy sách cùng với các tập, chương và người dùng được chia sẻ
@@ -632,8 +676,11 @@ class StoryController extends Controller
 
         return view('admin.books.history', compact('book'));
     }
-    public function ApprovalHistory(){
-        $Histories = ApprovalHistory::paginate(10);
+    public function ApprovalHistory()
+    {
+        // Eager load các mối quan hệ `chapter` và `user` để giảm số lượng truy vấn
+        $Histories = ApprovalHistory::with(['chapter', 'user'])->paginate(10);
+
         return view('admin.stories.approval-history', compact('Histories'));
     }
 }

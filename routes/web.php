@@ -17,6 +17,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\USER\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LetterController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\SharedBookController;
 use App\Http\Controllers\StoryManageController;
 use App\Http\Controllers\UserGroupController;
 use App\Http\Controllers\wallets;
+use App\Http\Controllers\WithdrawRequestController;
 use App\Models\Book;
 use App\Models\episode;
 use App\Models\genre;
@@ -63,7 +65,7 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sangtac', [HomeController::class, 'sangtac']);
+
 Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
@@ -71,7 +73,7 @@ Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
 // Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
+
 Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
@@ -79,7 +81,7 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+
 
 
 Route::post('/sendEmail', [LetterController::class, 'store'])->name('Letter.send');
@@ -92,8 +94,7 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])-
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
 // Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
+
 // Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
@@ -107,10 +108,11 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])-
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
-Route::get('UserHome', [HomeController::class, 'Userhome']);
+Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'getAuthorRevenueDetails']);
+Route::get('author/transactions/{wallet_id}', [TransactionController::class, 'showTransactions'])->name('user.transactions');
+
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
 Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
 Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
@@ -241,9 +243,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-        //profile
+
+        Route::get('',[HomeController::class, 'Userhome']);
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
-        
+        Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
+        Route::get('/withdraw/create', [WithdrawRequestController::class, 'create'])->name('withdraw.create');
+        Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {

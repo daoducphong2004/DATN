@@ -18,7 +18,7 @@ class wallets extends Controller
         $total_wallet = Wallet::where('user_id',Auth::id())->get();
         $id = Wallet::where('user_id',Auth::id())->pluck('id');
         $single_wallet_chapter = Transaction::where('wallet_id',$id)->get();
-       
+       return view('user.wallet',compact('total_wallet','id','single_wallet_chapter'));
     }
 
     /**

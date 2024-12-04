@@ -69,7 +69,7 @@
                                     <td>{{ $book->title }}</td>
                                     <td>{{ $book->author }}</td>
                                     <td>
-                                        <form action="{{ route('books.approve', $book->id) }}" method="POST">
+                                        <form action="{{ route('admin_stories_approval', $book->id) }}" method="POST">
                                             @csrf
                                             <button type="submit" name="approve" value="1"
                                                 class="btn btn-success edit-item-btn">Duyệt</button>

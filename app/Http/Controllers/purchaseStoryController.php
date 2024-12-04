@@ -102,7 +102,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);
@@ -132,7 +132,7 @@ class purchaseStoryController extends Controller
         $episode = episode::findOrFail($episodeId);
 
         // Lấy tất cả các chương trong tập truyện
-        $chapters = $episode->chapters;
+        $chapters = $episode->chapters->where('approval',1);
 
         // Kiểm tra các chương nào chưa được mua và có giá trị lớn hơn 0
         $chaptersToPurchase = $chapters->filter(function ($chapter) use ($user) {
@@ -195,7 +195,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);
@@ -217,7 +217,6 @@ class purchaseStoryController extends Controller
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua chương này.');
         }
-
         $user = auth()->user(); // Người mua
 
         // Kiểm tra xem người dùng đã mua chapter này chưa
@@ -231,7 +230,10 @@ class purchaseStoryController extends Controller
 
         // Lấy thông tin chapter cần mua
         $chapter = chapter::findOrFail($chapterId);
-
+        if($chapter->approval!=1){
+            return response()->json(['message' => 'Chapter này chưa được phê duyệt.'], 400
+            );
+        }
         // Kiểm tra nếu người dùng có đủ coin để mua
         $price = $chapter->price;
         if ($user->coin_earned < $price) {
@@ -278,7 +280,7 @@ class purchaseStoryController extends Controller
             'wallet_id' => $wallet->id,
             'purchased_story_id' => $purchasedStory->id,
             'amount' => $authorEarnings,
-            'type' => 'credit',
+            'type' => 'coin',
             'description' => 'Earnings from chapter purchase',
             'status' => 'completed'
         ]);
@@ -310,6 +312,10 @@ class purchaseStoryController extends Controller
 
         // Tìm chương cần mua
         $chapter = chapter::findOrFail($chapterId);
+        if($chapter->approval!=1){
+            return response()->json(['message' => 'Chương này chưa được phê duyệt.'],
+            400);
+        }
         $price = $chapter->price;
         // Kiểm tra nếu chương đã có giá là 0 thì không cần mua
         if ($price == 0) {
@@ -361,7 +367,7 @@ class purchaseStoryController extends Controller
             'wallet_id' => $wallet->id,
             'purchased_story_id' => $purchasedStory->id,
             'amount' => $authorEarnings,
-            'type' => 'credit',
+            'type' => 'coin',
             'description' => 'Earnings from chapter purchase',
             'status' => 'completed'
         ]);
@@ -386,7 +392,7 @@ class purchaseStoryController extends Controller
         $book = Book::findOrFail($bookId);
 
         // Lấy tất cả các chương trong sách
-        $chapters = $book->chapters;
+        $chapters = $book->chapters->where('approval',1);;
 
         // Kiểm tra các chương nào chưa được mua và có giá trị lớn hơn 0
         $chaptersToPurchase = $chapters->filter(function ($chapter) use ($user) {
@@ -448,7 +454,7 @@ class purchaseStoryController extends Controller
                     'wallet_id' => $wallet->id,
                     'purchased_story_id' => $purchasedStory->id,
                     'amount' => $authorEarnings,
-                    'type' => 'credit',
+                    'type' => 'coin',
                     'description' => 'Earnings from chapter purchase',
                     'status' => 'completed'
                 ]);

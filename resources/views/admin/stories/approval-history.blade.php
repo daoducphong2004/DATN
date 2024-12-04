@@ -19,8 +19,8 @@
         @endif
 
         <h2 class="text-primary mb-4">Danh Sách Truyện Cần Duyệt</h2>
-        <a href="{{ route('admin_storylist') }}" class="btn btn-primary mb-4">
-            <i class="fas fa-arrow-left"></i> Quay lại danh sách truyện
+        <a href="{{ route('admin_stories_approval') }}" class="btn btn-primary mb-4">
+            <i class="fas fa-arrow-left"></i> Quay lại 
         </a>
         <table class="table table-bordered">
             <thead>
@@ -33,14 +33,13 @@
             </thead>
             <tbody>
                 @foreach ($Histories as $history)
-                    <tr>
-                        <td>{{ $history->book->title }}</td>
-                        <td>{{ $history->user->username }}</td>
-                        <td>{{ $history->reason }}</td>
-                        <td>{{ $history->status }}</td>
-
-                    </tr>
-                @endforeach
+                <tr>
+                    <td>{{ $history->chapter->title ?? 'N/A' }}</td>
+                    <td>{{ $history->user->username ?? 'N/A' }}</td>
+                    <td>{{ $history->reason }}</td>
+                    <td>{{ $history->status }}</td>
+                </tr>
+            @endforeach            
             </tbody>
         </table>
 

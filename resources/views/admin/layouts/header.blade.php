@@ -142,7 +142,7 @@
 
                                                             @if ($notification->type == 'App\Notifications\BookPendingNotification')
                                                                 <a style="color: red"
-                                                                    href="{{ route('books.approval') }}">
+                                                                    href="{{ route('admin_stories_approval') }}">
                                                                 view
                                                                 </a>
                                                             @endif

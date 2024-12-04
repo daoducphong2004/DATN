@@ -22,24 +22,25 @@ class NewBookCommentNotification
     public function handle(object $event): void
     {
         $authorId = $event->book->user_id;
-        $commentUser = $event->bookcomment->user;
+        $commentUserId = $event->bookcomment->user_id;
 
-        $author = User::find($authorId);
-        // dd($author);
-        if ($author && $commentUser->id !== $authorId) {
-            $author->notifications()->create([
-                'type' => 'App\Notifications\NewBookCommentNotification',
-                'notifiable_id' => $authorId,
-                'notifiable_type' => 'App\Models\User',
-                'data' => [
-                    'user_id' => $commentUser->id,
-                    'username' => $commentUser->username,
-                    'message' => '<strong>' .  $commentUser->username . '</strong> đã bình luận truyện <strong>' . $event->book->title . '</strong> của bạn',
-                    'slug' => $event->book->slug,
-                ],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+        if ($authorId !== $commentUserId) {
+            $author = User::find($authorId);
+
+            if ($author) {
+                $author->notifications()->create([
+                    'type' => 'App\Notifications\NewBookCommentNotification',
+                    'notifiable_id' => $authorId,
+                    'notifiable_type' => 'App\Models\User',
+                    'data' => [
+                        'message' => '<strong>' . $event->bookcomment->user_id. '</strong> đã bình luận truyện <strong>' . $event->book->title . '</strong> của bạn',
+                        'slug' => $event->book->slug,
+                    ],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
     }
+
 }

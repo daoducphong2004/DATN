@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewBookCommentCreated;
 use App\Models\bookcomment;
 use App\Http\Requests\StorebookcommentRequest;
 use App\Http\Requests\UpdatebookcommentRequest;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,20 +30,34 @@ class BookcommentController extends Controller
             'content' => 'required',
             'parent_id' => 'nullable|exists:book_comments,id'
         ]);
-        bookcomment::create([
+        $comment = bookcomment::create([
             'book_id' => $book_id,
             'user_id' => auth()->id(),
             'content' => $request->input('content'),
             'parent_id' => $request->input('parent_id')
         ]);
 
-    //     return response()->json([
-    //         'status' => 'success',
-    //     ]);
-    // }
         $book = Book::findOrFail($book_id);
+        $authorId = $book->user_id;
 
-        event(new NewBookCommentCreated($comment, $book));
+        if ($authorId !== Auth::id()) {
+            $author = User::find($authorId);
+
+            if ($author) {
+                $author->notifications()->create([
+                    'type' => 'App\Notifications\NewBookCommentNotification',
+                    'notifiable_id' => $authorId,
+                    'notifiable_type' => 'App\Models\User',
+                    'data' => [
+                        'message' => '<strong>' . Auth::user()->username . '</strong> đã bình luận truyện <strong>' . $book->title . '</strong> của bạn',
+                        'slug' => $book->slug,
+
+                    ],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return back()->with('success', 'Comment added successfully!');
     }

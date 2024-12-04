@@ -52,9 +52,7 @@ class NewBookCommentNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => "{$this->bookcomment->user->username} đã theo bình luận truyện của bạn: {$this->book->title}",
-            'book_id' => $this->book->id,
-            'user_id' => $this->bookcomment->user_id,
+            'message' => "{$this->bookcomment->user->username} đã bình luận truyện của bạn: {$this->book->title}",
             'slug' => $this->book->slug,
         ];
     }

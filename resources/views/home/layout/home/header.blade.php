@@ -180,7 +180,7 @@
                                                         <a class="text-red-500" href="{{ url('/admin') }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                        <a class="text-red-500" href="{{ route('books.approval') }}">view</a>
+                                                        <a class="text-red-500" href="{{ route('admin_stories_approval') }}">view</a>
                                                     @endif
                                                     @if (isset($notification->data['user_id']))
                                                         <a class="text-red-500" href="{{ route('author.index') }}">view</a>
@@ -288,4 +288,3 @@
 
     <!--<section id="nav-search"></section>-->
 </div>
-</body>

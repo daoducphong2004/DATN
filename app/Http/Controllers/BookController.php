@@ -60,52 +60,7 @@ class BookController extends Controller
         return view('story.show', compact('comments', 'book'));
     }
 
-    // public function reading(string $slug, string $chapter_slug, Request $request)
-    // {
-    //     // Tìm kiếm book dựa trên slug
-    //     $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
-
-    //     // Tăng giá trị của trường `view`
-    //     $book->increment('view');
-    //     $book->increment('views_week');
-    //     $book->increment('views_month');
-
-    //     // Reset lượt xem tuần và tháng
-    //     $this->resetWeeklyViews();
-    //     $this->resetMonthlyViews();
-
-    //     // Tìm kiếm chapter dựa trên chapter_slug
-    //     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
-
-    //     // Lấy episode liên quan đến chapter
-    //     $episode = $chapter->episode()->with('chapters')->firstOrFail();
-
-    //     // Lấy danh sách các chapters trong episode của chapter hiện tại
-    //     $chapters = $episode->chapters;
-
-    //     // Kiểm tra xem người dùng có đăng nhập hay không
-    //     $user = auth()->user();
-    //     $fullContent = $chapter->content;
-    //     $partialContent = null;
-    //     $canViewFullContent = false;
-    //     $CountComment = $chapter->countComments();
-    //     if ($chapter->price > 0) {
-    //         if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
-    //             $partialContent = $this->getPartialContent($fullContent);
-    //         } else {
-    //             $canViewFullContent = true;
-    //             $partialContent = $fullContent;
-    //         }
-    //     } else {
-    //         $canViewFullContent = true;
-    //         $partialContent = $fullContent;
-    //     }
-
-    //     // Lưu lịch sử đọc chương
-    //     $this->storeReadingHistory($book->id, $chapter->id);
-
-    //     return view('story.reading', compact('book', 'CountComment', 'episode', 'chapters', 'chapter', 'partialContent', 'fullContent', 'canViewFullContent'));
-    // }
+    
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();

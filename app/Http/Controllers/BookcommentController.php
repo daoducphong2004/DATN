@@ -28,7 +28,6 @@ class BookcommentController extends Controller
             'content' => 'required',
             'parent_id' => 'nullable|exists:book_comments,id'
         ]);
-
         bookcomment::create([
             'book_id' => $book_id,
             'user_id' => auth()->id(),

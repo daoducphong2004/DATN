@@ -17,7 +17,7 @@
                 @if (Auth::check())
                     <li>
                         @can('view-story', Auth::user())
-                            <a href="{{ route('books.approval') }}" style="color: #fe998a">Duyệt Truyện</a>
+                            <a href="{{ route('admin_stories_approval') }}" style="color: #fe998a">Duyệt Truyện</a>
                         @endcan
                     </li>
                     <li>

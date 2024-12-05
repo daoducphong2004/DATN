@@ -57,6 +57,15 @@
                                                 @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
                                                     <a href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
                                                 @endif
+                                                @if ($notification->type == 'App\Notifications\NewBookCommentNotification' && isset($notification->data['slug']))
+                                                    <a href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
+                                                @endif
+                                                @if ($notification->type == 'App\Notifications\NewChapCommentNotification' && isset($notification->data['chapter_slug']) && $notification->type == 'App\Notifications\NewChapCommentNotification')
+                                                    <a href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
+                                                @endif
+                                                @if ($notification->type == 'App\Notifications\NewForumCommentNotification' && isset($notification->data['id']))
+                                                    <a href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}"><span class="update-status no-chapters disabled">xem ngay</span></a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

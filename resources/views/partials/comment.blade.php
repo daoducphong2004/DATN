@@ -55,18 +55,20 @@
                                     <i class="fas fa-comment me-1"></i>
                                     <span class="likecount font-semibold">Trả lời</span>
                                 </a>
-                                <a class="self-center visible-toolkit-item do-like cursor-pointer">
-                                    @if (Auth::check() && Auth::user()->id === $comment->user_id)
-                                        <form action="{{ route('deleteComment', $comment->id) }}" method="POST"
-                                            class="inline">
+                                @if (Auth::check() && (Auth::user()->id === $comment->user_id || Auth::user()->role->name === 'mod'))
+                                    <a class="self-center visible-toolkit-item do-like cursor-pointer">
+                                        <form
+                                            action="{{ route('deleteComment', $comment->id) }}"
+                                            method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="likecount font-semibold">
+                                            <button type="submit"
+                                                class="likecount font-semibold">
                                                 <i class="fas fa-trash"></i> Xóa
                                             </button>
                                         </form>
-                                    @endif
-                                </a>
+                                    </a>
+                                @endif
                                 <a href="" class="likecount font-semibold">
                                     <span>{{ $comment->replies->count() }} đã trả lời</span>
                                 </a>
@@ -130,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="comment">
-                                <p><i>Bình luận này đã bị xoá.</i></p>
+                                <p><i>Bình luận này đã bị xoá bởi {{ \App\Models\User::find($comment->delete_by)->username }} </i></p>
                             </div>
                         </div>
                     </div>

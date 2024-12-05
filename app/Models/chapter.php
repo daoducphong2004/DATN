@@ -120,4 +120,18 @@ class chapter extends Model
         // If no next episode exists, return null (end of book)
         return null;
     }
+      // Hàm đếm số lượng chương có phí và miễn phí
+      public static function countChaptersByPrice()
+      {
+          // Đếm số lượng chương có phí (price > 0)
+          $paidChapters = self::where('price', '>', 0)->count();
+  
+          // Đếm số lượng chương miễn phí (price == 0)
+          $freeChapters = self::where('price', 0)->count();
+  
+          return [
+              'paid' => $paidChapters,
+              'free' => $freeChapters,
+          ];
+      }
 }

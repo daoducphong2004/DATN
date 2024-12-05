@@ -355,6 +355,8 @@ class BookController extends Controller
                 ->orderBy('last_read_at', 'desc')
                 ->where('book_id',$book->id) // Giới hạn 4 mục gần nhất
                 ->first();
+                // dd($readingHistories);
+
         } else {
             // Lấy lịch sử đọc từ cookie cho người dùng khách
             $cookieName = 'reading_history';

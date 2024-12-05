@@ -142,12 +142,14 @@
                                                     {{-- {{ dd($readingHistories[0]->slug) }} --}}
                                                     {{-- Kiểm tra xem người dùng đã đọc chưa để hiển thị nút "Tiếp tục đọc" --}}
                                                     @if (Auth::check())
+                                                        @if($hasReadBook)
                                                         <span class="button bg-success">
                                                             <a href="{{ route('truyen.chuong', [$book->slug, $readingHistories->chapter->slug]) }}"
                                                                 class="btn btn-secondary">
                                                                 Tiếp tục đọc
                                                             </a>
                                                         </span>
+                                                    @endif
                                                     @else
                                                         @if ($hasReadBook)
                                                             <span class="button bg-success">

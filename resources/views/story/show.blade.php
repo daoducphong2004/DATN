@@ -869,10 +869,8 @@
                                                                                     lời</span>
                                                                             </a>
                                                                         @endif
-
-                                                                        <a
-                                                                            class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                            @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                                                        @if (Auth::check() && (Auth::user()->id === $comment->user_id || Auth::user()->role->name === 'mod'))
+                                                                            <a class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                                 <form
                                                                                     action="{{ route('deleteComment', $comment->id) }}"
                                                                                     method="POST" class="inline">
@@ -883,8 +881,8 @@
                                                                                         <i class="fas fa-trash"></i> Xóa
                                                                                     </button>
                                                                                 </form>
-                                                                            @endif
-                                                                        </a>
+                                                                            </a>
+                                                                        @endif
 
                                                                         <a href="">
                                                                             <span
@@ -964,8 +962,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment">
-                                                                        <p><i>Bình luận này đã bị xoá bởi
-                                                                                {{ $comment->user->username }}.</i></p>
+                                                                        <p><i>Bình luận này đã bị xoá bởi {{ optional(\App\Models\User::find($comment->delete_by))->username ?? 'Người dùng không xác định' }}.</i></p>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -152,7 +152,10 @@ class BookcommentController extends Controller
 
         $allComments = $this->getAllComments($bookComment->id);
 
-        bookcomment::whereIn('id', $allComments)->update(['is_deleted' => true]);
+        bookcomment::whereIn('id', $allComments)->update([
+            'is_deleted' => true,
+            'delete_by' => auth()->id(),
+        ]);
 
 
         return redirect()->back()->with('success', 'Bình luận đã được xóa.');

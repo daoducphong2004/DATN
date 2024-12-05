@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -152,20 +153,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Letter::class);
     }
-    // Tính tổng số chương mà tác giả bán được
-    public function totalChaptersSold()
-    {
-        // Truy vấn các chương đã được bán thông qua giao dịch trong bảng Transaction
-        return $this->hasMany(Book::class)
-            ->join('transactions', 'books.id', '=', 'transactions.purchased_story_id')
-            ->where('transactions.status', 'completed')  // Lọc các giao dịch đã hoàn tất
-            ->join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
-            ->groupBy('purchased_stories.chapter_id')  // Nhóm theo ID chương
-            ->selectRaw('count(distinct purchased_stories.chapter_id) as total_chapters_sold')  // Đếm số chương đã bán
-            ->pluck('total_chapters_sold')
-            ->first();  // Trả về số chương đã bán
-    }
-
     public function myGroup()
     {
         return $this->belongsTo(group::class, 'group');
@@ -253,12 +240,85 @@ class User extends Authenticatable
     // Tính tổng doanh thu từ một cuốn sách cụ thể
     public function totalEarningsFromBook($bookId)
     {
-        return $this->hasMany(Book::class)
-            ->where('books.id', $bookId)
-            ->join('transactions', 'books.id', '=', 'transactions.purchased_story_id')
-            ->where('transactions.status', 'completed')  // Lọc các giao dịch đã hoàn tất
-            ->sum('transactions.amount');  // Tính tổng số tiền giao dịch
+        return $this->hasMany(Chapter::class, 'book_id', 'id') // Liên kết từ Book đến Chapter
+            ->join('purchased_stories', 'chapters.id', '=', 'purchased_stories.chapter_id') // Kết nối với bảng purchased_stories
+            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id') // Kết nối với bảng transactions
+            ->where('books.id', $bookId) // Lọc theo ID của sách
+            ->where('transactions.type', 'coin') // Lọc các giao dịch có loại là 'coin'
+            ->sum('transactions.amount'); // Tính tổng doanh thu từ các giao dịch
     }
-    // Tính tổng số chương đã bán từ tất cả các giao dịch trong bảng Transaction của tác giả
+    public function totalEarningsForAuthorFromBook($bookId, $authorId)
+    {
+        return $this->hasMany(Chapter::class, 'book_id', 'id') // Liên kết từ Book đến Chapter
+            ->join('purchased_stories', 'chapters.id', '=', 'purchased_stories.chapter_id') // Kết nối với bảng purchased_stories
+            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id') // Kết nối với bảng transactions
+            ->where('books.id', $bookId) // Lọc theo ID của sách
+            ->where('chapters.user_id', $authorId) // Lọc theo ID của tác giả
+            ->where('transactions.type', 'coin') // Lọc các giao dịch có loại là 'coin'
+            ->sum('transactions.amount'); // Tính tổng doanh thu từ các giao dịch
+    }
 
+
+    // Tính tổng số chương đã bán từ tất cả các giao dịch trong bảng Transaction của tác giả
+    public function totalChaptersSoldFromBook($bookId, $authorId)
+    {
+        return $this->hasMany(Chapter::class, 'book_id', 'id') // Liên kết từ Book đến Chapter
+            ->join('purchased_stories', 'chapters.id', '=', 'purchased_stories.chapter_id') // Kết nối với bảng purchased_stories
+            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id') // Kết nối với bảng transactions
+            ->where('books.id', $bookId) // Lọc theo ID của sách
+            ->where('transactions.type', 'coin') // Chỉ tính các giao dịch có loại là 'coin'
+            ->where('transactions.status', 'completed') // Chỉ tính các giao dịch hoàn tất
+            ->where('chapters.user_id', $authorId) // Lọc theo ID của tác giả
+            ->count('purchased_stories.chapter_id'); // Đếm số lần chương được bán
+    }
+    public function countUniqueBuyers($bookId)
+    {
+        return $this->hasMany(Chapter::class, 'book_id', 'id') // Liên kết từ Book đến Chapter
+            ->join('purchased_stories', 'chapters.id', '=', 'purchased_stories.chapter_id') // Kết nối với bảng purchased_stories
+            ->join('transactions', 'purchased_stories.id', '=', 'transactions.purchased_story_id') // Kết nối với bảng transactions
+            ->where('books.id', $bookId) // Lọc theo ID của sách
+            ->where('transactions.type', 'coin') // Chỉ tính các giao dịch bằng "coin"
+            ->where('transactions.status', 'completed') // Chỉ tính các giao dịch đã hoàn tất
+            ->distinct('purchased_stories.user_id') // Lọc những người dùng duy nhất
+            ->count('purchased_stories.user_id'); // Đếm số lượng người mua duy nhất
+    }
+    // Mối quan hệ với bảng payments
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    // Hàm đếm người dùng đã nạp tiền và chưa nạp tiền
+    public static function countUsersByPaymentStatus()
+    {
+        // Đếm số người dùng đã nạp tiền (có bản ghi trong bảng payments)
+        $usersWithPayments = self::whereHas('payments')->count();
+
+        // Đếm số người dùng chưa nạp tiền (không có bản ghi trong bảng payments)
+        $usersWithoutPayments = self::whereDoesntHave('payments')->count();
+
+        return [
+            'paid' => $usersWithPayments,
+            'unpaid' => $usersWithoutPayments,
+        ];
+    }
+    // Hàm đếm số lượng tác giả (người dùng có role_id = 5)
+    public static function countAuthors()
+    {
+        return self::where('role_id', 5)->count();  // Đếm số người dùng có role_id = 5
+    }
+    // Hàm lấy top 10 tác giả có doanh thu cao nhất
+    public static function topAuthorsByRevenue()
+    {
+        return DB::table('users')
+            ->join('wallets', 'users.id', '=', 'wallets.user_id')
+            ->join('transactions', 'wallets.id', '=', 'transactions.wallet_id')
+            ->whereIn('users.role_id', [1, 2, 3, 5, 7])  // Lọc theo role_id
+            ->where('transactions.type', 'coin')  // Lọc theo loại giao dịch 'coin'
+            ->select('users.id', 'users.username', DB::raw('SUM(transactions.amount) as total_revenue'))
+            ->groupBy('users.id', 'users.username')  // Nhóm theo user để tính tổng doanh thu
+            ->orderByDesc('total_revenue')  // Sắp xếp theo doanh thu giảm dần
+            ->limit(10)  // Lấy top 10 tác giả
+            ->get();
+    }
 }

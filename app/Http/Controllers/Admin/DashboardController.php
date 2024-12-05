@@ -6,101 +6,115 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\bookcomment;
 use App\Models\chapter;
+use App\Models\chaptercomment;
 use App\Models\episode;
+use App\Models\genre;
 use App\Models\Like_books;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
-
+use Illuminate\Cache\RateLimiting\Limit;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         // Đếm số lượng các bản ghi từ các bảng
-        $totalStories = Book::count();
-        $totalEpisodes = episode::count();
-        $totalChapters = chapter::count();
-        $totalUsers = User::count();
-        $purchasedStories = PurchasedStory::count();
-        $like_books = Like_books::count();
-        $bookView = Book::sum('view');
-        $bookComment = bookcomment::count();
+        $totalStories = Book::count(); // Tổng cộng sô struyeenj
+        $totalEpisodes = Episode::count(); // Tổng cộng số tập
+        $toplikebook = Book::topLikedBooks(); //Sách có lượt like nhiều nhất
+        $chapterCounts = Chapter::countChaptersByPrice(); // Tổng số coin của chapter (Sai)
+        $countAuthor = User::countAuthors();
+        $totalUsers = User::count(); //Tổng người dùng
+        $paymentUserStatusCounts = User::countUsersByPaymentStatus(); //Đếm người dùng nạp tiền và người dùng chưa nạp tiền
+        // Lấy số lượng truyện đã mua trong 7 ngày gần nhất
+        $purchasedStoriesLast7Days = PurchasedStory::where('created_at', '>=', Carbon::now()->subDays(7))
+            ->selectRaw('DATE(created_at) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+        $totalRevenueAuthor = Transaction::getTotalAmountByType('coin');
+        $totalRevenueAdmin = Transaction::getTotalAmountByType('admin');
+        $bookComment = bookcomment::count(); // Tổng cộng số comment của book
+        $chapterComment = chaptercomment::count(); // Tổng cộng số comment của book
         $totalRevenue = Transaction::sum('amount');
+        $toplikeGenre = genre::topLikedGenres(); // Thể loại có nhiều lượt thích nhất
+        $topViewGenre = genre::topViewedGenres(); // Thể loại có nhiều lượt xem nhất
+        $topAuthor = User::topAuthorsByRevenue(); // Xếp hạng tác giả
+        // Lấy số lượng người dùng đăng ký trong 7 ngày gần nhất
+        $newUsersLast7Days = User::selectRaw('DATE(created_at) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'desc')
+            ->get();
 
+        // Lấy số lượng truyện đã mua theo thể loại trong 7 ngày gần nhất
+        $purchasedStoriesByGenre = PurchasedStory::where('purchased_stories.created_at', '>=', Carbon::now()->subDays(7))
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            // Kết nối với bảng book_genre để lấy thể loại của mỗi truyện
+            ->join('book_genre', 'books.id', '=', 'book_genre.book_id')
+            ->join('genres', 'book_genre.genre_id', '=', 'genres.id')  // Kết nối với bảng genres để lấy tên thể loại
+            ->selectRaw('genres.name as genre, count(*) as count')
+            ->groupBy('genres.name')
+            ->limit(10)
+            ->get();
+        // Lấy bảng xếp hạng các truyện phổ biến nhất (mua nhiều nhất)
+        $topPurchasedBooks = PurchasedStory::where('purchased_stories.created_at', '>=', Carbon::now()->subDays(7))
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            ->selectRaw('books.title, count(*) as count, SUM(purchased_stories.price) AS totalCoin')
+            ->groupBy('books.title')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->get();
 
-        // Thống kê theo ngày hiện tại
-        $dailyStories = Book::whereDate('created_at', Carbon::today())->count();
-        $dailyEpisodes = episode::whereDate('created_at', Carbon::today())->count();
-        $dailyChapters = chapter::whereDate('created_at', Carbon::today())->count();
-        $dailyLike = Like_books::whereDate('created_at', Carbon::today())->count();
-        $dailyUsers = User::whereDate('created_at', Carbon::today())->count();
-        $dailyStories = PurchasedStory::whereDate('created_at', Carbon::today())->count();
-        $dailyBookComment = bookcomment::whereDate('created_at', Carbon::today())->count();
-        $dailyRevenue = Transaction::whereDate('created_at', Carbon::today())->sum('amount');
-
-
-        // Thống kê theo tháng hiện tại
-        $monthlyStories = Book::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyEpisodes = episode::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyChapters = chapter::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyLike = Like_books::whereDate('created_at', Carbon::now())->count();
-        $monthlyUsers = User::whereMonth('created_at', Carbon::now()->month)->count();
-        $purchasedStories = PurchasedStory::whereMonth('created_at', Carbon::now()->month)->count();
-        $purchasedBookComment = bookcomment::whereMonth('created_at', Carbon::now()->month)->count();
-        $monthlyRevenue = Transaction::whereMonth('created_at', Carbon::now()->month)->sum('amount');
-
-
-        // Thống kê theo năm hiện tại
-        $yearlyStories = Book::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyEpisodes = episode::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyChapters = chapter::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyLike = Like_books::whereDate('created_at', Carbon::now())->count();
-        $yearlyUsers = User::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyStories = PurchasedStory::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyBookComment = bookcomment::whereYear('created_at', Carbon::now()->year)->count();
-        $yearlyRevenue = Transaction::whereYear('created_at', Carbon::now()->year)->sum('amount');
-
-
-
-        // Truyền dữ liệu sang view
-        return view('admin.dashboard', [
-            'totalStories' => $totalStories ?? 0,
-            'totalEpisodes' => $totalEpisodes ?? 0,
-            'totalChapters' => $totalChapters ?? 0,
-            'totalUsers' => $totalUsers ?? 0,
-            'purchasedStories' => $purchasedStories ?? 0,
-            'like_books' => $like_books ?? 0,
-            'bookView' => $bookView ?? 0,
-
-            'dailyStories' => $dailyStories ?? 0,
-            'dailyEpisodes' => $dailyEpisodes ?? 0,
-            'dailyChapters' => $dailyChapters ?? 0,
-            'dailyUsers' => $dailyUsers ?? 0,
-            'monthlyStories' => $monthlyStories ?? 0,
-            'monthlyEpisodes' => $monthlyEpisodes ?? 0,
-            'monthlyChapters' => $monthlyChapters ?? 0,
-            'monthlyUsers' => $monthlyUsers ?? 0,
-            'yearlyStories' => $yearlyStories ?? 0,
-            'yearlyEpisodes' => $yearlyEpisodes ?? 0,
-            'yearlyChapters' => $yearlyChapters ?? 0,
-            'yearlyUsers' => $yearlyUsers ?? 0,
-            'dailyLike' => $dailyLike ?? 0,
-            'monthlyLike' => $monthlyLike ?? 0,
-            'yearlyLike' => $yearlyLike ?? 0,
-            'dailyStories' => $dailyStories ?? 0,
-            'purchasedStories' => $purchasedStories ?? 0,
-            'yearlyStories' => $yearlyStories ?? 0,
-            'bookComment' => $bookComment ?? 0,
-            'dailyBookComment' => $dailyBookComment ?? 0,
-            'purchasedBookComment' => $purchasedBookComment ?? 0,
-            'yearlyBookComment' => $yearlyBookComment ?? 0,
-
-            'dailyRevenue' => $dailyRevenue ?? 0,
-            'monthlyRevenue' => $monthlyRevenue ?? 0,
-            'yearlyRevenue' => $yearlyRevenue ?? 0,
-            'totalRevenue' => $totalRevenue ?? 0,
-        ]);
+        $revenueAuthor = Transaction::revenueByDay('coin');
+        $revenueAdmin = Transaction::revenueByDay('admin');
+        // dd(compact(
+        //     'totalStories',
+        //     'totalEpisodes',
+        //     'toplikebook',
+        //     'chapterCounts',
+        //     'totalUsers',
+        //     'paymentUserStatusCounts',
+        //     'purchasedStoriesLast7Days',
+        //     'bookComment',
+        //     'totalRevenue',
+        //     'toplikeGenre',
+        //     'topViewGenre',
+        //     'topAuthor',
+        //     'newUsersLast7Days',
+        //     'purchasedStoriesByGenre',
+        //     'topPurchasedBooks',
+        //     'countAuthor',
+        //     'totalRevenueAuthor',
+        //     'totalRevenueAdmin',
+        //     'revenueAuthor',
+        //     'revenueAdmin'
+        // ));
+        // Truyền tất cả dữ liệu sang view bằng cách sử dụng compact
+        return view('admin.dashboard', compact(
+            'totalStories',
+            'totalEpisodes',
+            'toplikebook',
+            'chapterCounts',
+            'totalUsers',
+            'paymentUserStatusCounts',
+            'purchasedStoriesLast7Days',
+            'bookComment',
+            'totalRevenue',
+            'toplikeGenre',
+            'topViewGenre',
+            'topAuthor',
+            'newUsersLast7Days',
+            'purchasedStoriesByGenre',
+            'topPurchasedBooks',
+            'countAuthor',
+            'totalRevenueAuthor',
+            'totalRevenueAdmin',
+            'revenueAuthor',
+            'revenueAdmin'
+        ));
     }
 }

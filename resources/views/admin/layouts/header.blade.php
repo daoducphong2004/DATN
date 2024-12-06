@@ -210,7 +210,7 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
+                            <img class="rounded-circle header-profile-user" src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}"
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">

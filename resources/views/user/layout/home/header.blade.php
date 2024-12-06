@@ -1,159 +1,125 @@
-<nav class="navbar navbar-default" style="z-index: 999">
-    <div class="container-fluid">
+<header id="page-topbar">
+    <div class="layout-width">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/UserHome">Bảng điều khiển</a>
-        </div>
+            <div class="d-flex">
+                <!-- LOGO -->
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="img/apple-touch-icon-114x114" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="img/apple-touch-icon-114x114" alt="" height="17">
+                        </span>
+                    </a>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav ">
-                <li><a href="/" target="_blank"><i class="fas fa-home"></i><span class="hidden-md hidden-lg">
-                    Cổng Light Novel</span></a>
-                </li>
-                <li>
-                    @can('create')
-                        <a href="{{ route('story.create') }}" style="color: red">Thêm truyện</a>
-                    @endcan
-                </li>
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="img/apple-touch-icon-114x114" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="img/apple-touch-icon-114x114" alt="" height="17">
+                        </span>
+                    </a>
+                </div>
 
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #10b591"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Truyện dịch</a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #10b591">Truyện dịch <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="{{ route('manage.mytranslatebook') }}">Truyện đã đăng</a></li>
-                        <li><a href="{{ route('manage.booktranslateshared') }}">Truyện tham gia</a></li>
-                        </ul>
-                    @endif
-                </li>
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #e3953e"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Convert <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #e3953e">Convert <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                           <li><a href="{{ route('manage.myConvertbook') }}">Convert đã đăng</a>
-                        </li>
-                        <li><a href="{{ route('manage.bookConvertshared') }}">Convert tham
-                                gia</a></li>
-                        </ul>
-                    @endif
-                </li>
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: #1389c6"
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Sáng tác <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false" style="color: #1389c6">Sáng tác <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('manage.mybookOLN') }}">OLN đã đăng</a>
-                        </li>
-                        <li><a href="{{ route('manage.bookOLNshared') }}">OLN tham gia</a>
-                        </li>
-                        </ul>
-                    @endif
-                </li>
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class=""
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Thảo luận <span class="caret"></span></a>
-                    @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false">Thảo luận <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="themThaoLuan">Thêm thảo luận</a></li>
-                            <li><a href="thaoLuanCuaBan">Thảo luận của bạn</a></li>
-                        </ul>
-                    @endif
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false">Tiện ích <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="theLoai">Thể loại</a></li>
-                        <li><a href="thuVien">Thư viện</a></li>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
+                    id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+            </div>
 
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class=""
-                            onclick="alert(' Bạn cần phải đăng nhập trước')">Nhóm dịch <span class="caret"></span></a>
-                    @else
-                        <a href="{{ route('action.group.index') }}"  role="button"
-                            aria-expanded="false">Nhóm dịch </span></a>
-                        
+            <div class="d-flex align-items-center">
+
+                <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                        id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="bx bx-search fs-22"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-search-dropdown">
+                        <form class="p-3">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm ..."
+                                        aria-label="Recipient's username">
+                                    <button class="btn btn-primary" type="submit"><i
+                                            class="mdi mdi-magnify"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                        data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button"
+                        class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+                
+                <div class="dropdown ms-sm-3 header-item topbar-user">
+                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="d-flex align-items-center">
+                            <img class="rounded-circle header-profile-user" src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}"
+                                alt="Header Avatar">
+                            <span class="text-start ms-xl-2">
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
+                                    <a href="{{ Auth::check() ? '#' : route('login') }}">
+                                        @if (Auth::check() && Auth::user()->username)
+                                            {{ Auth::user()->username }}
+                                        @else
+                                            Bạn cần đăng nhập để xem thông tin này.
+                                        @endif
+                                    </a>
+                                </span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Tác giả</span>
+                            </span>
+                        </span>
+                    </button>
+                    @if (Auth::check())
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <h6 class="dropdown-header">Xin chào '{{ Auth::user()->username }}'</h6>
+                            <a class="dropdown-item" href="{{ route('user.books', ['userId' => Auth::user()->id]) }}"><i
+                                    class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle">Tài khoản</span></a>
+                            <a class="dropdown-item" href="apps-chat.html"><i
+                                    class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i>
+                                <span class="align-middle">Tin nhắn</span></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="pages-profile.html"><i
+                                    class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle">Số dư: <b>{{ Auth::user()->coin_earned }}💎</b></span></a>
+                            <a class="dropdown-item" href="pages-profile-settings.html"><span
+                                    class="badge bg-success-subtle text-success mt-1 float-end">New</span><i
+                                    class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle">Cài đặt</span></a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();"><i
+                                    class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                    class="align-middle" data-key="t-logout">Đăng xuất</span></a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                        </div>
                     @endif
-                </li>
-                <li>
-                    {{-- @can('view-contract', Auth::user()) --}}
-                        <a href="{{ route('contracts.index') }}" style="color: #12a724">Hợp Đồng</a>
-                    {{-- @endcan --}}
-                </li>
-                <li>
-                    @if(!Auth::check())
-                        <a href="{{ route('login') }}" class="" style="color: rgb(242, 0, 255)"
-                            onclick="alert('Bạn cần phải đăng nhập trước')">Nâng cấp</a>
-                    @else
-                        @can('upgrade', Auth::user())
-                            <a href="{{ route('author.create') }}" style="color: rgb(242, 0, 255)">Nâng cấp</a>
-                        @endcan
-                    @endif
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                @guest
-                    <li>
-                        <a href="{{ route('login') }}"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
-                    </li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-expanded="false"><span class="glyphicon glyphicon-user"> </span><span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a>
-                                    @if (Auth::check() && Auth::user()->username)
-                                        {{ Auth::user()->username }}
-                                    @endif
-                                </a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{ route('action.profile') }}">Đổi Thông Tin</a></li>
-                            <li><a href="">Đổi Mật Khẩu</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="">Đổi Email</a></li>
-                            <li><a href="">Đổi Username</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();"  class="link-underline link-underline-opacity-0"><i
-                                    class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span></a>
-
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                                {{-- <a href="https://docln.net/logout">Thoát</a> --}}
-                            </li>
-                        </ul>
-                    </li>
-                @endguest
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+</header>

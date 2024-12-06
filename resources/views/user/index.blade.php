@@ -1,6 +1,6 @@
 @extends('user.layout.master')
 @section('content')
-    <style>
+    {{-- <style>
         .card-header {
             font-size: 1.5rem;
             font-weight: bold;
@@ -43,7 +43,7 @@
             max-width: 100%;
             height: auto;
         }
-    </style>
+    </style> --}}
     <div class="container my-5">
         <div style="" class="row justify-content-center">
             <div class="col-md-12">

@@ -103,32 +103,38 @@ class UserController extends Controller
 
     public function update(StoreUserRequest $request, User $id)
     {
-        try {
+            // Xác thực dữ liệu đầu vào
+            $request->validate([
+                'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
+    
+            // Lấy tất cả dữ liệu từ form ngoại trừ avatar_url
             $data = $request->except('avatar_url');
             $old_image = $id->avatar_url;
-
-            // Không cập nhật ảnh
+    
+            // Không cập nhật ảnh nếu không có thay đổi
             $data['avatar_url'] = $old_image;
-
-            // Cập nhật ảnh
+    
+            // Nếu có ảnh mới thì xử lý và cập nhật ảnh
             if ($request->hasFile('avatar_url')) {
-                $path_image = $request->file('avatar_url')->store('images');
-                $data['avatar_url'] = $path_image;
-            }
-
-            // Cập nhật lên DB
-            $id->update($data);
-
-            if (isset($path_image)) {
-                if (file_exists('storage/' . $old_image)) {
-                    unlink('storage/' . $old_image);
+                // Xử lý lưu ảnh mới
+                $avatarPath = $request->file('avatar_url')->store('avatars', 'public');
+                $data['avatar_url'] = $avatarPath;
+    
+                // Xóa ảnh cũ nếu có
+                if ($old_image) {
+                    Storage::disk('public')->delete($old_image);
                 }
             }
+    
+            // Cập nhật dữ liệu vào DB
+            $id->update($data);
+    
+            // Trở lại trang danh sách với thông báo thành công
             return redirect()->route('user_index')->with('success', 'User updated successfully.');
-        } catch (Exception $e) {
-            return back()->withErrors(['error' => 'Failed to update User: ' . $e->getMessage()]);
-        }
     }
+    
+    
 
     public function destroy(User $id)
     {

@@ -53,7 +53,7 @@ class Transaction extends Model
             ->orderBy('date', 'desc')
             ->get();
     }
-
+    
     /**
      * Tổng số tiền theo loại giao dịch
      */

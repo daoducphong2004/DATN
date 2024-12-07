@@ -112,8 +112,9 @@
                             <!-- Biểu đồ doanh thu -->
                             <div class="mt-5">
                                 <h3 class="text-center">Biểu đồ doanh thu</h3>
-                                <canvas id="revenueChart"></canvas>
-                                <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
+                                <canvas id="revenueChart1" width="800" height="400"></canvas>
+
+
 
                             </div>
                             <div id="revenueByStory" class="mt-4"></div>
@@ -132,6 +133,8 @@
                     </div>
                 @endif
             </div>
+            <canvas id="revenueChart"></canvas>
+            <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
         </div>
     </div>
 
@@ -141,6 +144,64 @@
 
     @if ($ajax)
         <script>
+            // Lấy dữ liệu từ Laravel
+            const revenueData1 = @json($totalrevenuebydayandbook);
+
+            // Xử lý dữ liệu cho biểu đồ
+            const groupedData = {};
+            revenueData1.forEach(item => {
+                const {
+                    date,
+                    book_title,
+                    total_revenue
+                } = item;
+                if (!groupedData[date]) {
+                    groupedData[date] = {};
+                }
+                groupedData[date][book_title] = total_revenue;
+            });
+            // console.log(revenueData1)
+            const labels1 = Object.keys(groupedData); // Các ngày
+            const books = [...new Set(revenueData1.map(item => item.book_title))]; // Các truyện
+            // console.log(labels1)
+            const datasets = books.map(bookTitle => {
+                return {
+                    label: bookTitle,
+                    data: labels1.map(date => groupedData[date][bookTitle] || 0),
+                    backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`,
+                    borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
+                    borderWidth: 1,
+                };
+            });
+
+            // Tạo biểu đồ
+            const ctx1 = document.getElementById('revenueChart1').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line', // Dạng biểu đồ cột
+                data: {
+                    labels: labels1, // Các ngày
+                    datasets: datasets, // Doanh thu từng truyện
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Dates',
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total Revenue',
+                            },
+                        },
+                    },
+                },
+            });
             // Lấy dữ liệu từ controller
             const transactions = @json($transactions); // Biến $data từ controller
 

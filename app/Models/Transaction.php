@@ -53,7 +53,34 @@ class Transaction extends Model
             ->orderBy('date', 'desc')
             ->get();
     }
+    public static function revenuebydayandbybook($type = null, $walletId = null)
+    {
+        $query = self::where('transactions.status', 'completed'); // Chỉ lấy giao dịch hoàn tất
     
+        // Lọc theo loại giao dịch nếu có
+        if ($type) {
+            $query->where('transactions.type', $type);
+        }
+    
+        // Lọc theo ví nếu có
+        if ($walletId) {
+            $query->where('transactions.wallet_id', $walletId);
+        }
+    
+        return $query->join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
+            ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
+            ->join('books', 'chapters.book_id', '=', 'books.id')
+            ->select(
+                DB::raw('DATE(transactions.created_at) as date'),
+                'books.id as book_id',
+                'books.title as book_title',
+                DB::raw('SUM(transactions.amount) as total_revenue')
+            )
+            ->groupBy('date', 'books.id')
+            ->orderBy('date', 'desc')
+            ->orderBy('books.id')
+            ->get();
+    }
     /**
      * Tổng số tiền theo loại giao dịch
      */

@@ -385,7 +385,8 @@ class HomeController extends Controller
             // Lấy các giao dịch liên quan đến ví (nếu có)
             // Kiểm tra thông tin ví
             $transactions =Transaction::revenueByDay('coin',$wallet->id);
-
+            $totalrevenuebydayandbook = Transaction::revenuebydayandbybook('coin',$wallet->id);
+            // dd($totalrevenuebydayandbook);
             // dd($transactions);
             // Lấy Top 3 truyện có view cao nhất của tác giả
             $topBooksByView = Book::where('user_id', $user->id)
@@ -398,7 +399,7 @@ class HomeController extends Controller
                 ->get(['id', 'title', 'like']); // Chỉ lấy các trường cần thiết
             $ajax = true;
             // dd(compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
-            return view('user.index', compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
+            return view('user.index', compact('wallet','totalrevenuebydayandbook', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
         } else {
             $book = Book::count();
             $chapter = Chapter::count();

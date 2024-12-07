@@ -3,7 +3,7 @@
     tinymce.init({
     selector: 'textarea',
     inline: false,
-    height: 500,
+    // height: 500,
     skin: 'oxide',
     content_css: 'default',
     branding: false,

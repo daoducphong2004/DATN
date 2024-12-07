@@ -34,7 +34,7 @@ class WithdrawRequestController extends Controller
 
     public function index()
     {
-        $withdrawRequests = WithdrawRequest::where('status','pending');
+        $withdrawRequests = WithdrawRequest::where('status','pending')->get();
         return view('admin.withdraw.index', compact('withdrawRequests'));
     }
     public function HistoryAmin(){

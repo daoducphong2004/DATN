@@ -112,25 +112,29 @@
                             <!-- Biểu đồ doanh thu -->
                             <div class="mt-5">
                                 <h3 class="text-center">Biểu đồ doanh thu</h3>
-                                <canvas id="revenueChart" width="400" height="200"></canvas>
-                                <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
+                                <canvas id="revenueChart1" width="800" height="400"></canvas>
+
+
+
                             </div>
                             <div id="revenueByStory" class="mt-4"></div>
                         </div>
                     </div>
                 @else
-                <div class="panel panel-default">
-                    <div class="panel-heading">Home</div>
-    
-                    <div class="panel-body">
-                        <h4>Thống kê</h4>
-                        <p>Số truyện:{{ $book }}</p>
-                        <p>Số tập: {{ $episode }}</p>
-                        <p>Số chương: {{  $chapter  }}</p>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Home</div>
+
+                        <div class="panel-body">
+                            <h4>Thống kê</h4>
+                            <p>Số truyện:{{ $book }}</p>
+                            <p>Số tập: {{ $episode }}</p>
+                            <p>Số chương: {{ $chapter }}</p>
+                        </div>
                     </div>
-                </div>
                 @endif
             </div>
+            <canvas id="revenueChart"></canvas>
+            <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
         </div>
     </div>
 
@@ -139,73 +143,137 @@
 
 
     @if ($ajax)
-    <script>
-        $(document).ready(function() {
-            const userId = {{ Auth::id() }}; // ID của tác giả
-            const year = 2024; // Năm muốn thống kê
+        <script>
+            // Lấy dữ liệu từ Laravel
+            const revenueData1 = @json($totalrevenuebydayandbook);
 
-            // Gửi yêu cầu Ajax để lấy dữ liệu thống kê
-            $.ajax({
-                url: '/author/revenue-details/' + userId + '/' + year, // URL đến route đã tạo
-                method: 'GET',
-                success: function(response) {
-                    // Lấy dữ liệu thống kê từ phản hồi
-                    const totalRevenue = response.total_revenue;
-                    const revenueByStory = response.revenue_by_story;
-                    const topBooksByView = response.top_books_by_view;
+            // Xử lý dữ liệu cho biểu đồ
+            const groupedData = {};
+            revenueData1.forEach(item => {
+                const {
+                    date,
+                    book_title,
+                    total_revenue
+                } = item;
+                if (!groupedData[date]) {
+                    groupedData[date] = {};
+                }
+                groupedData[date][book_title] = total_revenue;
+            });
+            // console.log(revenueData1)
+            const labels1 = Object.keys(groupedData); // Các ngày
+            const books = [...new Set(revenueData1.map(item => item.book_title))]; // Các truyện
+            // console.log(labels1)
+            const datasets = books.map(bookTitle => {
+                return {
+                    label: bookTitle,
+                    data: labels1.map(date => groupedData[date][bookTitle] || 0),
+                    backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`,
+                    borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
+                    borderWidth: 1,
+                };
+            });
 
-                    // In dữ liệu ra console để kiểm tra
-                    console.log(response);
-
-                    // Chuẩn bị dữ liệu cho biểu đồ doanh thu theo câu chuyện
-                    const bookIds = [];
-                    const revenues = [];
-
-                    revenueByStory.forEach(function(item) {
-                        bookIds.push(item.title); // ID câu chuyện
-                        revenues.push(item.total_revenue); // Doanh thu
-                    });
-
-                    // Vẽ biểu đồ doanh thu theo câu chuyện
-                    const ctx = document.getElementById('revenueChart').getContext('2d');
-                    const chart = new Chart(ctx, {
-                        type: 'bar', // Loại biểu đồ
-                        data: {
-                            labels: bookIds, // ID câu chuyện
-                            datasets: [{
-                                label: 'Doanh thu (Coin)',
-                                data: revenues,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                fill: true,
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                }
-                            }
-                        }
-                    });
-
-                    // Hiển thị doanh thu tổng cộng
-                    $('#totalRevenue').text('Tổng doanh thu: ' + totalRevenue + ' Coin');
-
-                    // Hiển thị doanh thu theo từng câu chuyện
-                    let revenueStoryHtml = '';
-                    revenueByStory.forEach(function(item) {
-                        revenueStoryHtml += '<p>' + item.title + ': ' + item
-                            .total_revenue + ' Coin</p>';
-                    });
-                    $('#revenueByStory').html(revenueStoryHtml);
+            // Tạo biểu đồ
+            const ctx1 = document.getElementById('revenueChart1').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line', // Dạng biểu đồ cột
+                data: {
+                    labels: labels1, // Các ngày
+                    datasets: datasets, // Doanh thu từng truyện
                 },
-                error: function(error) {
-                    console.log('Lỗi: ', error);
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Dates',
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Total Revenue',
+                            },
+                        },
+                    },
+                },
+            });
+            // Lấy dữ liệu từ controller
+            const transactions = @json($transactions); // Biến $data từ controller
+
+            // Xử lý dữ liệu
+            const labels = transactions.map(transaction => transaction.date);
+            const revenueData = transactions.map(transaction => parseFloat(transaction.total_revenue));
+
+            // Vẽ biểu đồ
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(ctx, {
+                type: 'line', // Loại biểu đồ là đường
+                data: {
+                    labels: labels, // Dữ liệu ngày
+                    datasets: [{
+                        label: 'Doanh thu theo ngày (🪙)', // Tiêu đề biểu đồ
+                        data: revenueData, // Dữ liệu doanh thu
+                        borderColor: 'rgba(75, 192, 192, 1)', // Màu đường biểu đồ
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
                 }
             });
-        });
-    </script>
+            $(document).ready(function() {
+                const userId = {{ Auth::id() }}; // ID của tác giả
+                const year = 2024; // Năm muốn thống kê
+
+                // Gửi yêu cầu Ajax để lấy dữ liệu thống kê
+                $.ajax({
+                    url: '/author/revenue-details/' + userId + '/' + year, // URL đến route đã tạo
+                    method: 'GET',
+                    success: function(response) {
+                        // Lấy dữ liệu thống kê từ phản hồi
+                        const totalRevenue = response.total_revenue;
+                        const revenueByStory = response.revenue_by_story;
+                        const topBooksByView = response.top_books_by_view;
+
+                        // In dữ liệu ra console để kiểm tra
+                        console.log(response);
+
+                        // Chuẩn bị dữ liệu cho biểu đồ doanh thu theo câu chuyện
+                        const bookIds = [];
+                        const revenues = [];
+
+                        revenueByStory.forEach(function(item) {
+                            bookIds.push(item.title); // Tiêu đề câu chuyện
+                            revenues.push(item.total_revenue); // Doanh thu
+                        });
+                        // Hiển thị doanh thu tổng cộng
+                        $('#totalRevenue').text('Tổng doanh thu: ' + totalRevenue + ' Coin');
+
+                        // Hiển thị doanh thu theo từng câu chuyện
+                        let revenueStoryHtml = '';
+                        revenueByStory.forEach(function(item) {
+                            revenueStoryHtml += '<p>' + item.title + ': ' + item.total_revenue +
+                                ' Coin</p>';
+                        });
+                        $('#revenueByStory').html(revenueStoryHtml);
+                    },
+                    error: function(error) {
+                        console.log('Lỗi: ', error);
+                    }
+                });
+            });
+        </script>
     @endif
 
 

@@ -25,18 +25,25 @@ class purchaseStoryController extends Controller
 
         return view('user.purchasebookshelf', compact('purchasedBooks'));
     }
-    public function createOrder()
+    public function createOrder(Request $request)
     {
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để mua các chương này.');
+            return back()->with('error', 'Bạn cần đăng nhập để mua các chương này.');
         }
 
         $user = Auth::user();
-        $cartItems = Cart::where('user_id', $user->id)->get();
 
-        // Kiểm tra nếu giỏ hàng rỗng
+        // Lấy danh sách ID các mục được chọn từ request
+        $selectedItemIds = $request->input('selected_items');
+        if (empty($selectedItemIds)) {
+            return back()->with('error', 'Vui lòng chọn ít nhất một mục để thanh toán.');
+        }
+
+        $cartItems = Cart::where('user_id', $user->id)->whereIn('id', $selectedItemIds)->get();
+
+        // Kiểm tra nếu không có mục nào trong giỏ hàng hoặc không hợp lệ
         if ($cartItems->isEmpty()) {
-            return response()->json(['status' => 'error', 'message' => 'Giỏ hàng trống.']);
+            return back()->with('error', 'Không tìm thấy mục nào để thanh toán.');
         }
 
         // Lọc các chương đã mua
@@ -46,7 +53,7 @@ class purchaseStoryController extends Controller
 
         // Kiểm tra nếu tất cả các chương đã được mua
         if ($cartItems->isEmpty()) {
-            return response()->json(['status' => 'error', 'message' => 'Tất cả các chương trong giỏ hàng đã được mua.']);
+            return back()->with('error', 'Tất cả các chương được chọn đã được mua.');
         }
 
         // Tính tổng giá tiền
@@ -56,8 +63,9 @@ class purchaseStoryController extends Controller
 
         // Kiểm tra số dư coin của người dùng
         if ($user->coin_earned < $totalPrice) {
-            return response()->json(['status' => 'error', 'message' => 'Bạn không đủ coin để mua các chương này.']);
+            return back()->with('error', 'Bạn không đủ coin để mua các chương này.');
         }
+
 
         try {
             DB::beginTransaction();
@@ -110,39 +118,40 @@ class purchaseStoryController extends Controller
                     'status' => 'completed'
                 ]);
 
-               // Cập nhật ví admin
-               $adminWallet = Wallet::where('user_id', 99999)->first(); // Giả sử admin có user_id là 1
-               if (!$adminWallet) {
-                   $adminWallet = Wallet::create([
-                       'user_id' => 99999,
-                       'balance' => 0,
-                       'currency' => 'coin'
-                   ]);
-               }
-               $adminWallet->increment('balance', $adminEarnings);
+                // Cập nhật ví admin
+                $adminWallet = Wallet::where('user_id', 99999)->first(); // Giả sử admin có user_id là 99999
+                if (!$adminWallet) {
+                    $adminWallet = Wallet::create([
+                        'user_id' => 99999,
+                        'balance' => 0,
+                        'currency' => 'coin'
+                    ]);
+                }
+                $adminWallet->increment('balance', $adminEarnings);
 
-               // Tạo giao dịch cho admin
-               Transaction::create([
-                   'wallet_id' => $adminWallet->id,
-                   'purchased_story_id' => $purchasedStory->id,
-                   'amount' => $adminEarnings,
-                   'type' => 'admin',
-                   'description' => 'Admin earnings from chapter purchase',
-                   'status' => 'completed'
-               ]);
+                // Tạo giao dịch cho admin
+                Transaction::create([
+                    'wallet_id' => $adminWallet->id,
+                    'purchased_story_id' => $purchasedStory->id,
+                    'amount' => $adminEarnings,
+                    'type' => 'admin',
+                    'description' => 'Admin earnings from chapter purchase',
+                    'status' => 'completed'
+                ]);
 
                 // Xóa chương khỏi giỏ hàng
                 $item->delete();
             }
 
             DB::commit();
-
-            return response()->json(['status' => 'success', 'message' => 'Thanh toán thành công!']);
+            // Your code for processing the payment
+            return back()->with('status', 'success')->with('message', 'Thanh toán thành công!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['status' => 'error', 'message' => 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage()]);
+            return back()->with('status', 'error')->with('message', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
         }
     }
+
 
     public function purchaseAllChaptersInEpisode($episodeId)
     {

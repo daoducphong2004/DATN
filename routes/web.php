@@ -65,7 +65,7 @@ Route::get('reset', [AccountController::class, 'reset']);
 
 Route::get('convert', [HomeController::class, 'convert']);
 Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sangtac', [HomeController::class, 'sangtac']);
+
 Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 // Route::get('gioithieu', [UserController::class, 'gioithieu']);
@@ -73,7 +73,7 @@ Route::get('xuatban', [HomeController::class, 'xuatban']);
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
 // Route::get('vuadang', [HomeController::class, 'vuadang']);
-Route::get('sang-tac', [HomeController::class, 'sangtac'])->name('sangtac');
+
 Route::get('xuat-ban', [HomeController::class, 'xuatban'])->name('xuatban');
 
 Route::get('huongdan_dangtruyen', [HomeController::class, 'huongdan_dangtruyen']);
@@ -81,7 +81,7 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu']);
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy']);
 
 Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
+
 
 
 Route::post('/sendEmail', [LetterController::class, 'store'])->name('Letter.send');
@@ -94,8 +94,7 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])-
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
 // Route::get('search', [HomeController::class, 'search']);
-Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
+
 // Route::get('taikhoan', [HomeController::class, 'taikhoan'])->name('taikhoan');
 
 Route::get('convert', [HomeController::class, 'convert'])->name('convert');
@@ -109,7 +108,6 @@ Route::get('huongdan_gioithieu', [HomeController::class, 'huongdan_gioithieu'])-
 Route::get('huongdan_gopy', [HomeController::class, 'huongdan_gopy'])->name('huongdan_gopy');
 
 Route::get('ke-sach', [HomeController::class, 'kesach'])->name('ke-sach');
-Route::get('lich-su', [HomeController::class, 'lichsu'])->name('lich-su');
 Route::get('thong-bao', [HomeController::class, 'thongbao'])->name('thong-bao');
 
 Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'getAuthorRevenueDetails']);
@@ -293,10 +291,10 @@ Route::middleware(['auth'])->group(function () {
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
-    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.delete');
     Route::get('/cart/count', [CartController::class, 'getCartCount']);
     Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
-    Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
+    Route::post('/order/create', [purchaseStoryController::class, 'createOrder'])->name('order.create');
     Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
         ->name('user.books.history');
 

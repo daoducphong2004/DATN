@@ -25,7 +25,6 @@ class Book extends Model
         'group_id',
         'user_id',
         'Is_Inspect',
-        'price',
         'views_week',
         'views_month',
     ];
@@ -52,9 +51,9 @@ class Book extends Model
     }
     public function totalChapterPrice()
     {
-
-        return $this->chapters->sum('price');
+        return $this->chapters->where('approval', 1)->sum('price');
     }
+
     public function group()
     {
         return $this->belongsTo(group::class, 'group_id');
@@ -68,9 +67,6 @@ class Book extends Model
     {
         return $this->hasMany(bookcomment::class);
     }
-
-
-
     public function groups()
     {
         return $this->belongsTo(group::class);
@@ -91,8 +87,6 @@ class Book extends Model
     {
         return $this->hasMany(SharedBook::class);
     }
-
-
     public function allChaptersPurchased($userId)
     {
         $totalChapters = $this->chapters()->where('price', '>', 0)->count();
@@ -102,7 +96,20 @@ class Book extends Model
 
         return $totalChapters === $purchasedChapters;
     }
-        
+    // Hàm lấy top 3 quyển sách có lượt like nhiều nhất
+    public static function topLikedBooks()
+    {
+        return self::orderByDesc('like') // Sắp xếp theo số lượt like giảm dần
+            ->take(3) // Lấy 3 quyển sách đầu tiên
+            ->get();
+    }
+    // Hàm lấy top 10 truyện có lượt view cao nhất
+    public static function topViewedBooks()
+    {
+        return self::orderByDesc('view') // Sắp xếp theo lượt view giảm dần
+            ->take(10) // Lấy 10 truyện đầu tiên
+            ->get();
+    }
     public function allChaptersinEpisodePurchased($userId, $episodeId)
     {
         // Tổng số chương có giá trị trong tập truyện

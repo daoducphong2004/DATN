@@ -10,16 +10,16 @@ class ApprovalHistory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'book_id',
+        'chapter_id',
         'user_id',
         'reason',
         'status', // Thêm cột mới
 
     ];
 
-    public function book()
+    public function chapter()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(chapter::class);
     }
 
     public function user()

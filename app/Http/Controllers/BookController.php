@@ -60,52 +60,7 @@ class BookController extends Controller
         return view('story.show', compact('comments', 'book'));
     }
 
-    // public function reading(string $slug, string $chapter_slug, Request $request)
-    // {
-    //     // Tìm kiếm book dựa trên slug
-    //     $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
 
-    //     // Tăng giá trị của trường `view`
-    //     $book->increment('view');
-    //     $book->increment('views_week');
-    //     $book->increment('views_month');
-
-    //     // Reset lượt xem tuần và tháng
-    //     $this->resetWeeklyViews();
-    //     $this->resetMonthlyViews();
-
-    //     // Tìm kiếm chapter dựa trên chapter_slug
-    //     $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
-
-    //     // Lấy episode liên quan đến chapter
-    //     $episode = $chapter->episode()->with('chapters')->firstOrFail();
-
-    //     // Lấy danh sách các chapters trong episode của chapter hiện tại
-    //     $chapters = $episode->chapters;
-
-    //     // Kiểm tra xem người dùng có đăng nhập hay không
-    //     $user = auth()->user();
-    //     $fullContent = $chapter->content;
-    //     $partialContent = null;
-    //     $canViewFullContent = false;
-    //     $CountComment = $chapter->countComments();
-    //     if ($chapter->price > 0) {
-    //         if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
-    //             $partialContent = $this->getPartialContent($fullContent);
-    //         } else {
-    //             $canViewFullContent = true;
-    //             $partialContent = $fullContent;
-    //         }
-    //     } else {
-    //         $canViewFullContent = true;
-    //         $partialContent = $fullContent;
-    //     }
-
-    //     // Lưu lịch sử đọc chương
-    //     $this->storeReadingHistory($book->id, $chapter->id);
-
-    //     return view('story.reading', compact('book', 'CountComment', 'episode', 'chapters', 'chapter', 'partialContent', 'fullContent', 'canViewFullContent'));
-    // }
     public function reading(string $slug, string $chapter_slug, Request $request)
     {
         $book = Book::where('slug', $slug)->where('Is_Inspect', 1)->with('episodes')->firstOrFail();
@@ -388,8 +343,60 @@ class BookController extends Controller
     {
         // Lấy thông tin sách với các quan hệ
         $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
-        $books = Book::inRandomOrder()->limit(5)->get();
+        $booksRandom = Book::inRandomOrder()->limit(5)->get();
+        // Lấy lịch sử đọc của người dùng
+        $readingHistories = [];
+        $user = User::with('contract')->find(Auth::id());
 
+        if ($user) {
+            // Lấy lịch sử đọc từ cơ sở dữ liệu cho người dùng đã đăng nhập
+            $readingHistories = ReadingHistory::where('user_id', $user->id)
+                ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
+                ->orderBy('last_read_at', 'desc')
+                ->where('book_id',$book->id) // Giới hạn 4 mục gần nhất
+                ->first();
+                // dd($readingHistories);
+
+        } else {
+            // Lấy lịch sử đọc từ cookie cho người dùng khách
+            $cookieName = 'reading_history';
+            $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
+        
+            if (!empty($readingHistoriesFromCookie)) {
+                // Lọc lịch sử đọc theo book_id khớp với $book->id
+                $filteredReadingHistories = array_filter($readingHistoriesFromCookie, function ($history) use ($book) {
+                    return $history['book_id'] == $book->id; // Lọc theo book_id
+                });
+        
+                // Nếu có lịch sử đọc phù hợp
+                if (!empty($filteredReadingHistories)) {
+                    // Lấy ID chương từ lịch sử đọc đã lọc
+                    $chapterIds = array_unique(array_column($filteredReadingHistories, 'chapter_id'));
+        
+                    // Lấy các chương và bao gồm episode và book
+                    $readingHistories = Chapter::whereIn('id', $chapterIds)
+                        ->with(['episode.book']) // eager load episode và book
+                        ->get();
+                } else {
+                    // Nếu không có lịch sử đọc phù hợp, trả về một mảng trống hoặc giá trị mặc định khác
+                    $readingHistories = collect([]);
+                }
+            }
+        }
+        
+        if($readingHistories){
+            if(Auth::check()){
+                $hasReadBook = true;
+            }else{
+            $hasReadBook = $readingHistories->contains(function ($history) use ($book) {
+                return $history->book_id == $book->id; // Kiểm tra xem truyện có trong lịch sử đọc không
+            });
+        }
+        }else{
+            $hasReadBook = false;
+        }
+        
+        // dd($readingHistories,$booksRandom);
         // Kiểm tra trường Is_Inspect
         if ($book->Is_Inspect == 0) {
             abort(403, 'Truyện này chưa được kiểm duyệt');
@@ -469,8 +476,14 @@ class BookController extends Controller
                 $purchaseStats['total_views'] += $views;
             }
         }
+        $firstEpisode = $book->episodes()->orderBy('order', 'asc')->first(); // Lấy episode đầu tiên
 
-        return view('story.show', compact('book', 'books', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
+        if ($firstEpisode) {
+            // Lấy chapter đầu tiên của episode đầu tiên dựa trên 'order' bằng 0
+            $firstChapter = $firstEpisode->chapters()->where('order', 1)->first();
+        }
+        
+        return view('story.show', compact('book','readingHistories', 'booksRandom','firstChapter','hasReadBook', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
 
 

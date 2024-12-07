@@ -83,7 +83,7 @@
                                 replyButton = ''; // Ẩn nút trả lời nếu bình luận đã bị xóa
                             } else {
                                 // Nếu comment không bị xóa, cho phép thêm nút xoá
-                                if (comment.user.id == userId || ) {
+                                if (comment.user.id == userId ) {
                                     deleteButton = `
             <a class="self-center visible-toolkit-item span-delete cursor-pointer" data-id-delete='${comment.id}'>
                 <i class="fas fa-times"></i>
@@ -264,11 +264,8 @@
                 );
             }
         }
-
-
         // Tải bình luận khi trang được tải
         loadComments(chapterId, page = 1);
-
     });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>

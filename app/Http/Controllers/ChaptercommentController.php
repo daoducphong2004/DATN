@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewChapCommentCreated;
+use App\Models\chapter;
 use App\Models\chaptercomment;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,8 +34,29 @@ class ChaptercommentController extends Controller
         $chapterComment->user_id = Auth::id(); // Lấy user hiện tại
         $chapterComment->save();
 
-        // Trả về response (có thể là HTML để render)
+        $chapter = chapter::findOrFail($validatedData['chapter_id']);
+        $authorId = $chapter->book->user_id;
 
+        if ($authorId !== Auth::id()) {
+            $author = User::find($authorId);
+
+            if ($author) {
+                $author->notifications()->create([
+                    'type' => 'App\Notifications\NewChapCommentNotification',
+                    'notifiable_id' => $authorId,
+                    'notifiable_type' => 'App\Models\User',
+                    'data' => [
+                        'message' => '<strong>' . Auth::user()->username . '</strong> đã bình luận chương <strong>' . $chapter->title . '</strong> trong truyện <strong>' . $chapter->book->title . '</strong> của bạn',
+                        'slug' => $chapter->book->slug,
+                        'chapter_slug' => $chapter->slug,
+                    ],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+
+    // Trả về response (có thể là HTML để render)
         return response()->json([
             'status' => 'success',
         ]);

@@ -19,6 +19,7 @@ class chapter extends Model
         'user_id',
         'book_id',
         'order',
+        'approval',
     ];
 
     public function book()
@@ -62,6 +63,7 @@ class chapter extends Model
     {
         // Find the previous chapter in the same episode
         $previousChapter = $this->where('episode_id', $this->episode_id)
+            ->where('approval', 1)
             ->where('order', '<', $this->order)
             ->orderBy('order', 'desc')
             ->first();
@@ -92,6 +94,7 @@ class chapter extends Model
     {
         // Find the next chapter in the same episode
         $nextChapter = $this->where('episode_id', $this->episode_id)
+            ->where('approval', 1)
             ->where('order', '>', $this->order)
             ->orderBy('order', 'asc')
             ->first();
@@ -117,4 +120,18 @@ class chapter extends Model
         // If no next episode exists, return null (end of book)
         return null;
     }
+      // Hàm đếm số lượng chương có phí và miễn phí
+      public static function countChaptersByPrice()
+      {
+          // Đếm số lượng chương có phí (price > 0)
+          $paidChapters = self::where('price', '>', 0)->count();
+  
+          // Đếm số lượng chương miễn phí (price == 0)
+          $freeChapters = self::where('price', 0)->count();
+  
+          return [
+              'paid' => $paidChapters,
+              'free' => $freeChapters,
+          ];
+      }
 }

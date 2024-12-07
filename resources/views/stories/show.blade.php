@@ -1,6 +1,4 @@
-@extends('stories.partials.master')
-@include('stories.partials.header')
-
+@extends('user.layout.master')
 @section('content')
 <div class="wrapper container-fluid" style="height: 100vh;">
     <!-- Nút bật/tắt khung quản lý chỉ hiển thị trên các thiết bị nhỏ -->

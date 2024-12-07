@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewForumCommentCreated;
 use App\Models\Forum;
 use App\Models\ForumComment;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class ForumCommentController extends Controller
      */
     public function create(string $id)
     {
-            
+
     }
 
     /**
@@ -39,14 +40,16 @@ class ForumCommentController extends Controller
             $userID = 1;
         }
         $add_forum_comment = [
-            
+
             'content' => $request->content,
             'user_id' => $userID,
             'forum_id'=>$data->id,
             'parent_id'=>$request->forum_parent_id,
             'created_at' => Carbon::now()
         ];
-        ForumComment::query()->create($add_forum_comment);
+        $forumComment = ForumComment::query()->create($add_forum_comment);
+
+        event(new NewForumCommentCreated($data, $forumComment));
         return back();
     }
 

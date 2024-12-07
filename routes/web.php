@@ -291,10 +291,10 @@ Route::middleware(['auth'])->group(function () {
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
-    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.delete');
     Route::get('/cart/count', [CartController::class, 'getCartCount']);
     Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
-    Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
+    Route::post('/order/create', [purchaseStoryController::class, 'createOrder'])->name('order.create');
     Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
         ->name('user.books.history');
 

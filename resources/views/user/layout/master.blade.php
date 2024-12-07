@@ -56,7 +56,9 @@
         @include('user.layout.home.sidebar')
         <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
-        <div class="vertical-overlay"></div>
+        <div class="vertical-overlay">
+            
+        </div>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->

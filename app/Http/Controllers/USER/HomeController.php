@@ -374,6 +374,7 @@ class HomeController extends Controller
         if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
             // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
             $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
+            // dd($wallet);
             // Kiểm tra nếu tác giả có truyện nhưng chưa có ví
             if ($user->books()->exists() && !$wallet) {
                 // Tạo một ví mới cho tác giả
@@ -386,6 +387,7 @@ class HomeController extends Controller
             // Kiểm tra thông tin ví
             $transactions =Transaction::revenueByDay('coin',$wallet->id);
             $totalrevenuebydayandbook = Transaction::revenuebydayandbybook('coin',$wallet->id);
+            $test = Transaction::revenueBookWithDate('coin', $wallet->id,'2024-12-05');
             // dd($totalrevenuebydayandbook);
             // dd($transactions);
             // Lấy Top 3 truyện có view cao nhất của tác giả
@@ -399,7 +401,7 @@ class HomeController extends Controller
                 ->get(['id', 'title', 'like']); // Chỉ lấy các trường cần thiết
             $ajax = true;
             // dd(compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
-            return view('user.index', compact('wallet','totalrevenuebydayandbook', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
+            return view('user.index', compact('wallet','test','totalrevenuebydayandbook', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
         } else {
             $book = Book::count();
             $chapter = Chapter::count();
@@ -428,8 +430,23 @@ class HomeController extends Controller
         ]);
     }
 
+    public function statistics_list(){
+        if(Auth::check()){
+            $user = User::findOrFail(Auth::user()->id);
+            $mybooks = Book::where('user_id', $user->id)->paginate(12);
+            $bookshare = $user->sharedBooks()->paginate(5); // Truyện user được chia sẻ quyền
+            // dd($mybooks,$bookshare);
+            return view('action.statistics_list.index',compact('user','mybooks','bookshare'));
 
-
+        }else{
+            return redirect()->route('login');
+            }
+    }
+    public function statistics_view($userId, $year = null)
+    {
+        $user = User::findOrFail($userId);
+        $data = Transaction::revenueByDateRangeAndBook('coin',$user->wallet->id,);
+    }
 
     public function createTruyen()
     {

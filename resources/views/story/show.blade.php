@@ -678,7 +678,7 @@
                                                             @else
                                                                 {{-- Kiểm tra người dùng đã mua chương chưa --}}
                                                                 @if (auth()->check() &&
-                                                                        auth()->user()->hasPurchased($chapter->id))
+                                                                        auth()->user()->hasPurchased($chapter->id) || ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
                                                                     {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
@@ -696,7 +696,7 @@
                                                                         <span
                                                                             style="margin-left: 10px;">{{ $chapter->price }}
                                                                             coins</span>
-                                                                    </span>
+                                                                        </span>
                                                                 @endif
                                                             @endif
                                                         </div>

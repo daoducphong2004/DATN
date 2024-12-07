@@ -88,7 +88,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('user_index') }}">
+                    <a class="nav-link menu-link" href="{{ route('action.statistics-list') }}">
                         <i class="ri-pie-chart-2-line"></i> <span data-key="t-widgets">Thống kê</span>
                     </a>
                 </li>

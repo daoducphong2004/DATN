@@ -17,15 +17,15 @@
                             <input type="hidden" name="episode_id" value="{{ $episode->id }}">
 
                             <div class="form-group clearfix required">
-                                <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
-                                <div class="col-md-8">
+                                <label class="col control-label pt-7 text-right">Tiêu đề</label>
+                                <div class="col-md-12">
                                     <input type="text" class="form-control" name="title" value="{{ $episode->title }}">
                                 </div>
                             </div>
                             @include('stories.iframe.partials.css_script')
                             <div class="form-group clearfix">
-                                <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa</label>
-                                <div class="col-md-8">
+                                <label class="col control-label pt-7 text-right">Ảnh bìa</label>
+                                <div class="col-md-12">
                                     <div id="upload" class="series_cover">
                                         <div id="drop">
                                             <a id="selectImageBtn">Chọn ảnh</a>

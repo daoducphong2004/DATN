@@ -114,12 +114,12 @@ Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'g
 Route::get('author/transactions/{wallet_id}', [TransactionController::class, 'showTransactions'])->name('user.transactions');
 
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
-Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
+// Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+// Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+// Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
+// Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+// Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+// Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
@@ -252,9 +252,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
 
         //Gọi api thống kê
-        Route::get('danh-sach-truyen',[HomeController::class,'statistics_list'])->name('statistics-list');
+        Route::get('/thong-ke/danh-sach',[HomeController::class,'statistics_list'])->name('statistics-list');
+        Route::get('/thong-ke/{id}', [HomeController::class,'statistics_view'])->name('statistics-view');
         Route::get('/api/revenue-by-date', [TransactionController::class, 'getRevenueData'])->name('rbd');
-
+        Route::get('/api/revenue-by-story', [TransactionController::class, 'getRevenueBookData'])->name(name: 'rbbd');
+        Route::get('/api/revenue-by-chapter',  [TransactionController::class, 'getRevenueBookChapterData'])->name(name: 'rbbcd');
+        Route::get('/api/get-user-buy-chapter',[purchaseStoryController::class,'getUserBuyChapter'])->name('gubc');
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {

@@ -87,7 +87,7 @@
                             <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                 <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_{{ $item->id }}">
 
-                                    <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                    <a href="{{ route('action.statistics-view', $item->id) }}"
                                         title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                         <div class="a6-ratio">
                                             <div class="content img-in-ratio lazyload"
@@ -97,7 +97,7 @@
                                     </a>
                                 </div>
                                 <div class="thumb_attr series-title">
-                                    <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                    <a href="{{ route('action.statistics-view', $item->id) }}"
                                         title="{{ $item->title }}">{{ $item->title }}</a>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                             <div class="thumb-item-flow col-4 col-md-3 col-lg-2">
                                 <div class="thumb-wrapper ln-tooltip" data-tooltip-content="#series_{{ $item->id }}">
 
-                                    <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                    <a href="{{ route('action.statistics-view', $item->id) }}"
                                         title="{{ $item->episodes->last()->latestChapter->title ?? 'Chưa có chương truyện' }}">
                                         <div class="a6-ratio">
                                             <div class="content img-in-ratio lazyload"
@@ -123,7 +123,7 @@
                                     </a>
                                 </div>
                                 <div class="thumb_attr series-title">
-                                    <a href="{{ route('truyen.truyen', $item->slug) }}"
+                                    <a href="{{ route('action.statistics-view', $item->id) }}"
                                         title="{{ $item->title }}">{{ $item->title }}</a>
                                 </div>
                             </div>

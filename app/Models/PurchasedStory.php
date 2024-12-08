@@ -52,4 +52,22 @@ class PurchasedStory extends Model
         return self::where('user_id', $userId)
             ->sum('price');
     }
+
+    // Lấy thông tin người dùng đã mua chương trong khoảng thời gian
+    public static function getUsersByChapterInDateRange($chapterId, $startDate, $endDate)
+    {
+        // Sử dụng Eloquent để lấy thông tin người dùng đã mua chapter trong khoảng thời gian
+        return self::with('user')
+            ->where('chapter_id', $chapterId)
+            ->whereBetween('purchase_date', [$startDate, $endDate])
+            ->get()
+            ->map(function ($purchase) {
+                return [
+                    'user' => $purchase->user->username,
+                    'email' => $purchase->user->email,
+                    'purchase_date' => $purchase->purchase_date,
+                    'price' => $purchase->price,
+                ];
+            });
+    }
 }

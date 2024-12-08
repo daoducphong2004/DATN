@@ -605,4 +605,14 @@ class purchaseStoryController extends Controller
             return redirect()->back()->with('error', 'Đã xảy ra lỗi khi thanh toán: ' . $e->getMessage());
         }
     }
+    public function getUserBuyChapter(Request $request)
+    {
+        $chapter_id = $request->input('chapter_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        // Đảm bảo thứ tự tham số khớp với hàm 
+        $data = PurchasedStory::getUsersByChapterInDateRange($chapter_id, $startDate, $endDate);
+        return response()->json($data);
+    }
 }

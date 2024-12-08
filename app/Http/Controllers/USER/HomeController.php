@@ -371,6 +371,7 @@ class HomeController extends Controller
     public function Userhome()
     {
         $user = Auth::user();
+        // dd(Auth::user()->books()->where('Is_Inspect', 1)->exists());
         if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
             // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
             $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
@@ -442,10 +443,14 @@ class HomeController extends Controller
             return redirect()->route('login');
             }
     }
-    public function statistics_view($userId, $year = null)
+    public function statistics_view($id, $year = null)
     {
-        $user = User::findOrFail($userId);
-        $data = Transaction::revenueByDateRangeAndBook('coin',$user->wallet->id,);
+        $user = User::findOrFail(Auth::id());
+        $book = Book::findOrFail($id);
+        if($user->id != $book->user_id){
+            return response()->view('errors.403', [], 403);//Sau sẽ thêm cả danh sách người được chia sẻ
+        }
+        return view('action.statistics_list.view', compact('book'));
     }
 
     public function createTruyen()

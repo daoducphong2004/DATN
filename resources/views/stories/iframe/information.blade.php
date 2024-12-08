@@ -5,7 +5,7 @@
 
         <div class="container-fuild">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">Series</div>
 
@@ -31,8 +31,8 @@
                                 <input type="hidden" name="series_id" value="{{ $book->id }}">
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Tiêu đề</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="title"
                                             value="{{ $book->title }}">
                                     </div>
@@ -40,15 +40,15 @@
 
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label text-right"><b>Nội dung nhạy cảm?</b></label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label text-right"><b>Nội dung nhạy cảm?</b></label>
+                                    <div class="col-md-12">
                                         <input type="checkbox" name="adult" value="{{ $book->adult }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa</label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Ảnh bìa</label>
+                                    <div class="col-md-12">
                                         <div id="upload" class="series_cover">
                                             <div id="drop">
                                                 <a id="selectImageBtn">Chọn ảnh</a>
@@ -70,24 +70,24 @@
 
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Tác giả</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="author"
                                             value="{{ $book->author }}">
                                     </div>
                                 </div>
                                 {{-- {{ dd($book->genres) }} --}}
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label pt-7 text-right">Họa sĩ</label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Họa sĩ</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="painter"
                                             value="{{ $book->painter }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label pt-5 text-right">Loại truyện</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label pt-5 text-right">Loại truyện</label>
+                                    <div class="col-md-12">
                                         <select class="input-sm" name="type_display" disabled>
                                             <option @selected($book->type == 1) value="1">Truyện dịch</option>
                                             <option @selected($book->type == 2) value="2">Truyện convert</option>
@@ -99,8 +99,8 @@
                                 </div>
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-5 text-right">Nhóm dịch</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label pt-5 text-right">Nhóm dịch</label>
+                                    <div class="col-md-12">
                                         <select class="input-sm" name="group_id" id="select-group">
                                             <option value="1" selected>Hako Translation</option>
                                             <option value="2839">Nhóm của Phong</option>
@@ -110,8 +110,8 @@
                                 </div>
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-7 text-right">Thể loại</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label pt-7 text-right">Thể loại</label>
+                                    <div class="col-md-12">
                                         <select class="input-sm" name="genres[]" id="select-genre" multiple
                                             style="width: 100%">
                                             @foreach ($genres as $key => $value)
@@ -124,22 +124,22 @@
                                 </div>
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label text-right">Tóm tắt</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label text-right">Tóm tắt</label>
+                                    <div class="col-md-12">
                                         <textarea id="LN_Series_Summary" name="description">{!! $book->description !!}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label text-right">Chú thích thêm</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label text-right">Chú thích thêm</label>
+                                    <div class="col-md-12">
                                         <textarea class="form-control" id="extrainfo" name="note">{!! $book->note !!}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-5 text-right">Tình trạng dịch</label>
-                                    <div class="col-md-10">
+                                    <label class="col control-label pt-5 text-right">Tình trạng dịch</label>
+                                    <div class="col-md-12">
                                         <select class="input-sm" name="status" id='select-status'>
                                             <option value="1" {{ $book->status == 1 ? 'selected' : '' }}>Đang tiến
                                                 hành</option>
@@ -171,19 +171,24 @@
                                 </div>
                             </form>
 
-                            <script>
-                                $(document).ready(function() {
-                                    $('#select-group').select2();
-                                    $('#select-genre').select2({
-                                        closeOnSelect: false,
-                                    });
-                                });
-                            </script>
+                           
                         </div>
                     </div>
 
                 </div>
             </div>
         </div>
-
+        <script>
+            $(document).ready(function() {
+                $('#select-group').select2();
+                $('#select-genre').select2({
+                    closeOnSelect: false,
+                });
+            });
+        </script>
+        <style>
+            .form-control, #LN_Series_Summary, #extrainfo, #select-group, #select-genre, #select-status {
+                width: 100%;
+            }
+        </style>
     @endsection

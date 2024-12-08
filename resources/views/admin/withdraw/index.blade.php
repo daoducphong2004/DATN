@@ -16,7 +16,6 @@
                             <th>Người dùng</th>
                             <th>Số tiền</th>
                             <th>Trạng thái</th>
-                            <th>note</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -28,6 +27,7 @@
                                 <td>{{ $request->amount }}</td>
                                 <td>{{ $request->status }}</td>
                                 <td>
+                        
                                     <div class="btn-action" style="display: flex; gap: 5px;">
                                         @if ($request->status === 'pending')
                                             <form action="{{ route('admin.withdraw.update', $request->id) }}" method="POST">
@@ -48,6 +48,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @include('layouts.TinyMCEscriptNoImport')
                     </tbody>
                 </table>
             </div>

@@ -131,6 +131,38 @@
                                                         <a href="https://datn.test/truyen-dang-tien-hanh">Đang tiến hành</a>
                                                     </span>
                                                 </div>
+                                                <div class="info-item">
+                                                    {{-- Nút "Đọc từ đầu" --}}
+                                                    <span class="button button-red">
+                                                        <a href="{{ route('truyen.chuong', [$book->slug, $firstChapter->slug]) }}"
+                                                            class="btn btn-primary">
+                                                            Đọc từ đầu
+                                                        </a>
+                                                    </span>
+                                                    {{-- {{ dd($readingHistories[0]->slug) }} --}}
+                                                    {{-- Kiểm tra xem người dùng đã đọc chưa để hiển thị nút "Tiếp tục đọc" --}}
+                                                    @if (Auth::check())
+                                                        @if($hasReadBook)
+                                                        <span class="button bg-success">
+                                                            <a href="{{ route('truyen.chuong', [$book->slug, $readingHistories->chapter->slug]) }}"
+                                                                class="btn btn-secondary">
+                                                                Tiếp tục đọc
+                                                            </a>
+                                                        </span>
+                                                    @endif
+                                                    @else
+                                                        @if ($hasReadBook)
+                                                            <span class="button bg-success">
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $readingHistories[0]->slug]) }}"
+                                                                    class="btn btn-secondary">
+                                                                    Tiếp tục đọc
+                                                                </a>
+                                                            </span>
+                                                        @endif
+                                                    @endif
+
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="side-features flex-none">
@@ -192,13 +224,16 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <label for="open-report" class="side-feature-button" id="reportButton">
-                                                        <span class="block feature-value"><i class="fas fa-flag"></i></span>
+                                                    <label for="open-report" class="side-feature-button"
+                                                        id="reportButton">
+                                                        <span class="block feature-value"><i
+                                                                class="fas fa-flag"></i></span>
                                                         <span class="block feature-name">Report</span>
                                                     </label>
                                                 </div>
                                                 <!-- Hộp thoại báo cáo -->
-                                                <div id="reportModal" class="report-modal" onclick="closeOutsideBox(event)">
+                                                <div id="reportModal" class="report-modal"
+                                                    onclick="closeOutsideBox(event)">
                                                     <div class="report-modal-content">
                                                         <span class="report-close"
                                                             onclick="toggleReportBox()">&times;</span>
@@ -643,7 +678,7 @@
                                                             @else
                                                                 {{-- Kiểm tra người dùng đã mua chương chưa --}}
                                                                 @if (auth()->check() &&
-                                                                        auth()->user()->hasPurchased($chapter->id))
+                                                                        auth()->user()->hasPurchased($chapter->id) || ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
                                                                     {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
@@ -661,7 +696,7 @@
                                                                         <span
                                                                             style="margin-left: 10px;">{{ $chapter->price }}
                                                                             coins</span>
-                                                                    </span>
+                                                                        </span>
                                                                 @endif
                                                             @endif
                                                         </div>
@@ -733,7 +768,7 @@
                             <main class="d-lg-block">
                                 <ul class="others-list">
                                     <div class="row">
-                                        @foreach ($books as $book123)
+                                        @foreach ($booksRandom as $book123)
                                             <li class="col-12 col-6-m">
                                                 <div class="others-img no-padding">
                                                     <div class="a6-ratio">
@@ -869,10 +904,8 @@
                                                                                     lời</span>
                                                                             </a>
                                                                         @endif
-
-                                                                        <a
-                                                                            class="self-center visible-toolkit-item do-like cursor-pointer">
-                                                                            @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                                                        @if (Auth::check() && (Auth::user()->id === $comment->user_id || Auth::user()->role->name === 'mod'))
+                                                                            <a class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                                 <form
                                                                                     action="{{ route('deleteComment', $comment->id) }}"
                                                                                     method="POST" class="inline">
@@ -883,8 +916,8 @@
                                                                                         <i class="fas fa-trash"></i> Xóa
                                                                                     </button>
                                                                                 </form>
-                                                                            @endif
-                                                                        </a>
+                                                                            </a>
+                                                                        @endif
 
                                                                         <a href="">
                                                                             <span
@@ -964,8 +997,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment">
-                                                                        <p><i>Bình luận này đã bị xoá bởi
-                                                                                {{ $comment->user->username }}.</i></p>
+                                                                        <p><i>Bình luận này đã bị xoá bởi {{ optional(\App\Models\User::find($comment->delete_by))->username ?? 'Người dùng không xác định' }}.</i></p>
                                                                     </div>
                                                                 </div>
                                                             </div>

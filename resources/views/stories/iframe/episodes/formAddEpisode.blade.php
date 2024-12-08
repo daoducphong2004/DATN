@@ -5,7 +5,7 @@
 
         <div class="container-fuild">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12 col-md-offset-1">
                     <div class="panel panel-default">
 
                         <div class="panel-heading">Episode</div>
@@ -33,20 +33,20 @@
                                 <input type="hidden" name="book_id" value="{{ $book->id }}">
 
                                 <div class="form-group clearfix required">
-                                    <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Tiêu đề</label>
+                                    <div class="col-md-12">
                                         <input type="text" class="form-control" name="title" value="">
                                     </div>
                                 </div>
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label pt-7 text-right">Ảnh bìa </label>
-                                    <div class="col-md-8">
+                                    <label class="col control-label pt-7 text-right">Ảnh bìa </label>
+                                    <div class="col-md-12">
                                         <input type="file" class="form-control" name="episode_path" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group clearfix">
-                                    <label class="col-md-2 control-label text-right">Tóm tắt</label>
+                                    <label class="col control-label text-right">Tóm tắt</label>
                                     <div class="col-md-10">
                                         <textarea id="LN_Book_Summary" name="description"></textarea>
                                     </div>

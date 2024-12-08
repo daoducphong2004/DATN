@@ -1,61 +1,68 @@
-@extends('stories.partials.master')
-@include('stories.partials.header')
-
+@extends('user.layout.master')
 @section('content')
-<div class="wrapper container-fluid" style="height: 100vh;">
-    <!-- Nút bật/tắt khung quản lý chỉ hiển thị trên các thiết bị nhỏ -->
-    <div class="visible-xs-block visible-sm-block"
-        style="
-            position: absolute;
-            top: 70px;
-            left: 0;
-            z-index: 10000;
-            padding: 10px;
-            border: 2px solid #de2222;
-            border-radius: 2px;
-            background-color: #f5f5f5;"
-        id="action-tree-toggle">
-        Click để bật/tắt khung Quản lý
-    </div>
-
-    <div class="row" style="height: 100%;">
-        <!-- Cột trái: Khung quản lý -->
-        <div class="col-xs-12 col-sm-12 col-md-3 hidden-xs hidden-sm" id="action-tree"
-            style="border-right: 1px solid #ccc; padding: 0; height: 100%;">
-            <iframe name="nav" src="{{ route('storytree', $book->id) }}" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
-
-        <!-- Cột phải: Khung thông tin -->
-        <div class="col-xs-12 col-sm-12 col-md-9" style="padding: 0; height: 100%;">
-            <iframe name="action" src="{{ route('storyinformation', $book->id) }}" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
-    </div>
+<div class="position-fixed d-block d-md-none toggle-container p-2 border border-danger rounded bg-light"
+id="action-tree-toggle" style="top: 70px; left: 0; z-index: 1000;">
+Click để bật/tắt khung Quản lý
 </div>
+    <div class="wrapper container-fluid" style="height: 100vh;">
+     
+    
+        <div class="row h-100 ">
+            <!-- Cột trái: Khung quản lý -->
+            <div class="col-md-3 d-none d-md-block border-end h-100" id="action-tree">
+                <iframe name="nav" src="{{ route('storytree', $book->id) }}"  class="w-100 h-100 border-0"></iframe>
+            </div>
 
-<script>
-    $(document).ready(function() {
-        // Bật/tắt khung quản lý
-        $('#action-tree-toggle').on('click', function() {
-            $('#action-tree').toggleClass('hidden-xs hidden-sm');
-        });
+            <!-- Cột phải: Khung thông tin -->
+            <div class="col-12 col-md-9 h-100 p-0">
+                <iframe name="action" src="{{ route('storyinformation', $book->id) }}"
+                    class="w-100 h-100 border-0"></iframe>
+            </div>
+        </div>
+    </div>
 
-        // Xử lý khi form bên trong iframe "action" được submit thành công
-        window.addEventListener('message', function(event) {
-            if (event.data === 'form-submitted') {
-                // Làm mới iframe bên trái (nav)
-                document.querySelector('iframe[name="nav"]').contentWindow.location.reload();
+        <style>
+            .toggle-container {
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .toggle-container:hover {
+                background-color: #e9ecef;
+            }
+
+            iframe {
+                scroll-behavior: smooth;
+            }
+        </style>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bật/tắt khung quản lý trên thiết bị nhỏ
+            const actionTreeToggle = document.getElementById('action-tree-toggle');
+            const actionTree = document.getElementById('action-tree');
+
+            actionTreeToggle.addEventListener('click', () => {
+                actionTree.classList.toggle('d-none');
+            });
+
+            // Lắng nghe sự kiện "form-submitted" từ iframe
+            window.addEventListener('message', (event) => {
+                if (event.data === 'form-submitted') {
+                    const navIframe = document.querySelector('iframe[name="nav"]');
+                    if (navIframe) navIframe.contentWindow.location.reload();
+                }
+            });
+
+            // Xử lý cho thiết bị iOS
+            if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
+                const iframes = document.querySelectorAll('iframe');
+                iframes.forEach((iframe) => {
+                    iframe.parentElement.style.overflow = 'auto';
+                    iframe.parentElement.style.webkitOverflowScrolling = 'touch'; // Cuộn mượt cho iOS
+                });
             }
         });
-
-        // Xử lý cho thiết bị iOS
-        if (/iPhone|iPod|iPad/.test(navigator.userAgent)) {
-            $('iframe').parent().css({
-                width: '100%',
-                height: '100%',
-                overflow: 'auto',
-                '-webkit-overflow-scrolling': 'touch' // Hỗ trợ cuộn mượt trên iOS
-            });
-        }
-    });
-</script>
+    </script>
 @endsection

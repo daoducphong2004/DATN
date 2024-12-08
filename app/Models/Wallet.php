@@ -24,5 +24,8 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-
+    public function getTransactionsByType($type)
+    {
+        return $this->transactions()->where('type', $type)->get();
+    }
 }

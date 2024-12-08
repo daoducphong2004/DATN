@@ -173,6 +173,17 @@
                                                             @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
                                                                 <a style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                             @endif
+
+                                                            @if ($notification->type == 'App\Notifications\NewBookCommentNotification' && isset($notification->data['slug']))
+                                                                <a style="color: red" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                            @endif
+
+                                                            @if ($notification->type == 'App\Notifications\NewChapCommentNotification' && isset($notification->data['chapter_slug']) && $notification->type == 'App\Notifications\NewChapCommentNotification')
+                                                                <a style="color: red" href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}">view</a>
+                                                            @endif
+                                                            @if ($notification->type == 'App\Notifications\NewForumCommentNotification' && isset($notification->data['id']))
+                                                                <a style="color: red" href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}">view</a>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 @endforeach
@@ -199,7 +210,7 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{ asset(Auth::user()->avatar_url ?? 'img/noava.png') }}"
+                            <img class="rounded-circle header-profile-user" src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}"
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">

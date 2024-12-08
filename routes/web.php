@@ -219,8 +219,9 @@ Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::get('stories/information/{book}', function (book $book) {
+    $user = Auth::user();
     $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres'));
+    return view('stories.iframe.information', compact('book', 'genres','user'));
 })->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
@@ -249,6 +250,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
         Route::get('/withdraw/create', [WithdrawRequestController::class, 'create'])->name('withdraw.create');
         Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
+
+        //Gọi api thống kê
+        Route::get('danh-sach-truyen',[HomeController::class,'statistics_list'])->name('statistics-list');
+        Route::get('/api/revenue-by-date', [TransactionController::class, 'getRevenueData'])->name('rbd');
+
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {
@@ -291,10 +297,10 @@ Route::middleware(['auth'])->group(function () {
     //order và cart
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/gio-hang', [CartController::class, 'viewCart'])->name('cart');
-    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.delete');
     Route::get('/cart/count', [CartController::class, 'getCartCount']);
     Route::post('/cart/addMultiple', [CartController::class, 'addMultipleToCart'])->name('cart.addMultiple');
-    Route::post('/order/create', [purchaseStoryController::class, 'createOrder']);
+    Route::post('/order/create', [purchaseStoryController::class, 'createOrder'])->name('order.create');
     Route::get('/lich-su-truyen/{book}', [BookController::class, 'showUserHistory'])
         ->name('user.books.history');
 

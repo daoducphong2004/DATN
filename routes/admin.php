@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function () {
     
     Route::prefix('sharebooks')->group(function () {
         Route::get('/', [ShareBookController::class, 'index'])->name('admin.sharebooks.index'); // Danh sách sách
-        Route::get('/{book}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
+        Route::get('/{bookId}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
     });
 
     Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');

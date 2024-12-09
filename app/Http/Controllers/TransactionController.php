@@ -34,4 +34,29 @@ class TransactionController extends Controller
 
         return response()->json($data);
     }
+    public function getRevenueBookData(Request $request)
+    {
+        $type = $request->input('type');
+        $walletId = $request->input('wallet_id');
+        $story_id = $request->input('story_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        
+        // Đảm bảo thứ tự tham số khớp với hàm revenueByStoryId
+        $data = Transaction::revenueByStoryId($type, $walletId, $story_id, $startDate, $endDate);
+        return response()->json($data);
+    }
+    public function getRevenueBookChapterData(Request $request)
+    {
+        $type = $request->input('type');
+        $walletId = $request->input('wallet_id');
+        $story_id = $request->input('story_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+    
+        // Đảm bảo thứ tự tham số khớp với hàm revenueByStoryId
+        $data = Transaction::revenueByChapter($type, $walletId, $story_id, $startDate, $endDate);
+        return response()->json($data);
+    }
+    
 }

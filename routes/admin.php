@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Admin\ShareBookController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\BookcommentController;
@@ -36,6 +37,11 @@ Route::prefix('admin')->group(function () {
     });
     // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
+    
+    Route::prefix('sharebooks')->group(function () {
+        Route::get('/', [ShareBookController::class, 'index'])->name('admin.sharebooks.index'); // Danh sách sách
+        Route::get('/{book}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
+    });
 
     Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
 

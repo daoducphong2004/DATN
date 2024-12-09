@@ -137,4 +137,8 @@ class Book extends Model
     {
         return $this->hasMany(ApprovalHistory::class);
     }
+    public function shareBooks()
+    {
+        return $this->hasMany(SharedBook::class, 'book_id', 'id');
+    }
 }

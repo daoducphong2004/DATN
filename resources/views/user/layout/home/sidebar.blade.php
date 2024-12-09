@@ -154,7 +154,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{ route('contracts.index') }}">
+                        <a class="nav-link menu-link" href="{{ route('author.create') }}">
                             <i class="ri-vip-crown-line"></i> <span data-key="t-widgets">Nâng cấp</span>
                         </a>
                     </li>

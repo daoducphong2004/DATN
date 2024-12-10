@@ -64,6 +64,10 @@
                                     <a href="{{ route('author.index') }}" class="nav-link" data-key="t-starter">
                                         Duyệt tác giả </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.sharebooks.index') }}" class="nav-link" data-key="t-starter">
+                                        Quản lý đồng tác giả </a>
+                                </li>
                             </ul>
                         </div>
                     @endcan

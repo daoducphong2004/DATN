@@ -9,7 +9,7 @@ class SharedBook extends Model
 {
     use HasFactory;
     protected $table = 'shared_books';
-    protected $fillable = ['user_id', 'book_id'];
+    protected $fillable = ['book_id', 'user_id'];
 
     // Quan hệ với Book
     public function book()

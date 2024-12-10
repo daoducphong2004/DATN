@@ -12,8 +12,8 @@ class ShareBookController extends Controller
     // Danh sách truyện
     public function index()
     {
-        $books = Book::withCount('sharedBooks')->get(); // Đếm số lượng đồng tác giả
-        // dd($books);
+        $books = Book::withCount('sharedBooks')->get();
+        
         return view('admin.sharebooks.index', compact('books'));
     }
 

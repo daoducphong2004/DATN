@@ -128,7 +128,17 @@
                                                 <div class="info-item">
                                                     <span class="info-name">Tình trạng:</span>
                                                     <span class="info-value">
-                                                        <a href="https://datn.test/truyen-dang-tien-hanh">Đang tiến hành</a>
+                                                        <?php
+                                                            if ($book->status == 1) {
+                                                                echo '<a href="/danh-sach?dangtienhanh=1&sapxep=tentruyen">Đang tiến hành</a>';
+                                                            } elseif ($book->status == 2) {
+                                                                echo '<a href="/danh-sach?tamngung=1&sapxep=tentruyen">Tạm ngưng</a>';
+                                                            } elseif ($book->status == 3) {
+                                                                echo '<a href="/danh-sach?hoanthanh=1&sapxep=tentruyen">Đã hoàn thành</a>';
+                                                            } else {
+                                                                echo '<a href="#">Không rõ tình trạng</a>';
+                                                            }
+                                                        ?>
                                                     </span>
                                                 </div>
                                                 <div class="info-item">

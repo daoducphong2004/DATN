@@ -5,7 +5,10 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-flex align-items-center">
-                    <h5 class="card-title mb-0 flex-grow-1">Chi tiết đồng tác giả - {{ $book->title }}</h5>
+                    <h5 class="card-title mb-0 flex-grow-1">Chi tiết đồng tác giả - {{ $book->title }}
+                        <br><br>
+                        <a href="{{ route('admin.sharebooks.index') }}" class="btn btn-info">Quay lại</a>
+                    </h5>
                     @if (session('message'))
                         <div class="alert alert-primary" role="alert">
                             {{ session('message') }}
@@ -17,7 +20,7 @@
                         style="width:100%">
                         <thead>
                             <tr>
-                                <th>Tên người dùng</th>
+                                <th>Tên tác giả</th>
                                 <th>Email</th>
                                 <th>Ngày thêm</th>
                             </tr>
@@ -25,7 +28,7 @@
                         <tbody>
                             @foreach ($sharedBooks as $sharedBook)
                                 <tr>
-                                    <td>{{ $sharedBook->user->name }}</td>
+                                    <td>{{ $sharedBook->user->username }}</td>
                                     <td>{{ $sharedBook->user->email }}</td>
                                     <td>{{ $sharedBook->created_at }}</td>
                                 </tr>

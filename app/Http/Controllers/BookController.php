@@ -346,7 +346,7 @@ class BookController extends Controller
         $booksRandom = Book::inRandomOrder()->limit(5)->get();
         // Lấy lịch sử đọc của người dùng
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::with('contracts')->find(Auth::id());
 
         if ($user) {
             // Lấy lịch sử đọc từ cơ sở dữ liệu cho người dùng đã đăng nhập

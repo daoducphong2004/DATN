@@ -129,7 +129,7 @@ class Transaction extends Model
 
         return $query->sum('amount');
     }
-    public static function revenueByStoryId($type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null)
+    public static function revenueByStoryId($user_id=null,$type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null)
     {
         $query = self::where('transactions.status', 'completed'); // Chỉ lấy giao dịch hoàn tất
 
@@ -137,7 +137,9 @@ class Transaction extends Model
         if ($type) {
             $query->where('transactions.type', $type);
         }
-
+        if ($user_id) {
+            $query->where('chapters.user_id', $user_id);
+        }
         // Lọc theo ví nếu có
         if ($walletId) {
             $query->where('transactions.wallet_id', $walletId);
@@ -173,7 +175,7 @@ class Transaction extends Model
             ->get();
     }
     // Loc theo khoảng thời gian 
-    public static function revenueByDateRangeAndBook($type = null, $walletId = null, $startDate = null, $endDate = null)
+    public static function revenueByDateRangeAndBook($user_id=null,$type = null, $walletId = null, $startDate = null, $endDate = null)
     {
         $query = self::where('transactions.status', 'completed'); // Chỉ lấy giao dịch hoàn tất
 
@@ -191,7 +193,10 @@ class Transaction extends Model
         if ($startDate && $endDate) {
             $query->whereBetween('transactions.created_at', [$startDate, $endDate]);
         }
-
+        // loc theo user_id
+        if ($user_id) {
+            $query->where('chapters.user_id', $user_id);
+        }
         return $query->join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
             ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
             ->join('books', 'chapters.book_id', '=', 'books.id')
@@ -206,7 +211,7 @@ class Transaction extends Model
             ->orderBy('books.id')
             ->get();
     }
-    public static function revenueByChapter($type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null)
+    public static function revenueByChapter($user_id = null, $type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null)
     {
         // Khởi tạo truy vấn cơ bản
         $query = self::join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
@@ -218,7 +223,7 @@ class Transaction extends Model
                 'chapters.id AS chapter_id',
                 'chapters.title AS chapter_title',
                 DB::raw('SUM(transactions.amount) AS total_revenue'), // Tổng doanh thu
-                DB::raw('COUNT(DISTINCT purchased_stories.user_id) AS total_buyers')// Tổng số người mua chapter đó
+                DB::raw('COUNT(DISTINCT purchased_stories.user_id) AS total_buyers') // Tổng số người mua chapter đó
             )
             ->groupBy('chapters.id') // Nhóm theo chapter_id
             ->orderBy('total_revenue', 'desc'); // Sắp xếp theo chapter_title
@@ -227,7 +232,10 @@ class Transaction extends Model
         if ($type) {
             $query->where('transactions.type', $type);
         }
-
+        // loc theo user_id
+        if ($user_id) {
+            $query->where('chapters.user_id', $user_id);
+        }
         // Lọc theo ví nếu có
         if ($walletId) {
             $query->where('transactions.wallet_id', $walletId);

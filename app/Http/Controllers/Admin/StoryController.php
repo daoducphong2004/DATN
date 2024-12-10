@@ -265,7 +265,7 @@ class StoryController extends Controller
                 'wallet_id' => $wallet->id,
                 'purchased_story_id' => $purchasedStory->id,
                 'amount' => $authorEarnings,
-                'type' => 'credit',
+                'type' => 'coin',
                 'description' => 'Earnings from auto-purchased chapter',
                 'status' => 'completed'
             ]);
@@ -324,7 +324,6 @@ class StoryController extends Controller
             $book->save();
 
             // Thực hiện thanh toán tự động cho chapter (giả sử có một phương thức autoPurchaseForChapter)
-            $this->autoPurchaseForChapter($chapter->id);
         });
 
         // Điều hướng về trang chi tiết truyện
@@ -468,7 +467,6 @@ class StoryController extends Controller
             'user_id' => 'required|exists:users,id',
             'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
             'approval' => 'required'
-
         ]);
 
         // Tìm chapter cần cập nhật
@@ -607,16 +605,16 @@ class StoryController extends Controller
             ->paginate(10);
         return view('admin.stories.chapter-need-approval', compact('chapters'));
     }
-
+   
     public function approveStory($id)
     {
         $story = chapter::findOrFail($id);
         $book = $story->book;
-
         // Cập nhật trạng thái duyệt của chương
         $story->update([
             'approval' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
         ]);
+        $this->autoPurchaseForChapter($id);
 
         // Cập nhật trạng thái Is_Inspect của sách nếu ít nhất một chương đã duyệt
         if ($book->chapters()->where('approval', 1)->exists()) {

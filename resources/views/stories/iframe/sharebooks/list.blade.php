@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Danh sách người dùng được chia sẻ quyền chỉnh sửa cho truyện: {{ $book->title }}</h1>
+    <h1>Danh sách người dùng được chia sẻ quyền chỉnh sửa cho truyện: {{ $book->title }}
+        <br>
+        Nếu muốn xóa quyền chỉnh sửa hãy liên hệ admin!
+    </h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -20,7 +23,7 @@
                 <tr>
                     <th>Tên người dùng</th>
                     <th>Email</th>
-                    <th>Thao tác</th>
+                    {{-- <th>Thao tác</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +31,14 @@
                     <tr>
                         <td>{{ $sharedBook->user->username  }}</td>
                         <td>{{  $sharedBook->user->email }}</td>
-                        <td>
+                        {{-- <td>
                             <!-- Form để thu hồi quyền chỉnh sửa -->
                             <form action="{{ route('book.sharerevoke', $book->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ $sharedBook->user->id }}">
                                 <button type="submit" class="btn btn-danger">Thu hồi quyền</button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

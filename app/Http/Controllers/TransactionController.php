@@ -25,37 +25,41 @@ class TransactionController extends Controller
     }
     public function getRevenueData(Request $request)
     {
+        $user_id = $request->input('user_id');
         $type = $request->input('type');
         $walletId = $request->input('wallet_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $data = Transaction::revenueByDateRangeAndBook($type, $walletId, $startDate, $endDate);
+        $data = Transaction::revenueByDateRangeAndBook($user_id,$type, $walletId, $startDate, $endDate);
 
         return response()->json($data);
     }
     public function getRevenueBookData(Request $request)
     {
         $type = $request->input('type');
+        $user_id = $request->input('user_id');
         $walletId = $request->input('wallet_id');
         $story_id = $request->input('story_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
         
         // Đảm bảo thứ tự tham số khớp với hàm revenueByStoryId
-        $data = Transaction::revenueByStoryId($type, $walletId, $story_id, $startDate, $endDate);
+        $data = Transaction::revenueByStoryId($user_id,$type, $walletId, $story_id, $startDate, $endDate);
         return response()->json($data);
     }
     public function getRevenueBookChapterData(Request $request)
     {
         $type = $request->input('type');
+        $user_id = $request->input('user_id');
+
         $walletId = $request->input('wallet_id');
         $story_id = $request->input('story_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-    
+        
         // Đảm bảo thứ tự tham số khớp với hàm revenueByStoryId
-        $data = Transaction::revenueByChapter($type, $walletId, $story_id, $startDate, $endDate);
+        $data = Transaction::revenueByChapter($user_id,$type, $walletId, $story_id, $startDate, $endDate);
         return response()->json($data);
     }
     

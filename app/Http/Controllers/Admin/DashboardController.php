@@ -117,4 +117,8 @@ class DashboardController extends Controller
             'revenueAdmin'
         ));
     }
+    public function list_author(){
+        $authors = User::withCount('books')->whereIn('role_id',[1,2,5])->get();
+        dd($authors);
+    }
 }

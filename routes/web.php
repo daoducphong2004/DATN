@@ -273,6 +273,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('contracts', ContractController::class);
     // web.php
+    Route::get('/contract/qanda', [ContractController::class,'qanda'])->name('contract.qa');
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
     // tự động mua
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');

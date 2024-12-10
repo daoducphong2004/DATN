@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function index1()
     {
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -277,7 +277,7 @@ class HomeController extends Controller
     public function lichsu()
     {
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -372,7 +372,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         // dd(Auth::user()->books()->where('Is_Inspect', 1)->exists());
-        if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
+        if (Auth::user()->books()->where('Is_Inspect', 1)->exists() ) {
             // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
             $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
             // dd($wallet);
@@ -447,7 +447,7 @@ class HomeController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         $book = Book::findOrFail($id);
-        if($user->id != $book->user_id){
+        if($user->id != $book->user_id && !$user->sharedBooks()->exists()){
             return response()->view('errors.403', [], 403);//Sau sẽ thêm cả danh sách người được chia sẻ
         }
         return view('action.statistics_list.view', compact('book'));

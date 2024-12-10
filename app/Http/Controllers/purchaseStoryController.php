@@ -9,6 +9,7 @@ use App\Models\episode;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\Wallet;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -77,10 +78,21 @@ class purchaseStoryController extends Controller
                 $chapter = $item->chapter;
                 $author = $chapter->user;
 
-                // Kiểm tra hợp đồng của tác giả để lấy phần trăm chia sẻ doanh thu
-                $contract = $author->contract;
-                $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
+                $contract = $author->contracts()
+                ->where(function ($query) use ($chapter) {
+                    $query->where('status', 'active')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->orWhere(function ($query) use ($chapter) {
+                    $query->where('status', 'expired')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->first();
 
+                $revenueShare = $contract &&($contract->status === 'active'||$contract->status =='expired') ? $contract->revenue_share : 30;
+                // dd($revenueShare);
                 // Tính toán doanh thu của tác giả
                 $authorEarnings = $chapter->price * ($revenueShare / 100);
 
@@ -195,9 +207,20 @@ class purchaseStoryController extends Controller
             foreach ($chaptersToPurchase as $chapter) {
                 $author = $chapter->user;
 
-                // Kiểm tra hợp đồng của tác giả để lấy phần trăm chia sẻ doanh thu
-                $contract = $author->contract;
-                $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
+                $contract = $author->contracts()
+                ->where(function ($query) use ($chapter) {
+                    $query->where('status', 'active')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->orWhere(function ($query) use ($chapter) {
+                    $query->where('status', 'expired')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->first();
+
+                $revenueShare = $contract &&($contract->status === 'active'||$contract->status =='expired') ? $contract->revenue_share : 30;
 
                 // Tính toán doanh thu của tác giả và admin
                 $authorEarnings = $chapter->price * ($revenueShare / 100);
@@ -310,9 +333,20 @@ class purchaseStoryController extends Controller
             // Lấy thông tin tác giả của chương
             $author = $chapter->user;
 
-            // Kiểm tra hợp đồng của tác giả
-            $contract = $author->contract;
-            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70; // Phần trăm mặc định là 70% nếu không có hợp đồng
+            $contract = $author->contracts()
+            ->where(function ($query) use ($chapter) {
+                $query->where('status', 'active')
+                    ->whereDate('start_date', '<=', $chapter->created_at)
+                    ->whereDate('end_date', '>=', $chapter->created_at);
+            })
+            ->orWhere(function ($query) use ($chapter) {
+                $query->where('status', 'expired')
+                    ->whereDate('start_date', '<=', $chapter->created_at)
+                    ->whereDate('end_date', '>=', $chapter->created_at);
+            })
+            ->first();
+
+            $revenueShare = $contract &&($contract->status === 'active'||$contract->status =='expired') ? $contract->revenue_share : 30;
 
             // Tính toán doanh thu của tác giả và của trang web
             $authorEarnings = $price * ($revenueShare / 100);
@@ -428,9 +462,20 @@ class purchaseStoryController extends Controller
             // Lấy thông tin tác giả của chương
             $author = $chapter->user;
 
-            // Kiểm tra hợp đồng của tác giả
-            $contract = $author->contract;
-            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70; // Phần trăm mặc định là 70% nếu không có hợp đồng
+            $contract = $author->contracts()
+            ->where(function ($query) use ($chapter) {
+                $query->where('status', 'active')
+                    ->whereDate('start_date', '<=', $chapter->created_at)
+                    ->whereDate('end_date', '>=', $chapter->created_at);
+            })
+            ->orWhere(function ($query) use ($chapter) {
+                $query->where('status', 'expired')
+                    ->whereDate('start_date', '<=', $chapter->created_at)
+                    ->whereDate('end_date', '>=', $chapter->created_at);
+            })
+            ->first();
+
+            $revenueShare = $contract &&($contract->status === 'active'||$contract->status =='expired') ? $contract->revenue_share : 30;
 
             // Tính toán doanh thu của tác giả và của trang web
             $authorEarnings = $price * ($revenueShare / 100);
@@ -536,9 +581,20 @@ class purchaseStoryController extends Controller
             foreach ($chaptersToPurchase as $chapter) {
                 $author = $chapter->user;
 
-                // Kiểm tra hợp đồng của tác giả để lấy phần trăm chia sẻ doanh thu
-                $contract = $author->contract;
-                $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
+                $contract = $author->contracts()
+                ->where(function ($query) use ($chapter) {
+                    $query->where('status', 'active')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->orWhere(function ($query) use ($chapter) {
+                    $query->where('status', 'expired')
+                        ->whereDate('start_date', '<=', $chapter->created_at)
+                        ->whereDate('end_date', '>=', $chapter->created_at);
+                })
+                ->first();
+
+                $revenueShare = $contract &&($contract->status === 'active'||$contract->status =='expired') ? $contract->revenue_share : 30;
                 // Tính toán doanh thu của tác giả
                 $authorEarnings = $chapter->price * ($revenueShare / 100);
                 $platformEarnings = $chapter->price - $authorEarnings;
@@ -610,7 +666,7 @@ class purchaseStoryController extends Controller
         $chapter_id = $request->input('chapter_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
-    
+
         // Đảm bảo thứ tự tham số khớp với hàm 
         $data = PurchasedStory::getUsersByChapterInDateRange($chapter_id, $startDate, $endDate);
         return response()->json($data);

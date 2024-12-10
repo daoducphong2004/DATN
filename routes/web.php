@@ -244,7 +244,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-
         Route::get('',[HomeController::class, 'Userhome']);
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
         Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
@@ -270,6 +269,8 @@ Route::middleware(['auth'])->group(function () {
     
 
     //Hợp đồng
+    Route::get('contracts/dieu-khoan',[ContractController::class,'dieukhoan'])->name('contracts.dieu-khoan');
+
     Route::resource('contracts', ContractController::class);
     // web.php
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');

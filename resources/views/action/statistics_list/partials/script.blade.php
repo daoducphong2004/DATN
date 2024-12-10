@@ -46,37 +46,37 @@
         const now = new Date();
         const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 1)).toISOString().split('T')[0];
         const endOfWeek = new Date(now.setDate(now.getDate() + 6 - now.getDay())).toISOString().split('T')[0];
-        fetchRevenueData('coin', startOfWeek, endOfWeek, book_id, 'line');
-        fetchChapterRevenueData('coin', startOfWeek, endOfWeek, book_id);
+        fetchRevenueData({{ Auth::id() }},'coin', startOfWeek, endOfWeek, book_id, 'line');
+        fetchChapterRevenueData({{ Auth::id() }},'coin', startOfWeek, endOfWeek, book_id);
     });
 
     document.getElementById('filterMonth').addEventListener('click', () => {
         const now = new Date();
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-        fetchRevenueData('coin', startOfMonth, endOfMonth, book_id, 'line');
-        fetchChapterRevenueData('coin', startOfMonth, endOfMonth, book_id);
+        fetchRevenueData({{ Auth::id() }},'coin', startOfMonth, endOfMonth, book_id, 'line');
+        fetchChapterRevenueData({{ Auth::id() }},'coin', startOfMonth, endOfMonth, book_id);
     });
 
     document.getElementById('filterYear').addEventListener('click', () => {
         const now = new Date();
         const startOfYear = new Date(now.getFullYear(), 0, 1).toISOString().split('T')[0];
         const endOfYear = new Date(now.getFullYear(), 11, 31).toISOString().split('T')[0];
-        fetchRevenueData('coin', startOfYear, endOfYear, book_id, 'bar');
-        fetchChapterRevenueData('coin', startOfYear, endOfYear, book_id);
+        fetchRevenueData({{ Auth::id() }},'coin', startOfYear, endOfYear, book_id, 'bar');
+        fetchChapterRevenueData({{ Auth::id() }},'coin', startOfYear, endOfYear, book_id);
     });
 
     document.getElementById('fetchData').addEventListener('click', () => {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
-        fetchRevenueData('coin', startDate, endDate, book_id, 'line');
-        fetchChapterRevenueData('coin', startDate, endDate, book_id);
+        fetchRevenueData({{ Auth::id() }},'coin', startDate, endDate, book_id, 'line');
+        fetchChapterRevenueData({{ Auth::id() }},'coin', startDate, endDate, book_id);
     });
 
-    const fetchRevenueData = async (type, startDate, endDate, book_id, chartType) => {
+    const fetchRevenueData = async (user_id,type, startDate, endDate, book_id, chartType) => {
         try {
             const response = await fetch(
-                `/action/api/revenue-by-story? type=${type}&start_date=${startDate}&end_date=${endDate}&story_id=${book_id}`
+                `/action/api/revenue-by-story?user_id=${user_id}&type=${type}&start_date=${startDate}&end_date=${endDate}&story_id=${book_id}`
             );
 
             if (!response.ok) throw new Error('Failed to fetch data');
@@ -177,10 +177,10 @@
             },
         });
     };
-    const fetchChapterRevenueData = async (type, startDate, endDate, book_id) => {
+    const fetchChapterRevenueData = async (user_id,type, startDate, endDate, book_id) => {
     try {
         const response = await fetch(
-            `/action/api/revenue-by-chapter?type=${type}&start_date=${startDate}&end_date=${endDate}&story_id=${book_id}`
+            `/action/api/revenue-by-chapter?user_id=${user_id}&type=${type}&start_date=${startDate}&end_date=${endDate}&story_id=${book_id}`
         );
         if (!response.ok) throw new Error('Failed to fetch chapter revenue data');
         const data = await response.json();

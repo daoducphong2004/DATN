@@ -146,6 +146,7 @@
                     <tr>
                         <th>Tên</th>
                         <th>Coin kiếm được</th>
+                        
                     </tr>
                 </thead>
                 <tbody>

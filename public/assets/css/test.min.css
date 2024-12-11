@@ -1,0 +1,52 @@
+.full-width {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden; /* Loại bỏ cuộn ngang không cần thiết */
+    position: relative; /* Giữ bố cục cố định */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Gọn đường viền */
+    word-wrap: break-word; /* Chia nhỏ nội dung dài */
+    table-layout: fixed; /* Giữ kích thước cột đồng đều */
+    overflow: hidden; /* Tránh nội dung tràn */
+}
+
+.table img {
+    max-width: 120px; /* Tăng kích thước ảnh */
+    height: auto;
+    display: block; /* Đảm bảo ảnh nằm đúng vị trí */
+    margin: 0 auto;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px; /* Khoảng cách giữa nội dung */
+    word-break: break-word; /* Tự động xuống dòng */
+    white-space: normal; /* Không giữ nội dung trên 1 dòng */
+}
+
+.alert {
+    width: 100%;
+    max-width: 80%; /* Định nghĩa giới hạn chiều rộng */
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* Xử lý bảng cuộn ngang ở màn hình nhỏ */
+@media (max-width: 768px) {
+    .table {
+        display: block; /* Chuyển thành block để hỗ trợ cuộn ngang */
+        overflow-x: auto; /* Thêm thanh cuộn nếu cần */
+        white-space: nowrap; /* Ngăn nội dung xuống dòng quá sớm */
+    }
+
+    .table th,
+    .table td {
+        white-space: nowrap; /* Giữ nội dung không bị cắt hoặc xuống dòng */
+    }
+}

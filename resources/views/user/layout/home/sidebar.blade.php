@@ -71,11 +71,11 @@
                 </ul>
             @endcan
 
-            <ul class="navbar-nav" id="navbar-nav">
+            @can('create')
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Truyện của tôi</span>
+                    </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Truyện của tôi</span>
-                </li>
-                @can('create')
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ route('action.statistics-list') }}">
                             <i class="ri-pie-chart-2-line"></i> <span data-key="t-widgets">Thống kê</span>
@@ -87,54 +87,54 @@
                             <i class="bx bx-book-add"></i> <span data-key="t-widgets">Thêm mới</span>
                         </a>
                     </li>
-                @endcan
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarDang" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarDang">
-                        <i class="ri-book-2-line"></i> <span data-key="t-pages">Truyện đã đăng</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarDang">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('manage.mytranslatebook') }}" class="nav-link" data-key="t-starter">
-                                    Truyện dịch </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('manage.myConvertbook') }}" class="nav-link" data-key="t-starter">
-                                    Truyên convert </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('manage.mybookOLN') }}" class="nav-link" data-key="t-starter">
-                                    Truyện sáng tác </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarDang" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarDang">
+                            <i class="ri-book-2-line"></i> <span data-key="t-pages">Truyện đã đăng</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarDang">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.mytranslatebook') }}" class="nav-link" data-key="t-starter">
+                                        Truyện dịch </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.myConvertbook') }}" class="nav-link" data-key="t-starter">
+                                        Truyên convert </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.mybookOLN') }}" class="nav-link" data-key="t-starter">
+                                        Truyện sáng tác </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarThamgia" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarThamgia">
-                        <i class="ri-book-mark-line"></i> <span data-key="t-pages">Truyện tham gia</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarThamgia">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('manage.booktranslateshared') }}" class="nav-link" data-key="t-starter">
-                                    Truyện dịch </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('manage.bookConvertshared') }}" class="nav-link" data-key="t-starter">
-                                    Truyên convert </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('manage.bookOLNshared') }}" class="nav-link" data-key="t-starter">
-                                    Truyện sáng tác </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarThamgia" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarThamgia">
+                            <i class="ri-book-mark-line"></i> <span data-key="t-pages">Truyện tham gia</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarThamgia">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.booktranslateshared') }}" class="nav-link" data-key="t-starter">
+                                        Truyện dịch </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.bookConvertshared') }}" class="nav-link" data-key="t-starter">
+                                        Truyên convert </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('manage.bookOLNshared') }}" class="nav-link" data-key="t-starter">
+                                        Truyện sáng tác </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            @endcan
 
             <ul class="navbar-nav" id="navbar-nav">
 

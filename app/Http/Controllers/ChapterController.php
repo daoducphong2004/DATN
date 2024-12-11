@@ -167,6 +167,7 @@ class ChapterController extends Controller
             $chapter->content = $validatedData['content']; // Lưu nguyên nội dung gốc
             $chapter->price = $validatedData['price']; // Gán giá
             $chapter->word_count = $wordCount; // Lưu số từ
+            $chapter->approval = 0;
             $chapter->save();
 
             // Create slug from chapter_id and title
@@ -183,7 +184,7 @@ class ChapterController extends Controller
             // Update the word count for the book (sum of all chapters)
             $book->word_count += $wordCount;
             $book->save();
-            $this->autoPurchaseForChapter($chapter->id);
+            
 
             // event(new NewChapterAdded($chapter));
 
@@ -306,6 +307,7 @@ class ChapterController extends Controller
         $chapter->content = $validatedData['content']; // Không cần xử lý DOM
         $chapter->price = $validatedData['price']; // Cập nhật giá của chapter
         $chapter->word_count = $newWordCount; // Cập nhật lại số từ mới
+        $chapter->approval = 0;
 
         // Xử lý cập nhật hình ảnh nếu có
         if ($request->hasFile('image')) {

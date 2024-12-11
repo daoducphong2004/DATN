@@ -47,53 +47,30 @@
                             <i class="ri-account-circle-line"></i> <span data-key="t-widgets">Người dùng</span>
                         </a>
                     @endcan
-
                 </li>
 
                 <li class="nav-item">
-                    @can('view-story', Auth::user())
-                        <a class="nav-link menu-link" href="#sidebarBook" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarBook">
-                            <i class=" ri-book-open-line"></i> <span data-key="t-pages">Truyện</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarBook">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin_stories_approval') }}" class="nav-link" data-key="t-starter">
-                                        Duyệt truyện </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin_storylist') }}" class="nav-link" data-key="t-starter">
-                                        Danh sách truyện </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin_storycreate') }}" class="nav-link" data-key="t-starter">
-                                        Thêm truyện </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin_stories_trashed') }}" class="nav-link" data-key="t-starter">
-                                        Thùng rác </a>
-                                </li>
-                            </ul>
-                        </div>
-                    @endcan
-                </li>
-
-                <li class="nav-item">
-                    @can('view-author', Auth::user())
-                        <a class="nav-link menu-link" href="#sidebarAuthor" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarAuthor">
-                            <i class="ri-shield-user-fill"></i> <span data-key="t-pages">Tác giả</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarAuthor">
-                            <ul class="nav nav-sm flex-column">
+                    <a class="nav-link menu-link" href="#sidebarAuthor" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarAuthor">
+                        <i class="ri-shield-user-fill"></i> <span data-key="t-pages">Tác giả</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarAuthor">
+                        <ul class="nav nav-sm flex-column">
+                            @can('view-story', Auth::user())
                                 <li class="nav-item">
                                     <a href="{{ route('author.index') }}" class="nav-link" data-key="t-starter">
                                         Duyệt tác giả </a>
                                 </li>
-                            </ul>
-                        </div>
-                    @endcan
+                            @endcan
+
+                            @can('view-categories', Auth::user())
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.sharebooks.index') }}" class="nav-link" data-key="t-starter">
+                                        Quản lý đồng tác giả </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -112,6 +89,39 @@
                         </div>
                     @endcan
                 </li>
+                @can('view-categories', Auth::user())
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarBook" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarBook">
+                            <i class=" ri-book-open-line"></i> <span data-key="t-pages">Truyện</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarBook">
+                            <ul class="nav nav-sm flex-column">
+                                @can('view-story', Auth::user())
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin_stories_approval') }}" class="nav-link" data-key="t-starter">
+                                            Duyệt truyện </a>
+                                    </li>
+                                @endcan
+
+                                {{-- @can('view-categories', Auth::user()) --}}
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin_storylist') }}" class="nav-link" data-key="t-starter">
+                                            Danh sách truyện </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin_storycreate') }}" class="nav-link" data-key="t-starter">
+                                            Thêm truyện </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin_stories_trashed') }}" class="nav-link" data-key="t-starter">
+                                            Thùng rác </a>
+                                    </li>
+                                {{-- @endcan --}}
+                            </ul>
+                        </div>
+                    </li>
+                @endcan
 
                 <li class="nav-item">
                     @can('view-categories', Auth::user())
@@ -122,9 +132,9 @@
                 </li>
 
                 <li class="nav-item">
-                    @can('view-categories', Auth::user())
-                        <a class="nav-link menu-link" href="{{ route('genres_index') }}">
-                            <i class="ri-server-line"></i> <span data-key="">Thể loại</span>
+                    @can('view-contract', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('admin.withdraw.index') }}">
+                            <i class="ri-money-dollar-circle-fill"></i><span data-key="">Quản lý rút tiền</span>
                         </a>
                     @endcan
                 </li>
@@ -136,20 +146,7 @@
                         </a>
                     @endcan
                 </li>
-                <li class="nav-item">
-                    @can('view-categories', Auth::user())
-                        <a class="nav-link menu-link" href="{{ route('banners.index') }}">
-                            <i class="ri-crop-line"></i> <span data-key="">Banner</span>
-                        </a>
-                    @endcan
-                </li>
-                <li class="nav-item">
-                    @can('view-categories', Auth::user())
-                        <a class="nav-link menu-link" href="{{ route('admin.withdraw.index') }}">
-                            <i class="ri-money-dollar-circle-fill"></i><span data-key="">Quản lý rút tiền</span>
-                        </a>
-                    @endcan
-                </li>
+
                 <li class="nav-item">
                     @can('view-comment', Auth::user())
                         <a class="nav-link menu-link" href="#sidebarComment" data-bs-toggle="collapse" role="button"
@@ -170,6 +167,23 @@
                         </div>
                     @endcan
                 </li>
+
+                <li class="nav-item">
+                    @can('view-categories', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('banners.index') }}">
+                            <i class="ri-crop-line"></i> <span data-key="">Banner</span>
+                        </a>
+                    @endcan
+                </li>
+
+                <li class="nav-item">
+                    @can('view-categories', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('genres_index') }}">
+                            <i class="ri-server-line"></i> <span data-key="">Thể loại</span>
+                        </a>
+                    @endcan
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->

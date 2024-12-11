@@ -1,104 +1,50 @@
-<!-- Trường chọn User (Tác giả) -->
-<div class="form-group">
-    <label for="user_id">Tác giả</label>
-    <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror" required>
-        <option value="">Chọn tác giả</option>
-        @foreach($users as $user)
-            <option value="{{ $user->id }}" {{ old('user_id', $contract->user_id ?? '') == $user->id ? 'selected' : '' }}>
-                {{ $user->username }}
-            </option>
-        @endforeach
-    </select>
-    @error('user_id')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+<div class="container mt-4 p-4 border rounded shadow-sm bg-light">
+    <h4 class="mb-4 text-primary">Chỉnh Sửa Hợp Đồng</h4>
 
-<script>
-    // Hàm tạo mã hợp đồng ngẫu nhiên
-    function generateRandomContractCode() {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Các ký tự có thể sử dụng
-        let contractCode = '';
-        const codeLength = 10; // Độ dài của mã hợp đồng
+    <!-- Contract ID (Hidden) -->
+    <input type="hidden" name="id" value="{{ $contract->id }}">
 
-        for (let i = 0; i < codeLength; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            contractCode += characters[randomIndex];
-        }
+    <!-- Contract Code -->
+    <div class="mb-3">
+        <label for="contract_code" class="form-label fw-bold">Mã Hợp Đồng</label>
+        <input type="text" class="form-control" id="contract_code" name="contract_code"
+            value="{{ $contract->contract_code }}" disabled>
+    </div>
 
-        return contractCode;
-    }
+    <!-- Full Name -->
+    <div class="mb-3">
+        <label for="fullname" class="form-label fw-bold">Họ và Tên</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $contract->fullname }}"
+            disabled>
+    </div>
 
-    // Gán mã hợp đồng vào input ẩn
-    document.addEventListener('DOMContentLoaded', function() {
-        const contractCodeInput = document.querySelector('input[name="contract_code"]');
-        if (!contractCodeInput.value) {
-            contractCodeInput.value = generateRandomContractCode();
-        }
-    });
-</script>
-<input type="hidden" name="contract_code" value="{{ $contract->contract_code ?? '' }}">
+    <!-- Phone -->
+    <div class="mb-3">
+        <label for="phone" class="form-label fw-bold">Số Điện Thoại</label>
+        <input type="text" class="form-control" id="phone" name="phone" value="{{ $contract->phone }}" disabled>
+    </div>
 
-<!-- Tải ảnh hợp đồng -->
-<div class="form-group mt-3">
-    <label for="contract_image">Ảnh Hợp Đồng</label>
-    <input type="file" class="form-control @error('contract_image') is-invalid @enderror" name="contract_image" id="contract_image" accept="image/*">
-    @if(isset($contract) && $contract->contract_image)
-        <img src="{{ asset(Storage::url($contract->contract_image)) }}" alt="Contract Image" class="img-thumbnail mt-2" style="max-width: 200px;">
-    @endif
-    @error('contract_image')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+    <!-- Address -->
+    <div class="mb-3">
+        <label for="address" class="form-label fw-bold">Địa Chỉ</label>
+        <input type="text" class="form-control" id="address" name="address" value="{{ $contract->address }}"
+            disabled>
+    </div>
 
-<!-- Phần trăm chia sẻ doanh thu -->
-<div class="form-group mt-3">
-    <label for="revenue_share">Phần trăm chia sẻ doanh thu (%)</label>
-    <input type="number" name="revenue_share" id="revenue_share" class="form-control @error('revenue_share') is-invalid @enderror" value="{{ old('revenue_share', $contract->revenue_share ?? '') }}" required>
-    @error('revenue_share')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+    <div class="row">
+        <!-- Upload Contract Image -->
+        <div class="col-md-6 mb-3">
+            <label for="contract_image" class="form-label fw-bold">Ảnh Hợp Đồng</label>
+            <input type="file" class="form-control" id="contract_image" name="contract_image" accept="image/*">
+            <small class="text-muted">Chỉ tải ảnh định dạng JPG, PNG, JPEG.</small>
+        </div>
 
-<!-- Ngày bắt đầu -->
-<div class="form-group mt-3">
-    <label for="start_date">Ngày bắt đầu</label>
-    <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ old('start_date', $contract->start_date ?? '') }}" required>
-    @error('start_date')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<!-- Ngày kết thúc -->
-<div class="form-group mt-3">
-    <label for="end_date">Ngày kết thúc</label>
-    <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ old('end_date', $contract->end_date ?? '') }}">
-    @error('end_date')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<!-- Trạng thái hợp đồng -->
-<div class="form-group mt-3">
-    <label for="status">Trạng thái hợp đồng</label>
-    <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
-        <option value="active" {{ old('status', $contract->status ?? '') == 'active' ? 'selected' : '' }}>Active</option>
-        <option value="expired" {{ old('status', $contract->status ?? '') == 'expired' ? 'selected' : '' }}>Expired</option>
-        <option value="terminated" {{ old('status', $contract->status ?? '') == 'terminated' ? 'selected' : '' }}>Terminated</option>
-        <option value="pending" {{ old('status', $contract->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
-    </select>
-    @error('status')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-{{-- @include('layouts.TinyMCEscript') --}}
-<!-- Textarea để sửa điều khoản -->
-<div class="form-group mt-3">
-    <label for="terms">Điều Khoản Hợp Đồng</label>
-    <textarea name="terms" id="terms" class="form-control @error('terms') is-invalid @enderror" rows="10" required>{{ old('terms', $contract->terms ?? '') }}</textarea>
-    @error('terms')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-{{-- @include('admin.contracts.dieukhoan') --}}
+        <!-- Contract Status -->
+        <div class="col-md-6 mb-3">
+            <label for="status" class="form-label fw-bold">Trạng Thái Hợp Đồng</label>
+            <select class="form-control" id="status" name="status" style="width: fit-content;" required>
+                <option value="rejected" {{ $contract->status == 'rejected' ? 'selected' : '' }}>Từ Chối</option>
+                <option value="active" {{ $contract->status == 'active' ? 'selected' : '' }}>Active</option>
+            </select>
+        </div>
+    </div>

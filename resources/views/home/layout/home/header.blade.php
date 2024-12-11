@@ -43,7 +43,7 @@
                 </li>
                 <li>
                     @can('access-admin')
-                        <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Thống kê</span></a>
+                        <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Quản trị</span></a>
                     @endcan
                 </li>
             </ul>
@@ -287,10 +287,8 @@
             </li>
             <li>
                 @can('access-admin')
-                    <a class="nav-menu_item" href="{{ url('/admin') }}" target="_blank"><span class="">Thống
-                            kê</span></a>
+                    <a class="nav-menu_item" href="{{ url('/admin') }}" target="_blank"><span class="">Quản trị</span></a>
                 @endcan
-                {{-- <a class="nav-menu_item" href="{{ url('/admin') }}"><span class="">Hệ thống</span></a> --}}
             </li>
         </ul>
     </div>

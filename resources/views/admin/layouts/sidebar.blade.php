@@ -141,6 +141,14 @@
 
                 <li class="nav-item">
                     @can('view-categories', Auth::user())
+                        <a class="nav-link menu-link" href="{{ route('thao_luan') }}">
+                            <i class="ri-chat-3-line"></i> <span data-key="">Thảo luận</span>
+                        </a>
+                    @endcan
+                </li>
+
+                <li class="nav-item">
+                    @can('view-categories', Auth::user())
                         <a class="nav-link menu-link" href="{{ route('reports.index') }}">
                             <i class="ri-flag-2-fill"></i> <span data-key="">Báo cáo</span>
                         </a>

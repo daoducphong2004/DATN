@@ -14,15 +14,20 @@ class Contract extends Model
         'revenue_share',       // Phần trăm chia sẻ doanh thu (VD: 70 nghĩa là 70%)
         'start_date',          // Ngày bắt đầu hợp đồng
         'end_date',            // Ngày kết thúc hợp đồng (nếu có)
+        'address',             // Địa chỉ
+        'phone',               // Số điện thoại
+        'tax',                 // Mã số thuế
+        'fullname',            // Họ và tên người đại diện
         'status',              // Trạng thái hợp đồng (active, expired, terminated)
-        'terms',               // Điều khoản hợp đồng
         'contract_code',       // Mã hợp đồng
-        'contract_image',      // Đường dẫn ảnh hợp đồng
+        'contract_image',      // Đường dẫn ảnh hợp đồng (nếu có)
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
     public function hasContract($userId)
     {
         return $this->where('user_id', $userId)

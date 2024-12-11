@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function index1()
     {
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -277,7 +277,7 @@ class HomeController extends Controller
     public function lichsu()
     {
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::find(Auth::id());
 
         if ($user) {
             // Get reading history from the database for logged-in users
@@ -371,9 +371,11 @@ class HomeController extends Controller
     public function Userhome()
     {
         $user = Auth::user();
-        if (Auth::user()->books()->where('Is_Inspect', 1)->exists()) {
+        // dd(Auth::user()->books()->where('Is_Inspect', 1)->exists());
+        if (Auth::user()->books()->where('Is_Inspect', 1)->exists() ) {
             // Lấy thông tin ví của người dùng (first() sẽ lấy ví đầu tiên của người dùng)
             $wallet = $user->wallet;  // Hoặc $user->wallet()->first();
+            // dd($wallet);
             // Kiểm tra nếu tác giả có truyện nhưng chưa có ví
             if ($user->books()->exists() && !$wallet) {
                 // Tạo một ví mới cho tác giả
@@ -386,6 +388,7 @@ class HomeController extends Controller
             // Kiểm tra thông tin ví
             $transactions =Transaction::revenueByDay('coin',$wallet->id);
             $totalrevenuebydayandbook = Transaction::revenuebydayandbybook('coin',$wallet->id);
+            $test = Transaction::revenueBookWithDate('coin', $wallet->id,'2024-12-05');
             // dd($totalrevenuebydayandbook);
             // dd($transactions);
             // Lấy Top 3 truyện có view cao nhất của tác giả
@@ -399,7 +402,7 @@ class HomeController extends Controller
                 ->get(['id', 'title', 'like']); // Chỉ lấy các trường cần thiết
             $ajax = true;
             // dd(compact('wallet', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
-            return view('user.index', compact('wallet','totalrevenuebydayandbook', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
+            return view('user.index', compact('wallet','test','totalrevenuebydayandbook', 'ajax', 'transactions', 'topBooksByView', 'topBooksByLike'));
         } else {
             $book = Book::count();
             $chapter = Chapter::count();
@@ -428,8 +431,27 @@ class HomeController extends Controller
         ]);
     }
 
+    public function statistics_list(){
+        if(Auth::check()){
+            $user = User::findOrFail(Auth::user()->id);
+            $mybooks = Book::where('user_id', $user->id)->paginate(12);
+            $bookshare = $user->sharedBooks()->paginate(5); // Truyện user được chia sẻ quyền
+            // dd($mybooks,$bookshare);
+            return view('action.statistics_list.index',compact('user','mybooks','bookshare'));
 
-
+        }else{
+            return redirect()->route('login');
+            }
+    }
+    public function statistics_view($id, $year = null)
+    {
+        $user = User::findOrFail(Auth::id());
+        $book = Book::findOrFail($id);
+        if($user->id != $book->user_id && !$user->sharedBooks()->exists()){
+            return response()->view('errors.403', [], 403);//Sau sẽ thêm cả danh sách người được chia sẻ
+        }
+        return view('action.statistics_list.view', compact('book'));
+    }
 
     public function createTruyen()
     {

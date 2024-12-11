@@ -69,7 +69,7 @@
                         <i class='bx bx-moon fs-22'></i>
                     </button>
                 </div>
-                
+
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -86,7 +86,6 @@
                                         @endif
                                     </a>
                                 </span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Tác giả</span>
                             </span>
                         </span>
                     </button>

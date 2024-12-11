@@ -8,17 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class SharedBook extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'book_id'];
+    protected $table = 'shared_books';
+    protected $fillable = ['book_id', 'user_id'];
 
-    // Quan hệ đến người dùng được chia sẻ quyền chỉnh sửa
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    // Quan hệ đến truyện được chia sẻ
+    // Quan hệ với Book
     public function book()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(Book::class, 'book_id', 'id');
+    }
+
+    // Quan hệ với User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

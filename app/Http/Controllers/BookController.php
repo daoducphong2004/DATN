@@ -265,7 +265,7 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if ($user->contract()->exists()) {
+        if ($user->contractưs()->exists()) {
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));
@@ -346,7 +346,7 @@ class BookController extends Controller
         $booksRandom = Book::inRandomOrder()->limit(5)->get();
         // Lấy lịch sử đọc của người dùng
         $readingHistories = [];
-        $user = User::with('contract')->find(Auth::id());
+        $user = User::with('contracts')->find(Auth::id());
 
         if ($user) {
             // Lấy lịch sử đọc từ cơ sở dữ liệu cho người dùng đã đăng nhập

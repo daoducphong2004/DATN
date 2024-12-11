@@ -30,10 +30,64 @@
 
             <div id="two-column-menu">
             </div>
+
+
+            <ul class="navbar-nav" id="navbar-nav">
+
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Action</span>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('action.') }}">
+                        <i class="ri-home-line"></i></i> <span data-key="t-widgets">Home</span>
+                    </a>
+                </li>
+            </ul>
+            @can('create')
+                <ul class="navbar-nav" id="navbar-nav">
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Hợp đồng</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('contracts.index') }}">
+                            <i class="ri-file-paper-2-line"></i> <span data-key="t-widgets">Tạo hợp đồng</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
+
+            @can('create')
+                <ul class="navbar-nav" id="navbar-nav">
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Group</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('action.group.index') }}">
+                            <i class="ri-group-line"></i> <span data-key="t-widgets">Nhóm dịch</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
+
             <ul class="navbar-nav" id="navbar-nav">
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Truyện của tôi</span>
                 </li>
+                @can('create')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('action.statistics-list') }}">
+                            <i class="ri-pie-chart-2-line"></i> <span data-key="t-widgets">Thống kê</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('story.create') }}">
+                            <i class="bx bx-book-add"></i> <span data-key="t-widgets">Thêm mới</span>
+                        </a>
+                    </li>
+                @endcan
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDang" data-bs-toggle="collapse" role="button"
@@ -80,31 +134,32 @@
                         </ul>
                     </div>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('story.create') }}">
-                        <i class="bx bx-book-add"></i> <span data-key="t-widgets">Thêm mới</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('user_index') }}">
-                        <i class="ri-pie-chart-2-line"></i> <span data-key="t-widgets">Thống kê</span>
-                    </a>
-                </li>
             </ul>
 
             <ul class="navbar-nav" id="navbar-nav">
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Hợp đồng</span>
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Thảo luận</span>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('contracts.index') }}">
-                        <i class="ri-file-paper-2-line"></i> <span data-key="t-widgets">Tạo hợp đồng</span>
+                    <a class="nav-link menu-link" href="{{ route('thao-luan')}}">
+                        <i class="ri-discuss-line"></i> <span data-key="t-widgets">Thảo luận</span>
                     </a>
                 </li>
             </ul>
+            @can('upgrade', Auth::user())
+                <ul class="navbar-nav" id="navbar-nav">
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Nâng cấp tài khoản</span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('author.create') }}">
+                            <i class="ri-vip-crown-line"></i> <span data-key="t-widgets">Nâng cấp</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
         </div>
         <!-- Sidebar -->
     </div>

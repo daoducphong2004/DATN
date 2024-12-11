@@ -52,7 +52,6 @@ class TransactionController extends Controller
     {
         $type = $request->input('type');
         $user_id = $request->input('user_id');
-
         $walletId = $request->input('wallet_id');
         $story_id = $request->input('story_id');
         $startDate = $request->input('start_date');

@@ -29,7 +29,9 @@ Route::prefix('admin')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
-    Route::get('thong-ke',[DashboardController::class, 'list_author'])->name('admin.listauthor');
+    Route::get('thong-ke', [DashboardController::class, 'list_author'])->name('admin.listauthor');
+    Route::get('thong-ke/{id}', [DashboardController::class, 'view_list_story_author'])->name('admin.liststoryauthor');
+    Route::get('thong-ke/{user_id}/story/{id}', [DashboardController::class, 'view_detail_story_author'])->name('admin.detailstoryauthor');
     // User trong Group
     Route::prefix('groups')->group(function () {
         Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
@@ -37,7 +39,7 @@ Route::prefix('admin')->group(function () {
     });
     // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
-    
+
     Route::prefix('sharebooks')->group(function () {
         Route::get('/', [ShareBookController::class, 'index'])->name('admin.sharebooks.index'); // Danh sách sách
         Route::get('/{bookId}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
@@ -132,7 +134,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin.chapter.approve');
     Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin.chapter.reject');
     Route::get('/stories/lich-su-duyet', [StoryController::class, 'ApprovalHistory'])->name('admin_story_approvalhistory');
-    
+
     // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');

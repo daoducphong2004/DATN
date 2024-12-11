@@ -226,49 +226,94 @@ class StoryController extends Controller
                 continue;
             }
 
-            // Trừ coin của người dùng
-            $user->decrement('coin_earned', $chapter->price);
+            DB::beginTransaction(); // Bắt đầu giao dịch
 
-            // Lưu thông tin mua chương vào bảng PurchasedStory
-            $purchasedStory = PurchasedStory::create([
-                'user_id' => $user->id,
-                'chapter_id' => $chapter->id,
-                'price' => $chapter->price,
-                'purchase_date' => now(),
-            ]);
+            try {
+                // Trừ coin và lưu thông tin mua chương
+                $user->decrement('coin_earned', $chapter->price);
 
-            // Lấy thông tin tác giả của chương
-            $author = $chapter->user;
-
-            // Kiểm tra hợp đồng của tác giả
-            $contract = $author->contract;
-            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
-
-            // Tính toán doanh thu của tác giả và nền tảng
-            $authorEarnings = $chapter->price * ($revenueShare / 100);
-
-            // Kiểm tra ví của tác giả
-            $wallet = $author->wallet;
-            if (!$wallet) {
-                $wallet = Wallet::create([
-                    'user_id' => $author->id,
-                    'balance' => 0,
-                    'currency' => 'coin'
+                // Lưu thông tin mua chương vào bảng purchased_stories
+                $purchasedStory = PurchasedStory::create([
+                    'user_id' => $user->id,
+                    'chapter_id' => $chapter->id,
+                    'price' => $chapter->price,
+                    'purchase_date' => now(),
                 ]);
+
+                // Lấy thông tin tác giả của chương
+                $author = $chapter->user;
+
+                // Kiểm tra hợp đồng của tác giả
+                $contract = $author->contracts()
+                    ->where(function ($query) use ($chapter) {
+                        $query->where('status', 'active')
+                            ->whereDate('start_date', '<=', $chapter->created_at)
+                            ->whereDate('end_date', '>=', $chapter->created_at);
+                    })
+                    ->orWhere(function ($query) use ($chapter) {
+                        $query->where('status', 'expired')
+                            ->whereDate('start_date', '<=', $chapter->created_at)
+                            ->whereDate('end_date', '>=', $chapter->created_at);
+                    })
+                    ->first();
+
+                $revenueShare = $contract && ($contract->status === 'active' || $contract->status === 'expired')
+                    ? $contract->revenue_share
+                    : 30;
+
+                // Tính toán doanh thu của tác giả và của trang web
+                $authorEarnings = $chapter->price * ($revenueShare / 100);
+                $platformEarnings = $chapter->price - $authorEarnings;
+
+                // Kiểm tra ví của tác giả
+                $wallet = $author->wallet;
+                if (!$wallet) {
+                    $wallet = Wallet::create([
+                        'user_id' => $author->id,
+                        'balance' => 0,
+                        'currency' => 'coin',
+                    ]);
+                }
+
+                // Cộng số dư vào ví của tác giả
+                $wallet->increment('balance', $authorEarnings);
+
+                // Tạo giao dịch cho tác giả
+                Transaction::create([
+                    'wallet_id' => $wallet->id,
+                    'purchased_story_id' => $purchasedStory->id,
+                    'amount' => $authorEarnings,
+                    'type' => 'coin',
+                    'description' => 'Earnings from auto-purchased chapter',
+                    'status' => 'completed',
+                ]);
+
+                // Cập nhật ví admin
+                $adminWallet = Wallet::where('user_id', 99999)->first(); // Giả sử admin có user_id là 99999
+                if (!$adminWallet) {
+                    $adminWallet = Wallet::create([
+                        'user_id' => 99999,
+                        'balance' => 0,
+                        'currency' => 'coin',
+                    ]);
+                }
+                $adminWallet->increment('balance', $platformEarnings);
+
+                // Tạo giao dịch cho admin
+                Transaction::create([
+                    'wallet_id' => $adminWallet->id,
+                    'purchased_story_id' => $purchasedStory->id,
+                    'amount' => $platformEarnings,
+                    'type' => 'admin',
+                    'description' => 'Admin earnings from auto-purchased chapter',
+                    'status' => 'completed',
+                ]);
+
+                DB::commit(); // Cam kết giao dịch nếu không có lỗi
+            } catch (\Exception $e) {
+                DB::rollBack(); // Nếu có lỗi, hoàn tác tất cả các thay đổi
+                // Xử lý lỗi hoặc ghi log
             }
-
-            // Cộng số dư vào ví của tác giả
-            $wallet->increment('balance', $authorEarnings);
-
-            // Tạo giao dịch cho tác giả
-            Transaction::create([
-                'wallet_id' => $wallet->id,
-                'purchased_story_id' => $purchasedStory->id,
-                'amount' => $authorEarnings,
-                'type' => 'coin',
-                'description' => 'Earnings from auto-purchased chapter',
-                'status' => 'completed'
-            ]);
         }
     }
 
@@ -605,7 +650,7 @@ class StoryController extends Controller
             ->paginate(10);
         return view('admin.stories.chapter-need-approval', compact('chapters'));
     }
-   
+
     public function approveStory($id)
     {
         $story = chapter::findOrFail($id);

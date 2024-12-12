@@ -99,6 +99,7 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/test.js') }}"></script>
 
     <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

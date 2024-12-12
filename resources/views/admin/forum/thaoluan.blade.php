@@ -17,7 +17,7 @@
                     <th>ID</th>
                     <th>Chủ đề</th>
                     <th>Chuyên mục</th>
-                    <th>Bình luận</th>
+                    <th>Thảo luận</th>
                     <th>Lượt xem</th>
                     <th>Gần nhất</th>
                     <th>Người đăng cuối</th>
@@ -72,7 +72,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Chi tiết bình luận</h5>
+                <h5 class="modal-title" id="modalTitle">Chi tiết Thảo luận</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearCommentModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -84,30 +84,4 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const viewButtons = document.querySelectorAll('.view-comment');
-        const modal = document.getElementById('commentModal');
-        const commentContent = document.getElementById('commentContent');
-        const modalTitle = document.getElementById('modalTitle');
-
-        // Function to clear the modal content
-        window.clearCommentModal = function() {
-            commentContent.innerHTML = "";
-            modalTitle.textContent = "Chi tiết bình luận";
-            $(modal).modal('hide');
-        };
-
-        viewButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const title = this.getAttribute('data-title');
-                const content = this.getAttribute('data-content');
-                
-                modalTitle.textContent = "Chi tiết thảo luận - " + title;
-                commentContent.innerHTML = content;
-                $(modal).modal('show');
-            });
-        });
-    });
-</script>
 @endsection

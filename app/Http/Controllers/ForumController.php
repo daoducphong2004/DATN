@@ -327,7 +327,7 @@ class ForumController extends Controller
     {
         $data = ForumComment::findOrFail($id);
         $data->unview = 1;
-        $data->updated_at=Carbon::now();
+        $data->updated_at = Carbon::now();
         $data->save();
         return back();
     }

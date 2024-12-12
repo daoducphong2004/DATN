@@ -50,3 +50,12 @@
         white-space: nowrap; /* Giữ nội dung không bị cắt hoặc xuống dòng */
     }
 }
+.comment-preview {
+    max-height: 150px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.comment-actions {
+    margin-top: 10px;
+}

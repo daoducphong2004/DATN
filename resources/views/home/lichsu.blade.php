@@ -9,14 +9,15 @@
             line-height: 25px;
             font-size: 16px;
             font-weight: 600;
-            max-width: 300px;
+            max-width: fit-content !important;
             height: fit-content !important;
             padding: 5px 15px !important;
             margin: 0 5px 0 0;
             color: black;
             background: white !important;
         }
-        body{
+
+        body {
             background: white;
         }
     </style>
@@ -104,7 +105,7 @@
                                                 <a
                                                     href="{{ route('truyen.tap', ['slug' => $book->slug ?? '', 'episode_slug' => $chapter->episode->slug ?? '']) }}">{{ $chapter->episode->title ?? '' }}</a>
                                             </div>
-                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
+                                            <div class="thumb_title text-center pad-top-10" id='delete_history_for_user' data-book_id="{{ $history->id }}" style="cursor: pointer">
                                                 <i class="fas fa-times"></i> Xóa
                                             </div>
                                         </div>
@@ -124,7 +125,20 @@
                     <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử mua" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         @if ($purchasedStories->isEmpty())
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên truyện</th>
+                                    <th>Chương</th>
+                                    <th>Giá</th>
+                                    <th>Ngày mua</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <p>Bạn chưa mua truyện nào.</p>
+                            </tbody>
+                        </table>
                         @else
                             <table class="table table-striped">
                                 <thead>
@@ -207,39 +221,41 @@
                     </div>
                     <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Tự động mua" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
-                        @foreach ($AutoPurchase as $auto)
-                            @php
-                                $book = $auto->book;
-                            @endphp
-                            <div class="thumb-item-flow col-4 col-lg-2">
-                                <div class="thumb-wrapper">
-                                    <a class="link at-cover"
-                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                        title="{{ $book->title ?? '' }}">
-                                        <div class="a6-ratio">
-                                            <div class="content img-in-ratio"
-                                                style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                        <div class="row">
+                            @foreach ($AutoPurchase as $auto)
+                                @php
+                                    $book = $auto->book;
+                                @endphp
+                                <div class="thumb-item-flow col-4 col-lg-2">
+                                    <div class="thumb-wrapper">
+                                        <a class="link at-cover"
+                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                            title="{{ $book->title ?? '' }}">
+                                            <div class="a6-ratio">
+                                                <div class="content img-in-ratio"
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="thumb-detail">
+                                            <div class="thumb_attr volume-title">
+                                                <a
+                                                    href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
+                                            </div>
+                                            <div id="deleteAuto" class="thumb_title text-center pad-top-10"
+                                                style="cursor: pointer" data-book_id="{{ $book->id }}">
+                                                <i class="fas fa-times"></i> Xóa
                                             </div>
                                         </div>
-                                    </a>
-                                    <div class="thumb-detail">
-                                        <div class="thumb_attr volume-title">
-                                            <a
-                                                href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
-                                        </div>
-                                        <div id="deleteAuto" class="thumb_title text-center pad-top-10"
-                                            style="cursor: pointer" data-book_id="{{ $book->id }}">
-                                            <i class="fas fa-times"></i> Xóa
-                                        </div>
                                     </div>
+                                    <div class="thumb_attr series-title"><a
+                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                            title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                                 </div>
-                                <div class="thumb_attr series-title"><a
-                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                        title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
+                            @endforeach
+                            <div>
+                                {{ $AutoPurchase->links() }}
                             </div>
-                        @endforeach
-                        <div>
-                            {{ $AutoPurchase->links() }}
                         </div>
                     </div>
                 @endauth

@@ -441,7 +441,7 @@ class HomeController extends Controller
 
         }else{
             return redirect()->route('login');
-            }
+        }
     }
     public function statistics_view($id, $year = null)
     {

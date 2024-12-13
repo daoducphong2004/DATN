@@ -30,7 +30,9 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
-
+    public function countbook(){
+        return $this->books()->count();
+    }
     public function books()
     {
         return $this->hasMany(Book::class);

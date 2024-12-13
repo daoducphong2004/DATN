@@ -213,7 +213,19 @@
             console.error('Error fetching chapter revenue data:', error);
         }
     };
-
+    $(document).ready(function () {
+        // Initialize DataTable with pagination
+        $('#chapterRevenueTable').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json'
+            },
+            pageLength: 10
+        });
+    });
 
     const renderChapterRevenueChart = (labels, datasets, totalBuyers, chapterIds, startDate, endDate) => {
         const tableBody = document.getElementById('chapterRevenueTable').getElementsByTagName('tbody')[0];
@@ -231,7 +243,6 @@
 
             const buyersCell = row.insertCell(2);
             buyersCell.textContent = totalBuyers[index];
-
             // Thêm nút "Xem chi tiết"
             const actionCell = row.insertCell(3);
             const detailsButton = document.createElement('button');
@@ -241,16 +252,13 @@
             // Truyền `chapter_id` thay vì `chapter_title`
             const chapterId = chapterIds[index];
             detailsButton.onclick = () => {
-                // Lấy giá trị của startDate và endDate hoặc gán null nếu không có
-
+                // Lấy giá trị của startDate và endDate hoặc gán null nếu không có.
                 // Gọi hàm fetch dữ liệu với chapterId
                 fetchUserDetailsByChapter(chapterId, startDate, endDate);
             };
             actionCell.appendChild(detailsButton);
         });
     };
-
-
     const fetchUserDetailsByChapter = async (chapterId, startDate, endDate) => {
         try {
             const response = await fetch(

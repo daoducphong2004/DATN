@@ -23,7 +23,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\WithdrawRequestController;
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::middleware('can:access-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     // Giao diện admin
@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function () {
     });
     // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
-    
+
     Route::prefix('sharebooks')->group(function () {
         Route::get('/', [ShareBookController::class, 'index'])->name('admin.sharebooks.index'); // Danh sách sách
         Route::get('/{bookId}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
@@ -132,7 +132,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin.chapter.approve');
     Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin.chapter.reject');
     Route::get('/stories/lich-su-duyet', [StoryController::class, 'ApprovalHistory'])->name('admin_story_approvalhistory');
-    
+
     // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');

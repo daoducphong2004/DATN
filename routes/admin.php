@@ -29,7 +29,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
-
+    Route::get('thong-ke', [DashboardController::class, 'list_author'])->name('admin.listauthor');
+    Route::get('thong-ke/{id}', [DashboardController::class, 'view_list_story_author'])->name('admin.liststoryauthor');
+    Route::get('thong-ke/{user_id}/story/{id}', [DashboardController::class, 'view_detail_story_author'])->name('admin.detailstoryauthor');
     // User trong Group
     Route::prefix('groups')->group(function () {
         Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');

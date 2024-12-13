@@ -36,6 +36,9 @@
                     <a class="nav-link menu-link" href="/admin">
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Dashboard</span>
                     </a>
+                    <a class="nav-link menu-link" href="{{ route('admin.listauthor') }}">
+                        <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Thống Kê</span>
+                    </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Admin</span>

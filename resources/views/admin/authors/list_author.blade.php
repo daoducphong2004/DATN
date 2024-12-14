@@ -38,4 +38,6 @@
         </tbody>
     </table>
 </div>
+<div class="row" style="margin: 10px"></div>
+
 @endsection

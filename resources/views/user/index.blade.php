@@ -103,8 +103,8 @@
                 document.getElementById('fetchData').addEventListener('click', () => {
                     const startDate = document.getElementById('startDate').value;
                     const endDate = document.getElementById('endDate').value;
-
-                    fetchRevenueData(startDate, endDate);
+                    const user_id = {{ Auth::id() }};
+                    fetchRevenueData(user_id,startDate, endDate);
                 });
             </script>
 
@@ -116,9 +116,9 @@
 
     @if ($ajax)
         <script>
-            const fetchRevenueData = async (startDate, endDate) => {
+            const fetchRevenueData = async (user_id,startDate, endDate) => {
                 try {
-                    const response = await fetch(`action/api/revenue-by-date?start_date=${startDate}&end_date=${endDate}`);
+                    const response = await fetch(`action/api/revenue-by-date?user_id=${user_id}&start_date=${startDate}&end_date=${endDate}`);
                     const data = await response.json();
 
                     const labels = [...new Set(data.map(item => item.date))];

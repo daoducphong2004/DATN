@@ -104,11 +104,11 @@ button.btn-success:hover {
     <div class="container content">
         <!-- Header -->
         <h2 class="text-center">Nạp Coin: Phương Thức Nạp Coin</h2>
-        @if (session('message'))
+        {{-- @if (session('message'))
             <div class="alert alert-danger">
                 {{ session('message') }}
             </div>
-        @endif
+        @endif --}}
 
         <div class="min-h-screen flex items-center justify-center bg-gray-100">
             <!-- Form Section -->

@@ -56,10 +56,13 @@ class TransactionController extends Controller
         $story_id = $request->input('story_id');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
+        $page = $request->input('page', 1); // Mặc định trang 1
+        $limit = $request->input('limit', 10); // Mặc định 10 phần tử mỗi trang
         
-        // Đảm bảo thứ tự tham số khớp với hàm revenueByStoryId
-        $data = Transaction::revenueByChapter($user_id,$type, $walletId, $story_id, $startDate, $endDate);
+        // Gọi hàm revenueByChapter với phân trang
+        $data = Transaction::revenueByChapter($user_id, $type, $walletId, $story_id, $startDate, $endDate, $page, $limit);
         return response()->json($data);
     }
+    
     
 }

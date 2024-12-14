@@ -211,51 +211,46 @@ class Transaction extends Model
             ->orderBy('books.id')
             ->get();
     }
-    public static function revenueByChapter($user_id = null, $type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null,$page = null, $limit = null)
+    public static function revenueByChapter($user_id = null, $type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null, $page = null, $limit = null)
     {
         // Khởi tạo truy vấn cơ bản
         $query = self::join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')
             ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
             ->join('books', 'chapters.book_id', '=', 'books.id')
-            ->where('transactions.status', 'completed') // Chỉ lấy giao dịch hoàn tất
+            ->where('transactions.status', 'completed')
             ->select(
-                DB::raw('MAX(transactions.created_at) AS date'), // Lấy một ngày đại diện cho ngày thanh toán
+                DB::raw('MAX(transactions.created_at) AS date'),
                 'chapters.id AS chapter_id',
                 'chapters.title AS chapter_title',
-                DB::raw('SUM(transactions.amount) AS total_revenue'), // Tổng doanh thu
-                DB::raw('COUNT(DISTINCT purchased_stories.user_id) AS total_buyers') // Tổng số người mua chapter đó
+                DB::raw('SUM(transactions.amount) AS total_revenue'),
+                DB::raw('COUNT(DISTINCT purchased_stories.user_id) AS total_buyers')
             )
-            ->groupBy('chapters.id') // Nhóm theo chapter_id
-            ->orderBy('total_revenue', 'desc'); // Sắp xếp theo chapter_title
-
+            ->groupBy('chapters.id')
+            ->orderBy('total_revenue', 'desc');
+    
         // Lọc theo loại giao dịch nếu có
         if ($type) {
             $query->where('transactions.type', $type);
         }
-        // loc theo user_id
         if ($user_id) {
             $query->where('chapters.user_id', $user_id);
         }
-        // Lọc theo ví nếu có
         if ($walletId) {
             $query->where('transactions.wallet_id', $walletId);
         }
-
-        // Lọc theo ID truyện nếu có
         if ($storyId) {
             $query->where('books.id', $storyId);
         }
-
-        // Lọc theo ngày bắt đầu nếu có
         if ($startDate) {
             $query->whereDate('transactions.created_at', '>=', $startDate);
         }
-
-        // Lọc theo ngày kết thúc nếu có
         if ($endDate) {
             $query->whereDate('transactions.created_at', '<=', $endDate);
         }
-
-        return $query->get();
+    
+        // Phân trang: sử dụng paginate() thay vì get()
+        $perPage = $limit ?: 10; // Số lượng phần tử mỗi trang
+        return $query->paginate($perPage);
     }
+    
 }

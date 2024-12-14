@@ -450,7 +450,7 @@ class HomeController extends Controller
         if($user->id != $book->user_id && !$user->sharedBooks()->exists()){
             return response()->view('errors.403', [], 403);//Sau sẽ thêm cả danh sách người được chia sẻ
         }
-        return view('action.statistics_list.view', compact('book'));
+        return view('action.statistics_list.view', compact('book','user'));
     }
 
     public function createTruyen()

@@ -39,12 +39,12 @@
                                 </div>
                             </div>
 
-                            <div class="form-group clearfix">
+                            {{-- <div class="form-group clearfix">
                                 <label class="col-md-2 control-label text-right"><b>Nội dung nhạy cảm?</b></label>
                                 <div class="col-md-8">
                                     <input type="checkbox" name="is_mature" value="1">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tác giả</label>

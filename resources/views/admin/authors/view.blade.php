@@ -2,11 +2,11 @@
 @section('content')
     <!-- Biểu đồ doanh thu -->
     <div class="container">
-        <div class="row">
-            <!-- Biểu đồ chiếm 10 cột -->
-            <div class="col-md-12">
-                <h3 class="text-center text-primary fw-bold mb-4">Biểu Đồ Doanh Thu</h3>
-                <div class="chart-container mb-12" style="position: relative; height: 60vh; width: 100%;">
+        <div class="row justify-content-center">
+            <!-- Biểu đồ chiếm 12 cột (chiếm toàn bộ chiều rộng) -->
+            <div class="col-md-10 text-center">
+                <h3 class="text-primary fw-bold mb-4">Biểu Đồ Doanh Thu</h3>
+                <div class="chart-container mb-4" style="position: relative; height: 60vh; width: 100%;">
                     <canvas id="revenueChart"></canvas>
                 </div>
                 <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
@@ -14,40 +14,77 @@
         </div>
         <div class="row">
             <!-- Bảng chiếm toàn bộ chiều rộng -->
-            <div class="col-12">
-    <h3 class="text-center text-primary fw-bold mb-4">Bảng doanh thu chapter</h3>
-    <table id="chapterRevenueTable" class="table table-bordered table-striped w-100">
-        <thead>
-            <tr>
-                <th>Tên chapter</th>
-                <th>Doanh thu</th>
-                <th>Số lượng mua</th>
-                <th>Thao Tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows dynamically loaded via DataTables -->
-        </tbody>
-    </table>
-    <button class="btn btn-success mt-3" id="exportButton">Xuất Excel</button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userDetailsModalLabel">Chi tiết người dùng đã mua</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="col-md-6">
+                <h2>Bảng doanh thu chapter</h2>
+                <table id="chapterRevenueTable" class="table table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th>Tên chapter</th>
+                            <th>Doanh thu</th>
+                            <th>Số lượng mua</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows dynamically loaded via DataTables -->
+                    </tbody>
+                </table>
+                <div id="pagination" class="text-center mt-3">
+                    <!-- Các nút phân trang sẽ được hiển thị ở đây -->
                 </div>
-                <div class="modal-body" id="userDetailsModalBody"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+
+                <button class="btn btn-success mt-3" id="exportButton">Xuất Excel</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="userDetailsModal" tabindex="-1" aria-labelledby="userDetailsModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="userDetailsModalLabel">Chi tiết người dùng đã mua</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="userDetailsModalBody"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+            <div class="col-md-6">
+                <h2>Top Spenders</h2>
+                <table class="table table-bordered" id="topSpendersTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Total Spent</th>
+                            <th>Chapters Purchased</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
 
+                <!-- Modal for Chapter Details -->
+                <div class="modal fade" id="chapterDetailsModal" tabindex="-1" aria-labelledby="chapterDetailsModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="chapterDetailsModalLabel">Purchased Chapters</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul id="chapterList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Bộ lọc thời gian -->
@@ -65,35 +102,8 @@
             <button id="fetchData" class="btn btn-primary fw-bold">Tìm kiếm</button>
         </div>
     </div>
-    <h2>Top Spenders</h2>
-    <table class="table table-bordered" id="topSpendersTable">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Total Spent</th>
-                <th>Chapters Purchased</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="row" style="margin: 10px"></div>
 
-    <!-- Modal for Chapter Details -->
-    <div class="modal fade" id="chapterDetailsModal" tabindex="-1" aria-labelledby="chapterDetailsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="chapterDetailsModalLabel">Purchased Chapters</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul id="chapterList"></ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @include('admin.authors.partials.script')
 @endsection

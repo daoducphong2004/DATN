@@ -135,6 +135,8 @@
             </div>
         </div>
     </div>
+    <div class="row" style="margin: 10px"></div>
+
     <script>
         function openTab(event, tabName) {
             // Hide all tab content

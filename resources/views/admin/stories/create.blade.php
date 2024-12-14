@@ -21,12 +21,12 @@
                             </div>
                         </div>
 
-                        <div class="form-check form-check-right mb-2 mt-3">
+                        {{-- <div class="form-check form-check-right mb-2 mt-3">
                             <input class="form-check-input" type="checkbox" name="adult" {{ old('adult') ? 'checked' : '' }}>
                             <label class="form-check-label" for="formCheckboxRight1">
                                 <b>Nội dung nhạy cảm?</b>
                             </label>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group clearfix">
                             <label class="">Ảnh bìa</label>
@@ -223,6 +223,13 @@
         <!--end col-->
     </div>
     <!--end row-->
+
+    <script>
+        $(document).ready(function() {
+            $('#select-genre').select2();
+        });
+    </script>
+    
 @endsection
 
 @push('scripts')

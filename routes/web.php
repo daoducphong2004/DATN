@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -132,7 +133,7 @@ Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::clas
 Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
-Route::delete('/thao-luan/chi-tiet-6thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
+Route::delete('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
 Route::get('wallet', [wallets::class, 'index'])->name('wallet');
 Route::prefix('admin')->group(function () {
     // Giao diện admin
@@ -257,6 +258,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/api/revenue-by-story', [TransactionController::class, 'getRevenueBookData'])->name(name: 'rbbd');
         Route::get('/api/revenue-by-chapter',  [TransactionController::class, 'getRevenueBookChapterData'])->name(name: 'rbbcd');
         Route::get('/api/get-user-buy-chapter', [purchaseStoryController::class, 'getUserBuyChapter'])->name('gubc');
+        Route::get('/api/top-spenders/{book_id}/user/{user_id}', [DashboardController::class, 'topSpenders'])->name('tp');
+        Route::get('/api/top-spenders/{book_id}/details/{user_id}', [DashboardController::class, 'spenderDetails'])->name('tpd');
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {

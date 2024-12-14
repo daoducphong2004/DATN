@@ -108,13 +108,28 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-md-7">
-            <h4>Số Lượng Người Dùng Đăng Ký (7 Ngày Gần Nhất)</h4>
-            <canvas id="newUsersLast7DaysChart"></canvas>
-        </div>
         <div class="col-md-5">
             <h4>Số Lượng Chương Được Mua Theo Thể Loại</h4>
             <canvas id="purchasedStoriesByGenreChart"></canvas>
+        </div>
+        <div class="col-md-7">
+            <h4>Bảng Xếp Hạng Tác Giả</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Coin kiếm được</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($topAuthor as $author)
+                        <tr>
+                            <td>{{ $author->username }}</td>
+                            <td>{{ $author->total_revenue }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="row mt-4">
@@ -139,26 +154,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-4">
-            <h4>Bảng Xếp Hạng Tác Giả</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Tên</th>
-                        <th>Coin kiếm được</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($topAuthor as $author)
-                        <tr>
-                            <td>{{ $author->username }}</td>
-                            <td>{{ $author->total_revenue }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

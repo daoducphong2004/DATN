@@ -211,7 +211,7 @@ class Transaction extends Model
             ->orderBy('books.id')
             ->get();
     }
-    public static function revenueByChapter($user_id = null, $type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null)
+    public static function revenueByChapter($user_id = null, $type = null, $walletId = null, $storyId = null, $startDate = null, $endDate = null,$page = null, $limit = null)
     {
         // Khởi tạo truy vấn cơ bản
         $query = self::join('purchased_stories', 'transactions.purchased_story_id', '=', 'purchased_stories.id')

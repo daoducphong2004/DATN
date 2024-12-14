@@ -108,6 +108,9 @@
                             @endforeach
                         @endif
                     </main>
+                    <div class="pagination-wrapper" style="margin-top: 20px;">
+                        {{ $readingHistories->links('pagination::tailwind') }}
+                    </div>
 
                 </div>
                 @auth

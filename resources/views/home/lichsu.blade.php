@@ -3,6 +3,8 @@
     <div class="page-top-group  at-index ">
         @include('partials.banner')
     </div>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <style>
         .tab-custom {
@@ -119,7 +121,7 @@
                         @if ($purchasedStories->isEmpty())
                             <p>Bạn chưa mua truyện nào.</p>
                         @else
-                            <table class="table table-striped">
+                            <table id='table_history' class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -240,6 +242,8 @@
 
         </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $(document).on('click', '#deleteAuto', function() {
@@ -269,6 +273,13 @@
                     });
                 }
             });
+        });
+        $('#table_history').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            pageLength: 10
         });
     </script>
 @endsection

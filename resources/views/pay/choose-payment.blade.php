@@ -101,9 +101,9 @@
 @section('content')
     <div class="container mt-4">
         <!-- Header Section -->
-        <a class="btn btn-primary mb-4" href="{{ route('user.books', Auth::id()) }}">
+        {{-- <a class="btn btn-primary mb-4" href="{{ route('user.books', Auth::id()) }}">
             Quay lại
-        </a>
+        </a> --}}
         <h2 class="text-center mb-4">Nạp Coin: Điều Khoản</h2>
 
         <!-- Buttons -->

@@ -265,7 +265,13 @@ class BookController extends Controller
     public function create()
     {
         $user = User::findOrFail(Auth::id());
-        if ($user->contractưs()->exists()) {
+        // dd($user->group);
+        if ($user->contracts()->exists()) {
+            // dd();
+            if (!$user->myGroup()->exists()) {
+                return redirect()->route('action.group.index')
+                    ->withErrors(['errors' => 'Bạn phải có nhóm trước khi đăng truyện']);
+            }
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
             return view('stories.create', compact('genres', 'groups'));
@@ -298,6 +304,7 @@ class BookController extends Controller
             'group_id' => $request->group_id,
             'user_id' => Auth::id(),
             'price' => $request->price,
+            'Is_Inspect' => 0,
         ]);
 
         $slug = Str::slug($book->id . '-' . $request->title);
@@ -353,26 +360,26 @@ class BookController extends Controller
             $readingHistories = ReadingHistory::where('user_id', $user->id)
                 ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
                 ->orderBy('last_read_at', 'desc')
-                ->where('book_id',$book->id) // Giới hạn 4 mục gần nhất
+                ->where('book_id', $book->id) // Giới hạn 4 mục gần nhất
                 ->first();
-                // dd($readingHistories);
+            // dd($readingHistories);
 
         } else {
             // Lấy lịch sử đọc từ cookie cho người dùng khách
             $cookieName = 'reading_history';
             $readingHistoriesFromCookie = json_decode(Cookie::get($cookieName), true) ?? [];
-        
+
             if (!empty($readingHistoriesFromCookie)) {
                 // Lọc lịch sử đọc theo book_id khớp với $book->id
                 $filteredReadingHistories = array_filter($readingHistoriesFromCookie, function ($history) use ($book) {
                     return $history['book_id'] == $book->id; // Lọc theo book_id
                 });
-        
+
                 // Nếu có lịch sử đọc phù hợp
                 if (!empty($filteredReadingHistories)) {
                     // Lấy ID chương từ lịch sử đọc đã lọc
                     $chapterIds = array_unique(array_column($filteredReadingHistories, 'chapter_id'));
-        
+
                     // Lấy các chương và bao gồm episode và book
                     $readingHistories = Chapter::whereIn('id', $chapterIds)
                         ->with(['episode.book']) // eager load episode và book
@@ -383,19 +390,19 @@ class BookController extends Controller
                 }
             }
         }
-        
-        if($readingHistories){
-            if(Auth::check()){
+
+        if ($readingHistories) {
+            if (Auth::check()) {
                 $hasReadBook = true;
-            }else{
-            $hasReadBook = $readingHistories->contains(function ($history) use ($book) {
-                return $history->book_id == $book->id; // Kiểm tra xem truyện có trong lịch sử đọc không
-            });
-        }
-        }else{
+            } else {
+                $hasReadBook = $readingHistories->contains(function ($history) use ($book) {
+                    return $history->book_id == $book->id; // Kiểm tra xem truyện có trong lịch sử đọc không
+                });
+            }
+        } else {
             $hasReadBook = false;
         }
-        
+
         // dd($readingHistories,$booksRandom);
         // Kiểm tra trường Is_Inspect
         if ($book->Is_Inspect == 0) {
@@ -482,8 +489,8 @@ class BookController extends Controller
             // Lấy chapter đầu tiên của episode đầu tiên dựa trên 'order' bằng 0
             $firstChapter = $firstEpisode->chapters()->where('order', 1)->first();
         }
-        
-        return view('story.show', compact('book','readingHistories', 'booksRandom','firstChapter','hasReadBook', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
+
+        return view('story.show', compact('book', 'readingHistories', 'booksRandom', 'firstChapter', 'hasReadBook', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
     }
 
 

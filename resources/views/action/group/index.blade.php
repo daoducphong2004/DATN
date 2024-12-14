@@ -7,10 +7,16 @@
                     <div class="panel-heading">
                         <div class="card-header text-center"><strong>Chọn hành động</strong></div>
                     </div>
+                    @if ($errors->any())
+                        <div>
+                            {{ print($errors->first()) }}
+                        </div>
+                    @endif
 
                     <div class="panel-body">
                         <div class="card">
-                           
+
+
                             <div class="card-body">
                                 @if (Auth::user()->group)
                                     <p class="text-center">Bạn đã là thành viên của nhóm
@@ -22,7 +28,7 @@
                                     </div>
                                 @else
                                     <p class="text-center">Bạn chưa tham gia nhóm nào. Bạn muốn:</p>
-    
+
                                     <!-- Tabs Nav -->
                                     <ul class="nav nav-tabs justify-content-center" id="actionTabs" role="tablist">
                                         <li class="nav-item" role="presentation">
@@ -32,30 +38,32 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link" id="joinGroupTab" data-bs-toggle="tab" href="#joinGroup"
-                                                role="tab" aria-controls="joinGroup" aria-selected="false">Tham gia nhóm</a>
+                                                role="tab" aria-controls="joinGroup" aria-selected="false">Tham gia
+                                                nhóm</a>
                                         </li>
                                     </ul>
-    
+
                                     <!-- Tabs Content -->
                                     <div class="tab-content mt-3" id="actionTabsContent">
                                         <!-- Tab for Create Group -->
-                                        <div class="tab-pane  show active" id="createGroup" style="padding-top: 15px" role="tabpanel"
-                                            aria-labelledby="createGroupTab">
+                                        <div class="tab-pane  show active" id="createGroup" style="padding-top: 15px"
+                                            role="tabpanel" aria-labelledby="createGroupTab">
                                             <div class="text-center">
                                                 <a href="{{ route('action.group.create') }}"
                                                     class="btn btn-success btn-block">Tạo nhóm mới</a>
                                             </div>
                                         </div>
-    
+
                                         <!-- Tab for Join Group -->
                                         <div class="tab-pane" id="joinGroup" role="tabpanel" aria-labelledby="joinGroupTab">
                                             <form action="{{ route('action.group.join') }}" method="POST">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label for="group_name">Tìm kiếm nhóm:</label>
-                                                    <input type="text" id="group_name" name="group_name" class="form-control"
-                                                        placeholder="Nhập tên nhóm">
-                                                    <div id="group_suggestions"  class="list-group mt-2" style="display:none;">
+                                                    <input type="text" id="group_name" name="group_name"
+                                                        class="form-control" placeholder="Nhập tên nhóm">
+                                                    <div id="group_suggestions" class="list-group mt-2"
+                                                        style="display:none;">
                                                         <!-- Các gợi ý nhóm sẽ được hiển thị ở đây -->
                                                     </div>
                                                 </div>
@@ -68,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

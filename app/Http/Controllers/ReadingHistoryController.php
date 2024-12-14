@@ -79,7 +79,7 @@ class ReadingHistoryController extends Controller
             ->where('status', 1)
             ->paginate(5);
 
-            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+            $purchasedStories = $user->purchasedStories()->with('chapter')->orderByDesc('id')->get();
             // Lịch sử nạp tiền
             $dataHistory = Payment::where('user_id', Auth::id())->get();
             $totalPayment = 0;

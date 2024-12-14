@@ -132,7 +132,7 @@ Route::post('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumCommentController::clas
 Route::get('thao-luan', [ForumController::class, 'filterThaoLuan'])->name('thao-luan');
 Route::get('search', [SearchController::class, 'index'])->name('search');
 Route::get('search/results', [SearchController::class, 'indexShow'])->name('search_re');
-Route::delete('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
+Route::delete('/thao-luan/chi-tiet-6thao-luan/{id}',  [ForumController::class,  'delete'])->name('delete_forum_user');
 Route::get('wallet', [wallets::class, 'index'])->name('wallet');
 Route::prefix('admin')->group(function () {
     // Giao diện admin

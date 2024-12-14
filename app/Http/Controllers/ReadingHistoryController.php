@@ -73,8 +73,7 @@ class ReadingHistoryController extends Controller
                 })
                 ->with('book', 'chapter')
                 ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
+                ->paginate(4);
             // Danh sách truyện đăng ký tự động
             $AutoPurchase = AutoPurchase::where('user_id', $user->id)
             ->where('status', 1)

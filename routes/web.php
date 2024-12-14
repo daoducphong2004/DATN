@@ -269,7 +269,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
         Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
     });
-    
+
 
     //Hợp đồng
     Route::get('contracts/dieu-khoan',[ContractController::class,'dieukhoan'])->name('contracts.dieu-khoan');

@@ -33,8 +33,7 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-    <script src="assets/plugins/Chart.js/Chart.min.js"></script>
-    <link href="{{ asset('assets/css/test.min.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
     <!--datatable css-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
     <!--datatable responsive css-->
@@ -99,7 +98,6 @@
 
     <!-- App js -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/test.js') }}"></script>
 
     <!--datatable js-->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>

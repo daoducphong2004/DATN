@@ -3,21 +3,22 @@
     <div class="page-top-group  at-index ">
         @include('partials.banner')
     </div>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <style>
         .tab-custom {
             line-height: 25px;
             font-size: 16px;
             font-weight: 600;
-            max-width: fit-content !important;
+            max-width: 300px;
             height: fit-content !important;
             padding: 5px 15px !important;
             margin: 0 5px 0 0;
             color: black;
             background: white !important;
         }
-
-        body {
+        body{
             background: white;
         }
     </style>
@@ -38,109 +39,89 @@
                 <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom " aria-label="Lịch sử đọc"
                     checked="checked" />
                 <div role="tabpanel" class="tab-content rounded-box p-6">
-                    <main class="sect-body row">
+                    <main class="sect-body row" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 0;">
                         @if (Auth::check())
-                            {{-- Display reading history for logged-in users --}}
                             @foreach ($readingHistories as $history)
                                 @php
                                     $book = $history->book;
                                     $chapter = $history->chapter;
                                 @endphp
-                                <div class="thumb-item-flow col-4 col-lg-2">
-                                    <div class="thumb-wrapper">
+                                <div class="thumb-item-flow col-md-3" style="flex: 1 1 24%; max-width: 24%; box-sizing: border-box;">
+                                    <div class="thumb-wrapper" style="padding: 8px; background: #fff; border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                         <a class="link at-cover"
                                             href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
                                             title="{{ $book->title ?? '' }}">
-                                            <div class="a6-ratio">
+                                            <div class="a6-ratio" >
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 5px;">
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                        <div class="thumb-detail" style="margin-top: 10px;">
+                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}" style="font-size: 14px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                 <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}"
                                                     title="{{ $chapter->title ?? '' }}">
                                                     {{ $chapter->title ?? '' }}
                                                 </a>
                                             </div>
-                                            <div class="thumb_attr volume-title"><a
-                                                    href="#">{{ $book->title ?? '' }}</a>
+                                            <div class="thumb_attr volume-title" style="font-size: 12px; color: #777; margin-top: 5px;">
+                                                <a href="#">{{ $book->title ?? '' }}</a>
                                             </div>
-                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer">
+                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer; color: #d9534f; margin-top: 8px;">
                                                 <i class="fas fa-times"></i> Xóa
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="thumb_attr series-title"><a href="#"
-                                            title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                                 </div>
                             @endforeach
                         @else
-                            {{-- Display reading history for guest users --}}
                             @foreach ($readingHistories as $history)
                                 @php
                                     $book = $history['book'];
                                     $chapter = $history['chapter'];
                                 @endphp
-                                <div class="thumb-item-flow col-4 col-lg-2">
-                                    <div class="thumb-wrapper">
+                                <div class="thumb-item-flow col-md-3" style="flex: 1 1 24%; max-width: 24%; box-sizing: border-box;">
+                                    <div class="thumb-wrapper" style="padding: 8px; background: #fff; border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                         <a class="link at-cover"
                                             href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
                                             title="{{ $book->title ?? '' }}">
-                                            <div class="a6-ratio">
+                                            <div class="a6-ratio" >
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 5px;">
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}">
+                                        <div class="thumb-detail" style="margin-top: 10px;">
+                                            <div class="thumb_attr chapter-title" title="{{ $chapter->title ?? '' }}" style="font-size: 14px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                 <a href="{{ route('truyen.chuong', ['slug' => $book->slug ?? '', 'chapter_slug' => $chapter->slug ?? '']) }}"
                                                     title="{{ $chapter->title ?? '' }}">
                                                     {{ $chapter->title ?? '' }}
                                                 </a>
                                             </div>
-                                            <div class="thumb_attr volume-title">
-                                                <a
-                                                    href="{{ route('truyen.tap', ['slug' => $book->slug ?? '', 'episode_slug' => $chapter->episode->slug ?? '']) }}">{{ $chapter->episode->title ?? '' }}</a>
+                                            <div class="thumb_attr volume-title" style="font-size: 12px; color: #777; margin-top: 5px;">
+                                                <a href="#">{{ $book->title ?? '' }}</a>
                                             </div>
-                                            <div class="thumb_title text-center pad-top-10" id='delete_history_for_user' data-book_id="{{ $history->id }}" style="cursor: pointer">
+                                            <div class="thumb_title text-center pad-top-10" style="cursor: pointer; color: #d9534f; margin-top: 8px;">
                                                 <i class="fas fa-times"></i> Xóa
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="thumb_attr series-title">
-                                        <a href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                            title="{{ $book->title ?? '' }}">
-                                            {{ $book->title ?? '' }}
-                                        </a>
                                     </div>
                                 </div>
                             @endforeach
                         @endif
                     </main>
+                    <div class="pagination-wrapper" style="margin-top: 20px;">
+                        {{ $readingHistories->links('pagination::tailwind') }}
+                    </div>
+
                 </div>
                 @auth
                     <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử mua" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         @if ($purchasedStories->isEmpty())
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Tên truyện</th>
-                                    <th>Chương</th>
-                                    <th>Giá</th>
-                                    <th>Ngày mua</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                             <p>Bạn chưa mua truyện nào.</p>
-                            </tbody>
-                        </table>
                         @else
-                            <table class="table table-striped">
+                            <table id='table_history' class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -221,41 +202,39 @@
                     </div>
                     <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Tự động mua" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
-                        <div class="row">
-                            @foreach ($AutoPurchase as $auto)
-                                @php
-                                    $book = $auto->book;
-                                @endphp
-                                <div class="thumb-item-flow col-4 col-lg-2">
-                                    <div class="thumb-wrapper">
-                                        <a class="link at-cover"
-                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                            title="{{ $book->title ?? '' }}">
-                                            <div class="a6-ratio">
-                                                <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr volume-title">
-                                                <a
-                                                    href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
-                                            </div>
-                                            <div id="deleteAuto" class="thumb_title text-center pad-top-10"
-                                                style="cursor: pointer" data-book_id="{{ $book->id }}">
-                                                <i class="fas fa-times"></i> Xóa
+                        @foreach ($AutoPurchase as $auto)
+                            @php
+                                $book = $auto->book;
+                            @endphp
+                            <div class="thumb-item-flow col-md-3 col-4 col-lg-2">
+                                <div class="thumb-wrapper">
+                                    <a class="link at-cover"
+                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                        title="{{ $book->title ?? '' }}">
+                                        <div class="a6-ratio">
+                                            <div class="content img-in-ratio"
+                                                style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
                                             </div>
                                         </div>
+                                    </a>
+                                    <div class="thumb-detail">
+                                        <div class="thumb_attr volume-title">
+                                            <a
+                                                href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
+                                        </div>
+                                        <div id="deleteAuto" class="thumb_title text-center pad-top-10"
+                                            style="cursor: pointer" data-book_id="{{ $book->id }}">
+                                            <i class="fas fa-times"></i> Xóa
+                                        </div>
                                     </div>
-                                    <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                            title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                                 </div>
-                            @endforeach
-                            <div>
-                                {{ $AutoPurchase->links() }}
+                                <div class="thumb_attr series-title"><a
+                                        href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
+                                        title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                             </div>
+                        @endforeach
+                        <div>
+                            {{ $AutoPurchase->links() }}
                         </div>
                     </div>
                 @endauth
@@ -263,6 +242,8 @@
 
         </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             $(document).on('click', '#deleteAuto', function() {
@@ -292,6 +273,13 @@
                     });
                 }
             });
+        });
+        $('#table_history').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            ordering: true,
+            pageLength: 10
         });
     </script>
 @endsection

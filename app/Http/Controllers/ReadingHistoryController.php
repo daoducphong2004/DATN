@@ -73,14 +73,13 @@ class ReadingHistoryController extends Controller
                 })
                 ->with('book', 'chapter')
                 ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
+                ->paginate(4);
             // Danh sách truyện đăng ký tự động
             $AutoPurchase = AutoPurchase::where('user_id', $user->id)
             ->where('status', 1)
             ->paginate(5);
 
-            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
+            $purchasedStories = $user->purchasedStories()->with('chapter')->orderByDesc('id')->get();
             // Lịch sử nạp tiền
             $dataHistory = Payment::where('user_id', Auth::id())->get();
             $totalPayment = 0;

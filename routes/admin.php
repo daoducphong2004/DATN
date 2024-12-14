@@ -23,7 +23,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\WithdrawRequestController;
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::middleware('can:access-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     // Giao diện admin

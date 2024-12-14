@@ -58,8 +58,11 @@ class PurchasedStory extends Model
     {
         // Sử dụng Eloquent để lấy thông tin người dùng đã mua chapter trong khoảng thời gian
         return self::with('user')
-            ->where('chapter_id', $chapterId)
-            ->whereBetween('purchase_date', [$startDate, $endDate])
+            ->join('transactions','purchased_stories.id','=','transactions.purchased_story_id')
+            ->where('purchased_stories.chapter_id', $chapterId)
+            ->whereBetween('transactions.created_at', [$startDate, $endDate])
+            ->select('purchased_stories.user_id','purchased_stories.price','purchased_stories.purchase_date') // Chỉ lấy user_id để tránh lặp
+            ->distinct() // Đảm bảo không có user_id bị trùng lặp
             ->get()
             ->map(function ($purchase) {
                 return [

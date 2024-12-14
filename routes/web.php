@@ -126,6 +126,12 @@ Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+
+Route::get('/admin/forums', [ForumController::class, 'indexadmin'])->name('admin.forum.thaoluan');
+Route::get('/admin/forums/create', [ForumController::class, 'createForAdmin'])->name('admin.forum.create');
+Route::post('/admin/forums/store', [ForumController::class, 'storeForAdmin'])->name('admin.forum.store');
+
+
 Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');

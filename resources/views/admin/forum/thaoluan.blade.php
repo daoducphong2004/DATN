@@ -4,7 +4,7 @@
 <div class="container">
     <h1 class="my-4">Danh sách thảo luận</h1>
 
-    <a href="{{ route('banners.create') }}" class="btn btn-primary mb-3">Tạo mới thảo luận</a>
+    <a href="{{ route('admin.forum.create') }}" class="btn btn-primary mb-3">Tạo mới thảo luận</a>
 
     @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

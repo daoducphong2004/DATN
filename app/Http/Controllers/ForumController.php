@@ -11,6 +11,7 @@ use App\Models\ForumComment;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use Nette\Utils\Strings;
@@ -173,48 +174,67 @@ class ForumController extends Controller
      */
     public function create()
     {
-        $data_book_forums = Forum::query()->join('books', 'books.id', '=', 'forums.book_id')->get([
-            'books.slug as slug_book',
-            'books.title as name_book',
-            'books.author as name_author_forums',
-            'books.view as view_book',
-            'books.like as view_like',
-            'books.painter as view_painter',
-            'books.book_path as view_book_path',
-            'books.description as view_description',
-            'books.note as view_note',
-            'books.status as view_status',
-            'books.adult as view_adult',
-            'books.id as id_book'
-        ]);
-        $books = Book::all();
-        $categories = Category::all();
-        $user = Auth::user();
-        if (!empty($user)) {
-            $userID = $user->id;
-        } else {
-            $userID = 1;
+        $books = Book::all(); // Lấy tất cả sách
+        $categories = Category::all(); // Lấy tất cả danh mục
+        $userID = Auth::user(); // Lấy thông tin người dùng đã đăng nhập
+
+        if (!$userID) {
+            return redirect()->route('login'); // Nếu chưa đăng nhập, chuyển hướng tới trang đăng nhập
         }
+
         return view('user.themThaoLuan', compact('categories', 'books', 'userID'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreForumRequest $request)
     {
-        $bruh = [
+        // Kiểm tra và xử lý dữ liệu đầu vào
+        $data = [
             'title' => $request->title,
             'content' => $request->content,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(), // Người tạo là người đăng nhập
             'category_id' => $request->category_id,
             'book_id' => $request->book_id,
-            'viewer' => $request->viewer,
-            'slug' => '',
-            'created_at' => Carbon::now()
+            'viewer' => 0, // Khởi tạo số lượt xem là 0
+            'slug' => Str::slug($request->input('title')), // Tạo slug tự động từ tiêu đề
+            'created_at' => Carbon::now(),
         ];
-        Forum::query()->create($bruh);
-        return redirect()->route('thao-luan');
+
+        // Tạo thảo luận mới
+        Forum::create($data);
+
+        // Thông báo thành công
+        return redirect()->route('thao-luan')->with('success', 'Thảo luận đã được tạo thành công!');
+    }
+
+    public function createForAdmin()
+    {
+        $books = Book::all();
+        $categories = Category::all();
+
+        return view('admin.forum.create', compact('categories', 'books'));
+    }
+
+    public function storeForAdmin(StoreForumRequest $request)
+    {
+        // Kiểm tra và xử lý dữ liệu đầu vào cho admin
+        $data = [
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => Auth::id(), // Admin là người tạo
+            'category_id' => $request->category_id,
+            'book_id' => $request->book_id,
+            'viewer' => 0, // Khởi tạo số lượt xem là 0
+            'slug' => Str::slug($request->title), // Tạo slug tự động từ tiêu đề
+            'is_featured' => $request->is_featured,
+            'lock' => $request->lock, // Kiểm tra nếu có đánh dấu là featured
+            'created_at' => Carbon::now(),
+        ];
+
+        // Tạo thảo luận mới cho admin
+        Forum::create($data);
+
+        // Thông báo thành công
+        return redirect()->route('admin.forum.thaoluan')->with('success', 'Thảo luận đã được thêm.');
     }
 
     /**
@@ -337,5 +357,15 @@ class ForumController extends Controller
         $data = Forum::findOrFail($id);
         $data->delete();
         return back();
+    }
+    public function deleteForum($id)
+    {
+        // Xóa tất cả bình luận liên quan đến thảo luận
+        ForumComment::where('forum_id', $id)->delete();
+
+        // Sau đó xóa thảo luận
+        Forum::find($id)->delete();
+
+        return redirect()->route('admin.forum.thaoluan')->with('success', 'Thảo luận đã được xóa thành công!');
     }
 }

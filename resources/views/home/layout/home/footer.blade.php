@@ -10,6 +10,7 @@
 
     });
 </script>
+    
 {{-- Lấy số lượng chapter có trong giỏ hang --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {

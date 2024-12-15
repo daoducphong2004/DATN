@@ -60,7 +60,15 @@
             if (selectedColor) {
                 // Thay đổi màu nền cho #mainpart
                 $("#mainpart").css("background-color", selectedColor);
-
+                // Cập nhật màu nền cho các pop-up
+                $(".re_set-in, .popup").css("background-color", selectedColor); // Cập nhật màu nền cho pop-up
+                $(".sect-header").css("background-color", selectedColor);
+                $(".set-slide_input").css("background-color", selectedColor);
+                $("#chap_list").css("background-color", selectedColor);
+                $("#bookmarks_list").css("background-color", selectedColor);
+                $("#fbcmt_root").css("background-color", selectedColor);
+                $("#next-chapter, #home-button, #forward-chapter ").css("background-color", selectedColor);
+                
                 // Tính độ sáng của màu nền (sử dụng hàm luminance)
                 const rgb = hexToRgb(selectedColor);
                 const brightness = luminance(rgb.r, rgb.g, rgb.b);
@@ -328,7 +336,7 @@
             var title = $(this).data('title');
             var price = $(this).data('price');
             var url = $(this).data('url');
-            
+
             // Xác nhận mua chương
             confirmPurchase(title, price, url);
         });
@@ -337,7 +345,7 @@
             e.preventDefault(); // Prevent default link behavior
 
             var chapterId = $(this).data('chapter-id');
-            var url = `{{ route('purchase.chapter',$chapter->id) }}`;
+            var url = `{{ route('purchase.chapter', $chapter->id) }}`;
 
             // Perform AJAX request to purchase the chapter
             $.ajax({
@@ -373,3 +381,103 @@
 
 
 <script src="{{ asset('scripts/app.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const readButton = document.getElementById("read-chapter");
+        const showpopupspeech = document.getElementById("show-popup-speech");
+        const popup = document.getElementById("speech-settings");
+        const closeButton = document.getElementById("close-popup");
+        const voiceSelect = document.getElementById("voice-select");
+        const rateRange = document.getElementById("rate-range");
+        const pitchRange = document.getElementById("pitch-range");
+        const filterInput = document.getElementById("filter-input");
+        const rateValue = document.getElementById("rate-value");
+        const cancelspeech = document.getElementById("cancel-speech");
+        const synth = window.speechSynthesis;
+        let utterance;
+
+        // Hiển thị popup
+        showpopupspeech.addEventListener("click", function() {
+            popup.classList.toggle("hidden");
+        });
+
+        // Đóng popup
+        closeButton.addEventListener("click", function() {
+            popup.classList.add("hidden");
+        });
+
+        // Cập nhật tốc độ và độ cao
+        rateRange.addEventListener("input", function() {
+            rateValue.textContent = rateRange.value;
+        });
+
+        // Lọc ký tự
+        function filterText(text, filterChars) {
+            if (!filterChars) return text;
+            const regex = new RegExp(`[${filterChars}]`, "g");
+            return text.replace(regex, "");
+        }
+
+        // Lấy danh sách giọng đọc tiếng Việt
+        function populateVoiceList() {
+            const voices = synth.getVoices();
+            voiceSelect.innerHTML = ""; // Xóa giọng cũ
+            voices
+                .filter((voice) => voice.lang.startsWith("vi")) // Lọc giọng tiếng Việt
+                .forEach((voice, index) => {
+                    const option = document.createElement("option");
+                    option.value = index;
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    voiceSelect.appendChild(option);
+                });
+
+            // Hiển thị thông báo nếu không có giọng tiếng Việt
+            if (voiceSelect.options.length === 0) {
+                const option = document.createElement("option");
+                option.textContent = "Không tìm thấy giọng đọc tiếng Việt";
+                option.disabled = true;
+                voiceSelect.appendChild(option);
+            }
+        }
+
+        populateVoiceList();
+        synth.onvoiceschanged = populateVoiceList;
+        cancelspeech.addEventListener("click", function() {
+            synth.cancel();
+        })
+        // Bắt đầu đọc
+        readButton.addEventListener("click", function() {
+            // Dừng giọng đọc cũ nếu đang chạy
+            if (synth.speaking) {
+                console.log("Dừng giọng đọc cũ...");
+                synth.cancel();
+            }
+
+            // Lọc nội dung và tạo giọng đọc
+            const filteredText = filterText(chapter_content, filterInput.value);
+
+            // Lọc các thẻ HTML khỏi chapter_content (nếu nó là chuỗi JSON chứa HTML)
+            const textOnly = chapter_content.replace(/<[^>]*>/g,
+            ''); // Biểu thức chính quy loại bỏ thẻ HTML
+
+            const voices = synth.getVoices().filter((voice) => voice.lang.startsWith("vi"));
+            const selectedVoiceIndex = voiceSelect.selectedIndex;
+            const selectedVoice = voices[selectedVoiceIndex] || voices[0];
+            console.log(textOnly); // In ra nội dung đã lọc thẻ HTML
+
+            utterance = new SpeechSynthesisUtterance(textOnly);
+            utterance.voice = selectedVoice;
+            utterance.lang = "vi-VN";
+            utterance.rate = parseFloat(rateRange.value);
+
+            // Sự kiện giọng đọc
+            utterance.onstart = () => console.log("Bắt đầu đọc");
+            utterance.onend = () => console.log("Đã đọc xong");
+            utterance.onerror = (e) => console.error("Lỗi:", e.error);
+
+            synth.speak(utterance);
+        });
+
+    });
+  
+</script>

@@ -45,7 +45,9 @@ class StoryController extends Controller
     {
         $genres = genre::pluck('id', 'name');
         $groups = group::pluck('id', 'name');
-        $users = User::all();
+        $users = User::whereHas('mygroup', function ($query) {
+            $query->where('group', '!=', null); // Kiểm tra group tồn tại
+        })->get();
         return view('admin.stories.create', compact('genres', 'groups', 'users'));
     }
     public function createEpisode($book_id)
@@ -102,14 +104,17 @@ class StoryController extends Controller
             'author' => 'required|string|max:255',
             'type' => 'required|integer',
             'status' => 'required|integer',
-            'group_id' => 'required|integer',
             'user_id' => 'required|integer',
             'book_path' => 'nullable|image|max:2048', // Validate image upload
             'like' => 'required|integer|min:0',
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
+            'Is_Inspect'=> 'required',
         ]);
+        // Lấy user để kiểm tra group_id
+        $user = User::find($request->user_id);
+
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
         // Create a new book entry
@@ -127,8 +132,9 @@ class StoryController extends Controller
             'note' => $request->note,
             'is_VIP' => $request->is_vip ?? 0,  // Default to 0 if not set
             'adult' => $adult,  // 0 or 1
-            'group_id' => $request->group_id,
+            'group_id' => $user->group,
             'user_id' => $request->user_id,
+            'Is_Inspect'=>$request->Is_Inspect,
         ]);
 
         // Generate slug and update the book

@@ -87,35 +87,40 @@ class BookController extends Controller
             $this->resetMonthlyViews();
 
             // Tìm kiếm chapter dựa trên chapter_slug
-            $chapter = chapter::where('slug', $chapter_slug)->firstOrFail();
+            $chapter1 = chapter::where('slug', $chapter_slug)->where('approval',1)->firstOrFail();
+            $chapter = chapter::where('slug', $chapter_slug)->where('approval',1)->select('id', 'title','slug', 'price', 'episode_id')->firstOrFail();
 
             // Lấy episode liên quan đến chapter
-            $episode = $chapter->episode()->with('chapters')->firstOrFail();
+            $episode = $chapter1->episode()
+            ->with(['chapters' => function ($query) {
+                $query->selectBasicFields();
+            }])
+            ->firstOrFail();
 
             // Lấy danh sách các chapters trong episode của chapter hiện tại
             $chapters = $episode->chapters;
 
             // Kiểm tra xem người dùng có đăng nhập hay không
             $user = auth()->user();
-            $fullContent = $chapter->content;
-            $partialContent = null;
+            $content = null;
+            $fullContent = $chapter1->content;
             $canViewFullContent = false;
-            $CountComment = $chapter->countComments();
+            $CountComment = $chapter1->countComments();
 
-            if ($chapter->price > 0) {
-                if (!$user || (!$user->hasPurchased($chapter->id) && $user->id !== $book->user_id)) {
-                    $partialContent = $this->getPartialContent($fullContent);
+            if ($chapter1->price > 0) {
+                if (!$user || (!$user->hasPurchased($chapter1->id) && $user->id !== $book->user_id)) {
+                    $content = $this->getPartialContent($fullContent);
                 } else {
                     $canViewFullContent = true;
-                    $partialContent = $fullContent;
+                    $content = $fullContent;
                 }
             } else {
                 $canViewFullContent = true;
-                $partialContent = $fullContent;
+                $content = $fullContent;
             }
 
             // Lưu lịch sử đọc chương
-            $this->storeReadingHistory($book->id, $chapter->id);
+            $this->storeReadingHistory($book->id, $chapter1->id);
 
             // Trả về JSON response
             return response()->json([
@@ -125,8 +130,7 @@ class BookController extends Controller
                     'episode' => $episode,
                     'chapters' => $chapters,
                     'chapter' => $chapter,
-                    'partialContent' => $partialContent,
-                    'fullContent' => $fullContent,
+                    'content' => $content,
                     'canViewFullContent' => $canViewFullContent,
                     'CountComment' => $CountComment,
                 ],
@@ -274,7 +278,7 @@ class BookController extends Controller
             }
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
-            return view('stories.create', compact('genres', 'groups'));
+            return view('stories.create', compact('genres', 'groups','user'));
         } else {
             return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
@@ -349,12 +353,12 @@ class BookController extends Controller
     public function showU(String $slug)
     {
         // Lấy thông tin sách với các quan hệ
-        $book = Book::with('genres', 'episodes', 'group')->where('slug', $slug)->firstOrFail();
+        $book = Book::with('genres', 'episodes', 'group')->withAvg('ratings','rating')->withCount('ratings')->where('slug', $slug)->firstOrFail();
+        // dd($book);
         $booksRandom = Book::inRandomOrder()->limit(5)->get();
         // Lấy lịch sử đọc của người dùng
         $readingHistories = [];
         $user = User::with('contracts')->find(Auth::id());
-
         if ($user) {
             // Lấy lịch sử đọc từ cơ sở dữ liệu cho người dùng đã đăng nhập
             $readingHistories = ReadingHistory::where('user_id', $user->id)

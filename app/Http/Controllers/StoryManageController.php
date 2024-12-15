@@ -28,7 +28,7 @@ class StoryManageController extends Controller
         // Lấy danh sách truyện của người dùng đang đăng nhập
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
-            ->where('type',1) // Điều kiện lấy truyện dịch
+            ->where('type', 1) // Điều kiện lấy truyện dịch
             ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
@@ -36,7 +36,7 @@ class StoryManageController extends Controller
     public function StoryTranslateListShare()
     {
         $user = Auth::user();
-        $books = $user->sharedBooks()->where('type',1)->paginate(5); // Truyện user được chia sẻ quyền
+        $books = $user->sharedBooks()->where('type', 1)->paginate(5); // Truyện user được chia sẻ quyền
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
 
@@ -48,11 +48,11 @@ class StoryManageController extends Controller
         $userInfor = User::findOrFail($user->id);
 
         // Trả về view với dữ liệu
-     
+
         $countBook = book::where('user_id', $userInfor->id)->count();
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
-            ->where('type',3) // Điều kiện lấy truyện dịch
+            ->where('type', 3) // Điều kiện lấy truyện dịch
             ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
@@ -60,7 +60,7 @@ class StoryManageController extends Controller
     public function StoryOLNListShare()
     {
         $user = Auth::user();
-        $books = $user->sharedBooks()->where('type',3)->paginate(5); // Truyện user được chia sẻ quyền
+        $books = $user->sharedBooks()->where('type', 3)->paginate(5); // Truyện user được chia sẻ quyền
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
 
@@ -79,7 +79,7 @@ class StoryManageController extends Controller
         // Lấy danh sách truyện của người dùng đang đăng nhập
         $books = Book::with('user', 'group') // Tải trước quan hệ user và group
             ->where('user_id', $userId) // Điều kiện lấy truyện của user hiện tại
-            ->where('type',2) // Điều kiện lấy truyện dịch
+            ->where('type', 2) // Điều kiện lấy truyện dịch
             ->paginate(5);
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
@@ -87,7 +87,7 @@ class StoryManageController extends Controller
     public function StoryConvertListShare()
     {
         $user = Auth::user();
-        $books = $user->sharedBooks()->where('type',2)->paginate(5); // Truyện user được chia sẻ quyền
+        $books = $user->sharedBooks()->where('type', 2)->paginate(5); // Truyện user được chia sẻ quyền
         return view('user.ListTruyenUser', compact('user', 'books'));
     }
 }

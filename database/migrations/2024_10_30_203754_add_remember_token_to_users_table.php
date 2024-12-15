@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->softDeletes();
-            $table->string('slug');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('remember_token')->nullable();
         });
     }
 
@@ -22,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->string('delete_at');
-            $table->string('slug');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

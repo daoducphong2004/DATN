@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
             $table->integer('coin_earned')->default(0);
 
+
             $table->softDeletes();
             $table->timestamps();
         });

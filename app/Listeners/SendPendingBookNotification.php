@@ -29,11 +29,12 @@ class SendPendingBookNotification
         $admin = User::where('role_id', Role::where('name', 'super_admin')->value('id'))->first();
 
         if ($pendingBooksCount > 0) {
-            $admin->notifications()->create([
-                'type' => 'App\Notifications\BookPendingNotification',
-                'data' => [
-                    'message' => 'Có ' . $pendingBooksCount . ' truyện chưa được duyệt.',
-                ],
+            $admin->notifications()->create(
+                [
+                    'type' => 'App\Notifications\BookPendingNotification',
+                    'data' => [
+                        'message' => 'Có ' . $pendingBooksCount . ' truyện chưa được duyệt.',
+                    ],
                 ]
             );
         }

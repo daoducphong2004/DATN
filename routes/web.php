@@ -126,6 +126,12 @@ Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+
+Route::get('/admin/forums', [ForumController::class, 'indexadmin'])->name('admin.forum.thaoluan');
+Route::get('/admin/forums/create', [ForumController::class, 'createForAdmin'])->name('admin.forum.create');
+Route::post('/admin/forums/store', [ForumController::class, 'storeForAdmin'])->name('admin.forum.store');
+
+
 Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
@@ -222,7 +228,7 @@ Route::resource('chapter', ChapterController::class);
 Route::get('stories/information/{book}', function (book $book) {
     $user = Auth::user();
     $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres','user'));
+    return view('stories.iframe.information', compact('book', 'genres', 'user'));
 })->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
@@ -240,24 +246,24 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('action')->name('action.')->group(function () {
         // Trong đây sẽ là những route có trong UserHome
         Route::post('/join-group', [GroupController::class, 'JoinGroup'])->name('group.join');
-        Route::post('group/adduser',[GroupController::class,'addUser'])->name('group.adduser');
+        Route::post('group/adduser', [GroupController::class, 'addUser'])->name('group.adduser');
         Route::resource('group', GroupController::class);
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-        Route::get('',[HomeController::class, 'Userhome']);
+        Route::get('', [HomeController::class, 'Userhome']);
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
         Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
         Route::get('/withdraw/create', [WithdrawRequestController::class, 'create'])->name('withdraw.create');
         Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
 
         //Gọi api thống kê
-        Route::get('/thong-ke/danh-sach',[HomeController::class,'statistics_list'])->name('statistics-list');
-        Route::get('/thong-ke/{id}', [HomeController::class,'statistics_view'])->name('statistics-view');
+        Route::get('/thong-ke/danh-sach', [HomeController::class, 'statistics_list'])->name('statistics-list');
+        Route::get('/thong-ke/{id}', [HomeController::class, 'statistics_view'])->name('statistics-view');
         Route::get('/api/revenue-by-date', [TransactionController::class, 'getRevenueData'])->name('rbd');
         Route::get('/api/revenue-by-story', [TransactionController::class, 'getRevenueBookData'])->name(name: 'rbbd');
         Route::get('/api/revenue-by-chapter',  [TransactionController::class, 'getRevenueBookChapterData'])->name(name: 'rbbcd');
-        Route::get('/api/get-user-buy-chapter',[purchaseStoryController::class,'getUserBuyChapter'])->name('gubc');
+        Route::get('/api/get-user-buy-chapter', [purchaseStoryController::class, 'getUserBuyChapter'])->name('gubc');
         Route::get('/api/top-spenders/{book_id}/user/{user_id}', [DashboardController::class, 'topSpenders'])->name('tp');
         Route::get('/api/top-spenders/{book_id}/details/{user_id}', [DashboardController::class, 'spenderDetails'])->name('tpd');
     });
@@ -272,11 +278,11 @@ Route::middleware(['auth'])->group(function () {
 
 
     //Hợp đồng
-    Route::get('contracts/dieu-khoan',[ContractController::class,'dieukhoan'])->name('contracts.dieu-khoan');
+    Route::get('contracts/dieu-khoan', [ContractController::class, 'dieukhoan'])->name('contracts.dieu-khoan');
 
     Route::resource('contracts', ContractController::class);
     // web.php
-    Route::get('/contract/qanda', [ContractController::class,'qanda'])->name('contract.qa');
+    Route::get('/contract/qanda', [ContractController::class, 'qanda'])->name('contract.qa');
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
     // tự động mua
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');

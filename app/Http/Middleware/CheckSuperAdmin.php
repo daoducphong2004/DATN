@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminAuthentication
+class CheckSuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,9 @@ class AdminAuthentication
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role_id != 'admin') {
-            return redirect()->route('user.home');
+
+        if (!Auth::check() || Auth::user()->role_id !== 'super_admin') {
+            return redirect()->route('no_permission')->with('error', 'Bạn không có quyền truy cập vào chức năng này.');
         }
         return $next($request);
     }

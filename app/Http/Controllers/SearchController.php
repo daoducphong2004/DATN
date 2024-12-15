@@ -21,7 +21,7 @@ class SearchController extends Controller
         return view('home.search');
     }
     public function indexShow(Request $request)
-    {
+    { 
         $title = $request->get('title');
 
         $data_book = Book::where('title','LIKE',"%{$title}%")->get();

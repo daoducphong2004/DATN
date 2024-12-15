@@ -102,7 +102,7 @@
             </table>
         </div> --}}
 
-        <div class="row">
+        <div class="row full-with">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">

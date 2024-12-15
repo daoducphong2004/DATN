@@ -52,18 +52,18 @@
 
                 <section class="rd-basic_icon row">
                     <!-- Previous Chapter Link -->
-                    <a href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
+                    <a id="next-chapter" href="{{ $chapter->previousChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->previousChapter()->slug]) : '#' }}"
                         class="dark:text-black col text-center {{ $chapter->previousChapter() ? '' : 'disabled' }}">
                         <i class="fas fa-backward"></i>
                     </a>
 
                     <!-- Home Link -->
-                    <a href="{{ route('truyen.truyen', $book->slug) }}" class="dark:text-black col text-center">
+                    <a id="home-button" href="{{ route('truyen.truyen', $book->slug) }}" class="dark:text-black col text-center">
                         <i class="fas fa-home"></i>
                     </a>
 
                     <!-- Next Chapter Link -->
-                    <a href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
+                    <a id="forward-chapter" href="{{ $chapter->nextChapter() ? route('truyen.chuong', ['slug' => $book->slug, 'chapter_slug' => $chapter->nextChapter()->slug]) : '#' }}"
                         class="dark:text-black col text-center {{ $chapter->nextChapter() ? '' : 'disabled' }}">
                         <i class="fas fa-forward"></i>
                     </a>
@@ -75,7 +75,16 @@
         </div>
     </div>
     </main>
+    <style>
+        #bookmarks_list{
+            height: 100%    ;
+        }
+        #chap_list{
+            height: 100%    ;
+        }
+    </style>
     <script>
+        let chapter_content = '';
         $(document).ready(function() {
             let slug = '{{ $book->slug }}'; // Thay bằng giá trị thực tế
             let chapter_slug = '{{ $chapter->slug }}'; // Thay bằng giá trị thực tế
@@ -89,11 +98,11 @@
                         const canViewFullContent = response.data.canViewFullContent;
                         console.log(data)
                         // Hiển thị nội dung chương
-                        const content = document.createElement('div'); // Tạo thẻ tạm để xử lý nội dung
+                        const content = document.createElement('div'); // Tạo thẻ tạm để xử lý nội dung 
                         if (canViewFullContent) {
-                            content.innerHTML = data.fullContent;
+                            content.innerHTML = data.content;
                         } else {
-                            content.innerHTML = data.partialContent;
+                            content.innerHTML = data.content;
                             // Đảm bảo rằng phần tử với id 'purchase-chapter' tồn tại
                             const purchaseChapterElement = document.getElementById('purchase-chapter');
                             if (purchaseChapterElement) {
@@ -119,7 +128,7 @@
                             `;
                             }
                         }
-
+                        chapter_content = data.content;
 
                         // Gán ID cho từng đoạn văn
                         Array.from(content.children).forEach((element, index) => {
@@ -322,120 +331,5 @@
         }
     </script>
     @include('story.partials.script')
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const readButton = document.getElementById("read-chapter");
-            const showpopupspeech = document.getElementById("show-popup-speech");
-            const popup = document.getElementById("speech-settings");
-            const closeButton = document.getElementById("close-popup");
-            const voiceSelect = document.getElementById("voice-select");
-            const rateRange = document.getElementById("rate-range");
-            const pitchRange = document.getElementById("pitch-range");
-            const filterInput = document.getElementById("filter-input");
-            const rateValue = document.getElementById("rate-value");
-            const cancelspeech = document.getElementById("cancel-speech");
-            const chapterContent = document.getElementById("chapter-content").innerText;
-            const synth = window.speechSynthesis;
-            let utterance;
-
-            // Hiển thị popup
-            showpopupspeech.addEventListener("click", function() {
-                popup.classList.toggle("hidden");
-            });
-
-            // Đóng popup
-            closeButton.addEventListener("click", function() {
-                popup.classList.add("hidden");
-            });
-
-            // Cập nhật tốc độ và độ cao
-            rateRange.addEventListener("input", function() {
-                rateValue.textContent = rateRange.value;
-            });
-
-            // Lọc ký tự
-            function filterText(text, filterChars) {
-                if (!filterChars) return text;
-                const regex = new RegExp(`[${filterChars}]`, "g");
-                return text.replace(regex, "");
-            }
-
-            // Lấy danh sách giọng đọc tiếng Việt
-            function populateVoiceList() {
-                const voices = synth.getVoices();
-                voiceSelect.innerHTML = ""; // Xóa giọng cũ
-                voices
-                    .filter((voice) => voice.lang.startsWith("vi")) // Lọc giọng tiếng Việt
-                    .forEach((voice, index) => {
-                        const option = document.createElement("option");
-                        option.value = index;
-                        option.textContent = `${voice.name} (${voice.lang})`;
-                        voiceSelect.appendChild(option);
-                    });
-
-                // Hiển thị thông báo nếu không có giọng tiếng Việt
-                if (voiceSelect.options.length === 0) {
-                    const option = document.createElement("option");
-                    option.textContent = "Không tìm thấy giọng đọc tiếng Việt";
-                    option.disabled = true;
-                    voiceSelect.appendChild(option);
-                }
-            }
-
-            populateVoiceList();
-            synth.onvoiceschanged = populateVoiceList;
-            cancelspeech.addEventListener("click", function() {
-                synth.cancel();
-            })
-            // Bắt đầu đọc
-            readButton.addEventListener("click", function() {
-                // Dừng giọng đọc cũ nếu đang chạy
-                if (synth.speaking) {
-                    console.log("Dừng giọng đọc cũ...");
-                    synth.cancel();
-                }
-
-                // Lọc nội dung và tạo giọng đọc
-                const filteredText = filterText(chapterContent, filterInput.value);
-                const voices = synth.getVoices().filter((voice) => voice.lang.startsWith("vi"));
-                const selectedVoiceIndex = voiceSelect.selectedIndex;
-                const selectedVoice = voices[selectedVoiceIndex] || voices[0];
-                // console.log(chapterContent)
-                utterance = new SpeechSynthesisUtterance(filteredText);
-                utterance.voice = selectedVoice;
-                utterance.lang = "vi-VN";
-                utterance.rate = parseFloat(rateRange.value);
-
-                // Sự kiện giọng đọc
-                utterance.onstart = () => console.log("Bắt đầu đọc");
-                utterance.onend = () => console.log("Đã đọc xong");
-                utterance.onerror = (e) => console.error("Lỗi:", e.error);
-
-                synth.speak(utterance);
-            });
-        });
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault(); // Chặn chuột phải
-            alert('Chuột phải đã bị vô hiệu hóa!');
-        });
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'F12' || event.keyCode === 123) {
-                event.preventDefault(); // Chặn F12
-                // alert('Phím F12 đã bị vô hiệu hóa!');
-            }
-        });
-
-        const detectDevTools = function() {
-            const threshold = 160; // Kích thước DevTools
-            const widthExceeded = window.outerWidth - window.innerWidth > threshold;
-            const heightExceeded = window.outerHeight - window.innerHeight > threshold;
-            if (widthExceeded || heightExceeded) {
-                alert('Vui lòng đóng DevTools để tiếp tục!');
-                window.location.reload(); // Tải lại trang
-            }
-        };
-
-        setInterval(detectDevTools, 1000);
-    </script>
+    
 @endsection

@@ -84,7 +84,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group clearfix mt-3 required">
+                        {{-- <div class="form-group clearfix mt-3 required">
                             <label class="">Nhóm dịch</label>
                             <div class="">
                                 <select class="input-sm form-control @error('group_id') is-invalid @enderror"
@@ -100,7 +100,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group clearfix mt-3 required">
                             <label class="">Thể loại</label>
@@ -140,7 +140,7 @@
                         </div>
 
                         <!-- Include TinyMCE script if needed -->
-                        @include('layouts.TinyMCEscript')
+                        @include('layouts.TinyMCEscriptNoImport')
 
                         <div class="form-group clearfix mt-3 required">
                             <label class="">Tình trạng dịch</label>
@@ -199,17 +199,17 @@
                         </div>
 
                         <div class="form-group clearfix mt-3 required">
-                            <label class="">Trạng thái kiểm duyệt
-                                (Is_Inspect)</label>
+                            <label class="">Trạng thái kiểm duyệt (Is_Inspect)</label>
                             <div class="">
-                                <input type="text" class="form-control @error('Is_Inspect') is-invalid @enderror"
-                                    name="Is_Inspect" value="{{ old('Is_Inspect', 'đang duyệt') }}">
+                                <select class="form-control @error('Is_Inspect') is-invalid @enderror" name="Is_Inspect">
+                                    <option value="1" {{ old('Is_Inspect', '1') == '1' ? 'selected' : '' }}>Đã duyệt</option>
+                                    <option value="0" {{ old('Is_Inspect', '0') == '0' ? 'selected' : '' }}>Chưa duyệt</option>
+                                </select>
                                 @error('Is_Inspect')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class=" col-md-offset-2">
                                 <button type="submit" class="mt-3 btn btn-primary">Thêm truyện</button>
@@ -223,13 +223,37 @@
         <!--end col-->
     </div>
     <!--end row-->
+   <!-- Include jQuery -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#select-genre').select2();
-        });
-    </script>
-    
+   <!-- Include Select2 CSS -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+   <!-- Include Select2 JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+   <script>
+       jQuery(document).ready(function($) {
+           $('#select-genre').select2();
+       });
+   </script>
+    <style>
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: rgb(1, 1, 121) !important; 
+        }
+        /* Thay đổi màu chữ trong Select2 */
+        .select2-container .select2-selection__rendered {
+            color: black;
+        }
+
+        .select2-dropdown .select2-results__option {
+            color: black;
+        }
+
+        .select2-dropdown .select2-results__option:hover {
+            background-color: black; 
+        }
+    </style>
 @endsection
 
 @push('scripts')

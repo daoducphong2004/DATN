@@ -14,7 +14,7 @@ class Rating extends Model
     // Liên kết với bảng `Story`
     public function story()
     {
-        return $this->belongsTo(Book::class);
+        return $this->belongsTo(related: Book::class);
     }
 
     // Liên kết với bảng `User`
@@ -27,4 +27,14 @@ class Rating extends Model
     {
         return $this->hasMany(Like_rating::class);
     }
+    public function averageRating($bookId)
+{
+    // Lấy trung bình rating cho một cuốn sách dựa vào book_id
+    $average = Rating::where('book_id', $bookId)->avg('rating');
+
+    return response()->json([
+        'book_id' => $bookId,
+        'average_rating' => round($average, 2) // Làm tròn đến 2 chữ số thập phân
+    ]);
+}
 }

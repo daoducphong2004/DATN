@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="select-group" class="col-md-2 col-form-label text-right">Nhóm dịch <span
                                         class="text-danger">*</span></label>
                                 <div class="col-md-10">
@@ -80,8 +80,8 @@
                                         <option value="60">Tác Giả OLN</option>
                                     </select>
                                 </div>
-                            </div>
-
+                            </div> --}}
+                            <input type="hidden" value="{{ $user->group }}" name="group_id">
                             <div class="form-group row">
                                 <label for="select-genre" class="col-md-2 col-form-label text-right">Thể loại <span
                                         class="text-danger">*</span></label>

@@ -189,11 +189,28 @@
                         <tbody>
                             @foreach ($combined as $history)
                                 <tr>
-                                    <td>{{ optional($history->book)->title ?? 'Không có dữ liệu'}}</td>
-                                    <td>{{ $history->chapter->title ?? 'N/A' }}</td>
-                                    <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                    @if ($history instanceof \App\Models\ApprovalHistory && $history->chapter)
+                                    <tr>
+                                        <td>{{ optional($history->chapter->book)->title ?? 'Không có dữ liệu' }}</td>
+                                        <td>{{ $history->chapter->title ?? 'N/A' }}</td>
+                                        <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                        <td>{{ $history->reason }}</td>
+                                        <td>{{ $history->status }}</td>
+                                    </tr>
+                                @elseif ($history instanceof \App\Models\DeleteHistory)
+                                    <tr>
+                                        <td>{{ $history->book->id ?? 'Không có dữ liệu' }}</td>
+                                        <td>N/A</td>
+                                        <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                        <td>{{ $history->reason }}</td>
+                                        <td>{{ $history->status }}</td>
+                                    </tr>
+                                @endif
+                                    {{-- <td>{{ $history->chapter->book->title ?? 'Không có dữ liệu'}}</td> --}}
+                                    {{-- <td>{{ $history->chapter->title ?? 'N/A' }}</td> --}}
+                                    {{-- <td>{{ $history->user->username ?? 'N/A' }}</td>
                                     <td>{{ $history->reason }}</td>
-                                    <td>{{ $history->status }}</td>
+                                    <td>{{ $history->status }}</td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

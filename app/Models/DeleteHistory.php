@@ -12,12 +12,13 @@ class DeleteHistory extends Model
     protected $fillable = [
         'book_id',
         'user_id',
-        'reason'
+        'reason',
+        'status',
     ];
 
     public function book()
     {
-        return $this->belongsTo(Book::class, 'book_id');
+        return $this->belongsTo(Book::class,  'book_id', 'id');
     }
 
     public function user()

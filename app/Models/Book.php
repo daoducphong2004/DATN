@@ -145,4 +145,8 @@ class Book extends Model
     {
         return $this->hasMany(SharedBook::class, 'book_id', 'id');
     }
+    public function deleteHistories()
+    {
+        return $this->hasMany(DeleteHistory::class, 'book_id', 'id');
+    }
 }

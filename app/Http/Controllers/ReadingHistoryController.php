@@ -77,6 +77,7 @@ class ReadingHistoryController extends Controller
                 })
                 ->with('book', 'chapter')
                 ->orderBy('last_read_at', 'desc')
+                ->orderBy('created_at','desc')
                 ->paginate($perPage);
 
             // Danh sách truyện đăng ký tự động

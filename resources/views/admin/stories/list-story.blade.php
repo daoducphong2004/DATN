@@ -25,6 +25,7 @@
                         style="width:100%">
                         <thead>
                             <tr>
+                                <th>id</th>
                                 <th>Tên truyện</th>
                                 <th>Ảnh truyện</th>
                                 <th>Người đăng</th>
@@ -40,6 +41,7 @@
                         <tbody>
                             @foreach ($stories as $story)
                                 <tr>
+                                    <td>{{ $story->id }}</td>
                                     <td>{{ $story->title }}</td>
                                     <td>
                                         <img width="50px" src="{{ asset(Storage::url($story->book_path)) }}"

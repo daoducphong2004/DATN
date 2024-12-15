@@ -152,7 +152,6 @@ class AuthorController extends Controller
         }
 
         return back()->with('error', 'Không tìm thấy yêu cầu.');
-
     }
 
     public function rejectRequest($id)
@@ -182,5 +181,4 @@ class AuthorController extends Controller
 
         return back()->with('error', 'Không tìm thấy yêu cầu.');
     }
-
 }

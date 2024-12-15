@@ -143,7 +143,7 @@
                     <div class="set-list set-font-family clear">
                         <label class="font-bold">Font chữ</label>
                         <div class="set-slide set-input justify-center">
-                            <select>
+                            <select class="set-slide_input">
                                 <option>Times New Roman</option>
                                 <option>Merriweather</option>
                                 <option>Lora</option>
@@ -188,6 +188,7 @@
             <main class="sect-body">
                 <div class="set-list set-music-default clear">
                     <label class="font-bold">Phát nhạc mặc định</label>
+                    Tên Nhạc: 30 phút nhạc Lofi Chill không lời thư giãn nhẹ nhàng
                     <div class="set-input clear justify-center">
                         <button id="play-default-music" class="btn btn-primary">Phát nhạc</button>
                     </div>
@@ -196,8 +197,10 @@
                     <label class="font-bold">Tải nhạc lên</label>
                     <div class="set-input clear justify-center">
                         <input type="file" id="upload-music" accept="audio/*" class="form-control">
+                        <div id="music-file-name" class="file-name-display"></div> <!-- Hiển thị tên file -->
                     </div>
                 </div>
+                
                 <div class="set-list set-music-player clear">
                     <label class="font-bold">Bộ điều khiển</label>
                     <div class="set-input clear justify-center">
@@ -215,18 +218,18 @@
         <div id="speech-settings" class="popup hidden">
             <h3>Tùy chỉnh giọng đọc</h3>
             <label for="voice-select">Chọn giọng:</label>
-            <select id="voice-select"></select>
+            <select class="set-slide_input" id="voice-select"></select>
 
             <label for="rate-range">Tốc độ đọc:</label>
-            <input id="rate-range" type="range" min="0.5" max="2" step="0.1" value="1">
+            <input class="set-slide_input" id="rate-range" type="range" min="0.5" max="2" step="0.1" value="1">
             <span id="rate-value">1</span>
 
 
             <label for="filter-input">Ký tự cần lọc:</label>
             <input id="filter-input" type="text" placeholder="Nhập ký tự cần lọc">
             <button class="btn btn-primary" id="read-chapter">Đọc</button>
-            <button id="cancel-speech">Dừng đọc</button>
-            <button id="close-popup">Đóng</button>
+            <button class="btn btn-primary" id="cancel-speech">Dừng đọc</button>
+            <button class="btn btn-primary" id="close-popup">Đóng</button>
         </div>
         <style>
 

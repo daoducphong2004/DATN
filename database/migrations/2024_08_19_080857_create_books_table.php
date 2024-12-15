@@ -32,7 +32,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-    
+
 
 
     /**
@@ -43,7 +43,7 @@ return new class extends Migration
         Schema::table('book_genre', function (Blueprint $table) {
             $table->dropForeign(['book_id']);
         });
-        
+
         Schema::dropIfExists('books');
     }
 };

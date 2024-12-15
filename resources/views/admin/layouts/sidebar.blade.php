@@ -144,7 +144,7 @@
 
                 <li class="nav-item">
                     @can('view-categories', Auth::user())
-                        <a class="nav-link menu-link" href="{{ route('thao_luan') }}">
+                        <a class="nav-link menu-link" href="{{ route('admin.forum.thaoluan') }}">
                             <i class="ri-chat-3-line"></i> <span data-key="">Thảo luận</span>
                         </a>
                     @endcan

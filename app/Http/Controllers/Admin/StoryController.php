@@ -111,7 +111,7 @@ class StoryController extends Controller
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
-            'Is_Inspect'=> 'required',
+            'Is_Inspect' => 'required',
         ]);
         // Lấy user để kiểm tra group_id
         $user = User::find($request->user_id);
@@ -135,7 +135,7 @@ class StoryController extends Controller
             'adult' => $adult,  // 0 or 1
             'group_id' => $user->group,
             'user_id' => $request->user_id,
-            'Is_Inspect'=>$request->Is_Inspect,
+            'Is_Inspect' => $request->Is_Inspect,
         ]);
 
         // Generate slug and update the book
@@ -653,15 +653,15 @@ class StoryController extends Controller
             ->where('Is_Inspect', 0)
             ->paginate(10);
 
-        $Histories = ApprovalHistory::with(['chapter', 'user'])
+        $Histories = ApprovalHistory::with(['chapter', 'user','chapter.book'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-
         $DeletedBooks = DeleteHistory::with(['book', 'user'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-       $combined = $Histories->merge($DeletedBooks)->sortByDesc('created_at')->values();
+        $combined = $Histories->merge($DeletedBooks)->sortByDesc('created_at')->values();
+     
 
         return view('admin.stories.approval-list', compact('pendingStories', 'noChapterStories', 'combined'));
     }
@@ -766,5 +766,4 @@ class StoryController extends Controller
 
         return redirect()->back()->with('success', 'Truyện đã được xóa ');
     }
-
 }

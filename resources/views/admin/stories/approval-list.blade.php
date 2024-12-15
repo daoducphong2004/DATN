@@ -130,7 +130,8 @@
                                             <i class="fas fa-ban"></i> Liên hệ
                                         </a>
                                         <!-- Nút Xóa -->
-                                        <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $story->id }}">
+                                        <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal" data-id="{{ $story->id }}">
                                             <i class="fas fa-ban"></i> Xoá truyện
                                         </a>
 
@@ -139,7 +140,8 @@
                                             aria-labelledby="deleteModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form id="deleteForm" method="POST" action="{{ route('admin_booksdelete') }}">
+                                                    <form id="deleteForm" method="POST"
+                                                        action="{{ route('admin_booksdelete') }}">
                                                         @csrf
                                                         <input type="hidden" name="book_id" id="deleteBookId">
                                                         <div class="modal-header">
@@ -154,7 +156,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Hủy</button>
                                                             <button type="submit" class="btn btn-danger">Xóa</button>
                                                         </div>
                                                     </form>
@@ -188,8 +191,9 @@
                         </thead>
                         <tbody>
                             @foreach ($combined as $history)
+                            {{-- {{    dd($combined) }} --}}
                                 <tr>
-                                    <td>{{ optional($history->book)->title ?? 'Không có dữ liệu'}}</td>
+                                    <td>{{ $history->chapter->book->title ?? 'Không có dữ liệu' }}</td>
                                     <td>{{ $history->chapter->title ?? 'N/A' }}</td>
                                     <td>{{ $history->user->username ?? 'N/A' }}</td>
                                     <td>{{ $history->reason }}</td>
@@ -245,7 +249,7 @@
 
     <script>
         const deleteModal = document.getElementById('deleteModal');
-        deleteModal.addEventListener('show.bs.modal', function (event) {
+        deleteModal.addEventListener('show.bs.modal', function(event) {
             const button = event.relatedTarget; // Nút được bấm
             const bookId = button.getAttribute('data-id'); // Lấy ID truyện
             document.getElementById('deleteBookId').value = bookId; // Truyền vào form

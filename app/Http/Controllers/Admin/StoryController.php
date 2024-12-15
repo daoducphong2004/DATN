@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
 use App\Models\ApprovalHistory;
 use App\Models\AutoPurchase;
+use App\Models\DeleteHistory;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\Wallet;
@@ -641,7 +642,22 @@ class StoryController extends Controller
             })
             ->paginate(10);
 
-        return view('admin.stories.approval-list', compact('pendingStories'));
+        $noChapterStories = Book::with(['user:id,username'])
+            ->doesntHave('chapters') // Chỉ lấy sách không có chương nào
+            ->where('Is_Inspect', 0)
+            ->paginate(10);
+
+        $Histories = ApprovalHistory::with(['chapter', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        $DeletedBooks = DeleteHistory::with(['book', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+       $combined = $Histories->merge($DeletedBooks)->sortByDesc('created_at')->values();
+
+        return view('admin.stories.approval-list', compact('pendingStories', 'noChapterStories', 'combined'));
     }
     public function ChapterNeedApprovalList($book_id)
     {
@@ -726,4 +742,23 @@ class StoryController extends Controller
 
         return view('admin.stories.approval-history', compact('Histories'));
     }
+
+    public function deleteBook(Request $request)
+    {
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'reason' => 'required|string|max:255',
+        ]);
+
+        DeleteHistory::create([
+            'book_id' => $request->book_id,
+            'user_id' => auth()->id(),
+            'reason' => $request->reason,
+        ]);
+
+        Book::findOrFail($request->book_id)->delete();
+
+        return redirect()->back()->with('success', 'Truyện đã được xóa ');
+    }
+
 }

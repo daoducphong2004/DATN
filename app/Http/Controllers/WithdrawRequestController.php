@@ -11,11 +11,12 @@ class WithdrawRequestController extends Controller
     public function create()
     {
         $wallet = Auth::user()->wallet;
-        return view('action.withdraw.create',compact('wallet'));
+        return view('action.withdraw.create', compact('wallet'));
     }
-    public function showU(){
-        $withdraws = WithdrawRequest::where('user_id',Auth::id())->get();
-        return view('action.withdraw.index',compact('withdraws'));
+    public function showU()
+    {
+        $withdraws = WithdrawRequest::where('user_id', Auth::id())->get();
+        return view('action.withdraw.index', compact('withdraws'));
     }
     public function store(Request $request)
     {
@@ -34,42 +35,42 @@ class WithdrawRequestController extends Controller
 
     public function index()
     {
-        $withdrawRequests = WithdrawRequest::where('status','pending')->get();
+        $withdrawRequests = WithdrawRequest::where('status', 'pending')->get();
         return view('admin.withdraw.index', compact('withdrawRequests'));
     }
-    public function HistoryAmin(){
+    public function HistoryAmin()
+    {
         $withdrawRequests = WithdrawRequest::whereIn('status', ['approved', 'rejected'])->get();
         return view('admin.withdraw.history', compact('withdrawRequests'));
     }
     public function update(Request $request, $id)
-{
-    $withdrawRequest = WithdrawRequest::findOrFail($id);
+    {
+        $withdrawRequest = WithdrawRequest::findOrFail($id);
 
-    // Lưu trạng thái cũ để kiểm tra
-    $oldStatus = $withdrawRequest->status;
+        // Lưu trạng thái cũ để kiểm tra
+        $oldStatus = $withdrawRequest->status;
 
-    \DB::beginTransaction();
-    try {
-        // Cập nhật trạng thái và ghi chú
-        $withdrawRequest->update([
-            'status' => $request->status,
-            'note' => $request->note,
-        ]);
+        \DB::beginTransaction();
+        try {
+            // Cập nhật trạng thái và ghi chú
+            $withdrawRequest->update([
+                'status' => $request->status,
+                'note' => $request->note,
+            ]);
 
-        // Xử lý giao dịch khi trạng thái thay đổi
-        if ($request->status === 'approved' && $oldStatus !== 'approved') {
-            $withdrawRequest->createTransaction('approved');
-        } elseif ($request->status === 'rejected' && $oldStatus !== 'rejected') {
-            $withdrawRequest->createTransaction('rejected');
+            // Xử lý giao dịch khi trạng thái thay đổi
+            if ($request->status === 'approved' && $oldStatus !== 'approved') {
+                $withdrawRequest->createTransaction('approved');
+            } elseif ($request->status === 'rejected' && $oldStatus !== 'rejected') {
+                $withdrawRequest->createTransaction('rejected');
+            }
+
+            \DB::commit(); // Lưu thay đổi vào database
+        } catch (\Exception $e) {
+            \DB::rollBack(); // Hoàn tác các thay đổi nếu có lỗi
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi: ' . $e->getMessage());
         }
 
-        \DB::commit(); // Lưu thay đổi vào database
-    } catch (\Exception $e) {
-        \DB::rollBack(); // Hoàn tác các thay đổi nếu có lỗi
-        return redirect()->back()->with('error', 'Đã xảy ra lỗi: ' . $e->getMessage());
+        return redirect()->back()->with('success', 'Trạng thái yêu cầu đã được cập nhật!');
     }
-
-    return redirect()->back()->with('success', 'Trạng thái yêu cầu đã được cập nhật!');
-}
-
 }

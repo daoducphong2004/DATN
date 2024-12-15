@@ -57,7 +57,11 @@ class chapter extends Model
     {
         return $this->chaptercomments()->count();
     }
-
+    public function scopeSelectBasicFields($query)
+    {
+        return $query->select('id','title', 'slug', 'price', 'episode_id');
+    }
+    
     // Get the previous chapter, considering episodes in the same book
     public function previousChapter()
     {

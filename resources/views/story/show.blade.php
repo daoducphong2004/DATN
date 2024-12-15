@@ -129,15 +129,15 @@
                                                     <span class="info-name">Tình trạng:</span>
                                                     <span class="info-value">
                                                         <?php
-                                                            if ($book->status == 1) {
-                                                                echo '<a href="/danh-sach?dangtienhanh=1&sapxep=tentruyen">Đang tiến hành</a>';
-                                                            } elseif ($book->status == 2) {
-                                                                echo '<a href="/danh-sach?tamngung=1&sapxep=tentruyen">Tạm ngưng</a>';
-                                                            } elseif ($book->status == 3) {
-                                                                echo '<a href="/danh-sach?hoanthanh=1&sapxep=tentruyen">Đã hoàn thành</a>';
-                                                            } else {
-                                                                echo '<a href="#">Không rõ tình trạng</a>';
-                                                            }
+                                                        if ($book->status == 1) {
+                                                            echo '<a href="/danh-sach?dangtienhanh=1&sapxep=tentruyen">Đang tiến hành</a>';
+                                                        } elseif ($book->status == 2) {
+                                                            echo '<a href="/danh-sach?tamngung=1&sapxep=tentruyen">Tạm ngưng</a>';
+                                                        } elseif ($book->status == 3) {
+                                                            echo '<a href="/danh-sach?hoanthanh=1&sapxep=tentruyen">Đã hoàn thành</a>';
+                                                        } else {
+                                                            echo '<a href="#">Không rõ tình trạng</a>';
+                                                        }
                                                         ?>
                                                     </span>
                                                 </div>
@@ -152,14 +152,14 @@
                                                     {{-- {{ dd($readingHistories[0]->slug) }} --}}
                                                     {{-- Kiểm tra xem người dùng đã đọc chưa để hiển thị nút "Tiếp tục đọc" --}}
                                                     @if (Auth::check())
-                                                        @if($hasReadBook)
-                                                        <span class="button bg-success">
-                                                            <a href="{{ route('truyen.chuong', [$book->slug, $readingHistories->chapter->slug]) }}"
-                                                                class="btn btn-secondary">
-                                                                Tiếp tục đọc
-                                                            </a>
-                                                        </span>
-                                                    @endif
+                                                        @if ($hasReadBook)
+                                                            <span class="button bg-success">
+                                                                <a href="{{ route('truyen.chuong', [$book->slug, $readingHistories->chapter->slug]) }}"
+                                                                    class="btn btn-secondary">
+                                                                    Tiếp tục đọc
+                                                                </a>
+                                                            </span>
+                                                        @endif
                                                     @else
                                                         @if ($hasReadBook)
                                                             <span class="button bg-success">
@@ -234,8 +234,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-4 col-md feature-item width-auto-xl">
-                                                    <label for="open-report" class="side-feature-button"
-                                                        id="reportButton">
+                                                    <label for="open-report" class="side-feature-button" id="reportButton">
                                                         <span class="block feature-value"><i
                                                                 class="fas fa-flag"></i></span>
                                                         <span class="block feature-name">Report</span>
@@ -328,8 +327,9 @@
 
                                             <div class="col-4 col-md-3 statistic-item">
                                                 <div class="statistic-name">Đánh giá</div>
-                                                <div class="statistic-value">5,00 / <small>2</small></div>
-                                            </div>
+                                                <div class="statistic-value">
+                                                    {{ $book->ratings_avg_rating ?? 0 }}/<small>{{ $book->ratings_count ?? 0 }}</small>
+                                                </div>                                                                                            </div>
                                             <div class="col-4 col-md-3 statistic-item">
                                                 <div class="statistic-name">Lượt xem</div>
                                                 <div class="statistic-value">{{ $book->view }}</div>
@@ -390,21 +390,20 @@
                     </section>
 
 
-
-                    <section class="basic-section gradual-mobile">
-                        <header class="sect-header"><span class="sect-title">Thảo luận</span><span class="mobile-icon"><i
-                                    class="fas fa-chevron-down"></i></span></header>
-                        <main class="d-lg-block">
-                            <div class="text-right pad-10">
-                                @auth
+                    @auth
+                        <section class="basic-section gradual-mobile">
+                            <header class="sect-header"><span class="sect-title">Thảo luận</span><span class="mobile-icon"><i
+                                        class="fas fa-chevron-down"></i></span></header>
+                            <main class="d-lg-block">
+                                <div class="text-right pad-10">
                                     <a class="button button-green"
                                         href="{{ route('themthaoluan') }}?book_id={{ $book->id }}">
                                         <i class="fas fa-plus"></i> Tạo bài viết
                                     </a>
-                                @endauth
-                            </div>
-                        </main>
-                    </section>
+                                </div>
+                            </main>
+                        </section>
+                    @endauth
 
                     <section id='list-vol' class="none list_vol-section">
                         <div class="list-volume-wrapper basic-section">
@@ -687,8 +686,10 @@
                                                                 </a>
                                                             @else
                                                                 {{-- Kiểm tra người dùng đã mua chương chưa --}}
-                                                                @if (auth()->check() &&
-                                                                        auth()->user()->hasPurchased($chapter->id) || ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
+                                                                @if (
+                                                                    (auth()->check() &&
+                                                                        auth()->user()->hasPurchased($chapter->id)) ||
+                                                                        ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
                                                                     {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
@@ -706,7 +707,7 @@
                                                                         <span
                                                                             style="margin-left: 10px;">{{ $chapter->price }}
                                                                             coins</span>
-                                                                        </span>
+                                                                    </span>
                                                                 @endif
                                                             @endif
                                                         </div>
@@ -790,7 +791,7 @@
                                                 <div class="others-info">
                                                     <h5 class="others-name">
                                                         <a href="/truyen/{{ $book123->slug }}">
-                                                            {{ $book->title }}
+                                                            {{ $book123->title }}
                                                         </a>
                                                     </h5>
                                                     <small>Nhóm dịch: {{ $book123->group->name }}</small>
@@ -915,7 +916,8 @@
                                                                             </a>
                                                                         @endif
                                                                         @if (Auth::check() && (Auth::user()->id === $comment->user_id || Auth::user()->role->name === 'mod'))
-                                                                            <a class="self-center visible-toolkit-item do-like cursor-pointer">
+                                                                            <a
+                                                                                class="self-center visible-toolkit-item do-like cursor-pointer">
                                                                                 <form
                                                                                     action="{{ route('deleteComment', $comment->id) }}"
                                                                                     method="POST" class="inline">
@@ -1007,7 +1009,9 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment">
-                                                                        <p><i>Bình luận này đã bị xoá bởi {{ optional(\App\Models\User::find($comment->delete_by))->username ?? 'Người dùng không xác định' }}.</i></p>
+                                                                        <p><i>Bình luận này đã bị xoá bởi
+                                                                                {{ optional(\App\Models\User::find($comment->delete_by))->username ?? 'Người dùng không xác định' }}.</i>
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>

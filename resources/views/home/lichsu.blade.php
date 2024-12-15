@@ -126,9 +126,11 @@
                             @endforeach
                         @endif
                     </main>
-                    <div class="pagination-wrapper" style="margin-top: 20px;">
-                        {{ $readingHistories->links('pagination::tailwind') }}
-                    </div>
+                    @if (Auth::check())
+                        <div class="pagination-wrapper" style="margin-top: 20px;">
+                            {{ $readingHistories->links('pagination::tailwind') }}
+                        </div>
+                    @endif
 
                 </div>
                 @auth

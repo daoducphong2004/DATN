@@ -86,6 +86,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
     Route::delete('story/{id}/delete', [StoryController::class, 'destroyBook'])->name('admin_storydestroy');
+    Route::post('/books/delete', [StoryController::class, 'deleteBook'])->name('admin_booksdelete');
+
 
     //episode
     Route::get('/episode/create/{book_id}', [StoryController::class, 'createEpisode'])->name('admin_episodecreate');

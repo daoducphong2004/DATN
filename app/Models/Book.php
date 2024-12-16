@@ -147,6 +147,6 @@ class Book extends Model
     }
     public function deleteHistories()
     {
-        return $this->hasMany(DeleteHistory::class, 'book_id', 'id');
+        return $this->hasMany(DeleteHistories::class);
     }
 }

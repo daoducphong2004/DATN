@@ -184,7 +184,7 @@
                             <tr>
                                 <th>Tên truyện</th>
                                 <th>Chương</th>
-                                <th>Người đăng</th>
+                                <th>Người xoá</th>
                                 <th>Lý do</th>
                                 <th>Tình trạng</th>
                             </tr>
@@ -201,9 +201,9 @@
                                         <td>{{ $history->reason }}</td>
                                         <td>{{ $history->status }}</td>
                                     </tr>
-                                @elseif ($history instanceof \App\Models\DeleteHistory)
+                                @elseif ($history instanceof \App\Models\DeleteHistories)
                                     <tr>
-                                        <td>{{ $history->book->id ?? 'Không có dữ liệu' }}</td>
+                                        <td>{{ $history->book_title ?? 'Không có dữ liệu' }}</td>
                                         <td>N/A</td>
                                         <td>{{ $history->user->username ?? 'N/A' }}</td>
                                         <td>{{ $history->reason }}</td>

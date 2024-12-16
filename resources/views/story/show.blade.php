@@ -734,25 +734,33 @@
                                                 </div>
                                             </div>
 
-                                            @php
-                                                $allChaptersFreeOrPurchased = $item->chapters
-                                                    ->where('approval', 1)
-                                                    ->every(function ($chapter) {
-                                                        return $chapter->price == 0 ||
-                                                            (auth()->check() &&
-                                                                auth()
-                                                                    ->user()
-                                                                    ->hasPurchased($chapter->id));
-                                                    });
-                                            @endphp
-                                            @if (!$allChaptersFreeOrPurchased && Auth::id() !== $item->user_id)
-                                                <button type="submit" class="btn btn-secondary mt-3"
-                                                    style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                                    Thêm các chương đã chọn vào giỏ hàng
-                                                </button>
-                                            @endif
+                                        
                                         </form>
                                     </div>
+                                    
+                            {{-- Hiển thị thông báo Toast --}}
+                            <div id="toast" class="toast hidden">
+                                <div class="toast-body">
+                                    <span id="toast-message"></span>
+                                </div>
+                            </div>
+
+                            {{-- Nội dung chính --}}
+                            <div class="col-12 col-md-10">
+                                <form id="addChaptersForm" method="POST" action="{{ route('books.addToCart') }}">
+                                    @csrf
+                                    <ul class="list-chapters at-series">
+                                        {{-- Danh sách chương --}}
+                                    </ul>
+
+                                    {{-- Nút thêm chương --}}
+                                    <button type="submit" class="btn btn-secondary mt-3"
+                                        style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                        Thêm các chương đã chọn vào giỏ hàng
+                                    </button>
+                                </form>
+                            </div>
+                            
                                 </div>
                             </main>
                         </section>

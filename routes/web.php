@@ -216,6 +216,7 @@ Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'pu
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 
+Route::post('/books/add-to-cart', [BookController::class, 'addToCart'])->name('books.addToCart');
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');

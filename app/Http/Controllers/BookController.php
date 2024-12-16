@@ -87,15 +87,15 @@ class BookController extends Controller
             $this->resetMonthlyViews();
 
             // Tìm kiếm chapter dựa trên chapter_slug
-            $chapter1 = chapter::where('slug', $chapter_slug)->where('approval',1)->firstOrFail();
-            $chapter = chapter::where('slug', $chapter_slug)->where('approval',1)->select('id', 'title','slug', 'price', 'episode_id')->firstOrFail();
+            $chapter1 = chapter::where('slug', $chapter_slug)->where('approval', 1)->firstOrFail();
+            $chapter = chapter::where('slug', $chapter_slug)->where('approval', 1)->select('id', 'title', 'slug', 'price', 'episode_id')->firstOrFail();
 
             // Lấy episode liên quan đến chapter
             $episode = $chapter1->episode()
-            ->with(['chapters' => function ($query) {
-                $query->selectBasicFields();
-            }])
-            ->firstOrFail();
+                ->with(['chapters' => function ($query) {
+                    $query->selectBasicFields();
+                }])
+                ->firstOrFail();
 
             // Lấy danh sách các chapters trong episode của chapter hiện tại
             $chapters = $episode->chapters;
@@ -278,7 +278,7 @@ class BookController extends Controller
             }
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
-            return view('stories.create', compact('genres', 'groups','user'));
+            return view('stories.create', compact('genres', 'groups', 'user'));
         } else {
             return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
@@ -353,7 +353,7 @@ class BookController extends Controller
     public function showU(String $slug)
     {
         // Lấy thông tin sách với các quan hệ
-        $book = Book::with('genres', 'episodes', 'group')->withAvg('ratings','rating')->withCount('ratings')->where('slug', $slug)->firstOrFail();
+        $book = Book::with('genres', 'episodes', 'group')->withAvg('ratings', 'rating')->withCount('ratings')->where('slug', $slug)->firstOrFail();
         // dd($book);
         $booksRandom = Book::inRandomOrder()->limit(5)->get();
         // Lấy lịch sử đọc của người dùng
@@ -639,5 +639,23 @@ class BookController extends Controller
             // Reset lượt xem theo tháng
             DB::table('books')->update(['views_month' => 0]);
         }
+    }
+    public function addToCart(Request $request)
+    {
+        // Validate yêu cầu
+        $request->validate([
+            'chapters' => 'required|array|min:1',
+        ], [
+            'chapters.required' => 'Bạn chưa chọn chương nào để thanh toán.',
+            'chapters.min' => 'Bạn phải chọn ít nhất một chương để thêm vào giỏ hàng.',
+        ]);
+
+        // Lấy danh sách chương được chọn
+        $selectedChapters = $request->input('chapters');
+
+        // Logic thêm vào giỏ hàng
+        // (Thêm logic lưu chương vào giỏ hàng tại đây)
+
+        return redirect()->back()->with('success', 'Đã thêm các chương vào giỏ hàng!');
     }
 }

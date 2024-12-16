@@ -2,71 +2,12 @@
 
 @section('title')
     @parent
-    Danh sách báo cáo
+    Danh sách báo cáo truyện - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')
 @endpush
 @section('content')
-    {{-- <div class="p-4" style="min-height: 800px;">
-        @if (session('message'))
-            <div class="alert alert-primary" role="alert">
-                {{ session('message') }}
-            </div>
-        @endif
-        <h2 class="text-primary mb-4">Danh Sách Báo Cáo</h2>
-        <table id="list-report" class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Truyện bị báo cáo</th>
-                    <th>Người báo cáo</th>
-                    <th>Lý do</th>
-                    <th>Mô tả</th>
-                    <th>Trạng thái</th>
-                    <th>Xử lý</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($reports as $report)
-                    <tr>
-                        <td>{{ $report->id }}</td>
-                        <td>{{ $report->book->title }} (ID:{{ $report->book->id }})</td>
-                        <td>{{ $report->user->username }} (ID:{{ $report->user->id }})</td>
-                        <td>{{ implode(', ', json_decode($report->reason, true) ?? []) }}</td>
-                        <td>{{ $report->description }}</td>
-                        <td
-                            class="{{ $report->status === 'Đã duyệt' ? 'text-success' : ($report->status === 'Chờ duyệt' ? 'text-warning' : 'text-danger') }}">
-                            {{ $report->status }}
-                        </td>
-                        <td>
-                            <form action="{{ route('reports.approve', $report->id) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button class="btn btn-info" type="submit">Đồng ý</button>
-                            </form>
-
-                            <form action="{{ route('reports.reject', $report->id) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button class="btn btn-danger" type="submit">Từ chối</button>
-                            </form>
-
-                            <form action="{{ route('reports.review', $report->id) }}" method="POST"
-                                style="display:inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button class="btn btn-warning" type="submit">Chờ duyệt</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div> --}}
-
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

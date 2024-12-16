@@ -87,15 +87,15 @@ class BookController extends Controller
             $this->resetMonthlyViews();
 
             // Tìm kiếm chapter dựa trên chapter_slug
-            $chapter1 = chapter::where('slug', $chapter_slug)->where('approval',1)->firstOrFail();
-            $chapter = chapter::where('slug', $chapter_slug)->where('approval',1)->select('id', 'title','slug', 'price', 'episode_id')->firstOrFail();
+            $chapter1 = chapter::where('slug', $chapter_slug)->where('approval', 1)->firstOrFail();
+            $chapter = chapter::where('slug', $chapter_slug)->where('approval', 1)->select('id', 'title', 'slug', 'price', 'episode_id')->firstOrFail();
 
             // Lấy episode liên quan đến chapter
             $episode = $chapter1->episode()
-            ->with(['chapters' => function ($query) {
-                $query->selectBasicFields();
-            }])
-            ->firstOrFail();
+                ->with(['chapters' => function ($query) {
+                    $query->selectBasicFields();
+                }])
+                ->firstOrFail();
 
             // Lấy danh sách các chapters trong episode của chapter hiện tại
             $chapters = $episode->chapters;
@@ -253,6 +253,27 @@ class BookController extends Controller
         // Save updated history to the cookie (expires in 30 days)
         Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
     }
+    public function deleteHistory(Request $request)
+    {
+        $bookId = $request->input('book_id');
+        $chapterId = $request->input('chapter_id');
+
+        // Xử lý xóa dữ liệu trong cookie
+        $cookieName = 'reading_history';
+        $existingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
+
+        // Kiểm tra và xóa
+        if (isset($existingHistory[$bookId])) {
+            if ($existingHistory[$bookId]['chapter_id'] == $chapterId) {
+                unset($existingHistory[$bookId]);
+            }
+        }
+
+        // Cập nhật lại cookie
+        Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
+
+        return response()->json(['success' => true]);
+    }
 
     public function index()
     {
@@ -278,7 +299,7 @@ class BookController extends Controller
             }
             $genres = genre::pluck('id', 'name');
             $groups = group::pluck('id', 'name');
-            return view('stories.create', compact('genres', 'groups','user'));
+            return view('stories.create', compact('genres', 'groups', 'user'));
         } else {
             return redirect()->route('contracts.create')->withErrors('errors', 'Bạn phải có hợp đồng trước khi đăng truyện');
         }
@@ -353,7 +374,7 @@ class BookController extends Controller
     public function showU(String $slug)
     {
         // Lấy thông tin sách với các quan hệ
-        $book = Book::with('genres', 'episodes', 'group')->withAvg('ratings','rating')->withCount('ratings')->where('slug', $slug)->firstOrFail();
+        $book = Book::with('genres', 'episodes', 'group')->withAvg('ratings', 'rating')->withCount('ratings')->where('slug', $slug)->firstOrFail();
         // dd($book);
         $booksRandom = Book::inRandomOrder()->limit(5)->get();
         // Lấy lịch sử đọc của người dùng

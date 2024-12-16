@@ -177,8 +177,7 @@
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
                                 <div class="thumb-wrapper">
                                     <div class="a6-ratio">
-                                        <div class="content img-in-ratio"
-                                            style="background-image: url('img/nocover.jpg');">
+                                        <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');">
                                         </div>
                                     </div>
                                     <a href="/sang-tac">
@@ -401,7 +400,7 @@
                                                         <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                                                                                                    <small>cánh cửa thứ nhất</small>-->
+                                                                                                            <small>cánh cửa thứ nhất</small>-->
                                                         </div>
                                                     </div>
                                                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\chapter;
+use App\Models\DeleteHistories;
 use App\Models\episode;
 use App\Models\genre;
 use App\Models\group;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Storage;
 use App\Events\BookCreated;
 use App\Models\ApprovalHistory;
 use App\Models\AutoPurchase;
-use App\Models\DeleteHistory;
 use App\Models\PurchasedStory;
 use App\Models\Transaction;
 use App\Models\Wallet;
@@ -653,15 +653,24 @@ class StoryController extends Controller
             ->where('Is_Inspect', 0)
             ->paginate(10);
 
-        $Histories = ApprovalHistory::with(['chapter', 'user','chapter.book'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        $DeletedBooks = DeleteHistory::with(['book', 'user'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $Histories = ApprovalHistory::with(['chapter', 'user'])
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        $DeletedBooks = DB::table('delete_histories')
+            ->leftJoin('books', 'delete_histories.book_id', '=', 'books.id')
+            ->select('delete_histories.*', 'books.title as book_title')
+            ->orderBy('delete_histories.created_at', 'desc')
+            ->get()
+            ->map(function ($item) {
+                // Chuyển đổi stdClass thành DeleteHistory model
+                $deleteHistory = \App\Models\DeleteHistories::find($item->id);
+                // Thêm book_title vào model
+                $deleteHistory->book_title = $item->book_title;
+                return $deleteHistory;
+            });
 
         $combined = $Histories->merge($DeletedBooks)->sortByDesc('created_at')->values();
-     
 
         return view('admin.stories.approval-list', compact('pendingStories', 'noChapterStories', 'combined'));
     }
@@ -756,10 +765,11 @@ class StoryController extends Controller
             'reason' => 'required|string|max:255',
         ]);
 
-        DeleteHistory::create([
+        DeleteHistories::create([
             'book_id' => $request->book_id,
             'user_id' => auth()->id(),
             'reason' => $request->reason,
+            'status' => 'rejected',
         ]);
 
         Book::findOrFail($request->book_id)->delete();

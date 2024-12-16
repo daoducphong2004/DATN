@@ -1,6 +1,6 @@
 @extends('admin.layouts.default')
 @section('title')
-    Thống kê tác giả
+    Thống kê tác giả - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
 <div class="container">

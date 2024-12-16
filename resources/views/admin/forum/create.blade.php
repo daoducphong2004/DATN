@@ -1,5 +1,7 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Thêm thảo luận - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
 <div class="container">
     <div class="row">

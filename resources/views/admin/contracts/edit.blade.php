@@ -1,5 +1,7 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Chỉnh sửa hợp đồng
+@endsection
 @section('content')
 <div class="container my-5">
     <h1>Chỉnh sửa Hợp đồng</h1>

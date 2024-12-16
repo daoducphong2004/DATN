@@ -1,9 +1,11 @@
 @extends('home.layout.master')
-
+@section('title')
+    Truyện đã mua - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
 <main id="mainpart" class="project-page py-8">
     <div class="container mx-auto mt-5">
-        <h1 class="text-3xl font-bold text-center mb-6">Kệ Sách</h1>
+        <h1 class="text-3xl font-bold text-center mb-6">Truyện Đã Mua</h1>
 
         @if ($purchasedBooks->isEmpty())
             <div class="alert alert-info bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4">

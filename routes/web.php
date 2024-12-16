@@ -215,6 +215,7 @@ Route::get('/lich-su', [ReadingHistoryController::class, 'index'])->name('lich-s
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->name('purchase.chapter')->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
+Route::post('/delete-reading-history', [BookController::class, 'deleteHistory']);
 
 Route::post('/books/add-to-cart', [BookController::class, 'addToCart'])->name('books.addToCart');
 //hiển thị nhóm

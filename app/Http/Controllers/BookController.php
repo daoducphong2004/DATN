@@ -253,6 +253,27 @@ class BookController extends Controller
         // Save updated history to the cookie (expires in 30 days)
         Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
     }
+    public function deleteHistory(Request $request)
+    {
+        $bookId = $request->input('book_id');
+        $chapterId = $request->input('chapter_id');
+
+        // Xử lý xóa dữ liệu trong cookie
+        $cookieName = 'reading_history';
+        $existingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
+
+        // Kiểm tra và xóa
+        if (isset($existingHistory[$bookId])) {
+            if ($existingHistory[$bookId]['chapter_id'] == $chapterId) {
+                unset($existingHistory[$bookId]);
+            }
+        }
+
+        // Cập nhật lại cookie
+        Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
+
+        return response()->json(['success' => true]);
+    }
 
     public function index()
     {

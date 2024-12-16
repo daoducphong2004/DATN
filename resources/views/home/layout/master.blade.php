@@ -84,53 +84,29 @@
     </footer>
 </body>
 <script>
-      document.addEventListener('contextmenu', function(event) {
-        event.preventDefault(); // Chặn chuột phải
-        // alert('Chuột phải đã bị vô hiệu hóa!');
-    });
+    
+    //   document.addEventListener('contextmenu', function(event) {
+    //     event.preventDefault(); // Chặn chuột phải
+    //     // alert('Chuột phải đã bị vô hiệu hóa!');
+    // });
 
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'F12' || event.keyCode === 123) {
-            event.preventDefault(); // Chặn F12
-            // alert('Phím F12 đã bị vô hiệu hóa!');
-        }
-    });
+    // document.addEventListener('keydown', function(event) {
+    //     if (event.key === 'F12' || event.keyCode === 123) {
+    //         event.preventDefault(); // Chặn F12
+    //         // alert('Phím F12 đã bị vô hiệu hóa!');
+    //     }
+    // });
 
-    const detectDevTools = function() {
-        const threshold = 160; // Kích thước DevTools
-        const widthExceeded = window.outerWidth - window.innerWidth > threshold;
-        const heightExceeded = window.outerHeight - window.innerHeight > threshold;
-        if (widthExceeded || heightExceeded) {
-            alert('Vui lòng đóng DevTools để tiếp tục!');
-            window.location.reload(); // Tải lại trang
-        }
-    };
+    // const detectDevTools = function() {
+    //     const threshold = 160; // Kích thước DevTools
+    //     const widthExceeded = window.outerWidth - window.innerWidth > threshold;
+    //     const heightExceeded = window.outerHeight - window.innerHeight > threshold;
+    //     if (widthExceeded || heightExceeded) {
+    //         alert('Vui lòng đóng DevTools để tiếp tục!');
+    //         window.location.reload(); // Tải lại trang
+    //     }
+    // };
 
     setInterval(detectDevTools, 1000);
-
-    ///
-    // Hàm hiển thị toast
-function showToast(message) {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toast-message');
-    
-    toastMessage.textContent = message;
-    toast.classList.remove('hidden');
-    toast.classList.add('show');
-
-    // Tự động ẩn sau 3 giây
-    setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.classList.add('hidden'), 300);
-    }, 3000);
-}
-
-// Kiểm tra nếu có lỗi từ server và hiển thị
-@if ($errors->has('chapters'))
-    document.addEventListener('DOMContentLoaded', () => {
-        showToast("{{ $errors->first('chapters') }}");
-    });
-@endif
-
 </script>
 </html>

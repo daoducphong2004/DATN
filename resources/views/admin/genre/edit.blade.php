@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách thể loại sách
+    Sửa thể loại sách - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

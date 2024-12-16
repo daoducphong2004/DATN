@@ -1,6 +1,6 @@
 @extends('home.layout.master')
 @section('title')
-    Giỏ hàng
+    Giỏ hàng - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     @include('partials.banner')

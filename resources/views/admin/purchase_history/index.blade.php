@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách tài khoản đã mua chương
+    Danh sách tài khoản đã mua chương - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

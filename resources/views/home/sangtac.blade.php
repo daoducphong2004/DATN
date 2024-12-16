@@ -1,6 +1,6 @@
 @extends('home.layout.master')
 @section('title')
-Truyện tự sáng tác
+    Truyện tự sáng tác - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     <div class="page-top-group  at-index ">
@@ -28,8 +28,7 @@ Truyện tự sáng tác
                             @foreach ($sangtac_noibat as $item)
                                 <div class="popular-thumb-item mr-1">
                                     <div class="thumb-wrapper">
-                                        <a href="{{ route('truyen.truyen', $item->slug) }}"
-                                            title="{{ $item->title }}">
+                                        <a href="{{ route('truyen.truyen', $item->slug) }}" title="{{ $item->title }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
                                                     style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
@@ -68,7 +67,8 @@ Truyện tự sáng tác
                                     </div>
                                     <div class="detail-list-detail">
                                         <h4 class="series-title text-xl font-bold">
-                                            <a href="{{ route('truyen.truyen', $item->book->slug) }}">{{ $item->book->title }}</a>
+                                            <a
+                                                href="{{ route('truyen.truyen', $item->book->slug) }}">{{ $item->book->title }}</a>
                                         </h4>
                                         <div class="sub-attr">
                                             <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
@@ -126,7 +126,8 @@ Truyện tự sáng tác
 
                                 {{-- Nút Cuối --}}
                                 @if ($moi_cap_nhat->hasMorePages())
-                                    <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
+                                    <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}"
+                                        class="paging_item paging_prevnext next">Cuối</a>
                                 @else
                                     <span class="paging_item paging_prevnext next disabled">Cuối</span>
                                 @endif
@@ -156,14 +157,14 @@ Truyện tự sáng tác
                                             </div>
                                             <div class="series-information">
                                                 <h3 class="series-title"><a
-                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h3>
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                </h3>
                                                 <div class="series-summary">{!! Str::words($item->description, 33, '...') !!}</div>
                                             </div>
                                         </div>
                                     </section>
                                 @endforeach
                             @else
-
                             @endif
                             {{-- kết thúc giới thiệu truyện --}}
 
@@ -172,11 +173,11 @@ Truyện tự sáng tác
                                     <div class="section-title">Bình luận mới</div>
                                 </div>
                                 <main class="sect-body pr-5">
-                                    @foreach($bookComments as $comment)
+                                    @foreach ($bookComments as $comment)
                                         <div class="comment-item-at-index">
                                             <div class="comment-info">
                                                 <span class="series-name"><a
-                                                    href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
+                                                        href="{{ route('truyen.truyen', $comment->book->slug) }}">{{ $comment->book->title }}</a>
                                                 </span>
                                                 <div class="comment-content">
                                                     {{ $comment->content }}
@@ -184,13 +185,15 @@ Truyện tự sáng tác
 
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
-                                                        <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
+                                                        <a
+                                                            href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
                                                             <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>
-                                                    <a href="{{ route('user.books',['userId' => $comment->user->id]) }}"
-                                                        rel="nofollow" class="comment-user_name strong">{{ $comment->user->username }}</a>
+                                                    <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}"
+                                                        rel="nofollow"
+                                                        class="comment-user_name strong">{{ $comment->user->username }}</a>
                                                     <small class="comment-location">
                                                         <a href="#">
                                                             <time class="timeago" datetime="{{ $comment->created_at }}">
@@ -217,14 +220,15 @@ Truyện tự sáng tác
                                             <div class="topview_rank">{{ $index + 1 }}</div>
                                             <div class="topview_name">
                                                 <h5 class="series-name"><a
-                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h5>
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                </h5>
                                                 <small class="ranked-attr">{{ $item->view }}</small>
                                             </div>
                                         </article>
                                     @endforeach
                                     <div class="see-more_text">
-                                        <a href="/danh-sach?sangtac=1&sapxep=top"><i
-                                                class="fas fa-hand-o-right"></i> Xem thêm</a>
+                                        <a href="/danh-sach?sangtac=1&sapxep=top"><i class="fas fa-hand-o-right"></i> Xem
+                                            thêm</a>
                                     </div>
                                 </div>
 

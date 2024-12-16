@@ -1,4 +1,7 @@
 @extends('home.layout.master')
+@section('title')
+    Thành viên {{ !empty($userInfor) ? $userInfor->username : '' }} - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
     <main id="mainpart" class="profile-page">
         <div class="profile-feature-wrapper">

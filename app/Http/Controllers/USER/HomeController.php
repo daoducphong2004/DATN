@@ -257,6 +257,7 @@ class HomeController extends Controller
     }
     public function huongdan_gioithieu()
     {
+        return redirect()->route('chi-tiet-thao-luan',['id'=>10573894]);
     }
 
     public function huongdan_gopy()

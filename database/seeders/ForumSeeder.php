@@ -32,7 +32,13 @@ class ForumSeeder extends Seeder
 	<li>Hỗ trợ đọc online trên thiết bị cầm tay và điện thoại di động.</li>
 </ul>
                 </div>', 'user_id' => '1', 'category_id' => '1', 'book_id' => null, 'viewer' => 0, 'lock' => 0, 'is_featured' => 1, 'slug' => 'thong-bao-cua-admin', 'created_at' => Carbon::now()],
-            
+            ['id' => '10726324', 'title' => 'Góp ý và báo lỗi', 'content' => '<div class="forum-page-content long-text">
+                    <p>Hiện Cổng Light Novel mở thêm một trang "Thảo luận" nơi các bạn tụ họp để cùng bạn luận chém gió những Light Novel các bạn yêu thích.</p>
+<p>Do mới cập nhật nên có thể có lỗi xảy ra nên mời các bạn vào đây để báo lại với bọn mình sớm nhất có thể. Các bạn sẽ dùng acc của Cổng Light Novel để "tạo trang" vào "bình luận".</p>
+<p>Cảm ơn các bạn đã quan tâm.</p>
+<p>&nbsp;</p>
+<p>Hoặc liên hệ discord <strong>@embersz</strong></p>
+                </div>', 'user_id' => '1', 'category_id' => '1', 'book_id' => null, 'viewer' => 0, 'lock' => 0, 'is_featured' => 1, 'slug' => 'thong-bao-cua-admin', 'created_at' => Carbon::now()],
         ]);
     }
 }

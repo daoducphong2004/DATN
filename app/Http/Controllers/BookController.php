@@ -257,24 +257,37 @@ class BookController extends Controller
     {
         $bookId = $request->input('book_id');
         $chapterId = $request->input('chapter_id');
-
-        // Xử lý xóa dữ liệu trong cookie
+    
+        // Tên cookie
         $cookieName = 'reading_history';
-        $existingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
-
-        // Kiểm tra và xóa
+    
+        // Lấy dữ liệu cookie hiện tại dưới dạng chuỗi JSON
+        $existingHistoryJson = Cookie::get($cookieName);
+        $existingHistory = json_decode($existingHistoryJson, true) ?? [];
+        
+        // Kiểm tra và xóa dữ liệu cụ thể
         if (isset($existingHistory[$bookId])) {
             if ($existingHistory[$bookId]['chapter_id'] == $chapterId) {
                 unset($existingHistory[$bookId]);
             }
         }
-
-        // Cập nhật lại cookie
-        Cookie::queue(Cookie::make($cookieName, json_encode($existingHistory), 60 * 24 * 30));
-
-        return response()->json(['success' => true]);
+    
+        // Xóa cookie cũ
+        Cookie::queue(Cookie::forget($cookieName));
+    
+        // Chuyển dữ liệu đã xử lý sang chuỗi JSON
+        $updatedHistoryJson = json_encode($existingHistory);
+    
+        // Đưa lại chuỗi JSON mới vào cookie
+        Cookie::queue(Cookie::make($cookieName, $updatedHistoryJson, 60 * 24 * 30));
+        $test = Cookie::get($cookieName);
+        return response()->json([
+            'success' => true,
+            'cookiedata' => $existingHistory,
+            'aftercookie'=>$test,
+            'book_id'=> $bookId
+        ]);
     }
-
     public function index()
     {
         $genres = genre::pluck('slug', 'name');

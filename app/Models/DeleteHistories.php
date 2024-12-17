@@ -24,4 +24,16 @@ class DeleteHistories extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Scope to get deleted histories by book_id
+     *
+    * @param \Illuminate\Database\Eloquent\Builder $query
+    * @param int $bookId
+    * @return \Illuminate\Database\Eloquent\Builder
+    */
+   public function scopeDeletedByBookId($query, $bookId)
+   {
+       return $query->where('book_id', $bookId);
+   }
 }

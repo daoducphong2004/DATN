@@ -37,7 +37,7 @@ class HomeController extends Controller
         if ($user) {
             // Get reading history from the database for logged-in users
             $readingHistories = ReadingHistory::where('user_id', $user->id)
-                ->with(['book', 'chapter']) // Nạp cả quan hệ với chapter và book
+                ->with(['book', 'chapter','chapter.episode']) // Nạp cả quan hệ với chapter và book
                 ->orderBy('last_read_at', 'desc')
                 ->take(4) // Giới hạn 4 mục gần nhất
                 ->get();
@@ -53,6 +53,8 @@ class HomeController extends Controller
                 // Lấy các chương và bao gồm episode và book
                 $readingHistories = chapter::whereIn('id', $chapterIds)
                     ->with(['episode.book']) // eager load episode và book
+                    ->orderBy('created_at','desc')
+                    ->take(4)
                     ->get();
 
                 // Kiểm tra và hiển thị thông tin

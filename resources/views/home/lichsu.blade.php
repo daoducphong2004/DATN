@@ -88,12 +88,13 @@
                                 @php
                                     $book = $history['book'];
                                     $chapter = $history['chapter'];
-                                    //  dd($chapter->slug)
+                                    //  dd($chapter)
                                 @endphp
                                 @if (!$chapter || !$chapter->slug)
                                     @continue
                                 @endif
-                                <div class="thumb-item-flow col-md-3"
+                                <div class="thumb-item-flow col-md-3" data-book-id="{{ $book->id ?? '' }}"
+                                    data-chapter-id="{{ $chapter->id ?? '' }}"
                                     style="flex: 1 1 24%; max-width: 24%; box-sizing: border-box;">
                                     <div class="thumb-wrapper"
                                         style="padding: 8px; background: #fff; border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
@@ -129,11 +130,9 @@
                             @endforeach
                         @endif
                     </main>
-                    @if (Auth::check())
-                        <div class="pagination-wrapper" style="margin-top: 20px;">
-                            {{ $readingHistories->links('pagination::tailwind') }}
-                        </div>
-                    @endif
+                    <div class="pagination-wrapper" style="margin-top: 20px;">
+                        {{ $readingHistories->links('pagination::tailwind') }}
+                    </div>
 
                 </div>
                 @auth
@@ -142,7 +141,7 @@
                         @if (empty($purchasedStories))
                             <p>Bạn chưa mua truyện nào.</p>
                         @else
-                            <table id='table_history' class="table table-striped">
+                            <table  class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -170,6 +169,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $purchasedStories->links() }}
                         @endif
                     </div>
 
@@ -344,6 +344,8 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            console.log(data.cookiedata)
+                            console.log(data.aftercookie)
                             console.log('Xóa thành công lịch sử đọc');
                         } else {
                             console.log('Xóa không thành công');

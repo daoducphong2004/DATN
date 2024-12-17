@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ $author->username }}</td>
                     <td>
-                        <img src="{{ asset(Storage::url($author->avatar_url)) }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+                        <img src="{{ asset(Storage::url($author->avatar_url ?: 'img/noava.png')) }}" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
                     </td>
                     <td>{{ $author->total_coin }}</td>
                     <td>{{ $author->total_user }}</td>

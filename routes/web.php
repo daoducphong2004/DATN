@@ -126,7 +126,8 @@ Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
-
+Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
+Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
 Route::get('/admin/forums', [ForumController::class, 'indexadmin'])->name('admin.forum.thaoluan');
 Route::get('/admin/forums/create', [ForumController::class, 'createForAdmin'])->name('admin.forum.create');
 Route::post('/admin/forums/store', [ForumController::class, 'storeForAdmin'])->name('admin.forum.store');
@@ -163,8 +164,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
-    Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
-    Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
+   
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');

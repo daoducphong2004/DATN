@@ -124,6 +124,7 @@ class LetterController extends Controller
     public function update(StoreLetterRequest $request, Letter $id) {}
 
     public function destroy(Letter $id) {}
+
     // Phương thức xóa thư
     public function delete(Request $request)
     {

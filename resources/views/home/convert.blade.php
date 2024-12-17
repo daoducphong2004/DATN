@@ -1,6 +1,6 @@
 @extends('home.layout.master')
 @section('title')
-Tổng hợp Convert
+    Tổng hợp Convert - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     <div class="page-top-group  at-index ">
@@ -26,8 +26,7 @@ Tổng hợp Convert
                             @foreach ($moi_cap_nhat as $item)
                                 <article class="detail-list-item">
                                     <div class="cover-wrapper">
-                                        <a
-                                            href="{{ route('truyen.truyen', $item->book->slug) }}">
+                                        <a href="{{ route('truyen.truyen', $item->book->slug) }}">
                                             <div class="series-cover">
                                                 <div class="a6-ratio">
                                                     <div class="content img-in-ratio"
@@ -45,7 +44,8 @@ Tổng hợp Convert
                                         <div class="sub-attr">
                                             <div class="sub-attr-item"><span class="attr-name">Người đăng</span><a
                                                     href="/thanh-vien/173017">Kevinn</a></div>
-                                            <div class="sub-attr-item"><span class="attr-name">Số từ</span>{{ $item->book->word_count }}</a></span>
+                                            <div class="sub-attr-item"><span class="attr-name">Số
+                                                    từ</span>{{ $item->book->word_count }}</a></span>
                                             </div>
                                         </div>
                                         <div class="series-summary">{!! Str::words($item->book->description, 66, '...') !!}</div>
@@ -80,7 +80,8 @@ Tổng hợp Convert
 
                                 {{-- Nút Cuối --}}
                                 @if ($moi_cap_nhat->hasMorePages())
-                                    <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}" class="paging_item paging_prevnext next">Cuối</a>
+                                    <a href="{{ $moi_cap_nhat->url($moi_cap_nhat->lastPage()) }}"
+                                        class="paging_item paging_prevnext next">Cuối</a>
                                 @else
                                     <span class="paging_item paging_prevnext next disabled">Cuối</span>
                                 @endif
@@ -108,14 +109,14 @@ Tổng hợp Convert
                                             </div>
                                             <div class="series-information">
                                                 <h3 class="series-title"><a
-                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a></h3>
+                                                        href="{{ route('truyen.truyen', $item->slug) }}">{{ $item->title }}</a>
+                                                </h3>
                                                 <div class="series-summary">{!! Str::words($item->description, 33, '...') !!}</div>
                                             </div>
                                         </div>
                                     </section>
                                 @endforeach
                             @else
-
                             @endif
                             <section id="recent-comments" class="index-section">
                                 <div class="title-wrapper">
@@ -134,12 +135,14 @@ Tổng hợp Convert
 
                                                 <div class="comment-top">
                                                     <div class="comment-user_ava">
-                                                        <a href="{{ route('user.books',['userId' => $comment->user->id]) }}">
+                                                        <a
+                                                            href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
                                                             <img src="{{ !empty($comment->user->avatar_url) ? asset(Storage::url($comment->user->avatar_url)) : asset('img/noava.png') }}"
                                                                 alt="Commenter's avatar">
                                                         </a>
                                                     </div>
-                                                    <a href="{{ route('user.books',['userId' => $comment->user->id]) }}" rel="nofollow"
+                                                    <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}"
+                                                        rel="nofollow"
                                                         class="comment-user_name strong">{{ $comment->user->username }}</a>
                                                     <small class="comment-location">
                                                         <a href="#">
@@ -175,8 +178,8 @@ Tổng hợp Convert
                                     @endforeach
 
                                     <div class="see-more_text">
-                                        <a href="/danh-sach?convert=1&sapxep=top"><i
-                                                class="fas fa-hand-o-right"></i> Xem thêm</a>
+                                        <a href="/danh-sach?convert=1&sapxep=top"><i class="fas fa-hand-o-right"></i> Xem
+                                            thêm</a>
                                     </div>
                                 </div>
 
@@ -194,7 +197,7 @@ Tổng hợp Convert
                                                         <div class="content img-in-ratio"
                                                             style="background-image: url('{{ !empty($item->book_path) ? asset(Storage::url($item->book_path)) : asset('img/noava.png') }}')">
                                                         </div>
-                                                        <img src="{{$item->book_path}}" alt="124124">
+                                                        <img src="{{ $item->book_path }}" alt="124124">
                                                     </div>
                                                 </div>
                                                 <div class="others-info">

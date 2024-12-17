@@ -1,6 +1,6 @@
 @extends('home.layout.master')
 @section('title')
-Trang chủ - Cổng Light Novel - Đọc Light Novel
+    Trang chủ - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     <div class="page-top-group  at-index ">
@@ -50,7 +50,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                 <div class="col-12 col-lg-3">
                     <section class="last-topics index-section">
                         <header class="section-title">
-                            <a href="{{route('thao-luan')}}"><span class="sts-bold">Thảo</span><span
+                            <a href="{{ route('thao-luan') }}"><span class="sts-bold">Thảo</span><span
                                     class="sts-empty">Luận</span></a>
                         </header>
                         <main>
@@ -177,8 +177,8 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
                                 <div class="thumb-wrapper">
                                     <div class="a6-ratio">
-                                        <div class="content img-in-ratio"
-                                            style="background-image: url('img/nocover.jpg');"></div>
+                                        <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');">
+                                        </div>
                                     </div>
                                     <a href="/sang-tac">
                                         <div class="thumb-see-more">
@@ -328,7 +328,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                         <div class="comment-top">
                                             <div class="comment-user_ava">
                                                 <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
-                                                    <img src="{{ !empty($comment->user->avatar_url) ?Storage::url( $comment->user->avatar_url) : asset('img/noava.png') }}"
+                                                    <img src="{{ !empty($comment->user->avatar_url) ? Storage::url($comment->user->avatar_url) : asset('img/noava.png') }}"
                                                         alt="Commenter's avatar">
                                                 </a>
                                             </div>
@@ -388,7 +388,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                                         <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                                                                                        <small>cánh cửa thứ nhất</small>-->
+                                                                                                            <small>cánh cửa thứ nhất</small>-->
                                                         </div>
                                                     </div>
                                                 </div>

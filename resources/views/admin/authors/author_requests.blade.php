@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách yêu cầu quyền tác giả
+    Danh sách yêu cầu quyền tác giả - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

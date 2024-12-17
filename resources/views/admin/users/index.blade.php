@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách user
+    Quản lý người dùng - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

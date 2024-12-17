@@ -1,5 +1,7 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Quản lý đồng tác giả - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-12">

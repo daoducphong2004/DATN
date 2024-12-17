@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Duyệt truyện
+    Quản lý duyệt truyện - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @section('content')

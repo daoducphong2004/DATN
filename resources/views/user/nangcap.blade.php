@@ -27,10 +27,10 @@
             </div>
         </div>
 
-        <div class="form-group clearfix">
+        <div class="form-group clearfix required">
             <label class="col-md-2 control-label text-right">Số điện thoại</label>
             <div class="col-md-8">
-                <input type="number" class="form-control" name="phone" id="phone" value="">
+                <input type="number" class="form-control" name="phone" id="phone" value=""required>
             </div>
         </div>
 

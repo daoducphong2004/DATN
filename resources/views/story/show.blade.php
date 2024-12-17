@@ -664,22 +664,18 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-10">
-                                        <form id="addChaptersForm" method="POST"
-                                            action="{{ route('cart.addMultiple') }}">
+                                        <form id="addChaptersForm" method="POST" action="{{ route('cart.addMultiple') }}">
                                             @csrf
                                             <ul class="list-chapters at-series">
                                                 @foreach ($item->chapters->where('approval', 1)->sortBy('order') as $index => $chapter)
                                                     <li class="{{ $index >= 6 ? 'none' : '' }}">
-                                                        <div class="chapter-name"
-                                                            style="display: flex; align-items: center;">
+                                                        <div class="chapter-name" style="display: flex; align-items: center;">
                                                             {{-- Hiển thị icon nếu chương chứa hình ảnh --}}
                                                             @if ($chapter->contains_image)
-                                                                <i class="fas fa-image" aria-hidden="true"
-                                                                    title="Có chứa ảnh"></i>
+                                                                <i class="fas fa-image" aria-hidden="true" title="Có chứa ảnh"></i>
                                                             @endif
                                                             {{-- Kiểm tra giá của chương --}}
                                                             @if ($chapter->price == 0)
-                                                                {{-- Nếu chương có giá 0đ, hiển thị liên kết đọc miễn phí --}}
                                                                 <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                     title="{{ $chapter->title }}">
                                                                     {{ $chapter->title }} (Miễn phí)
@@ -687,82 +683,60 @@
                                                             @else
                                                                 {{-- Kiểm tra người dùng đã mua chương chưa --}}
                                                                 @if (
-                                                                    (auth()->check() &&
-                                                                        auth()->user()->hasPurchased($chapter->id)) ||
-                                                                        ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
-                                                                    {{-- Nếu đã mua, hiển thị liên kết đọc chương --}}
+                                                                    (auth()->check() && auth()->user()->hasPurchased($chapter->id)) ||
+                                                                    ($chapter->user_id == Auth::id() || $book->user_id == Auth::id()))
                                                                     <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                         title="{{ $chapter->title }}">
                                                                         {{ $chapter->title }}
                                                                     </a>
                                                                 @else
-                                                                    {{-- Nếu chưa mua, hiển thị nút mua chương --}}
-                                                                    <span class="chapter-locked"
-                                                                        title="Bạn cần mua chương để đọc"
+                                                                    <span class="chapter-locked" title="Bạn cần mua chương để đọc"
                                                                         style="display: flex; align-items: center;">
                                                                         <a href="{{ route('truyen.chuong', [$book->slug, $chapter->slug]) }}"
                                                                             title="{{ $chapter->title }}">
                                                                             {{ $chapter->title }}
                                                                         </a>
-                                                                        <span
-                                                                            style="margin-left: 10px;">{{ $chapter->price }}
-                                                                            coins</span>
+                                                                        <span style="margin-left: 10px;">{{ $chapter->price }} coins</span>
                                                                     </span>
                                                                 @endif
                                                             @endif
                                                         </div>
-                                                        {{-- Hiển thị thời gian tạo chương --}}
                                                         <div class="chapter-time">
-                                                            {{-- Hiển thị checkbox nếu chương chưa mua --}}
                                                             @if (
                                                                 $chapter->price > 0 &&
-                                                                    (!auth()->check() ||
-                                                                        !auth()->user()->hasPurchased($chapter->id)))
+                                                                (!auth()->check() || !auth()->user()->hasPurchased($chapter->id)))
                                                                 <input type="checkbox" name="chapters[]"
-                                                                    value="{{ $chapter->id }}"
-                                                                    style="margin-right: 10px;">
+                                                                    value="{{ $chapter->id }}" style="margin-right: 10px;">
                                                             @endif
                                                             {{ $chapter->created_at->format('d/m/Y') }}
                                                         </div>
                                                     </li>
                                                 @endforeach
                                             </ul>
-
+                            
                                             <div class="mobile-more">
                                                 <div class="see_more">
                                                     <span style="padding-left: 30px">Xem tiếp</span>
                                                 </div>
                                             </div>
-
-                                        
+                            
+                                            <button type="submit" class="btn btn-secondary mt-3"
+                                                style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
+                                                Thêm các chương đã chọn vào giỏ hàng
+                                            </button>
                                         </form>
                                     </div>
-                                    
-                            {{-- Hiển thị thông báo Toast --}}
-                            <div id="toast" class="toast hidden">
+                                </div>
+                            </main>
+                            
+                            <!-- Thông báo Toast -->
+                            <div id="toast" class="toast">
                                 <div class="toast-body">
                                     <span id="toast-message"></span>
                                 </div>
                             </div>
-
-                            {{-- Nội dung chính --}}
-                            <div class="col-12 col-md-10">
-                                <form id="addChaptersForm" method="POST" action="{{ route('books.addToCart') }}">
-                                    @csrf
-                                    <ul class="list-chapters at-series">
-                                        {{-- Danh sách chương --}}
-                                    </ul>
-
-                                    {{-- Nút thêm chương --}}
-                                    <button type="submit" class="btn btn-secondary mt-3"
-                                        style="background-color: #3490dc; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 1rem; border: none;">
-                                        Thêm các chương đã chọn vào giỏ hàng
-                                    </button>
-                                </form>
-                            </div>
                             
-                                </div>
-                            </main>
+                            
                         </section>
                     @endforeach
 
@@ -1041,47 +1015,40 @@
         </div>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function confirmPurchaseEpisode(episodeTitle, episodeId) {
-                document.getElementById('modalTitle').innerText = 'Xác nhận mua tất cả chương trong tập: ' +
-                    episodeTitle;
-                document.getElementById('modalContent').innerText =
-                    'Bạn có chắc chắn muốn mua tất cả các chương trong tập này?';
-                document.getElementById('confirmPurchaseForm').action = '/purchase/episode/' + episodeId;
-                document.getElementById('purchaseModal').style.display = 'block';
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    // Lắng nghe sự kiện submit của form
+    document.getElementById('addChaptersForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Ngừng gửi form
 
-            function closeModal() {
-                document.getElementById('purchaseModal').style.display = 'none';
-            }
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', function() {
-                    const chapterId = this.dataset.chapterId;
+        const selectedChapters = document.querySelectorAll('input[name="chapters[]"]:checked');
 
-                    fetch('/cart/add', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').getAttribute('content')
-                            },
-                            body: JSON.stringify({
-                                chapter_id: chapterId
-                            })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === 'success') {
-                                alert(data.message);
-                                updateCartCount(); // Update cart count after adding item
-                            } else {
-                                alert(data.message);
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-            });
-        });
+        if (selectedChapters.length === 0) {
+            // Nếu không có chương nào được chọn, hiển thị thông báo
+            showToast("Bạn chưa chọn chương nào để thanh toán!");
+        } else {
+            // Nếu có chương được chọn, thực hiện thao tác gửi form
+            this.submit(); // Hoặc các hành động khác nếu cần
+        }
+    });
+
+    // Hàm hiển thị Toast
+    function showToast(message) {
+        const toastMessage = document.getElementById('toast-message');
+        const toast = document.getElementById('toast');
+
+        // Cập nhật nội dung của thông báo
+        toastMessage.innerText = message;
+
+        // Hiển thị thông báo
+        toast.classList.add('show');
+
+        // Tự động ẩn thông báo sau 3 giây
+        setTimeout(function() {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+});
+
 
         // Bật tắt hộp thoại Report Truyện
         document.getElementById("reportButton").addEventListener("click", toggleReportBox);

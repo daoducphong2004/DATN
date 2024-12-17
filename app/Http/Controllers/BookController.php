@@ -661,22 +661,4 @@ class BookController extends Controller
             DB::table('books')->update(['views_month' => 0]);
         }
     }
-    public function addToCart(Request $request)
-    {
-        // Validate yêu cầu
-        $request->validate([
-            'chapters' => 'required|array|min:1',
-        ], [
-            'chapters.required' => 'Bạn chưa chọn chương nào để thanh toán.',
-            'chapters.min' => 'Bạn phải chọn ít nhất một chương để thêm vào giỏ hàng.',
-        ]);
-
-        // Lấy danh sách chương được chọn
-        $selectedChapters = $request->input('chapters');
-
-        // Logic thêm vào giỏ hàng
-        // (Thêm logic lưu chương vào giỏ hàng tại đây)
-
-        return redirect()->back()->with('success', 'Đã thêm các chương vào giỏ hàng!');
-    }
 }

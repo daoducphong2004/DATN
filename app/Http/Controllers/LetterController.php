@@ -13,49 +13,49 @@ class LetterController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        
+
         // Lấy tất cả thư mà người dùng là người nhận
         $letters = Letter::where('receiver_id', $user_id)->get();
-    
+
         // Lọc thẻ <p> trong content của mỗi thư
         foreach ($letters as $letter) {
             $letter->content = $this->filterParagraphs($letter->content);
         }
-    
+
         $type = "receiver_id";
-        
+
         return view('home.hopthu', compact('letters', 'type'));
     }
-    
+
     private function filterParagraphs($content)
     {
         // Tạo một đối tượng DOMDocument để phân tích nội dung HTML
         $dom = new \DOMDocument();
-        
+
         // Đặt nội dung vào DOM, tắt lỗi để tránh các cảnh báo về HTML không hợp lệ
         @$dom->loadHTML('<?xml encoding="utf-8" ?>' . $content);
-    
+
         // Lấy tất cả các thẻ <p>
         $paragraphs = $dom->getElementsByTagName('p');
-        
+
         // Tạo lại nội dung mà không có thẻ <p>
         $filteredContent = '';
         foreach ($paragraphs as $paragraph) {
             // Lấy nội dung của thẻ <p> mà không có thẻ <p>
             $filteredContent .= $paragraph->textContent;
         }
-    
+
         return $filteredContent;
     }
-    
-    
-        public function lettersended()
+
+    public function lettersended()
     {
         $user_id = auth()->user()->id;
         $letters = Letter::where('sender_id', $user_id)->get();
         $type = "sender_id";
         return view('home.hopthu', compact('letters', 'type'));
     }
+
     public function create()
     {
         return view('home.tinnhanmoi');
@@ -66,7 +66,7 @@ class LetterController extends Controller
         try {
             // Kiểm tra người dùng đã đăng nhập
             if (!auth()->check()) {
-                return redirect()->route('login')->withErrors('Bạn phải đăng nhập trước khi gửi mail.');
+                return redirect()->route('login')->withErrors('Bạn phải đăng nhập trước khi gửi thư.');
             }
 
             $userCurrentId = auth()->user()->id;
@@ -80,14 +80,14 @@ class LetterController extends Controller
             // Tìm người nhận qua username
             $user = User::where('username', $receiverUsername)->first();
             if (!$user) {
-                return back()->withErrors('Người nhận không có trong Hệ thống.');
+                return back()->withErrors('Người nhận không có trong hệ thống.');
             }
 
             $receiverId = $user->id;
 
             // Kiểm tra người gửi có gửi cho chính mình không
             if ($userCurrentId == $receiverId) {
-                return back()->withErrors('Bạn không thể gửi tin nhắn cho chính mình.');
+                return back()->withErrors('Bạn không thể gửi thư cho chính mình.');
             }
 
             // Tạo thư mới
@@ -98,9 +98,9 @@ class LetterController extends Controller
                 'sender_id' => $userCurrentId,
             ]);
 
-            return redirect()->route('Letter.sender')->with('success', 'Gửi tin nhắn thành công!');
+            return redirect()->route('Letter.sender')->with('success', 'Gửi thư thành công!');
         } catch (Exception $e) {
-            return back()->withErrors('Lỗi khi gửi tin nhắn: ' . $e->getMessage());
+            return back()->withErrors('Lỗi khi gửi thư: ' . $e->getMessage());
         }
     }
 

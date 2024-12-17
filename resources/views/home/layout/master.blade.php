@@ -38,35 +38,45 @@
         border: none;
     }
 
-    .toast {
+    .toast.hidden {
+    display: none; /* Ẩn Toast khi không có lớp này */
+}
+
+.toast {
     position: fixed;
-    top: 60px;
-    right: 20px;
-    background-color: rgba(244, 67, 54, 0.8); /* Màu nền nhạt hơn */
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-size: 16px;
-    z-index: 1000;
-    opacity: 0;
-    transform: translateY(-50%);
-    transition: opacity 0.3s, transform 0.3s;
+    top: 10px; /* Vị trí từ trên cùng */
+    right: 10px; /* Vị trí từ cạnh phải */
+    background-color: rgba(255, 0, 0, 0.7); /* Màu đỏ mờ (0.7 là độ mờ, có thể điều chỉnh) */
+    color: #fff;
+    padding: 14px;
+    font-weight: bold;
+    border-radius: 10px; /* Bo góc mềm mại */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ để tạo hiệu ứng nổi */
+    display: none; /* Ban đầu ẩn Toast */
+    z-index: 9999; /* Đảm bảo Toast xuất hiện trên cùng */
+    transition: opacity 0.3s ease; /* Thêm hiệu ứng mờ dần */
 }
 
 .toast.show {
-    opacity: 1;
-    transform: translateY(0);
+    display: block; /* Hiển thị Toast */
+    opacity: 1; /* Đảm bảo Toast hiển thị với độ mờ đầy đủ */
 }
 
-.toast-body {
-    display: flex;
-    align-items: center;
+.form-submit-btn .button {
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    transition: none !important; /* Bỏ tất cả hiệu ứng chuyển động */
 }
 
-.toast.hidden {
-    display: none;
-}
+
+
 
 </style>
 <title>@yield('title')</title>

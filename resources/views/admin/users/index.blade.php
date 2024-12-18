@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách user
+    Quản lý người dùng - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')
@@ -85,7 +85,7 @@
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <img width="50px" src="{{ asset('/storage/' . $user->avatar_url) }}" alt="Không có ảnh đại diện">
+                                        <img width="50px" src="{{ asset(Storage::url($user->avatar_url ?: 'img/noava.png')) }}" alt="Không có ảnh đại diện">
                                     </td>
                                     <td>{{ $user->status }}</td>
                                     <td>{{ $user->coin_earned }}</td>

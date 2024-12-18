@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookCommentController as AdminBookCommentController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\StoryController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -114,17 +115,24 @@ Route::get('/author/revenue-details/{userId}/{year}', [HomeController::class, 'g
 Route::get('author/transactions/{wallet_id}', [TransactionController::class, 'showTransactions'])->name('user.transactions');
 
 // Route::get('createTruyen', [UserController::class, 'createTruyen']);
-Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
-Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
-Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
-Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
-Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
-Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
+// Route::get('truyenDaDang', [HomeController::class, 'truyenDaDang']);
+// Route::get('truyenThamGia', [HomeController::class, 'truyenThamGia']);
+// Route::get('conventDaDang', [HomeController::class, 'conventDaDang']);
+// Route::get('conventThamGia', [HomeController::class, 'conventThamGia']);
+// Route::get('OLNDaDang', [HomeController::class, 'OLNDaDang']);
+// Route::get('OLNThamGia', [HomeController::class, 'OLNThamGia']);
 Route::get('theLoai', [HomeController::class, 'theLoai']);
 Route::get('thuVien', [HomeController::class, 'thuVien']);
 Route::get('nhomSoHuu', [HomeController::class, 'nhomSoHuu']);
 Route::get('nhomThamGia', [HomeController::class, 'nhomThamGia']);
 Route::get('thao-luan',  [ForumController::class,  'index'])->name('thao-luan');
+Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
+Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
+Route::get('/admin/forums', [ForumController::class, 'indexadmin'])->name('admin.forum.thaoluan');
+Route::get('/admin/forums/create', [ForumController::class, 'createForAdmin'])->name('admin.forum.create');
+Route::post('/admin/forums/store', [ForumController::class, 'storeForAdmin'])->name('admin.forum.store');
+
+
 Route::get('themthaoluan',  [ForumController::class,  'create'])->name('themthaoluan');
 Route::post('store_thaoluan',  [ForumController::class,  'store'])->name('store_thaoluan');
 Route::get('/thao-luan/chi-tiet-thao-luan/{id}',  [ForumController::class,  'show'])->name('chi-tiet-thao-luan');
@@ -156,8 +164,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
-    Route::post('/user/{id}/update-avatar', [ControllersUserController::class, 'updateAvatar']);
-    Route::post('/user/{id}/update-background', [ControllersUserController::class, 'updateBackground']);
+   
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -208,7 +215,9 @@ Route::get('/lich-su', [ReadingHistoryController::class, 'index'])->name('lich-s
 Route::post('/chapters/{chapter}/purchase', [purchaseStoryController::class, 'purchaseChapter'])->name('purchase.chapter')->middleware('auth');
 Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class, 'purchase'])->name('chapter.purchase');
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
+Route::post('/delete-reading-history', [BookController::class, 'deleteHistory']);
 
+Route::post('/books/add-to-cart', [BookController::class, 'addToCart'])->name('books.addToCart');
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');
@@ -219,8 +228,9 @@ Route::resource('story', BookController::class);
 Route::resource('episode', EpisodeController::class);
 Route::resource('chapter', ChapterController::class);
 Route::get('stories/information/{book}', function (book $book) {
+    $user = Auth::user();
     $genres = genre::pluck('id', 'name');
-    return view('stories.iframe.information', compact('book', 'genres'));
+    return view('stories.iframe.information', compact('book', 'genres', 'user'));
 })->name('storyinformation');
 
 Route::get('stories/tree/{book}', function (book $book) {
@@ -238,17 +248,26 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('action')->name('action.')->group(function () {
         // Trong đây sẽ là những route có trong UserHome
         Route::post('/join-group', [GroupController::class, 'JoinGroup'])->name('group.join');
-        Route::post('group/adduser',[GroupController::class,'addUser'])->name('group.adduser');
+        Route::post('group/adduser', [GroupController::class, 'addUser'])->name('group.adduser');
         Route::resource('group', GroupController::class);
         Route::post('/group/removeuser/{id}', [GroupController::class, 'removeUser']);
         Route::get('/search-group', [GroupController::class, 'search'])->name('group.search');
         Route::post('/leave-group', [GroupController::class, 'leaveGroup'])->name('group.leave');
-
-        Route::get('',[HomeController::class, 'Userhome']);
+        Route::get('', [HomeController::class, 'Userhome']);
         Route::get('profile', [ControllersUserController::class, 'profile'])->name('profile');
         Route::get('/withdraw', [WithdrawRequestController::class, 'showU'])->name('withdraw.showU');
         Route::get('/withdraw/create', [WithdrawRequestController::class, 'create'])->name('withdraw.create');
         Route::post('/withdraw/store', [WithdrawRequestController::class, 'store'])->name('withdraw.store');
+
+        //Gọi api thống kê
+        Route::get('/thong-ke/danh-sach', [HomeController::class, 'statistics_list'])->name('statistics-list');
+        Route::get('/thong-ke/{id}', [HomeController::class, 'statistics_view'])->name('statistics-view');
+        Route::get('/api/revenue-by-date', [TransactionController::class, 'getRevenueData'])->name('rbd');
+        Route::get('/api/revenue-by-story', [TransactionController::class, 'getRevenueBookData'])->name(name: 'rbbd');
+        Route::get('/api/revenue-by-chapter',  [TransactionController::class, 'getRevenueBookChapterData'])->name(name: 'rbbcd');
+        Route::get('/api/get-user-buy-chapter', [purchaseStoryController::class, 'getUserBuyChapter'])->name('gubc');
+        Route::get('/api/top-spenders/{book_id}/user/{user_id}', [DashboardController::class, 'topSpenders'])->name('tp');
+        Route::get('/api/top-spenders/{book_id}/details/{user_id}', [DashboardController::class, 'spenderDetails'])->name('tpd');
     });
     // Tin nhắn
     Route::prefix('tin-nhan')->group(function () {
@@ -258,11 +277,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{id}', [LetterController::class, 'show'])->name('Letter.show');
         Route::post('xoa', [LetterController::class, 'delete'])->name('Letter.delete');
     });
-    
+
 
     //Hợp đồng
+    Route::get('contracts/dieu-khoan', [ContractController::class, 'dieukhoan'])->name('contracts.dieu-khoan');
+
     Route::resource('contracts', ContractController::class);
     // web.php
+    Route::get('/contract/qanda', [ContractController::class, 'qanda'])->name('contract.qa');
     Route::post('/contract/{id}/update-image', [ContractController::class, 'updateImage'])->name('contract.updateImage');
     // tự động mua
     Route::post('/auto-purchase', [AutoPurchaseController::class, 'autoPurchase'])->middleware('auth');

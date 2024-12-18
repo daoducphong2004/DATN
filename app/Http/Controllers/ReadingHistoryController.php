@@ -62,7 +62,11 @@ class ReadingHistoryController extends Controller
         $dataHistory = "";
         $totalPayment = "";
         $totalCoin  = "";
-        $AutoPurchase ="";
+        $AutoPurchase = "";
+
+        // Number of items per page
+        $perPage = 4;
+
         // Check if the user is logged in
         if (auth()->check()) {
             // Logged-in user: Retrieve reading history from the database
@@ -73,14 +77,15 @@ class ReadingHistoryController extends Controller
                 })
                 ->with('book', 'chapter')
                 ->orderBy('last_read_at', 'desc')
-                ->take(4) // Limit to the latest 4 items
-                ->get();
+                ->orderBy('created_at', 'desc')
+                ->paginate($perPage);
+
             // Danh sách truyện đăng ký tự động
             $AutoPurchase = AutoPurchase::where('user_id', $user->id)
-            ->where('status', 1)
-            ->paginate(5);
+                ->where('status', 1)
+                ->paginate(5);
+            $purchasedStories = $user->purchasedStories()->with('chapter')->orderByDesc('id')->paginate(10);
 
-            $purchasedStories = $user->purchasedStories()->with('chapter')->get();
             // Lịch sử nạp tiền
             $dataHistory = Payment::where('user_id', Auth::id())->get();
             $totalPayment = 0;
@@ -93,21 +98,36 @@ class ReadingHistoryController extends Controller
             // Guest user: Retrieve reading history from session or cookie
             $cookieName = 'reading_history';
             $guestReadingHistory = json_decode(Cookie::get($cookieName), true) ?? [];
-            $readingHistories = collect($guestReadingHistory)->map(function ($history) {
-                // Fetch the book and chapter details using the saved IDs
-                $book = Book::where('id', $history['book_id'])->where('Is_Inspect', 1)->first();
-                $chapter = chapter::find($history['chapter_id']);
-                return [
-                    'book' => $book,
-                    'chapter' => $chapter,
-                    'last_read_at' => $history['last_read_at'],
-                ];
-            })->filter(function ($item) {
-                return $item['book'] !== null; // Only include items where the book is found
-            })->take(4); // Limit to the latest 4 items
-        }
-        // dd( $readingHistories);
+            // Paginate the collection manually
+            $readingHistories = collect($guestReadingHistory)
+                ->map(function ($history) {
+                    // Fetch the book and chapter details using the saved IDs
+                    $book = Book::where('id', $history['book_id'])->where('Is_Inspect', 1)->first();
+                    $chapter = Chapter::find($history['chapter_id']);
+                    return [
+                        'book' => $book,
+                        'chapter' => $chapter,
+                        'last_read_at' => $history['last_read_at'],
+                    ];
+                })
+                ->filter(function ($item) {
+                    return $item['book'] !== null; // Only include items where the book is found
+                });
 
-        return view('home.lichsu', compact('readingHistories', 'purchasedStories', 'dataHistory', 'totalPayment', 'totalCoin','AutoPurchase'));
+            // Manually paginate the collection
+            $page = request()->get('page', 1); // Get the current page, default to 1
+            $paginatedData = $readingHistories->forPage($page, $perPage);
+
+            $readingHistories = new \Illuminate\Pagination\LengthAwarePaginator(
+                $paginatedData,
+                $readingHistories->count(),
+                $perPage,
+                $page,
+                ['path' => request()->url(), 'query' => request()->query()]
+            );
+        }
+        // dd($purchasedStories);
+
+        return view('home.lichsu', compact('readingHistories', 'purchasedStories', 'dataHistory', 'totalPayment', 'totalCoin', 'AutoPurchase'));
     }
 }

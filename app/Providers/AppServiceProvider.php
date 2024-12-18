@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
         // Chia sẻ dữ liệu banners với mọi view cần nó
         View::composer(['partials.banner'], function ($view) {
             $banners = DB::table('banners')
-                        ->where('is_active', 1)
-                        ->get();
+                ->where('is_active', 1)
+                ->get();
 
             $pc_banner = $banners->where('device_type', 'pc')->first();
             $mobile_banner = $banners->where('device_type', 'mobile')->first();

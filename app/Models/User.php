@@ -30,7 +30,9 @@ class User extends Authenticatable
         'remember_token',
         'group',
     ];
-
+    public function countbook(){
+        return $this->books()->count();
+    }
     public function books()
     {
         return $this->hasMany(Book::class);
@@ -133,9 +135,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class, 'shared_books', 'user_id', 'book_id');
     }
-    public function contract()
+    public function contracts()
     {
-        return $this->hasOne(Contract::class);
+        return $this->hasMany(Contract::class);
     }
     public function wallet()
     {
@@ -320,5 +322,10 @@ class User extends Authenticatable
             ->orderByDesc('total_revenue')  // Sắp xếp theo doanh thu giảm dần
             ->limit(10)  // Lấy top 10 tác giả
             ->get();
+    }
+
+    public function deleteHistories()
+    {
+        return $this->hasMany(DeleteHistory::class, 'user_id', 'id');
     }
 }

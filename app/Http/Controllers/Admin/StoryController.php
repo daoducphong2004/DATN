@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\chapter;
+use App\Models\DeleteHistories;
 use App\Models\episode;
 use App\Models\genre;
 use App\Models\group;
@@ -45,7 +46,9 @@ class StoryController extends Controller
     {
         $genres = genre::pluck('id', 'name');
         $groups = group::pluck('id', 'name');
-        $users = User::all();
+        $users = User::whereHas('mygroup', function ($query) {
+            $query->where('group', '!=', null); // Kiểm tra group tồn tại
+        })->get();
         return view('admin.stories.create', compact('genres', 'groups', 'users'));
     }
     public function createEpisode($book_id)
@@ -102,14 +105,17 @@ class StoryController extends Controller
             'author' => 'required|string|max:255',
             'type' => 'required|integer',
             'status' => 'required|integer',
-            'group_id' => 'required|integer',
             'user_id' => 'required|integer',
             'book_path' => 'nullable|image|max:2048', // Validate image upload
             'like' => 'required|integer|min:0',
             'view' => 'required|integer|min:0',
             'description' => 'nullable|string',
             'note' => 'nullable|string',
+            'Is_Inspect' => 'required',
         ]);
+        // Lấy user để kiểm tra group_id
+        $user = User::find($request->user_id);
+
         // Process input data
         $adult = $request->has('adult') ? 1 : 0;
         // Create a new book entry
@@ -127,8 +133,9 @@ class StoryController extends Controller
             'note' => $request->note,
             'is_VIP' => $request->is_vip ?? 0,  // Default to 0 if not set
             'adult' => $adult,  // 0 or 1
-            'group_id' => $request->group_id,
+            'group_id' => $user->group,
             'user_id' => $request->user_id,
+            'Is_Inspect' => $request->Is_Inspect,
         ]);
 
         // Generate slug and update the book
@@ -226,49 +233,94 @@ class StoryController extends Controller
                 continue;
             }
 
-            // Trừ coin của người dùng
-            $user->decrement('coin_earned', $chapter->price);
+            DB::beginTransaction(); // Bắt đầu giao dịch
 
-            // Lưu thông tin mua chương vào bảng PurchasedStory
-            $purchasedStory = PurchasedStory::create([
-                'user_id' => $user->id,
-                'chapter_id' => $chapter->id,
-                'price' => $chapter->price,
-                'purchase_date' => now(),
-            ]);
+            try {
+                // Trừ coin và lưu thông tin mua chương
+                $user->decrement('coin_earned', $chapter->price);
 
-            // Lấy thông tin tác giả của chương
-            $author = $chapter->user;
-
-            // Kiểm tra hợp đồng của tác giả
-            $contract = $author->contract;
-            $revenueShare = $contract && $contract->status === 'active' ? $contract->revenue_share : 70;
-
-            // Tính toán doanh thu của tác giả và nền tảng
-            $authorEarnings = $chapter->price * ($revenueShare / 100);
-
-            // Kiểm tra ví của tác giả
-            $wallet = $author->wallet;
-            if (!$wallet) {
-                $wallet = Wallet::create([
-                    'user_id' => $author->id,
-                    'balance' => 0,
-                    'currency' => 'coin'
+                // Lưu thông tin mua chương vào bảng purchased_stories
+                $purchasedStory = PurchasedStory::create([
+                    'user_id' => $user->id,
+                    'chapter_id' => $chapter->id,
+                    'price' => $chapter->price,
+                    'purchase_date' => now(),
                 ]);
+
+                // Lấy thông tin tác giả của chương
+                $author = $chapter->user;
+
+                // Kiểm tra hợp đồng của tác giả
+                $contract = $author->contracts()
+                    ->where(function ($query) use ($chapter) {
+                        $query->where('status', 'active')
+                            ->whereDate('start_date', '<=', $chapter->created_at)
+                            ->whereDate('end_date', '>=', $chapter->created_at);
+                    })
+                    ->orWhere(function ($query) use ($chapter) {
+                        $query->where('status', 'expired')
+                            ->whereDate('start_date', '<=', $chapter->created_at)
+                            ->whereDate('end_date', '>=', $chapter->created_at);
+                    })
+                    ->first();
+
+                $revenueShare = $contract && ($contract->status === 'active' || $contract->status === 'expired')
+                    ? $contract->revenue_share
+                    : 30;
+
+                // Tính toán doanh thu của tác giả và của trang web
+                $authorEarnings = $chapter->price * ($revenueShare / 100);
+                $platformEarnings = $chapter->price - $authorEarnings;
+
+                // Kiểm tra ví của tác giả
+                $wallet = $author->wallet;
+                if (!$wallet) {
+                    $wallet = Wallet::create([
+                        'user_id' => $author->id,
+                        'balance' => 0,
+                        'currency' => 'coin',
+                    ]);
+                }
+
+                // Cộng số dư vào ví của tác giả
+                $wallet->increment('balance', $authorEarnings);
+
+                // Tạo giao dịch cho tác giả
+                Transaction::create([
+                    'wallet_id' => $wallet->id,
+                    'purchased_story_id' => $purchasedStory->id,
+                    'amount' => $authorEarnings,
+                    'type' => 'coin',
+                    'description' => 'Earnings from auto-purchased chapter',
+                    'status' => 'completed',
+                ]);
+
+                // Cập nhật ví admin
+                $adminWallet = Wallet::where('user_id', 99999)->first(); // Giả sử admin có user_id là 99999
+                if (!$adminWallet) {
+                    $adminWallet = Wallet::create([
+                        'user_id' => 99999,
+                        'balance' => 0,
+                        'currency' => 'coin',
+                    ]);
+                }
+                $adminWallet->increment('balance', $platformEarnings);
+
+                // Tạo giao dịch cho admin
+                Transaction::create([
+                    'wallet_id' => $adminWallet->id,
+                    'purchased_story_id' => $purchasedStory->id,
+                    'amount' => $platformEarnings,
+                    'type' => 'admin',
+                    'description' => 'Admin earnings from auto-purchased chapter',
+                    'status' => 'completed',
+                ]);
+
+                DB::commit(); // Cam kết giao dịch nếu không có lỗi
+            } catch (\Exception $e) {
+                DB::rollBack(); // Nếu có lỗi, hoàn tác tất cả các thay đổi
+                // Xử lý lỗi hoặc ghi log
             }
-
-            // Cộng số dư vào ví của tác giả
-            $wallet->increment('balance', $authorEarnings);
-
-            // Tạo giao dịch cho tác giả
-            Transaction::create([
-                'wallet_id' => $wallet->id,
-                'purchased_story_id' => $purchasedStory->id,
-                'amount' => $authorEarnings,
-                'type' => 'credit',
-                'description' => 'Earnings from auto-purchased chapter',
-                'status' => 'completed'
-            ]);
         }
     }
 
@@ -324,7 +376,6 @@ class StoryController extends Controller
             $book->save();
 
             // Thực hiện thanh toán tự động cho chapter (giả sử có một phương thức autoPurchaseForChapter)
-            $this->autoPurchaseForChapter($chapter->id);
         });
 
         // Điều hướng về trang chi tiết truyện
@@ -468,7 +519,6 @@ class StoryController extends Controller
             'user_id' => 'required|exists:users,id',
             'price' => 'required|numeric|min:0', // Thêm quy tắc xác thực cho price
             'approval' => 'required'
-
         ]);
 
         // Tìm chapter cần cập nhật
@@ -598,7 +648,31 @@ class StoryController extends Controller
             })
             ->paginate(10);
 
-        return view('admin.stories.approval-list', compact('pendingStories'));
+        $noChapterStories = Book::with(['user:id,username'])
+            ->doesntHave('chapters') // Chỉ lấy sách không có chương nào
+            ->where('Is_Inspect', 0)
+            ->paginate(10);
+
+        $Histories = ApprovalHistory::with(['chapter', 'user'])
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        $DeletedBooks = DB::table('delete_histories')
+            ->leftJoin('books', 'delete_histories.book_id', '=', 'books.id')
+            ->select('delete_histories.*', 'books.title as book_title')
+            ->orderBy('delete_histories.created_at', 'desc')
+            ->get()
+            ->map(function ($item) {
+                // Chuyển đổi stdClass thành DeleteHistory model
+                $deleteHistory = \App\Models\DeleteHistories::find($item->id);
+                // Thêm book_title vào model
+                $deleteHistory->book_title = $item->book_title;
+                return $deleteHistory;
+            });
+
+        $combined = $Histories->merge($DeletedBooks)->sortByDesc('created_at')->values();
+
+        return view('admin.stories.approval-list', compact('pendingStories', 'noChapterStories', 'combined'));
     }
     public function ChapterNeedApprovalList($book_id)
     {
@@ -612,11 +686,11 @@ class StoryController extends Controller
     {
         $story = chapter::findOrFail($id);
         $book = $story->book;
-
         // Cập nhật trạng thái duyệt của chương
         $story->update([
             'approval' => '1',  // Gán trạng thái duyệt là "Đã duyệt"
         ]);
+        $this->autoPurchaseForChapter($id);
 
         // Cập nhật trạng thái Is_Inspect của sách nếu ít nhất một chương đã duyệt
         if ($book->chapters()->where('approval', 1)->exists()) {
@@ -682,5 +756,24 @@ class StoryController extends Controller
         $Histories = ApprovalHistory::with(['chapter', 'user'])->paginate(10);
 
         return view('admin.stories.approval-history', compact('Histories'));
+    }
+
+    public function deleteBook(Request $request)
+    {
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+            'reason' => 'required|string|max:255',
+        ]);
+
+        DeleteHistories::create([
+            'book_id' => $request->book_id,
+            'user_id' => auth()->id(),
+            'reason' => $request->reason,
+            'status' => 'rejected',
+        ]);
+
+        Book::findOrFail($request->book_id)->delete();
+
+        return redirect()->back()->with('success', 'Truyện đã được xóa ');
     }
 }

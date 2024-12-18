@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->softDeletes();
-            $table->string('slug'); 
+            $table->string('slug');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->dropColumn('slug'); 
-            $table->dropSoftDeletes(); 
+            $table->string('delete_at');
+            $table->string('slug');
         });
     }
 };

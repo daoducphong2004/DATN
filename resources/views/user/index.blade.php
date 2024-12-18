@@ -1,49 +1,5 @@
 @extends('user.layout.master')
 @section('content')
-    {{-- <style>
-        .card-header {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        #three-btn {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .card-body {
-            background-color: #f8f9fa;
-        }
-
-        .list-group-item {
-            font-size: 1rem;
-            padding: 15px 20px;
-            border: none;
-        }
-
-        .list-group-item:hover {
-            background-color: #f1f1f1;
-            transition: background-color 0.2s ease-in-out;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            color: #333;
-        }
-
-
-        .btn {
-            width: 32%;
-            font-size: 0.9rem;
-            background-color: #8db4dc;
-            color: #000;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-        }
-    </style> --}}
     <div class="container my-5">
         <div style="" class="row justify-content-center">
             <div class="col-md-12">
@@ -110,14 +66,22 @@
                                 </div>
                             </div>
                             <!-- Biểu đồ doanh thu -->
-                            <div class="mt-5">
-                                <h3 class="text-center">Biểu đồ doanh thu</h3>
-                                <canvas id="revenueChart1" width="800" height="400"></canvas>
-
-
+                            <div class="md-6">
+                                <h3 class="text-center text-primary fw-bold mb-4">Biểu đồ Doanh Thu</h3>
+                                <div class="chart-container mb-8" style="position: relative; height: 60vh; width: 100%;">
+                                    <canvas id="revenueChart1"></canvas>
+                                </div>
+                                <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
+                            
+                                <div class="date-picker-container d-flex justify-content-center align-items-center mt-4">
+                                    <label for="startDate" class="me-2 fw-bold">Từ ngày:</label>
+                                    <input type="date" id="startDate" class="form-control me-3" style="width: 200px;">
+                                    <label for="endDate" class="me-2 fw-bold">Đến ngày:</label>
+                                    <input type="date" id="endDate" class="form-control me-3" style="width: 200px;">
+                                    <button id="fetchData" class="btn btn-primary fw-bold">Tìm kiếm</button>
+                                </div>
 
                             </div>
-                            <div id="revenueByStory" class="mt-4"></div>
                         </div>
                     </div>
                 @else
@@ -133,75 +97,154 @@
                     </div>
                 @endif
             </div>
-            <canvas id="revenueChart"></canvas>
-            <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
+
+
+            <script>
+                document.getElementById('fetchData').addEventListener('click', () => {
+                    const startDate = document.getElementById('startDate').value;
+                    const endDate = document.getElementById('endDate').value;
+                    const user_id = {{ Auth::id() }};
+                    fetchRevenueData(user_id,startDate, endDate);
+                });
+            </script>
+
         </div>
     </div>
-
     <!-- Link to Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
     @if ($ajax)
         <script>
-            // Lấy dữ liệu từ Laravel
-            const revenueData1 = @json($totalrevenuebydayandbook);
+            const fetchRevenueData = async (user_id,startDate, endDate) => {
+                try {
+                    const response = await fetch(`action/api/revenue-by-date?user_id=${user_id}&start_date=${startDate}&end_date=${endDate}`);
+                    const data = await response.json();
 
-            // Xử lý dữ liệu cho biểu đồ
-            const groupedData = {};
-            revenueData1.forEach(item => {
-                const {
-                    date,
-                    book_title,
-                    total_revenue
-                } = item;
-                if (!groupedData[date]) {
-                    groupedData[date] = {};
+                    const labels = [...new Set(data.map(item => item.date))];
+                    const books = [...new Set(data.map(item => item.book_title))];
+
+                    const datasets = books.map(book => {
+                        const bookData = data.filter(item => item.book_title === book);
+                        return {
+                            label: book,
+                            data: labels.map(label => {
+                                const item = bookData.find(d => d.date === label);
+                                return item ? item.total_revenue : 0;
+                            }),
+                            borderColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+                            fill: false,
+                        };
+                    });
+
+                    renderChart(labels, datasets);
+                } catch (error) {
+                    console.error('Error fetching revenue data:', error);
                 }
-                groupedData[date][book_title] = total_revenue;
-            });
-            // console.log(revenueData1)
-            const labels1 = Object.keys(groupedData); // Các ngày
-            const books = [...new Set(revenueData1.map(item => item.book_title))]; // Các truyện
-            // console.log(labels1)
-            const datasets = books.map(bookTitle => {
-                return {
-                    label: bookTitle,
-                    data: labels1.map(date => groupedData[date][bookTitle] || 0),
-                    backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`,
-                    borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
-                    borderWidth: 1,
-                };
-            });
+            };
 
-            // Tạo biểu đồ
-            const ctx1 = document.getElementById('revenueChart1').getContext('2d');
-            new Chart(ctx1, {
-                type: 'line', // Dạng biểu đồ cột
-                data: {
-                    labels: labels1, // Các ngày
-                    datasets: datasets, // Doanh thu từng truyện
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Dates',
+
+            let chartInstance = null; // Biến lưu trữ instance của biểu đồ
+
+            const renderChart = (labels, datasets) => {
+                const ctx = document.getElementById('revenueChart1').getContext('2d');
+
+                // Hủy biểu đồ cũ nếu tồn tại
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                // Tạo biểu đồ mới
+                chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: datasets,
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Dates',
+                                },
                             },
-                        },
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Total Revenue',
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Total Revenue',
+                                },
                             },
                         },
                     },
-                },
-            });
+                });
+            };
+
+
+            // Gọi hàm fetchRevenueData với ngày bắt đầu và kết thúc
+            fetchRevenueData('2024-12-01', '2024-12-07');
+
+            // // Lấy dữ liệu từ Laravel
+            // const revenueData1 = @json($totalrevenuebydayandbook);
+
+            // // Xử lý dữ liệu cho biểu đồ
+            // const groupedData = {};
+            // revenueData1.forEach(item => {
+            //     const {
+            //         date,
+            //         book_title,
+            //         total_revenue
+            //     } = item;
+            //     if (!groupedData[date]) {
+            //         groupedData[date] = {};
+            //     }
+            //     groupedData[date][book_title] = total_revenue;
+            // });
+            // // console.log(revenueData1)
+            // const labels1 = Object.keys(groupedData); // Các ngày
+            // const books = [...new Set(revenueData1.map(item => item.book_title))]; // Các truyện
+            // // console.log(labels1)
+            // const datasets = books.map(bookTitle => {
+            //     return {
+            //         label: bookTitle,
+            //         data: labels1.map(date => groupedData[date][bookTitle] || 0),
+            //         backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`,
+            //         borderColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`,
+            //         borderWidth: 1,
+            //     };
+            // });
+
+            // // Tạo biểu đồ
+            // const ctx1 = document.getElementById('revenueChart1').getContext('2d');
+            // new Chart(ctx1, {
+            //     type: 'line', // Dạng biểu đồ cột
+            //     data: {
+            //         labels: labels1, // Các ngày
+            //         datasets: datasets, // Doanh thu từng truyện
+            //     },
+            //     options: {
+            //         responsive: true,
+            //         scales: {
+            //             x: {
+            //                 beginAtZero: true,
+            //                 title: {
+            //                     display: true,
+            //                     text: 'Dates',
+            //                 },
+            //             },
+            //             y: {
+            //                 beginAtZero: true,
+            //                 title: {
+            //                     display: true,
+            //                     text: 'Total Revenue',
+            //                 },
+            //             },
+            //         },
+            //     },
+            // });
             // Lấy dữ liệu từ controller
             const transactions = @json($transactions); // Biến $data từ controller
 

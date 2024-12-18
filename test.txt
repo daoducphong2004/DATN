@@ -43,3 +43,6 @@ DELIMITER ;
 
 -- Gọi thủ tục để thực hiện thêm dữ liệu
 CALL AddRandomGenres();
+
+đoạn này thể hiện trạng thái của hợp đồng
+   ->whereIn('status', ['expired', 'terminated'])

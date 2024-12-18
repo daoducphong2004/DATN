@@ -83,6 +83,10 @@ class Book extends Model
     {
         return $this->hasMany(Rating::class);
     }
+    public function averageRating()
+    {
+        return round($this->ratings()->avg('rating'), 2); // Làm tròn đến 2 chữ số thập phân
+    }
     public function sharedUsers()
     {
         return $this->hasMany(SharedBook::class);
@@ -136,5 +140,13 @@ class Book extends Model
     public function approvalHistories()
     {
         return $this->hasMany(ApprovalHistory::class);
+    }
+    public function sharedBooks()
+    {
+        return $this->hasMany(SharedBook::class, 'book_id', 'id');
+    }
+    public function deleteHistories()
+    {
+        return $this->hasMany(DeleteHistories::class);
     }
 }

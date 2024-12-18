@@ -14,18 +14,19 @@ class SearchController extends Controller
     {
         $title = $request->input('title');
 
-        $data_book = Book::where('title','LIKE',"%{$title}%")->get();
-        return view('home.search',compact('data_book','title'));
+        $data_book = Book::where('title', 'LIKE', "%{$title}%")->get();
+        return view('home.search', compact('data_book', 'title'));
     }
-    public function indexRe(Request $request){
+    public function indexRe(Request $request)
+    {
         return view('home.search');
     }
     public function indexShow(Request $request)
     {
         $title = $request->get('title');
 
-        $data_book = Book::where('title','LIKE',"%{$title}%")->get();
-        return view('home.search_re',compact('data_book','title'));
+        $data_book = Book::where('title', 'LIKE', "%{$title}%")->get();
+        return view('home.search_re', compact('data_book', 'title'));
     }
 
     /**

@@ -1,8 +1,10 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Sửa Banner
+@endsection
 @section('content')
 <div class="container">
-    <h1>Edit Banner</h1>
+    <h1>Sửa Banner</h1>
     <form action="{{ route('banners.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

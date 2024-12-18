@@ -15,7 +15,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
     <!-- jsvectormap css -->
     {{-- <link href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}" rel="stylesheet" type="text/css" /> --}}
@@ -56,7 +56,9 @@
         @include('user.layout.home.sidebar')
         <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
-        <div class="vertical-overlay"></div>
+        <div class="vertical-overlay">
+
+        </div>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -91,7 +93,8 @@
     <script src="{{ asset('assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Dashboard init -->
     <script src="{{ asset('assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
@@ -114,5 +117,29 @@
 
     @stack('scripts')
 </body>
+<script>
+      document.addEventListener('contextmenu', function(event) {
+        event.preventDefault(); // Chặn chuột phải
+        // alert('Chuột phải đã bị vô hiệu hóa!');
+    });
 
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'F12' || event.keyCode === 123) {
+            event.preventDefault(); // Chặn F12
+            // alert('Phím F12 đã bị vô hiệu hóa!');
+        }
+    });
+
+    const detectDevTools = function() {
+        const threshold = 160; // Kích thước DevTools
+        const widthExceeded = window.outerWidth - window.innerWidth > threshold;
+        const heightExceeded = window.outerHeight - window.innerHeight > threshold;
+        if (widthExceeded || heightExceeded) {
+            alert('Vui lòng đóng DevTools để tiếp tục!');
+            window.location.reload(); // Tải lại trang
+        }
+    };
+
+    setInterval(detectDevTools, 1000);
+</script>
 </html>

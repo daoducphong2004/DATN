@@ -1,93 +1,101 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Sửa thảo luận - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
-    <!-- container -->
-
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Trang
+                        <h4>Chỉnh sửa Thảo Luận</h4>
                     </div>
-
                     <div class="panel-body">
-
-                        <form method="post" action="{{route('updateadmin',$data->id)}}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('updateadmin', $data->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
-        <div class="form-group clearfix required">
-            <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
-            <div class="col-md-8">
-                <input type="text" class="form-control" name="title" value="{{$data->title}}">
-            </div>
-        </div>
+                            <!-- Tiêu đề -->
+                            <div class="form-group clearfix required">
+                                <label class="col-md-2 control-label text-right">Tiêu đề</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="title" value="{{ $data->title }}" required>
+                                </div>
+                            </div>
 
-        <div class="form-group clearfix required">
-            <label class="col-md-2 control-label text-right">Nội dung</label>
-            <div class="col-md-10">
-                <textarea id="Page_Content" name="content" aria-hidden="true" value="SQLSTATE[HY000]: General error: 1364 Field 'title' doesn't have a default value" >{{$data->content}}</textarea>
-            </div>
-        </div>
+                            <!-- Nội dung -->
+                            <div class="form-group clearfix required">
+                                <label class="col-md-2 control-label text-right">Nội dung</label>
+                                <div class="col-md-10">
+                                    <textarea id="Page_Content" name="content" class="form-control" required>{{ $data->content }}</textarea>
+                                </div>
+                            </div>
 
-        <div class="form-group clearfix required">
-            <label class="col-md-2 control-label pt-7 text-right">Chọn chuyên mục</label>
-            <div class="col-md-8">
-                <select class="input-sm" name="category_id"  >
-                                @foreach ($categories as $item_categories)
-                                <option value="{{$item_categories->id}}" @if($item_categories->id == $data->category_id) selected @endif>{{$item_categories->content}}</option> 
-                                @endforeach
-                            </select>
-            </div>
-        </div>
-
-        <div class="form-group clearfix">
-            <label class="col-md-2 control-label pt-7 text-right">Chọn truyện</label>
-            <div class="col-md-8">
-                <select class="input-sm" name="book_id" style="width: 100%">
-                <option value="0">--- Chọn truyện ---</option>
-                                <optgroup label="translations">
-                                        @foreach ($books as $item_books)
-                                        <option value="{{$item_books->id}}" @if($item_books->id == $data->book_id) selected @endif >{{$item_books->title}}</option>
+                            <!-- Chọn chuyên mục -->
+                            <div class="form-group clearfix required">
+                                <label class="col-md-2 control-label text-right">Chọn chuyên mục</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="category_id" required>
+                                        @foreach ($categories as $item_categories)
+                                            <option value="{{ $item_categories->id }}" 
+                                                @if ($item_categories->id == $data->category_id) selected @endif>
+                                                {{ $item_categories->content }}
+                                            </option>
                                         @endforeach
-                                            </optgroup></select>
-            </div>
-        </div>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <!-- Chọn truyện -->
+                            
+                            <div class="form-group clearfix">
+                                <label class="col-md-2 control-label text-right">Chọn truyện</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="book_id">
+                                        <option value="0">--- Chọn truyện ---</option>
+                                        <optgroup label="Translations">
+                                            @foreach ($books as $item_books)
+                                                <option value="{{ $item_books->id }}" 
+                                                    @if ($item_books->id == $data->book_id) selected @endif>
+                                                    {{ $item_books->title }}
+                                                </option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-          selector: 'textarea',
-          inline: false,
-          height: 400,
-          skin: 'oxide',
-          content_css: 'default',
-          branding: false,
-          menubar: false,
-          contextmenu: false,
-          entities: '160,nbsp,38,amp,60,lt,62,gt',
-          paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
-          element_format: 'html',
-          formats: {
-            strikethrough: { inline: 's', remove: 'all' },
-            underline: { inline: 'u', remove: 'all' },
-          },
-          plugins: 'wordcount link image code fullscreen paste emoticons',
-          toolbar: 'undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen'
-        });
-    </script>
-        <input type="hidden" name="viewer" value="0">
-        <input type="hidden" name="user_id" value="{{$userID}}">
-        <div class="form-group">
-            <div class="col-md-10 col-md-offset-2">
-                <button type="submit" class="btn btn-primary">
-                    Sửa
-                </button>
-            </div>
-        </div>
-    </form>
+                            <!-- Editor -->
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.1/tinymce.min.js" referrerpolicy="origin"></script>
+                            <script>
+                                tinymce.init({
+                                    selector: 'textarea',
+                                    inline: false,
+                                    height: 400,
+                                    skin: 'oxide',
+                                    content_css: 'default',
+                                    branding: false,
+                                    menubar: false,
+                                    plugins: 'wordcount link image code fullscreen paste emoticons',
+                                    toolbar: 'undo redo | bold italic underline strikethrough forecolor | link image | removeformat | fullscreen',
+                                    formats: {
+                                        strikethrough: { inline: 's', remove: 'all' },
+                                        underline: { inline: 'u', remove: 'all' },
+                                    },
+                                });
+                            </script>
+
+                            <!-- Hidden inputs -->
+                            <input type="hidden" name="viewer" value="0">
+                            <input type="hidden" name="user_id" value="{{ $userID }}">
+
+                            <!-- Submit button -->
+                            <div class="form-group">
+                                <div class="col-md-10 col-md-offset-2">
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

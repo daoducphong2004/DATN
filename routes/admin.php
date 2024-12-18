@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PurchaseManageController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\Admin\LetterController;
+use App\Http\Controllers\Admin\ShareBookController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BookApprovalController;
 use App\Http\Controllers\BookcommentController;
@@ -22,13 +23,15 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\WithdrawRequestController;
 
 // Route::prefix('admin')->middleware('role:super_admin,admin,mod')->group(function () {
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     // Route::middleware('can:access-admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     // Giao diện admin
     Route::get('/list-user', [AdminUserController::class, 'index'])->name('user_index');
     Route::get('/list-category', [CategoryController::class, 'index'])->name('category_index');
-
+    Route::get('thong-ke', [DashboardController::class, 'list_author'])->name('admin.listauthor');
+    Route::get('thong-ke/{id}', [DashboardController::class, 'view_list_story_author'])->name('admin.liststoryauthor');
+    Route::get('thong-ke/{user_id}/story/{id}', [DashboardController::class, 'view_detail_story_author'])->name('admin.detailstoryauthor');
     // User trong Group
     Route::prefix('groups')->group(function () {
         Route::get('/users', [UserGroupController::class, 'index'])->name('groups.users.index');
@@ -36,6 +39,11 @@ Route::prefix('admin')->group(function () {
     });
     // Route::get('/story', [StoryController::class, 'index'])->name('story_index');
     // Route::get('/story/add', [StoryController::class, 'createboook'])->name('story_add');
+
+    Route::prefix('sharebooks')->group(function () {
+        Route::get('/', [ShareBookController::class, 'index'])->name('admin.sharebooks.index'); // Danh sách sách
+        Route::get('/{bookId}/details', [ShareBookController::class, 'details'])->name('admin.sharebooks.details'); // Chi tiết
+    });
 
     Route::resource('bookComment', AdminBookCommentController::class)->middleware('role:super_admin,admin,mod');
 
@@ -78,6 +86,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/story/{id}/edit', [StoryController::class, 'editBook'])->name('admin_storyedit');
     Route::put('/story/{id}/update', [StoryController::class, 'updateBook'])->name('admin_storyupdate');
     Route::delete('story/{id}/delete', [StoryController::class, 'destroyBook'])->name('admin_storydestroy');
+    Route::post('/books/delete', [StoryController::class, 'deleteBook'])->name('admin_booksdelete');
+
 
     //episode
     Route::get('/episode/create/{book_id}', [StoryController::class, 'createEpisode'])->name('admin_episodecreate');
@@ -126,7 +136,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/stories/approve/{id}', [StoryController::class, 'approveStory'])->name('admin.chapter.approve');
     Route::post('/stories/reject/{id}', [StoryController::class, 'rejectStory'])->name('admin.chapter.reject');
     Route::get('/stories/lich-su-duyet', [StoryController::class, 'ApprovalHistory'])->name('admin_story_approvalhistory');
-    
+
     // });
     // Báo cáo
     Route::get('/report', [ReportController::class, 'index'])->name('reports.index');

@@ -16,5 +16,7 @@ class Forum extends Model
         'book_id',
         'viewer',
         'slug',
+        'is_featured',
+        'lock'
     ];
 }

@@ -12,7 +12,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         if (!Auth::check()) {
-            return response()->json(['status' => 'error', 'message' =>'Bạn cần đăng nhập để thêm chương vào giỏ hàng.']);
+            return response()->json(['status' => 'error', 'message' => 'Bạn cần đăng nhập để thêm chương vào giỏ hàng.']);
         }
 
         $exists = Cart::where('user_id', Auth::id())->where('chapter_id', $request->chapter_id)->exists();
@@ -39,11 +39,11 @@ class CartController extends Controller
         $user = Auth::user();
         $cartItems = Cart::where('user_id', $user->id)->with('chapter')->get();
 
-        $purchasedItems = $cartItems->filter(function($item) use ($user) {
+        $purchasedItems = $cartItems->filter(function ($item) use ($user) {
             return PurchasedStory::where('user_id', $user->id)->where('chapter_id', $item->chapter_id)->exists();
         });
 
-        $unpurchasedItems = $cartItems->filter(function($item) use ($user) {
+        $unpurchasedItems = $cartItems->filter(function ($item) use ($user) {
             return !PurchasedStory::where('user_id', $user->id)->where('chapter_id', $item->chapter_id)->exists();
         });
 
@@ -98,6 +98,4 @@ class CartController extends Controller
 
         return redirect()->back()->with('message', $message);
     }
-
-
 }

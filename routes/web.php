@@ -217,6 +217,7 @@ Route::post('/truyen/{book}/{chapter}/purchase', [purchaseStoryController::class
 Route::post('/upload-music', [MusicController::class, 'upload'])->name('upload.music');
 Route::post('/delete-reading-history', [BookController::class, 'deleteHistory']);
 
+Route::post('/books/add-to-cart', [BookController::class, 'addToCart'])->name('books.addToCart');
 //hiển thị nhóm
 Route::get('/nhom-dich/{slug}', [GroupController::class, 'showU'])->name('group.showU');
 Route::get('/thanh-vien/{userId}', [HomeController::class, 'thanhvien'])->name('user.books');

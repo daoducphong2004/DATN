@@ -40,8 +40,8 @@
 
         <div class="container">
             <div role="tablist" class="tabs tabs-lifted">
-                <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom " aria-label="Lịch sử đọc"
-                    checked="checked" />
+                <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-history"
+                    aria-label="Lịch sử đọc" checked="checked" />
                 <div role="tabpanel" class="tab-content rounded-box p-6">
                     <main class="sect-body row" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 0;">
                         @if (Auth::check())
@@ -136,12 +136,14 @@
 
                 </div>
                 @auth
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử mua" />
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-purchased"
+                        aria-label="Lịch sử mua" />
+
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         @if (empty($purchasedStories))
                             <p>Bạn chưa mua truyện nào.</p>
                         @else
-                            <table  class="table table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -169,11 +171,15 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $purchasedStories->links() }}
+                            <!-- Tab Lịch sử đọc -->
+                            <div class="pagination-wrapper" id="pagination-history">
+                                {{ $readingHistories->links('pagination::tailwind') }}
+                            </div>
                         @endif
                     </div>
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-payment"
+                        aria-label="Lịch sử nạp tiền" />
 
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử nạp" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         <div class="col-12">
                             <div class="pt-5 mt-5" style="margin-top: 3.25rem !important"></div>
@@ -223,8 +229,9 @@
                             </table>
                         </div>
                     </div>
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom"
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-auto"
                         aria-label="Tự động mua" />
+
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         <div class="row">
                             @foreach ($AutoPurchase as $auto)
@@ -258,9 +265,10 @@
                                             title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                                 </div>
                             @endforeach
-                            <div>
-                                {{ $AutoPurchase->links() }}
-                            </div>
+                        </div>
+                        <!-- Tab Tự động mua -->
+                        <div class="pagination-wrapper" id="pagination-auto">
+                            {{ $AutoPurchase->links('pagination::tailwind') }}
                         </div>
                     </div>
                 @endauth
@@ -356,6 +364,59 @@
                     });
             }
         });
+        $(document).ready(function() {
+    // Lắng nghe sự kiện click vào các link phân trang
+    $(document).on('click', '.pagination-wrapper a', function(e) {
+        e.preventDefault(); // Ngừng hành động mặc định của liên kết
+
+        // Lấy URL của liên kết phân trang
+        const url = new URL($(this).attr('href'));
+
+        // Lấy tất cả các tham số trong URL hiện tại
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Lấy giá trị của tham số tab trong URL hiện tại (nếu có)
+        const tab = urlParams.get('tab');
+
+        // Nếu có tham số 'tab', thêm nó vào URL của phân trang
+        if (tab) {
+            url.searchParams.set('tab', tab); // Thêm tham số tab vào phân trang
+        }
+
+        // Cập nhật URL mà không làm mới trang
+        window.history.pushState({}, '', url);
+
+        // Tải lại trang với URL mới
+        window.location.href = url.toString();
+    });
+});
+
+        $(document).ready(function() {
+            // Lắng nghe sự kiện khi tab được thay đổi
+            $('input[name="my_tabs_2"]').on('change', function() {
+                // Lấy id của tab hiện tại
+                const tabId = $(this).attr('id');
+
+                // Cập nhật URL với tham số tab
+                const url = new URL(window.location);
+                url.searchParams.set('tab', tabId); // Thêm tham số 'tab' vào URL
+                window.history.pushState({}, '', url); // Cập nhật URL mà không làm mới trang
+            });
+
+            // Khi trang tải lại, kiểm tra tham số 'tab' trong URL để chọn tab tương ứng
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedTab = urlParams.get('tab');
+
+            if (selectedTab) {
+                // Chọn tab tương ứng theo URL
+                const tabElement = document.getElementById(selectedTab);
+                if (tabElement) {
+                    tabElement.checked = true;
+                    $(tabElement).trigger('change'); // Gọi sự kiện để hiển thị nội dung tab tương ứng
+                }
+            }
+        });
+       
     </script>
 
 @endsection

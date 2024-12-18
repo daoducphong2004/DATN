@@ -17,10 +17,10 @@
                             @csrf
                             @method('POST')
 
-                            <div class="form-group clearfix required">
+                               <div class="form-group clearfix required">
                                 <label class="col-md-2 control-label pt-7 text-right">Tiêu đề</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" name="title">
+                                    <input type="text" class="form-control" name="title" required>
                                 </div>
                             </div>
 

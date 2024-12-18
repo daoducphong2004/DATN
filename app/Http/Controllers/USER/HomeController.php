@@ -253,16 +253,16 @@ class HomeController extends Controller
 
     public function huongdan_dangtruyen()
     {
-        return view('home.hd_dangtruyen');
+        return redirect()->route('chi-tiet-thao-luan',['id'=>10273452]);
     }
     public function huongdan_gioithieu()
     {
-        return view('home.gioithieu');
+        return redirect()->route('chi-tiet-thao-luan',['id'=>10573894]);
     }
 
     public function huongdan_gopy()
     {
-        return view('home.gopy');
+        return redirect()->route('chi-tiet-thao-luan',['id'=>10726324]);
     }
 
 

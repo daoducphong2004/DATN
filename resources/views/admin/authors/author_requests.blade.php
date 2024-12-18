@@ -118,7 +118,7 @@ Không có ảnh
                         @endif
                     </div>
                     <div class="card-body">
-                        <table id="example" class="table table-bordered dt-responsive table-striped align-middle"
+<table id="example" class="table table-bordered dt-responsive table-striped align-middle"
                             style="width:100%">
                             <thead>
                                 <tr>
@@ -186,23 +186,23 @@ Không có ảnh
                                             @endif --}}
                                         </td>
                                         <td>
-                                                @if ($request->is_approve == 'pending')
+                                            @if ($request->is_approve == 'pending')
                                                 <form action="{{ route('accept_request', $request->id) }}" method="POST"
                                                     class="d-inline-block">
-                                                            @csrf
+                                                    @csrf
                                                     <button type="submit" class="btn btn-success"
                                                         onclick="return confirm('Bạn có chắc muốn xác nhận?')">Chấp
                                                         nhận</button>
-                                                        </form>
+                                                </form>
                                                 <form action="{{ route('reject_request', $request->id) }}" method="POST"
                                                     class="d-inline-block mt-1">
-                                                                        @csrf
+                                                    @csrf
                                                     <button type="submit" class="btn btn-danger"
 onclick="return confirm('Bạn có chắc muốn từ chối?')">Từ chối</button>
-                                                                    </form>
-                                                @else
+                                                </form>
+                                            @else
                                                 <span class="text-muted">Đã hoàn thành</span>
-                                                @endif
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -323,4 +323,9 @@ class User extends Authenticatable
             ->limit(10)  // Lấy top 10 tác giả
             ->get();
     }
+
+    public function deleteHistories()
+    {
+        return $this->hasMany(DeleteHistory::class, 'user_id', 'id');
+    }
 }

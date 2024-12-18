@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sách bình luận chap
+    Danh sách bình luận chap - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

@@ -1,14 +1,16 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Danh sách thảo luận - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
-<div class="container">
-    <h1 class="my-4">Danh sách thảo luận</h1>
+    <div class="container">
+        <h1 class="my-4">Danh sách thảo luận</h1>
 
-    <a href="{{ route('admin.forum.create') }}" class="btn btn-primary mb-3">Tạo mới thảo luận</a>
+        <a href="{{ route('admin.forum.create') }}" class="btn btn-primary mb-3">Tạo mới thảo luận</a>
 
-    @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -17,7 +19,7 @@
                     <th>ID</th>
                     <th>Chủ đề</th>
                     <th>Chuyên mục</th>
-                    <th>Bình luận</th>
+                    <th>Thảo luận</th>
                     <th>Lượt xem</th>
                     <th>Gần nhất</th>
                     <th>Người đăng cuối</th>
@@ -62,17 +64,17 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-center mt-4">
-        {{-- {{ $banners->links() }} --}}
+        <div class="d-flex justify-content-center mt-4">
+            {{-- {{ $banners->links() }} --}}
+        </div>
     </div>
-</div>
 
 <!-- Modal for displaying comments -->
 <div id="commentModal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Chi tiết bình luận</h5>
+                <h5 class="modal-title" id="modalTitle">Chi tiết Thảo luận</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearCommentModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>

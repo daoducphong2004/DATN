@@ -3,7 +3,7 @@
 
 @section('title')
     @parent
-    Danh sách hợp đồng
+    Danh sách hợp đồng - Cổng Light Novel - Đọc Light Novel
 @endsection
 
 @push('styles')

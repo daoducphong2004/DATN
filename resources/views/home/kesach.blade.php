@@ -1,4 +1,7 @@
 @extends('home.layout.master')
+@section('title')
+    Truyện yêu thích - Cổng Light Novel - Đọc Light Novel
+@endsection
 @section('content')
     <div class="page-top-group ">
         @include('partials.banner')

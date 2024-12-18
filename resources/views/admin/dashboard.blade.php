@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Trang quản trị thống kê
+    Trang quản trị thống kê - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     <div class="container">

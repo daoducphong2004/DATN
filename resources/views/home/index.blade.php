@@ -1,6 +1,6 @@
 @extends('home.layout.master')
 @section('title')
-Trang chủ - Cổng Light Novel - Đọc Light Novel
+    Trang chủ - Cổng Light Novel - Đọc Light Novel
 @endsection
 @section('content')
     <div class="page-top-group  at-index ">
@@ -50,7 +50,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                 <div class="col-12 col-lg-3">
                     <section class="last-topics index-section">
                         <header class="section-title">
-                            <a href="{{route('thao-luan')}}"><span class="sts-bold">Thảo</span><span
+                            <a href="{{ route('thao-luan') }}"><span class="sts-bold">Thảo</span><span
                                     class="sts-empty">Luận</span></a>
                         </header>
                         <main>
@@ -91,34 +91,34 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                     @if (empty($readingHistories))
                                         <p>Chưa có lịch sử đọc!</p>
                                     @else
+                                        {{-- {{ dd($readingHistories) }} --}}
                                         @foreach ($readingHistories as $chapter)
                                             {{-- {{ dd($chapter) }} --}}
-                                            @if (auth()->check())
-                                                @php
-                                                    // Người dùng đã đăng nhập, lấy book trực tiếp từ chapter
-                                                    $book = $chapter->book; // Lấy book tương ứng
-                                                @endphp
-                                            @else
-                                                @php
-                                                    // Người dùng chưa đăng nhập, lấy episode trước, sau đó lấy book từ episode
-                                                    $episode = $chapter->episode; // Lấy episode tương ứng
-                                                    $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
-                                                @endphp
-                                            @endif
-
                                             <div class="row ml-1 mb-3">
                                                 <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                     <div class="img-contain-ratio content"
-                                                        style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
+                                                        style="background-image: url('{{ asset(Storage::url(!empty($chapter->book->book_path) ? $chapter->book->book_path : '')) }}')">
                                                     </div>
                                                 </div>
+
                                                 <div class="col-8 col-md-9 col-lg-8">
-                                                    <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
-                                                        class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
-                                                    <div class="small mb-3 text-truncate">Web Novel</div>
-                                                    <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
-                                                        class="text-truncate block">{{ $chapter->title }}</a>
+                                                    <a href="/truyen/{{ !empty($chapter->book->slug) ? $chapter->book->slug : '' }}"
+                                                        class="text-truncate block font-weight-bold">{{ !empty($chapter->book->title) ? $chapter->book->title : '' }}</a>
+                                                        @if (!Auth::check())
+                                                        <div class="small mb-3 text-truncate">{{ $chapter->episode->title }}
+                                                        </div>
+                                                        <a href="/truyen/{{ !empty($chapter->book->slug) ? $chapter->book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
+                                                            class="text-truncate block">{{ $chapter->title }}</a>
+                                                    @else
+                                                        <div class="small mb-3 text-truncate">
+                                                            {{ $chapter->chapter->episode->title }}
+                                                        </div>
+                                                        <a href="/truyen/{{ !empty($chapter->chapter->book->slug) ? $chapter->chapter->book->slug : '' }}/{{ !empty($chapter->chapter->slug) ? $chapter->chapter->slug : '' }}"
+                                                            class="text-truncate block">{{ $chapter->chapter->title }}</a>
+                                                    @endif
                                                 </div>
+                                              
+
                                             </div>
                                         @endforeach
                                     @endif
@@ -177,8 +177,8 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                             <div class="thumb-item-flow col-4 col-lg-2 see-more">
                                 <div class="thumb-wrapper">
                                     <div class="a6-ratio">
-                                        <div class="content img-in-ratio"
-                                            style="background-image: url('img/nocover.jpg');"></div>
+                                        <div class="content img-in-ratio" style="background-image: url('img/nocover.jpg');">
+                                        </div>
                                     </div>
                                     <a href="/sang-tac">
                                         <div class="thumb-see-more">
@@ -268,9 +268,10 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                 @if (empty($readingHistories))
                                     <p>Chưa có lịch sử đọc!</p>
                                 @else
-                                    @foreach ($readingHistories as $history)
+                                    {{-- {{ dd($readingHistories) }} --}}
+                                    @foreach ($readingHistories as $chapter)
                                         {{-- {{ dd($history) }} --}}
-                                        @if (auth()->check())
+                                        {{-- @if (auth()->check())
                                             @php
                                                 $episode = $history->episode; // Lấy episode tương ứng
                                                 $book = $history->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
@@ -282,25 +283,36 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                                 $episode = $history->episode; // Lấy episode tương ứng
                                                 $book = $episode->book ?? null; // Lấy book từ episode (nếu episode tồn tại)
                                             @endphp
-                                        @endif
+                                        @endif --}}
 
                                         {{-- Kiểm tra nếu book hoặc chapter có title trống thì bỏ qua mục này --}}
-                                        @if (empty($book->title) || empty($chapter->title))
+                                        {{-- @if (empty($book->title) || empty($chapter->title))
                                             @continue
-                                        @endif
+                                        @endif --}}
 
+                                        {{-- {{ dd($chapter) }} --}}
                                         <div class="row ml-1 mb-3">
                                             <div class="col-2 col-md-1 col-lg-2 a6-ratio">
                                                 <div class="img-contain-ratio content"
-                                                    style="background-image: url('{{ asset(Storage::url(!empty($book->book_path) ? $book->book_path : '')) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url(!empty($chapter->book->book_path) ? $chapter->book->book_path : '')) }}')">
                                                 </div>
                                             </div>
                                             <div class="col-8 col-md-9 col-lg-8">
-                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}"
-                                                    class="text-truncate block font-weight-bold">{{ !empty($book->title) ? $book->title : '' }}</a>
-                                                <div class="small mb-3 text-truncate">Web Novel</div>
-                                                <a href="/truyen/{{ !empty($book->slug) ? $book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
-                                                    class="text-truncate block">{{ $chapter->title }}</a>
+                                                <a href="/truyen/{{ !empty($chapter->book->slug) ? $chapter->book->slug : '' }}"
+                                                    class="text-truncate block font-weight-bold">{{ !empty($chapter->book->title) ? $chapter->book->title : '' }}</a>
+                                                @if (!Auth::check())
+                                                    <div class="small mb-3 text-truncate">{{ $chapter->episode->title }}
+                                                    </div>
+                                                    <a href="/truyen/{{ !empty($chapter->book->slug) ? $chapter->book->slug : '' }}/{{ !empty($chapter->slug) ? $chapter->slug : '' }}"
+                                                        class="text-truncate block">{{ $chapter->title }}</a>
+                                                @else
+                                                    <div class="small mb-3 text-truncate">
+                                                        {{ $chapter->chapter->episode->title }}
+                                                    </div>
+                                                    <a href="/truyen/{{ !empty($chapter->chapter->book->slug) ? $chapter->chapter->book->slug : '' }}/{{ !empty($chapter->chapter->slug) ? $chapter->chapter->slug : '' }}"
+                                                        class="text-truncate block">{{ $chapter->chapter->title }}</a>
+                                                @endif
+
                                             </div>
                                         </div>
                                     @endforeach
@@ -328,7 +340,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                         <div class="comment-top">
                                             <div class="comment-user_ava">
                                                 <a href="{{ route('user.books', ['userId' => $comment->user->id]) }}">
-                                                    <img src="{{ !empty($comment->user->avatar_url) ?Storage::url( $comment->user->avatar_url) : asset('img/noava.png') }}"
+                                                    <img src="{{ !empty($comment->user->avatar_url) ? Storage::url($comment->user->avatar_url) : asset('img/noava.png') }}"
                                                         alt="Commenter's avatar">
                                                 </a>
                                             </div>
@@ -388,7 +400,7 @@ Trang chủ - Cổng Light Novel - Đọc Light Novel
                                                         <div class="series-summary">{!! Str::words($item->description, 25, '...') !!}</div>
                                                         <div class="lastest-chapter">
                                                             <!--<a href="/truyen/19103-ngoi-nha-quy-di/c142100-chuong-1-xe-buyt">Chương 1: Xe Buýt</a>
-                                                                                                        <small>cánh cửa thứ nhất</small>-->
+                                                                                                            <small>cánh cửa thứ nhất</small>-->
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,5 +1,8 @@
 <!-- resources/views/contracts/show.blade.php -->
 @extends('admin.layouts.default')
+@section('title')
+    Chi tiết hợp đồng "{{ $contract->contract_code }}"
+@endsection
 @section('content')
 <style>
     body {

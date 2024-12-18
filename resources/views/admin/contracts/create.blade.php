@@ -1,6 +1,8 @@
 <!-- resources/views/contracts/create.blade.php -->
 @extends('admin.layouts.default')
-
+@section('title')
+    Tạo hợp đồng mới - Cổng Light Novel - Đọc Light Novel
+@endsection
 @push('styles')
     <style>
         #status {

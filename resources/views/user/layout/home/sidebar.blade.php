@@ -71,7 +71,7 @@
                 </ul>
             @endcan
 
-            @can('create')
+            @can('view-action')
                 <ul class="navbar-nav" id="navbar-nav">
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Truyện của tôi</span>
                     </li>
@@ -81,12 +81,13 @@
                             <i class="ri-pie-chart-2-line"></i> <span data-key="t-widgets">Thống kê</span>
                         </a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{ route('story.create') }}">
-                            <i class="bx bx-book-add"></i> <span data-key="t-widgets">Thêm mới</span>
-                        </a>
-                    </li>
+                    @can('create')
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('story.create') }}">
+                                <i class="bx bx-book-add"></i> <span data-key="t-widgets">Thêm mới</span>
+                            </a>
+                        </li>
+                    @endcan
 
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDang" data-bs-toggle="collapse" role="button"

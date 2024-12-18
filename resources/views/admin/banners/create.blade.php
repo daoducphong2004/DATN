@@ -1,8 +1,11 @@
 @extends('admin.layouts.default')
-
+@section('title')
+    Thêm Banner
+@endsection
 @section('content')
     <div class="container">
-        <h1>Create Banner</h1>
+        <h1>Thêm Banner</h1>
+        <br>
         <form action="{{ route('banners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">

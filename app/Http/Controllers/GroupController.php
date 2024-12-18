@@ -64,7 +64,7 @@ class GroupController extends Controller
     public function JoinGroup(Request $request)
     {
         $user = Auth::user();
-        $group = group::findOrFail($request->group_id);
+        $group = group::where('name', $request->group_name)->first();
 
         // Kiểm tra nếu người dùng đã có nhóm, không cho tham gia thêm
         if ($user->group) {

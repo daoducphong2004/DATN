@@ -143,7 +143,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('thao-luan')}}">
+                    <a class="nav-link menu-link" href="{{ route('themthaoluan')}}">
                         <i class="ri-discuss-line"></i> <span data-key="t-widgets">Thảo luận</span>
                     </a>
                 </li>

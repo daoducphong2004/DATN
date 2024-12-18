@@ -1,8 +1,7 @@
 @extends('home.layout.master')
 @section('content')
 
-
-<div class="page-top-group  at-index ">
+<div class="page-top-group at-index">
     @include('partials.banner')
 </div>
 
@@ -19,7 +18,8 @@
         <div class="container">
             <form class="search-form clear" action="{{route('search')}}" method="get">
                 <div class="row">
-                    <input id="search-page-input" class="search-form in col-8 col-md-10 col-lg-10" type="text" placeholder="Tối thiểu 2 kí tự" name="title" size="40" value="{{$title}}">
+                    <!-- Thêm thuộc tính required vào trường tìm kiếm -->
+                    <input id="search-page-input" class="search-form in col-8 col-md-10 col-lg-10" type="text" placeholder="Tối thiểu 2 kí tự" name="title" size="40" value="{{$title}}" required>
                     <input id="search-go" class="search-go_form search-form submit col-4 col-md-2 col-lg-2" type="submit" value="Tìm kiếm">
                 </div>
                 <a class="search-advance_toggle" href="tim-kiem-nang-cao" style="margin-top: 10px;"><i class="fas fa-filter"></i> Tìm kiếm nâng cao</a>

@@ -27,4 +27,13 @@ class StoreLetterRequest extends FormRequest
             'content' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'receive_user.required' => 'Vui lòng nhập tên người nhận.',
+            'title.required' => 'Vui lòng nhập tiêu đề.',
+            'content.required' => 'Vui lòng nhập nội dung.',
+        ];
+    }
 }

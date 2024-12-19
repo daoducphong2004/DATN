@@ -65,7 +65,7 @@
                                     <img src="{{ asset('storage/' . $request->portrait_image) }}" alt="Ảnh chân dung"
                                         width="100">
                                 @else
-                                    Không có ảnh
+Không có ảnh
                                 @endif
                             </td>
                             <td>
@@ -118,7 +118,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <table id="example" class="table table-bordered dt-responsive table-striped align-middle"
+<table id="example" class="table table-bordered dt-responsive table-striped align-middle"
                             style="width:100%">
                             <thead>
                                 <tr>
@@ -160,12 +160,12 @@
                                         </td>
                                         <td>
                                             @if ($request->portrait_image)
-                                                <img src="{{ asset('storage/' . $request->portrait_image) }}"
-                                                    alt="Ảnh chân dung" width="100">
+                                                <img src="{{ asset('storage/' . $request->portrait_image) }}" alt="Ảnh chân dung" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                                             @else
-                                                Không có ảnh
+Không có ảnh
                                             @endif
                                         </td>
+                                        
                                         <td>
                                             @if ($request->is_approve == 'pending')
                                                 <span class="badge badge-warning">Đang chờ duyệt</span>
@@ -198,7 +198,7 @@
                                                     class="d-inline-block mt-1">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Bạn có chắc muốn từ chối?')">Từ chối</button>
+onclick="return confirm('Bạn có chắc muốn từ chối?')">Từ chối</button>
                                                 </form>
                                             @else
                                                 <span class="text-muted">Đã hoàn thành</span>
@@ -208,6 +208,11 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="text-center" style="padding: 5px">
+                        <div id="pagination">
+                            {{ $requests->links() }}
+                        </div>
                     </div>
                 </div>
             </div><!--end col-->

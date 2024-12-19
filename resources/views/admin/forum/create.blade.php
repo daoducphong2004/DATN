@@ -56,7 +56,7 @@
 
                         
                         <div class="form-group clearfix">
-                            <label class="col-md-2 control-label pt-7 text-right">Chọn truyện</label>
+                            <label class="col-md-2 control-label pt-7 text-right">Chọn Khóa Bình Luận</label>
                             <div class="col-md-8">
                                 <select class="form-control" name="lock" id="">
                                     <option value="0">Không khóa</option>
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-group clearfix">
-                            <label class="col-md-2 control-label pt-7 text-right">Chọn truyện</label>
+                            <label class="col-md-2 control-label pt-7 text-right">Chọn</label>
                             <div class="col-md-8">
                                 <select class="form-control" name="is_featured" id="">
                                     <option value="0">Bình thường</option>

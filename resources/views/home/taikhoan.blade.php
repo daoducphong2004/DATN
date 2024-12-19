@@ -20,7 +20,8 @@
                                     <span class="p-c_text">Yêu cầu 1200 x 300 px</span>
                                 </label>
                             </div>
-                            <form id="backgroundForm{{ $userInfor->id }}" class="update-background" enctype="multipart/form-data">
+                            <form id="backgroundForm{{ $userInfor->id }}" class="update-background"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <input type="file" id="user_cover_file" name="background"
                                     data-user-id="{{ $userInfor->id }}" style="display: none;">
@@ -32,7 +33,7 @@
                         <div class="profile-ava-wrapper">
                             <div class="profile-ava">
                                 @if (Auth::id() == $userInfor->id)
-                                    <div id="profile-changer_ava"  class="profile-changer">
+                                    <div id="profile-changer_ava" class="profile-changer">
                                         <label for="user_avatar_file" class="p-c_text" style="cursor: pointer;">
                                             <i class="fas fa-camera"></i>
                                         </label>
@@ -45,8 +46,8 @@
 
                         <form id="avatarForm{{ $userInfor->id }}" class="update-avatar" enctype="multipart/form-data">
                             @csrf
-                            <input type="file" id="user_avatar_file" name="avatar"
-                                data-user-id="{{ $userInfor->id }}" style="display: none;">
+                            <input type="file" id="user_avatar_file" name="avatar" data-user-id="{{ $userInfor->id }}"
+                                style="display: none;">
                         </form>
 
                         <div class="profile-function at-desktop none block-m">
@@ -116,8 +117,7 @@
                                 <div class="statistic-name">Đang theo dõi</div>
                             </li>
                             <li class="col-12 mt-2">
-                                <div class="statistic-value"><a
-                                        href="#">{{ $countComment }}</a></div>
+                                <div class="statistic-value"><a href="#">{{ $countComment }}</a></div>
                                 <div class="statistic-name">Bình luận</div>
                             </li>
                         </ul>
@@ -240,43 +240,62 @@
         </div>
     </main>
     <script>
-        $(document).on('change', '.update-avatar', function() {
-            let userId = $(this).data('user-id'); // Lấy ID người dùng
-            let formData = new FormData($(`#avatarForm${userId}`)[0]); // Lấy dữ liệu từ form avatar
-            $.ajax({
-                url: `/admin/user/${userId}/update-avatar`, // API cập nhật avatar
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert('Avatar updated successfully!');
-                    location.reload(); // Reload để thấy thay đổi
-                },
-                error: function(error) {
-                    alert('Failed to update avatar');
-                }
-            });
-        });
+      $(document).on('change', 'input[name="avatar"]', function() {
+    let userId = $(this).data('user-id'); // Lấy ID người dùng từ input file
+    let form = $(`#avatarForm${userId}`); // Form tương ứng
+    let formData = new FormData(form[0]); // Lấy dữ liệu form
+    
+    $.ajax({
+        url: `/user/${userId}/update-avatar`, // API cập nhật avatar
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Đảm bảo CSRF token
+        },
+        success: function(response) {
+            alert('Avatar updated successfully!');
+            location.reload(); // Reload để thấy thay đổi
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status === 419) {
+                alert('Session expired. Please refresh the page and try again.');
+            } else {
+                alert('Failed to update avatar');
+            }
+        }
+    });
+});
 
-        $(document).on('change', '.update-background', function() {
-            let userId = $(this).data('user-id'); // Lấy ID người dùng
-            let formData = new FormData($(`#backgroundForm${userId}`)[0]); // Lấy dữ liệu từ form background
 
-            $.ajax({
-                url: `/admin/user/${userId}/update-background`, // API cập nhật ảnh nền
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert('Background updated successfully!');
-                    location.reload(); // Reload để thấy thay đổi
-                },
-                error: function(error) {
-                    alert('Failed to update background');
-                }
-            });
-        });
+$(document).on('change', 'input[name="background"]', function() {
+    let userId = $(this).data('user-id'); // Lấy ID người dùng từ input file
+    let form = $(`#backgroundForm${userId}`); // Lấy form tương ứng
+    let formData = new FormData(form[0]); // Lấy dữ liệu từ form
+
+    $.ajax({
+        url: `/user/${userId}/update-background`, // API cập nhật ảnh nền
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token cho Laravel
+        },
+        success: function(response) {
+            alert('Background updated successfully!');
+            location.reload(); // Reload để thấy thay đổi
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status === 419) {
+                alert('Session expired. Please refresh the page and try again.');
+            } else {
+                alert('Failed to update background');
+            }
+        }
+    });
+});
+
     </script>
 @endsection

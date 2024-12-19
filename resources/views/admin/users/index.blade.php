@@ -85,7 +85,7 @@
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <img width="50px" src="{{ asset('/storage/' . $user->avatar_url) }}" alt="Không có ảnh đại diện">
+                                        <img width="50px" src="{{ asset(Storage::url($user->avatar_url ?: 'img/noava.png')) }}" alt="Không có ảnh đại diện">
                                     </td>
                                     <td>{{ $user->status }}</td>
                                     <td>{{ $user->coin_earned }}</td>
@@ -104,6 +104,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="text-center" style="padding: 5px">
+                    <div id="pagination">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div><!--end col-->

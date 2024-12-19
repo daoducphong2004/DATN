@@ -184,7 +184,7 @@
                             <tr>
                                 <th>Tên truyện</th>
                                 <th>Chương</th>
-                                <th>Người đăng</th>
+                                <th>Người xoá</th>
                                 <th>Lý do</th>
                                 <th>Tình trạng</th>
                             </tr>
@@ -193,11 +193,28 @@
                             @foreach ($combined as $history)
                             {{-- {{    dd($combined) }} --}}
                                 <tr>
-                                    <td>{{ $history->chapter->book->title ?? 'Không có dữ liệu' }}</td>
-                                    <td>{{ $history->chapter->title ?? 'N/A' }}</td>
-                                    <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                    @if ($history instanceof \App\Models\ApprovalHistory && $history->chapter)
+                                    <tr>
+                                        <td>{{ optional($history->chapter->book)->title ?? 'Không có dữ liệu' }}</td>
+                                        <td>{{ $history->chapter->title ?? 'N/A' }}</td>
+                                        <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                        <td>{{ $history->reason }}</td>
+                                        <td>{{ $history->status }}</td>
+                                    </tr>
+                                @elseif ($history instanceof \App\Models\DeleteHistories)
+                                    <tr>
+                                        <td>{{ $history->book_title ?? 'Không có dữ liệu' }}</td>
+                                        <td>N/A</td>
+                                        <td>{{ $history->user->username ?? 'N/A' }}</td>
+                                        <td>{{ $history->reason }}</td>
+                                        <td>{{ $history->status }}</td>
+                                    </tr>
+                                @endif
+                                    {{-- <td>{{ $history->chapter->book->title ?? 'Không có dữ liệu'}}</td> --}}
+                                    {{-- <td>{{ $history->chapter->title ?? 'N/A' }}</td> --}}
+                                    {{-- <td>{{ $history->user->username ?? 'N/A' }}</td>
                                     <td>{{ $history->reason }}</td>
-                                    <td>{{ $history->status }}</td>
+                                    <td>{{ $history->status }}</td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

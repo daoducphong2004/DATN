@@ -2,7 +2,9 @@
     <section class="private-tabs">
         <header>
             <h4 class="section-name">Tài khoản</h4>
-            <span class="user-name">{{ Auth::user()->username }}</span>
+            @if(Auth::check())
+                <span class="user-name">{{ Auth::user()->username }}</span>
+            @endif
         </header>
         <ul class="user-private-tabs">
             <li class=""><a href="{{ route('ke-sach') }}"><span class="none inline-l"><i
@@ -42,7 +44,7 @@
         if (link) {
             // Lấy href từ thẻ <a> và kiểm tra xem nó có chứa phần từ khóa hay không
             const linkPath = new URL(link.href, window.location.origin).pathname;
-            
+
             // Kiểm tra nếu đường dẫn hiện tại chứa từ khóa của menu
             for (const [key, value] of Object.entries(menuMapping)) {
                 if (currentPath.includes(key)) {

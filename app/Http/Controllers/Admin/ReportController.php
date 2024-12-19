@@ -10,7 +10,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $reports = Report::all();
+        $reports = Report::query()->latest('id')->paginate(10);
         return view('admin.reports.index', compact('reports'));
     }
     public function approve(Report $report)

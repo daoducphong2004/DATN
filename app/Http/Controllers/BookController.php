@@ -478,7 +478,7 @@ class BookController extends Controller
 
         if ($firstEpisode) {
             // Lấy chapter đầu tiên của episode đầu tiên dựa trên 'order' bằng 0
-            $firstChapter = $firstEpisode->chapters()->where('order', 1)->first();
+            $firstChapter = $firstEpisode->chapters()->orderBy('order', 'asc')->first();
         }
 
         return view('story.show', compact('book', 'readingHistories', 'booksRandom', 'firstChapter', 'hasReadBook', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));

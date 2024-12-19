@@ -519,6 +519,10 @@
 
 
                     @foreach ($book->episodes->sortBy('order') as $item)
+                     {{-- Kiểm tra nếu tập không có chapter nào được duyệt --}}
+    @if (!$item->chapters->where('approval', 1)->isNotEmpty())
+    @continue
+    @endif
                         {{-- Sắp xếp theo order --}}
                         <section class="volume-list at-series basic-section volume-mobile gradual-mobile">
                             <header id="volume_{{ $item->id }}" class="sect-header"

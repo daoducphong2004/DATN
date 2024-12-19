@@ -83,7 +83,7 @@ class ReadingHistoryController extends Controller
             // Danh sách truyện đăng ký tự động
             $AutoPurchase = AutoPurchase::where('user_id', $user->id)
                 ->where('status', 1)
-                ->paginate(5);
+                ->paginate(4);
             $purchasedStories = $user->purchasedStories()->with('chapter')->orderByDesc('id')->paginate(10);
 
             // Lịch sử nạp tiền

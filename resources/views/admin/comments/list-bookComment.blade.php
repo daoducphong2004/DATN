@@ -28,7 +28,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Chapter</th>
+                                <th>Book</th>
                                 <th>User</th>
                                 <th>Content</th>
                                 <th>Actions</th>

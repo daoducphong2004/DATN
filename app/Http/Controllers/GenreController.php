@@ -6,6 +6,7 @@ use App\Http\Requests\StoregenreRequest;
 use App\Models\genre;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Str;
 
 class GenreController extends Controller
 {
@@ -28,17 +29,28 @@ class GenreController extends Controller
         }
     }
 
-    public function store(StoregenreRequest $request)
-    {
 
+    public function store(Request $request)
+    {
         try {
-            genre::create($request->validated());
-            return redirect()->route('genres_index')->with('success', 'Genre created successfully.');
+            // Lấy tất cả dữ liệu từ request ngoại trừ slug
+            $data = $request->except('slug');
+            
+            // Thêm slug vào dữ liệu
+            $data['slug'] = Str::slug($request->name, '-');
+    
+            // Lưu vào cơ sở dữ liệu
+            genre::create($data);
+    
+            // Phân trang và trả về view
+            $genres = genre::paginate(10);
+            return back()->with(['error' => 'Failed to create Genre: ' . $e->getMessage()]);
         } catch (Exception $e) {
             return back()->withErrors(['error' => 'Failed to create Genre: ' . $e->getMessage()]);
         }
     }
-
+    
+    
     public function edit(genre $id)
     {
         try {

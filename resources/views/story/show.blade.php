@@ -328,9 +328,11 @@
                                             <div class="col-4 col-md-3 statistic-item">
                                                 <div class="statistic-name">Đánh giá</div>
                                                 <div class="statistic-value">
-                                                    {{ $book->ratings_avg_rating ?? 0 }}/<small>{{ $book->ratings_count ?? 0 }}</small>
+                                                    {{ number_format($book->ratings_avg_rating, 1, '.', '') ?: 0 }}
+                                                    /<small>{{ $book->ratings_count ?? 0 }}</small>
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-4 col-md-3 statistic-item">
                                                 <div class="statistic-name">Lượt xem</div>
                                                 <div class="statistic-value">{{ $book->view }}</div>
@@ -488,118 +490,6 @@
                         </div>
                     </section>
 
-
-                    @if ($isAuthor)
-                        <h3>Thống kê mua truyện</h3>
-
-                        <!-- Biểu đồ thống kê -->
-                        <canvas id="purchaseStatisticsChart"></canvas>
-
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <script>
-                            const ctx = document.getElementById('purchaseStatisticsChart').getContext('2d');
-                            const purchaseStatisticsChart = new Chart(ctx, {
-                                type: 'line',
-                                data: {
-                                    labels: @json($purchaseStats['dates']), // Mảng các ngày
-                                    datasets: [{
-                                            label: 'Số lượt mua',
-                                            data: @json($purchaseStats['purchases']), // Dữ liệu số lượt mua theo ngày
-                                            borderColor: '#FF6384',
-                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                            pointBackgroundColor: '#FF6384',
-                                            borderWidth: 2,
-                                            pointRadius: 5
-                                        },
-                                        {
-                                            label: 'Yêu thích',
-                                            data: @json($purchaseStats['likes']), // Dữ liệu yêu thích theo ngày
-                                            borderColor: '#36A2EB',
-                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                            pointBackgroundColor: '#36A2EB',
-                                            borderWidth: 2,
-                                            pointRadius: 5
-                                        },
-                                        {
-                                            label: 'Bình luận',
-                                            data: @json($purchaseStats['comments']), // Dữ liệu bình luận theo ngày
-                                            borderColor: '#FFCE56',
-                                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                                            pointBackgroundColor: '#FFCE56',
-                                            borderWidth: 2,
-                                            pointRadius: 5
-                                        },
-                                        {
-                                            label: 'Lượt xem',
-                                            data: @json($purchaseStats['views']), // Dữ liệu lượt xem theo ngày
-                                            borderColor: '#4BC0C0',
-                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                            pointBackgroundColor: '#4BC0C0',
-                                            borderWidth: 2,
-                                            pointRadius: 5
-                                        }
-                                    ]
-                                },
-                                options: {
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            display: true
-                                        }
-                                    },
-                                    scales: {
-                                        x: {
-                                            title: {
-                                                display: true,
-                                                text: 'Ngày'
-                                            },
-                                            grid: {
-                                                display: true
-                                            }
-                                        },
-                                        y: {
-                                            title: {
-                                                display: true,
-                                                text: 'Số lượng'
-                                            },
-                                            beginAtZero: true,
-                                            grid: {
-                                                display: true
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                        </script>
-
-                        <!-- Bảng thống kê chi tiết -->
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Loại thống kê</th>
-                                    <th>Tổng cộng</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Số lượt mua</td>
-                                    <td>{{ $purchaseStats['total_purchases'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Số yêu thích</td>
-                                    <td>{{ $purchaseStats['total_likes'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Số bình luận</td>
-                                    <td>{{ $purchaseStats['total_comments'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Lượt xem</td>
-                                    <td>{{ $purchaseStats['total_views'] ?? 0 }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    @endif
 
                     @php
                         $allChaptersPurchased = $book->allChaptersPurchased(auth()->id());

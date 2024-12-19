@@ -472,55 +472,8 @@ class BookController extends Controller
 
         $purchaseStats = null;
 
-        if ($isAuthor) {
-            $startDate = Carbon::now()->subDays(10);
-            $endDate = Carbon::now();
+      
 
-            $purchaseStats = [
-                'dates' => [],
-                'purchases' => [],
-                'likes' => [],
-                'comments' => [],
-                'views' => [],
-                'total_purchases' => 0,
-                'total_likes' => 0,
-                'total_comments' => 0,
-                'total_views' => 0
-            ];
-
-            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
-                $currentDate = $date->format('Y-m-d');
-                $purchaseStats['dates'][] = $currentDate;
-
-                $purchases = DB::table('purchased_stories')
-                    ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
-                    ->where('chapters.book_id', $book->id)
-                    ->whereDate('purchased_stories.created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['purchases'][] = $purchases;
-                $purchaseStats['total_purchases'] += $purchases;
-
-                $likes = Like_books::where('book_id', $book->id)
-                    ->whereDate('created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['likes'][] = $likes;
-                $purchaseStats['total_likes'] += $likes;
-
-                $cmt = bookcomment::where('book_id', $book->id)
-                    ->whereDate('created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['comments'][] = $cmt;
-                $purchaseStats['total_comments'] += $cmt;
-
-                $views = $book->whereDate('updated_at', $currentDate)->sum('view');
-
-                $purchaseStats['views'][] = $views;
-                $purchaseStats['total_views'] += $views;
-            }
-        }
         $firstEpisode = $book->episodes()->orderBy('order', 'asc')->first(); // Lấy episode đầu tiên
 
         if ($firstEpisode) {

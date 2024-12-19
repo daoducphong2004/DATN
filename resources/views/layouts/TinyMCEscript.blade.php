@@ -112,6 +112,9 @@
         entities: '160,nbsp,38,amp,60,lt,62,gt',
         paste_word_valid_elements: 'b,strong,i,em,u,s,a,p,br,img',
         element_format: 'html',
+        document_base_url: "{{ url('/') }}",
+        relative_urls: false,
+        remove_script_host: false,
         formats: {
             strikethrough: {
                 inline: 's',

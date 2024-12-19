@@ -79,6 +79,11 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="text-center" style="padding: 10px">
+                    <div id="pagination">
+                        {{ $users->links() }}
+                    </div>
+                </div>
             </div>
         </div><!--end col-->
     </div><!--end row-->

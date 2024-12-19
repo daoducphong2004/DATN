@@ -14,7 +14,7 @@ class adminContractController extends Controller
     // Hiển thị danh sách hợp đồng
     public function index()
     {
-        $contracts = Contract::with('user')->get();
+        $contracts = Contract::with('user')->paginate(10);
         return view('admin.contracts.index', compact('contracts'));
     }
 
@@ -83,35 +83,35 @@ class adminContractController extends Controller
         try {
             // Lấy dữ liệu đã được validate từ ContractRequest
             $data = $request->all();
-    
+
             // Cập nhật thông tin hợp đồng trừ ảnh
             $contracts_manage->update($data);
-    
+
             // Kiểm tra nếu có ảnh mới được tải lên
             if ($request->hasFile('contract_image')) {
                 // Xóa ảnh hợp đồng cũ nếu tồn tại
                 if (!empty($contracts_manage->contract_image)) {
                     Storage::disk('public')->delete($contracts_manage->contract_image);
                 }
-    
+
                 // Lưu ảnh hợp đồng mới và cập nhật đường dẫn
                 $newImagePath = $request->file('contract_image')->store('contracts', 'public');
                 $contracts_manage->contract_image = $newImagePath;
             }
-    
+
             // Lưu lại các thay đổi
             $contracts_manage->save();
-    
+
             // Chuyển hướng với thông báo thành công
             return redirect()->route('contracts-manage.index')->with('success', 'Hợp đồng đã được cập nhật thành công.');
         } catch (\Exception $e) {
             // Ghi log lỗi và trả về thông báo thất bại
             \Log::error("Cập nhật hợp đồng thất bại: " . $e->getMessage());
-    
+
             return redirect()->route('contracts-manage.index')->with('error', 'Có lỗi xảy ra, vui lòng thử lại.');
         }
     }
-    
+
 
 
     // Xóa hợp đồng

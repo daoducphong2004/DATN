@@ -161,7 +161,7 @@ class ForumController extends Controller
             'forums.content as content',
             'forums.created_at as created_at',
             'forums.viewer as viewer'
-        ])->orderBy('created_at', 'desc')->get();
+        ])->orderBy('created_at', 'desc')->paginate(10);
         $categories = Category::all();
         foreach ($data_forums as $forum) {
             $forum->time_ago = Carbon::parse($forum->created_at)->diffForHumans();

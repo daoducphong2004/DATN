@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Series of tên đăng nhập
+                        Series of {{ Auth::user()->username}}
                     </div>
                     <div class="panel-body">
 

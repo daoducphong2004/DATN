@@ -160,12 +160,12 @@
                                         </td>
                                         <td>
                                             @if ($request->portrait_image)
-                                                <img src="{{ asset('storage/' . $request->portrait_image) }}"
-                                                    alt="Ảnh chân dung" width="100">
+                                                <img src="{{ asset('storage/' . $request->portrait_image) }}" alt="Ảnh chân dung" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                                             @else
                                                 Không có ảnh
                                             @endif
                                         </td>
+                                        
                                         <td>
                                             @if ($request->is_approve == 'pending')
                                                 <span class="badge badge-warning">Đang chờ duyệt</span>

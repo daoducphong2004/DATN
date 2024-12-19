@@ -257,27 +257,27 @@ class BookController extends Controller
     {
         $bookId = $request->input('book_id');
         $chapterId = $request->input('chapter_id');
-    
+
         // Tên cookie
         $cookieName = 'reading_history';
-    
+
         // Lấy dữ liệu cookie hiện tại dưới dạng chuỗi JSON
         $existingHistoryJson = Cookie::get($cookieName);
         $existingHistory = json_decode($existingHistoryJson, true) ?? [];
-        
+
         // Kiểm tra và xóa dữ liệu cụ thể
         if (isset($existingHistory[$bookId])) {
             if ($existingHistory[$bookId]['chapter_id'] == $chapterId) {
                 unset($existingHistory[$bookId]);
             }
         }
-    
+
         // Xóa cookie cũ
         Cookie::queue(Cookie::forget($cookieName));
-    
+
         // Chuyển dữ liệu đã xử lý sang chuỗi JSON
         $updatedHistoryJson = json_encode($existingHistory);
-    
+
         // Đưa lại chuỗi JSON mới vào cookie
         Cookie::queue(Cookie::make($cookieName, $updatedHistoryJson, 60 * 24 * 30));
         $test = Cookie::get($cookieName);
@@ -674,4 +674,27 @@ class BookController extends Controller
             DB::table('books')->update(['views_month' => 0]);
         }
     }
+
+    public function bookStatus(){
+        if(Auth::check()){
+            $user = User::findOrFail(Auth::user()->id);
+            $mybooks = Book::where('user_id', $user->id)->paginate(12);
+            $bookshare = $user->sharedBooks()->paginate(5); // Truyện user được chia sẻ quyền
+            // dd($mybooks,$bookshare);
+            return view('user.listBookStatus',compact('user','mybooks','bookshare'));
+
+        }else{
+            return redirect()->route('login');
+        }
+
+    }
+
+    public function chapterStatus($slug){
+        $book = Book::where('slug', $slug)->with('chapters')->firstOrFail();
+
+        $chapters = $book->chapters()->paginate(10);
+
+        return view('user.listStatus', compact('book', 'chapters'));
+    }
+
 }

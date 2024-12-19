@@ -164,7 +164,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/user/edit/{id}', [ControllersUserController::class, 'edit'])->name('user_edit');
     Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user_update');
     Route::delete('/user/delete/{id}', [ControllersUserController::class, 'destroy'])->name('user_delete');
-   
+
 
     Route::get('/genres', [GenreController::class, 'index'])->name('genres_index');
     Route::get('/genres/create', [GenreController::class, 'create'])->name('genres_create');
@@ -402,3 +402,7 @@ Route::get('the-loai/{slug}', [FilterController::class, 'filterTheLoai'])->name(
 
 // Báo cáo
 Route::post('/report', [ReportController::class, 'store'])->name('report.store');
+
+//tình trạng truyện của tác giả
+Route::get('/author/story/status', [BookController::class, 'bookStatus'])->name('author.story.status')->middleware('auth');
+Route::get('/author/story/status/{slug}', [BookController::class, 'chapterStatus'])->name('author.chapter.status')->middleware('auth');

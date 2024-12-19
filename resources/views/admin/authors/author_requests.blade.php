@@ -147,6 +147,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="text-center" style="padding: 5px">
+                        <div id="pagination">
+                            {{ $requests->links() }}
+                        </div>
+                    </div>
                 </div>
             </div><!--end col-->
         </div><!--end row-->

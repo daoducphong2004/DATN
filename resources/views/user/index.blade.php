@@ -6,7 +6,7 @@
                 @if (Auth::user()->books()->where('Is_Inspect', 1)->exists())
                     <div class="card shadow">
                         <div class="card-header bg-primary text-white text-center">
-                            <h2 class="mb-0">Thông tin ví</h2>
+                            <h2 class="mb-0 text-white">Thông tin ví</h2>
                         </div>
                         <div class="card-body">
                             <!-- Hiển thị thông tin ví -->
@@ -72,7 +72,7 @@
                                     <canvas id="revenueChart1"></canvas>
                                 </div>
                                 <div id="totalRevenue" class="text-center mt-3 fw-bold text-success"></div>
-                            
+
                                 <div class="date-picker-container d-flex justify-content-center align-items-center mt-4">
                                     <label for="startDate" class="me-2 fw-bold">Từ ngày:</label>
                                     <input type="date" id="startDate" class="form-control me-3" style="width: 200px;">

@@ -210,23 +210,36 @@ class ChapterController extends Controller
 
 
 
+    // public function uploa1dImage(Request $request)
+    // {
+    //     // Kiểm tra xem có file nào được gửi lên không
+    //     if ($request->hasFile('file')) {
+    //         // Lưu file vào thư mục public/uploads
+    //         $path = $request->file('file')->store('uploads', 'public');
+    //         // Lấy URL công khai của file vừa lưu
+    //         $url = Storage::url($path);
+
+    //         // Trả về URL của ảnh dưới dạng JSON để chèn vào TinyMCE
+    //         return response()->json(['location' => $url]);
+    //     }
+
+    //     return response()->json(['error' => 'Upload failed'], 400);
+    // }
     public function uploadImage(Request $request)
     {
-        // Kiểm tra xem có file nào được gửi lên không
         if ($request->hasFile('file')) {
-            // Lưu file vào thư mục public/uploads
-            $path = $request->file('file')->store('uploads', 'public');
-            // Lấy URL công khai của file vừa lưu
-            $url = Storage::url($path);
-
-            // Trả về URL của ảnh dưới dạng JSON để chèn vào TinyMCE
+            $file = $request->file('file');
+            $path = $file->store('uploads', 'public'); // Lưu trong thư mục storage/public/uploads
+            $url = '/storage/' . $path; // Chỉ lấy đường dẫn từ /storage/
+            
             return response()->json(['location' => $url]);
         }
-
+    
         return response()->json(['error' => 'Upload failed'], 400);
     }
-
-
+    
+ 
+    
     // Hàm để lưu ảnh từ base64
     public function storeImageFromBase64($base64Image)
     {

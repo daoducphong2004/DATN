@@ -237,7 +237,7 @@
                                     class="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i>
                                 <span class="align-middle">Tin nhắn</span></a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="pages-profile.html"><i
+                            <a class="dropdown-item" href=""><i
                                     class="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span
                                     class="align-middle">Số dư: <b>{{ Auth::user()->coin_earned }}💎</b></span></a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

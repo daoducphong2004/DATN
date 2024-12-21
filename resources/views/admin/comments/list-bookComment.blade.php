@@ -28,7 +28,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Truyện</th>
+                                <th>Book</th>
                                 <th>User</th>
                                 <th>Content</th>
                                 <th>Actions</th>
@@ -58,6 +58,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="text-center" style="padding: 10px">
+                    <div id="pagination">
+                        {{ $comments->links() }}
+                    </div>
                 </div>
             </div>
         </div><!--end col-->

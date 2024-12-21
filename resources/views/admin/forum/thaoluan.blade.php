@@ -42,8 +42,8 @@
                         </a>
                     </td>
                     <td>
-                        <button class="btn btn-link btn-sm view-comment" 
-                                data-title="{{ $item_forums->title }}" 
+                        <button class="btn btn-link btn-sm view-comment"
+                                data-title="{{ $item_forums->title }}"
                                 data-content="{{ $item_forums->content }}">Xem Chi Tiết Thảo luận</button>
                     </td>
                     <td>{{ $item_forums->viewer }}</td>
@@ -51,7 +51,7 @@
                     <td>{{ $item_forums->username }}</td>
                     <td>
                         <a href="{{ route('editforum', $item_forums->id) }}" class="btn btn-warning btn-sm">Sửa</a>
-                        <form method="post" action="{{ route('deleteforum', $item_forums->id) }}" style="display:inline;" 
+                        <form method="post" action="{{ route('deleteforum', $item_forums->id) }}" style="display:inline;"
                               onsubmit="return confirm('Bạn có chắc chắn muốn xóa không?');">
                             @csrf
                             @method('DELETE')
@@ -63,9 +63,9 @@
             </tbody>
         </table>
     </div>
-
-        <div class="d-flex justify-content-center mt-4">
-            {{-- {{ $banners->links() }} --}}
+    <div class="text-center" style="padding: 10px">
+        <div id="pagination">
+            {{ $data_forums->links() }}
         </div>
     </div>
 

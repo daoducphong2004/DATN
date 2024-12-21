@@ -257,27 +257,27 @@ class BookController extends Controller
     {
         $bookId = $request->input('book_id');
         $chapterId = $request->input('chapter_id');
-    
+
         // Tên cookie
         $cookieName = 'reading_history';
-    
+
         // Lấy dữ liệu cookie hiện tại dưới dạng chuỗi JSON
         $existingHistoryJson = Cookie::get($cookieName);
         $existingHistory = json_decode($existingHistoryJson, true) ?? [];
-        
+
         // Kiểm tra và xóa dữ liệu cụ thể
         if (isset($existingHistory[$bookId])) {
             if ($existingHistory[$bookId]['chapter_id'] == $chapterId) {
                 unset($existingHistory[$bookId]);
             }
         }
-    
+
         // Xóa cookie cũ
         Cookie::queue(Cookie::forget($cookieName));
-    
+
         // Chuyển dữ liệu đã xử lý sang chuỗi JSON
         $updatedHistoryJson = json_encode($existingHistory);
-    
+
         // Đưa lại chuỗi JSON mới vào cookie
         Cookie::queue(Cookie::make($cookieName, $updatedHistoryJson, 60 * 24 * 30));
         $test = Cookie::get($cookieName);
@@ -472,60 +472,13 @@ class BookController extends Controller
 
         $purchaseStats = null;
 
-        if ($isAuthor) {
-            $startDate = Carbon::now()->subDays(10);
-            $endDate = Carbon::now();
+      
 
-            $purchaseStats = [
-                'dates' => [],
-                'purchases' => [],
-                'likes' => [],
-                'comments' => [],
-                'views' => [],
-                'total_purchases' => 0,
-                'total_likes' => 0,
-                'total_comments' => 0,
-                'total_views' => 0
-            ];
-
-            for ($date = $startDate; $date <= $endDate; $date->addDay()) {
-                $currentDate = $date->format('Y-m-d');
-                $purchaseStats['dates'][] = $currentDate;
-
-                $purchases = DB::table('purchased_stories')
-                    ->join('chapters', 'purchased_stories.chapter_id', '=', 'chapters.id')
-                    ->where('chapters.book_id', $book->id)
-                    ->whereDate('purchased_stories.created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['purchases'][] = $purchases;
-                $purchaseStats['total_purchases'] += $purchases;
-
-                $likes = Like_books::where('book_id', $book->id)
-                    ->whereDate('created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['likes'][] = $likes;
-                $purchaseStats['total_likes'] += $likes;
-
-                $cmt = bookcomment::where('book_id', $book->id)
-                    ->whereDate('created_at', $currentDate)
-                    ->count();
-
-                $purchaseStats['comments'][] = $cmt;
-                $purchaseStats['total_comments'] += $cmt;
-
-                $views = $book->whereDate('updated_at', $currentDate)->sum('view');
-
-                $purchaseStats['views'][] = $views;
-                $purchaseStats['total_views'] += $views;
-            }
-        }
         $firstEpisode = $book->episodes()->orderBy('order', 'asc')->first(); // Lấy episode đầu tiên
 
         if ($firstEpisode) {
             // Lấy chapter đầu tiên của episode đầu tiên dựa trên 'order' bằng 0
-            $firstChapter = $firstEpisode->chapters()->where('order', 1)->first();
+            $firstChapter = $firstEpisode->chapters()->orderBy('order', 'asc')->first();
         }
 
         return view('story.show', compact('book', 'readingHistories', 'booksRandom', 'firstChapter', 'hasReadBook', 'episodes', 'comments', 'ratings', 'totalComments', 'totalPrice', 'isAuthor', 'purchaseStats'));
@@ -674,4 +627,27 @@ class BookController extends Controller
             DB::table('books')->update(['views_month' => 0]);
         }
     }
+
+    public function bookStatus(){
+        if(Auth::check()){
+            $user = User::findOrFail(Auth::user()->id);
+            $mybooks = Book::where('user_id', $user->id)->paginate(12);
+            $bookshare = $user->sharedBooks()->paginate(5); // Truyện user được chia sẻ quyền
+            // dd($mybooks,$bookshare);
+            return view('user.listBookStatus',compact('user','mybooks','bookshare'));
+
+        }else{
+            return redirect()->route('login');
+        }
+
+    }
+
+    public function chapterStatus($slug){
+        $book = Book::where('slug', $slug)->with('chapters')->firstOrFail();
+
+        $chapters = $book->chapters()->paginate(10);
+
+        return view('user.listStatus', compact('book', 'chapters'));
+    }
+
 }

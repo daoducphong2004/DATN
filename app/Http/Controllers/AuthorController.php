@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -154,20 +155,22 @@ class AuthorController extends Controller
         return back()->with('error', 'Không tìm thấy yêu cầu.');
     }
 
-    public function rejectRequest($id)
+    public function rejectRequest(Request $request,$id)
     {
         $rejected = Author::find($id);
 
         if ($rejected) {
             $rejected->is_approve = 'rejected';
+            $rejected->reason_reject = $request->reason_reject;
             $rejected->save();
 
             $user = $rejected->user;
 
             $name = $rejected->user->username;
             $email = $rejected->user->email;
+            $reason = $request->reason_reject;
 
-            Mail::send('emails.test', compact('name'), function ($message) use ($name, $email) {
+            Mail::send('emails.test', compact('name', 'reason'), function ($message) use ($name, $email) {
                 $message->subject('Yêu cầu tác giả được chấp nhận');
                 $message->to($email, $name);
             });

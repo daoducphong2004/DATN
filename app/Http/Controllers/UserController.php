@@ -107,34 +107,34 @@ class UserController extends Controller
             $request->validate([
                 'avatar_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ]);
-    
+
             // Lấy tất cả dữ liệu từ form ngoại trừ avatar_url
             $data = $request->except('avatar_url');
             $old_image = $id->avatar_url;
-    
+
             // Không cập nhật ảnh nếu không có thay đổi
             $data['avatar_url'] = $old_image;
-    
+
             // Nếu có ảnh mới thì xử lý và cập nhật ảnh
             if ($request->hasFile('avatar_url')) {
                 // Xử lý lưu ảnh mới
                 $avatarPath = $request->file('avatar_url')->store('avatars', 'public');
                 $data['avatar_url'] = $avatarPath;
-    
+
                 // Xóa ảnh cũ nếu có
                 if ($old_image) {
                     Storage::disk('public')->delete($old_image);
                 }
             }
-    
+
             // Cập nhật dữ liệu vào DB
             $id->update($data);
-    
+
             // Trở lại trang danh sách với thông báo thành công
             return redirect()->route('user_index')->with('success', 'User updated successfully.');
     }
-    
-    
+
+
 
     public function destroy(User $id)
     {

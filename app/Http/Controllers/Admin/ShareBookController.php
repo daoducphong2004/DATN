@@ -12,8 +12,8 @@ class ShareBookController extends Controller
     // Danh sách truyện
     public function index()
     {
-        $books = Book::withCount('sharedBooks')->get();
-        
+        $books = Book::withCount('sharedBooks')->paginate(10);
+
         return view('admin.sharebooks.index', compact('books'));
     }
 

@@ -90,6 +90,12 @@
                     @endcan
 
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('author.story.status') }}">
+                            <i class="ri-book-line"></i>  <span data-key="t-widgets">Tình trạng truyện</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDang" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarDang">
                             <i class="ri-book-2-line"></i> <span data-key="t-pages">Truyện đã đăng</span>

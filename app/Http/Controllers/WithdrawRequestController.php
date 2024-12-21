@@ -30,12 +30,12 @@ class WithdrawRequestController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->back()->with('success', 'Yêu cầu rút tiền đã được gửi!');
+        return redirect()->route('action.')->with('success', 'Yêu cầu rút tiền đã được gửi thành công!');
     }
 
     public function index()
     {
-        $withdrawRequests = WithdrawRequest::where('status', 'pending')->get();
+        $withdrawRequests = WithdrawRequest::where('status', 'pending')->paginate(10);
         return view('admin.withdraw.index', compact('withdrawRequests'));
     }
     public function HistoryAmin()

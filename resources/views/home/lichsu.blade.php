@@ -40,8 +40,8 @@
 
         <div class="container">
             <div role="tablist" class="tabs tabs-lifted">
-                <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom " aria-label="Lịch sử đọc"
-                    checked="checked" />
+                <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-history"
+                    aria-label="Lịch sử đọc" checked="checked" />
                 <div role="tabpanel" class="tab-content rounded-box p-6">
                     <main class="sect-body row" style="display: flex; flex-wrap: wrap; gap: 10px; margin: 0;">
                         @if (Auth::check())
@@ -136,12 +136,14 @@
 
                 </div>
                 @auth
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử mua" />
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-purchased"
+                        aria-label="Lịch sử mua" />
+
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         @if (empty($purchasedStories))
                             <p>Bạn chưa mua truyện nào.</p>
                         @else
-                            <table  class="table table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -169,11 +171,15 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $purchasedStories->links() }}
+                            <!-- Tab Lịch sử đọc -->
+                            <div class="pagination-wrapper" id="pagination-history">
+                                {{ $readingHistories->links('pagination::tailwind') }}
+                            </div>
                         @endif
                     </div>
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-payment"
+                        aria-label="Lịch sử nạp tiền" />
 
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" aria-label="Lịch sử nạp" />
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         <div class="col-12">
                             <div class="pt-5 mt-5" style="margin-top: 3.25rem !important"></div>
@@ -223,46 +229,48 @@
                             </table>
                         </div>
                     </div>
-                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom"
+                    <input type="radio" name="my_tabs_2" role="tab" class="tab tab-custom" id="tab-auto"
                         aria-label="Tự động mua" />
+
                     <div role="tabpanel" class="tab-content rounded-box p-6">
                         <div class="row">
                             @foreach ($AutoPurchase as $auto)
                                 @php
                                     $book = $auto->book;
                                 @endphp
-                                <div class="thumb-item-flow col-md-3 col-4 col-lg-2">
-                                    <div class="thumb-wrapper">
+                                <div class="thumb-item-flow col-md-3"
+                                    style="flex: 1 1 24%; max-width: 24%; box-sizing: border-box;">
+                                    <div class="thumb-wrapper"
+                                        style="padding: 8px; background: #fff; border-radius: 8px; overflow: hidden; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                                         <a class="link at-cover"
                                             href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
                                             title="{{ $book->title ?? '' }}">
                                             <div class="a6-ratio">
                                                 <div class="content img-in-ratio"
-                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}')">
+                                                    style="background-image: url('{{ asset(Storage::url($book->book_path ?? 'default/path/to/image.jpg')) }}'); background-size: cover; background-position: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 5px;">
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="thumb-detail">
-                                            <div class="thumb_attr volume-title">
-                                                <a
-                                                    href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}">{{ $book->title ?? '' }}</a>
+                                        <div class="thumb-detail" style="margin-top: 10px;">
+                                            <div class="thumb_attr volume-title"
+                                                style="font-size: 12px; color: #777; margin-top: 5px;">
+                                                <a href="#">{{ $book->title ?? '' }}</a>
                                             </div>
                                             <div id="deleteAuto" class="thumb_title text-center pad-top-10"
-                                                style="cursor: pointer" data-book_id="{{ $book->id }}">
-                                                <i class="fas fa-times"></i> Xóa
-                                            </div>
+                                                    style="cursor: pointer" data-book_id="{{ $book->id }}">
+                                                    <i class="fas fa-times"></i> Xóa
+                                                </div>
                                         </div>
                                     </div>
-                                    <div class="thumb_attr series-title"><a
-                                            href="{{ route('truyen.truyen', ['slug' => $book->slug ?? '']) }}"
-                                            title="{{ $book->title ?? '' }}">{{ $book->title ?? '' }}</a></div>
                                 </div>
                             @endforeach
-                            <div>
-                                {{ $AutoPurchase->links() }}
-                            </div>
+                        </div>
+                        <!-- Tab Tự động mua -->
+                        <div class="pagination-wrapper" id="pagination-auto">
+                            {{ $AutoPurchase->links('pagination::tailwind') }}
                         </div>
                     </div>
+
                 @endauth
             </div>
 
@@ -354,6 +362,58 @@
                     .catch(error => {
                         console.error('Có lỗi xảy ra khi xóa:', error);
                     });
+            }
+        });
+        $(document).ready(function() {
+            // Lắng nghe sự kiện click vào các link phân trang
+            $(document).on('click', '.pagination-wrapper a', function(e) {
+                e.preventDefault(); // Ngừng hành động mặc định của liên kết
+
+                // Lấy URL của liên kết phân trang
+                const url = new URL($(this).attr('href'));
+
+                // Lấy tất cả các tham số trong URL hiện tại
+                const urlParams = new URLSearchParams(window.location.search);
+
+                // Lấy giá trị của tham số tab trong URL hiện tại (nếu có)
+                const tab = urlParams.get('tab');
+
+                // Nếu có tham số 'tab', thêm nó vào URL của phân trang
+                if (tab) {
+                    url.searchParams.set('tab', tab); // Thêm tham số tab vào phân trang
+                }
+
+                // Cập nhật URL mà không làm mới trang
+                window.history.pushState({}, '', url);
+
+                // Tải lại trang với URL mới
+                window.location.href = url.toString();
+            });
+        });
+
+        $(document).ready(function() {
+            // Lắng nghe sự kiện khi tab được thay đổi
+            $('input[name="my_tabs_2"]').on('change', function() {
+                // Lấy id của tab hiện tại
+                const tabId = $(this).attr('id');
+
+                // Cập nhật URL với tham số tab
+                const url = new URL(window.location);
+                url.searchParams.set('tab', tabId); // Thêm tham số 'tab' vào URL
+                window.history.pushState({}, '', url); // Cập nhật URL mà không làm mới trang
+            });
+
+            // Khi trang tải lại, kiểm tra tham số 'tab' trong URL để chọn tab tương ứng
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedTab = urlParams.get('tab');
+
+            if (selectedTab) {
+                // Chọn tab tương ứng theo URL
+                const tabElement = document.getElementById(selectedTab);
+                if (tabElement) {
+                    tabElement.checked = true;
+                    $(tabElement).trigger('change'); // Gọi sự kiện để hiển thị nội dung tab tương ứng
+                }
             }
         });
     </script>

@@ -23,12 +23,11 @@
                 </li>
                 {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><span class="">Xuất bản</span></a>
                 </li> --}}
+                <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><span class="">Danh
+                    sách</span></a></li>
                 <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><span class="">Thảo
                             luận</span></a></li>
-                <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><span class="">Danh
-                            sách</span></a></li>
-
-
+                
                 <li class="nav-has-submenu">
                     <a class="nav-menu_item">
                         <span class="">Hướng dẫn</span>
@@ -50,8 +49,8 @@
         </div>
 
         <div class="navbar-logo-wrapper">
-            <a href="/" class="navbar-logo"
-                title="Trang chủ" style="background-image: url('{{ asset('img/logo-9.png') }}');"></a>
+            <a href="/" class="navbar-logo" title="Trang chủ"
+                style="background-image: url('{{ asset('img/logo-9.png') }}');"></a>
         </div>
 
         @if (!Auth::check())
@@ -66,7 +65,8 @@
                 <div id="navbar-user">
                     <div class="nav-user_icon">
                         <div class="nav-user_avatar">
-                            <img src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}" alt="Your avatar">
+                            <img src="{{ asset(Storage::url(Auth::user()->avatar_url ?: 'img/noava.png')) }}"
+                                alt="Your avatar">
                         </div>
                         <div class="at-user_avatar"></div>
                         <ul class="account-sidebar hidden-block unstyled none">
@@ -130,14 +130,13 @@
                                     class="link-underline link-underline-opacity-0">
                                     <i class="fas me-2 fa-sign-out-alt"></i><span>Thoát</span>
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                    class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </li>
                         </ul>
                     </div>
-                     {{-- Icon thông báo --}}
+                    {{-- Icon thông báo --}}
                     <div id="noti-icon" class="user-sublink">
                         @php
                             $notifications = auth()->user()->notifications()->get();
@@ -172,7 +171,8 @@
                                                 <div class="flex-grow">
                                                     <h6 class="text-gray-800 font-medium">{!! $notification->data['message'] !!}</h6>
                                                     <p class="text-xs text-gray-500">
-                                                        <i class="mdi mdi-clock-outline"></i> {{ $notification->created_at->diffForHumans() }}
+                                                        <i class="mdi mdi-clock-outline"></i>
+                                                        {{ $notification->created_at->diffForHumans() }}
                                                     </p>
                                                 </div>
                                                 <div class="px-2 text-sm">
@@ -180,31 +180,43 @@
                                                         <a class="text-red-500" href="{{ url('/admin') }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\BookPendingNotification')
-                                                        <a class="text-red-500" href="{{ route('admin_stories_approval') }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('admin_stories_approval') }}">view</a>
                                                     @endif
                                                     @if (isset($notification->data['user_id']))
-                                                        <a class="text-red-500" href="{{ route('author.index') }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('author.index') }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\StoryApprovedNotification' && isset($notification->data['slug']))
-                                                        <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\AuthorApprovedNotification')
-                                                        <a class="text-red-500" href="{{ route('story.create') }}">Thêm truyện</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('story.create') }}">Thêm truyện</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\NewChapterNotification' && isset($notification->data['slug']))
-                                                        <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\AutoPurchasesNotification' && isset($notification->data['slug']))
-                                                        <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\NewBookCommentNotification' && isset($notification->data['slug']))
-                                                        <a class="text-red-500" href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('truyen.truyen', ['slug' => $notification->data['slug']]) }}">view</a>
                                                     @endif
-                                                    @if ($notification->type == 'App\Notifications\NewChapCommentNotification' && isset($notification->data['chapter_slug']) && $notification->type == 'App\Notifications\NewChapCommentNotification')
-                                                        <a class="text-red-500" href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}">view</a>
+                                                    @if (
+                                                        $notification->type == 'App\Notifications\NewChapCommentNotification' &&
+                                                            isset($notification->data['chapter_slug']) &&
+                                                            $notification->type == 'App\Notifications\NewChapCommentNotification')
+                                                        <a class="text-red-500"
+                                                            href="{{ route('truyen.chuong', ['slug' => $notification->data['slug'], 'chapter_slug' => $notification->data['chapter_slug']]) }}">view</a>
                                                     @endif
                                                     @if ($notification->type == 'App\Notifications\NewForumCommentNotification' && isset($notification->data['id']))
-                                                        <a class="text-red-500" href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}">view</a>
+                                                        <a class="text-red-500"
+                                                            href="{{ route('chi-tiet-thao-luan', ['id' => $notification->data['id']]) }}">view</a>
                                                     @endif
                                                 </div>
                                             </div>
@@ -249,27 +261,26 @@
             <form class="" action="{{ route('search') }}" method="get">
                 <input id="search" class="search-input" type="text" placeholder="Tối thiểu 2 kí tự"
                     name="title">
-                <button class="search-submit" type="submit" value="Tìm kiếm"><i
-                        class="fas fa-search"></i></button>
+                <button class="search-submit" type="submit" value="Tìm kiếm"><i class="fas fa-search"></i></button>
                 <div id="search-results"></div>
             </form>
         </div>
         <ul class="navbar-menu at-navbar none d-xl-block unstyled">
 
-            <li><a class="nav-menu_item" href="{{ route('sangtac') }}"><i
-                        class="fas fa-pen-nib menu-icon"></i><span class="">Sáng tác</span></a></li>
+            <li><a class="nav-menu_item" href="{{ route('sangtac') }}"><i class="fas fa-pen-nib menu-icon"></i><span
+                        class="">Sáng tác</span></a></li>
 
-            <li><a class="nav-menu_item" href="{{ route('convert') }}"><i
-                        class="fas fa-book menu-icon"></i><span class="">Máy dịch</span></a></li>
+            <li><a class="nav-menu_item" href="{{ route('convert') }}"><i class="fas fa-book menu-icon"></i><span
+                        class="">Máy dịch</span></a></li>
 
             {{-- <li><a class="nav-menu_item" href="{{ route('xuatban') }}"><i
                         class="fas fa-calendar menu-icon"></i><span class="">Xuất bản</span></a></li> --}}
 
-            <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><i
-                        class="fas fa-users menu-icon"></i><span class="">Thảo luận</span></a></li>
-
             <li><a class="nav-menu_item" href="{{ route('filterDanhSach') }}"><i
                         class="fas fa-th-list menu-icon"></i><span class="">Danh sách</span></a></li>
+
+            <li><a class="nav-menu_item" href="{{ route('thao-luan') }}"><i class="fas fa-users menu-icon"></i><span
+                        class="">Thảo luận</span></a></li>
 
             <li class="nav-has-submenu">
                 <a class="nav-menu_item">
@@ -287,7 +298,8 @@
             </li>
             <li>
                 @can('access-admin')
-                    <a class="nav-menu_item" href="{{ url('/admin') }}" target="_blank"><span class="">Quản trị</span></a>
+                    <a class="nav-menu_item" href="{{ url('/admin') }}" target="_blank"><span class="">Quản
+                            trị</span></a>
                 @endcan
             </li>
         </ul>
